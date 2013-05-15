@@ -1,1 +1,0 @@
-window.CKEDITOR_BASEPATH = '/fte/sites/all/libraries/ckeditor/';
