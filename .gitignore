@@ -7,5 +7,6 @@ sites/*/private
 /nbproject
 
 ./tags
+./nbproject
 .DS_Store
 *.*~
