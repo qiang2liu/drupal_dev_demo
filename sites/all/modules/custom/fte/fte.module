@@ -1,0 +1,48 @@
+<?php
+/**
+ * Implements hook_menu().
+ */
+
+function fte_menu() {
+  
+  $items['landingpage'] = array(
+   
+    'page callback' => 'show_landingpage',
+    'access callback'=> TRUE,
+    'type' => MENU_CALLBACK,
+  );
+  
+  return $items;
+}
+/**
+ *page callback function. for langingpage link 
+ */
+function show_landingpage() {
+  global $user;
+  if ($user->uid > 0) { //user logon
+    //drupal_goto('node/1');
+    
+  }
+  return theme('fte_landing_page');
+}
+/**
+ * Implements hook_theme().
+ */
+function fte_theme($exusting, $type) {
+  if ($type == 'module') {
+    return array(
+      'fte_landing_page' => array(
+      'arguments' => array('data' => NULL),
+      'template' => 'templates/landing-page',
+   
+      ),
+    );
+  }
+  return array();
+}
+/**
+ * hook_user 
+ */
+function fte_user_login(&$edit,$account) {
+  $edit['redirect'] = 'node/1';
+}
