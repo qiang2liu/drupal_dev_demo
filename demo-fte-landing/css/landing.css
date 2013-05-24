@@ -76,7 +76,7 @@ span.close:hover{
 	color:#fff;
 }
 .ribbon{
-	margin:9em auto;
+	margin:1em auto;
 	position:relative;
 	width:100%;
 	overflow:hidden;
@@ -85,10 +85,10 @@ span.close:hover{
 .ribbon-inner{
 	position:absolute;
 	width:100%;
-	width:10350px;
+	
 }
 .ribbon-frame{
-	width:5175px;
+	
 	display:inline-block;
 }
 
