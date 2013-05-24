@@ -81,6 +81,7 @@ span.close:hover{
 	width:100%;
 	overflow:hidden;
 	height:450px;
+	cursor:move;
 }
 .ribbon-inner{
 	position:absolute;

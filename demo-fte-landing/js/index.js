@@ -74,20 +74,20 @@
 							if(currentX - orginalX>80 || currentX - orginalX < -80){
 								//drag
 								clearInterval(frameAnimation);
-								if(currentX - orginalX>80 && direction === 'left'){
-									speed +=1;
-									direction = 'left';
-								}
-								if(currentX - orginalX<-80 && direction === 'right'){
+								if(currentX - orginalX>80 && direction === 'right'){
 									speed +=1;
 									direction = 'right';
 								}
 								if(currentX - orginalX<-80 && direction === 'left'){
-									direction = 'right';
+									speed +=1;
+									direction = 'left';
+								}
+								if(currentX - orginalX<-80 && direction === 'right'){
+									direction = 'left';
 									speed = options.distance;
 								}
-								if(currentX - orginalX>80 && direction === 'right'){
-									direction = 'left';
+								if(currentX - orginalX>80 && direction === 'left'){
+									direction = 'right';
 									speed = options.distance;
 								}
 								frameAnimation = setInterval(function(){frameMove(speed,direction)},1);
