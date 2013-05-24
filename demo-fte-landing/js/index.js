@@ -104,8 +104,9 @@
 											mouseUp = 0;
 										}else{
 											//double click
-											var left = ($(document).width()-450)/2 + 'px'
-											$('.pop-up').css('left',left).fadeIn(500);
+											var left = ($(document).width()-450)/2 + 'px';
+											var top = ($(window).height()-550)/2;
+											$('.pop-up').css({'left':left,'top':$(window).scrollTop() + top + 'px'}).fadeIn(500);
 											$('span.close').bind('click', function(){
 												$('.pop-up').fadeOut(500);
 											})
