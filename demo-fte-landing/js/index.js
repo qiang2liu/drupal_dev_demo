@@ -115,6 +115,11 @@
 												$('.pop-up').fadeOut(500);
 											})
 											mouseUp = 0;*/
+											clicked = true;
+											clearInterval(frameAnimation);
+											speed = options.distance;
+											mouseUp = 0;
+											
 										}
 									},200)
 								}
