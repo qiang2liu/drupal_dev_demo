@@ -4,15 +4,18 @@
 			setRealWidth:function(){
 				return this.each(function(){
 					//get real width
+					var id = $(this).attr('id');
 					var screenImage = $(this).find('.ribbon-stuff');
 					var theImage = new Image();
 					theImage.src = screenImage.attr('src');
+					
 					var width = theImage.width;
+					var height = theImage.height;
 					//prepare layout
-					var copy = $(this).find('.ribbon-stuff').clone();
+					var url = $(this).find('.ribbon-stuff').attr('src');
 					$(this).find('.ribbon-stuff').remove();
-					$(this).find('.ribbon-inner').css('width', 2*width + 'px').prepend('<div class="ribbon-frame f-a"></div><div class="ribbon-frame f-b"></div>');
-					$(this).find('.ribbon-frame').css('width', width + 'px').append(copy);
+					$(this).find('.ribbon-inner').css('width', 2*width + 'px').prepend('<div class="ribbon-frame f-a" id="' + id + '-a"></div><div class="ribbon-frame f-b" id="' + id + '-b"></div>');
+					$(this).find('.ribbon-frame').css('width', width + 'px').css('height', height + 'px').css('background','url('+ url + ') no-repeat');
 				});
 			},
 		
@@ -56,6 +59,7 @@
 					
 					var frameAnimation;
 					var clicked = false;
+					
 					function startSlide(){
 						var orginalX = 0;
 						var currentX = 0;
@@ -103,14 +107,14 @@
 											speed = options.distance;
 											mouseUp = 0;
 										}else{
-											//double click
-											var left = ($(document).width()-450)/2 + 'px';
+											//double click remove db click function for now
+											/*var left = ($(document).width()-450)/2 + 'px';
 											var top = ($(window).height()-550)/2;
 											$('.pop-up').css({'left':left,'top':$(window).scrollTop() + top + 'px'}).fadeIn(500);
 											$('span.close').bind('click', function(){
 												$('.pop-up').fadeOut(500);
 											})
-											mouseUp = 0;
+											mouseUp = 0;*/
 										}
 									},200)
 								}
@@ -119,7 +123,7 @@
 						
 					}
 					startSlide();
-					//add mouseover function
+					
 					self.bind('mouseover', function(){
 						if(!$(this).hasClass('active')){
 							$('.ribbon.active').removeClass('active');
@@ -129,14 +133,66 @@
 								frameAnimation = setInterval(function(){frameMove(options.distance,options.direction)},1);
 							}	
 						}
-					})	
+					});
+					
+					
+					self.find('.ribbon-frame').each(function(){
+						var width = $(this).width();
+						var height = $(this).height();
+						var id = $(this).attr('id');
+						var stage = new Kinetic.Stage({
+							container : id,
+							width     : width,
+							height    : height
+						});
+						var layer = new Kinetic.Layer();
+							
+						var hotSpot = new Kinetic.Shape({
+							drawFunc : function(canvas){
+								var context = canvas.getContext();
+								context.beginPath();
+					            context.moveTo(200, 50);
+					            context.lineTo(920, 80);
+					            context.quadraticCurveTo(400, 180, 320, 410);
+					            context.closePath();
+					            canvas.fillStroke(this);
+							},
+							fill : 'rgba(0,255,255, 0.2)',
+							stroke : 'white',
+							strokeWidth : 4
+						});
+						
+						hotSpot.on('mouseover touchstart', function(){
+							$('.ribbon').css('cursor','pointer');
+							this.setFill('rgba(0,255,255, 0.6)');
+							layer.draw();
+						});
+						hotSpot.on('mouseout touchend', function(){
+							$('.ribbon').css('cursor','');
+							this.setFill('rgba(0,255,255, 0.2)');
+							layer.draw();
+						});
+						hotSpot.on('mouseup', function(){
+							var url = 'http://www.google.com';
+							window.open(url,'_blank');
+
+						});
+						
+						layer.add(hotSpot);
+						stage.add(layer);
+						
+						
+					    
+					});
+					
+					
 				});
 			}
 
 		}
 	);
 })(jQuery);
-$(document).ready(function(){
+$(window).load(function(){
 	$('.ribbon').setRealWidth();
 	$('.ribbon').eq(0).addClass('active');
 	$('.ribbon').eq(0).ribbon({
@@ -144,12 +200,11 @@ $(document).ready(function(){
 		distance  : 1
 	});
 	$('.ribbon').eq(1).ribbon({
-		direction : 'right',
+		direction : 'left',
 		distance  : 1
 	});
 	$('.ribbon').eq(2).ribbon({
 		direction : 'left',
-		distance  : 2
+		distance  : 1
 	});
-	
 });

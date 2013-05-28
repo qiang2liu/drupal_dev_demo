@@ -89,7 +89,13 @@ span.close:hover{
 	
 }
 .ribbon-frame{
-	
+	position:relative;
 	display:inline-block;
+}
+.ribbon-frame img{
+	display:block;
+	position:absolute;
+	width:100%;
+	height:100%;
 }
 
