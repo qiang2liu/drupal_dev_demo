@@ -108,13 +108,7 @@
 											mouseUp = 0;
 										}else{
 											//double click remove db click function for now
-											/*var left = ($(document).width()-450)/2 + 'px';
-											var top = ($(window).height()-550)/2;
-											$('.pop-up').css({'left':left,'top':$(window).scrollTop() + top + 'px'}).fadeIn(500);
-											$('span.close').bind('click', function(){
-												$('.pop-up').fadeOut(500);
-											})
-											mouseUp = 0;*/
+											
 											clicked = true;
 											clearInterval(frameAnimation);
 											speed = options.distance;
@@ -141,64 +135,110 @@
 					});
 					
 					
-					self.find('.ribbon-frame').each(function(){
-						var width = $(this).width();
-						var height = $(this).height();
-						var id = $(this).attr('id');
-						var stage = new Kinetic.Stage({
-							container : id,
-							width     : width,
-							height    : height
-						});
-						var layer = new Kinetic.Layer();
-							
-						var hotSpot = new Kinetic.Shape({
-							drawFunc : function(canvas){
-								var context = canvas.getContext();
-								context.beginPath();
-					            context.moveTo(200, 50);
-					            context.lineTo(920, 80);
-					            context.quadraticCurveTo(400, 180, 320, 410);
-					            context.closePath();
-					            canvas.fillStroke(this);
-							},
-							fill : 'rgba(0,255,255, 0.2)',
-							stroke : 'white',
-							strokeWidth : 4
-						});
-						
-						hotSpot.on('mouseover touchstart', function(){
-							$('.ribbon').css('cursor','pointer');
-							this.setFill('rgba(0,255,255, 0.6)');
-							layer.draw();
-						});
-						hotSpot.on('mouseout touchend', function(){
-							$('.ribbon').css('cursor','');
-							this.setFill('rgba(0,255,255, 0.2)');
-							layer.draw();
-						});
-						hotSpot.on('mouseup', function(){
-							var url = 'http://www.google.com';
-							window.open(url,'_blank');
-
-						});
-						
-						layer.add(hotSpot);
-						stage.add(layer);
-						
-						
-					    
-					});
 					
 					
 				});
+			},
+			
+			/*hot spot*/
+			hotSpot : function(options){
+				var defaults = {
+					url : 'string'
+				};
+				var options = $.extend(defaults, options);
+				
+				
+				var self = this;
+				$.ajax({
+					url  : options.url,
+					dataType : JSON,
+					type     : 'GET',
+					success   : function(data){
+						data = eval('(' + data + ')')
+						var hotSpots = data.hotSpot;
+						
+						return self.each(function(){
+							$(this).find('.ribbon-frame').each(function(){
+								var width = $(this).width();
+								var height = $(this).height();
+								var id = $(this).attr('id');
+								
+								var stage = new Kinetic.Stage({
+									container : id,
+									width     : width,
+									height    : height
+								});
+								for(var i=0; i<hotSpots.length; i++){
+									var position = hotSpots[i].position;
+									var n =i;
+									
+									//html = hotSpots[k].popupHtml;
+									var layer = new Kinetic.Layer();
+									
+										
+									
+									var shape = new Kinetic.Shape({
+										drawFunc : function(canvas){
+											var context = canvas.getContext();
+											context.beginPath();
+								            context.moveTo(position[0][0],position[0][1]);
+								            for(var j=1; j<position.length; j++){
+								            	context.lineTo(position[j][0], position[j][1]);
+								            }
+								            context.closePath();
+								            canvas.fillStroke(this);
+										},
+										fill : 'rgba(0,255,255, 0.2)',
+										stroke : 'white',
+										strokeWidth : 3,
+										name : n
+									});
+									
+									
+									
+									shape.on('mouseover touchstart', function(){
+										//alert(shape.getName());
+										$('.ribbon').css('cursor','pointer');
+										this.setFill('rgba(0,255,255, 0.6)');
+										layer.draw();
+									});
+									shape.on('mouseout touchend', function(){
+										$('.ribbon').css('cursor','');
+										this.setFill('rgba(0,255,255, 0.2)');
+										layer.draw();
+									});
+									shape.on('dblclick', function(){
+										var html = hotSpots[n].popupHtml;
+										var left = ($(document).width()-450)/2 + 'px';
+										var top = ($(window).height()-550)/2;
+										$('.pop-up .pop-up-inner').html(html);
+										$('.pop-up').css({'left':left,'top':$(window).scrollTop() + top + 'px'}).fadeIn(500);
+			
+									});
+									
+									layer.add(shape);
+									stage.add(layer);
+								}
+								
+								
+								
+							    
+							});
+							
+						})
+					}
+				})
+				
+				
 			}
 
 		}
 	);
 })(jQuery);
 $(window).load(function(){
+	//get realwidth
 	$('.ribbon').setRealWidth();
+	//make ribbon
 	$('.ribbon').eq(0).addClass('active');
 	$('.ribbon').eq(0).ribbon({
 		direction : 'left',
@@ -212,4 +252,18 @@ $(window).load(function(){
 		direction : 'left',
 		distance  : 1
 	});
+	//add hot spot
+	$('.ribbon').eq(0).hotSpot({
+		url:'hotspot.asp'
+	});
+	$('.ribbon').eq(1).hotSpot({
+		url:'hotspot1.asp'
+	});
+	$('.ribbon').eq(2).hotSpot({
+		url:'hotspot2.asp'
+	});
+	//set popup close function
+	$('span.close').bind('click', function(){
+		$('.pop-up').fadeOut(500);
+	})
 });
