@@ -86,6 +86,7 @@ function get_challenge_points() {
   $item['info'] = theme('fte_marker_infowin', array('data'=>$item));
   $ret['data'][$item['nid']] = $item;
   
+ 
   
   
   return $ret;
