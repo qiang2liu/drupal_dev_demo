@@ -95,3 +95,45 @@ span.close:hover{
 .ribbon-stuff{
 	visibility:hidden;
 }
+/* overlay */
+.overlay-inner .start{
+	cursor:pointer;
+	display:inline-block;
+	float:right;
+	margin:1em 1em 0 0;
+	padding:.5em 1em;
+	color:#fff;
+	font-weight:bold;
+	border:1px solid #000;
+	border-radius:6px;
+	/* fallback */ 
+	background-color: #1a82f7; 
+	/* Safari 4-5, Chrome 1-9 */ 
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0593c2), to(#00538d)); 
+	/* Safari 5.1, Chrome 10+ */ 
+	background: -webkit-linear-gradient(top, #00538d, #0593c2); 
+	/* Firefox 3.6+ */ 
+	background: -moz-linear-gradient(top, #00538d, #0593c2); 
+	/* IE 10 */ 
+	background: -ms-linear-gradient(top, #00538d, #0593c2); 
+	/* Opera 11.10+ */ 
+	background: -o-linear-gradient(top, #00538d, #0593c2);
+	position:relative;
+	z-index:1;
+}
+.overlay-text{
+	padding:193px 0;
+	height:80px;
+	text-align:center;
+	opacity:.95;
+	
+}
+.overlay-text p{
+	color:#fff;
+	font-size:5em;
+	display:inline-block;
+	cursor:pointer;
+}
+.overlay-text p:hover{
+	color:#fcff00;
+}

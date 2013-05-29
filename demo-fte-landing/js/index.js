@@ -146,8 +146,6 @@
 					url : 'string'
 				};
 				var options = $.extend(defaults, options);
-				
-				
 				var self = this;
 				$.ajax({
 					url  : options.url,
@@ -156,26 +154,27 @@
 					success   : function(data){
 						data = eval('(' + data + ')')
 						var hotSpots = data.hotSpot;
-						
 						return self.each(function(){
 							$(this).find('.ribbon-frame').each(function(){
-								var width = $(this).width();
-								var height = $(this).height();
-								var id = $(this).attr('id');
+								var self = $(this);
+								var width = self.width();
+								var height = self.height();
+								var rid = self.attr('id');
 								
 								var stage = new Kinetic.Stage({
-									container : id,
+									container : rid,
 									width     : width,
 									height    : height
 								});
+								var layer;
+								var shape = [];
 								for(var i=0; i<hotSpots.length; i++){
+									
 									var position = hotSpots[i].position;
 									var html = hotSpots[i].popupHtml;
-									var layer = new Kinetic.Layer();
 									
-										
-									
-									var shape = new Kinetic.Shape({
+									layer = new Kinetic.Layer();
+									shape[i] = new Kinetic.Shape({
 										drawFunc : function(canvas){
 											var context = canvas.getContext();
 											context.beginPath();
@@ -186,25 +185,30 @@
 								            context.closePath();
 								            canvas.fillStroke(this);
 										},
-										fill : 'rgba(0,255,255, 0.2)',
+										fill : '#32dfbf',
 										stroke : 'white',
 										strokeWidth : 3,
+										opacity : 0.2,
+										id : rid+i,
 										name : html
 									});
 									
 									
 									
-									shape.on('mouseover touchstart', function(){
+									
+									shape[i].on('mouseover touchstart', function(){
+										
 										$('.ribbon').css('cursor','pointer');
-										this.setFill('rgba(0,255,255, 0.6)');
+										this.setOpacity(0.6);
 										layer.draw();
 									});
-									shape.on('mouseout touchend', function(){
+									shape[i].on('mouseout touchend', function(){
+										
 										$('.ribbon').css('cursor','');
-										this.setFill('rgba(0,255,255, 0.2)');
+										this.setOpacity(0.2);
 										layer.draw();
 									});
-									shape.on('dblclick', function(){
+									shape[i].on('dblclick', function(){
 										
 										var left = ($(document).width()-450)/2 + 'px';
 										var top = ($(window).height()-550)/2;
@@ -212,14 +216,14 @@
 										$('.pop-up').css({'left':left,'top':$(window).scrollTop() + top + 'px'}).fadeIn(500);
 			
 									});
-									
-									layer.add(shape);
-									stage.add(layer);
+									layer.add(shape[i]);
+									 
+								}
+								for(var i=0; i<shape.length; i++){
+									layer.add(shape[i]);
 								}
 								
-								
-								
-							    
+								stage.add(layer);
 							});
 							
 						})
@@ -227,28 +231,90 @@
 				})
 				
 				
+			},
+			overlay: function(options){
+				var defaults = {
+					bgColor : 'rgba(5,147,194,0.5)'
+				};
+				var options = $.extend(defaults, options);
+				return this.each(function(){
+					var width = $(document).width();
+					var height = $(document).height();
+					console.log(height);
+					var overlay = '<div class="ribbon-overlay"><div class="overlay-inner"><span class="start">Let us start!</span></div></div>';
+					$(this).append(overlay);
+					$('.ribbon-overlay').css({
+						'height' : height + 'px',
+						'width'  : width + 'px',
+						'background': options.bgColor,
+						'opacity' : options.opacity,
+						'position': 'absolute',
+						'top' : '0',
+						'left' : '0',
+						'zIndex': '9'
+					});
+					
+					
+				});
+			},
+			overLayText: function(options){
+				var defaults = {
+					question : 'default question',
+					answer: 'default Answer',
+					time : 2000
+				};
+				var options = $.extend(defaults, options);
+				var textCount = options.textCount;
+				return this.each(function(){
+					
+					var textCount = $('.ribbon-overlay .overlay-inner').find('.overlay-text').length || 0;
+					$('.ribbon-overlay .overlay-inner').append('<div class="overlay-text"><p class="text-' + textCount +'"></p></div>');
+					
+					$('.text-'+textCount).text(options.question);
+					function changeText(){
+						if($('.text-'+textCount).text().trim() === options.question.trim()){
+							$('.text-'+textCount).text(options.answer.trim());
+						}else{
+							$('.text-'+textCount).text(options.question.trim());
+						}
+					}
+					var textClock = setInterval(function(){changeText();},options.time);
+					$('.text-'+textCount).hover(
+						function(){
+							clearInterval(textClock);
+							$(this).text(options.answer.trim());
+						},
+						function(){
+							textClock = setInterval(function(){changeText();},options.time);
+						}
+					);
+				});
 			}
+			
 
-		}
-	);
+		});
 })(jQuery);
 $(window).load(function(){
 	//get realwidth
 	$('.ribbon').setRealWidth();
+	
 	//make ribbon
 	$('.ribbon').eq(0).addClass('active');
+	$('.ribbon').eq(1).addClass('active');
+	$('.ribbon').eq(2).addClass('active');
 	$('.ribbon').eq(0).ribbon({
 		direction : 'left',
 		distance  : 1
 	});
 	$('.ribbon').eq(1).ribbon({
-		direction : 'left',
+		direction : 'right',
 		distance  : 1
 	});
 	$('.ribbon').eq(2).ribbon({
 		direction : 'left',
 		distance  : 1
 	});
+	
 	//add hot spot
 	$('.ribbon').eq(0).hotSpot({
 		url:'hotspot.asp'
@@ -259,8 +325,34 @@ $(window).load(function(){
 	$('.ribbon').eq(2).hotSpot({
 		url:'hotspot2.asp'
 	});
-	//set popup close function
+	
+	//popup close function
 	$('span.close').bind('click', function(){
 		$('.pop-up').fadeOut(500);
 	})
+	
+	//add overlay
+	$('body').overlay({
+		
+	});
+	
+	//overlay close function 
+	$('.overlay-inner .start').bind('click', function(){
+		$('.ribbon').not($('.active')[0]).removeClass('active');
+		$(this).parents('.ribbon-overlay').fadeOut(500);
+	})
+	
+	//add overlay text
+	$('body').overLayText({
+		question : 'Can you take me together to the Mars?',
+		answer   : 'Sure! no problem! You are welcome!',
+		time     : 1500
+	}).overLayText({
+		question : 'Are you Tom?',
+		answer   : 'No, my name is Jack.'
+	}).overLayText({
+		question : 'Are you married?',
+		answer   : 'yes, that is many years ago.',
+		time     : 2500
+	});
 });
