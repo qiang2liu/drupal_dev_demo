@@ -115,11 +115,8 @@
      //step2. put the existing points to the map
      
     var the_points = '';
-    if (mapdata == 'challenge') {
-      the_points = Drupal.settings.the_challenge_points;
-    } else {
-      the_points = Drupal.settings.the_project_points;
-    }
+    the_points = Drupal.settings.the_challenge_points;
+    
     if ( the_points !='' ) {
       fte_map_set_the_points(map,the_points);
     }

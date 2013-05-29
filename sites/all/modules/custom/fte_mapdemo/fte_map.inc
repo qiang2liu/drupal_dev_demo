@@ -21,7 +21,7 @@ function get_challenge_points() {
   $the_icons_array = get_point_icon_settings();
   $ret = array();
   // mock data
-  $nid = 40;
+  $nid = 29;
   $item['nid'] = $nid++;
   $item['lat'] = 14.079752;
   $item['lon'] = 19.76367;  // chad africa 
@@ -63,6 +63,29 @@ function get_challenge_points() {
   $item['icon'] = $the_icons_array[$item['type']];
   $item['info'] = theme('fte_marker_infowin', array('data'=>$item));
   $ret['data'][$item['nid']] = $item;
+  
+  
+   $item['nid'] = $nid++;
+  $item['lat'] = 37.27551;
+  $item['lon'] = -85.30407;   //Green River lake stte park in kentucky 
+  $item['type'] = 'project';  
+  $item['title'] = 'project in the kentucky';
+  $item['brief'] = 'project at Green River lake state park in kentucky';
+  $item['icon'] = $the_icons_array[$item['type']];
+  $item['info'] = theme('fte_marker_infowin', array('data'=>$item));
+  $ret['data'][$item['nid']] = $item;
+  
+  
+  $item['nid'] = $nid++;
+  $item['lat'] = 40.64174;
+  $item['lon'] = -74.05370;   //new york
+  $item['type'] = 'project';  
+  $item['title'] = 'project in New York';
+  $item['brief'] = 'project in New York';
+  $item['icon'] = $the_icons_array[$item['type']];
+  $item['info'] = theme('fte_marker_infowin', array('data'=>$item));
+  $ret['data'][$item['nid']] = $item;
+  
   
   
   return $ret;
