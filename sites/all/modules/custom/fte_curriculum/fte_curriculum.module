@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function fte_curriculum_menu() {
+  $items['learn'] = array(
+    'page callback' => 'learnnavpage',
+    'access callback'=> TRUE,
+    'file' => 'fte_learn.inc',      
+  );
+  
+  
+  return $items;
+}
+
+function fte_curriculum_theme($existing, $type) {
+  if ($type == 'module') {
+    return array(
+      'fte_learn_nav' => array(
+        'variables' => array('data' => NULL),
+        'template' => 'templates/fte-learn-nav',
+      ),
+      
+    );
+  }
+  return array();
+}

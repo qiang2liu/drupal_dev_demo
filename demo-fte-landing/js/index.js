@@ -170,9 +170,7 @@
 								});
 								for(var i=0; i<hotSpots.length; i++){
 									var position = hotSpots[i].position;
-									var n =i;
-									
-									//html = hotSpots[k].popupHtml;
+									var html = hotSpots[i].popupHtml;
 									var layer = new Kinetic.Layer();
 									
 										
@@ -191,13 +189,12 @@
 										fill : 'rgba(0,255,255, 0.2)',
 										stroke : 'white',
 										strokeWidth : 3,
-										name : n
+										name : html
 									});
 									
 									
 									
 									shape.on('mouseover touchstart', function(){
-										//alert(shape.getName());
 										$('.ribbon').css('cursor','pointer');
 										this.setFill('rgba(0,255,255, 0.6)');
 										layer.draw();
@@ -208,10 +205,10 @@
 										layer.draw();
 									});
 									shape.on('dblclick', function(){
-										var html = hotSpots[n].popupHtml;
+										
 										var left = ($(document).width()-450)/2 + 'px';
 										var top = ($(window).height()-550)/2;
-										$('.pop-up .pop-up-inner').html(html);
+										$('.pop-up .pop-up-inner').html(this.getName());
 										$('.pop-up').css({'left':left,'top':$(window).scrollTop() + top + 'px'}).fadeIn(500);
 			
 									});

@@ -1,0 +1,4 @@
+name = FTE map demo
+description = "FTE map demo"
+package = FTE
+core = 7.x
