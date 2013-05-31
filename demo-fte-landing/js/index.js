@@ -200,7 +200,6 @@
 							  	 var p = data.hotSpot[i].points;
 							  	 var text = data.hotSpot[i].popupHtml;
 							  	 
-							  	 console.log(text);
 							  	 var shape = new Kinetic.Blob({
 							  	 	points: p,
 							  	 	stroke: 'white',
@@ -278,6 +277,64 @@
 						}
 					);
 				});
+			},
+			flyQuestions: function(options){
+				var defaults = {
+					data : [
+						{
+							question : 'Question1',
+							answer   : 'Answer1'
+						},
+						{
+							question : 'Question2',
+							answer   : 'Answer2'
+						}
+					],
+					time : 2000,
+					top  : 200,
+					left : 150 
+					
+				};
+				var options = $.extend(defaults, options);
+				return this.each(function(){
+					var cw = $(window).width();
+					var ch = $(window).height();
+					var l;
+					var t;
+					if(cw > 780){
+						le = cw-350;
+					}else{
+						le = 450
+					}
+					if(ch <1350){
+						t = ch + 200
+					}else{
+						t = 800
+					}
+					for(var i=0; i<options.data.length; i++){
+						$('body').append('<div class="flying-text fly-question-' + i + '">' + options.data[i].question + '</div><div class="flying-text fly-answer-' + i +'">' + options.data[i].answer + '</div>' );
+					}
+					$('.fly-question-0').css({
+						'top' : options.top +  'px',
+						'left': options.left + 'px'
+					});
+					$('.fly-question-1').css({
+						'top' : options.top + 100 + 'px',
+						'left': le + 'px'
+					});
+					$('.fly-answer-0').css({
+						'top' : t + 'px',
+						'left': options.left + 'px'
+					});
+					$('.fly-answer-1').css({
+						'top' : t + 100 + 'px',
+						'left': le + 'px'
+					});
+					$('.fly-question-0, .fly-question-1').bind('click', function(){
+						var top = parseInt($(this).css('top'),10);
+						window.scrollTo(0, t + top)
+					})
+				});
 			}
 			
 
@@ -321,17 +378,15 @@ $(window).load(function(){
 	})
 	
 	//add overlay
-	$('body').overlay({
-		
-	});
+	//$('body').overlay({});
 	
 	//overlay close function 
-	$('.overlay-inner .start').bind('click', function(){
+	/*$('.overlay-inner .start').bind('click', function(){
 		$('.ribbon').not($('.active')[0]).removeClass('active');
 		$(this).parents('.ribbon-overlay').fadeOut(500);
 	})
 	
-	//add overlay text
+	
 	$('body').overLayText({
 		question : 'Question 1',
 		answer   : 'Answer1',
@@ -343,5 +398,10 @@ $(window).load(function(){
 		question : 'Question 3',
 		answer   : 'Answer 3',
 		time     : 2500
+	});*/
+	
+	//flyQuestions
+	$('body').flyQuestions({
+		
 	});
 });
