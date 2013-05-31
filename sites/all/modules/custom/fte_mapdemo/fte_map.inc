@@ -93,7 +93,7 @@ function get_challenge_points() {
   
 }
 function fte_map_js() {
-  $script_str = '<script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>';
+  $script_str = '<script  type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>';
   $ele = array('#type' => 'markup', '#markup' => $script_str,);
   drupal_add_html_head($ele, 'google-map-library');
   $the_mapdemp_path = drupal_get_path('module', 'fte_mapdemo');

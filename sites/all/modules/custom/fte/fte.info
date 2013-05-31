@@ -3,4 +3,4 @@ name = FTE
 description = the module for FTE project.
 core = 7.x
 package = FTE
-version = VERSION
+scripts[] = js/swfobject.js
