@@ -346,8 +346,8 @@ $(window).load(function(){
 	
 	//make ribbon
 	$('.ribbon').eq(0).addClass('active');
-	$('.ribbon').eq(1).addClass('active');
-	$('.ribbon').eq(2).addClass('active');
+	//$('.ribbon').eq(1).addClass('active');
+	//$('.ribbon').eq(2).addClass('active');
 	$('.ribbon').eq(0).ribbon({
 		direction : 'left',
 		distance  : 1
