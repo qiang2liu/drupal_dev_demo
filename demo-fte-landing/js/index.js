@@ -143,94 +143,83 @@
 			/*hot spot*/
 			hotSpot : function(options){
 				var defaults = {
-					url : 'string'
+					url:''
 				};
 				var options = $.extend(defaults, options);
-				var self = this;
-				$.ajax({
-					url  : options.url,
-					dataType : JSON,
-					type     : 'GET',
-					success   : function(data){
-						data = eval('(' + data + ')')
-						var hotSpots = data.hotSpot;
-						return self.each(function(){
-							$(this).find('.ribbon-frame').each(function(){
-								var self = $(this);
-								var width = self.width();
-								var height = self.height();
-								var rid = self.attr('id');
-								
-								var stage = new Kinetic.Stage({
-									container : rid,
-									width     : width,
-									height    : height
-								});
-								var layer;
-								var shape = [];
-								for(var i=0; i<hotSpots.length; i++){
-									
-									var position = hotSpots[i].position;
-									var html = hotSpots[i].popupHtml;
-									
-									layer = new Kinetic.Layer();
-									shape[i] = new Kinetic.Shape({
-										drawFunc : function(canvas){
-											var context = canvas.getContext();
-											context.beginPath();
-								            context.moveTo(position[0][0],position[0][1]);
-								            for(var j=1; j<position.length; j++){
-								            	context.lineTo(position[j][0], position[j][1]);
-								            }
-								            context.closePath();
-								            canvas.fillStroke(this);
-										},
-										fill : '#32dfbf',
-										stroke : 'white',
-										strokeWidth : 3,
-										opacity : 0.2,
-										id : rid+i,
-										name : html
-									});
-									
-									
-									
-									
-									shape[i].on('mouseover touchstart', function(){
-										
-										$('.ribbon').css('cursor','pointer');
-										this.setOpacity(0.6);
-										layer.draw();
-									});
-									shape[i].on('mouseout touchend', function(){
-										
-										$('.ribbon').css('cursor','');
-										this.setOpacity(0.2);
-										layer.draw();
-									});
-									shape[i].on('dblclick', function(){
-										
-										var left = ($(document).width()-450)/2 + 'px';
-										var top = ($(window).height()-550)/2;
-										$('.pop-up .pop-up-inner').html(this.getName());
-										$('.pop-up').css({'left':left,'top':$(window).scrollTop() + top + 'px'}).fadeIn(500);
-			
-									});
-									layer.add(shape[i]);
-									 
-								}
-								for(var i=0; i<shape.length; i++){
-									layer.add(shape[i]);
-								}
-								
-								stage.add(layer);
-							});
+				
+				return this.each(function(){
+					var self = $(this);
+					var idx = self.index();
+					$.ajax({
+						url      : options.url,
+						dataType : JSON,
+						type     : 'GET',
+						success  :function(data){
+							var data = eval('(' + data + ')');
+							drawHotSpots(data);
+						}
+					});
+					function drawHotSpots(data){
+						
+						self.find('.ribbon-frame').each(function(){
 							
-						})
+							  var id = $(this).attr('id');
+							  var w = $(this).width();
+							  var h = $(this).height();
+							  var stage = new Kinetic.Stage({
+						        container: id,
+						        width: w,
+						        height: h
+						      });
+						      var layer = new Kinetic.Layer();
+						      layer.on('mouseover', function(evt) {
+						        $('.ribbon').css('cursor','pointer');
+						        var shape = evt.targetNode;
+						       
+								shape.setFill('rgba(3,150,83,0.8)');
+								layer.draw();
+						      });
+							  layer.on('mouseout', function(evt) {
+						        $('.ribbon').css('cursor','');
+						        var shape = evt.targetNode;
+						        
+								shape.setFill('rgba(3,150,83,0.4)');
+								layer.draw();
+						      });
+						      layer.on('dblclick', function(evt) {
+						       
+						        var shape = evt.targetNode;
+						        var left = ($(document).width()-450)/2 + 'px';
+								var top = ($(window).height()-550)/2;
+								$('.pop-up .pop-up-inner').html(shape.getName());
+								$('.pop-up').css({'left':left,'top':$(window).scrollTop() + top + 'px'}).fadeIn(500); 
+						      });
+							  var star = [];
+							 
+							  for(var i=0; i<data.hotSpot.length; i++){
+							  	 var p = data.hotSpot[i].points;
+							  	 var text = data.hotSpot[i].popupHtml;
+							  	 
+							  	 console.log(text);
+							  	 var shape = new Kinetic.Blob({
+							  	 	points: p,
+							  	 	stroke: 'white',
+							        strokeWidth: 4,
+							        fill: 'rgba(3,150,83,0.4)',
+							        
+							        tension: 0,
+							        name :text
+							  	 });
+							  	 layer.add(shape);
+							   }
+							   stage.add(layer);
+							  
+						});
 					}
+					
+					
+					
 				})
-				
-				
 			},
 			overlay: function(options){
 				var defaults = {
@@ -344,15 +333,15 @@ $(window).load(function(){
 	
 	//add overlay text
 	$('body').overLayText({
-		question : 'Can you take me together to the Mars?',
-		answer   : 'Sure! no problem! You are welcome!',
+		question : 'Question 1',
+		answer   : 'Answer1',
 		time     : 1500
 	}).overLayText({
-		question : 'Are you Tom?',
-		answer   : 'No, my name is Jack.'
+		question : 'Question 2',
+		answer   : 'Answer 2'
 	}).overLayText({
-		question : 'Are you married?',
-		answer   : 'yes, that is many years ago.',
+		question : 'Question 3',
+		answer   : 'Answer 3',
 		time     : 2500
 	});
 });

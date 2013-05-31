@@ -2,8 +2,23 @@
 	"id" : "ribbon-02",
     "hotSpot" : [
     	{
-        	"position"  : [[500,20],[920,80],[950,40],[1100, 200],[980, 300],[450, 170],[220,270],[500,20]],
-            "popupHtml" : '<h1>Hi I am Liu Qiang, are you OK?</h1><p>I am very painful!!!!!</p><p><img src="images/2.png" />'
+        "points"  : [{
+                  x: 4973,
+                  y: 140
+                }, {
+                  x: 5240,
+                  y: 23
+                }, {
+                  x: 5400,
+                  y: 109
+                },{
+                  x: 5300,
+                  y: 199
+                }, {
+                  x: 4800,
+                  y: 170
+            }],
+            "popupHtml" : '<h1>example-ribbon-1-a</h1><p>example-ribbon-1-a</p><p><img src="images/2.png" />'
         }
     ]
 }
