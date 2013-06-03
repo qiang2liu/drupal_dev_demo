@@ -220,7 +220,7 @@
 					
 				})
 			},
-			overlay: function(options){
+			/*overlay: function(options){
 				var defaults = {
 					bgColor : 'rgba(5,147,194,0.5)'
 				};
@@ -277,7 +277,7 @@
 						}
 					);
 				});
-			},
+			},*/
 			flyQuestions: function(options){
 				var defaults = {
 					data : [
@@ -332,7 +332,27 @@
 					});
 					$('.fly-question-0, .fly-question-1').bind('click', function(){
 						var top = parseInt($(this).css('top'),10);
-						window.scrollTo(0, t + top)
+						//window.scrollTo(0, t + top)
+						$('body,html').animate({
+							scrollTop: t+top
+						},800);
+						return false;
+					})
+				});
+			},
+			mainTabs: function(options){
+				var defaults= {
+					handler : 'li>a'
+				}
+				var options = $.extend(defaults, options);
+				var self = $(this);
+				return this.each(function(){
+					$(this).find(options.handler).not('.active').bind('click', function(){
+						
+						self.find(options.handler + '.active').removeClass('active');
+						$(this).addClass('active');
+						//example
+						$('.page p').html('This is the ' + $(this).text() + ' content.' );
 					})
 				});
 			}
@@ -401,7 +421,23 @@ $(window).load(function(){
 	});*/
 	
 	//flyQuestions
-	$('body').flyQuestions({
+	$('html').flyQuestions({
 		
+	});
+	
+	//cube and content
+	
+	$('.main-nav').mainTabs();
+	$('.cube').bind('click', function(){
+		$('.page').css('top', $(window).height()  + $(window).scrollTop() - 300 + 'px');
+		
+		if($('.page').hasClass('show')){
+			$('.page').removeClass('show');
+		}else{
+			$('.page').addClass('show');
+		}
+	})
+	$(window).scroll(function(){
+		$('.page').css('top', $(window).height()  + $(window).scrollTop() - 300 + 'px');
 	});
 });
