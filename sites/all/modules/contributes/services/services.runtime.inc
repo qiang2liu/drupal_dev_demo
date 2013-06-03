@@ -115,8 +115,19 @@ function services_controller_execute($controller, $args = array(), $options = ar
 
   // Check authentication.
   if (!isset($options['skip_authentication']) || !$options['skip_authentication']) {
-    foreach ($endpoint->authentication as $auth_module => $settings) {
-      if (isset($settings) && $auth_error = services_auth_invoke($auth_module, 'authenticate_call', $settings, $controller, $args)) {
+    foreach ($endpoint->authentication as $auth_module => $auth_settings) {
+      $resource_name = $controller['resource_name'];
+      $class = $controller['class'];
+      $operation = $controller['operation'];
+      $settings = array();
+      // Get controller settings, if present.
+      if (isset($endpoint->resources[$resource_name][$class][$operation]['settings'][$auth_module])) {
+        $settings = $endpoint->resources[$resource_name][$class][$operation]['settings'][$auth_module];
+      }
+      // Add endpoint settings.
+      $settings += $auth_settings;
+
+      if ($auth_error = services_auth_invoke($auth_module, 'authenticate_call', $settings, $controller, $args)) {
         return services_error($auth_error, 401);
       }
     }
