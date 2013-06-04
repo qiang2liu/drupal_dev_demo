@@ -347,7 +347,7 @@
 				var options = $.extend(defaults, options);
 				var self = $(this);
 				return this.each(function(){
-					$(this).find(options.handler).not('.active').bind('click', function(){
+					$(this).find(options.handler).bind('click', function(){
 						
 						self.find(options.handler + '.active').removeClass('active');
 						$(this).addClass('active');
@@ -355,6 +355,92 @@
 						$('.page p').html('This is the ' + $(this).text() + ' content.' );
 					})
 				});
+			},
+			pageDrag: function(options){
+				var defaults = {
+					zoomHandler : '.page-drag',
+					moveHandler : '.page-move',
+					zoomFlag    : false,
+					dragFlag    : false,
+					orginalX    : 0,
+					orginalY    : 0,
+					currentX    : 0,
+					currentY    : 0,
+					orginalLeft : 0,
+					orginalTop  : 0,
+					orginalWidth: 0,
+					orginalHeight:0
+					 
+				}
+				var options = $.extend(defaults,options);
+				return this.each(function(){
+					var self = $(this);
+					$(this).bind('mousedown', function(event){
+						event.preventDefault();
+						options.orginalX = event.clientX;
+						options.orginalY = event.clientY;
+						options.orginalLeft = parseInt($(this).css('left'),10);
+						options.orginalTop =  parseInt($(this).css('top'),10);
+						options.orginalWidth = $(this).width();
+						options.orginalHeight = $(this).height();
+						if($(event.target).hasClass('page-move')){
+							options.dragFlag = true;
+						}
+						if($(event.target).hasClass('page-drag')){
+							options.zoomFlag = true;
+						}
+						
+					});
+					$(window).bind('mousemove', function(event){
+						options.currentX = event.clientX;
+						options.currentY = event.clientY;
+						var currentLeft = options.currentX - options.orginalX + options.orginalLeft;
+						var currentTop  = options.currentY - options.orginalY + options.orginalTop;
+						
+						var currentWidth = options.orginalX - options.currentX + options.orginalWidth;
+						var currentHeight= options.orginalY - options.currentY + options.orginalHeight;
+						if( currentLeft < 0 ){
+							currentLeft = 0
+						}
+						//move
+						if(options.dragFlag){
+							if(currentLeft > 0 && currentLeft + self.width() < $(window).width()){
+								self.css({
+									'left' : currentLeft + 'px'
+								})
+							}
+							if(currentTop > $(window).scrollTop() && currentTop - $(window).scrollTop() + self.height() < $(window).height()){
+								self.css({
+									'top' : currentTop + 'px'
+								})
+							}
+							
+						}
+						
+						//zoom
+						
+						if(options.zoomFlag){
+							console.log(options.currentY);
+							if(currentWidth > 800 && options.currentX > 0){
+								self.css({
+									'width' : currentWidth + 'px',
+									'left'  : currentLeft + 'px'
+								})
+							}
+							if(currentHeight > 500 && options.currentY > 0){
+								self.css({
+									'height' : currentHeight + 'px',
+									'top'  : currentTop + 'px'
+								})
+							}
+						}
+						
+					});
+					$(window).bind('mouseup', function(){
+						options.dragFlag = false;
+						options.zoomFlag = false;
+					})
+				})
 			}
 			
 
@@ -426,18 +512,69 @@ $(window).load(function(){
 	});
 	
 	//cube and content
-	
+	function makePageDefault(){
+		$('.page').css('top', ($(window).height() - 500)/2 + $(window).scrollTop()  + 'px');
+		$('.page').css('left', ($(window).width() - 800)/2   + 'px');
+		$('.page').css('width', '800px');
+		$('.page').css('height','500px');
+		$('.page').removeClass('max');
+		$('.page-maximize').attr('title','maximize');
+		$('.page-move').css('width', $('.page').width() -78 + 'px');
+	}
+	makePageDefault();
 	$('.main-nav').mainTabs();
 	$('.cube').bind('click', function(){
-		$('.page').css('top', $(window).height()  + $(window).scrollTop() - 300 + 'px');
-		
-		if($('.page').hasClass('show')){
-			$('.page').removeClass('show');
-		}else{
-			$('.page').addClass('show');
-		}
+		makePageDefault();
+		$('.page').toggle(400);
+		$('.cover').toggle();
 	})
 	$(window).scroll(function(){
-		$('.page').css('top', $(window).height()  + $(window).scrollTop() - 300 + 'px');
+		$('.page').css('top', ($(window).height() - $('.page').height())/2 + $(window).scrollTop()  + 'px');
 	});
+	
+	$('.page-minimize').bind('click', function(){
+		$('.page,.cover').hide();
+		makePageDefault();
+		
+	});
+	$('.cover').css({
+		height: $('body').height() + 32 + 'px',
+		width: $(window).width() + 'px'
+	});
+	function pageToggleSize(){
+		if(!$('.page').hasClass('max')){
+	 	
+		 	$('.page').animate({
+				top: $(window).scrollTop()  + 'px',
+				left :0,
+				width : $(window).width() + 'px',
+				height : $(window).height() + 'px'
+			},400,
+			function(){
+				$('.page').addClass('max');
+				$('.page-move').css('width', $('.page').width() -78 + 'px');
+			});
+			$('.page-maximize').attr('title','minimize');
+	 }else{
+	 	
+	 	$('.page').animate({
+			top: ($(window).height() - 500)/2 + $(window).scrollTop()  + 'px',
+			left :($(window).width() - 800)/2   + 'px',
+			width : '800px',
+			height : '500px'
+		},400,
+		function(){
+			$('.page').removeClass('max');
+			$('.page-move').css('width', $('.page').width() -78 + 'px');
+		});
+		$('.page-maximize').attr('title','maximize');
+	 }
+	}
+	$('.page-maximize').bind('click', function(){
+	 	pageToggleSize();
+	});
+	$('.page-move').bind('dblclick', function(){
+		pageToggleSize();
+	})
+	$('.page').pageDrag();
 });
