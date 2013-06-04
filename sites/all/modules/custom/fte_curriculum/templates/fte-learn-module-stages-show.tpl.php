@@ -146,31 +146,6 @@ foreach ($data->stages as $row) {
 
 <script>
   
-   var ytplayer;
-    var params = {
-      allowScriptAccess: "always"
-    };
-    var atts = {
-      id: "myytplayer"
-    };
-   
-  
-   $(document).ready(function(){
-      console.log(atts);
-      swfobject.embedSWF("http://www.youtube.com/v/"+Drupal.settings.fte_learn_stages_yid
-        +"?enablejsapi=1&playerapiid=ytplayer&version=3&modestbranding=1",
-        "ytapiplayer", "780", "439", "8", null, null, params, atts);
-  
-    
-  
-
-
-
-}
-    
-
-
-);   
   
   
   function change_stage(m,s) {
