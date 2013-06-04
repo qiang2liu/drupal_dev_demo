@@ -1,0 +1,15 @@
+; $Id: requirement_dashboard_og.info
+name = "Requirement Dashboard OG"
+description = "Implementation of the Requirement Dashboard API for Organic Groups"
+package = "Requirement Dashboard"
+dependencies[] = "requirement_dashboard"
+dependencies[] = "og"
+core = 7.x
+
+
+; Information added by drupal.org packaging script on 2013-05-25
+version = "7.x-1.2+1-dev"
+core = "7.x"
+project = "requirement_dashboard"
+datestamp = "1369451951"
+

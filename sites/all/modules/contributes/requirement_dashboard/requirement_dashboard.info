@@ -1,0 +1,12 @@
+; $Id: requirement_dashboard.info
+name = "Requirement Dashboard"
+description = "API and scafolding to build requirement dashboards like Drupal's core status page"
+package = "Requirement Dashboard"
+core ="7.x"
+
+; Information added by drupal.org packaging script on 2013-05-25
+version = "7.x-1.2+1-dev"
+core = "7.x"
+project = "requirement_dashboard"
+datestamp = "1369451951"
+

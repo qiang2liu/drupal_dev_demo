@@ -10,6 +10,14 @@ function fte_curriculum_menu() {
     'file' => 'fte_learn.inc',      
   );
   
+  $items['learn/%/stage/%'] = array(
+    'page callback' => 'fte_modulestage_view',
+    'page arguments' => array(1,3),  
+    'access callback'=> TRUE,
+    'type' => MENU_CALLBACK,
+    'file' => 'fte_learn.inc',      
+  );
+  
   
   return $items;
 }
@@ -21,8 +29,14 @@ function fte_curriculum_theme($existing, $type) {
         'variables' => array('data' => NULL),
         'template' => 'templates/fte-learn-nav',
       ),
+      'fte_learn_module_stage_show' => array(
+        'variables' => array('data' => NULL),
+        'template' => 'templates/fte-learn-module-stages-show',
+      ),
       
     );
   }
   return array();
 }
+
+
