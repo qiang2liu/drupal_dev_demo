@@ -79,10 +79,25 @@ function fte_modulestage_view($mid, $sid) {
     $v1->title = 'stage6';
     $v1->yid = '';
     $v1->sid = 6;
-    $v1->content = '<h2>form</h2> <br/>input 1: <input type="text" name="input1" size="20"/>
-      <br/>input 2: <input type="text" name="input2" size="20"/> 
-      <br/>input 3: <input type="text" name="input3" size="20"/>
-      <br/>input 4: <input type="text" name="input4" size="20"/>
+    $v1->content = '<h2>Self Assessment</h2> 
+      <br/>How did that last activity make me feel? <input type="text" name="input1" size="20"/>
+      <br/>How well do I think I did on that last activity? <input type="text" name="input2" size="20"/> 
+      <br/>How do I think I am doing against a long-tern goal? 
+      <input type="radio" name="input3" value="1"/> No
+      <input type="radio" name="input3" value="2" checked/> Yes
+      <input type="radio" name="input3" value="3"/> Other
+      <input type="text" name="input4" size="20"/>
+        
+      <br/>
+      
+        How much did I like that last activity? 
+      <input type="radio" name="input4" value="1"/> Liked it
+      <input type="radio" name="input4" value="2" checked/> Loved it
+      <input type="radio" name="input4" value="3"/> Comments
+      <input type="text" name="input5" size="20"/>
+        
+      <br/>
+What was your favorite activity?why?: <input type="text" name="input6" size="20"/>
 
 
 
@@ -101,10 +116,25 @@ function fte_modulestage_view($mid, $sid) {
     $v1->title = 'stage8';
     $v1->sid = 8;
     $v1->yid = '';
-    $v1->content = '<h2>form</h2> <br/>input a: <input type="text" name="input1" size="20"/>
-      <br/>input b: <input type="text" name="input2" size="20"/> 
-      <br/>input c: <input type="text" name="input3" size="20"/>
-      <br/>input d: <input type="text" name="input4" size="20"/>
+    $v1->content = '<h2>Self Assessment</h2> 
+      <br/>How did that last activity make me feel? <input type="text" name="input1" size="20"/>
+      <br/>How well do I think I did on that last activity? <input type="text" name="input2" size="20"/> 
+      <br/>How do I think I am doing against a long-tern goal? 
+      <input type="radio" name="input3" value="1"/> No
+      <input type="radio" name="input3" value="2" checked/> Yes
+      <input type="radio" name="input3" value="3"/> Other
+      <input type="text" name="input4" size="20"/>
+        
+      <br/>
+      
+        How much did I like that last activity? 
+      <input type="radio" name="input4" value="1"/> Liked it
+      <input type="radio" name="input4" value="2" checked/> Loved it
+      <input type="radio" name="input4" value="3"/> Comments
+      <input type="text" name="input5" size="20"/>
+        
+      <br/>
+What was your favorite activity?why?: <input type="text" name="input6" size="20"/>
 
 
 
