@@ -154,6 +154,15 @@ span.close:hover{
 	color:#fff;
 }
 /* layer3 - cube and content */
+.cover{
+	position:absolute;
+	top:0;
+	left:0;
+	z-index: 998;
+	background:#ccc;
+	opacity: .5;
+	display:none;
+}
 .cube{
 	position:fixed;
 	top:1em;
@@ -163,16 +172,14 @@ span.close:hover{
 }
 .page{
 	position:absolute;
-	width:300px;
-	height:300px;
+	width:800px;
+	height:500px;
 	z-index: 999;
 	right:0;
 	background:#fff;
 	display:none;
 }
-.page.show{
-	display:block;
-}
+
 .main-nav{
 	/* fallback */ 
 	background-color: #1a82f7; 
@@ -187,7 +194,8 @@ span.close:hover{
 	/* Opera 11.10+ */ 
 	background: -o-linear-gradient(top, #00538d, #0593c2);
 }
-.main-nav:after{
+.main-nav:after,
+.page-controller:after{
 	display:block;
 	content:'';
 	height:0;
@@ -217,4 +225,24 @@ span.close:hover{
 }
 .page-drag{
 	cursor:nw-resize;
+}
+.page-minimize,
+.page-maximize,
+.page-drag{
+	display:inline-block;
+	height:26px;
+	width:26px;
+}
+.page-drag,
+.page-move{
+	float:left;
+}
+.page-move{
+	height:26px;
+}
+.page-move:hover{
+	
+}
+.page-controller{
+	cursor:move;
 }
