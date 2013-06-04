@@ -420,13 +420,14 @@
 						//zoom
 						
 						if(options.zoomFlag){
+							console.log(options.currentY);
 							if(currentWidth > 800 && options.currentX > 0){
 								self.css({
 									'width' : currentWidth + 'px',
 									'left'  : currentLeft + 'px'
 								})
 							}
-							if(currentHeight > 500 && options.currentY > $(window).scrollTop()){
+							if(currentHeight > 500 && options.currentY > 0){
 								self.css({
 									'height' : currentHeight + 'px',
 									'top'  : currentTop + 'px'
