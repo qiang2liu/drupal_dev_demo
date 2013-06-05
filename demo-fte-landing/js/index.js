@@ -362,6 +362,7 @@
 					moveHandler : '.page-move',
 					zoomFlag    : false,
 					dragFlag    : false,
+					zoomFlagBr  : false,
 					orginalX    : 0,
 					orginalY    : 0,
 					currentX    : 0,
@@ -389,7 +390,9 @@
 						if($(event.target).hasClass('page-drag')){
 							options.zoomFlag = true;
 						}
-						
+						if($(event.target).hasClass('page-zoom-br')){
+							options.zoomFlagBr = true;
+						}
 					});
 					$(window).bind('mousemove', function(event){
 						options.currentX = event.clientX;
@@ -399,6 +402,8 @@
 						
 						var currentWidth = options.orginalX - options.currentX + options.orginalWidth;
 						var currentHeight= options.orginalY - options.currentY + options.orginalHeight;
+						var currentBrwidth = options.currentX  - options.orginalX  + options.orginalWidth;
+						var currentBrHeight = options.currentY - options.orginalY + options.orginalHeight;
 						if( currentLeft < 0 ){
 							currentLeft = 0
 						}
@@ -414,18 +419,15 @@
 									'top' : currentTop + 'px'
 								})
 							}
-							
 						}
-						
-						//zoom
-						
+						//zoom lt
 						if(options.zoomFlag){
-							console.log(options.currentY);
 							if(currentWidth > 800 && options.currentX > 0){
 								self.css({
 									'width' : currentWidth + 'px',
 									'left'  : currentLeft + 'px'
 								})
+								$('.page-move').css('width', currentWidth -82 + 'px');
 							}
 							if(currentHeight > 500 && options.currentY > 0){
 								self.css({
@@ -434,11 +436,27 @@
 								})
 							}
 						}
+						//zoom br
+						if(options.zoomFlagBr){
+							if(currentBrwidth > 800 && options.currentX < $(window).width()){
+								self.css({
+									'width' : currentBrwidth + 'px'
+									
+								})
+								$('.page-move').css('width', currentBrwidth -82 + 'px');
+							}
+							if(currentBrHeight > 500 && options.currentY < $(window).width()){
+								self.css({
+									'height' : currentBrHeight -10 + 'px'
+								})
+							}
+						}
 						
 					});
 					$(window).bind('mouseup', function(){
 						options.dragFlag = false;
 						options.zoomFlag = false;
+						options.zoomFlagBr = false;
 					})
 				})
 			}
@@ -513,13 +531,13 @@ $(window).load(function(){
 	
 	//cube and content
 	function makePageDefault(){
-		$('.page').css('top', ($(window).height() - 500)/2 + $(window).scrollTop()  + 'px');
-		$('.page').css('left', ($(window).width() - 800)/2   + 'px');
-		$('.page').css('width', '800px');
-		$('.page').css('height','500px');
+		$('.page').css('top', ($(window).height() - 720)/2 + $(window).scrollTop()  + 'px');
+		$('.page').css('left', ($(window).width() - 980)/2   + 'px');
+		$('.page').css('width', '980px');
+		$('.page').css('height','720px');
 		$('.page').removeClass('max');
 		$('.page-maximize').attr('title','maximize');
-		$('.page-move').css('width', $('.page').width() -78 + 'px');
+		$('.page-move').css('width', $('.page').width() -82 + 'px');
 	}
 	makePageDefault();
 	$('.main-nav').mainTabs();
@@ -547,25 +565,25 @@ $(window).load(function(){
 		 	$('.page').animate({
 				top: $(window).scrollTop()  + 'px',
 				left :0,
-				width : $(window).width() + 'px',
-				height : $(window).height() + 'px'
+				width : $(window).width()-2 + 'px',
+				height : $(window).height()-2 + 'px'
 			},400,
 			function(){
 				$('.page').addClass('max');
-				$('.page-move').css('width', $('.page').width() -78 + 'px');
+				$('.page-move').css('width', $('.page').width() -82 + 'px');
 			});
 			$('.page-maximize').attr('title','minimize');
 	 }else{
 	 	
 	 	$('.page').animate({
-			top: ($(window).height() - 500)/2 + $(window).scrollTop()  + 'px',
-			left :($(window).width() - 800)/2   + 'px',
-			width : '800px',
-			height : '500px'
+			top: ($(window).height() - 720)/2 + $(window).scrollTop()  + 'px',
+			left :($(window).width() - 980)/2   + 'px',
+			width : '980px',
+			height : '720px'
 		},400,
 		function(){
 			$('.page').removeClass('max');
-			$('.page-move').css('width', $('.page').width() -78 + 'px');
+			$('.page-move').css('width', $('.page').width() -82 + 'px');
 		});
 		$('.page-maximize').attr('title','maximize');
 	 }
