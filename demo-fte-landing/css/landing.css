@@ -178,8 +178,21 @@ span.close:hover{
 	right:0;
 	background:#fff;
 	display:none;
+	
 }
-
+.page-inner{
+	position:relative;
+	border:1px solid #111;
+	height:100%;
+}
+.page-zoom-br{
+	position: absolute;
+	width:16px;
+	height:16px;
+	bottom:0px;
+	right:0px;
+	cursor:nw-resize;
+}
 .main-nav{
 	/* fallback */ 
 	background-color: #1a82f7; 
