@@ -531,10 +531,10 @@ $(window).load(function(){
 	
 	//cube and content
 	function makePageDefault(){
-		$('.page').css('top', ($(window).height() - 498)/2 + $(window).scrollTop()  + 'px');
-		$('.page').css('left', ($(window).width() - 798)/2   + 'px');
-		$('.page').css('width', '800px');
-		$('.page').css('height','500px');
+		$('.page').css('top', ($(window).height() - 720)/2 + $(window).scrollTop()  + 'px');
+		$('.page').css('left', ($(window).width() - 980)/2   + 'px');
+		$('.page').css('width', '980px');
+		$('.page').css('height','720px');
 		$('.page').removeClass('max');
 		$('.page-maximize').attr('title','maximize');
 		$('.page-move').css('width', $('.page').width() -82 + 'px');
@@ -576,10 +576,10 @@ $(window).load(function(){
 	 }else{
 	 	
 	 	$('.page').animate({
-			top: ($(window).height() - 500)/2 + $(window).scrollTop()  + 'px',
-			left :($(window).width() - 800)/2   + 'px',
-			width : '798px',
-			height : '498px'
+			top: ($(window).height() - 720)/2 + $(window).scrollTop()  + 'px',
+			left :($(window).width() - 980)/2   + 'px',
+			width : '980px',
+			height : '720px'
 		},400,
 		function(){
 			$('.page').removeClass('max');

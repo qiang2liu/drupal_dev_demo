@@ -172,8 +172,8 @@ span.close:hover{
 }
 .page{
 	position:absolute;
-	width:800px;
-	height:500px;
+	width:980px;
+	height:720px;
 	z-index: 999;
 	right:0;
 	background:#fff;
