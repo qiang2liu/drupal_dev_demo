@@ -176,7 +176,7 @@ span.close:hover{
 	height:720px;
 	z-index: 999;
 	right:0;
-	background:#fff;
+	background:#eee;
 	display:none;
 	
 }
@@ -192,6 +192,7 @@ span.close:hover{
 	bottom:0px;
 	right:0px;
 	cursor:nw-resize;
+	z-index: 99999;
 }
 .main-nav{
 	/* fallback */ 
@@ -258,4 +259,17 @@ span.close:hover{
 }
 .page-controller{
 	cursor:move;
+	
+}
+.landing-iframe,.iframe-cover{
+	width:978px;
+	height:676px;
+}
+.iframe-cover{
+	position:absolute;
+	top:26px;
+	left:0;
+	background:#fff;
+	opacity:0;
+	display:none;
 }
