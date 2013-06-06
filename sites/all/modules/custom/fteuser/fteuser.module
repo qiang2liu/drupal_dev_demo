@@ -75,6 +75,9 @@ function fteuser_menu_alter(&$items) {
 }
 
 function  fteuser_userreset($p, $uid, $timestamp, $hashed_pass) {
+  
+  echo "hhhhh";
+  die("o");
   global $user;
   
   if ($user->uid) {
@@ -96,6 +99,21 @@ function  fteuser_userreset($p, $uid, $timestamp, $hashed_pass) {
     drupal_goto();
   }
   else {
+    
+    $users = user_load_multiple(array($uid), array('status' => '0'));
+    $account = reset($users);
+    if ($account) {
+      if ($account->uid && $timestamp >= $account->login && $timestamp <= $current && $hashed_pass == user_pass_rehash($account->pass, $timestamp, $account->login)) {
+        $account = user_save($account, array('status' => 1));
+        if ($account) {
+          user_login_finalize();
+          drupal_goto('node/1');
+        }
+        
+      }
+      
+      
+    }
     
   }
   

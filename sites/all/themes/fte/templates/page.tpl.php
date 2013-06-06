@@ -166,7 +166,7 @@
     </div>
     <div>
       <span>
-        <a href ='learn'> learn</a>
+        <a href ='/learn'> learn</a>
       </span>  
       
       
