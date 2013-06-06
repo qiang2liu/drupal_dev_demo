@@ -1,3 +1,3 @@
 <?php
 ?>
-Langing / Dashboard / Home  page
+<img src ="/images/dashboard_mockup.png"/>

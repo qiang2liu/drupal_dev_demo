@@ -87,6 +87,9 @@
 ?>
 <div id="page-wrapper"><div id="page">
 
+    
+    <div style="display:none">
+    
   <div id="header" class="<?php print $secondary_menu ? 'with-secondary-menu': 'without-secondary-menu'; ?>"><div class="section clearfix">
 
     <?php if ($logo): ?>
@@ -159,6 +162,29 @@
 
   </div></div> <!-- /.section, /#header -->
 
+  
+    </div>
+    <div>
+      <span>
+        <a href ='learn'> learn</a>
+      </span>  
+      
+      
+      <span>
+        <a href ='/node/15'> workspace</a>
+      </span>  
+      
+      <span>
+        <a href ='/node/7'> Challenges</a>
+      </span>  
+      
+      <span>
+        <a href ='/user/login'> Login</a>
+      </span>  
+      
+      
+    </div>
+  
   <?php if ($messages): ?>
     <div id="messages"><div class="section clearfix">
       <?php print $messages; ?>
@@ -225,6 +251,9 @@
     </div></div> <!-- /#triptych, /#triptych-wrapper -->
   <?php endif; ?>
 
+    
+    <div style=" display:none">
+    
   <div id="footer-wrapper"><div class="section">
 
     <?php if ($page['footer_firstcolumn'] || $page['footer_secondcolumn'] || $page['footer_thirdcolumn'] || $page['footer_fourthcolumn']): ?>
@@ -244,4 +273,13 @@
 
   </div></div> <!-- /.section, /#footer-wrapper -->
 
-</div></div> <!-- /#page, /#page-wrapper -->
+    </div>
+  
+  
+  
+</div>
+
+
+
+
+</div> <!-- /#page, /#page-wrapper -->

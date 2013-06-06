@@ -1,0 +1,75 @@
+<?php
+function fteuser_form_alter(&$form, &$form_state, $form_id){
+
+  switch ($form_id) {
+    
+    case 'user_admin_settings':
+      // Disable the checkbox at the Account settings page which controls
+      // whether e-mail verification is required upon registration or not.
+      // The FTEUSER module implements e-mail verification functionality
+      
+     // $form['registration_cancellation']['user_email_verification']['#disabled'] = true;
+     // $form['registration_cancellation']['user_email_verification']['#description'] = t('This setting has been locked by the FTEUSER module. ');
+      break;
+    
+    
+  }
+}
+/**
+ * Implement hook_form_FORM_ID_alter().
+ * FORM_ID == user_register_form
+ */
+function fteuser_form_user_register_form_alter(&$form, &$form_state, $form_id) {
+  // Ensure a valid submit array.
+  $form['#submit'] = is_array($form['#submit']) ? $form['#submit'] : array();
+
+  // Replace core's registration function with FTEUSER registration function.
+  // Put the FTEUSER submit handler first, so other submit handlers have a valid
+  // user to work with upon registration.
+  $key = array_search('user_register_submit', $form['#submit']);
+  if ($key !== FALSE) {
+    unset($form['#submit'][$key]);
+  }
+  array_unshift($form['#submit'],'fteuser_user_register_submit');
+}
+
+
+function fteuser_user_register_submit($form, &$form_state) {
+  $admin = $form_state['values']['administer_users'];
+  $pass = $form_state['values']['pass'];  //password user input
+  form_state_values_clean($form_state);
+  $form_state['values']['pass'] = $pass;
+  $form_state['values']['init'] = $form_state['values']['mail'];
+  $account = $form['#user'];
+  entity_form_submit_build_entity('user', $account, $form, $form_state);
+  // Populate $edit with the properties of $account, which have been edited on
+  // this form by taking over all values, which appear in the form values too.
+  $edit = array_intersect_key((array) $account, $form_state['values']);
+  $account = user_save($account, $edit);
+
+  // Terminate if an error occurred during user_save().
+  if (!$account) {
+    drupal_set_message(t("Error saving user account."), 'error');
+    $form_state['redirect'] = '';
+    return;
+  }
+  $form_state['user'] = $account;
+  $form_state['values']['uid'] = $account->uid;
+
+  watchdog('user', 'New user: %name (%email).', array('%name' => $form_state['values']['name'], '%email' => $form_state['values']['mail']), WATCHDOG_NOTICE, l(t('edit'), 'user/' . $account->uid . '/edit'));
+  
+  // Add plain text password into user account to generate mail tokens.
+  $account->password = $pass;
+ 
+  
+  $message = t('A validation e-mail has been sent to your e-mail address. In order to gain full access to the site, you will need to follow the instructions in that message.');
+  $mailkey = 'register_no_approval_required';
+  _user_mail_notify($mailkey, $account);
+  drupal_set_message($message);
+  $form_state['redirect'] = '';
+  
+}
+function fteuser_menu_alter(&$items) {
+  //$items['user/reset/%/%/%']['page callback'] = '';
+}
+
