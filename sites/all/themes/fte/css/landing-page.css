@@ -219,6 +219,9 @@ body{
 	background:#fff;
 	width:31%;
 }
+.menu-learn li li a.has-link{
+	color:red;
+}
 .menu-learn-fly-layer{
 	padding:20px;
 	height:158px;

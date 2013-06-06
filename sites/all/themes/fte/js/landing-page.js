@@ -108,7 +108,7 @@ $(document).ready(function(){
 	});
 	
 	$('.menu-learn li').bind('click', function(){
-		$(this).find('ul').toggle();
+		$(this).find('ul').toggle(200);
 	})
 	
 });
