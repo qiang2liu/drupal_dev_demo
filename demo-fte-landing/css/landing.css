@@ -172,8 +172,8 @@ span.close:hover{
 }
 .page{
 	position:absolute;
-	width:980px;
-	height:720px;
+	width:1000px;
+	height:550px;
 	z-index: 999;
 	right:0;
 	background:#eee;
@@ -262,8 +262,8 @@ span.close:hover{
 	
 }
 .landing-iframe,.iframe-cover{
-	width:978px;
-	height:676px;
+	width:998px;
+	height:506px;
 }
 .iframe-cover{
 	position:absolute;
