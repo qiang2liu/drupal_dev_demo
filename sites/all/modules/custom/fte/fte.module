@@ -114,9 +114,3 @@ function fte_theme($exusting, $type) {
   }
   return array();
 }
-/**
- * hook_user 
- */
-function fte_user_login(&$edit,$account) {
-  $edit['redirect'] = 'node/1';
-}
