@@ -370,7 +370,9 @@
 					orginalLeft : 0,
 					orginalTop  : 0,
 					orginalWidth: 0,
-					orginalHeight:0
+					orginalHeight:0,
+					initialWidth : '1000',
+					initialHeight: '550'
 					 
 				}
 				var options = $.extend(defaults,options);
@@ -435,7 +437,7 @@
 						//zoom lt
 						if(options.zoomFlag){
 							$('.iframe-cover').show();
-							if(currentWidth > 980 && options.currentX > 0){
+							if(currentWidth > options.initialWidth && options.currentX > 0){
 								self.css({
 									'width' : currentWidth + 'px',
 									'left'  : currentLeft + 'px'
@@ -443,7 +445,7 @@
 								//$('.page-move').css('width', currentWidth -82 + 'px');
 								setIframeWidth(currentWidth);
 							}
-							if(currentHeight > 720 && options.currentY > 0){
+							if(currentHeight > options.initialHeight && options.currentY > 0){
 								self.css({
 									'height' : currentHeight + 'px',
 									'top'  : currentTop + 'px'
@@ -454,7 +456,7 @@
 						//zoom br
 						if(options.zoomFlagBr){
 							$('.iframe-cover').show();
-							if(currentBrwidth > 980 && options.currentX < $(window).width()){
+							if(currentBrwidth > options.initialWidth && options.currentX < $(window).width()){
 								self.css({
 									'width' : currentBrwidth + 'px'
 									
@@ -462,7 +464,7 @@
 								//$('.page-move').css('width', currentBrwidth -82 + 'px');
 								setIframeWidth(currentBrwidth);
 							}
-							if(currentBrHeight > 720 && options.currentY < $(window).width()){
+							if(currentBrHeight > options.initialHeight && options.currentY < $(window).width()){
 								self.css({
 									'height' : currentBrHeight -10 + 'px'
 								});
@@ -565,13 +567,13 @@ $(window).load(function(){
 	
 	//cube and content
 	function makePageDefault(){
-		$('.page').css('top', ($(window).height() - 720)/2 + $(window).scrollTop()  + 'px');
-		$('.page').css('left', ($(window).width() - 980)/2   + 'px');
-		$('.page').css('width', '980px');
-		$('.page').css('height','720px');
+		$('.page').css('top', ($(window).height() - 550)/2 + $(window).scrollTop()  + 'px');
+		$('.page').css('left', ($(window).width() - 1000)/2   + 'px');
+		$('.page').css('width', '1000px');
+		$('.page').css('height','550px');
 		$('.landing-iframe').css({
-			'width': '978px',
-			'height' : '676px'
+			'width': '998px',
+			'height' : '506px'
 		})
 		$('.page').removeClass('max');
 		$('.page-maximize').attr('title','maximize');
@@ -617,14 +619,14 @@ $(window).load(function(){
 			$('.page-maximize').attr('title','minimize');
 	 }else{
 	 	$('.landing-iframe').animate({
-	 		width : '978px',
-	 		height : '676px'
+	 		width : '998px',
+	 		height : '506px'
 	 	},400);
 	 	$('.page').animate({
-			top: ($(window).height() - 720)/2 + $(window).scrollTop()  + 'px',
-			left :($(window).width() - 980)/2   + 'px',
-			width : '980px',
-			height : '720px'
+			top: ($(window).height() - 550)/2 + $(window).scrollTop()  + 'px',
+			left :($(window).width() - 1000)/2   + 'px',
+			width : '1000px',
+			height : '550px'
 		},400,
 		function(){
 			$('.page').removeClass('max');
