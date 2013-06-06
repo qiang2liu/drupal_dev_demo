@@ -188,3 +188,45 @@ body{
 	/* Opera 11.10+ */ 
 	background: -o-linear-gradient(top, #00baff, #024862);
 }
+/************************************* mockup *****************************************/
+.menu-learn li a{
+	border-bottom:1px dashed #ccc;
+	background:url(../images/mock_arrow_green.png) 0.5em center no-repeat;
+	display:block;
+	padding: .2em 0  0.2em 1.5em;
+	color:#000;
+	text-decoration:none;
+	margin-bottom:0.2em;
+}
+.menu-learn li.active a{
+	background:url(../images/mock_arrow_green_active.png) 0.5em center no-repeat;
+}
+.menu-learn li li a,
+.menu-learn li.active li a{
+	width:30%;
+	border:1px solid #222;
+	background: url(../images/mock_arrow_green.png) 0.5em center no-repeat #d3fdbb;
+}
+.menu-learn li ul{
+	display:none;
+}
+.menu-learn li.active ul{
+	display:block;
+}
+.menu-learn li li a:hover,
+.menu-learn li li a.active{
+	border-right:0;
+	background:#fff;
+	width:31%;
+}
+.menu-learn-fly-layer{
+	padding:20px;
+	height:158px;
+	border:1px solid #222;
+	border-left:0;
+	background:url(../images/mock_fly_bg.png) left -1px no-repeat #fff;
+	position: absolute;
+	display: none;
+}
+#content{
+}

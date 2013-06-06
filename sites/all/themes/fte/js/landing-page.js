@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	parallax.add($("#home"))
+	/*parallax.add($("#home"))
 			.add($("#qa"))
 			.add($("#photo"))
 			.add($("#video"))
@@ -82,5 +82,33 @@ $(document).ready(function(){
 	})
 	$('.pop-close').bind('click', function(){
 		$('.pop-up').stop().fadeOut(500);
+	})*/
+	
+	//mockup
+	$(window).bind('mouseover', function(event){
+		if($(event.target).hasClass('menu-learn-child')){
+			var t = $(event.target).offset().top - $('#content').offset().top;
+			var l = $(event.target).offset().left- $('#content').offset().left;
+			var h = $(event.target).width();
+			$('.menu-learn li li a').removeClass('active');
+			$(event.target).addClass('active');
+			$('.menu-learn-fly-layer').css({
+				top  : t + 'px',
+				left : l + h +21 + 'px'
+			});
+			$('.menu-learn-fly-layer').show();
+		}
+		if($(event.target).hasClass('menu-learn-fly-layer')){
+			$('.menu-learn-fly-layer').show();
+		}
+		if(!$(event.target).hasClass('menu-learn-fly-layer') && !$(event.target).hasClass('menu-learn-child')){
+			$('.menu-learn-fly-layer').hide();
+			$('.menu-learn li li a').removeClass('active');
+		}
+	});
+	
+	$('.menu-learn li').bind('click', function(){
+		$(this).find('ul').toggle();
 	})
+	
 });
