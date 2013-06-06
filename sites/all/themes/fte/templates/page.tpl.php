@@ -183,6 +183,39 @@
       </span>  
       
       
+     
+        <?php
+          global $user;
+          
+          if (user_is_logged_in()) {
+          
+          if (!property_exists($user, 'field_image')) {
+            $user = user_load($user->uid);
+            
+            print "<span>Hello <a href='/user'>" . $user->name . "</a>&nbsp;&nbsp;</span>";
+            $the_field_image = isset($user->field_image) ? $user->field_image : false;
+          
+            if ($the_field_image) {
+              if (!empty($the_field_image['und'][0]['uri'])) {
+                print "<span><a href='/user'>";
+                print theme_image(
+                        array(
+                               'width'=>100,
+                               'height'=>100,
+                            'path'=>$the_field_image['und'][0]['uri'],
+                            'attributes' => array('class' => 'thumb'),
+                            
+                            )
+                          
+                      );
+                print "</a></span>";
+                }
+            }
+          }
+          } 
+        ?>
+      
+      
     </div>
   
   <?php if ($messages): ?>
@@ -199,7 +232,7 @@
 
   <div id="main-wrapper" class="clearfix"><div id="main" class="clearfix">
 
-    <?php if ($breadcrumb): ?>
+    <?php if ($breadcrumb && 1 == 0): ?>
       <div id="breadcrumb"><?php print $breadcrumb; ?></div>
     <?php endif; ?>
 

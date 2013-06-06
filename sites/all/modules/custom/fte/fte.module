@@ -28,11 +28,17 @@ function fte_menu() {
  */
 function fteuserlogon() {
   global $user;
+  $ret = '0';
   if ($user->uid > 0) {
-    echo "1";
+    $ret = "1";
   } else {
-    echo "0";
+    $ret = "0";
   }
+  if (isset($_SESSION['userreset']) ) {
+    $ret = "2";
+    unset($_SESSION['userreset']);
+  }
+  echo $ret;
   exit(0);
 }
 function show_landingpage() {
