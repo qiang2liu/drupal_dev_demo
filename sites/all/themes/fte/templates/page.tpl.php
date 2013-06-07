@@ -164,31 +164,38 @@
 
   
     </div>
+    
+    <?php
+    
+    global $base_url;
+   
+    ?>
+    
     <div class="mock-nav">
       <span class="mock-menu-logo"></span>
       <span class="mock-menu-learn">
-        <a href ='/learn'> learn</a>
+        <a href ='<?php print $base_url;?>/learn'> learn</a>
       </span>  
       
       
       <span class="mock-menu-workspace">
-        <a href ='/node/15'> workspace</a>
+        <a href ='<?php print $base_url;?>/node/15'> workspace</a>
       </span>  
       
       <span class="mock-menu-challenges">
-        <a href ='/node/7'> Challenges</a>
+        <a href ='<?php print $base_url;?>/node/7'> Challenges</a>
       </span>  
       
       <span class="mock-menu-log">
         <?php
           if ($logged_in) {
          ?>
-             <a href ='/user/logout'> Logout</a>
+             <a href ='<?php print $base_url;?>/user/logout'> Logout</a>
         <?php
           }
            else  {
         ?>
-        <a href ='/user/login'> Login</a>
+        <a href ='<?php print $base_url;?>/user/login'> Login</a>
         <?php } ?>
       </span>  
       <?php
@@ -203,7 +210,7 @@
           
             if ($the_field_image) {
               if (!empty($the_field_image['und'][0]['uri'])) {
-                print "<span class='mock-portrait-span'><a href='/user'>";
+                print "<span class='mock-portrait-span'><a href='" . $base_url . "/user'>";
                 print theme_image(
                         array(
                                'width'=>42,
@@ -219,8 +226,8 @@
             }else{
             	?>
             		<span class='mock-portrait-span'>
-            			<a href="/user">
-            			  <img src="/images/mock_portrait.png" class="mock-portrait" />
+            			<a href="<?php print $base_url;?>/user">
+            			  <img src="<?php print $base_url;?>/images/mock_portrait.png" class="mock-portrait" />
             			</a>
             		</span>
             	<?php
@@ -233,7 +240,7 @@
          
           
           if (user_is_logged_in()) {
-            print "<span class='mock-menu-userinfo'>Hello<br/> <a href='/user'>" . $user->name . "</a>&nbsp;&nbsp;</span>";
+            print "<span class='mock-menu-userinfo'>Hello<br/> <a href='".$base_url."/user'>" . $user->name . "</a>&nbsp;&nbsp;</span>";
 		  }
 	   ?>
       
