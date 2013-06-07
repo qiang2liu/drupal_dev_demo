@@ -207,15 +207,16 @@
             $user = user_load($user->uid);
            
             $the_field_image = isset($user->field_image) ? $user->field_image : false;
-          
+            $the_field_image = field_get_items('user',$user,'field_image');
+            
             if ($the_field_image) {
-              if (!empty($the_field_image['und'][0]['uri'])) {
+              if (!empty($the_field_image[0]['uri'])) {
                 print "<span class='mock-portrait-span'><a href='" . $base_url . "/user'>";
                 print theme_image(
                         array(
                                'width'=>42,
                                'height'=>42,
-                            'path'=>$the_field_image['und'][0]['uri'],
+                            'path'=>$the_field_image[0]['uri'],
                             'attributes' => array('class' => 'thumb'),
                             
                             )
