@@ -4,7 +4,8 @@ description = A flexible, recolorable theme with many regions.
 package = Core
 version = VERSION
 core = 7.x
-;stylesheets[all][] = css/landing-page.css
+
+stylesheets[all][] = css/landing-page.css
 stylesheets[all][] = css/layout.css
 stylesheets[all][] = css/style.css
 stylesheets[all][] = css/colors.css
