@@ -164,21 +164,22 @@
 
   
     </div>
-    <div>
-      <span>
+    <div class="mock-nav">
+      <span class="mock-menu-logo"></span>
+      <span class="mock-menu-learn">
         <a href ='/learn'> learn</a>
       </span>  
       
       
-      <span>
+      <span class="mock-menu-workspace">
         <a href ='/node/15'> workspace</a>
       </span>  
       
-      <span>
+      <span class="mock-menu-challenges">
         <a href ='/node/7'> Challenges</a>
       </span>  
       
-      <span>
+      <span class="mock-menu-log">
         <?php
           if ($logged_in) {
          ?>
@@ -190,27 +191,23 @@
         <a href ='/user/login'> Login</a>
         <?php } ?>
       </span>  
-      
-      
-     
-        <?php
+      <?php
           global $user;
           
           if (user_is_logged_in()) {
           
           if (!property_exists($user, 'field_image')) {
             $user = user_load($user->uid);
-            
-            print "<span>Hello <a href='/user'>" . $user->name . "</a>&nbsp;&nbsp;</span>";
+           
             $the_field_image = isset($user->field_image) ? $user->field_image : false;
           
             if ($the_field_image) {
               if (!empty($the_field_image['und'][0]['uri'])) {
-                print "<span><a href='/user'>";
+                print "<span class='mock-portrait-span'><a href='/user'>";
                 print theme_image(
                         array(
-                               'width'=>100,
-                               'height'=>100,
+                               'width'=>42,
+                               'height'=>42,
                             'path'=>$the_field_image['und'][0]['uri'],
                             'attributes' => array('class' => 'thumb'),
                             
@@ -219,10 +216,29 @@
                       );
                 print "</a></span>";
                 }
+            }else{
+            	?>
+            		<span class='mock-portrait-span'>
+            			<a href="/user">
+            			  <img src="http://localhost/FTE2/drupal_dev_demo/images/mock_portrait.png" class="mock-portrait" />
+            			</a>
+            		</span>
+            	<?php
             }
           }
           } 
         ?>
+      
+       <?php
+         
+          
+          if (user_is_logged_in()) {
+            print "<span class='mock-menu-userinfo'>Hello<br/> <a href='/user'>" . $user->name . "</a>&nbsp;&nbsp;</span>";
+		  }
+	   ?>
+      
+     
+        
       
       
     </div>

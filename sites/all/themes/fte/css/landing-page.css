@@ -43,5 +43,52 @@
 	position: absolute;
 	display: none;
 }
-#content{
+.mock-nav{
+	width:960px;
+	height:42px;
+	margin:0 auto;
+	background:#b7007f;
+}
+.mock-nav span{
+	display:inline-block;
+	height:100%;
+	float:left;
+	color:#fff;
+	line-height:1.5em;
+}
+.mock-nav span a{
+	color:#fff;
+}
+.mock-menu-logo{
+	width:42px;
+	background: url(../images/mock_logo.png) no-repeat;
+}
+.mock-menu-learn,
+.mock-menu-workspace,
+.mock-menu-challenges,
+.mock-menu-log{
+	font-size:28px;
+	text-align:center;
+	padding:0 0.5em;
+}
+.mock-menu-learn{
+	background:#02c500;
+}
+.mock-menu-workspace{
+	background:#670099;
+}
+.mock-menu-challenges{
+	background:#cc0001;
+}
+
+.mock-nav span.mock-menu-userinfo{
+	float:right;
+}
+
+.mock-nav span.mock-portrait-span{
+	float:right;
+}
+.mock-portrait{
+	
+	margin-left:.2em;
 }
