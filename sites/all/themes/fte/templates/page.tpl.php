@@ -220,7 +220,7 @@
             	?>
             		<span class='mock-portrait-span'>
             			<a href="/user">
-            			  <img src="http://localhost/FTE2/drupal_dev_demo/images/mock_portrait.png" class="mock-portrait" />
+            			  <img src="/images/mock_portrait.png" class="mock-portrait" />
             			</a>
             		</span>
             	<?php
