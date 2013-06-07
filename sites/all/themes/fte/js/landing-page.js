@@ -109,6 +109,7 @@ $(document).ready(function(){
 	
 	$('.menu-learn>li a').bind('click', function(){
 		$(this).siblings('ul').toggle(200);
+		$(this).parent().toggleClass('active');
 	})
 	
 });
