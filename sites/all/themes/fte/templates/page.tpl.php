@@ -179,7 +179,16 @@
       </span>  
       
       <span>
+        <?php
+          if ($logged_in) {
+         ?>
+             <a href ='/user/logout'> Logout</a>
+        <?php
+          }
+           else  {
+        ?>
         <a href ='/user/login'> Login</a>
+        <?php } ?>
       </span>  
       
       
