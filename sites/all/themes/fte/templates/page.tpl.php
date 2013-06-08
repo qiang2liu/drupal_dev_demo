@@ -172,7 +172,8 @@
     ?>
     
     <div class="mock-nav">
-      <span class="mock-menu-logo"></span>
+     <a href ='<?php print $base_url;?>'> <span class="mock-menu-logo"></span>
+        </a>
       <span class="mock-menu-learn">
         <a href ='<?php print $base_url;?>/learn'> learn</a>
       </span>  
@@ -241,7 +242,7 @@
          
           
           if (user_is_logged_in()) {
-            print "<span class='mock-menu-userinfo'>Hello<br/> <a href='".$base_url."/user'>" . $user->name . "</a>&nbsp;&nbsp;</span>";
+            print "<span class='mock-menu-userinfo'>lastname / firstname<br/> <a href='".$base_url."/user'>" . 'view profile' . "</a>&nbsp;&nbsp;</span>";
 		  }
 	   ?>
       
