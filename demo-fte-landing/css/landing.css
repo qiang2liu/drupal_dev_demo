@@ -176,7 +176,7 @@ span.close:hover{
 	position:fixed;
 	top:1em;
 	left:1em;
-	z-index: 999;
+	z-index: 997;
 	cursor: pointer;
 	background:url(../images/ico_mute.png) no-repeat;
 }

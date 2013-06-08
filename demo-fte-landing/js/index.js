@@ -606,6 +606,8 @@ $(window).load(function(){
 		makePageDefault();
 		$('.page').toggle(400);
 		$('.cover').toggle();
+		$('.ribbon.active').removeClass('active').find('audio').get(0).pause();
+		//$('.sound-controller').toggle();
 	})
 	$(window).scroll(function(){
 		$('.page').css('top', ($(window).height() - $('.page').height())/2 + $(window).scrollTop()  + 'px');
@@ -666,5 +668,4 @@ $(window).load(function(){
 	
 	//ajax for user/anonymity
 	$.fn.setIfranmeUrl();
-	$.fn.toggleMusic();
 });
