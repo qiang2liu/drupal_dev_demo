@@ -127,6 +127,7 @@
 						if(!$(this).hasClass('active')){
 							$('.ribbon.active').removeClass('active');
 							$(this).addClass('active');
+							
 							if(clicked){
 								clearInterval(frameAnimation);
 								frameAnimation = setInterval(function(){frameMove(options.distance,options.direction)},1);
@@ -134,8 +135,27 @@
 						}
 					});
 					
-					
-					
+					//music
+					function playMusic(){
+						$('.ribbon').each(function(){
+							$(this).find('audio').get(0).pause();
+						});
+						$(this).find('audio').get(0).play();
+					}
+					self.bind('mouseover.playMusic', playMusic);
+					$('.sound-controller').bind('click', function(){
+						if(!$(this).hasClass('active')){
+							$(this).addClass('active');
+							$('.ribbon').each(function(){
+								$(this).find('audio').get(0).pause();
+							});
+							$('.ribbon').unbind('mouseover.playMusic');
+						}else{
+							$(this).removeClass('active');
+							$('.ribbon.active').find('audio').get(0).play();
+							$('.ribbon').bind('mouseover.playMusic', playMusic);
+						}
+					});
 					
 				});
 			},
@@ -505,7 +525,7 @@ $(window).load(function(){
 	$('.ribbon').setRealWidth();
 	
 	//make ribbon
-	$('.ribbon').eq(0).addClass('active');
+	$('.ribbon').eq(0).addClass('active').find('audio').get(0).play();
 	//$('.ribbon').eq(1).addClass('active');
 	//$('.ribbon').eq(2).addClass('active');
 	$('.ribbon').eq(0).ribbon({
@@ -646,4 +666,5 @@ $(window).load(function(){
 	
 	//ajax for user/anonymity
 	$.fn.setIfranmeUrl();
+	$.fn.toggleMusic();
 });
