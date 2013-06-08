@@ -204,11 +204,15 @@
           
           if (user_is_logged_in()) {
           
-          if (!property_exists($user, 'field_image')) {
+          if (!property_exists($user, 'field_image') || !property_exists($user, 'field_realname')  ) {
             $user = user_load($user->uid);
            
-            $the_field_image = isset($user->field_image) ? $user->field_image : false;
+           // $the_field_image = isset($user->field_image) ? $user->field_image : false;
             $the_field_image = field_get_items('user',$user,'field_image');
+            
+           
+            $the_user_realname = field_get_items('user',$user,'field_realname');
+           
             
             if ($the_field_image) {
               if (!empty($the_field_image[0]['uri'])) {
@@ -242,7 +246,15 @@
          
           
           if (user_is_logged_in()) {
-            print "<span class='mock-menu-userinfo'>lastname / firstname<br/> <a href='".$base_url."/user'>" . 'view profile' . "</a>&nbsp;&nbsp;</span>";
+            
+            if  (!empty($the_user_realname)) {
+              $the_name = $the_user_realname[0]['safe_value'];
+            } 
+            else {
+              $the_name = $user->name;
+            }
+            
+            print "<span class='mock-menu-userinfo'> " . $the_name . " <br/> <a href='".$base_url."/user'>" . 'view profile' . "</a>&nbsp;&nbsp;</span>";
 		  }
 	   ?>
       
