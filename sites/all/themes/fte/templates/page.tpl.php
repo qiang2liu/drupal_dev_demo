@@ -175,12 +175,12 @@
      <a href ='<?php print $base_url;?>'> <span class="mock-menu-logo"></span>
         </a>
       <span class="mock-menu-learn">
-        <a href ='<?php print $base_url;?>/learn'> learn</a>
+        <a href ='<?php print $base_url;?>/learn'> Learn</a>
       </span>  
       
       
       <span class="mock-menu-workspace">
-        <a href ='<?php print $base_url;?>/node/15'> workspace</a>
+        <a href ='<?php print $base_url;?>/node/15'> Studio </a>
       </span>  
       
       <span class="mock-menu-challenges">

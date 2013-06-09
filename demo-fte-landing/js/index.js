@@ -603,10 +603,24 @@ $(window).load(function(){
 	makePageDefault();
 	$('.main-nav').mainTabs();
 	$('.cube').bind('click', function(){
-		makePageDefault();
-		$('.page').toggle(400);
-		$('.cover').toggle();
-		$('.ribbon.active').removeClass('active').find('audio').get(0).pause();
+		$.ajax({
+					url      : 'http://54.251.157.200/fteuserlogon',
+					dataType : 'html',
+					type     : 'GET',
+					success  :function(data){
+						alert(data);
+						if(data === '0'){
+							$('.landing-iframe').attr('src','http://54.251.157.200/user')
+						}
+						makePageDefault();
+						$('.page').toggle(400);
+						$('.cover').toggle();
+						$('.ribbon.active').removeClass('active').find('audio').get(0).pause();
+					}
+				});
+		
+		
+		
 		//$('.sound-controller').toggle();
 	})
 	$(window).scroll(function(){
@@ -667,5 +681,5 @@ $(window).load(function(){
 	$('.page').pageDrag();
 	
 	//ajax for user/anonymity
-	$.fn.setIfranmeUrl();
+	//$.fn.setIfranmeUrl();
 });

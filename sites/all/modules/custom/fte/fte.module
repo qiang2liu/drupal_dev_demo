@@ -29,6 +29,7 @@ function fte_menu() {
 function fteuserlogon() {
   global $user;
   $ret = '0';
+  print_r($user);
   if ($user->uid > 0) {
     $ret = "1";
   } else {
