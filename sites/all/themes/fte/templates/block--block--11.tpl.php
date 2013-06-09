@@ -1,4 +1,8 @@
-
+<?php
+    
+    global $base_url;
+   
+    ?>
 <ul class="level-first-has-child">
 	<li>
         <a href="#x">Actions</a>
@@ -77,7 +81,7 @@
 </ul>
 <ul class="level-first-has-not-child">
 	<li>
-    	<a href="node/add/project">Add a Project</a>
+    	<a href="<?php print $base_url;?>/node/add/project">Add a Project</a>
     </li>
 </ul>
 <ul class="level-first-has-not-child">
