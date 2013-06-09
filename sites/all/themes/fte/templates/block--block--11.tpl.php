@@ -95,6 +95,11 @@
 </ul>
 <ul class="level-first-has-not-child">
 	<li>
+    	<a href="node/add/project">Add a Project</a>
+    </li>
+</ul>
+<ul class="level-first-has-not-child">
+	<li>
     	<a href="#x">Mural.ly</a>
     </li>
 </ul>

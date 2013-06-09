@@ -88,7 +88,7 @@
 <div id="page-wrapper"><div id="page">
 
     
-    <div style="display:none">
+   <div style="display:none"> 
     
   <div id="header" class="<?php print $secondary_menu ? 'with-secondary-menu': 'without-secondary-menu'; ?>"><div class="section clearfix">
 
@@ -163,7 +163,7 @@
   </div></div> <!-- /.section, /#header -->
 
   
-    </div>
+   </div> 
     
     <?php
     
