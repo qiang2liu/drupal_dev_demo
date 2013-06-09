@@ -11,14 +11,18 @@
                 <a href="#x">Learning Forward</a>
             </li>
             <li>
-                <a href="#x">Module2</a>
+                <a href="#x">Innovation</a>
             </li>
             <li>
-                <a href="#x">Module3</a>
+                <a href="#x">Brainstorming</a>
             </li>
             <li>
-                <a href="#x">Module4</a>
+                <a href="#x">Collaboration</a>
             </li>
+             <li>
+                <a href="#x">Team Building</a>
+            </li>
+            
         </ul>
     </li>
 </ul>
