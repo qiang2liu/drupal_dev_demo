@@ -137,13 +137,13 @@
     	<a href="#x">Tour Guides</a>
         <ul>
             <li>
-                <a href="#x"><img src="sites/all/themes/fte/images/mock_ico_video_01.png" /></a>
+                <a href="node/38"><img src="sites/all/themes/fte/images/mock_ico_video_01.png" /></a>
             </li>
             <li>
-                <a href="#x"><img src="sites/all/themes/fte/images/mock_ico_video_02.png" /></a>
+                <a href="node/39"><img src="sites/all/themes/fte/images/mock_ico_video_02.png" /></a>
             </li>
             <li>
-               <a href="#x"><img src="sites/all/themes/fte/images/mock_ico_video_03.png" /></a>
+               <a href="node/40"><img src="sites/all/themes/fte/images/mock_ico_video_03.png" /></a>
             </li>
         </ul>
     </li>
