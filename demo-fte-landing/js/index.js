@@ -608,7 +608,6 @@ $(window).load(function(){
 					dataType : 'html',
 					type     : 'GET',
 					success  :function(data){
-						alert(data);
 						if(data === '0'){
 							$('.landing-iframe').attr('src','http://54.251.157.200/user')
 						}

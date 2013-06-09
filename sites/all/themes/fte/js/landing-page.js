@@ -110,6 +110,10 @@ $(document).ready(function(){
 	$('.menu-learn>li a').bind('click', function(){
 		$(this).siblings('ul').toggle(200);
 		$(this).parent().toggleClass('active');
-	})
+	});
 	
+	$('.level-first-has-child > li > a, .level-second-has-child > li > a').bind('click', function(){
+		$(this).toggleClass('active');
+		$(this).siblings('ul').toggle(400);
+	})
 });
