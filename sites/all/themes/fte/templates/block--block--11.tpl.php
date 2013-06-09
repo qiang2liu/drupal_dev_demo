@@ -1,22 +1,4 @@
-<ul class="level-first-has-child">
-	<li>
-    	<a href="#x" class="active">Modules</a>
-        <ul style="display:block;">
-            <li>
-                <a href="#x">Learning Forward</a>
-            </li>
-            <li>
-                <a href="#x">Module2</a>
-            </li>
-            <li>
-                <a href="#x">Module3</a>
-            </li>
-            <li>
-                <a href="#x">Module4</a>
-            </li>
-        </ul>
-    </li>
-</ul>
+
 <ul class="level-first-has-child">
 	<li>
         <a href="#x">Actions</a>
