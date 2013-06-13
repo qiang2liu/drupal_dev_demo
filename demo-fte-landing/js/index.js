@@ -521,6 +521,7 @@
 		});
 })(jQuery);
 $(window).load(function(){
+	
 	//get realwidth
 	$('.ribbon').setRealWidth();
 	
@@ -555,6 +556,7 @@ $(window).load(function(){
 	//popup close function
 	$('span.close').bind('click', function(){
 		$('.pop-up').fadeOut(500);
+		
 	})
 	
 	//add overlay
@@ -601,8 +603,27 @@ $(window).load(function(){
 		$('.iframe-cover').hide();
 	}
 	makePageDefault();
+	function videoStop(){
+		if(typeof(fteFrame.window.ytplayer)!= undefined){
+			fteFrame.window.ytplayer.stopVideo();
+			//$('.landing-iframe').contents().find('#myytplayer').hide();
+			clearInterval(videoTimer);
+		}
+	}
+	var videoTimer = setInterval(videoStop, 500);
+	
+	
 	$('.main-nav').mainTabs();
 	$('.cube').bind('click', function(){
+		
+		if($('.page').css('display')!='none'){
+			clearInterval(videoTimer);
+			var videoTimer = setInterval(videoStop, 500);
+		}else{
+			//$('.landing-iframe').contents().find('#myytplayer').show();
+		}
+		
+		
 		$.ajax({
 					url      : 'http://54.251.157.200/fteuserlogon',
 					dataType : 'html',
@@ -615,6 +636,7 @@ $(window).load(function(){
 						$('.page').toggle(400);
 						$('.cover').toggle();
 						$('.ribbon.active').removeClass('active').find('audio').get(0).pause();
+						$('.landing-iframe').contents().find('#myytplayer').show();
 					}
 				});
 		
@@ -627,8 +649,11 @@ $(window).load(function(){
 	});
 	
 	$('.page-minimize').bind('click', function(){
-		$('.page,.cover').hide();
+		$('.page,.cover').hide(400);
 		makePageDefault();
+		clearInterval(videoTimer);
+		var videoTimer = setInterval(videoStop, 500);
+		//$('.landing-iframe').contents().find('#myytplayer').hide();
 		
 	});
 	$('.cover').css({

@@ -5,7 +5,10 @@
 
 
  function ftevideostop() {
+ 	alert('asdasdasd');
+ 	alert(typeof(ytplayer));
    if (typeof(ytplayer) != 'undefined') {
+   	
      ytplayer.stopVideo();
    }
    
