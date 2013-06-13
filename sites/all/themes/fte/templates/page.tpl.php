@@ -296,7 +296,7 @@
   <div id="main-wrapper" class="clearfix"><div id="main" class="clearfix">
 
     <?php if ($breadcrumb && 1 == 0): ?>
-      <div id="breadcrumb"><?php print $breadcrumb; ?></div>
+      <div id="breadcrumb"><?php  print $breadcrumb; ?></div>
     <?php endif; ?>
 
     <?php if ($page['sidebar_first']): ?>
@@ -311,7 +311,7 @@
       <?php print render($title_prefix); ?>
       <?php if ($title): ?>
         <h1 class="title" id="page-title">
-          <?php print $title; ?>
+          <?php //print $title; ?>
         </h1>
       <?php endif; ?>
       <?php print render($title_suffix); ?>
