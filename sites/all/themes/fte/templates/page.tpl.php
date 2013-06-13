@@ -174,6 +174,14 @@
     <div class="mock-nav">
      <a href ='<?php print $base_url;?>'> <span class="mock-menu-logo"></span>
         </a>
+      
+      
+     <span class="mock-menu-challenges">
+        <a href ='<?php print $base_url;?>/node/7'> Challenges</a>
+      </span>   
+      
+      
+      
       <span class="mock-menu-learn">
         <a href ='<?php print $base_url;?>/learn'> Learn</a>
       </span>  
@@ -183,9 +191,18 @@
         <a href ='<?php print $base_url;?>/node/15'> Studio </a>
       </span>  
       
-      <span class="mock-menu-challenges">
-        <a href ='<?php print $base_url;?>/node/7'> Challenges</a>
+      
+       <span class="mock-menu-workspace">
+        <a href ='<?php print $base_url;?>/node/41'> Gallery </a>
       </span>  
+      
+      
+       <span class="mock-menu-workspace">
+        <a href ='<?php print $base_url;?>/node/42'> Competitions </a>
+      </span>  
+      
+      
+      
       
       <span class="mock-menu-log">
         <?php

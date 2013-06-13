@@ -4,3 +4,4 @@ description = the module for FTE project.
 core = 7.x
 package = FTE
 scripts[] = js/swfobject.js
+scripts[] = js/fteutility.js
