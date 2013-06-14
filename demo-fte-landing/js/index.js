@@ -506,7 +506,7 @@
 			},
 			setIfranmeUrl : function(){
 				$.ajax({
-					url      : 'http://localhost/FTE2/drupal_dev_demo/fteuserlogon',
+					url      : 'http://54.251.157.200/fteuserlogon',
 					dataType : 'text',
 					type     : 'GET',
 					success  :function(data){
@@ -638,7 +638,7 @@ $(window).load(function(){
 		
 		
 		$.ajax({
-					url      : 'http://localhost/FTE2/drupal_dev_demo/fteuserlogon',
+					url      : 'http://54.251.157.200/fteuserlogon',
 					dataType : 'html',
 					type     : 'GET',
 					success  :function(data){
