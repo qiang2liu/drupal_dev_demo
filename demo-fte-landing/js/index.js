@@ -506,7 +506,7 @@
 			},
 			setIfranmeUrl : function(){
 				$.ajax({
-					url      : 'http://54.251.157.200/fteuserlogon',
+					url      : 'http://localhost/FTE2/drupal_dev_demo/fteuserlogon',
 					dataType : 'text',
 					type     : 'GET',
 					success  :function(data){
@@ -541,7 +541,14 @@ $(window).load(function(){
 		direction : 'left',
 		distance  : 1
 	});
-	
+	$('.ribbon').eq(3).ribbon({
+		direction : 'right',
+		distance  : 1
+	});
+	$('.ribbon').eq(4).ribbon({
+		direction : 'left',
+		distance  : 1
+	});
 	//add hot spot
 	$('.ribbon').eq(0).hotSpot({
 		url:'hotspot.asp'
@@ -550,6 +557,12 @@ $(window).load(function(){
 		url:'hotspot1.asp'
 	});
 	$('.ribbon').eq(2).hotSpot({
+		url:'hotspot2.asp'
+	});
+	$('.ribbon').eq(3).hotSpot({
+		url:'hotspot1.asp'
+	});
+	$('.ribbon').eq(4).hotSpot({
 		url:'hotspot2.asp'
 	});
 	
@@ -625,7 +638,7 @@ $(window).load(function(){
 		
 		
 		$.ajax({
-					url      : 'http://54.251.157.200/fteuserlogon',
+					url      : 'http://localhost/FTE2/drupal_dev_demo/fteuserlogon',
 					dataType : 'html',
 					type     : 'GET',
 					success  :function(data){
