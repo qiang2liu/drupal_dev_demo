@@ -10,7 +10,7 @@ global $base_path;
 
 
 
-<div style="width:80px">
+<div style="width:180px">
   
  
   

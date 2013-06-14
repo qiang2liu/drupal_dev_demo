@@ -71,7 +71,15 @@ foreach ($data->stages as $row) {
 <div class = "fte_up_half_area"> 
   
 <!--  stage content -->
-<div  class ="stage_content" style="width: 600px;float:left; border:1px solid green">
+<?php
+if (!empty($data->stagedata->yid)) {
+  $style_string = "width: 500px;float:left; ";
+} else {
+  $style_string = "width: 500px;float:left; border:1px solid green";
+}
+?>
+
+<div  class ="stage_content" style="<?php print $style_string;?>">
 
   <div class="stage_breadcrumb"> Leaning forward > Stage <?php print $data->stagedata->sid;?></div>
 <p/>
@@ -167,7 +175,7 @@ function  setup_video_status_capture(ytplayer) {
      
       swfobject.embedSWF("http://www.youtube.com/v/"+Drupal.settings.fte_learn_stages_yid
         +"?enablejsapi=1&playerapiid=ytplayer&version=3&modestbranding=1",
-        "ytapiplayer", "580", "326", "8", null, null, params, atts);
+        "ytapiplayer", "480", "269", "8", null, null, params, atts);
   
     
   

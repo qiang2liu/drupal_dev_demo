@@ -54,7 +54,7 @@ function fte_modulestage_view($mid, $sid) {
     $v1->play = 0;
     $v1->time = 0;
     $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_1',array('data' => 1));
-    $v1->content_right = theme('fte_learn_module_stage_right',array('data' => 1));
+    
     $ret->stages[1] = $v1;
 
     $v1 = new stdClass();
@@ -95,16 +95,19 @@ function fte_modulestage_view($mid, $sid) {
     $v1->yid = '';
     $v1->content = '<h2>Murally page.</h2>';
    
-   $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_3',array('data' => 4));
-    $ret->stages[5] = $v1;
+   $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_3',array('data' => 5));
+    
+   $v1->content_right = theme('fte_learn_module_stage_right',array('data' => 5));
+   
+   $ret->stages[5] = $v1;
     
     $v1 = new stdClass();
     $v1->title = 'stage6';
     $v1->sid = 6;
     $v1->yid = '';
     $v1->content = '<h2>Murally page.</h2>';
-    $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_3',array('data' => 4));
-   
+    $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_3',array('data' => 6));
+   $v1->content_right = theme('fte_learn_module_stage_right',array('data' => 6));
     $ret->stages[6] = $v1;
     
     
@@ -150,8 +153,8 @@ function fte_modulestage_view($mid, $sid) {
 
 
 ';
-   $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_4',array('data' => 4));
-   
+   $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_4',array('data' => 7));
+   $v1->content_right = theme('fte_learn_module_stage_right',array('data' => 7));
      $ret->stages[7] = $v1;
     $ret->mid = 1;
     $ret->title = check_plain('module 1');
