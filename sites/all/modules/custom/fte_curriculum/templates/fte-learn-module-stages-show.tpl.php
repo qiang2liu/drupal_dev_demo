@@ -2,10 +2,11 @@
 
 $the_path = drupal_get_path('module', 'fte_curriculum');
 //drupal_add_js($the_path.'/js/fte_learn.js');
+global $base_path;
 ?>
 
 
-
+<!-- green ball    stage nav  -->
 <div
 
   style="background: url(<?php print base_path() . drupal_get_path('module', 'fte_curriculum') ?>/images/greenline.png) center center repeat-x ;
@@ -59,6 +60,21 @@ foreach ($data->stages as $row) {
 
 </div>
 
+
+<!--  end     green ball    stage nav   -->
+
+
+
+<div class =" stage_container">  <!-- stage container -->
+
+
+<div class = "fte_up_half_area"> 
+  
+<!--  stage content -->
+<div  class ="stage_content" style="width: 600px;float:left; border:1px solid green">
+
+  <div class="stage_breadcrumb"> Leaning forward > Stage <?php print $data->stagedata->sid;?></div>
+<p/>
 <?php 
 
  setcookie('fte_learn_current_yid',$data->stagedata->yid,time()+3600*30);
@@ -173,16 +189,9 @@ function  setup_video_status_capture(ytplayer) {
 
 <div>
   <?php print $data->stagedata->content?>
-  <?php
-    if ($data->stagedata->next_sid >= 0) {
-  ?>
-  <br/>
-  <a href =" /learn/<?php print $data->stagedata->next_mid;?>/stage/<?php print $data->stagedata->next_sid;?>"> next stage </a>
-  <?php
-  }
-  ?>
+  
 </div>
-</div>
+
 
 <?php
   }
@@ -200,7 +209,35 @@ function  setup_video_status_capture(ytplayer) {
   </script>
   
   
-  
-  
-  
-  
+</div>
+
+<p/>
+<!-- end stage content -->
+
+
+<div class="fte_stage_right" style=" float:left">
+   <?php
+
+if (!empty($data->stagedata->content_right)) {
+   print $data->stagedata->content_right; 
+}
+?>
+</div>
+
+
+</div> <!--   end of  up_half_area -->
+<!--  bottom part -->
+<div class="fte_down_half_area">
+<?php
+
+if (!empty($data->stagedata->content_bottom)) {
+   print $data->stagedata->content_bottom; 
+}
+?>
+
+
+</div>
+<!--  end bottom part -->
+
+
+</div>  <!-- end of stage_container -->

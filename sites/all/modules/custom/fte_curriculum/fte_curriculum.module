@@ -33,6 +33,31 @@ function fte_curriculum_theme($existing, $type) {
         'variables' => array('data' => NULL),
         'template' => 'templates/fte-learn-module-stages-show',
       ),
+        
+      'fte_learn_module_stage_bottom_style_1' => array(
+        'variables' => array('data' => NULL),
+        'template' => 'templates/fte-stages-style-1',
+      ),  
+        
+      'fte_learn_module_stage_bottom_style_2' => array(
+        'variables' => array('data' => NULL),
+        'template' => 'templates/fte-stages-style-2',
+      ),    
+      'fte_learn_module_stage_bottom_style_3' => array(
+        'variables' => array('data' => NULL),
+        'template' => 'templates/fte-stages-style-3',
+      ), 
+      'fte_learn_module_stage_bottom_style_4' => array(
+        'variables' => array('data' => NULL),
+        'template' => 'templates/fte-stages-style-4',
+      ), 
+        
+        
+      'fte_learn_module_stage_right' => array(
+        'variables' => array('data' => NULL),
+        'template' => 'templates/fte-stages-right',
+      ), 
+        
       
     );
   }

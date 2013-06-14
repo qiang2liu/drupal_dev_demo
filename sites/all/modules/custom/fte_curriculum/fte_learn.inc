@@ -33,16 +33,35 @@ function fte_modulestage_view($mid, $sid) {
     $v1 = new stdClass();
     $v1->title = 'stage1';
     $v1->sid = 1;
-    $v1->content = '';
-    $v1->yid = '6rSHgAcL0cQ';
+    $v1->content = "<p>You see the state of the world and you want to make a difference.</p>
+
+<p>You have an idea about your future and you want to make it real</p>
+
+<p>You have a burning desire to realize an idea and make it come alive.</p>
+
+<p></h2>AND YOU WANT TO KNOW HOW.</h2></p>
+
+<p>To do these things, you’ll have to learn to lean forward – how to create new ideas, to breathe life into them and make them real.</p>
+
+<p>When you’ve gone through these courses, you’ll have acquired a whole new set of perspectives and skills that will allow you to find the edge – the edge for you, the edge of cool, the edge of what’s possible. </p>
+
+<p>When this module is over, you will be clearer on your own calling and more able to lean forward yourself.  To make new and valuable things come to life.  You will understand more about what people who are able to lean forward are good at.</p>
+
+<p>And you’ll be ready to take more steps into the learning journey that we have created for you</p>
+
+";
+    $v1->yid = '';    //'6rSHgAcL0cQ';
     $v1->play = 0;
     $v1->time = 0;
+    $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_1',array('data' => 1));
+    $v1->content_right = theme('fte_learn_module_stage_right',array('data' => 1));
     $ret->stages[1] = $v1;
 
     $v1 = new stdClass();
     $v1->title = 'stage2';
     $v1->sid = 2;
-    $v1->yid = 'gAEFqKEfJok';
+    $v1->yid = '6rSHgAcL0cQ'; //'gAEFqKEfJok';
+    $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_2',array('data' => 2));
     $v1->play = 0;
     $v1->time = 0;
     $ret->stages[2] = $v1;
@@ -53,6 +72,7 @@ function fte_modulestage_view($mid, $sid) {
     $v1->sid = 3;
     $v1->play = 0;
     $v1->time = 0;
+    $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_2',array('data' => 3));
     $ret->stages[3] = $v1;
     
 
@@ -62,6 +82,7 @@ function fte_modulestage_view($mid, $sid) {
     $v1->sid = 4;
     $v1->play = 0;
     $v1->time = 0;
+    $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_2',array('data' => 4));
    
     $ret->stages[4] = $v1;
 
@@ -73,74 +94,65 @@ function fte_modulestage_view($mid, $sid) {
     $v1->sid = 5;
     $v1->yid = '';
     $v1->content = '<h2>Murally page.</h2>';
+   
+   $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_3',array('data' => 4));
     $ret->stages[5] = $v1;
-
+    
     $v1 = new stdClass();
     $v1->title = 'stage6';
-    $v1->yid = '';
     $v1->sid = 6;
-    $v1->content = '<h2>Self Assessment</h2> 
-      <br/>How did that last activity make me feel? <input type="text" name="input1" size="20"/>
-      <br/>How well do I think I did on that last activity? <input type="text" name="input2" size="20"/> 
-      <br/>How do I think I am doing against a long-tern goal? 
-      <input type="radio" name="input3" value="1"/> No
-      <input type="radio" name="input3" value="2" checked/> Yes
-      <input type="radio" name="input3" value="3"/> Other
-      <input type="text" name="input4" size="20"/>
-        
-      <br/>
-      
-        How much did I like that last activity? 
-      <input type="radio" name="input4" value="1"/> Liked it
-      <input type="radio" name="input4" value="2" checked/> Loved it
-      <input type="radio" name="input4" value="3"/> Comments
-      <input type="text" name="input5" size="20"/>
-        
-      <br/>
-What was your favorite activity?why?: <input type="text" name="input6" size="20"/>
-
-
-
-';
+    $v1->yid = '';
+    $v1->content = '<h2>Murally page.</h2>';
+    $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_3',array('data' => 4));
+   
     $ret->stages[6] = $v1;
+    
+    
 
     $v1 = new stdClass();
     $v1->title = 'stage7';
     $v1->yid = '';
     $v1->sid = 7;
-    $v1->content = '<h2>Murally page.</h2>';
-    $ret->stages[7] = $v1;
-
-
-    $v1 = new stdClass();
-    $v1->title = 'stage8';
-    $v1->sid = 8;
-    $v1->yid = '';
-    $v1->content = '<h2>Self Assessment</h2> 
-      <br/>How did that last activity make me feel? <input type="text" name="input1" size="20"/>
-      <br/>How well do I think I did on that last activity? <input type="text" name="input2" size="20"/> 
-      <br/>How do I think I am doing against a long-tern goal? 
-      <input type="radio" name="input3" value="1"/> No
-      <input type="radio" name="input3" value="2" checked/> Yes
-      <input type="radio" name="input3" value="3"/> Other
-      <input type="text" name="input4" size="20"/>
+    $v1->content = '<h2> Assessment</h2> 
+      <br/>How doyou feel about this Module?
+      <select>
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+        
+      </select>
+      
+      <br/>Please type in your feelings about your performance? <br/>
+      &nbsp;&nbsp;<textarea rows="6" cols="30"></textarea>
+     
         
       <br/>
       
-        How much did I like that last activity? 
-      <input type="radio" name="input4" value="1"/> Liked it
-      <input type="radio" name="input4" value="2" checked/> Loved it
-      <input type="radio" name="input4" value="3"/> Comments
-      <input type="text" name="input5" size="20"/>
+       Please select which of the statement is most true for you...
+     <select>
+        <option>incredible site!</option>
+        <option>pretty cool site</option>
+        <option>yah-whatever site</option>
+        <option>this site sucks...</option>
+       
         
-      <br/>
-What was your favorite activity?why?: <input type="text" name="input6" size="20"/>
-
+      </select>
+        
+    
 
 
 ';
-    $ret->stages[8] = $v1;
-
+   $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_4',array('data' => 4));
+   
+     $ret->stages[7] = $v1;
     $ret->mid = 1;
     $ret->title = check_plain('module 1');
   }
