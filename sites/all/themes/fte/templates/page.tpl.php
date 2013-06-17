@@ -177,7 +177,7 @@
       
       
      <span class="mock-menu-challenges">
-        <a href ='<?php print $base_url;?>/node/7'> Challenges</a>
+        <a href ='<?php print $base_url;?>/Changes/showchallengemap'> Challenges</a>
       </span>   
       
       
