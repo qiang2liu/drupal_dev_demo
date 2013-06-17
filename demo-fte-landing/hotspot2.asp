@@ -18,7 +18,7 @@
                   x: 800,
                   y: 170
             }],
-            "popupHtml" : '<h1>example-ribbon-2-a</h1><p>example-ribbon-2-a</p><p><img src="images/3.png" />'
+            "popupHtml" : '<iframe width="560" height="315" src="http://www.youtube.com/embed/qPXJ9YBvIzw?autoplay=1" frameborder="0" class="big-video"></iframe>'
         },
         {
         	"points"  : [{

@@ -18,7 +18,7 @@
                   x: 4800,
                   y: 170
             }],
-            "popupHtml" : '<h1>example-ribbon-1-a</h1><p>example-ribbon-1-a</p><p><img src="images/2.png" />'
+            "popupHtml" : '<iframe width="560" height="315" src="http://www.youtube.com/embed/pl_TtBKfxb8?autoplay=1" frameborder="0" class="small-video"></iframe>'
         }
     ]
 }
