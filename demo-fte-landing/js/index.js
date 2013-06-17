@@ -579,19 +579,19 @@ $(window).load(function(){
 	});
 	//add hot spot
 	$('.ribbon').eq(0).hotSpot({
-		url:'hotspot.asp'
+		url:'hotspot.asp?123'
 	});
 	$('.ribbon').eq(1).hotSpot({
-		url:'hotspot1.asp'
+		url:'hotspot1.asp?123'
 	});
 	$('.ribbon').eq(2).hotSpot({
-		url:'hotspot2.asp'
+		url:'hotspot2.asp?123'
 	});
 	$('.ribbon').eq(3).hotSpot({
-		url:'hotspot1.asp'
+		url:'hotspot1.asp?123'
 	});
 	$('.ribbon').eq(4).hotSpot({
-		url:'hotspot2.asp'
+		url:'hotspot2.asp?123'
 	});
 	
 	//popup close function
