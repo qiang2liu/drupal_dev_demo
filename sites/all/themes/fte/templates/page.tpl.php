@@ -190,16 +190,17 @@
       <span class="mock-menu-workspace">
         <a href ='<?php print $base_url;?>/node/15'> Studio </a>
       </span>  
-      
-      
-       <span class="mock-menu-workspace">
-        <a href ='<?php print $base_url;?>/node/41'> Gallery </a>
-      </span>  
+       
       
       
        <span class="mock-menu-workspace">
         <a href ='<?php print $base_url;?>/node/42'> Competitions </a>
       </span>  
+      
+      
+       <span class="mock-menu-workspace">
+        <a href ='<?php print $base_url;?>/node/41'> Gallery </a>
+      </span> 
       
       
       
