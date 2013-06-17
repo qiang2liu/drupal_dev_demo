@@ -234,7 +234,7 @@
 									left = '0px';
 									top = 0;
 									$('.pop-up.big-video').css({
-										'width' : $(document).width() - 20+ 'px',
+										'width' : $(document).width() - 30+ 'px',
 										'height': $(document).height() + 'px'
 									});
 									
