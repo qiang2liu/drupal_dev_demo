@@ -55,24 +55,39 @@ body{
 /*layer1 - ribbon and ribbon popup*/
 .pop-up{
 	position:absolute;
-	width:400px;
-	height:500px;
-	padding:22px;
+	width:680px;
+	height:480px;
+	padding:10px;
 	
+	padding:10px;
+	background:rgba(255,255,255,0.5);
 	top:5em;
 	display: none;
-	border-radius: 6px;
-	
+	/*border-radius: 6px;*/
+	z-index: 100;
+	box-shadow:2px 2px 10px #000;
 }
-.pop-up h1,
-.pop-up p{
-	text-align:center;
+.pop-up-inner{
+	overflow-y:scroll;
+	height:470px;
+	padding:5px;
+}
+.pop-up h1{
 	font-size: 2.5em;
-	color:#fff;
-	text-shadow: 2px 3px 2px #000;
+	/*text-shadow: 2px 3px 2px #000;*/
 }
-.pop-up{
-	box-shadow:2px 2px 10px #fff;
+.pop-up p,
+.pop-up h2{
+	line-height:1.4;
+}
+.pop-up h2{
+	font-size:0.8em;
+	color:#666;
+}
+.pop-up p,
+.pop-up h2,
+.pop-up h1{
+	margin:10px 0;
 }
 span.close{
 	font-family:Arial;
@@ -81,12 +96,13 @@ span.close{
 	padding:0.2em 0.4em;
 	float:right;
 	cursor:pointer;
-	color:#fff;
-	text-shadow: 2px 3px 2px #000;
+	color:red;
+	/*text-shadow: 2px 3px 2px #000;*/
+	border-radius: 20px;
+	background:#666;
 }
 span.close:hover{
-	background:#ccc;
-	color:#fff;
+	background:#000;
 }
 .ribbon{
 	margin:1em auto;

@@ -66,8 +66,10 @@
 .mock-menu-learn,
 .mock-menu-workspace,
 .mock-menu-challenges,
-.mock-menu-log{
-	font-size:28px;
+.mock-menu-log,
+.mock-menu-gallery,
+.mock-menu-competitions{
+	font-size:24px;
 	text-align:center;
 	padding:0 0.5em;
 }
@@ -80,7 +82,12 @@
 .mock-menu-challenges{
 	background:#cc0001;
 }
-
+.mock-menu-gallery{
+	background:#0666f6;
+}
+.mock-menu-competitions{
+	background:#c6ba00;
+}
 .mock-nav span.mock-menu-userinfo{
 	float:right;
 }

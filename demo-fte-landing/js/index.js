@@ -209,9 +209,9 @@
 						      layer.on('dblclick', function(evt) {
 						       
 						        var shape = evt.targetNode;
-						        var left = ($(document).width()-450)/2 + 'px';
-								var top = ($(window).height()-550)/2;
-								$('.pop-up .pop-up-inner').html(shape.getName());
+						        var left = ($(document).width()-700)/2 + 'px';
+								var top = ($(window).height()-500)/2;
+								$('.pop-up .pop-up-inner').html('<span class="close">X</span>' + shape.getName());
 								$('.pop-up').css({'left':left,'top':$(window).scrollTop() + top + 'px'}).fadeIn(500); 
 						      });
 							  var star = [];

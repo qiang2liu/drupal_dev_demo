@@ -193,12 +193,12 @@
        
       
       
-       <span class="mock-menu-workspace">
+       <span class="mock-menu-gallery">
         <a href ='<?php print $base_url;?>/node/42'> Competitions </a>
       </span>  
       
       
-       <span class="mock-menu-workspace">
+       <span class="mock-menu-competitions">
         <a href ='<?php print $base_url;?>/node/41'> Gallery </a>
       </span> 
       
