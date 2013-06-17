@@ -50,7 +50,7 @@
                     y:111
                 }
              ],
-            "popupHtml" : '<h1>example-ribbon-2-b</h1><p>example-ribbon-2-b</p><p><img src="images/4.png" /></p>'
+            "popupHtml" : '<iframe width="560" height="315" src="http://www.youtube.com/embed/qPXJ9YBvIzw?autoplay=1" frameborder="0" class="big-video"></iframe>'
         }
     ]
 }
