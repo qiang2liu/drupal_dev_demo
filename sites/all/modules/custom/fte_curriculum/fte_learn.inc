@@ -157,16 +157,16 @@ function fte_modulestage_view($mid, $sid) {
       
 There images should have been used for this Module<br/>
 <input name="shouldusedimage" value="image1" type="checkbox">
-<img width=30px height=30px src="'.$base_url.'/images/mock_challenges_1"/>
+<img width=30px height=30px src="'.$base_url.'/images/mock_challenges_1.jpg"/>
 
 <input name="shouldusedimage" value="image2" type="checkbox">
-<img width=30px height=30px src="'.$base_url.'/images/mock_challenges_2"/>
+<img width=30px height=30px src="'.$base_url.'/images/mock_challenges_2.jpg"/>
 
 
 <input name="shouldusedimage" value="image3" type="checkbox">
-<img width=30px height=30px src="'.$base_url.'/images/mock_challenges_3"/>
+<img width=30px height=30px src="'.$base_url.'/images/mock_challenges_3.jpg"/>
 <input name="shouldusedimage" value="image4" type="checkbox">
-<img width=30px height=30px src="'.$base_url.'/images/mock_challenges_4"/>  
+<img width=30px height=30px src="'.$base_url.'/images/mock_challenges_4.jpg"/>  
         
     <br/>
 
