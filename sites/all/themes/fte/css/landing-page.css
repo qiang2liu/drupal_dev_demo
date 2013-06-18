@@ -157,3 +157,64 @@ ul.level-first-has-child ul{
 	height:0;
 	visibility:hidden;
 }
+/*** learn *****/
+.stage_content{
+  background:#d2ffbc;
+}
+.stage_breadcrumb.active{
+  background:url(../images/mock_arrow_green_active.png) 5px center no-repeat;
+}
+.stage_breadcrumb{
+   padding:.2em 0 0.2em 18px;
+   border-bottom:1px dashed #ccc;
+   background:url(../images/mock_arrow_green.png) 5px center no-repeat;
+   cursor:pointer;
+}
+.learn-main-content{
+  padding:1em;
+}
+.stage_bottom_content,
+.stage_comments{
+  border:1px solid #555553;
+  margin-bottom:5px;
+  box-shadow: 1px 0 3px #333;
+}
+.stage_bottom_content_tab{
+  border-bottom: 1px solid green;
+}
+em.stage_bottom_switcher{
+  display:inline-block;
+  width:18px;
+  height:18px;
+  background:url(../images/mock_arrow_green.png) center center no-repeat;
+  position:relative;
+  top:5px;
+  cursor:pointer;
+}
+em.stage_bottom_switcher.active{
+	 background:url(../images/mock_arrow_green_active.png) center center no-repeat;
+}
+.stage_bottom_content_tab span{
+  display:inline-block;
+  padding:.2em 0;
+  margin-right:.5em;
+  border-bottom: 4px solid #d1feb9;
+  cursor:pointer;
+  text-transform:uppercase;
+}
+.stage_comments .stage_bottom_content_tab span{
+  border-bottom:0;
+  cursor:default;
+}
+.stage_bottom_content_tab span.active{
+  border-bottom:4px solid green;
+}
+.stage_comments .stage_bottom_content_tab span.active{
+  border-bottom:0;
+}
+.stage_bottom_content_inner{
+  padding:1em;
+}
+.region-content .stage_bottom_content_inner ul{
+  padding:0;
+}

@@ -73,16 +73,16 @@ foreach ($data->stages as $row) {
 <!--  stage content -->
 <?php
 if (!empty($data->stagedata->yid)) {
-  $style_string = "width: 500px;float:left; ";
+  $style_string = " ";
 } else {
-  $style_string = "width: 500px;float:left; border:1px solid green";
+  $style_string = " border:1px solid green";
 }
 ?>
 
-<div  class ="stage_content" style="<?php print $style_string;?>">
+<div  class ="stage_content active" style="<?php print $style_string;?>">
 
   <div class="stage_breadcrumb"> Leaning forward > Stage <?php print $data->stagedata->sid;?></div>
-<p/>
+
 <?php 
 
  setcookie('fte_learn_current_yid',$data->stagedata->yid,time()+3600*30);
@@ -195,7 +195,7 @@ function  setup_video_status_capture(ytplayer) {
   } else {
 ?>
 
-<div>
+<div class="learn-main-content">
   <?php print $data->stagedata->content?>
   
 </div>

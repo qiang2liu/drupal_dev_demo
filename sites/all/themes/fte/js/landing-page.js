@@ -115,5 +115,25 @@ $(document).ready(function(){
 	$('.level-first-has-child > li > a, .level-second-has-child > li > a').bind('click', function(){
 		$(this).toggleClass('active');
 		$(this).siblings('ul').toggle(400);
+	});
+	$('.stage_breadcrumb').bind('click', function(){
+		$(this).toggleClass('active');
+		$(this).siblings('.learn-main-content').toggle(400);
+		$(this).siblings('object').toggle(400);
+	})
+	$('.stage_bottom_content_inner').find('.stage_bottom_content_inner_content').not(':first').hide();
+	$('em.stage_bottom_switcher').bind('click', function(){
+		//
+		$(this).toggleClass('active');
+		$(this).parent().siblings('.stage_bottom_content_inner').toggle(400);
+		//
+		//
+	});
+	$('.stage_bottom_content_tab span').bind('click', function(){
+		$('.stage_bottom_content_tab span').removeClass('active');
+		var idx = $(this).index();
+		$(this).addClass('active');
+		$(this).parent().siblings('.stage_bottom_content_inner').find('.stage_bottom_content_inner_content').hide();
+		$(this).parent().siblings('.stage_bottom_content_inner').find('.stage_bottom_content_inner_content').eq(idx-1).show();
 	})
 });
