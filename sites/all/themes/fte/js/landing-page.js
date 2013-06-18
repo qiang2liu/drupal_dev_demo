@@ -135,5 +135,14 @@ $(document).ready(function(){
 		$(this).addClass('active');
 		$(this).parent().siblings('.stage_bottom_content_inner').find('.stage_bottom_content_inner_content').hide();
 		$(this).parent().siblings('.stage_bottom_content_inner').find('.stage_bottom_content_inner_content').eq(idx-1).show();
+	});
+	//dashboard
+	$('.facewall').not(':first').hide();
+	$('.sortitem li').bind('click', function(){
+		$('.sortitem li').removeClass('active');									 	
+		$(this).addClass('active');
+		var idx= $(this).index();
+		$('.facewall').hide();
+		$('.facewall').eq(idx).show();
 	})
 });
