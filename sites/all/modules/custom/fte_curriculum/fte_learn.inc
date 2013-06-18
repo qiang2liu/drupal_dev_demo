@@ -5,7 +5,7 @@
  * @param type $fte_learn_module_obj 
  */
 function fte_modulestage_view($mid, $sid) {
-
+  global $base_url;
   //drupal_add_library('system', 'jquery.cookie');
   // $the_path = drupal_get_path('module', 'fte_curriculum');
   // drupal_add_js($the_path.'/js/fte_stage_show.js');
@@ -132,14 +132,14 @@ function fte_modulestage_view($mid, $sid) {
         <option>10</option>
         
       </select>
-      
+      <br/>
       <br/>Please type in your feelings about your performance? <br/>
       &nbsp;&nbsp;<textarea rows="6" cols="30"></textarea>
      
         
-      <br/>
+      <br/><br/>
       
-       Please select which of the statement is most true for you...
+       Please select which of the statement is most true for you...<br/>
      <select>
         <option>incredible site!</option>
         <option>pretty cool site</option>
@@ -148,8 +148,27 @@ function fte_modulestage_view($mid, $sid) {
        
         
       </select>
+      
+      <br/><br/>
+      Here\'s what I would suggest to make this module better...<br/>
+       &nbsp;&nbsp;<textarea rows="6" cols="30"></textarea>
+       
+      <br/><br/>
+      
+There images should have been used for this Module<br/>
+<input name="shouldusedimage" value="image1" type="checkbox">
+<img width=30px height=30px src="'.$base_url.'/images/mock_challenges_1"/>
+
+<input name="shouldusedimage" value="image2" type="checkbox">
+<img width=30px height=30px src="'.$base_url.'/images/mock_challenges_2"/>
+
+
+<input name="shouldusedimage" value="image3" type="checkbox">
+<img width=30px height=30px src="'.$base_url.'/images/mock_challenges_3"/>
+<input name="shouldusedimage" value="image4" type="checkbox">
+<img width=30px height=30px src="'.$base_url.'/images/mock_challenges_4"/>  
         
-    
+    <br/>
 
 
 ';
