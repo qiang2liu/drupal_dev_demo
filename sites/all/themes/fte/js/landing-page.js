@@ -144,5 +144,10 @@ $(document).ready(function(){
 		var idx= $(this).index();
 		$('.facewall').hide();
 		$('.facewall').eq(idx).show();
-	})
+	});
+        
+        $('#colla_all').bind('click',function(){
+          $('#collamore').css('display','block');
+        });
+        
 });
