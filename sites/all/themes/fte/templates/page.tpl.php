@@ -88,10 +88,10 @@
 <div id="page-wrapper"><div id="page">
 
     
-   <div style="display:none"> 
-    
-  <div id="header" class="<?php print $secondary_menu ? 'with-secondary-menu': 'without-secondary-menu'; ?>"><div class="section clearfix">
+   
 
+  <div style="background-color:#ffffff;background-image: none" id="header" class="<?php print $secondary_menu ? 'with-secondary-menu': 'without-secondary-menu'; ?>"><div class="section clearfix">
+        <div style="display:none"> 
     <?php if ($logo): ?>
       <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
         <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
@@ -159,13 +159,11 @@
         )); ?>
       </div> <!-- /#secondary-menu -->
     <?php endif; ?>
-
-  </div></div> <!-- /.section, /#header -->
-
-  
-   </div> 
-    
-    <?php
+      
+      
+        </div> <!-- /.section, /#header -->
+        
+         <?php
     
     global $base_url;
    
@@ -281,6 +279,18 @@
       
       
     </div>
+        
+        
+
+  </div>
+  
+  
+  </div>
+
+
+
+    
+   
   
   <?php if ($messages): ?>
     <div id="messages"><div class="section clearfix">

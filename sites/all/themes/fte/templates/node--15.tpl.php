@@ -1,5 +1,6 @@
 <?php
 global $base_url;
+$the_current_url = $_SERVER['HTTP_HOST'] . request_uri();
 ?>
 <div class='page-title'>Studio</div>
 <div class="searchform"><input type="text" size="30px"/></div>
@@ -105,16 +106,26 @@ global $base_url;
         Projects(2)
         <ul>
           <li>
+           
             <a href="<?php print $base_url;?>/node/55"><img src="<?php print $base_url;?>/images/mock_create_new.jpg" /></a>
-          </li>
+            
+            
+            
+            
+           </li>
           <li>
+            
             <a href="<?php print $base_url;?>/node/51"><img src="<?php print $base_url;?>/images/mock_studio_1.jpg" /></a>
+            
+            
           </li>
           <li>
             <a href="<?php print $base_url;?>/node/51"><img src="<?php print $base_url;?>/images/mock_studio_2.jpg" /></a>
           </li>
           
         </ul>
+        <span>view all</span>
+        
         
       </li>  
       
@@ -138,7 +149,7 @@ global $base_url;
           </li>
           
         </ul>
-        
+         <span>view all</span>
       </li> 
       
       <li><!--portfolios-->
@@ -164,7 +175,7 @@ global $base_url;
           </li>
           
         </ul>
-        
+         <span>view all</span>
       </li>  
       
       <li> <!--personal-->
