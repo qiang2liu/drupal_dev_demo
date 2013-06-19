@@ -149,5 +149,15 @@ $(document).ready(function(){
         $('#colla_all').bind('click',function(){
           $('#collamore').css('display','block');
         });
+	//challenge
+	$('.project_directory .content').hide();
+	$('.project_directory .content').eq(1).show();
+	$('.project_directory .project_tabs span').bind('click', function(){
+		var idx = $(this).index();
+		$('.project_directory .project_tabs span').removeClass('active');
+		$(this).addClass('active');
+		$('.project_directory .content').hide();
+		$('.project_directory .content').eq(idx).show();
+	})
         
 });

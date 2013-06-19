@@ -21,16 +21,17 @@
     font-size:30px;  
     color:red
   }
+
   
 </style>
 
 
 <div>
-  <h2 style="text-align: center;">Challenges</h2>
+  <h2 style="text-align: center; background:#6fa8dc; padding:1em; font-size:1.6em; font-weight:bold; color:#fff;">Challenges</h2>
 </div>
 
 
-<div class =" image_slid">
+<div class ="image_slid">
   <ul>
     
       <li><img style="width: 200px; height: 200px;" src="<?php print $base_url;?>/images/mock_challenges_1.jpg" /></li>
@@ -52,10 +53,10 @@
 
 <div class='mapsection'>
   
-  <div style="float:left">
+  <div class="topic-selector">
     
-     <div> topic Selector </div>
-     <div>
+     <h4 class="chall-h4"> topic Selector </h4>
+     <div class="topic-ol">
        
        <ol style="list-style-type: upper-roman;">
          <li>
@@ -129,11 +130,11 @@
     
   </div>
   
-  <div>
-    <div id="map_canvas" style="width:620px;height:440px"></div>
+  <div style="float:right;">
+    <div id="map_canvas" style="width:620px;height:440px;"></div>
     <div class="showcase_videos">
+    	<h5>Showcase <br/>Videos</h5>
       <ul>
-        <li>Showcase Videos</li>
         <li>
           <a href="<?php print $base_url; ?>/node/43">
             <img src="<?php print $base_url; ?>/images/mock_showcase1.jpg" />
@@ -179,46 +180,27 @@
 
 <!-- project section -->
 
-<div>
+<div style="margin-top:1em;">
   
-  <div class='project_directory' style='width:70%; float:left;border:solid 1px #000000'>
-    <div>
-      <span>Project Directory</span> <span style="float:right"><input type="text" value="search"/></span>
+  <div class='project_directory' style='width:70%; float:left;border:solid 1px #000000;margin-right:10px;'>
+    <div class="project_directory-title">
+      <span style="font-size:1.2em; font-weight:bold;">Project Directory</span> <span style="float:right; position:relative; top:-6px;"><input type="text" value="search"/></span>
     </div>
     <div>
       <div class='project_tabs'>
         
-        <span class="tab_1">All</span>
-        <span class="tab_2">Location</span>
-        <span class="tab_3">Topic</span>
-        <span class="tab_4">Rating</span>
+        <span class="tab_1">All</span><span class="tab_2 active">Location</span><span class="tab_3">Topic</span><span class="tab_4">Rating</span>
         
       </div>
       <div class="tab_1 content">
-        All list
-        
-      </div>
-      <div class="tab_2 content">
-        <div>location: South Aftica</div>
-        <div>
-          <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_1.jpg"/></div>
-          
-            <div style="float:left">
-              Green Library<br/>
-              Johannesbug,S.Africa<br/>
-              Community project creating a sustainble green library.
-            
-            
-            </div>
-          <div style="clear:both"></div>
-          
-        </div>
+        <div>All</div>
         
         
-        <div>
-          <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_2.jpg"/></div>
+        
+        <div style="margin-bottom:10px;">
+          <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_2.jpg" class="project-directroy-img"/></div>
           
-          <div style="float:left">
+          <div style="float:left" class="project-directory-content">
               Playing for Change<br/>
               Soweto,S.Africa<br/>
               Friends go around their town to speak out for change through music.
@@ -228,11 +210,23 @@
           <div style="clear:both"></div>
           
         </div>
-       
-        <div>
-          <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_3.jpg"/></div>
+       <div style="margin-bottom:10px;">
+          <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_1.jpg" class="project-directroy-img"/></div>
           
-          <div style="float:left">
+            <div style="float:left" class="project-directory-content">
+              Green Library<br/>
+              Johannesbug,S.Africa<br/>
+              Community project creating a sustainble green library.
+            
+            
+            </div>
+          <div style="clear:both"></div>
+          
+        </div>
+        <div style="margin-bottom:10px;">
+          <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_3.jpg" class="project-directroy-img"/></div>
+          
+          <div style="float:left" class="project-directory-content">
               Woodworking for Homes<br/>
               The Garden Route, S. Africa<br/>
               Jery and Robyn shows you how they build<br/>
@@ -244,10 +238,73 @@
           <div style="clear:both"></div>
           
         </div>
-        <div>
-          <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_4.jpg"/></div>
+        <div style="margin-bottom:10px;">
+          <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_4.jpg"  class="project-directroy-img"/></div>
           
-          <div style="float:left">
+          <div style="float:left" class="project-directory-content">
+              Filming for Fundraising<br/>
+              Cope Town,S. Africa<br/>
+              Students in Cope Town documents<br/>
+              the lives of their community to fundraise for<br/>
+              local support to build a new classroom.
+            
+            
+          </div>
+          <div style="clear:both"></div>
+          
+        </div>
+        
+      </div>
+      <div class="tab_2 content">
+        <div>location: South Aftica</div>
+        <div style="margin-bottom:10px;">
+          <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_1.jpg" class="project-directroy-img"/></div>
+          
+            <div style="float:left" class="project-directory-content">
+              Green Library<br/>
+              Johannesbug,S.Africa<br/>
+              Community project creating a sustainble green library.
+            
+            
+            </div>
+          <div style="clear:both"></div>
+          
+        </div>
+        
+        
+        <div style="margin-bottom:10px;">
+          <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_2.jpg" class="project-directroy-img"/></div>
+          
+          <div style="float:left" class="project-directory-content">
+              Playing for Change<br/>
+              Soweto,S.Africa<br/>
+              Friends go around their town to speak out for change through music.
+            
+            
+          </div>
+          <div style="clear:both"></div>
+          
+        </div>
+       
+        <div style="margin-bottom:10px;">
+          <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_3.jpg" class="project-directroy-img"/></div>
+          
+          <div style="float:left" class="project-directory-content">
+              Woodworking for Homes<br/>
+              The Garden Route, S. Africa<br/>
+              Jery and Robyn shows you how they build<br/>
+              new homes for the homeless victims of the <br/>
+              Oklahoma tornado.
+            
+            
+          </div>
+          <div style="clear:both"></div>
+          
+        </div>
+        <div style="margin-bottom:10px;">
+          <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_4.jpg"  class="project-directroy-img"/></div>
+          
+          <div style="float:left" class="project-directory-content">
               Filming for Fundraising<br/>
               Cope Town,S. Africa<br/>
               Students in Cope Town documents<br/>
@@ -262,11 +319,130 @@
         
       </div>
       <div class="tab_3 content" >
-        Topic list
+        <div>Topic</div>
+        <div style="margin-bottom:10px;">
+          <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_1.jpg" class="project-directroy-img"/></div>
+          
+            <div style="float:left" class="project-directory-content">
+              Green Library<br/>
+              Johannesbug,S.Africa<br/>
+              Community project creating a sustainble green library.
+            
+            
+            </div>
+          <div style="clear:both"></div>
+          
+        </div>
+        <div style="margin-bottom:10px;">
+          <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_3.jpg" class="project-directroy-img"/></div>
+          
+          <div style="float:left" class="project-directory-content">
+              Woodworking for Homes<br/>
+              The Garden Route, S. Africa<br/>
+              Jery and Robyn shows you how they build<br/>
+              new homes for the homeless victims of the <br/>
+              Oklahoma tornado.
+            
+            
+          </div>
+          <div style="clear:both"></div>
+          
+        </div>
+        
+        <div style="margin-bottom:10px;">
+          <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_2.jpg" class="project-directroy-img"/></div>
+          
+          <div style="float:left" class="project-directory-content">
+              Playing for Change<br/>
+              Soweto,S.Africa<br/>
+              Friends go around their town to speak out for change through music.
+            
+            
+          </div>
+          <div style="clear:both"></div>
+          
+        </div>
+       
+        
+        <div style="margin-bottom:10px;">
+          <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_4.jpg"  class="project-directroy-img"/></div>
+          
+          <div style="float:left" class="project-directory-content">
+              Filming for Fundraising<br/>
+              Cope Town,S. Africa<br/>
+              Students in Cope Town documents<br/>
+              the lives of their community to fundraise for<br/>
+              local support to build a new classroom.
+            
+            
+          </div>
+          <div style="clear:both"></div>
+          
+        </div>
         
       </div>
       <div class="tab_4 content" >
-        Rating list
+         <div>Rating List</div>
+         <div style="margin-bottom:10px;">
+          <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_4.jpg"  class="project-directroy-img"/></div>
+          
+          <div style="float:left" class="project-directory-content">
+              Filming for Fundraising<br/>
+              Cope Town,S. Africa<br/>
+              Students in Cope Town documents<br/>
+              the lives of their community to fundraise for<br/>
+              local support to build a new classroom.
+            
+            
+          </div>
+          <div style="clear:both"></div>
+          
+        </div>
+        <div style="margin-bottom:10px;">
+          <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_1.jpg" class="project-directroy-img"/></div>
+          
+            <div style="float:left" class="project-directory-content">
+              Green Library<br/>
+              Johannesbug,S.Africa<br/>
+              Community project creating a sustainble green library.
+            
+            
+            </div>
+          <div style="clear:both"></div>
+          
+        </div>
+        
+        
+        <div style="margin-bottom:10px;">
+          <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_2.jpg" class="project-directroy-img"/></div>
+          
+          <div style="float:left" class="project-directory-content">
+              Playing for Change<br/>
+              Soweto,S.Africa<br/>
+              Friends go around their town to speak out for change through music.
+            
+            
+          </div>
+          <div style="clear:both"></div>
+          
+        </div>
+       
+        <div style="margin-bottom:10px;">
+          <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_3.jpg" class="project-directroy-img"/></div>
+          
+          <div style="float:left" class="project-directory-content">
+              Woodworking for Homes<br/>
+              The Garden Route, S. Africa<br/>
+              Jery and Robyn shows you how they build<br/>
+              new homes for the homeless victims of the <br/>
+              Oklahoma tornado.
+            
+            
+          </div>
+          <div style="clear:both"></div>
+          
+        </div>
+        
         
       </div>
       
