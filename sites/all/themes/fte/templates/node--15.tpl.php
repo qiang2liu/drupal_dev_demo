@@ -196,6 +196,7 @@ $the_current_url = $_SERVER['HTTP_HOST'] . request_uri();
           
           
         </ul>
+        <span>view all</span>
       </li> 
     </ul>
     
