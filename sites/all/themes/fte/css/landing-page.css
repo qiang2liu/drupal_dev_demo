@@ -219,7 +219,8 @@ em.stage_bottom_switcher.active{
   padding:0;
 }
 /* dashboard */
-.dashboard-container:after{
+.dashboard-container:after,
+.studiocontent:after{
   content:'';
   display:block;
   height:0;
@@ -315,7 +316,9 @@ em.stage_bottom_switcher.active{
 
 /* challenges */
   .mapsection:after,
-  .showcase_videos:after{
+  .showcase_videos:after,
+  .studio-columeleft .tour-guide ul:after,
+  .studio-columeiddle ul ul:after{
     content: '';
 	height:0;
 	clear:both;
@@ -414,3 +417,196 @@ em.stage_bottom_switcher.active{
    
    transform:   skew(0deg,-30deg);
    }*/
+   
+   /* studio */
+   h1.studio-title{
+     color:#fff;
+	 font-size:1.6em;
+	 font-weight:bold;
+	 background:#e06666;
+	 padding:1em;
+	 border:1px solid #000;
+	 margin-bottom.5em;
+	 text-align:center;
+   }
+   .studio-search{
+     text-align:right;
+	 margin-bottom:1em;
+   }
+   .studio-search input{
+     border:1px solid #000;
+	 border-radius:10px;
+   }
+   
+  #main #content .section{
+     padding:0;
+   }
+   .studio-columeleft{
+   	width:18%;
+	margin-right:3%;
+	float:left;
+	padding:1%;
+	border:1px solid #000;
+   }
+   .studio-columeiddle{
+     width:54%;
+	
+	 float:left;
+   }
+   .studio-columeright{
+     width:18%;
+	 float:right;
+	 padding:0 1%;
+	 border:1px solid #000;
+   }
+   .studio-columeleft,
+   .studio-columeright{
+     background:#f9cb9c;
+   }
+   .region-content .studiocontent ul{
+     padding:0;
+   }
+   .studio-side{
+     border:1px solid #000;
+	 margin-bottom:1em;
+   }
+   .studio-side h4{
+     font-size:1.4em;
+	 font-weight:bold;
+	 background:#ff0;
+	 padding-left:1.2em;
+	 background:url(../images/mock_arrow_green.png) .4em center no-repeat #ff0;
+	 margin:0;
+	 cursor:pointer;
+   }
+   .studio-side-inner h5{
+   	font-size:1em; 
+	 font-weight:bold;
+	 background:#ff0;
+	 padding:.5em 0 0.5em 1em;
+	 background:url(../images/mock_arrow_green.png) 0.4em center no-repeat #f90;
+	 margin:.5em auto 0;
+	 cursor:pointer;
+   }
+   .studio-side h4.active{
+     background:url(../images/mock_arrow_green_active.png) 0.2em center no-repeat #ff0;
+   }
+   .studio-side-inner h5.active{
+     background:url(../images/mock_arrow_green_active.png) 0.2em center no-repeat #f90;
+   }
+   .studio-side-inner{
+     margin:.5em;
+	 background:#f6b26b;
+   }
+   .studio-side-inner li{
+     background:#fff;
+	 margin-bottom:.5em;
+	 text-align:center;
+   }
+   .studio-side-inner ul.half-width li{
+   		width:46%;
+		float:left;
+		margin-right:2%;
+   }
+   .studio-side-inner ul.half-width li img{
+     height:80px;
+	 
+   }
+   .studio-side-inner li img{
+     width:100%;
+   }
+   .studio-columeleft .upload{
+     padding:0.3em;
+	 background:#e69138;
+	 text-align:center;
+	 font-size:1.4em;
+	 margin-bottom:1em;
+   }
+   .studio-columeleft .upload img{
+     position:relative;
+	 top:5px;
+	 margin-right:10px;
+   }
+  .studio-columeleft .tour-guide{
+  	background:#ddd;
+	border:1px solid #000;
+  }
+  .studio-columeleft .tour-guide h6{
+    padding:.2em 0.5em;
+	border-bottom:1px solid #000;
+	font-size:1.4em;
+	margin: 0 0 0.5em 0;
+  }
+  .studio-columeleft .tour-guide ul{
+    padding:1em;
+  }
+  .studio-columeleft .tour-guide li{
+    text-align:center;
+	width:48%;
+	float:left;
+  }
+  .studio-columeiddle>ul>li.title{
+     font-weight:bold;
+	 font-size:1.6em;
+	 color:#666;
+  }
+  .studio-columeiddle>ul>li>span{
+    display:block;
+	font-size:.7em;
+	text-align:right;
+	margin-bottom:15px;
+  }
+  .studio-columeiddle>ul>li li{
+    float:left;
+	width:33%;
+	text-align:center;
+	height:120px;
+	margin-top:20px;
+  }
+  .region-content .studio-columeiddle>ul ul{
+    margin:0;
+  }
+  .studio-setting{
+    position: absolute;
+	display:inline-block;
+	background:green;
+	text-align:center;
+	height:30px;
+	width:100px;
+	line-height:30px;
+	color:#fff;
+	cursor:pointer;
+	display:none;
+  }
+  .studio-popup{
+    position:absolute;
+	width:300px;
+	height:320px;
+	background:#eee;
+	display:none;
+	z-index:9;
+  }
+  .studio-popup .studio-close{
+    display:inline-block;
+	padding:.5em;
+	color:red;
+	cursor:pointer;
+  }
+  .studio-popup table{
+    margin:0;
+  }
+  .studio-popup td{
+  	border:0;
+  }
+  .studio-popup tr td:first-child{
+    text-align:right;
+  }
+  .studio-cover{
+    display:none;
+	position:absolute;
+	z-index:8;
+	background:#eee;
+	left:0;
+	top:0;
+	opacity:.5;
+  }
