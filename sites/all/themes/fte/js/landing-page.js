@@ -186,7 +186,7 @@ $(document).ready(function(){
 	$('.studio-setting').bind('click', function(){
 		$('.studio-cover').show();
 		$('.studio-popup').css({
-				'top' : ($(window).height() - 320)/2 + 'px',
+				'top' : $(window).scrollTop()+($(window).height() - 320)/2 + 'px',
 				'left': ($(window).width() - 300)/2 + 'px',
 			}).show();
 	})
