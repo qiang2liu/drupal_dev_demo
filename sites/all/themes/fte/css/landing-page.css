@@ -184,27 +184,43 @@ ul.level-first-has-child ul{
   margin-top:0;
   font-family:sans-serif;
 }
+body #main{
+   background:#eee;
+   padding:4px;
+   font-family:sans-serif;
+   margin-top:0;
+}
 .page-learn-stage .tabs{
   margin-bottom:0;
 }
 
-.one-sidebar.page-learn-stage #content{
+.one-sidebar.page-learn-stage #content,
+.one-sidebar.page-learn #content{
   border:1px solid #ddd;
   background:#fff;
   padding:4px;
   width:710px;
-  
- 
 }
-.page-learn-stage #main .content{
+.region-content ul.menu-learn{
+  margin:0;
+  padding:0;
+}
+.region-content ul.menu-learn ul{
+  padding:0 0 0.25em 1.5em;
+}
+.page-learn-stage #main .content,
+.page-learn #main .content{
   margin-top:0;
 }
-.page-learn-stage .region-sidebar-first{
+.page-learn .tabs{
+  margin-bottom:0;
+}
+.region-sidebar-first{
   border:1px solid #ddd;
   background:#fff;
 }
 
-.page-learn-stage .sidebar .section{
+body .sidebar .section{
   padding:0 5px;
 }
 

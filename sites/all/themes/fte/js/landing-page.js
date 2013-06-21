@@ -93,8 +93,8 @@ $(document).ready(function(){
 			$('.menu-learn li li a').removeClass('active');
 			$(event.target).addClass('active');
 			$('.menu-learn-fly-layer').css({
-				top  : t + 'px',
-				left : l + h +21 + 'px'
+				top  : t-1 + 'px',
+				left : l + h +20 + 'px'
 			});
 			$('.menu-learn-fly-layer').show();
 		}
