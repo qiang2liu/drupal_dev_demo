@@ -109,6 +109,7 @@ ul.level-first-has-not-child {
 }
 ul.level-first-has-child ul{
 	padding-left:1.5em;
+	padding-right:4px;
 	display:none;
 }
 .level-first-has-not-child > li > a{
@@ -158,6 +159,50 @@ ul.level-first-has-child ul{
 	visibility:hidden;
 }
 /*** learn *****/
+.page-learn-stage #main{
+  background:#eee;
+  padding:4px;
+  margin-top:0;
+  font-family:sans-serif;
+}
+.page-learn-stage .tabs{
+  margin-bottom:0;
+}
+.one-sidebar.page-learn-stage #content{
+  border:1px solid #ddd;
+  background:#fff;
+  padding:4px;
+  width:710px;
+  height:900px;
+  overflow:auto;
+}
+.page-learn-stage #main .content{
+  margin-top:0;
+}
+.page-learn-stage .region-sidebar-first{
+  border:1px solid #ddd;
+  background:#fff;
+}
+
+.page-learn-stage .sidebar .section{
+  padding:0 5px;
+}
+
+.page-learn-stage #main #content .section{
+  border:1px solid #444;
+  background:#f0f0f0;
+  padding:0 4px 4px;
+}
+.stage_container{
+  background:#d2ffbc;
+  border:1px solid #444;
+}
+.stage_bottom_area{
+  margin-left:4px;
+  margin-right:4px;
+  background:#fff;
+  margin-bottom:4px;
+}
 .stage_content{
   background:#d2ffbc;
 }

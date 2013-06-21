@@ -75,7 +75,7 @@ foreach ($data->stages as $row) {
 if (!empty($data->stagedata->yid)) {
   $style_string = " ";
 } else {
-  $style_string = " border:1px solid green";
+  $style_string = "";
 }
 ?>
 
