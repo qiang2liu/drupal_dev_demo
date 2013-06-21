@@ -175,7 +175,7 @@ function  setup_video_status_capture(ytplayer) {
      
       swfobject.embedSWF("http://www.youtube.com/v/"+Drupal.settings.fte_learn_stages_yid
         +"?enablejsapi=1&playerapiid=ytplayer&version=3&modestbranding=1",
-        "ytapiplayer", "480", "269", "8", null, null, params, atts);
+        "ytapiplayer", "480", "280", "8", null, null, params, atts);
   
     
   
@@ -219,7 +219,7 @@ function  setup_video_status_capture(ytplayer) {
   
 </div>
 
-<p/>
+
 <!-- end stage content -->
 
 

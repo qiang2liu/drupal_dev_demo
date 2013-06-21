@@ -1,7 +1,7 @@
 
 	<ul class="menu-learn">
 		<li class="active">
-	    	<a href="#x">Finding ouer bearing</a>
+	    	<a href="#x">Finding our bearing</a>
 	        <ul>
 	        	<li><a href="learn/1/stage/0" class="menu-learn-child has-link">Learning Forward</a></li>
 	            <li><a href="#x" class="menu-learn-child">Innovation</a></li>
@@ -11,7 +11,7 @@
 	        </ul>
 	    </li>
 	    <li>
-	    	<a href="#x">Finding ouer purpose</a>
+	    	<a href="#x">Finding our purpose</a>
 	        <ul>
 	        	<li><a href="learn/2/stage/0" class="menu-learn-child has-link">item1</a></li>
 	            <li><a href="#x" class="menu-learn-child">item2</a></li>
@@ -21,7 +21,7 @@
 	        </ul>
 	    </li>
 	    <li>
-	    	<a href="#x">Finding ouer "How"</a>
+	    	<a href="#x">Finding our "How"</a>
 	        <ul>
 	        	<li><a href="#x" class="menu-learn-child">item1</a></li>
 	            <li><a href="#x" class="menu-learn-child">item2</a></li>

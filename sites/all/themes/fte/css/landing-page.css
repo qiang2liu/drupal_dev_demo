@@ -193,8 +193,8 @@ ul.level-first-has-child ul{
   background:#fff;
   padding:4px;
   width:710px;
-  height:700px;
-  overflow:auto;
+  
+ 
 }
 .page-learn-stage #main .content{
   margin-top:0;
@@ -223,6 +223,9 @@ ul.level-first-has-child ul{
   background:#fff;
   margin-bottom:4px;
 }
+.fte_down_half_area{
+  margin-top:.5em;
+}
 .stage_content{
   background:#d2ffbc;
 }
@@ -236,7 +239,9 @@ ul.level-first-has-child ul{
    cursor:pointer;
 }
 .learn-main-content{
-  padding:1em;
+  padding:.5em;
+  height:270px;
+  overflow:auto;
 }
 .stage_bottom_content,
 .stage_comments{
