@@ -68,7 +68,7 @@ function fte_modulestage_view($mid, $sid) {
     
     $v1 = new stdClass();
     $v1->title = 'stage3';
-    $v1->yid = '_NyrClqr8zo';
+    $v1->yid = 'CKQVOqY_XGA';
     $v1->sid = 3;
     $v1->play = 0;
     $v1->time = 0;
@@ -78,7 +78,7 @@ function fte_modulestage_view($mid, $sid) {
 
     $v1 = new stdClass();    
     $v1->title = 'stage4';
-    $v1->yid = 'ukijAPN6bkw';
+    $v1->yid = 'nmwXdGm89Tk';
     $v1->sid = 4;
     $v1->play = 0;
     $v1->time = 0;
@@ -93,7 +93,7 @@ function fte_modulestage_view($mid, $sid) {
     $v1->title = 'stage5';
     $v1->sid = 5;
     $v1->yid = '';
-    $v1->content = '<h2>Murally page.</h2>';
+    $v1->content = '<h2><a href="http://mural.ly" target="_blank">Mural.ly page</a></h2>';
    
    $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_3',array('data' => 5));
     
@@ -105,7 +105,7 @@ function fte_modulestage_view($mid, $sid) {
     $v1->title = 'stage6';
     $v1->sid = 6;
     $v1->yid = '';
-    $v1->content = '<h2>Murally page.</h2>';
+    $v1->content = '<h2><a href="http://mural.ly" target="_blank">Mural.ly page</a></h2>';
     $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_3',array('data' => 6));
    $v1->content_right = theme('fte_learn_module_stage_right',array('data' => 6));
     $ret->stages[6] = $v1;
@@ -117,8 +117,8 @@ function fte_modulestage_view($mid, $sid) {
     $v1->yid = '';
     $v1->sid = 7;
     $v1->content = '<h2> Assessment</h2> 
-      <br/>How doyou feel about this Module?
-      <select>
+      <p>How doyou feel about this Module?
+      <select class="learn-select">
         <option>0</option>
         <option>1</option>
         <option>2</option>
@@ -132,43 +132,37 @@ function fte_modulestage_view($mid, $sid) {
         <option>10</option>
         
       </select>
-      <br/>
-      <br/>Please type in your feelings about your performance? <br/>
-      &nbsp;&nbsp;<textarea rows="6" cols="30"></textarea>
-     
-        
-      <br/><br/>
-      
-       Please select which of the statement is most true for you...<br/>
-     <select>
+      </p>
+      <p>Please type in your feelings about your performance? <br/>
+      <textarea class="learn-textarea"></textarea></p>
+      <p>Please select which of the statement is most true for you...
+     <select class="learn-select">
         <option>incredible site!</option>
         <option>pretty cool site</option>
         <option>yah-whatever site</option>
-        <option>this site sucks...</option>
-       
-        
-      </select>
-      
-      <br/><br/>
+        <option>this site sucks...</option>             
+      </select> 
+      </p>
+	  <p>
       Here\'s what I would suggest to make this module better...<br/>
-       &nbsp;&nbsp;<textarea rows="6" cols="30"></textarea>
-       
-      <br/><br/>
+       <textarea class="learn-textarea"></textarea>
+       </p>
       
-There images should have been used for this Module<br/>
+      
+<p>There images should have been used for this Module<br/>
 <input name="shouldusedimage" value="image1" type="checkbox">
-<img width=30px height=30px src="'.$base_url.'/images/mock_challenges_1.jpg"/>
+<img  src="'.$base_url.'/images/mock_challenges_1.jpg" class="learn-form-img" />
 
 <input name="shouldusedimage" value="image2" type="checkbox">
-<img width=30px height=30px src="'.$base_url.'/images/mock_challenges_2.jpg"/>
+<img  src="'.$base_url.'/images/mock_challenges_2.jpg" class="learn-form-img"/>
 
 
 <input name="shouldusedimage" value="image3" type="checkbox">
-<img width=30px height=30px src="'.$base_url.'/images/mock_challenges_3.jpg"/>
+<img  src="'.$base_url.'/images/mock_challenges_3.jpg" class="learn-form-img"/>
 <input name="shouldusedimage" value="image4" type="checkbox">
-<img width=30px height=30px src="'.$base_url.'/images/mock_challenges_4.jpg"/>  
+<img  src="'.$base_url.'/images/mock_challenges_4.jpg" class="learn-form-img"/>  
         
-    <br/>
+</p>
 
 
 ';

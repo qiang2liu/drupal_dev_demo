@@ -193,6 +193,11 @@ $(document).ready(function(){
 	$('.studio-close').bind('click', function(){
 		$('.studio-cover').hide();
 		$('.studio-popup').hide();
+	});
+	$('.page-learn-stage').find('#content').prepend('<div class="learn-nav" class="active"><em></em>FINDING OUR BEARING - Learning Forward</div>');
+	$('.learn-nav').bind('click', function(){
+		$(this).find('em').toggleClass('active');
+		$(this).siblings('.section').toggle(400);
 	})
         
 });

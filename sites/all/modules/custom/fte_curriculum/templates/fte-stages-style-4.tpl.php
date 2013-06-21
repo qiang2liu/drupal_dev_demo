@@ -15,49 +15,33 @@ global $base_url;
 	<div class="stage_bottom_content">
   	<div class="stage_bottom_content_tab">
     	<em class="stage_bottom_switcher active"></em>
-        <span class="active"> NOTES</span>
-        <span>MURALS</span>
+        <span class="active">Description</span>
+        <span>Users</span>
+        <span>Notes</span>
      </div>
      <div class="stage_bottom_content_inner">
-    	<div class="stage_bottom_content_inner_content">This is NOTES.</div>  
     	<div class="stage_bottom_content_inner_content">
-          
-          <ul>
-            
-            <li style="float:left;margin:10px">
-              <div style="text-align:center"><img src="<?php print $base_url;?>/images/mock_mural_icon.jpg"/></div>
-              <div><select name="pp"><option>private</option><option>public</option></select></div>
-              
-            </li style="float:left">
-            
-            <li style="float:left;margin:10px">
-              <div style="text-align:center"><img src="<?php print $base_url;?>/images/mock_mural_icon.jpg"/></div>
-              <div><select name="pp"><option>private</option><option>public</option></select></div>
-              
-            </li>
-            
-             <li style="float:left;margin:10px">
-              <div style="text-align:center"><img src="<?php print $base_url;?>/images/mock_mural_icon.jpg"/></div>
-              <div><select name="pp"><option>private</option><option selected>public</option></select></div>
-              
-            </li style="float:left">
-            
-            <li style="float:left;margin:10px">
-              <div style="text-align:center"><img src="<?php print $base_url;?>/images/mock_mural_icon.jpg"/></div>
-              <div><select name="pp"><option>private</option><option selected>public</option></select></div>
-              
-            </li>
-            
-            <li style="clear:both"></li>
+        	<p>Here's where YOU get to tell us what you think - what we should change inside of EDGEmakers and how we might make it better. Or you can just create a video and send it to us..... or send us a mural!</p>
+        </div>  
+    	<div class="stage_bottom_content_inner_content">
+         <ul>
+            <li style="float:left"> <img style="width:46px; height:46px ;border: 2px solid green" src="<?php print $base_path;?>images/mock_user_icon_1.png"></li>
+            <li style="float:left"> <img style="width:46px; height:46px ;border: 2px solid green" src="<?php print $base_path;?>images/mock_user_icon_2.png"></li>
+            <li style="float:left"> <img style="width:46px; height:46px ;border: 2px solid grey" src="<?php print $base_path;?>images/mock_user_icon_3.png"></li>
+            <li style="float:left"> <img style="width:46px; height:46px ;border: 2px solid green" src="<?php print $base_path;?>images/mock_user_icon_4.png"></li>     
+            <div style="clear:both"></div>   
           </ul>
-          
-        </div>
+        
 	</div>
+    <div class="stage_bottom_content_inner_content">
+        	<p>This is Notes.</p>
+        </div>
   </div>  
+  </div>
   <div class="stage_comments" >
       <div class="stage_bottom_content_tab">
         <em class="stage_bottom_switcher active"></em>
-        <span>COMMENTS</span>
+        <span>Comments</span>
       
       </div>
    	   <div class="stage_bottom_content_inner">

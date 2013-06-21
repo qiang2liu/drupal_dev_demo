@@ -17,36 +17,36 @@ global $base_url;
 	<div class="stage_bottom_content">
         <div class="stage_bottom_content_tab">
             <em class="stage_bottom_switcher active"></em>
-            <span class="active">DESCRIPTION</span>
-            <span>USERS</span>
-            <span>MURSLS</span>
-            <span>NOTES</span>
+            <span class="active">Description</span>
+            <span>Users</span>
+            <!--<span>MURSLS</span>-->
+            <span>Notes</span>
             
          </div>
          <div class="stage_bottom_content_inner">
             <div class="stage_bottom_content_inner_content">
-              
-          Think of somebody who you admire - who are they?<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
-WHY DID YOU PICK THEM?<br>
-&nbsp; <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WHAT DID YOU ADMIRE
-ABOUT THEM?<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WHAT WERE THEY GOOD AT?<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WHY DID THEY DO WHAT
-THEY DID?<br>
-<br>
-IF YOU WERE GOING TO LEAN FORWARD LIKE THEY DID, WHAT WOULD YOU LIKE
-PEOPLE TO SAY ABOUT YOU?<br>
-<br>
-<span style="color: rgb(0, 0, 102); font-weight: bold;">NOTE:</span>
-THIS ACTIVITY CAN BE DONE INDIVIDUALLY OR IN A GROUP<br>
-<br>
-<span style="color: rgb(0, 0, 102);"><span style="font-weight: bold;">NOTE2:</span>
-</span>Users fill in answers into thr mural - hit save.......<br>
-
+              <?php  if ($data==2) {?>
+          <p>Here's Brieana, our young and relevant tour guide, making all this change - easier.</p>
+            <?php
+             }
+			  
+			?>
+            
+            <?php  if ($data==3) {?>
+          <p>We'd like to introduce you to John Kao, our founder and longtime Creativity and Innovation instructor, professor and mentor. He's going to talk about what it means to "Lean forward.</p>
+            <?php
+             }
+			  
+			?>
+            
+            <?php  if ($data==4) {?>
+          <p>Now we'd like to show you an Apple ad from 1997 which describes pretty well - who you are.</p>
+            <?php
+             }
+			  
+			?>
+            
+            
 
 
               
@@ -60,7 +60,7 @@ THIS ACTIVITY CAN BE DONE INDIVIDUALLY OR IN A GROUP<br>
                 <div style="clear:both"></div>   
               </ul>
              </div>
-            <div class="stage_bottom_content_inner_content">
+            <!--<div class="stage_bottom_content_inner_content">
               
               <ul>
             
@@ -91,14 +91,14 @@ THIS ACTIVITY CAN BE DONE INDIVIDUALLY OR IN A GROUP<br>
             <li style="clear:both"></li>
           </ul>
               
-            </div>
+            </div>-->
             <div class="stage_bottom_content_inner_content">This is NOTES.</div>
         </div>
       </div>  
 		<div class="stage_comments" >
           <div class="stage_bottom_content_tab">
             <em class="stage_bottom_switcher active"></em>
-            <span>COMMENTS</span>
+            <span>Comments</span>
           
           </div>
            <div class="stage_bottom_content_inner">

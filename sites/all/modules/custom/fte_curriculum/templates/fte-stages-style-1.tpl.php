@@ -15,34 +15,13 @@ global $base_path;
   <div class="stage_bottom_content">
   	<div class="stage_bottom_content_tab">
     	<em class="stage_bottom_switcher active"></em>
-        <span class="active"> stage description</span>
-        <span>stage users</span>
-        <span>others</span> 
+        <span class="active">Description</span>
+        <span>Users</span>
+        <span>Notes</span> 
      </div>
      <div class="stage_bottom_content_inner">
     	<div class="stage_bottom_content_inner_content">
-          Think of somebody who you admire - who are they?<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
-WHY DID YOU PICK THEM?<br>
-&nbsp; <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WHAT DID YOU ADMIRE
-ABOUT THEM?<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WHAT WERE THEY GOOD AT?<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WHY DID THEY DO WHAT
-THEY DID?<br>
-<br>
-IF YOU WERE GOING TO LEAN FORWARD LIKE THEY DID, WHAT WOULD YOU LIKE
-PEOPLE TO SAY ABOUT YOU?<br>
-<br>
-<span style="color: rgb(0, 0, 102); font-weight: bold;">NOTE:</span>
-THIS ACTIVITY CAN BE DONE INDIVIDUALLY OR IN A GROUP<br>
-<br>
-<span style="color: rgb(0, 0, 102);"><span style="font-weight: bold;">NOTE2:</span>
-</span>Users fill in answers into thr mural - hit save.......<br>
-
-        
+          <p>Welcome to EDGEmakers: Finding our Bearing: Leaning Forward: Stage 1. Do not be fooled into thinking this is education. It's not. Its really just a sequence of videos, interactive interfaces and throbbing head banging ideas and content. You've been warned.</p>
         
         </div>  
     	<div class="stage_bottom_content_inner_content">
@@ -60,7 +39,7 @@ THIS ACTIVITY CAN BE DONE INDIVIDUALLY OR IN A GROUP<br>
   <div class="stage_comments" >
       <div class="stage_bottom_content_tab">
         <em class="stage_bottom_switcher active"></em>
-        <span>COMMENTS</span>
+        <span>Comments</span>
       
       </div>
    	   <div class="stage_bottom_content_inner">
