@@ -255,9 +255,17 @@ body .sidebar .section{
    cursor:pointer;
 }
 .learn-main-content{
-  padding:.5em;
-  height:270px;
-  overflow:auto;
+ 
+  
+  
+}
+.ytapiplayer{
+	padding:18px 0.5em;
+	height:335px;
+	overflow:auto;
+}
+.ytapiplayer object{
+	margin-top:25px;
 }
 .stage_bottom_content,
 .stage_comments{
@@ -304,7 +312,9 @@ em.stage_bottom_switcher.active{
   border-bottom:0;
 }
 .stage_bottom_content_inner{
-  padding:1em;
+  padding:.6em 1em;
+  height:80px;
+  overflow-y:auto;
 }
 .region-content .stage_bottom_content_inner ul{
   padding:0;

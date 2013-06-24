@@ -38,10 +38,10 @@ foreach ($data->stages as $row) {
     <div style="
          border:1px solid green;
          background:<?php print $the_class; ?>;
-         border-radius: 10px;
+         border-radius: 0.8em;
          cursor:pointer;
-         width:20px;
-         height:20px;
+         width:1.5em;
+         height:1.5em;
          display:inline-block;
          text-align:center;
   <?php print $m; ?>
@@ -82,7 +82,7 @@ if (!empty($data->stagedata->yid)) {
 <div  class ="stage_content active" style="<?php print $style_string;?>">
 
   <div class="stage_breadcrumb"> Leaning forward > Stage <?php print $data->stagedata->sid;?></div>
-
+<div class="ytapiplayer">
 <?php 
 
  setcookie('fte_learn_current_yid',$data->stagedata->yid,time()+3600*30);
@@ -100,6 +100,7 @@ if (!empty($data->stagedata->yid)) {
 
 <div id="ytapiplayer">
     You need Flash player 8+ and JavaScript enabled to view this video.
+</div>
 </div>
 <?php
       // video stage
