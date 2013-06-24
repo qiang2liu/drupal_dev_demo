@@ -8,19 +8,16 @@
     	<a href="#x" class="active">Modules</a>
         <ul style="display:block;">
             <li>
-                <a href="#x">Learning Forward</a>
+                <a href="#x">Leaning Forward</a>
             </li>
             <li>
-                <a href="#x">Innovation</a>
+                <a href="#x">Module 2</a>
             </li>
             <li>
-                <a href="#x">Brainstorming</a>
+                <a href="#x">Module 3</a>
             </li>
             <li>
-                <a href="#x">Collaboration</a>
-            </li>
-             <li>
-                <a href="#x">Team Building</a>
+                <a href="#x">Module 4</a>
             </li>
             
         </ul>
@@ -28,7 +25,7 @@
 </ul>
 <ul class="level-first-has-child">
 	<li>
-        <a href="#x">Actions</a>
+        <a href="#x">Murals</a>
         <ul class="level-second-has-child">
             <li>
                 <a href="#x">Projects</a>
@@ -41,72 +38,117 @@
                 </ul>
             </li>
             <li>
-                <a href="#x">Competitions</a>
+                <a href="#x">Portfolios</a>
                 <ul>
-                	<li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">competition01</a></li>
-                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">competition02</a></li>
-                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">competition03</a></li>
-                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">competition04</a></li>
-                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">competition05</a></li>
+                	<li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Portfolio01</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Portfolio02</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Portfolio03</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Portfolio04</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Portfolio05</a></li>
                 </ul>
             </li>
-            
+            <li>
+                <a href="#x">Assignments</a>
+                <ul>
+                	<li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Assignment01</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Assignment02</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Assignment03</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Assignment04</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Assignment05</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#x">Personal</a>
+                <ul>
+                	<li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Personal01</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Personal02</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Personal03</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Personal04</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Personal05</a></li>
+                </ul>
+            </li>
         </ul>
    </li>
 </ul>
 
 <ul class="level-first-has-child">
 	<li>
-        <a href="#x">Stuff</a>
+        <a href="#x">Media</a>
         <ul class="level-second-has-child">
-            <li>
-                <a href="#x">Murals</a>
-                <ul>
-                	<li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">mural01</a></li>
-                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">mural02</a></li>
-                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">mural03</a></li>
-                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">mural04</a></li>
-                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">mural05</a></li>
-                </ul>
-            </li>
             <li>
                 <a href="#x">Video</a>
                 <ul>
-                	<li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">video01</a></li>
-                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">video02</a></li>
-                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">video03</a></li>
-                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">video04</a></li>
-                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">video05</a></li>
+                	<li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Video01</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Video02</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Video03</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Video04</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Video05</a></li>
                 </ul>
             </li>
             <li>
                 <a href="#x">Images</a>
                 <ul>
-                	<li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">image01</a></li>
-                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">image02</a></li>
-                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">image03</a></li>
-                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">image04</a></li>
-                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">image05</a></li>
+                	<li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Image01</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Image02</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Image03</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Image04</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Image05</a></li>
                 </ul>
             </li>
             <li>
-                <a href="#x">Documents</a>
+                <a href="#x">Audio</a>
                 <ul>
-                	<li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">document01</a></li>
-                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">document02</a></li>
-                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">document03</a></li>
-                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">document04</a></li>
-                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">document05</a></li>
+                	<li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Audio01</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Audio02</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Audio03</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Audio04</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Audio05</a></li>
+                </ul>
+            </li>
+           
+        </ul>
+   </li>
+</ul>
+
+<ul class="level-first-has-child">
+	<li>
+        <a href="#x">Documents</a>
+        <ul class="level-second-has-child">
+            <li>
+                <a href="#x">Text(.doc, .pdf, .txt)</a>
+                <ul>
+                	<li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Text01</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Text02</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Text03</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Text04</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Text05</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#x">PowerPoint(.ppt)</a>
+                <ul>
+                	<li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">PowerPoint01</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">PowerPoint02</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">PowerPoint03</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">PowerPoint04</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">PowerPoint05</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#x">Numbers(.xls, .csv)</a>
+                <ul>
+                	<li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Numbers01</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Numbers02</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Numbers03</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Numbers04</a></li>
+                    <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_stage.png" /><a href="#x">Numbers05</a></li>
                 </ul>
             </li>
         </ul>
    </li>
 </ul>
-<ul class="level-first-has-not-child">
-	<li>
-    	<a href="<?php print $base_url;?>/node/add/project">Add a Project</a>
-    </li>
-</ul>
+
+
 <ul class="level-first-has-not-child">
 	<li>
     	<a href="#x">Mural.ly</a>
