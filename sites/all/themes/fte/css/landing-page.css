@@ -260,12 +260,12 @@ body .sidebar .section{
   
 }
 .ytapiplayer{
-	padding:18px 0.5em;
-	height:335px;
+	padding:10px 0.5em;
+	height:330px;
 	overflow:auto;
 }
 .ytapiplayer object{
-	margin-top:25px;
+
 }
 .stage_bottom_content,
 .stage_comments{
