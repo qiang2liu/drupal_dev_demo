@@ -856,6 +856,21 @@ body.one-sidebar #content {
 .page-landingpage .mock-nav{
   background:#036ae0;
 }
+.page-changes .mock-nav{
+   background:#5b008c;
+}
+.page-learn .mock-nav{
+   background:#058f03;
+}
+.page-node-15 .mock-nav{
+   background:#780202;
+}
+.page-node-41 .mock-nav{
+   background:#017387;
+}
+.page-node-42 .mock-nav{
+   background:#b12501;
+}
 .nav-top{
   height:42px;
   overflow:hidden;
