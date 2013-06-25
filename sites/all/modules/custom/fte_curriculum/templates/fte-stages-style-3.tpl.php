@@ -15,7 +15,7 @@ global $base_path, $base_url;
   	<div class="stage_bottom_content_tab">
     	<em class="stage_bottom_switcher active"></em>
         <span class="active">Description</span>
-        <span>Templates</span>
+        <span>Assignments</span>
         <span>Murals</span> 
         <span>Users</span>
         <span>Notes</span>
