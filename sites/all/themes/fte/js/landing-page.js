@@ -198,6 +198,17 @@ $(document).ready(function(){
 	$('.learn-nav').bind('click', function(){
 		$(this).find('em').toggleClass('active');
 		$(this).siblings('.section').toggle(400);
-	})
+	});
+	$('.da-tabs-box em').bind('click', function(){
+		$(this).toggleClass('active');
+		$(this).parent().siblings('.da-content-box').toggle();
+	});
+	$('.da-tabs-box span').bind('click', function(){
+		$(this).siblings('span').removeClass('active');
+		$(this).addClass('active');
+		var idx = $(this).index();
+		$(this).parent().siblings('.da-content-box').find('.da-content').addClass('hide');
+		$(this).parent().siblings('.da-content-box').find('.da-content').eq(idx-1).removeClass('hide');
+	});
         
 });
