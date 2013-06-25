@@ -170,40 +170,58 @@
     ?>
     
     <div class="mock-nav">
-     <a href ='<?php print $base_url;?>'> <span class="mock-menu-logo"></span>
-        </a>
-      
-      
-     <span class="mock-menu-challenges">
-        <a href ='<?php print $base_url;?>/Changes/showchallengemap'> Challenges</a>
-      </span>   
-      
-      
-      
-      <span class="mock-menu-learn">
-        <a href ='<?php print $base_url;?>/learn'> Learn</a>
-      </span>  
-      
-      
-      <span class="mock-menu-workspace">
-        <a href ='<?php print $base_url;?>/node/15'> Studio </a>
-      </span>  
-       
-      
-      
-       <span class="mock-menu-gallery">
-        <a href ='<?php print $base_url;?>/node/42'> Competitions </a>
-      </span>  
-      
-      
-       <span class="mock-menu-competitions">
-        <a href ='<?php print $base_url;?>/node/41'> Gallery </a>
-      </span> 
-      
-      
-      
-      
-      <span class="mock-menu-log">
+    	<div class="mock-nav-left">
+        	<a href ='<?php print $base_url;?>'> <span class="mock-menu-logo"></span></a>
+        </div>
+    	<div class="mock-nav-right">
+        	<div class="nav-top">
+            	<div class="nav-top-left">
+                	<img src="sites/all/themes/fte/images/mock_logo1.png" />
+                </div>
+                <div class="nav-top-right">
+                	<span class="mav-top-ico">
+                    	<img src="sites/all/themes/fte/images/mock_logo_ico1.png" />
+                        <img src="sites/all/themes/fte/images/mock_logo_ico2.png" />
+                        <img src="sites/all/themes/fte/images/mock_logo_ico3.png" />
+                    </span>
+                	<span class="mav-top-number">
+                    	12,962
+                    </span>
+                    <span class="mav-top-number">
+                    	22:37
+                    </span>
+                </div>
+            </div>
+            <div class="nav-bottom">
+        	<div class="mock-nav-item">
+            	<span class="mock-menu-challenges">
+                    <a href ='<?php print $base_url;?>/Changes/showchallengemap'> Challenges</a>
+                  </span>   
+                  
+                  
+                  
+                  <span class="mock-menu-learn">
+                    <a href ='<?php print $base_url;?>/learn'> Learn</a>
+                  </span>  
+                  
+                  
+                  <span class="mock-menu-workspace">
+                    <a href ='<?php print $base_url;?>/node/15'> Studio </a>
+                  </span>  
+                   
+                   <span class="mock-menu-competitions">
+                    <a href ='<?php print $base_url;?>/node/41'> Gallery </a>
+                  </span> 
+                  
+                   <span class="mock-menu-gallery">
+                    <a href ='<?php print $base_url;?>/node/42'> Competitions </a>
+                  </span>  
+                  
+                  
+                  
+            </div>
+            <div class="mock-nav-user">
+            	<span class="mock-menu-log">
         <?php
           if ($logged_in) {
          ?>
@@ -273,6 +291,17 @@
             print "<span class='mock-menu-userinfo'> " . $the_name . " <br/> <a href='".$base_url."/user'>" . 'view profile' . "</a>&nbsp;&nbsp;</span>";
 		  }
 	   ?>
+            </div>
+        </div>
+     
+      </div>
+      
+     
+      
+      
+      
+      
+      
       
      
         
