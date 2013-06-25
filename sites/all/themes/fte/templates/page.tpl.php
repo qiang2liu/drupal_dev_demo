@@ -176,13 +176,13 @@
     	<div class="mock-nav-right">
         	<div class="nav-top">
             	<div class="nav-top-left">
-                	<img src="sites/all/themes/fte/images/mock_logo1.png" />
+                	<img src="<?php print $base_url?>/sites/all/themes/fte/images/mock_logo1.png" />
                 </div>
                 <div class="nav-top-right">
                 	<span class="mav-top-ico">
-                    	<img src="sites/all/themes/fte/images/mock_logo_ico1.png" />
-                        <img src="sites/all/themes/fte/images/mock_logo_ico2.png" />
-                        <img src="sites/all/themes/fte/images/mock_logo_ico3.png" />
+                    	<img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_logo_ico1.png" />
+                        <img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_logo_ico2.png" />
+                        <img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_logo_ico3.png" />
                     </span>
                 	<span class="mav-top-number">
                     	12,962
