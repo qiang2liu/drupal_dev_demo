@@ -97,11 +97,14 @@
 	float:right;
 }
 .mock-portrait{
-	display:block;
+	
 	margin-left:.2em;
 }
 ul{
 	list-style: none;
+}
+.mock-portrait-span img{
+  display:block;
 }
 
 ul.level-first-has-child,
