@@ -1,0 +1,5 @@
+; $Id$
+name = FTEADMIN
+description = the module for FTE ADMIN.
+core = 7.x
+package = FTE

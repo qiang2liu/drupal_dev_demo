@@ -20,46 +20,13 @@ function fte_menu() {
     'access callback'=> TRUE,
     'type' => MENU_CALLBACK,  
   );
-  $items['admin/config/system/ftesettings'] = array(
-    'title' => 'FTEsettings',
-    'description' => 'settings for FTE',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('fte_admin_settings'),
-    'access callback' => 'user_access',
-    'access arguments' => array('administer site configuration'),
-    
-  );
-  $items['fteadmin'] = array(
-    'page callback' => 'fte_admin_page',
-    'access callback'=> 'fte_admin_access',
-    'type' => MENU_CALLBACK,  
-  );
+  
+  
   
   
   return $items;
 }
 
-/**
- *  form function 
- */
-
-function fte_admin_settings() {
-   
-   $form['project_studio']= array(
-    '#type' => 'fieldset',
-    '#title' => t('project studio'),
-   );
-   $form['project_studio']['ftesettings_youtube_video_id'] = array(
-     '#type' => 'textfield',
-     '#title' => t('youtube video key'),
-     '#default_value' => variable_get('ftesettings_youtube_video_id', '6rSHgAcL0cQ'),
-     '#description' => t('input the youtube video key, for example : if the video url is http://youtu.be/6rSHgAcL0cQ, the key is 6rSHgAcL0cQ'),
-
-
-  );
-   
-   return system_settings_form($form);
-}
 /**
  *page callback function. for langingpage link 
  */
@@ -158,24 +125,4 @@ function fte_theme($exusting, $type) {
   return array();
 }
 
-function fte_admin_access( $account = NULL) {
-  global $user;
-   
-  if (!isset($account)) {
-    $account = $user;
-  }
-  
-  // User #1 has all privileges:
-  if ($account->uid == 1) {
-    return TRUE;
-  }
-  
-  $roles_array = $account->roles;
-  $ret = in_array('fte admin', $roles_array);
-  return $ret;
-}
-
-function fte_admin_page() {
-  return '';
-}
 

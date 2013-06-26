@@ -1,5 +1,5 @@
 <?php
-global $base_url
+global $base_url;
 ?>
 <div class="da-drag-area">
 <div class="half-box half-box-right">

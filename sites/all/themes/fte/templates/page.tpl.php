@@ -216,7 +216,7 @@
                    <span class="mock-menu-gallery">
                     <a href ='<?php print $base_url;?>/node/42'> Competitions </a>
                   </span>  
-                  <?php if (fte_admin_access()) { ?>
+                  <?php if (fteadmin_admin_access()) { ?>
                     <a href='<?php print $base_url;?>/fteadmin'>
                       <span class="admin-intro">admin</span>
                     </a>
