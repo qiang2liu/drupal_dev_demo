@@ -40,7 +40,7 @@ global $base_url
 	<div class="da-drag-item-box">
     	<div class="da-tabs-box">
         	<em class="active"></em>
-            <span class="active">community</span>
+            <span class="active">Activity Stream</span>
         </div>
         <div class="da-content-box">
         	<div class="da-content">

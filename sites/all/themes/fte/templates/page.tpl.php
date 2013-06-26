@@ -187,9 +187,9 @@
                 	<span class="mav-top-number">
                     	12,962
                     </span>
-                    <span class="mav-top-number">
+                    <!--<span class="mav-top-number">
                     	22:37
-                    </span>
+                    </span>-->
                 </div>
             </div>
             <div class="nav-bottom">

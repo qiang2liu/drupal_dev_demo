@@ -129,6 +129,7 @@ $(document).ready(function(){
 		//
 		$(this).toggleClass('active');
 		$(this).parent().siblings('.stage_bottom_content_inner').toggle(400);
+		$('.stage_comments').toggle(400);
 		//
 		//
 	});

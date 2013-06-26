@@ -38,8 +38,8 @@ global $base_path;
   </div>  
   <div class="stage_comments" >
       <div class="stage_bottom_content_tab">
-        <em class="stage_bottom_switcher active"></em>
-        <span>Comments</span>
+        <!--<em class="stage_bottom_switcher active"></em>-->
+        <span style="padding-left:18px;">Comments</span>
       
       </div>
    	   <div class="stage_bottom_content_inner">

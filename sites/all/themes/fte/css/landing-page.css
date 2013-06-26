@@ -774,6 +774,7 @@ em.stage_bottom_switcher.active{
     cursor: pointer;
     display: inline-block;
     padding: 5px 10px;
+	text-transform:capitalize;
    }
    .da-tabs-box span.active{
    	 background:#fff;
