@@ -879,3 +879,11 @@ body.one-sidebar #content {
   height:42px;
   overflow:hidden;
 }
+.admin-intro{
+  background:url(../images/mock_admin_intro.png) center center no-repeat;
+  width:26px;
+  height:26px;
+  overflow:hidden;
+  text-indent:-9999em;
+  margin-left:10px;
+}

@@ -216,7 +216,7 @@
                    <span class="mock-menu-gallery">
                     <a href ='<?php print $base_url;?>/node/42'> Competitions </a>
                   </span>  
-                  
+                  <span class="admin-intro">admin</span>
                   
                   
             </div>
