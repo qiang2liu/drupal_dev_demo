@@ -10,7 +10,7 @@ stylesheets[all][] = css/layout.css
 stylesheets[all][] = css/style.css
 stylesheets[all][] = css/colors.css
 stylesheets[print][] = css/print.css
-scripts[] = js/jq.js
+;scripts[] = js/jq.js
 scripts[] = js/landing-page.js
 ;scripts[] = js/parallax.js
 

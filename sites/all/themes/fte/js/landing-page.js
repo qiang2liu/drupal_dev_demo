@@ -1,3 +1,6 @@
+(function($){
+  
+
 $(document).ready(function(){
 	/*parallax.add($("#home"))
 			.add($("#qa"))
@@ -212,3 +215,4 @@ $(document).ready(function(){
 	});
         
 });
+})(jQuery);
