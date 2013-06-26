@@ -1,4 +1,15 @@
-  var fte_map_points_google_map = '';
+  (function ($, Drupal) {
+        function init () {
+          
+          fte_ini_google_map(2.050357799709012, 19.992198944091797);
+        }
+        Drupal.behaviors.map_canvas = {
+          attach: init
+        };
+        
+        ////
+        
+         var fte_map_points_google_map = '';
   // set a global marker array, prepare for batch operation to the points.
   var fte_map_points_markersArray = [];
   var fte_map_points_the_openwindow = null;
@@ -17,7 +28,7 @@
   
 
   function fte_map_set_the_points(map,the_points) {
-	  
+    
     $.each(the_points, function (i,p){
       var the_location = new google.maps.LatLng(p.lat, p.lon);
       var marker = new google.maps.Marker({
@@ -31,6 +42,7 @@
       fte_map_map_setup_Listener(marker, map);
       
     });
+   
   }
   
   function fte_map_map_openwin(marker, map, contentString) {
@@ -124,3 +136,17 @@
   }
   
  
+        
+        
+        /////
+        
+        
+        
+        
+        
+        
+        
+      }(jQuery, Drupal));
+      
+      
+     

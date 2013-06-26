@@ -67,3 +67,12 @@ function fteadmin_admin_page() {
   return '';
 }
 
+function fteadmin_delete($node) {
+  echo "qqqqq";
+  die("");
+}
+function fteadmin_node_delete($node) {
+  echo "wwwwww";
+  
+  
+}
