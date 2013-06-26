@@ -29,6 +29,12 @@ function fte_menu() {
     'access arguments' => array('administer site configuration'),
     
   );
+  $items['fteadmin'] = array(
+    'page callback' => 'fte_admin_page',
+    'access callback'=> 'fte_admin_access',
+    'type' => MENU_CALLBACK,  
+  );
+  
   
   return $items;
 }
@@ -150,5 +156,26 @@ function fte_theme($exusting, $type) {
     );
   }
   return array();
+}
+
+function fte_admin_access( $account = NULL) {
+  global $user;
+   
+  if (!isset($account)) {
+    $account = $user;
+  }
+  
+  // User #1 has all privileges:
+  if ($account->uid == 1) {
+    return TRUE;
+  }
+  
+  $roles_array = $account->roles;
+  $ret = in_array('fte admin', $roles_array);
+  return $ret;
+}
+
+function fte_admin_page() {
+  return '';
 }
 
