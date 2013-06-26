@@ -26,9 +26,9 @@
 </style>
 
 
-<div>
+<!--<div>
   <h2 style="text-align: center; background:#6fa8dc; padding:1em; font-size:1.6em; font-weight:bold; color:#fff;">Challenges</h2>
-</div>
+</div>-->
 
 
 <div class ="image_slid">
@@ -50,7 +50,7 @@
 
 
 <!-- map section -->
-<h3>TOPIC SELECTOR</h3>
+<!--<h3>TOPIC SELECTOR</h3>-->
 <div class='mapsection'>
   
   <div class="topic-selector">
@@ -79,15 +79,31 @@
   </div>
   
 </div>
+<!-- chanllenge slider-->
+<!--<h3>Showcase</h3>-->
+<div class="cha-slider">
+	<div class="cha-slider-left"></div>
+    <div class="cha-slider-middle">
+      <div class="cha-slider-middle-inner">
+    	<ul>
+        	<li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_cha_slide_01.png" /></li>
+            <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_cha_slide_02.png" /></li>
+            <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_cha_slide_03.png" /></li>
+            <li><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_cha_slide_04.png" /></li>
+        </ul>
+      </div>
+    </div>
+    <div class="cha-slider-right"></div>
+</div>
 
 <!-- project section -->
 
 <div style="margin-top:1em;">
   
-  <div class='project_directory' style='width:70%; float:left;border:solid 1px #000000;margin-right:10px;'>
-    <div class="project_directory-title">
+  <div class='project_directory' style='width:70%; float:left;border:solid 1px #c065f1;margin-right:10px;'>
+    <!--<div class="project_directory-title">
       <span style="font-size:1.2em; font-weight:bold;">Project Directory</span> <span style="float:right; position:relative; top:-6px;"><input type="text" value="search"/></span>
-    </div>
+    </div>-->
     <div>
       <div class='project_tabs'>
         
@@ -351,7 +367,7 @@
       
     </div>
   </div>
-  <div class="project_tags" style="width: 20%;float:left">
+  <div class="project_tags">
     
     <span class="taglevel0">tornado</span>
     <span class="taglevel1">web2.0</span>
@@ -379,7 +395,54 @@
     <span class="taglevel0">play</span>
     <span class="taglevel3">prism</span>
     <span class="taglevel2">sundry</span>
+    <span class="taglevel0">tornado</span>
+    <span class="taglevel1">web2.0</span>
+    <span class="taglevel0">fte</span>
+    <span class="taglevel3">chart</span>
+    <span class="taglevel2">project</span>
     
+    
+    <span class="taglevel2">x</span>
+    <span class="taglevel0">apatana</span>
+    <span class="taglevel3">water</span>
+    <span class="taglevel1">america</span>
+    <span class="taglevel2">reg</span>
+    
+   
+    <span class="taglevel2">smoke</span>
+    
+    
+    <span class="taglevel0">drug</span>
+    <span class="taglevel1">community</span>
+    <span class="taglevel0">play</span>
+    <span class="taglevel3">prism</span>
+    <span class="taglevel2">sundry</span>
+    <span class="taglevel0">tornado</span>
+    <span class="taglevel1">web2.0</span>
+    <span class="taglevel0">fte</span>
+    <span class="taglevel3">chart</span>
+    <span class="taglevel2">project</span>
+    
+    
+    <span class="taglevel2">x</span>
+    <span class="taglevel0">apatana</span>
+    <span class="taglevel3">water</span>
+    <span class="taglevel1">america</span>
+    <span class="taglevel2">reg</span>
+    
+    
+    <span class="taglevel1">student</span>
+    <span class="taglevel0">fat</span>
+    <span class="taglevel3">dam</span>
+    <span class="taglevel2">drupal dev</span>
+    <span class="taglevel2">smoke</span>
+    
+    
+    <span class="taglevel0">drug</span>
+    <span class="taglevel1">community</span>
+    <span class="taglevel0">play</span>
+    <span class="taglevel3">prism</span>
+    <span class="taglevel2">sundry</span>
     
   </div>
   

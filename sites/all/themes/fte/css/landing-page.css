@@ -171,7 +171,8 @@ ul.level-first-has-child ul{
 .mock-nav:after,
 .nav-top:after,
 .nav-bottom:after,
-.image_slid:after{
+.image_slid:after,
+.cha-slider-middle-inner:after{
 	content:'';
 	display:block;
 	clear:both;
@@ -458,7 +459,8 @@ em.stage_bottom_switcher.active{
 	width:769px;
   }
   
-.region-content .topic-selector ul{
+.region-content .topic-selector ul,
+.region-content .cha-slider-middle ul{
 	margin:0;
 	padding:0;
 }
@@ -475,6 +477,50 @@ em.stage_bottom_switcher.active{
 	width:180px;
 	background:#ebc3ff;
   }
+  .cha-slider{
+    height:202px;
+	overflow:hidden;
+	margin-top:1em;
+  }
+  .cha-slider-left{
+    width:48px;
+	height:94px;
+	background:url(../images/ico_da_slider_left.png) no-repeat;
+	float:left;
+	margin-top:54px;
+	margin-right:5px;
+	cursor:pointer;
+  }
+  .cha-slider-right{
+    width:48px;
+	height:94px;
+	background:url(../images/ico_da_slider_right.png) no-repeat;
+	float:right;
+	margin-top:54px;
+	cursor:pointer;
+  }
+  .cha-slider-middle{
+    width:846px;
+	float:left;
+	
+	overflow:hidden;
+  }
+  .project_tags{
+    width:240px;
+	padding:0 8px;
+	float:right;
+	background:#fff;
+	border:1px solid #c065f1;
+  }
+  .cha-slider-middle li{
+    float:left;
+	border:1px solid #c065f1;
+	margin:0 1px;
+  }
+   .cha-slider-middle li img{
+     width:278px;
+	 display:block;
+   }
   .topic-selector li{
     padding:.5em 0 0.5em 1.5em;
 	border-bottom:1px solid #c065f0;
@@ -533,25 +579,27 @@ em.stage_bottom_switcher.active{
    }
    .project_directory .project_tabs{
      padding-left:15px;
-	 border-bottom:1px solid #000;
+	 border-bottom:1px solid #c065f1;
+	 background:#ebc3ff;
    }
    .project_directory .project_tabs span{
      display:inline-block;
-	 border:1px solid #000;
+	 border:1px solid #c065f0;
+	 border-top:0;
 	 margin-left:-1px;
 	 position:relative;
 	 top:1px;
 	 padding:5px 10px;
-	 background:#ddd;
+	 background:#ebc3ff;
 	 cursor:pointer;
    }
    .project_directory .project_tabs span.active{
-     background:#f9cc9e;
-	 border-bottom:1px solid #f9cc9e;
+     background:#fff;
+	 border-bottom:1px solid #fff;
    }
    .project_directory .content{
      margin-top:0;
-	 background:#f9cc9e;
+	 background:#fff;
 	 padding:10px;
    }
    .project-directory-content{

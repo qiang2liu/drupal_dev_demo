@@ -219,6 +219,6 @@ $(document).ready(function(){
 		$('.topic-selector li').removeClass('active');
 		$(this).addClass('active');
 	});
-	
+	$('.cha-slider-middle-inner').css('width', $('.cha-slider-middle-inner li').length * 2 * 282 + 'px' );
 });
 })(jQuery);
