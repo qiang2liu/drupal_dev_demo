@@ -17,6 +17,7 @@
   
 
   function fte_map_set_the_points(map,the_points) {
+	  
     $.each(the_points, function (i,p){
       var the_location = new google.maps.LatLng(p.lat, p.lon);
       var marker = new google.maps.Marker({

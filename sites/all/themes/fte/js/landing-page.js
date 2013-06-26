@@ -214,6 +214,11 @@ $(document).ready(function(){
 		$(this).parent().siblings('.da-content-box').find('.da-content').addClass('hide');
 		$(this).parent().siblings('.da-content-box').find('.da-content').eq(idx-1).removeClass('hide');
 	});
-        
+  
+	$('.topic-selector li').bind('click', function(){
+		$('.topic-selector li').removeClass('active');
+		$(this).addClass('active');
+	});
+	
 });
 })(jQuery);

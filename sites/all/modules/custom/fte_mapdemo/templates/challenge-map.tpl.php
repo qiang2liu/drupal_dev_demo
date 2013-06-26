@@ -50,129 +50,31 @@
 
 
 <!-- map section -->
-
+<h3>TOPIC SELECTOR</h3>
 <div class='mapsection'>
   
   <div class="topic-selector">
     
-     <h4 class="chall-h4"> topic Selector </h4>
-     <div class="topic-ol">
-       
-       <ol style="list-style-type: upper-roman;">
-         <li>
-           Wicked Problem 1
-           <ol style="list-style-type: lower-alpha;">
-             <li>
-               Grand Challenge 1
-             </li>
-           </ol>
-           
-         </li>
-         <li>
-           Wicked Problem 2
-           <ol style="list-style-type: lower-alpha;">
-             <li>
-               Grand Challenge 1
-             </li>
-             <li>
-               Grand Challenge 2
-             </li>
-           </ol>
-           
-         </li>
-         <li>
-           Wicked Problem 3
-           <ol style="list-style-type: lower-alpha;">
-             <li>
-               Grand Challenge 1
-             </li>
-             <li>
-               Grand Challenge 2
-             </li>
-             <li>
-               Grand Challenge 3
-             </li>
-           </ol>
-           
-         </li>
-         <li>
-           Wicked Problem 4
-            <ol style="list-style-type: lower-alpha;">
-             <li>
-               Grand Challenge 1
-             </li>
-             <li>
-               Grand Challenge 2
-             </li>
-             <li>
-               Grand Challenge 3
-             </li>
-           </ol>
-           
-         </li>
-         <li>
-           Wicked Problem 5
-            <ol style="list-style-type: lower-alpha;">
-             <li>
-               Grand Challenge 1
-             </li>
-             <li>
-               Grand Challenge 2
-             </li>
-             
-           </ol>
-           
-         </li>
-       </ul>
-       
-     </div>
+     <ul>
+     	<li class="active">Racism</li>
+        <li>Poverty</li>
+        <li>Climate</li>
+        <li>Food</li>
+        <li>Sustainability</li>
+        <li>Water</li>
+        <li>War</li>
+        <li>Drugs</li>
+        <li>Human Rights</li>
+     </ul>
+     
     
     
   </div>
   
-  <div style="float:right;">
-    <div id="map_canvas" style="width:620px;height:440px;"></div>
-    <div class="showcase_videos">
-    	<h5>Showcase <br/>Videos</h5>
-      <ul>
-        <li>
-          <a href="<?php print $base_url; ?>/node/43">
-            <img src="<?php print $base_url; ?>/images/mock_showcase1.jpg" />
-          </a>
-        </li>
-        <li>
-          <a href="<?php print $base_url; ?>/node/44">
-            <img src="<?php print $base_url; ?>/images/mock_showcase2.jpg" />
-          </a>
-        </li>
-        <li>
-          <a href="<?php print $base_url; ?>/node/45">
-             <img src="<?php print $base_url; ?>/images/mock_showcase3.jpg" />
-          </a>
-        </li>
-        <li>
-          <a href="<?php print $base_url; ?>/node/46">
-             <img src="<?php print $base_url; ?>/images/mock_showcase4.jpg" />
-          </a>
-        </li>
-          
-      </ul>
-      
-      
-    </div>
-    <script>
-      (function ($, Drupal) {
-        function init () {
-          fte_ini_google_map(2.050357799709012, 19.992198944091797);
-        }
-        Drupal.behaviors.map_canvas = {
-          attach: init
-        };
-        
-      }(jQuery, Drupal));
-      
-      
-    </script>
+  <div class="cha-map-area">
+    <div id="map_canvas" style="width:769px;height:520px;"></div>
+    
+   
   
   </div>
   

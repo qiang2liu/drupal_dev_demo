@@ -170,7 +170,8 @@ ul.level-first-has-child ul{
 .da-content .img-list:after,
 .mock-nav:after,
 .nav-top:after,
-.nav-bottom:after{
+.nav-bottom:after,
+.image_slid:after{
 	content:'';
 	display:block;
 	clear:both;
@@ -447,11 +448,46 @@ em.stage_bottom_switcher.active{
 	display:block;
 	visibility:hidden;
   }
+  .mapsection{
+    border:1px solid #c065f0;
+	background:#fff;
+  }
+  .cha-map-area{
+    float:right;
+	border-left:1px solid #c065f0;
+	width:769px;
+  }
+  
+.region-content .topic-selector ul{
+	margin:0;
+	padding:0;
+}
+.page-changes h3{
+	display:inline-block;
+	margin:0;
+	color:#c065f1;
+	padding: 0.5em 2em;
+	border:1px solid #c065f1;
+	border-bottom:0;
+}
   .topic-selector{
     float:left;
-	width:178px;
-	border:1px solid #000;
-	background:#f6b26b;
+	width:180px;
+	background:#ebc3ff;
+  }
+  .topic-selector li{
+    padding:.5em 0 0.5em 1.5em;
+	border-bottom:1px solid #c065f0;
+	border-right:1px solid #c065f0;
+	position:relative;
+	left:1px;
+	cursor: pointer;
+	background:url(../images/mock_arrow_purple.png) 0.5em center no-repeat;
+  }
+  .topic-selector li.active,
+  .topic-selector li:hover{
+    background:url(../images/mock_arrow_purple_active.png) 0.5em center no-repeat #fff;
+	border-right:1px solid #fff;
   }
   .chall-h4{
     font-size:1.2em;
@@ -736,6 +772,11 @@ em.stage_bottom_switcher.active{
   body.page-landingpage #main{
     background:#036ae0;
   }
+  
+  body.page-changes #main{
+    background:#640199;
+  }
+  
   .da-drag-item-box{
     background:#fff;
   }
