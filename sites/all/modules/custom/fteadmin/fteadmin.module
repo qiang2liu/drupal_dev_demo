@@ -65,7 +65,10 @@ function fteadmin_admin_page() {
 
 function fteadmin_form_alter(&$form, $form_state, $form_id) {
 
-
+  
+ // $the_parent_ele = $form['field_parent'][$form['language']['#value']];
+ // dpm($the_parent_ele);
+  
   if ($form_id == 'node_delete_confirm' && $form['#node']->type == 'educational_curriculum_theme') {
 
     $nid = $form['#node']->nid;
@@ -78,7 +81,6 @@ function fteadmin_form_alter(&$form, $form_state, $form_id) {
       
       unset($form['#submit']);
       $form['description']['#markup'] = t('can\'t delete this theme, beacuse it is not empty.');
-     // unset($form['description']);
       unset($form['actions']['submit']);
      
       return confirm_form($form, 
@@ -96,5 +98,17 @@ function fteadmin_form_alter(&$form, $form_state, $form_id) {
       t('Delete'), 
       t('Cancel')
     );
+  } 
+  else {
+     if ($form_id == 'curriculum_modules_node_form') {
+       $theme_nid = intval(arg(3));
+       if ($theme_nid > 0 ) {
+         $form['field_parent'][$form['field_parent']['#language']]['#default_value'] = array($theme_nid);
+         
+       }
+      
+     }
+    
   }
+  
 }
