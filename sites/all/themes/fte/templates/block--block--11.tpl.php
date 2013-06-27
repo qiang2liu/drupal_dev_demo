@@ -3,6 +3,8 @@
     global $base_url;
    
     ?>
+<div class="toolbar-wrapper">
+<div class="toolbar-wrapper-control"></div>
 <ul class="level-first-has-child">
 	<li>
         <a href="#x">Murals</a>
@@ -193,3 +195,4 @@
         </ul>
     </li>
 </ul>
+</div>

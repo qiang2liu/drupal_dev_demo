@@ -230,6 +230,11 @@ $(document).ready(function(){
 		
 		$(this).toggleClass('active');
 		$(this).siblings('.location-content').toggle(400);
+	});
+	var h = $('.region-sidebar-first').height();
+	$('.toolbar-wrapper-control').bind('click', function(){
+		$(this).toggleClass('active');
+		$('.region-sidebar-first').css('height', h+ 'px').toggleClass('active');
 	})
 });
 })(jQuery);

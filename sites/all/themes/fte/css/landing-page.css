@@ -1000,3 +1000,24 @@ body.one-sidebar #content {
 .location-tab.active{
    background:url(../images/mock_arrow_purple_active.png) .5em center no-repeat #ebc3ff;
 }
+.toolbar-wrapper{
+  position:relative;
+}
+.region-sidebar-first.active{
+  width:9px;
+}
+.region-sidebar-first.active ul{
+  display:none;
+}
+.toolbar-wrapper-control{
+  position:absolute;
+  width:7px;
+  height:11px;
+  background:url(../images/mock_toolbar_collapse_green.png) no-repeat;
+  right:0;
+  top:5px;
+  cursor:pointer;
+}
+.toolbar-wrapper-control.active{
+  background: url(../images/mock_arrow_green.png) no-repeat;
+}
