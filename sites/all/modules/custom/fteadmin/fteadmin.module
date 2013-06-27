@@ -1,63 +1,59 @@
 <?php
+
 /**
  * Implements hook_menu().
  */
-
 function fteadmin_menu() {
- 
+
   $items['admin/config/system/ftesettings'] = array(
-    'title' => 'FTEsettings',
-    'description' => 'settings for FTE',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('fteadmin_admin_settings'),
-    'access callback' => 'user_access',
-    'access arguments' => array('administer site configuration'),
-    
+      'title' => 'FTEsettings',
+      'description' => 'settings for FTE',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('fteadmin_admin_settings'),
+      'access callback' => 'user_access',
+      'access arguments' => array('administer site configuration'),
   );
   $items['fteadmin'] = array(
-    'page callback' => 'fteadmin_admin_page',
-    'access callback'=> 'fteadmin_admin_access',
-    'type' => MENU_CALLBACK,  
+      'page callback' => 'fteadmin_admin_page',
+      'access callback' => 'fteadmin_admin_access',
+      'type' => MENU_CALLBACK,
   );
-  
-  
+
+
   return $items;
 }
 
 /**
  *  form function 
  */
-
 function fteadmin_admin_settings() {
-   
-   $form['project_studio']= array(
-    '#type' => 'fieldset',
-    '#title' => t('project studio'),
-   );
-   $form['project_studio']['ftesettings_youtube_video_id'] = array(
-     '#type' => 'textfield',
-     '#title' => t('youtube video key'),
-     '#default_value' => variable_get('ftesettings_youtube_video_id', '6rSHgAcL0cQ'),
-     '#description' => t('input the youtube video key, for example : if the video url is http://youtu.be/6rSHgAcL0cQ, the key is 6rSHgAcL0cQ'),
 
-
+  $form['project_studio'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('project studio'),
   );
-   
-   return system_settings_form($form);
+  $form['project_studio']['ftesettings_youtube_video_id'] = array(
+      '#type' => 'textfield',
+      '#title' => t('youtube video key'),
+      '#default_value' => variable_get('ftesettings_youtube_video_id', '6rSHgAcL0cQ'),
+      '#description' => t('input the youtube video key, for example : if the video url is http://youtu.be/6rSHgAcL0cQ, the key is 6rSHgAcL0cQ'),
+  );
+
+  return system_settings_form($form);
 }
 
-function fteadmin_admin_access( $account = NULL) {
+function fteadmin_admin_access($account = NULL) {
   global $user;
-   
+
   if (!isset($account)) {
     $account = $user;
   }
-  
+
   // User #1 has all privileges:
   if ($account->uid == 1) {
     return TRUE;
   }
-  
+
   $roles_array = $account->roles;
   $ret = in_array('fte admin', $roles_array);
   return $ret;
@@ -67,12 +63,38 @@ function fteadmin_admin_page() {
   return '';
 }
 
-function fteadmin_delete($node) {
-  echo "qqqqq";
-  die("");
-}
-function fteadmin_node_delete($node) {
-  echo "wwwwww";
-  
-  
+function fteadmin_form_alter(&$form, $form_state, $form_id) {
+
+
+  if ($form_id == 'node_delete_confirm' && $form['#node']->type == 'educational_curriculum_theme') {
+
+    $nid = $form['#node']->nid;
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node', '=')
+            ->entityCondition('bundle', 'curriculum_modules', '=')
+            ->fieldCondition('field_parent', 'target_id', $nid, '=');
+    $result = $query->execute();
+    if (!empty($result)) {  //can't delete
+      
+      unset($form['#submit']);
+      $form['description']['#markup'] = t('can\'t delete this theme, beacuse it is not empty.');
+     // unset($form['description']);
+      unset($form['actions']['submit']);
+     
+      return confirm_form($form, 
+        t('can\'t delete this theme, beacuse it is not empty.'), 
+        isset($_GET['destination']) ? $_GET['destination'] : 'node/' . $node->nid,
+        t('This action cannot be undone.')    
+      );
+    }
+
+    $node = node_load($nid);
+    return confirm_form($form, 
+      t('Are you sure you want to delete %title?', array('%title' => $node->title)), 
+      isset($_GET['destination']) ? $_GET['destination'] : 'node/' . $node->nid,
+      t('This action cannot be undone.'), 
+      t('Delete'), 
+      t('Cancel')
+    );
+  }
 }
