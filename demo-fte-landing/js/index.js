@@ -636,7 +636,7 @@ $(window).load(function(){
 		$('.page').css('width', '1060px');
 		$('.page').css('height','550px');
 		$('.landing-iframe').css({
-			'width': '998px',
+			'width': '1058px',
 			'height' : '506px'
 		})
 		$('.page').removeClass('max');
@@ -721,7 +721,7 @@ $(window).load(function(){
 			$('.page-maximize').attr('title','minimize');
 	 }else{
 	 	$('.landing-iframe').animate({
-	 		width : '998px',
+	 		width : '1058px',
 	 		height : '506px'
 	 	},400);
 	 	$('.page').animate({
