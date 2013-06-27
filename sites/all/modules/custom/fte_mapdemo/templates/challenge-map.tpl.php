@@ -30,22 +30,22 @@
   <h2 style="text-align: center; background:#6fa8dc; padding:1em; font-size:1.6em; font-weight:bold; color:#fff;">Challenges</h2>
 </div>-->
 
-
+<div id="stage">
 <div class ="image_slid">
-  <ul>
-    
-      <li><img style="width: 200px; height: 200px;" src="<?php print $base_url;?>/images/mock_challenges_1.jpg" /></li>
-      <li><img style="width: 200px; height: 200px;" src="<?php print $base_url;?>/images/mock_challenges_2.jpg" /></li>
-      <li><img style="width: 200px; height: 200px;" src="<?php print $base_url;?>/images/mock_challenges_3.jpg" /></li>
-      <li><img style="width: 200px; height: 200px;" src="<?php print $base_url;?>/images/mock_challenges_4.jpg" /></li>
-      <li><img style="width: 200px; height: 200px;" src="<?php print $base_url;?>/images/mock_challenges_5.jpg" /></li>
-      <li><img style="width: 200px; height: 200px;" src="<?php print $base_url;?>/images/mock_challenges_6.jpg" /></li>
-      <li><img style="width: 200px; height: 200px;" src="<?php print $base_url;?>/images/mock_challenges_7.jpg" /></li>
-      <li><img style="width: 200px; height: 200px;" src="<?php print $base_url;?>/images/mock_challenges_8.jpg" /></li>
+  <img  src="<?php print $base_url;?>/images/mock_challenges_1.jpg" style="-webkit-transform: rotateY(0deg) translateX(180px);" />
+     <img  src="<?php print $base_url;?>/images/mock_challenges_2.jpg" style="-webkit-transform: rotateY(-40deg) translateX(180px);"  />
+      <img src="<?php print $base_url;?>/images/mock_challenges_3.jpg" style="-webkit-transform: rotateY(-80deg) translateX(180px);" />
+      <img src="<?php print $base_url;?>/images/mock_challenges_4.jpg" style="-webkit-transform: rotateY(-120deg) translateX(180px);" />
+      <img src="<?php print $base_url;?>/images/mock_challenges_5.jpg" style="-webkit-transform: rotateY(-160deg) translateX(180px);" />
+      <img src="<?php print $base_url;?>/images/mock_challenges_6.jpg" style="-webkit-transform: rotateY(-200deg) translateX(180px);" />
+      <img src="<?php print $base_url;?>/images/mock_challenges_7.jpg" style="-webkit-transform: rotateY(-240deg) translateX(180px);" />
+      <img src="<?php print $base_url;?>/images/mock_challenges_8.jpg"  style="-webkit-transform: rotateY(-280deg) translateX(180px);"/>
+      <img src="<?php print $base_url;?>/images/mock_challenges_5.jpg" style="-webkit-transform: rotateY(-320deg) translateX(180px);" />
   </ul>
   
   
   
+</div>
 </div>
 
 
