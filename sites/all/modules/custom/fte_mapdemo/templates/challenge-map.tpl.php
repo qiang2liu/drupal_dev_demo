@@ -153,7 +153,7 @@
   </div>
   
   <div class="cha-map-area">
-    <div id="map_canvas" style="width:769px;height:520px;"></div>
+    <div id="map_canvas" style="width:831px;height:520px;"></div>
     
    
   

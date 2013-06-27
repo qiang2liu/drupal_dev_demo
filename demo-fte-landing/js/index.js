@@ -419,7 +419,7 @@
 					orginalTop  : 0,
 					orginalWidth: 0,
 					orginalHeight:0,
-					initialWidth : '1000',
+					initialWidth : '1060',
 					initialHeight: '550'
 					 
 				}
@@ -632,8 +632,8 @@ $(window).load(function(){
 	//cube and content
 	function makePageDefault(){
 		$('.page').css('top', ($(window).height() - 550)/2 + $(window).scrollTop()  + 'px');
-		$('.page').css('left', ($(window).width() - 1000)/2   + 'px');
-		$('.page').css('width', '1000px');
+		$('.page').css('left', ($(window).width() - 1060)/2   + 'px');
+		$('.page').css('width', '1060px');
 		$('.page').css('height','550px');
 		$('.landing-iframe').css({
 			'width': '998px',
@@ -726,8 +726,8 @@ $(window).load(function(){
 	 	},400);
 	 	$('.page').animate({
 			top: ($(window).height() - 550)/2 + $(window).scrollTop()  + 'px',
-			left :($(window).width() - 1000)/2   + 'px',
-			width : '1000px',
+			left :($(window).width() - 1060)/2   + 'px',
+			width : '1060px',
 			height : '550px'
 		},400,
 		function(){
