@@ -66,7 +66,7 @@ global $base_url;
         <span>friends</span>
         <span>collaborators</span>
         <span>location</span>
-        <span>leadboard</span>
+        <span>leaderboard</span>
     </div>
     <div class="da-content-box">
     	<div class="da-content">

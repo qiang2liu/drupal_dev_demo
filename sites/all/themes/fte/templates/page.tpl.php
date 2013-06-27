@@ -217,7 +217,7 @@
                     <a href ='<?php print $base_url;?>/node/42'> Competitions </a>
                   </span>  
                   <?php if (fteadmin_admin_access()) { ?>
-                    <a href='<?php print $base_url;?>/fteadmin'>
+                    <a href='<?php print $base_url;?>/fteadmin' style="float:left; display:inline-block;">
                       <span class="admin-intro">admin</span>
                     </a>
                   <?php } ?>

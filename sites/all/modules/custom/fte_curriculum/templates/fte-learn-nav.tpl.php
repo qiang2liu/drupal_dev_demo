@@ -3,7 +3,7 @@
 		<li class="active">
 	    	<a href="#x">Finding our bearing</a>
 	        <ul>
-	        	<li><a href="learn/1/stage/0" class="menu-learn-child has-link">Learning Forward</a></li>
+	        	<li><a href="learn/1/stage/0" class="menu-learn-child has-link">Leaning Forward</a></li>
 	            <li><a href="#x" class="menu-learn-child">Innovation</a></li>
 	            <li><a href="#x" class="menu-learn-child">Brainstorming</a></li>
 	            <li><a href="#x" class="menu-learn-child">Collaboration</a></li>

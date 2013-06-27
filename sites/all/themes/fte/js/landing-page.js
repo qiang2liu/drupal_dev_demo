@@ -215,10 +215,21 @@ $(document).ready(function(){
 		$(this).parent().siblings('.da-content-box').find('.da-content').eq(idx-1).removeClass('hide');
 	});
   
-	$('.topic-selector li').bind('click', function(){
-		$('.topic-selector li').removeClass('active');
-		$(this).addClass('active');
+	$('.topic-selector >ul > li').bind('click', function(){
+		if($(this).hasClass('active')){
+			$(this)	.removeClass('active');
+		}else{
+			$('.topic-selector >ul > li.active').removeClass('active');
+			$(this).addClass('active');
+		}
+		
+		
 	});
 	$('.cha-slider-middle-inner').css('width', $('.cha-slider-middle-inner li').length * 2 * 282 + 'px' );
+	$('.location-tab').bind('click', function(){
+		
+		$(this).toggleClass('active');
+		$(this).siblings('.location-content').toggle(400);
+	})
 });
 })(jQuery);

@@ -238,7 +238,7 @@ body #main{
   margin-bottom:0;
 }
 .region-sidebar-first{
-  border:1px solid #ddd;
+  border:1px solid #666;
   background:#fff;
 }
 
@@ -521,19 +521,24 @@ em.stage_bottom_switcher.active{
      width:278px;
 	 display:block;
    }
-  .topic-selector li{
+  .topic-selector>ul>li{
     padding:.5em 0 0.5em 1.5em;
 	border-bottom:1px solid #c065f0;
 	border-right:1px solid #c065f0;
 	position:relative;
 	left:1px;
 	cursor: pointer;
-	background:url(../images/mock_arrow_purple.png) 0.5em center no-repeat;
+	background:url(../images/mock_arrow_purple.png) 0.5em 10px no-repeat;
   }
-  .topic-selector li.active,
-  .topic-selector li:hover{
-    background:url(../images/mock_arrow_purple_active.png) 0.5em center no-repeat #fff;
+  .topic-selector>ul>li ul{
+    display:none;
+  }
+  .topic-selector>ul>li.active{
+    background:url(../images/mock_arrow_purple_active.png) 0.5em 15px no-repeat #fff;
 	border-right:1px solid #fff;
+  }
+  .topic-selector>ul>li.active ul{
+  	display:block;
   }
   .chall-h4{
     font-size:1.2em;
@@ -827,6 +832,7 @@ em.stage_bottom_switcher.active{
   
   .da-drag-item-box{
     background:#fff;
+	border:1px solid #86bdfd;
   }
   .half-box{
     width:49%;
@@ -858,6 +864,7 @@ em.stage_bottom_switcher.active{
   .da-bottom-box{
     background:#fff;
 	margin-bottom:1em;
+	border:1px solid #86bdfd;
   }
   .da-tabs-box span{
     cursor: pointer;
@@ -975,4 +982,15 @@ body.one-sidebar #content {
   overflow:hidden;
   text-indent:-9999em;
   margin-left:10px;
+}
+.location-tab{
+  border: 1px solid #c065ee;
+  padding:.5em 0 0.5em 1.5em;
+  background:url(../images/mock_arrow_purple.png) .5em center no-repeat #ebc3ff;
+  margin-bottom:.4em;
+  margin-top:-1px;
+  cursor:pointer;
+}
+.location-tab.active{
+   background:url(../images/mock_arrow_purple_active.png) .5em center no-repeat #ebc3ff;
 }

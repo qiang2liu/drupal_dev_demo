@@ -56,15 +56,96 @@
   <div class="topic-selector">
     
      <ul>
-     	<li class="active">Racism</li>
-        <li>Poverty</li>
-        <li>Climate</li>
-        <li>Food</li>
-        <li>Sustainability</li>
-        <li>Water</li>
-        <li>War</li>
-        <li>Drugs</li>
-        <li>Human Rights</li>
+     	<li class="active">
+        	Racism
+            <ul class="topic-selector-sub-menu">
+            	<li><a href="#x">Callenge1</a></li>
+                <li><a href="#x">Callenge2</a></li>
+                <li><a href="#x">Callenge3</a></li>
+                <li><a href="#x">Callenge4</a></li>
+                <li><a href="#x">Callenge5</a></li>
+            </ul>
+         </li>
+        <li>
+        	Poverty
+            <ul class="topic-selector-sub-menu">
+            	<li><a href="#x">Callenge1</a></li>
+                <li><a href="#x">Callenge2</a></li>
+                <li><a href="#x">Callenge3</a></li>
+                <li><a href="#x">Callenge4</a></li>
+                <li><a href="#x">Callenge5</a></li>
+            </ul>
+        </li>
+        <li>
+        	Climate
+            <ul class="topic-selector-sub-menu">
+            	<li><a href="#x">Callenge1</a></li>
+                <li><a href="#x">Callenge2</a></li>
+                <li><a href="#x">Callenge3</a></li>
+                <li><a href="#x">Callenge4</a></li>
+                <li><a href="#x">Callenge5</a></li>
+            </ul>
+         </li>
+        <li>
+        	Food
+            <ul class="topic-selector-sub-menu">
+            	<li><a href="#x">Callenge1</a></li>
+                <li><a href="#x">Callenge2</a></li>
+                <li><a href="#x">Callenge3</a></li>
+                <li><a href="#x">Callenge4</a></li>
+                <li><a href="#x">Callenge5</a></li>
+            </ul>
+         </li>
+        <li>
+        	Sustainability
+            <ul class="topic-selector-sub-menu">
+            	<li><a href="#x">Callenge1</a></li>
+                <li><a href="#x">Callenge2</a></li>
+                <li><a href="#x">Callenge3</a></li>
+                <li><a href="#x">Callenge4</a></li>
+                <li><a href="#x">Callenge5</a></li>
+            </ul>
+         </li>
+        <li>
+        	Water
+            <ul class="topic-selector-sub-menu">
+            	<li><a href="#x">Callenge1</a></li>
+                <li><a href="#x">Callenge2</a></li>
+                <li><a href="#x">Callenge3</a></li>
+                <li><a href="#x">Callenge4</a></li>
+                <li><a href="#x">Callenge5</a></li>
+            </ul>
+         </li>
+        <li>
+        	War
+            <ul class="topic-selector-sub-menu">
+            	<li><a href="#x">Callenge1</a></li>
+                <li><a href="#x">Callenge2</a></li>
+                <li><a href="#x">Callenge3</a></li>
+                <li><a href="#x">Callenge4</a></li>
+                <li><a href="#x">Callenge5</a></li>
+            </ul>
+         </li>
+        <li>
+        	Drugs
+            <ul class="topic-selector-sub-menu">
+            	<li><a href="#x">Callenge1</a></li>
+                <li><a href="#x">Callenge2</a></li>
+                <li><a href="#x">Callenge3</a></li>
+                <li><a href="#x">Callenge4</a></li>
+                <li><a href="#x">Callenge5</a></li>
+            </ul>
+        </li>
+        <li>
+        	Human Rights
+            <ul class="topic-selector-sub-menu">
+            	<li><a href="#x">Callenge1</a></li>
+                <li><a href="#x">Callenge2</a></li>
+                <li><a href="#x">Callenge3</a></li>
+                <li><a href="#x">Callenge4</a></li>
+                <li><a href="#x">Callenge5</a></li>
+            </ul>
+        </li>
      </ul>
      
     
@@ -174,7 +255,9 @@
         
       </div>
       <div class="tab_2 content">
-        <div>location: South Aftica</div>
+      <div class="cha-location">
+      	<div class="location-tab active">location: South Aftica</div>
+        <div class="location-content">
         <div style="margin-bottom:10px;">
           <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_1.jpg" class="project-directroy-img"/></div>
           
@@ -234,6 +317,72 @@
           <div style="clear:both"></div>
           
         </div>
+        </div>
+      </div>
+        <div class="cha-location">
+      	<div class="location-tab">location: South Aftica</div>
+        	<div class="location-content hide">
+                    <div style="margin-bottom:10px;">
+                      <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_1.jpg" class="project-directroy-img"/></div>
+                      
+                        <div style="float:left" class="project-directory-content">
+                          Green Library<br/>
+                          Johannesbug,S.Africa<br/>
+                          Community project creating a sustainble green library.
+                        
+                        
+                        </div>
+                      <div style="clear:both"></div>
+                      
+                    </div>
+        
+        
+                    <div style="margin-bottom:10px;">
+                      <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_2.jpg" class="project-directroy-img"/></div>
+                      
+                      <div style="float:left" class="project-directory-content">
+                          Playing for Change<br/>
+                          Soweto,S.Africa<br/>
+                          Friends go around their town to speak out for change through music.
+                        
+                        
+                      </div>
+                      <div style="clear:both"></div>
+                      
+                    </div>
+           
+                    <div style="margin-bottom:10px;">
+                      <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_3.jpg" class="project-directroy-img"/></div>
+                      
+                      <div style="float:left" class="project-directory-content">
+                          Woodworking for Homes<br/>
+                          The Garden Route, S. Africa<br/>
+                          Jery and Robyn shows you how they build<br/>
+                          new homes for the homeless victims of the <br/>
+                          Oklahoma tornado.
+                        
+                        
+                      </div>
+                      <div style="clear:both"></div>
+                      
+                    </div>
+                    <div style="margin-bottom:10px;">
+                      <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_4.jpg"  class="project-directroy-img"/></div>
+                      
+                      <div style="float:left" class="project-directory-content">
+                          Filming for Fundraising<br/>
+                          Cope Town,S. Africa<br/>
+                          Students in Cope Town documents<br/>
+                          the lives of their community to fundraise for<br/>
+                          local support to build a new classroom.
+                        
+                        
+                      </div>
+                      <div style="clear:both"></div>
+                      
+                    </div>
+                   </div>
+      </div>
         
       </div>
       <div class="tab_3 content" >
