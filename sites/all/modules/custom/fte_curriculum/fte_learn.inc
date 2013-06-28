@@ -105,7 +105,7 @@ function fte_modulestage_view($mid, $sid) {
     $v1->title = 'stage6';
     $v1->sid = 6;
     $v1->yid = '';
-    $v1->content = '<iframe src="http://mrl.li/14zQVid" width="730" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+    $v1->content = '<iframe src="http://mrl.li/14zQVid" width="730" height="320" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
     $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_3',array('data' => 6));
    $v1->content_right = theme('fte_learn_module_stage_right',array('data' => 6));
     $ret->stages[6] = $v1;
