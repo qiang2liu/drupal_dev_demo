@@ -67,7 +67,7 @@ function fteadmin_form_alter(&$form, $form_state, $form_id) {
 
 
   // $the_parent_ele = $form['field_parent'][$form['language']['#value']];
-  // dpm($the_parent_ele);
+  
 
   if ($form_id == 'node_delete_confirm') {
     if ($form['#node']->type == 'educational_curriculum_theme') {
@@ -90,10 +90,10 @@ function fteadmin_form_alter(&$form, $form_state, $form_id) {
       return confirm_form($form, t('Are you sure you want to delete %title?', array('%title' => $node->title)), isset($_GET['destination']) ? $_GET['destination'] : 'node/' . $node->nid, t('This action cannot be undone.'), t('Delete'), t('Cancel')
       );
     } else {
-
+       dpm($form);
       if ($form['#node']->type == 'curriculum_modules') {
         $nid = $form['#node']->nid;
-        $stage_type_arr = array('stages_template1', 'stages_template2', 'stage_mural_template');
+        $stage_type_arr = array('stages_template1', 'stages_template2', 'stage_mural_template', 'stage_assignment_template');
         $query = new EntityFieldQuery();
         $query->entityCondition('entity_type', 'node', '=')
                 ->entityCondition('bundle', $stage_type_arr, 'IN')
@@ -119,6 +119,17 @@ function fteadmin_form_alter(&$form, $form_state, $form_id) {
       if ($theme_nid > 0) {
         $form['field_parent'][$form['field_parent']['#language']]['#default_value'] = array($theme_nid);
       }
+    } 
+    else {
+      $the_stage_types_formid = array('stages_template1_node_form', 'stages_template2_node_form',
+        'stage_mural_template_node_form', 'stage_assignment_template_node_form',
+        );
+      if (in_array($form_id, $the_stage_types_formid)) {
+      $module_nid = intval(arg(3));
+      if ($module_nid > 0) {
+        $form['field_parent_m'][$form['field_parent_m']['#language']]['#default_value'] = array($module_nid);
+      }
+    } 
     }
   }
 }
