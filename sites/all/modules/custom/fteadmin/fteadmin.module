@@ -65,50 +65,60 @@ function fteadmin_admin_page() {
 
 function fteadmin_form_alter(&$form, $form_state, $form_id) {
 
-  
- // $the_parent_ele = $form['field_parent'][$form['language']['#value']];
- // dpm($the_parent_ele);
-  
-  if ($form_id == 'node_delete_confirm' && $form['#node']->type == 'educational_curriculum_theme') {
 
-    $nid = $form['#node']->nid;
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'node', '=')
-            ->entityCondition('bundle', 'curriculum_modules', '=')
-            ->fieldCondition('field_parent', 'target_id', $nid, '=');
-    $result = $query->execute();
-    if (!empty($result)) {  //can't delete
-      
-      unset($form['#submit']);
-      $form['description']['#markup'] = t('can\'t delete this theme, beacuse it is not empty.');
-      unset($form['actions']['submit']);
-     
-      return confirm_form($form, 
-        t('can\'t delete this theme, beacuse it is not empty.'), 
-        isset($_GET['destination']) ? $_GET['destination'] : 'node/' . $node->nid,
-        t('This action cannot be undone.')    
+  // $the_parent_ele = $form['field_parent'][$form['language']['#value']];
+  // dpm($the_parent_ele);
+
+  if ($form_id == 'node_delete_confirm') {
+    if ($form['#node']->type == 'educational_curriculum_theme') {
+      $nid = $form['#node']->nid;
+      $query = new EntityFieldQuery();
+      $query->entityCondition('entity_type', 'node', '=')
+              ->entityCondition('bundle', 'curriculum_modules', '=')
+              ->fieldCondition('field_parent', 'target_id', $nid, '=');
+      $result = $query->execute();
+      if (!empty($result)) {  //can't delete
+        unset($form['#submit']);
+        $form['description']['#markup'] = t('can\'t delete this theme, beacuse it is not empty.');
+        unset($form['actions']['submit']);
+
+        return confirm_form($form, t('can\'t delete this theme, beacuse it is not empty.'), isset($_GET['destination']) ? $_GET['destination'] : 'node/' . $node->nid, t('This action cannot be undone.')
+        );
+      }
+
+      $node = node_load($nid);
+      return confirm_form($form, t('Are you sure you want to delete %title?', array('%title' => $node->title)), isset($_GET['destination']) ? $_GET['destination'] : 'node/' . $node->nid, t('This action cannot be undone.'), t('Delete'), t('Cancel')
       );
-    }
+    } else {
 
-    $node = node_load($nid);
-    return confirm_form($form, 
-      t('Are you sure you want to delete %title?', array('%title' => $node->title)), 
-      isset($_GET['destination']) ? $_GET['destination'] : 'node/' . $node->nid,
-      t('This action cannot be undone.'), 
-      t('Delete'), 
-      t('Cancel')
-    );
-  } 
-  else {
-     if ($form_id == 'curriculum_modules_node_form') {
-       $theme_nid = intval(arg(3));
-       if ($theme_nid > 0 ) {
-         $form['field_parent'][$form['field_parent']['#language']]['#default_value'] = array($theme_nid);
-         
-       }
-      
-     }
-    
+      if ($form['#node']->type == 'curriculum_modules') {
+        $nid = $form['#node']->nid;
+        $stage_type_arr = array('stages_template1', 'stages_template2', 'stage_mural_template');
+        $query = new EntityFieldQuery();
+        $query->entityCondition('entity_type', 'node', '=')
+                ->entityCondition('bundle', $stage_type_arr, 'IN')
+                ->fieldCondition('field_parent_m', 'target_id', $nid, '=');
+        $result = $query->execute();
+        if (!empty($result)) {  //can't delete
+          unset($form['#submit']);
+          $form['description']['#markup'] = t('can\'t delete this module, beacuse it is not empty.');
+          unset($form['actions']['submit']);
+
+          return confirm_form($form, t('can\'t delete this module, beacuse it is not empty.'), isset($_GET['destination']) ? $_GET['destination'] : 'node/' . $node->nid, t('This action cannot be undone.')
+          );
+        }
+
+        $node = node_load($nid);
+        return confirm_form($form, t('Are you sure you want to delete %title?', array('%title' => $node->title)), isset($_GET['destination']) ? $_GET['destination'] : 'node/' . $node->nid, t('This action cannot be undone.'), t('Delete'), t('Cancel')
+        );
+      }
+    }
+  } else {
+    if ($form_id == 'curriculum_modules_node_form') {
+      $theme_nid = intval(arg(3));
+      if ($theme_nid > 0) {
+        $form['field_parent'][$form['field_parent']['#language']]['#default_value'] = array($theme_nid);
+      }
+    }
   }
-  
 }
