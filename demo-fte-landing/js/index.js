@@ -585,13 +585,13 @@ $(window).load(function(){
 		url:'demo-fte-landing/js/hotspot1.asp?123'
 	});
 	$('.ribbon').eq(2).hotSpot({
-		url:'demo-fte-landing/js/hotspot2.asp?123'
+		url:'hotspot2.asp?123'
 	});
 	$('.ribbon').eq(3).hotSpot({
-		url:'demo-fte-landing/js/hotspot1.asp?123'
+		url:'hotspot1.asp?123'
 	});
 	$('.ribbon').eq(4).hotSpot({
-		url:'demo-fte-landing/js/hotspot2.asp?123'
+		url:'hotspot2.asp?123'
 	});
 	
 	//popup close function
