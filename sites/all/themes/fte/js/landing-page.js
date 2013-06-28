@@ -235,6 +235,30 @@ $(document).ready(function(){
 	$('.toolbar-wrapper-control').bind('click', function(){
 		$(this).toggleClass('active');
 		$('.region-sidebar-first').css('height', h+ 'px').toggleClass('active');
-	})
+	});
+	$('#d3').carrousel();
 });
+$.fn.extend({
+	carrousel: function(options){
+		var defaults = {
+			count      : 9,
+			item       : '.d3-item',
+			leftClass  : 'preserve-left',
+			rightClass : 'preserve-right'
+		};
+		var options = $.extend(defaults, options);
+		return this.each(function(){
+			var idx = options.count % 2;
+			if(idx ==1){
+				for(var i = 0; i < parseInt(options.count / 2, 10); i++){
+					$(this).find(options.item).eq(i).find('img').addClass(options.leftClass);
+				}
+				for(var i = options.count-1; i > parseInt(options.count / 2, 10); i--){
+					$(this).find(options.item).eq(i).find('img').addClass(options.rightClass);
+				}
+			}
+		});
+	}
+ });
+
 })(jQuery);

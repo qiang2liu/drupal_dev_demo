@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" http-equiv="pragma" content="no-cache"/>
+<title>landing demo</title>
+<link rel="stylesheet" href="demo-fte-landing/css/landing.css" />
+<script src="demo-fte-landing/js/jq1.4.4.js"></script>
+<script src="demo-fte-landing/js/kineticjs.js"></script>
+<script src="demo-fte-landing/js/index.js"></script>
+<!--[if IE]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+<body>
+	
+	<div class="ribbon" id="ribbon-01">
+		<audio id="sound-ribbon1" src="demo-fte-landing/images/loop1.wav" loop></audio>
+		<div class="ribbon-inner"><img src="demo-fte-landing/images/ribbon-home.jpg" class="ribbon-stuff"/></div>
+	</div>
+	<div class="ribbon" id="ribbon-02">
+		<audio id="sound-ribbon1" src="demo-fte-landing/images/loop2.wav" loop></audio>
+		<div class="ribbon-inner"><img src="demo-fte-landing/images/ribbon-challenges.jpg" class="ribbon-stuff"/></div>
+	</div>
+	<div class="ribbon" id="ribbon-03">
+		<audio id="sound-ribbon1" src="demo-fte-landing/images/loop3.wav" loop></audio>
+		<div class="ribbon-inner"><img src="demo-fte-landing/images/ribbon-learn.jpg" class="ribbon-stuff"/></div>
+	</div>
+	<div class="ribbon" id="ribbon-04">
+		<audio id="sound-ribbon1" src="demo-fte-landing/images/loop1.wav" loop></audio>
+		<div class="ribbon-inner"><img src="demo-fte-landing/images/ribbon-innovation.jpg" class="ribbon-stuff"/></div>
+	</div>
+	<div class="ribbon" id="ribbon-05">
+		<audio id="sound-ribbon1" src="demo-fte-landing/images/loop2.wav" loop></audio>
+		<div class="ribbon-inner"><img src="demo-fte-landing/images/ribbon-workspace.jpg" class="ribbon-stuff"/></div>
+	</div>
+	<!--popup-->
+	<div class="pop-up"><div class="pop-up-inner"><span class="close">X</span></div></div>
+	<!--main content-->
+	<div class="cover"></div>
+	<div class="cube"><img src="demo-fte-landing/images/ico_cube.png" class="ico-cube" /></div>
+	<div class="sound-controller"></div>
+	<div class="page">
+		<div class="page-inner">
+			<div class="page-zoom-br"></div>
+			<div class="page-controller">
+				<span class="page-minimize">
+					<img src="demo-fte-landing/images/ico_page_minimize.png">
+				</span>
+				<span class="page-maximize"  title="maximize">
+					<img src="demo-fte-landing/images/ico_page_maximize.png">
+				</span>
+				<span title = "zoom">
+					<img src="demo-fte-landing/images/ico_page_drag.png" class="page-drag"  />
+				</span>
+				
+			</div>
+			<!--<ul class="main-nav">
+				<li><a href="#x" class="active">Home</a></li>
+				<li><a href="#x">column01</a></li>
+				<li><a href="#x">column02</a></li>
+				<li><a href="#x">column03</a></li>
+			</ul>
+			<p>This is the home content.</p>-->
+			<div class="iframe-cover"></div>
+			<iframe  src="http://54.251.157.200/learn/1/stage/0" class="landing-iframe" name="fteFrame"></iframe>
+		</div>
+	</div>
+</body>
+</html>
+
