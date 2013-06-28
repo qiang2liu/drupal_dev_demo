@@ -198,7 +198,7 @@ $(document).ready(function(){
 		$('.studio-cover').hide();
 		$('.studio-popup').hide();
 	});
-	$('.page-learn-stage').find('#content').prepend('<div class="learn-nav" class="active"><em></em>FINDING OUR BEARING - Learning Forward</div>');
+	$('.page-learn-stage').find('#content').prepend('<div class="learn-nav" class="active"><em></em>FINDING OUR BEARING - Leaning Forward</div>');
 	$('.learn-nav').bind('click', function(){
 		$(this).find('em').toggleClass('active');
 		$(this).siblings('.section').toggle(400);

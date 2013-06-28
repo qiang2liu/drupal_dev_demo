@@ -93,7 +93,7 @@ function fte_modulestage_view($mid, $sid) {
     $v1->title = 'stage5';
     $v1->sid = 5;
     $v1->yid = '';
-    $v1->content = '<h2><a href="http://mural.ly" target="_blank">Mural.ly page</a></h2>';
+    $v1->content = '<iframe src="http://mrl.li/14zQVid" width="730" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
    
    $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_3',array('data' => 5));
     
@@ -105,7 +105,7 @@ function fte_modulestage_view($mid, $sid) {
     $v1->title = 'stage6';
     $v1->sid = 6;
     $v1->yid = '';
-    $v1->content = '<h2><a href="http://mural.ly" target="_blank">Mural.ly page</a></h2>';
+    $v1->content = '<iframe src="http://mrl.li/14zQVid" width="730" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
     $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_3',array('data' => 6));
    $v1->content_right = theme('fte_learn_module_stage_right',array('data' => 6));
     $ret->stages[6] = $v1;
@@ -256,7 +256,7 @@ function get_learn_nav_info() {
   $nav->children = array();
 
   $module = new stdClass();
-  $module->name = check_plain('Learning forward');
+  $module->name = check_plain('Leaning forward');
   $module->type = 'module';
   $module->id = '';
   $module->url = '';

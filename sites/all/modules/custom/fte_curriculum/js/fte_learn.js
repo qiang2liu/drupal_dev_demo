@@ -1,11 +1,33 @@
 
     
+(
+  function ($, Drupal){
+    
+    
+    $(document).ready(function(){
+     
+      swfobject.embedSWF("http://www.youtube.com/v/"+Drupal.settings.fte_learn_stages_yid
+        +"?enablejsapi=1&playerapiid=ytplayer&version=3&modestbranding=1",
+        "ytapiplayer", "540", "335", "8", null, null, params, atts);
+  
+    
+  
 
+
+
+    }
+    
+
+
+    ); 
+   
+  }
+)(jQuery,Drupal);
     
     
    
 
-    function setCookie(c_name,value,expiredays)
+function setCookie(c_name,value,expiredays)
 {
   var exdate=new Date()
   exdate.setDate(exdate.getDate()+expiredays)
