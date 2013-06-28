@@ -9,7 +9,7 @@ function fte_menu() {
     'access callback'=> TRUE,
     'type' => MENU_CALLBACK,  
   );
-  $items['landingpage'] = array(
+  $items['home'] = array(
    
     'page callback' => 'show_landingpage',
     'access callback'=> TRUE,
