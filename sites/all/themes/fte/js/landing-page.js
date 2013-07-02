@@ -244,19 +244,144 @@ $.fn.extend({
 			count      : 9,
 			item       : '.d3-item',
 			leftClass  : 'preserve-left',
-			rightClass : 'preserve-right'
+			rightClass : 'preserve-right',
+			leftController: '.d3-left-arrow',
+			rightController: '.d3-right-arrow'
 		};
 		var options = $.extend(defaults, options);
 		return this.each(function(){
+			var self = $(this);
+			//set index
+			
+			//prepare layout
 			var idx = options.count % 2;
+			for(var i = options.count-1; i > parseInt(options.count / 2, 10); i--){
+				$(this).find(options.item).eq(i).find('img').addClass(options.rightClass);
+				$(this).find(options.item).eq(i).addClass('top-margin').addClass('transformed');
+			}
 			if(idx ==1){
 				for(var i = 0; i < parseInt(options.count / 2, 10); i++){
 					$(this).find(options.item).eq(i).find('img').addClass(options.leftClass);
+					if(i !=0){
+						$(this).find(options.item).eq(i).addClass('top-margin').addClass('transformed');
+					}else{
+						$(this).find(options.item).eq(i).addClass('top-margin');
+					}		
 				}
-				for(var i = options.count-1; i > parseInt(options.count / 2, 10); i--){
-					$(this).find(options.item).eq(i).find('img').addClass(options.rightClass);
+				$(this).find(options.item).eq(parseInt(options.count / 2, 10) + 1).removeClass('transformed').addClass('active-left');
+				$(this).find(options.item).eq(parseInt(options.count / 2, 10)).addClass('active');
+				
+			}else{
+				for(var i = 0; i < parseInt(options.count / 2 -1, 10); i++){
+					$(this).find(options.item).eq(i).find('img').addClass(options.leftClass);
+					$(this).find(options.item).eq(i).addClass('top-margin').addClass('transformed');
+					if(i !=0){
+						$(this).find(options.item).eq(i).addClass('top-margin').addClass('transformed');
+					}else{
+						$(this).find(options.item).eq(i).addClass('top-margin');
+					}
+				}
+				$(this).find(options.item).eq(parseInt(options.count / 2, 10)).removeClass('transformed').addClass('active-left');
+				$(this).find(options.item).eq(parseInt(options.count / 2, 10)-1).addClass('active');
+			}
+			function setIndex(){
+				self.find(options.item).css('zIndex','0');
+				var idx = self.find('.active').index(options.item);
+				var itemLength = self.find(options.item).length-1;
+				for(var i=itemLength; i>=idx; i--){
+					self.find(options.item).eq(i).css('zIndex', itemLength - i);
 				}
 			}
+			setIndex();
+			//arrow click
+			
+			/*function imgFlow(idx,imgClass,imgRemovedClass,itemClass1,itemClass2,theLeftClass,theFirst,theRightClass){
+				var currentActive = self.find(options.item + '.active').index(options.item);
+				var aimItem = currentActive + idx;
+				if(aimItem > -1 && aimItem < $(options.item).length){
+					console.log(aimItem);
+					self.find(options.item).eq(currentActive).removeClass('active').addClass(itemClass1).addClass(theLeftClass).addClass(theRightClass);
+					self.find(options.item).eq(currentActive).find('img').addClass(imgClass);
+					self.find(options.item).eq(aimItem).addClass('active').removeClass(itemClass1).removeClass(itemClass2).removeClass(theLeftClass);
+					self.find(options.item).eq(aimItem).find('img').removeClass(imgRemovedClass);
+					if(aimItem < $(options.item).length -2){
+						self.find(options.item).eq(aimItem + 2).removeClass(theLeftClass).addClass(itemClass2);
+					}
+					self.find(options.item).eq(0).addClass(theFirst);
+				}
+				
+			}
+			$(this).find(options.leftController).bind('click', function(){
+				imgFlow.call($(this),-1,'preserve-right','preserve-left','top-margin', 'transformed','active-left','the-first','');
+			});
+			$(this).find(options.rightController).bind('click', function(){
+				imgFlow.call($(this),1,'preserve-left','preserve-right','top-margin', 'transformed','','the-first','transformed');
+			});*/
+			
+			function addAnimate(){
+				self.find(options.item).addClass('reload');
+				self.find(options.item).find('img').addClass('reload');
+			}
+			self.find(options.leftController).bind('click', function(){
+				var currentActive = self.find(options.item + '.active').index(options.item);
+				var aimItem = currentActive-1;
+				var addi = currentActive + 1;
+				if(aimItem > -1){
+					addAnimate();
+					self.find(options.item).eq(currentActive).removeClass('active').addClass('active-left').addClass('top-margin');
+					self.find(options.item).eq(currentActive).find('img').removeClass('preserve-left').addClass('preserve-right');
+					self.find(options.item).eq(aimItem).removeClass('top-margin').removeClass('transformed').addClass('active');
+					self.find(options.item).eq(aimItem).find('img').removeClass('preserve-left');
+					self.find(options.item).eq(addi).removeClass('active-left').addClass('transformed');
+					self.find(options.item).eq(0).addClass('the-first');
+				}
+				setIndex();
+				//setTimeout(setIndex,1)
+			});
+			self.find(options.rightController).bind('click', function(){
+				var currentActive = self.find(options.item + '.active').index(options.item);
+				var aimItem = currentActive+1;
+				var addi = currentActive + 2;
+				if(aimItem < $(options.item).length){
+					addAnimate();
+					self.find(options.item).eq(currentActive).removeClass('active').addClass('transformed').addClass('top-margin');
+					self.find(options.item).eq(currentActive).find('img').removeClass('preserve-right').addClass('preserve-left');
+					self.find(options.item).eq(aimItem).removeClass('top-margin').removeClass('active-left').addClass('active');
+					self.find(options.item).eq(aimItem).find('img').removeClass('preserve-right');
+					self.find(options.item).eq(addi).removeClass('transformed').addClass('active-left');
+					self.find(options.item).eq(0).addClass('the-first').removeClass('transformed');
+					self.find(options.item).eq(self.find(options.item).length-1).addClass('the-last');
+				}
+				setIndex();
+				//setTimeout(setIndex,1)
+			});
+			/*self.find(options.item).find('img').bind('mouseover', function(){
+				var currentActive = self.find(options.item + '.active').index(options.item);
+				var aimItem = $(this).parent().index(options.item);
+				var addi = aimItem + 1;
+				if(aimItem > currentActive){
+					
+					addAnimate();
+					self.find(options.item).eq(currentActive).removeClass('active').addClass('transformed').addClass('top-margin');
+					self.find(options.item).eq(currentActive).find('img').removeClass('preserve-right').addClass('preserve-left');
+					self.find(options.item).eq(aimItem).removeClass('top-margin').removeClass('active-left').addClass('active');
+					self.find(options.item).eq(aimItem).find('img').removeClass('preserve-right');
+					self.find(options.item).eq(addi).removeClass('transformed').addClass('active-left');
+					self.find(options.item).eq(0).addClass('the-first').removeClass('transformed');
+					self.find(options.item).eq(self.find(options.item).length-1).addClass('the-last');
+				}
+				if(aimItem < currentActive){
+					addAnimate();
+					self.find(options.item).eq(currentActive).removeClass('active').addClass('active-left').addClass('top-margin');
+					self.find(options.item).eq(currentActive).find('img').removeClass('preserve-left').addClass('preserve-right');
+					self.find(options.item).eq(aimItem).removeClass('top-margin').removeClass('transformed').addClass('active');
+					self.find(options.item).eq(aimItem).find('img').removeClass('preserve-left');
+					self.find(options.item).eq(addi).removeClass('active-left').addClass('transformed');
+					self.find(options.item).eq(0).addClass('the-first');
+				}
+				setIndex();
+				//setTimeout(setIndex,1)
+			})*/
 		});
 	}
  });

@@ -2,7 +2,7 @@
 body.html{
   font-family:Tahoma;
 }
-.#header, #footer-wrapper, #skip-link, ul.contextual-links, ul.links, ul.primary, .item-list .pager, div.field-type-taxonomy-term-reference, div.messages, div.meta, p.comment-time, table, .breadcrumb{
+#header, #footer-wrapper, #skip-link, ul.contextual-links, ul.links, ul.primary, .item-list .pager, div.field-type-taxonomy-term-reference, div.messages, div.meta, p.comment-time, table, .breadcrumb{
   font-family:Tahoma;
 }
 /************************************* mockup *****************************************/
@@ -1026,8 +1026,10 @@ body.one-sidebar #content {
 /* carousel */
 #d3 {
   margin-bottom:1em;
+  color: #640199;
 }
 .d3-item{
+  cursor:pointer;
   position:relative;
   height:300px;
   float:left;
@@ -1036,11 +1038,26 @@ body.one-sidebar #content {
   -o-perspective: 300px;
   perspective: 300px;
 }
+.d3-item.reload,
+.d3-item img.reload{
+	transition: all 0.5s linear;
+}
 .d3-item.transformed{
   margin-left:-140px;
 }
 .d3-item.active{
   margin-left:-90px;
+  position: relative;
+  z-index: 1;
+}
+.d3-item.active img{
+	box-shadow: 0px 5px 5px #000;
+}
+.d3-item.active.the-first{
+	margin-left:50px;
+}
+.d3-item.active.the-last{
+	margin-right:50px;
 }
 .d3-item.active-left{
   margin-left:-90px;
@@ -1055,6 +1072,9 @@ body.one-sidebar #content {
   float:left;
   margin-top:90px;
   cursor:pointer;
+}
+.d3-right-arrow{
+	float:right;
 }
 .d3-item img{
   width:300px;
