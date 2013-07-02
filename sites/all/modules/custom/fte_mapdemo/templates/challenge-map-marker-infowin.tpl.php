@@ -3,159 +3,135 @@
   
 ?>
 
-
 <style>
-  
-  .table, tr, td, th{
-    border: 0px;
-    margin:0px;
-    border: 1px solid #00000;
+  .infow div{
     
-  }
-  
-  .infow tr td, .infow tr th {
-     border: 1px solid #00000;
-     text-align: center;
+    margin-left:2px;
+    margin-bottom:10px;
   }
   
 </style>
-<div class ="infow">
+<div class ="infow" style="width:400px">
 
-<table style="border:0">
-  <tr>
-    <td style=" border: 1px solid #00000;">
-      <table style="border:0;">
-        <tr>
-          <td style=" border: 1px solid #00000;">
-           <img src="<?php print $base_url;?>/images/mock_colla_2.jpg"/>
-          </td> 
-        </tr>
-        <tr>
-          <td style=" border: 1px solid #00000;">
-            Devi
-          </td> 
-        </tr> 
-      </table>
-    </td>
-    <td style=" border: 1px solid #00000;">
-      <div>  <?php print $data['title']; ?> &nbsp;&nbsp; 2013/07/01  </div>
-     
-      <div>  <?php print $data['location']; ?>  </div>
-         <div> 
-           
-           <table>
-             <tr>
-               <td style=" border: 1px solid #00000;">Collaborators</td>
-                <td style=" border: 1px solid #00000;">
-                   <table style="border:0;">
-        <tr>
-          <td style=" border: 1px solid #00000;">
-           <img src="<?php print $base_url;?>/images/mock_colla_3.jpg"/>
-          </td> 
-        </tr>
-        <tr>
-          <td style=" border: 1px solid #00000;">
-            Marc
-          </td> 
-        </tr> 
-      </table>
-                  
-                </td>
-                 <td style=" border: 1px solid #00000;">
-                   
-                   <table style="border:0;">
-        <tr>
-          <td style=" border: 1px solid #00000;">
-           <img src="<?php print $base_url;?>/images/mock_colla_4.jpg"/>
-          </td> 
-        </tr>
-        <tr>
-          <td style=" border: 1px solid #00000;">
-            Lisa
-          </td> 
-        </tr> 
-      </table>
-                   
-                 </td>
-                  <td style=" border: 1px solid #00000;">
-                    
-                    
-                      <table style="border:0;">
-        <tr>
-          <td style=" border: 1px solid #00000;">
-           <img src="<?php print $base_url;?>/images/mock_colla_1.jpg"/>
-          </td> 
-        </tr>
-        <tr>
-          <td style=" border: 1px solid #00000;">Tay
-          </td> 
-        </tr> 
-      </table>
-                    
-                  </td>
-               
-             </tr>
-             
-             
-           </table>
-          
-           
-           
-          
-              
-              
-          
-               
-               
-             
-               
-          
+  <div>
+    
+    <div style="float:left;width:75px">
+      <div style="margin-bottom:1px;">     
+        <img width="75px" height="75px" src="<?php print $base_url;?>/images/mock_colla_2.jpg"/>
+      </div>
+      <div style="text-align:center">
          
-         </div>
-    </td>
-    
-  </tr>
-  
-  
-  
-</table>
-
-
-<table style="border:0">
-  <tr>
-    
-    <td style=" border: 1px solid #00000;">
-      <img src="<?php print $base_url;?>/images/mock_studio_1.jpg"/>
-    </td>
-    <td style=" border: 1px solid #00000;">
-      <?php print $data['brief']; ?>
-    </td>
-    
-  </tr>
-</table>
-
-<table style="border:0">
-  <tr>
-    
-    
-    <td style=" border: 1px solid #00000;">
+            Devi
+      </div>      
+    </div>      
+    <div style="margin-left:18px;float:left; width:300px">
+      <div><?php print $data['title']; ?> &nbsp;&nbsp; 2013/07/01  </div>
+      <div>Location: <?php print $data['location']; ?></div>
+     
+        
       
-    </td>
+      
+      
+      
+      
+       <div>
+      
+        <ul style="padding-left: 0px;">
+          <li style="float:left">Collaborators</li>
+          <li style="float:left">
+            <div style="margin-bottom:1px;">
+              <img width="40px" height="40px" src="<?php print $base_url;?>/images/mock_colla_3.jpg"/>
+            </div>
+            <div style="text-align:center">
+              Marc
+            </div>
+          </li>
+          
+          <li style="float:left">
+            <div style="margin-bottom:1px;">
+              <img width="40px" height="40px"  src="<?php print $base_url;?>/images/mock_colla_1.jpg"/>
+            </div>
+            <div  style="text-align:center">
+              Lisa
+            </div>
+          </li>
+          
+          <li style="float:left">
+            <div style="margin-bottom:1px;">
+              <img width="40px" height="40px"  src="<?php print $base_url;?>/images/mock_colla_4.jpg"/>
+            </div>
+            <div  style="text-align:center">
+              Tay
+            </div>
+          </li>
+          
+          
+        </ul>
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    
+    </div> 
+    <div style="clear:both"></div>
+    
+  </div>
     
     
-  </tr>
   
-  <tr>
+  <div>
     
+    <div style=" width:190px;float:left">  
+      <img src="<?php print $base_url;?>/images/mock_studio_1.jpg"/> 
+    </div>
+     <div style=" width:190px;float:left">
+       
+        <?php print $data['brief']; ?>
+       
+     </div>
     
-    <td style=" border: 1px solid #00000;">
-      <a href="#"/>Send to Project</a>
-    </td>
-    
-    
-  </tr>
+  </div>
   
-</table>
+ <div style="clear:both"></div>
+  
+  <div style="text-align:center">
+    
+    <a href="#"> Send to Project </a>
+    
+    
+  </div>
+  
+    
+    
+           
+              
+              
+          
+               
+               
+             
+               
+          
   
   
+  
+  
+
+
 </div>
