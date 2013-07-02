@@ -7,7 +7,7 @@
   .infow div{
     
     margin-left:2px;
-    margin-bottom:10px;
+    margin-bottom:2px;
   }
   
 </style>
@@ -37,9 +37,9 @@
        <div>
       
         <ul style="padding-left: 0px;">
-          <li style="float:left">Collaborators</li>
+          <li style="line-height:40px;float:left">Collaborators</li>
           <li style="float:left">
-            <div style="margin-bottom:1px;">
+            <div style="margin-left:3px;margin-bottom:1px;">
               <img width="40px" height="40px" src="<?php print $base_url;?>/images/mock_colla_3.jpg"/>
             </div>
             <div style="text-align:center">
@@ -48,7 +48,7 @@
           </li>
           
           <li style="float:left">
-            <div style="margin-bottom:1px;">
+            <div style="margin-left:3px;margin-bottom:1px;">
               <img width="40px" height="40px"  src="<?php print $base_url;?>/images/mock_colla_1.jpg"/>
             </div>
             <div  style="text-align:center">
