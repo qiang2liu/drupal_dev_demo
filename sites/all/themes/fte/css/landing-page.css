@@ -126,10 +126,14 @@ ul.level-first-has-not-child {
 	margin-bottom:0;
 }
 ul.level-first-has-child ul{
-	padding-left:2px;
+	padding-left:18px;
 	padding-right:2px;
 	padding-top:2px;
 	display:none;
+}
+ul.level-first-has-child ul.level-second-has-child{
+	padding-left:2px;
+	
 }
 ul.level-first-has-child ul>li{
 	margin-top:-1px;
