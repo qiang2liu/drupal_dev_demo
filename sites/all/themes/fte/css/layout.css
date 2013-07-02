@@ -52,7 +52,7 @@ body,
 .region-footer-fourthcolumn {
   display: inline;
   float: left; /* LTR */
-  position: relative;
+  /*position: relative;*/
 }
 .one-sidebar #content {
   width: 720px;
