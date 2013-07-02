@@ -833,7 +833,6 @@ em.stage_bottom_switcher.active{
   .studio-setting{
     position: absolute;
 	display:inline-block;
-	background:rgba(255,255,255,0.1);
 	text-align:center;
 	height:41px;
 	width:40px;
