@@ -157,7 +157,7 @@ ul.level-first-has-child ul>li{
 .page-node-15 .level-first-has-child > li > a{
 	background: url("../images/mock_arrow_red.png") no-repeat scroll 0.5em center transparent;
 }
-.page-landingpage .level-first-has-child > li > a{
+.page-home .level-first-has-child > li > a{
 	background: url("../images/ico_da_blue.png") no-repeat scroll 0.5em center transparent;
 }
 .level-first-has-child > li > a.active{
@@ -168,7 +168,7 @@ ul.level-first-has-child ul>li{
 	background: url("../images/mock_arrow_red_active.png") no-repeat scroll 0.5em center transparent;
 }
 
-.page-landingpage .level-first-has-child > li > a.active{
+.page-home .level-first-has-child > li > a.active{
 	background: url("../images/ico_da_blue_active.png") no-repeat scroll 0.5em center transparent;
 }
 .level-second-has-child > li > a{
@@ -1108,7 +1108,7 @@ body.one-sidebar #content {
 .page-node-15 .toolbar-wrapper-control{
 	background:url(../images/mock_toolbar_collapse_red.png) no-repeat;
 }
-.page-landingpage .toolbar-wrapper-control{
+.page-home .toolbar-wrapper-control{
 	background:url(../images/ico_da_blue_a.png) no-repeat;
 }
 .toolbar-wrapper-control.active{
@@ -1117,7 +1117,7 @@ body.one-sidebar #content {
 .page-node-15 .toolbar-wrapper-control.active{
   background: url(../images/mock_arrow_red.png) no-repeat;
 }
-.page-landingpage .toolbar-wrapper-control.active{
+.page-home .toolbar-wrapper-control.active{
   background: url(../images/ico_da_blue_b.png) no-repeat;
 }
 /* carousel */
