@@ -296,7 +296,12 @@ body #main{
   border:1px solid #666;
   background:#fff;
 }
-
+.page-node-15 .region-sidebar-first{
+	border:1px solid #fed0d0;
+}
+.page-home .region-sidebar-first{
+	border:1px solid #83bdfd;
+}
 body .sidebar .section{
   padding:0 5px;
 }
@@ -724,7 +729,7 @@ em.stage_bottom_switcher.active{
    .studio-columeright{
      width:20%;
 	 float:right;
-	 border:1px solid #000;
+	 border:1px solid #fed0d0;
    }
    .studio-columeleft{
      background:#f9cb9c;

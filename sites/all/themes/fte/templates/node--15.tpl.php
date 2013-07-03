@@ -5,7 +5,7 @@ $the_current_url = $_SERVER['HTTP_HOST'] . request_uri();
 <div class="studio-setting">
 	<img src="<?php print $base_url;?>/images/mock-gear.png" class="studio-setting-img" />
 </div>
-<div class="studio-popup">
+<div class="studio-popup studio-popup2">
 	<table>
     <tr>
     	<td colspan="2" style="text-align:right;"><span class="studio-close">X</span></td>

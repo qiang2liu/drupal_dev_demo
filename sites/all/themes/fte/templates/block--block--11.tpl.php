@@ -141,7 +141,7 @@
     	<a href="#x" class='upload_v'>Upload</a>
         
         
-        <div class="studio-popup" style='height:auto'>
+        <div class="studio-popup1 studio-popup" style='height:auto'>
 	<table>
     <tr>
     	<td colspan="2" style="text-align:right;"><span class="studio-close">X</span></td>

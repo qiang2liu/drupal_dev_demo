@@ -189,14 +189,14 @@ $(document).ready(function(){
 	});
 	$('.studio-setting').bind('click', function(){
 		$('.studio-cover').show();
-		$('.studio-popup').css({
+		$('.studio-popup.studio-popup2').css({
 				'top' : $(window).scrollTop()+($(window).height() - 320)/2 + 'px',
 				'left': ($(window).width() - 300)/2 + 'px',
 			}).show();
 	});
         $('.upload_v').bind('click', function(){
 		$('.studio-cover').show();
-		$('.studio-popup').css({
+		$('.studio-popup1.studio-popup').css({
 				'top' : $(window).scrollTop()+($(window).height() - 500)/2 + 'px',
 				'left': ($(window).width() - 500)/2 + 'px',
 			}).show();
