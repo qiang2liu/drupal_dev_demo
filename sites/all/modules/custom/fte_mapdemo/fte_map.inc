@@ -27,6 +27,7 @@ function get_challenge_points() {
   $item['lon'] = 19.76367;  // chad africa 
   $item['type'] = 'main';   // grant challenge created by fte admin/teacher
   $item['title'] = 'Water:Chad';
+  $item['location'] = 'Chad';
   $item['brief'] = 'Water status in Chad';
   $item['icon'] = $the_icons_array[$item['type']];
   $item['info'] = theme('fte_marker_infowin', array('data'=>$item));
@@ -37,6 +38,7 @@ function get_challenge_points() {
   $item['lon'] = 31.54101;  //sudan africa  
   $item['type'] = 'main';   // grant challenge created by fte admin/teacher
   $item['title'] = 'Water:Sudan';
+   $item['location'] = 'Sudan';
   $item['brief'] = 'Water status in sudan';
   $item['icon'] = $the_icons_array[$item['type']];
   $item['info'] = theme('fte_marker_infowin', array('data'=>$item));
@@ -48,6 +50,7 @@ function get_challenge_points() {
   $item['lon'] = 28.02539;   //zambia    
   $item['type'] = 'main';   // grant challenge created by fte admin/teacher
   $item['title'] = 'Water:Zambia';
+   $item['location'] = 'Zambia';
   $item['brief'] = 'Water status in zambia';
   $item['icon'] = $the_icons_array[$item['type']];
   $item['info'] = theme('fte_marker_infowin', array('data'=>$item));
@@ -62,6 +65,7 @@ function get_challenge_points() {
   $item['brief'] = 'a student lived in Beijing created the challenge instance "Water status in zambia"';
   $item['icon'] = $the_icons_array[$item['type']];
   $item['info'] = theme('fte_marker_infowin', array('data'=>$item));
+   $item['location'] = 'Zambia';
   $ret['data'][$item['nid']] = $item;
   
   
@@ -70,6 +74,7 @@ function get_challenge_points() {
   $item['lon'] = -85.30407;   //Green River lake stte park in kentucky 
   $item['type'] = 'project';  
   $item['title'] = 'project in the kentucky';
+   $item['location'] = 'kentucky';
   $item['brief'] = 'project at Green River lake state park in kentucky';
   $item['icon'] = $the_icons_array[$item['type']];
   $item['info'] = theme('fte_marker_infowin', array('data'=>$item));
@@ -82,6 +87,7 @@ function get_challenge_points() {
   $item['type'] = 'project';  
   $item['title'] = 'project in New York';
   $item['brief'] = 'project in New York';
+   $item['location'] = 'New York';
   $item['icon'] = $the_icons_array[$item['type']];
   $item['info'] = theme('fte_marker_infowin', array('data'=>$item));
   $ret['data'][$item['nid']] = $item;

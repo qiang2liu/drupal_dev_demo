@@ -138,7 +138,30 @@
 </ul>
 <ul class="level-first-has-not-child">
 	<li>
-    	<a href="#x">Upload</a>
+    	<a href="#x" class='upload_v'>Upload</a>
+        
+        
+        <div class="studio-popup1 studio-popup" style='height:auto'>
+	<table>
+    <tr>
+    	<td colspan="2" style="text-align:right;"><span class="studio-close">X</span></td>
+    </tr>
+      <tr>
+        <td>upload file: </td>
+        <td><input name="" type="file" /></td>
+      </tr>
+      <tr>
+       
+        <td colspan="2" style="text-align:center;"><input name="" type="button" value="upload" /></td>
+      </tr>
+     
+     
+</table>
+
+</div>
+        
+        
+        
     </li>
 </ul>
 <ul class="level-first-has-not-child">

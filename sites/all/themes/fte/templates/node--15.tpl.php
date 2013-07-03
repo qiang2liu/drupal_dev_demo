@@ -3,9 +3,9 @@ global $base_url;
 $the_current_url = $_SERVER['HTTP_HOST'] . request_uri();
 ?>
 <div class="studio-setting">
-	Settings
+	<img src="<?php print $base_url;?>/images/mock-gear.png" class="studio-setting-img" />
 </div>
-<div class="studio-popup">
+<div class="studio-popup studio-popup2">
 	<table>
     <tr>
     	<td colspan="2" style="text-align:right;"><span class="studio-close">X</span></td>
@@ -50,204 +50,14 @@ $the_current_url = $_SERVER['HTTP_HOST'] . request_uri();
 
 </div>
 <h1 class='studio-title'>Studio</h1>
-<div class="studio-search"><input type="text" size="30px" placeholder="Search"/></div>
+
 <div class='studiocontent'>
-  <div class="studio-columeleft">  <!-- toolbar -->
-    <div class="studio-side">
-      <h4 class="active">My Actions</h4>
-     	<div class="studio-side-inner">
-          <h5 class="active">My Projects</h5>
-          <ul>
-            <li>
-
-              <div>
-                <a href="<?php print $base_url; ?>/node/51"><img src="<?php print $base_url; ?>/images/mock_project_1.jpg"/></a>  
-              </div>
-              <div>Saving the Sahara</div>
-
-            </li>
-
-            <li>
-
-              <div>
-                <a href="<?php print $base_url; ?>/node/51"><img src="<?php print $base_url; ?>/images/mock_project_2.jpg"/></a>
-              </div>
-              <div>Art for Life</div>
-
-            </li>
-
-            <li>
-
-              <div>
-                <a href="<?php print $base_url; ?>/node/51"><img src="<?php print $base_url; ?>/images/mock_project_3.jpg"/></a>
-              </div>
-              <div>Build to Heal</div>
-
-            </li>
-
-          </ul>
-        
-        
-          <h5 class="active">My Competitions</h5> 
-          <ul>
-            <li>
-
-              <div>
-                <a href="<?php print $base_url; ?>/node/52"><img src="<?php print $base_url; ?>/images/mock_project_2.jpg"/></a>  
-              </div>
-              <div>competion 1</div>
-
-            </li>
-
-            <li>
-
-              <div>
-                <a href="<?php print $base_url; ?>/node/52"><img src="<?php print $base_url; ?>/images/mock_project_3.jpg"/></a>
-              </div>
-              <div>competion 2</div>
-
-            </li>
-
-            <li>
-
-              <div>
-                <a href="<?php print $base_url; ?>/node/52"><img src="<?php print $base_url; ?>/images/mock_project_1.jpg"/></a>
-              </div>
-              <div>competion 3</div>
-
-            </li>
-
-          </ul>
-          
-          
-          
-       
-        
-
-      </ul>
-      </div>
-    </div>
-    <div class='upload'>
-       <img src="<?php print $base_url; ?>/images/mock_upload_icon.png"/>Upload
-    </div>
-
-    <div class="tour-guide">
-      <h6>Tour Guides</h6>
-      <ul>
-            <li>
-                <a href="<?php print $base_url;?>/node/53"><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_video_01.png" /></a>
-            </li>
-            <li>
-                <a href="<?php print $base_url;?>/node/54"><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_ico_video_02.png" /></a>
-            </li>
-            
-        </ul>
-
-    </div>
-
-  </div>
+  
   <div class="studio-columeiddle">
-    <ul>
-      <li class="title"><!--projects-->
-        Projects(2)
-        <ul>
-          <li>
-           
-            <a href="<?php print $base_url;?>/node/55"><img src="<?php print $base_url;?>/images/mock_create_new.jpg" /></a>
-            
-            
-            
-            
-           </li>
-          <li>
-            
-            <a href="<?php print $base_url;?>/node/51"><img src="<?php print $base_url;?>/images/mock_studio_1.jpg" class="setting-img" /></a>
-            
-            
-          </li>
-          <li>
-            <a href="<?php print $base_url;?>/node/51"><img src="<?php print $base_url;?>/images/mock_studio_2.jpg" class="setting-img" /></a>
-          </li>
-          
-        </ul>
-        <span>view all</span>
-        
-        
-      </li>  
-      
-      <li class="title"> <!--assignments-->
-        assignments(4)
-        <ul>
-          <li>
-            <a href="<?php print $base_url;?>/node/56"><img src="<?php print $base_url;?>/images/mock_create_new.jpg" /></a>
-          </li>
-          <li>
-            <a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_1.jpg" class="setting-img" /></a>
-          </li>
-          <li>
-            <a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_2.jpg" class="setting-img" /></a>
-          </li>
-           <li>
-            <a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_1.jpg" class="setting-img" /></a>
-          </li>
-          <li>
-            <a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_2.jpg" class="setting-img" /></a>
-          </li>
-          
-        </ul>
-         <span>view all</span>
-      </li> 
-      
-      <li class="title"><!--portfolios-->
-         portfolios(5)
-        <ul>
-          <li>
-            <a href="<?php print $base_url;?>/node/58"><img src="<?php print $base_url;?>/images/mock_create_new.jpg" /></a>
-          </li>
-          <li>
-            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_1.jpg" class="setting-img" /></a>
-          </li>
-          <li>
-            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_2.jpg" class="setting-img" /></a>
-          </li>
-           <li>
-            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_1.jpg" class="setting-img" /></a>
-          </li>
-          <li>
-            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_1.jpg" class="setting-img" /></a>
-          </li>
-          <li>
-            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_2.jpg" class="setting-img" /></a>
-          </li>
-          
-        </ul>
-         <span>view all</span>
-      </li>  
-      
-      <li class="title"> <!--personal-->
-        personal(3)
-        <ul>
-          <li>
-            <a href="<?php print $base_url;?>/node/60"><img src="<?php print $base_url;?>/images/mock_create_new.jpg"/></a>
-          </li>
-          <li>
-            <a href="<?php print $base_url;?>/node/61"><img src="<?php print $base_url;?>/images/mock_studio_3.jpg" class="setting-img" /></a>
-          </li>
-          <li>
-            <a href="<?php print $base_url;?>/node/61"><img src="<?php print $base_url;?>/images/mock_studio_4.jpg" class="setting-img" /></a>
-          </li>
-           <li>
-            <a href="<?php print $base_url;?>/node/61"><img src="<?php print $base_url;?>/images/mock_studio_5.jpg" class="setting-img" /></a>
-          </li>
-          
-          
-        </ul>
-        <span>view all</span>
-      </li> 
-    </ul>
-    
-  </div>
-  <div class="studio-columeright">
+  	
+  	
+  	
+  	<div class="studio-columeright">
   <div class="studio-side-inner">
     <h5 class="active">Collaborators<!--<span id='colla_all'><a href="javascript:void(0);">See All</a></span>--></h5>
     
@@ -255,45 +65,30 @@ $the_current_url = $_SERVER['HTTP_HOST'] . request_uri();
         
         <ul class="half-width">
           <li>
-            <div>
-              <img src="<?php print $base_url;?>/images/mock_colla_add.jpg" />
-            </div>
-            <div>
-              ADD
-            </div>
+            
+              <img src="<?php print $base_url;?>/images/mock_ico_video_01.png" />
+            
           </li>
           <li>
-            <div>
-              <img src="<?php print $base_url;?>/images/mock_colla_1.jpg" />
-            </div>
-            <div>
-              Yu
-            </div>
+            
+              <img src="<?php print $base_url;?>/images/mock_ico_video_02.png" />
+           
           </li>
           
           <li>
-            <div>
-              <img src="<?php print $base_url;?>/images/mock_colla_2.jpg" />
-            </div>
-            <div>
-              Devi
-            </div>
+            
+              <img src="<?php print $base_url;?>/images/mock_ico_video_03.png" />
+            
           </li>
           <li>
-            <div>
-              <img src="<?php print $base_url;?>/images/mock_colla_3.jpg" />
-            </div>
-            <div>
-              Miguel
-            </div>
+            
+              <img src="<?php print $base_url;?>/images/mock_ico_video_04.png" />
+            
           </li>
           <li>
-            <div>
-              <img src="<?php print $base_url;?>/images/mock_colla_4.jpg" />
-            </div>
-            <div>
-              Shanna
-            </div>
+           
+              <img src="<?php print $base_url;?>/images/mock_ico_video_05.png" />
+           
           </li>
           
           
@@ -334,10 +129,118 @@ $the_current_url = $_SERVER['HTTP_HOST'] . request_uri();
         </ul>
         
         </div>
+  </div>
+  	
+  	
+  	
+  	
+  	
+    <ul>
+      <li class="title"><!--projects-->
+        <div class="studio-mid-title">Projects 5</div>
+        <ul>
+          <li class="first">
+           
+            <a href="<?php print $base_url;?>/node/55"><img src="<?php print $base_url;?>/images/mock_create_new.jpg" /></a></li><li>
+            
+            <a href="<?php print $base_url;?>/node/51"><img src="<?php print $base_url;?>/images/mock_studio_1.jpg" class="setting-img" /></a>
+            
+            
+          </li><li>
+            <a href="<?php print $base_url;?>/node/51"><img src="<?php print $base_url;?>/images/mock_studio_2.jpg" class="setting-img" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/51"><img src="<?php print $base_url;?>/images/mock_studio_3.jpg" class="setting-img" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/51"><img src="<?php print $base_url;?>/images/mock_studio_1.jpg" class="setting-img" /></a>
+          </li>
+          
+        </ul>
         
+        
+        
+      </li>  
       
-    
+      <li class="title"> <!--assignments-->
+        <div class="studio-mid-title">assignments 7</div>
+        <ul>
+          <li class="first">
+            <a href="<?php print $base_url;?>/node/56"><img src="<?php print $base_url;?>/images/mock_create_new.jpg" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_4.jpg" class="setting-img" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_5.jpg" class="setting-img" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_6.jpg" class="setting-img" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_7.jpg" class="setting-img" /></a>
+          </li><li><a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_8.jpg" class="setting-img" /></a>
+          </li><li><a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_9.jpg" class="setting-img" /></a>
+          </li><li><a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_10.jpg" class="setting-img" /></a>
+          </li><li><a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_10.jpg" class="setting-img" /></a>
+          </li><li><a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_10.jpg" class="setting-img" /></a>
+          </li>
+          
+        </ul>
+         
+      </li> 
+      
+      <li class="title"><!--portfolios-->
+         <div class="studio-mid-title">portfolios 6</div>
+        <ul>
+          <li class="first">
+            <a href="<?php print $base_url;?>/node/58"><img src="<?php print $base_url;?>/images/mock_create_new.jpg" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_11.jpg" class="setting-img" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_12.jpg" class="setting-img" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_13.jpg" class="setting-img" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_14.jpg" class="setting-img" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_15.jpg" class="setting-img" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_16.jpg" class="setting-img" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_16.jpg" class="setting-img" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_16.jpg" class="setting-img" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_16.jpg" class="setting-img" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_16.jpg" class="setting-img" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_16.jpg" class="setting-img" /></a>
+          </li>
+          
+        </ul>
+         
+      </li>  
+      
+      <li class="title"> <!--personal-->
+        <div class="studio-mid-title">personal 3</div>
+        <ul>
+          <li class="first">
+            <a href="<?php print $base_url;?>/node/60"><img src="<?php print $base_url;?>/images/mock_create_new.jpg"/></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/61"><img src="<?php print $base_url;?>/images/mock_studio_17.jpg" class="setting-img" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/61"><img src="<?php print $base_url;?>/images/mock_studio_18.jpg" class="setting-img" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/61"><img src="<?php print $base_url;?>/images/mock_studio_19.jpg" class="setting-img" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/61"><img src="<?php print $base_url;?>/images/mock_studio_19.jpg" class="setting-img" /></a>
+          </li><li>
+            <a href="<?php print $base_url;?>/node/61"><img src="<?php print $base_url;?>/images/mock_studio_19.jpg" class="setting-img" /></a>
+          </li>
+          
+          
+        </ul>
+        
+      </li> 
+    </ul>
     
   </div>
+  
 
 </div>

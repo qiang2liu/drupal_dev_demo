@@ -1,4 +1,27 @@
 <?php
+function fteuser_menu() {
+   $items['welcome'] = array(
+    'page callback' => 'show_welcome',
+    'access callback' => TRUE,   
+    'type' => MENU_CALLBACK,  
+  );
+  return $items;
+}
+function show_welcome() {
+  return theme('welcomepage');
+}
+function fteuser_theme($exusting, $type) {
+  if ($type == 'module') {
+    return array(
+      'welcomepage' => array(
+      'variables' => array('data' => NULL),
+      'template' => 'templates/welcomepage',
+      ),
+      
+    );
+  }
+  return array();
+}
 function fteuser_form_alter(&$form, &$form_state, $form_id){
 
   switch ($form_id) {
@@ -124,7 +147,7 @@ function  fteuser_userreset($p, $uid, $timestamp, $hashed_pass) {
     
   }
   
-  drupal_goto($base_url."/demo-fte-landing/landing.html");
+  drupal_goto($base_url."/welcome");
   
 }
 

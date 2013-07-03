@@ -46,31 +46,31 @@ $terms_list = _get_terms_list();
 
 <div id="d3">
 	<div class="d3-left-arrow"><img  src="<?php print $base_url;?>/images/ico_da_slider_left.png"  /></div>
-	<div class="d3-item top-margin">
+	<div class="d3-item">
     	<img  src="<?php print $base_url;?>/images/mock_challenges_1.jpg"  />
     </div>
-    <div class="d3-item transformed top-margin">
+    <div class="d3-item">
     	<img  src="<?php print $base_url;?>/images/mock_challenges_2.jpg"  />
     </div>
-    <div class="d3-item transformed top-margin">
+    <div class="d3-item">
     	<img  src="<?php print $base_url;?>/images/mock_challenges_3.jpg"  />
     </div>
-    <div class="d3-item transformed top-margin">
+    <div class="d3-item">
     	<img  src="<?php print $base_url;?>/images/mock_challenges_4.jpg" />
     </div>
-    <div class="d3-item active">
+    <div class="d3-item">
     	<img  src="<?php print $base_url;?>/images/mock_challenges_5.jpg" />
     </div>
-    <div class="d3-item active-left top-margin">
+    <div class="d3-item">
     	<img  src="<?php print $base_url;?>/images/mock_challenges_6.jpg"  />
     </div>
-    <div class="d3-item transformed top-margin">
+    <div class="d3-item">
     	<img  src="<?php print $base_url;?>/images/mock_challenges_7.jpg"  />
     </div>
-    <div class="d3-item transformed top-margin">
+    <div class="d3-item">
     	<img  src="<?php print $base_url;?>/images/mock_challenges_8.jpg" />
     </div>
-    <div class="d3-item transformed top-margin">
+    <div class="d3-item">
     	<img  src="<?php print $base_url;?>/images/mock_challenges_5.jpg" />
     </div>
 	<div class="d3-right-arrow"><img  src="<?php print $base_url;?>/images/ico_da_slider_right.png"  /></div>

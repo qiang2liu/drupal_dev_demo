@@ -190,6 +190,7 @@
                     <!--<span class="mav-top-number">
                     	22:37
                     </span>-->
+                    <span class="floating-window-controller"><a href="#x" class="close"><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_logo_ico4.png" /></a><a href="#x" class="max"><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_logo_ico5.png" /></a><a href="#x" class="min"><img src="<?php print $base_url;?>/sites/all/themes/fte/images/mock_logo_ico6.png" /></a></span>
                 </div>
             </div>
             <div class="nav-bottom">
@@ -291,7 +292,7 @@
               $the_name = $user->name;
             }
             
-            print "<span class='mock-menu-userinfo'> " . $the_name . " <br/> <a href='".$base_url."/user'>" . 'view profile' . "</a>&nbsp;&nbsp;</span>";
+            print "<span class='mock-menu-userinfo'> " . $the_name . "<br/> <a href='".$base_url."/user'>" . 'view profile' . "</a></span>";
 		  }
 	   ?>
             </div>
