@@ -1,5 +1,29 @@
 <?php
 global $base_url;
+function _get_videos_list() {
+  $renderable_array = array();
+  $sql = 'SELECT nid FROM {node} n WHERE n.type = :type AND n.status = :status';
+  $result = db_query($sql, array(
+    ':type' => 'fte_video',
+    ':status' => 1,
+  ));
+  foreach ($result as $row) {
+    $node = node_load($row->nid);		
+		$item = field_get_items('node', $node, 'field_video_type');
+    $tid = $item[0]['tid'];
+		if(isset($tid)) {
+			$renderable_array[$tid] = array();
+			$link = field_get_items('node', $node, 'field_video_link');
+			$screenshot = field_get_items('node', $node, 'field_video_screenshot');
+			$renderable_array[$tid][] = array(
+			  'link'=>$link[0]['safe_value'],
+			  'screenshot'=>file_create_url($screenshot[0]['uri']),
+			);
+	  }
+  }
+  return $renderable_array;
+}
+$videos_list = _get_videos_list();
 ?>
 <div class="da-drag-area">
 <div class="half-box half-box-right">
@@ -10,28 +34,24 @@ global $base_url;
             <span>showcases</span>
         </div>
         <div class="da-content-box">
-        	<div class="da-content">
+				  <?php if(isset($videos_list['3'])): ?>
+        	  <div class="da-content">
             	<ul class="img-list ">
-                	<li><img src="<?php print $base_url; ?>/images/mock_dashboard_01.png"></li>
-                    <li><img src="<?php print $base_url; ?>/images/mock_dashboard_02.png"></li>
-                    <li><img src="<?php print $base_url; ?>/images/mock_dashboard_03.png"></li>
-                    <li><img src="<?php print $base_url; ?>/images/mock_dashboard_04.png"></li>
-                    <li><img src="<?php print $base_url; ?>/images/mock_dashboard_05.png"></li>
-                    <li><img src="<?php print $base_url; ?>/images/mock_dashboard_06.png"></li>
-                </ul>
+								<?php foreach($videos_list['3'] as $videoinfo):?>
+                	<li><a href="<?php print_r($videoinfo['link']); ?>" target="_blank"><img src="<?php print_r($videoinfo['screenshot']); ?>"></a></li>
+								<?php endforeach;?>
+              </ul>
             </div>
+					<?php endif;?>
+				  <?php if(isset($videos_list['4'])): ?>
             <div class="da-content hide">
             	<ul class="img-list">
-                    
-                    <li><img src="<?php print $base_url; ?>/images/mock_dashboard_04.png"></li>
-                    <li><img src="<?php print $base_url; ?>/images/mock_dashboard_05.png"></li>
-                    <li><img src="<?php print $base_url; ?>/images/mock_dashboard_06.png"></li>
-                    <li><img src="<?php print $base_url; ?>/images/mock_dashboard_02.png"></li>
-                    <li><img src="<?php print $base_url; ?>/images/mock_dashboard_03.png"></li>
-                    <li><img src="<?php print $base_url; ?>/images/mock_dashboard_01.png"></li>
-
+								<?php foreach($videos_list['4'] as $videoinfo):?>
+                	<li><a href="<?php print_r($videoinfo['link']); ?>" target="_blank"><img src="<?php print_r($videoinfo['screenshot']); ?>"></a></li>
+								<?php endforeach;?>
                 </ul>
             </div>
+					<?php endif;?>
         </div>
     </div>
 </div>

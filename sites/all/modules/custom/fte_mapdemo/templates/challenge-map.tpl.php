@@ -1,6 +1,20 @@
 <?php
-
  global $base_url;
+function _get_terms_list() {
+  $terms_list = array();
+	$terms = taxonomy_get_tree(3);
+	foreach($terms as $term) {
+	  if($term->parents[0] == 0) {
+			$terms_list[$term->tid] = array();
+		  $terms_list[$term->tid]['name'] = $term->name;
+		} else {
+			$terms_list[$term->parents[0]]['children'][$term->tid] = array();
+			$terms_list[$term->parents[0]]['children'][$term->tid]['name'] = $term->name;
+		}
+	}
+	return $terms_list;
+}
+$terms_list = _get_terms_list();
 ?>
 
 <style>
@@ -70,96 +84,18 @@
   <div class="topic-selector">
     
      <ul>
-     	<li class="active">
-        	Racism
+		  <?php foreach($terms_list as $tid=>$terminfo):?>
+     	<li>
+        	<?php echo $terminfo['name']; ?>
+        	<?php if(isset($terminfo['children'])): ?>					
             <ul class="topic-selector-sub-menu">
-            	<li><a href="#x">Callenge1</a></li>
-                <li><a href="#x">Callenge2</a></li>
-                <li><a href="#x">Callenge3</a></li>
-                <li><a href="#x">Callenge4</a></li>
-                <li><a href="#x">Callenge5</a></li>
+							<?php foreach($terminfo['children'] as $subtid=>$subterminfo):?>
+            	<li><a href="#tid=<?php echo $subtid; ?>"><?php echo $subterminfo['name']; ?></a></li>
+							<?php endforeach;?>
             </ul>
+        	<?php endif; ?>	
          </li>
-        <li>
-        	Poverty
-            <ul class="topic-selector-sub-menu">
-            	<li><a href="#x">Callenge1</a></li>
-                <li><a href="#x">Callenge2</a></li>
-                <li><a href="#x">Callenge3</a></li>
-                <li><a href="#x">Callenge4</a></li>
-                <li><a href="#x">Callenge5</a></li>
-            </ul>
-        </li>
-        <li>
-        	Climate
-            <ul class="topic-selector-sub-menu">
-            	<li><a href="#x">Callenge1</a></li>
-                <li><a href="#x">Callenge2</a></li>
-                <li><a href="#x">Callenge3</a></li>
-                <li><a href="#x">Callenge4</a></li>
-                <li><a href="#x">Callenge5</a></li>
-            </ul>
-         </li>
-        <li>
-        	Food
-            <ul class="topic-selector-sub-menu">
-            	<li><a href="#x">Callenge1</a></li>
-                <li><a href="#x">Callenge2</a></li>
-                <li><a href="#x">Callenge3</a></li>
-                <li><a href="#x">Callenge4</a></li>
-                <li><a href="#x">Callenge5</a></li>
-            </ul>
-         </li>
-        <li>
-        	Sustainability
-            <ul class="topic-selector-sub-menu">
-            	<li><a href="#x">Callenge1</a></li>
-                <li><a href="#x">Callenge2</a></li>
-                <li><a href="#x">Callenge3</a></li>
-                <li><a href="#x">Callenge4</a></li>
-                <li><a href="#x">Callenge5</a></li>
-            </ul>
-         </li>
-        <li>
-        	Water
-            <ul class="topic-selector-sub-menu">
-            	<li><a href="#x">Callenge1</a></li>
-                <li><a href="#x">Callenge2</a></li>
-                <li><a href="#x">Callenge3</a></li>
-                <li><a href="#x">Callenge4</a></li>
-                <li><a href="#x">Callenge5</a></li>
-            </ul>
-         </li>
-        <li>
-        	War
-            <ul class="topic-selector-sub-menu">
-            	<li><a href="#x">Callenge1</a></li>
-                <li><a href="#x">Callenge2</a></li>
-                <li><a href="#x">Callenge3</a></li>
-                <li><a href="#x">Callenge4</a></li>
-                <li><a href="#x">Callenge5</a></li>
-            </ul>
-         </li>
-        <li>
-        	Drugs
-            <ul class="topic-selector-sub-menu">
-            	<li><a href="#x">Callenge1</a></li>
-                <li><a href="#x">Callenge2</a></li>
-                <li><a href="#x">Callenge3</a></li>
-                <li><a href="#x">Callenge4</a></li>
-                <li><a href="#x">Callenge5</a></li>
-            </ul>
-        </li>
-        <li>
-        	Human Rights
-            <ul class="topic-selector-sub-menu">
-            	<li><a href="#x">Callenge1</a></li>
-                <li><a href="#x">Callenge2</a></li>
-                <li><a href="#x">Callenge3</a></li>
-                <li><a href="#x">Callenge4</a></li>
-                <li><a href="#x">Callenge5</a></li>
-            </ul>
-        </li>
+				 <?php endforeach;?>
      </ul>
      
     

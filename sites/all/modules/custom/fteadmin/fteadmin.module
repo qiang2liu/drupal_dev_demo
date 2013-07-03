@@ -131,4 +131,11 @@ function fteadmin_form_alter(&$form, $form_state, $form_id) {
       }
     }
   }
+  if ($form_id == 'fte_video_node_form') {  
+    if (isset($form['field_video_type'])) {
+      $langcode = isset($form['#language']) ? $form['#language'] : 'und';
+      $requested_term_id = arg(3);
+      $form['field_video_type'][$langcode]['#default_value'] = 5;//is_numeric($requested_term_id) ? $requested_term_id : '';
+    }
+  }
 }
