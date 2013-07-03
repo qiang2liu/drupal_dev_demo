@@ -261,6 +261,9 @@ body #main{
    width:1024px;
    padding-top:1.6em;
 }
+body.page-node-41 #main{
+	padding-top:0;
+}
 .studio-columeiddle{
 	font-size:85%;
 	padding-bottom:2em;

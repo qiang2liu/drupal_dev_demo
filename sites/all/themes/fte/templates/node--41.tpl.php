@@ -2,7 +2,7 @@
 global $base_url;
 ?>
 
-<style>
+<!--<style>
 
   .gallery_list ul li {
     float:left;
@@ -60,7 +60,7 @@ global $base_url;
       <ul>
 
 
-        <!-- -->
+       
         <li>
           <div>
 
@@ -126,7 +126,7 @@ global $base_url;
           </div>
         </li>
 
-        <!--  -->
+       
 
         <li>
           <div>
@@ -281,6 +281,8 @@ global $base_url;
 
   </div>
 </div>
+-->
+<img src="<?php print $base_url; ?>/images/mock_gallery_screen.jpg"/>
 
 
 
