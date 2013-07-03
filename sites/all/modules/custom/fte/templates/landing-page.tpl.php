@@ -37,7 +37,7 @@ global $base_url;
 </div>
 
 <div class="half-box half-box-left">
-	<div class="da-drag-item-box">
+	<div class="da-drag-item-box temp-fix-height">
     	<div class="da-tabs-box">
         	<em class="active"></em>
             <span class="active">Activity Stream</span>

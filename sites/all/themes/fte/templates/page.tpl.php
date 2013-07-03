@@ -292,7 +292,7 @@
               $the_name = $user->name;
             }
             
-            print "<span class='mock-menu-userinfo'> " . $the_name . " <br/> <a href='".$base_url."/user'>" . 'view profile' . "</a>&nbsp;&nbsp;</span>";
+            print "<span class='mock-menu-userinfo'> " . $the_name . "<br/> <a href='".$base_url."/user'>" . 'view profile' . "</a></span>";
 		  }
 	   ?>
             </div>

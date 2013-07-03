@@ -103,6 +103,8 @@ body.html{
 	font-weight:bold;
 	line-height:1.4em;
 	font-size:85%;
+	
+	text-align:right;
 }
 
 .mock-nav span.mock-portrait-span{
@@ -155,6 +157,9 @@ ul.level-first-has-child ul>li{
 .page-node-15 .level-first-has-child > li > a{
 	background: url("../images/mock_arrow_red.png") no-repeat scroll 0.5em center transparent;
 }
+.page-landingpage .level-first-has-child > li > a{
+	background: url("../images/ico_da_blue.png") no-repeat scroll 0.5em center transparent;
+}
 .level-first-has-child > li > a.active{
 	background: url("../images/mock_arrow_green_active.png") no-repeat scroll 0.5em center transparent;
 }
@@ -163,6 +168,9 @@ ul.level-first-has-child ul>li{
 	background: url("../images/mock_arrow_red_active.png") no-repeat scroll 0.5em center transparent;
 }
 
+.page-landingpage .level-first-has-child > li > a.active{
+	background: url("../images/ico_da_blue_active.png") no-repeat scroll 0.5em center transparent;
+}
 .level-second-has-child > li > a{
 	display:block;
 	background: url("../images/mock_arrow_green.png") no-repeat scroll 0.5em center #D3FDBB;
@@ -397,6 +405,9 @@ em.stage_bottom_switcher.active{
   height:0;
   visibility:hidden;
   clear:both;
+}
+.da-drag-area{
+	font-size:85%;
 }
 .dashboard-container{
   background:#eee;
@@ -882,7 +893,7 @@ em.stage_bottom_switcher.active{
   
   .da-drag-item-box{
     background:#fff;
-	border:1px solid #86bdfd;
+	border:1px solid #83bdfd;
   }
   .half-box{
     width:49%;
@@ -895,16 +906,23 @@ em.stage_bottom_switcher.active{
     float:left;
   }
   .da-tabs-box{
-    padding:0 0.2em;
-	border-bottom:1px solid #036ae1;
-	background:#bedaff;
+	border-bottom:1px solid #036AE1;
+	background:#bddbff;
+	font-size:90%;
+  }
+  .da-bottom-box .da-tabs-box{
+  	font-size:80%;
+  }
+  .half-box .da-tabs-box{
+  	border-bottom:1px dashed #bababa;
+  	background:#fff;
   }
   .da-tabs-box em{
     cursor: pointer;
     display: inline-block;
-    height: 18px;
+    height: 14px;
     position: relative;
-    top: 5px;
+    top: 4px;
     width: 18px;
 	background: url(../images/ico_da_blue.png) center center no-repeat;
   }
@@ -914,13 +932,16 @@ em.stage_bottom_switcher.active{
   .da-bottom-box{
     background:#fff;
 	margin-bottom:1em;
-	border:1px solid #86bdfd;
+	border:1px solid #83bdfd;
   }
   .da-tabs-box span{
     cursor: pointer;
     display: inline-block;
-    padding: 5px 10px;
-	text-transform:capitalize;
+    padding: 3px 6px;
+	text-transform:uppercase;
+   }
+   .half-box .da-tabs-box span{
+   	padding: 0 10px 0 0;
    }
    .da-tabs-box span.active{
    	 background:#fff;
@@ -929,21 +950,31 @@ em.stage_bottom_switcher.active{
 	 position: relative;
     top: 1px;
    }
+   .half-box .da-tabs-box span.active{
+   	 border-left:0;
+   	 border-right:0;
+   	 position:static;
+   }
    .da-content{
-     padding:.5em;
+     padding:.2em 1px;
    }
    .region-content .da-content ul{
      margin:0;
-	 padding:0;
+	 padding:4px 0;
    }
    .da-content .img-list li{
-      width:49%;
-	  padding:5px 0;
+      width:50%;
+	  padding: 1px 0;
 	  text-align:center;
 	  float:left;
    }
+   .temp-fix-height{
+   	height:545px;
+   }
    .da-content .img-list li img{
      border:2px solid #076bdd;
+     width:203px;
+     display: block;
    }
    .hide{
      display:none;
@@ -1012,6 +1043,8 @@ body.one-sidebar #content {
 }
 .nav-bottom{
   background:#b7007f;
+  height:42px;
+  overflow:hidden;
 }
 .front .mock-nav{
   background:#036ae0;
@@ -1075,11 +1108,17 @@ body.one-sidebar #content {
 .page-node-15 .toolbar-wrapper-control{
 	background:url(../images/mock_toolbar_collapse_red.png) no-repeat;
 }
+.page-landingpage .toolbar-wrapper-control{
+	background:url(../images/ico_da_blue_a.png) no-repeat;
+}
 .toolbar-wrapper-control.active{
   background: url(../images/mock_arrow_green.png) no-repeat;
 }
 .page-node-15 .toolbar-wrapper-control.active{
   background: url(../images/mock_arrow_red.png) no-repeat;
+}
+.page-landingpage .toolbar-wrapper-control.active{
+  background: url(../images/ico_da_blue_b.png) no-repeat;
 }
 /* carousel */
 #d3 {

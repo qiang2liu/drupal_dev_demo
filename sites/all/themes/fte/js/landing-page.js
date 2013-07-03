@@ -90,13 +90,13 @@ $(document).ready(function(){
 	//mockup
 	$(window).bind('mouseover', function(event){
 		if($(event.target).hasClass('menu-learn-child')){
-			var t = $(event.target).offset().top - $('#content').offset().top;
-			var l = $(event.target).offset().left- $('#content').offset().left;
+			var t = $(event.target).offset().top;
+			var l = $(event.target).offset().left;
 			var h = $(event.target).width();
 			$('.menu-learn li li a').removeClass('active');
 			$(event.target).addClass('active');
 			$('.menu-learn-fly-layer').css({
-				top  : t-1 + 'px',
+				top  : t + 'px',
 				left : l + h +20 + 'px'
 			});
 			$('.menu-learn-fly-layer').show();
