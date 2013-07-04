@@ -157,12 +157,16 @@ $(document).ready(function(){
 	$('.project_directory .content').hide();
 	$('.project_directory .content').eq(1).show();
 	$('.project_directory .project_tabs span').bind('click', function(){
-		var idx = $(this).index();
+		var idx = $(this).index('.project_tabs span');
 		$('.project_directory .project_tabs span').removeClass('active');
 		$(this).addClass('active');
 		$('.project_directory .content').hide();
 		$('.project_directory .content').eq(idx).show();
 	});
+	$('.project_tabs em').bind('click', function(){
+		$(this).toggleClass('active');
+		$('.project_tabs_bottom').toggle(400);
+	})
 	//studio
 	$('.studio-side-inner h5').bind('click', function(){
 		$(this).toggleClass('active');
