@@ -171,7 +171,7 @@
     
     <div class="mock-nav">
     	<div class="mock-nav-left">
-        	<a href ='<?php print $base_url;?>'> <span class="mock-menu-logo"></span></a>
+        	<a href ='<?php print $base_url;?>/Home'> <span class="mock-menu-logo"></span></a>
         </div>
     	<div class="mock-nav-right">
         	<div class="nav-top">
@@ -202,20 +202,20 @@
                   
                   
                   <span class="mock-menu-learn">
-                    <a href ='<?php print $base_url;?>/learn'> Learn</a>
+                    <a href ='<?php print $base_url;?>/Learn'> Learn</a>
                   </span>  
                   
                   
                   <span class="mock-menu-workspace">
-                    <a href ='<?php print $base_url;?>/studio'> Studio </a>
+                    <a href ='<?php print $base_url;?>/Studio'> Studio </a>
                   </span>  
                    
                    <span class="mock-menu-competitions">
-                    <a href ='<?php print $base_url;?>/gallery'> Gallery </a>
+                    <a href ='<?php print $base_url;?>/Gallery'> Gallery </a>
                   </span> 
                   
                    <span class="mock-menu-gallery">
-                    <a href ='<?php print $base_url;?>/competition'> Competitions </a>
+                    <a href ='<?php print $base_url;?>/Competitions'> Competitions </a>
                   </span>  
                   <?php if (fteadmin_admin_access()) { ?>
                     <a href='<?php print $base_url;?>/edgemakeradmin' style="float:left; display:inline-block;">
