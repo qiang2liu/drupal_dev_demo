@@ -63,7 +63,7 @@ global $base_url;
 
       <li>
         <div>
-          <a href="<?php print $base_url; ?>/node/62">
+          <a href="<?php print $base_url; ?>/competition/winner">
             <img src="<?php print $base_url; ?>/images/mock_comp_1.jpg" />
           </a>
         </div>  
@@ -71,7 +71,7 @@ global $base_url;
       </li>
       <li>
         <div>
-          <a href="<?php print $base_url; ?>/node/62">
+          <a href="<?php print $base_url; ?>/competition/winner">
             <img src="<?php print $base_url; ?>/images/mock_comp_2.jpg" />
           </a>
         </div>  
@@ -79,7 +79,7 @@ global $base_url;
       </li>
       <li>
         <div>
-          <a href="<?php print $base_url; ?>/node/62">
+          <a href="<?php print $base_url; ?>/competition/winner">
             <img src="<?php print $base_url; ?>/images/mock_comp_3.jpg" />
           </a>
         </div>  
@@ -87,7 +87,7 @@ global $base_url;
       </li>
       <li>
         <div>
-          <a href="<?php print $base_url; ?>/node/62">
+          <a href="<?php print $base_url; ?>/competition/winner">
             <img src="<?php print $base_url; ?>/images/mock_comp_4.jpg" />
           </a>
         </div>  
@@ -95,7 +95,7 @@ global $base_url;
       </li>
       <li>
         <div>
-          <a href="<?php print $base_url; ?>/node/62">
+          <a href="<?php print $base_url; ?>/competition/winner">
             <img src="<?php print $base_url; ?>/images/mock_comp_5.jpg" />
           </a>
         </div>  
@@ -103,7 +103,7 @@ global $base_url;
       </li>
       <li>
         <div>
-          <a href="<?php print $base_url; ?>/node/62">
+          <a href="<?php print $base_url; ?>/competition/winner">
             <img src="<?php print $base_url; ?>/images/mock_comp_6.jpg" />
           </a>
         </div>  
@@ -111,7 +111,7 @@ global $base_url;
       </li>
       <li>
         <div>
-          <a href="<?php print $base_url; ?>/node/62">
+          <a href="<?php print $base_url; ?>/competition/winner">
             <img src="<?php print $base_url; ?>/images/mock_comp_7.jpg" />
           </a>
         </div>  
@@ -119,7 +119,7 @@ global $base_url;
       </li>
       <li>
         <div>
-          <a href="<?php print $base_url; ?>/node/62">
+          <a href="<?php print $base_url; ?>/competition/winner">
             <img src="<?php print $base_url; ?>/images/mock_comp_8.jpg" />
           </a>
         </div>  

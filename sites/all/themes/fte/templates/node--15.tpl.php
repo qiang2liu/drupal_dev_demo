@@ -141,17 +141,17 @@ $the_current_url = $_SERVER['HTTP_HOST'] . request_uri();
         <ul>
           <li class="first">
            
-            <a href="<?php print $base_url;?>/node/55"><img src="<?php print $base_url;?>/images/mock_create_new.jpg" /></a></li><li>
+            <a href="<?php print $base_url;?>/add/mural-project"><img src="<?php print $base_url;?>/images/mock_create_new.jpg" /></a></li><li>
             
-            <a href="<?php print $base_url;?>/node/51"><img src="<?php print $base_url;?>/images/mock_studio_1.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-project"><img src="<?php print $base_url;?>/images/mock_studio_1.jpg" class="setting-img" /></a>
             
             
           </li><li>
-            <a href="<?php print $base_url;?>/node/51"><img src="<?php print $base_url;?>/images/mock_studio_2.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-project"><img src="<?php print $base_url;?>/images/mock_studio_2.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/51"><img src="<?php print $base_url;?>/images/mock_studio_3.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-project"><img src="<?php print $base_url;?>/images/mock_studio_3.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/51"><img src="<?php print $base_url;?>/images/mock_studio_1.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-project"><img src="<?php print $base_url;?>/images/mock_studio_1.jpg" class="setting-img" /></a>
           </li>
           
         </ul>
@@ -164,20 +164,20 @@ $the_current_url = $_SERVER['HTTP_HOST'] . request_uri();
         <div class="studio-mid-title">assignments 7</div>
         <ul>
           <li class="first">
-            <a href="<?php print $base_url;?>/node/56"><img src="<?php print $base_url;?>/images/mock_create_new.jpg" /></a>
+            <a href="<?php print $base_url;?>/add/mural-assign"><img src="<?php print $base_url;?>/images/mock_create_new.jpg" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_4.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-assign"><img src="<?php print $base_url;?>/images/mock_studio_4.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_5.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-assign"><img src="<?php print $base_url;?>/images/mock_studio_5.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_6.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-assign"><img src="<?php print $base_url;?>/images/mock_studio_6.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_7.jpg" class="setting-img" /></a>
-          </li><li><a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_8.jpg" class="setting-img" /></a>
-          </li><li><a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_9.jpg" class="setting-img" /></a>
-          </li><li><a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_10.jpg" class="setting-img" /></a>
-          </li><li><a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_10.jpg" class="setting-img" /></a>
-          </li><li><a href="<?php print $base_url;?>/node/57"><img src="<?php print $base_url;?>/images/mock_studio_10.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-assign"><img src="<?php print $base_url;?>/images/mock_studio_7.jpg" class="setting-img" /></a>
+          </li><li><a href="<?php print $base_url;?>/mural-assign"><img src="<?php print $base_url;?>/images/mock_studio_8.jpg" class="setting-img" /></a>
+          </li><li><a href="<?php print $base_url;?>/mural-assign"><img src="<?php print $base_url;?>/images/mock_studio_9.jpg" class="setting-img" /></a>
+          </li><li><a href="<?php print $base_url;?>/mural-assign"><img src="<?php print $base_url;?>/images/mock_studio_10.jpg" class="setting-img" /></a>
+          </li><li><a href="<?php print $base_url;?>/mural-assign"><img src="<?php print $base_url;?>/images/mock_studio_10.jpg" class="setting-img" /></a>
+          </li><li><a href="<?php print $base_url;?>/mural-assign"><img src="<?php print $base_url;?>/images/mock_studio_10.jpg" class="setting-img" /></a>
           </li>
           
         </ul>
@@ -188,29 +188,29 @@ $the_current_url = $_SERVER['HTTP_HOST'] . request_uri();
          <div class="studio-mid-title">portfolios 6</div>
         <ul>
           <li class="first">
-            <a href="<?php print $base_url;?>/node/58"><img src="<?php print $base_url;?>/images/mock_create_new.jpg" /></a>
+            <a href="<?php print $base_url;?>/add/mural-portfolios"><img src="<?php print $base_url;?>/images/mock_create_new.jpg" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_11.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-portfolios"><img src="<?php print $base_url;?>/images/mock_studio_11.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_12.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-portfolios"><img src="<?php print $base_url;?>/images/mock_studio_12.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_13.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-portfolios"><img src="<?php print $base_url;?>/images/mock_studio_13.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_14.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-portfolios"><img src="<?php print $base_url;?>/images/mock_studio_14.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_15.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-portfolios"><img src="<?php print $base_url;?>/images/mock_studio_15.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_16.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-portfolios"><img src="<?php print $base_url;?>/images/mock_studio_16.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_16.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-portfolios"><img src="<?php print $base_url;?>/images/mock_studio_16.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_16.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-portfolios"><img src="<?php print $base_url;?>/images/mock_studio_16.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_16.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-portfolios"><img src="<?php print $base_url;?>/images/mock_studio_16.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_16.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-portfolios"><img src="<?php print $base_url;?>/images/mock_studio_16.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/59"><img src="<?php print $base_url;?>/images/mock_studio_16.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-portfolios"><img src="<?php print $base_url;?>/images/mock_studio_16.jpg" class="setting-img" /></a>
           </li>
           
         </ul>
@@ -221,17 +221,17 @@ $the_current_url = $_SERVER['HTTP_HOST'] . request_uri();
         <div class="studio-mid-title">personal 3</div>
         <ul>
           <li class="first">
-            <a href="<?php print $base_url;?>/node/60"><img src="<?php print $base_url;?>/images/mock_create_new.jpg"/></a>
+            <a href="<?php print $base_url;?>/add/mural-person"><img src="<?php print $base_url;?>/images/mock_create_new.jpg"/></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/61"><img src="<?php print $base_url;?>/images/mock_studio_17.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-person"><img src="<?php print $base_url;?>/images/mock_studio_17.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/61"><img src="<?php print $base_url;?>/images/mock_studio_18.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-person"><img src="<?php print $base_url;?>/images/mock_studio_18.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/61"><img src="<?php print $base_url;?>/images/mock_studio_19.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-person"><img src="<?php print $base_url;?>/images/mock_studio_19.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/61"><img src="<?php print $base_url;?>/images/mock_studio_19.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-person"><img src="<?php print $base_url;?>/images/mock_studio_19.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/61"><img src="<?php print $base_url;?>/images/mock_studio_19.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-person"><img src="<?php print $base_url;?>/images/mock_studio_19.jpg" class="setting-img" /></a>
           </li>
           
           
