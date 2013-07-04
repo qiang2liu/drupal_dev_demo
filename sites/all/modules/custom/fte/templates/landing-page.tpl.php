@@ -12,7 +12,7 @@ function _get_videos_list() {
 		$item = field_get_items('node', $node, 'field_video_type');
     $tid = $item[0]['tid'];
 		if(isset($tid)) {
-			$renderable_array[$tid] = array();
+			if(!isset($renderable_array[$tid])) $renderable_array[$tid] = array();
 			$link = field_get_items('node', $node, 'field_video_link');
 			$screenshot = field_get_items('node', $node, 'field_video_screenshot');
 			$renderable_array[$tid][] = array(
