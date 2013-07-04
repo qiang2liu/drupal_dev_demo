@@ -1064,6 +1064,12 @@ body.one-sidebar #content {
 .page-node-104 .mock-nav{
 	background:#640199;
 }
+.page-node-104 .field-item p{
+	margin-bottom:0;
+}
+.page-node-104 .field-item p img{
+	display:block;
+}
 .page-learn .mock-nav{
    background:#058f03;
 }
