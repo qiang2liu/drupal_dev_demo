@@ -13,7 +13,7 @@ function fteadmin_menu() {
       'access callback' => 'user_access',
       'access arguments' => array('administer site configuration'),
   );
-  $items['fteadmin'] = array(
+  $items['edgemakeradmin'] = array(
       'page callback' => 'fteadmin_admin_page',
       'access callback' => 'fteadmin_admin_access',
       'type' => MENU_CALLBACK,
