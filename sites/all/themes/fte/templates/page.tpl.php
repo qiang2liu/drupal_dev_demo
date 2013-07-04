@@ -207,18 +207,18 @@
                   
                   
                   <span class="mock-menu-workspace">
-                    <a href ='<?php print $base_url;?>/node/15'> Studio </a>
+                    <a href ='<?php print $base_url;?>/studio'> Studio </a>
                   </span>  
                    
                    <span class="mock-menu-competitions">
-                    <a href ='<?php print $base_url;?>/node/41'> Gallery </a>
+                    <a href ='<?php print $base_url;?>/gallery'> Gallery </a>
                   </span> 
                   
                    <span class="mock-menu-gallery">
-                    <a href ='<?php print $base_url;?>/node/42'> Competitions </a>
+                    <a href ='<?php print $base_url;?>/competition'> Competitions </a>
                   </span>  
                   <?php if (fteadmin_admin_access()) { ?>
-                    <a href='<?php print $base_url;?>/fteadmin' style="float:left; display:inline-block;">
+                    <a href='<?php print $base_url;?>/edgemakeradmin' style="float:left; display:inline-block;">
                       <span class="admin-intro">admin</span>
                     </a>
                   <?php } ?>
