@@ -1185,8 +1185,12 @@ body.one-sidebar #content {
 .d3-item img.reload{
 	transition: all 0.5s linear;
 }
+.d3-item a{
+	display:block;
+}
 .d3-item img{
 	transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
 	box-shadow: 0px 5px 5px #000;
 }
 .d3-item.show-left img,
