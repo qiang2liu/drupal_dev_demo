@@ -55,7 +55,7 @@ function fteadmin_admin_access($account = NULL) {
   }
 
   $roles_array = $account->roles;
-  $ret = in_array('fte admin', $roles_array);
+  $ret = in_array('site admin', $roles_array);
   return $ret;
 }
 
