@@ -1,5 +1,5 @@
 <?php
- global $base_url;
+global $base_url;
 function _get_terms_list() {
   $terms_list = array();
 	$terms = taxonomy_get_tree(3);
@@ -15,6 +15,27 @@ function _get_terms_list() {
 	return $terms_list;
 }
 $terms_list = _get_terms_list();
+
+function _get_carousel_items_list() {
+  $renderable_array = array();
+  $sql = 'SELECT nid FROM {node} n WHERE n.type = :type AND n.status = :status';
+  $result = db_query($sql, array(
+    ':type' => 'carousel_item',
+    ':status' => 1,
+  ));
+  foreach ($result as $row) {
+    $node = node_load($row->nid);
+		$link = field_get_items('node', $node, 'field_carousel_item_link');
+		$image = field_get_items('node', $node, 'field_carousel_item_image');
+		$renderable_array[] = array(
+			'nid'=>$row->nid,
+			'link'=>$link[0]['safe_value'],
+			'imageurl'=>file_create_url($image[0]['uri']),
+		);
+  }
+  return $renderable_array;
+}
+$carousel_items_list = _get_carousel_items_list();
 ?>
 
 <style>
@@ -46,33 +67,11 @@ $terms_list = _get_terms_list();
 
 <div id="d3">
 	<div class="d3-left-arrow"><img  src="<?php print $base_url;?>/images/ico_da_slider_left.png"  /></div>
-	<div class="d3-item">
-    	<img  src="<?php print $base_url;?>/images/mock_challenges_1.jpg"  />
-    </div>
+		<?php foreach($carousel_items_list as $item):?>	
     <div class="d3-item">
-    	<img  src="<?php print $base_url;?>/images/mock_challenges_2.jpg"  />
+    	<a href="<?php echo $item['link'];?>" target="_blank"><img src="<?php echo $item['imageurl'];?>" /></a>
     </div>
-    <div class="d3-item">
-    	<img  src="<?php print $base_url;?>/images/mock_challenges_3.jpg"  />
-    </div>
-    <div class="d3-item">
-    	<img  src="<?php print $base_url;?>/images/mock_challenges_4.jpg" />
-    </div>
-    <div class="d3-item">
-    	<img  src="<?php print $base_url;?>/images/mock_challenges_5.jpg" />
-    </div>
-    <div class="d3-item">
-    	<img  src="<?php print $base_url;?>/images/mock_challenges_6.jpg"  />
-    </div>
-    <div class="d3-item">
-    	<img  src="<?php print $base_url;?>/images/mock_challenges_7.jpg"  />
-    </div>
-    <div class="d3-item">
-    	<img  src="<?php print $base_url;?>/images/mock_challenges_8.jpg" />
-    </div>
-    <div class="d3-item">
-    	<img  src="<?php print $base_url;?>/images/mock_challenges_5.jpg" />
-    </div>
+		<?php endforeach;?>
 	<div class="d3-right-arrow"><img  src="<?php print $base_url;?>/images/ico_da_slider_right.png"  /></div>
 </div>
 
