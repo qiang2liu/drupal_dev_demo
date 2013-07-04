@@ -1158,6 +1158,19 @@ body.one-sidebar #content {
   margin-bottom:1em;
   color: #640199;
 }
+/* arrow */
+.d3-left-arrow,
+.d3-right-arrow{
+  width:48px;
+  float:left;
+  margin-top:90px;
+  cursor:pointer;
+}
+.d3-right-arrow{
+	float:right;
+}
+
+/* item */
 .d3-item{
   cursor:pointer;
   position:relative;
@@ -1172,13 +1185,60 @@ body.one-sidebar #content {
 .d3-item img.reload{
 	transition: all 0.5s linear;
 }
-.d3-item.transformed{
+.d3-item img{
+	transform-style: preserve-3d;
+	box-shadow: 0px 5px 5px #000;
+}
+.d3-item.show-left img,
+.d3-item.show-left-fisrt img{
+  -webkit-transform: rotateY(68deg);
+  transform: rotateY(68deg);
+}
+.d3-item.show-right img,
+.d3-item.show-add-1 img{
+  -webkit-transform: rotateY(-68deg);
+  transform: rotateY(-68deg);
+}
+.d3-item.show-left img,
+.d3-item.show-right img,
+.d3-item.show-left-fisrt img,
+.d3-item.show-add-1 img{
+	width:205px;
+  	height:205px;
+}
+.d3-item.show img{
+	width:300px;
+  	height:300px;
+}
+.d3-item.show-left-fisrt{
+	margin:66px 0 0 0;
+}
+.d3-item.show-left,
+.d3-item.show-right{
+    margin:66px 0 0 -140px;
+}
+.d3-item.show-add-1{
+	margin: 66px 0 0 -90px;
+}
+.d3-item.show{
+	margin:0 0 0 -90px
+}
+.d3-item.show-is-first{
+	margin:0 0 0 50px;
+}
+.d3-item.show-is-last{
+	margin:0 50px 0 -90px;
+}
+
+
+
+/*old*/
+/*.d3-item.transformed{
   margin-left:-140px;
 }
 .d3-item.active{
   margin-left:-90px;
-  position: relative;
-  z-index: 1;
+  
 }
 .d3-item.active img{
 	box-shadow: 0px 5px 5px #000;
@@ -1196,21 +1256,10 @@ body.one-sidebar #content {
 .d3-item.top-margin{
    margin-top:66px;
 }
-.d3-left-arrow,
-.d3-right-arrow{
-  width:48px;
-  float:left;
-  margin-top:90px;
-  cursor:pointer;
-}
-.d3-right-arrow{
-	float:right;
-}
+
 .d3-item img{
   width:300px;
   height:300px;
-  /*transition: all 1.0s linear;*/
-  
 }
 .d3-item img.preserve-left{
   transform-style: preserve-3d;
@@ -1227,7 +1276,10 @@ body.one-sidebar #content {
   box-shadow: -5px 5px 5px #000;
   width:205px;
   height:205px;
-}
+}*/
+/*carrsoul old end*/
+
+
 .studio-mid-title{
 	display:inline-block;
 	padding:.4em 0.5em;

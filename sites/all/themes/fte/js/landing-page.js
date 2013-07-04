@@ -250,150 +250,115 @@ $(document).ready(function(){
 	});
 	$('#d3').carrousel();
 });
+
+/* carrousel */
 $.fn.extend({
 	carrousel: function(options){
 		var defaults = {
 			count      : 9,
 			item       : '.d3-item',
-			leftClass  : 'preserve-left',
-			rightClass : 'preserve-right',
 			leftController: '.d3-left-arrow',
 			rightController: '.d3-right-arrow'
 		};
 		var options = $.extend(defaults, options);
 		return this.each(function(){
 			var self = $(this);
-			//set index
 			
-			//prepare layout
+			//the first show
 			var idx = options.count % 2;
-			for(var i = options.count-1; i > parseInt(options.count / 2, 10); i--){
-				$(this).find(options.item).eq(i).find('img').addClass(options.rightClass);
-				$(this).find(options.item).eq(i).addClass('top-margin').addClass('transformed');
-			}
+			var midNumber = parseInt(options.count/2,10);
 			if(idx ==1){
-				for(var i = 0; i < parseInt(options.count / 2, 10); i++){
-					$(this).find(options.item).eq(i).find('img').addClass(options.leftClass);
-					if(i !=0){
-						$(this).find(options.item).eq(i).addClass('top-margin').addClass('transformed');
-					}else{
-						$(this).find(options.item).eq(i).addClass('top-margin');
-					}		
-				}
-				$(this).find(options.item).eq(parseInt(options.count / 2, 10) + 1).removeClass('transformed').addClass('active-left');
-				$(this).find(options.item).eq(parseInt(options.count / 2, 10)).addClass('active');
-				
+				self.find(options.item).eq(midNumber).addClass('show');
 			}else{
-				for(var i = 0; i < parseInt(options.count / 2 -1, 10); i++){
-					$(this).find(options.item).eq(i).find('img').addClass(options.leftClass);
-					$(this).find(options.item).eq(i).addClass('top-margin').addClass('transformed');
-					if(i !=0){
-						$(this).find(options.item).eq(i).addClass('top-margin').addClass('transformed');
-					}else{
-						$(this).find(options.item).eq(i).addClass('top-margin');
-					}
-				}
-				$(this).find(options.item).eq(parseInt(options.count / 2, 10)).removeClass('transformed').addClass('active-left');
-				$(this).find(options.item).eq(parseInt(options.count / 2, 10)-1).addClass('active');
+				self.find(options.item).eq(midNumber-1).addClass('show');
 			}
+			
+			function d3Animate(){
+				var activeIdx = self.find(options.item + '.show').index(options.item);
+				//empty all except the 'show'
+				self.find(options.item).not('.show').attr('class','d3-item');
+				//check the first item
+				if (activeIdx == 0){
+					self.find(options.item).eq(0).addClass('show-is-first');
+				}else{
+					self.find(options.item).eq(0).addClass('show-left-fisrt')
+				}
+				//check the last item
+				var ln = self.find(options.item).length -1;
+				if(activeIdx == ln){
+					self.find(options.item).eq(ln).addClass('show-is-last');
+				}else{
+					self.find(options.item).eq(ln).addClass('show-right');
+				}
+				//check the next item of the show
+				self.find(options.item).eq(activeIdx+1).addClass('show-add-1');
+				// //check others
+				//left
+				for(var i = 1; i < activeIdx; i++){
+					self.find(options.item).eq(i).addClass('show-left');
+				}
+				//right
+				for(var i = ln-1; i > activeIdx + 1; i--){
+					self.find(options.item).eq(i).addClass('show-right');
+				}
+			}
+			
+			//set index
 			function setIndex(){
 				self.find(options.item).css('zIndex','0');
-				var idx = self.find('.active').index(options.item);
+				var idx = self.find('.show').index(options.item);
 				var itemLength = self.find(options.item).length-1;
 				for(var i=itemLength; i>=idx; i--){
 					self.find(options.item).eq(i).css('zIndex', itemLength - i);
 				}
 			}
+			
+			//initailize
+			d3Animate();
 			setIndex();
-			//arrow click
 			
-			/*function imgFlow(idx,imgClass,imgRemovedClass,itemClass1,itemClass2,theLeftClass,theFirst,theRightClass){
-				var currentActive = self.find(options.item + '.active').index(options.item);
-				var aimItem = currentActive + idx;
-				if(aimItem > -1 && aimItem < $(options.item).length){
-					console.log(aimItem);
-					self.find(options.item).eq(currentActive).removeClass('active').addClass(itemClass1).addClass(theLeftClass).addClass(theRightClass);
-					self.find(options.item).eq(currentActive).find('img').addClass(imgClass);
-					self.find(options.item).eq(aimItem).addClass('active').removeClass(itemClass1).removeClass(itemClass2).removeClass(theLeftClass);
-					self.find(options.item).eq(aimItem).find('img').removeClass(imgRemovedClass);
-					if(aimItem < $(options.item).length -2){
-						self.find(options.item).eq(aimItem + 2).removeClass(theLeftClass).addClass(itemClass2);
-					}
-					self.find(options.item).eq(0).addClass(theFirst);
-				}
-				
-			}
-			$(this).find(options.leftController).bind('click', function(){
-				imgFlow.call($(this),-1,'preserve-right','preserve-left','top-margin', 'transformed','active-left','the-first','');
-			});
-			$(this).find(options.rightController).bind('click', function(){
-				imgFlow.call($(this),1,'preserve-left','preserve-right','top-margin', 'transformed','','the-first','transformed');
-			});*/
-			
+			//init animate
 			function addAnimate(){
 				self.find(options.item).addClass('reload');
 				self.find(options.item).find('img').addClass('reload');
 			}
+			
+			//the clicking of the left arrow
 			self.find(options.leftController).bind('click', function(){
-				var currentActive = self.find(options.item + '.active').index(options.item);
-				var aimItem = currentActive-1;
-				var addi = currentActive + 1;
-				if(aimItem > -1){
-					addAnimate();
-					self.find(options.item).eq(currentActive).removeClass('active').addClass('active-left').addClass('top-margin');
-					self.find(options.item).eq(currentActive).find('img').removeClass('preserve-left').addClass('preserve-right');
-					self.find(options.item).eq(aimItem).removeClass('top-margin').removeClass('transformed').addClass('active');
-					self.find(options.item).eq(aimItem).find('img').removeClass('preserve-left');
-					self.find(options.item).eq(addi).removeClass('active-left').addClass('transformed');
-					self.find(options.item).eq(0).addClass('the-first');
+				var activeIdx = self.find(options.item + '.show').index(options.item);
+				if(activeIdx > 0){
+					self.find(options.item).eq(activeIdx).removeClass('show')
+					self.find(options.item).eq(activeIdx -1).attr('class','d3-item').addClass('show');
 				}
+				d3Animate();
 				setIndex();
-				//setTimeout(setIndex,1)
+				addAnimate();
 			});
+			
+			//the clicking of the right arrow
 			self.find(options.rightController).bind('click', function(){
-				var currentActive = self.find(options.item + '.active').index(options.item);
-				var aimItem = currentActive+1;
-				var addi = currentActive + 2;
-				if(aimItem < $(options.item).length){
-					addAnimate();
-					self.find(options.item).eq(currentActive).removeClass('active').addClass('transformed').addClass('top-margin');
-					self.find(options.item).eq(currentActive).find('img').removeClass('preserve-right').addClass('preserve-left');
-					self.find(options.item).eq(aimItem).removeClass('top-margin').removeClass('active-left').addClass('active');
-					self.find(options.item).eq(aimItem).find('img').removeClass('preserve-right');
-					self.find(options.item).eq(addi).removeClass('transformed').addClass('active-left');
-					self.find(options.item).eq(0).addClass('the-first').removeClass('transformed');
-					self.find(options.item).eq(self.find(options.item).length-1).addClass('the-last');
+				var activeIdx = self.find(options.item + '.show').index(options.item);
+				if(activeIdx < options.count-1){
+					self.find(options.item).eq(activeIdx).removeClass('show')
+					self.find(options.item).eq(activeIdx +1).attr('class','d3-item').addClass('show');
 				}
+				d3Animate();
 				setIndex();
-				//setTimeout(setIndex,1)
+				addAnimate();
 			});
-			/*self.find(options.item).find('img').bind('mouseover', function(){
-				var currentActive = self.find(options.item + '.active').index(options.item);
-				var aimItem = $(this).parent().index(options.item);
-				var addi = aimItem + 1;
-				if(aimItem > currentActive){
-					
+			
+			//the img hover function
+			self.find(options.item).bind('mouseover', function(){
+				if(!$(this).hasClass('show')){
+					var activeIdx = self.find(options.item + '.show').index(options.item);
+					$(this).attr('class','d3-item').addClass('show');
+					self.find(options.item).eq(activeIdx).removeClass('show');
+					d3Animate();
+					setIndex();
 					addAnimate();
-					self.find(options.item).eq(currentActive).removeClass('active').addClass('transformed').addClass('top-margin');
-					self.find(options.item).eq(currentActive).find('img').removeClass('preserve-right').addClass('preserve-left');
-					self.find(options.item).eq(aimItem).removeClass('top-margin').removeClass('active-left').addClass('active');
-					self.find(options.item).eq(aimItem).find('img').removeClass('preserve-right');
-					self.find(options.item).eq(addi).removeClass('transformed').addClass('active-left');
-					self.find(options.item).eq(0).addClass('the-first').removeClass('transformed');
-					self.find(options.item).eq(self.find(options.item).length-1).addClass('the-last');
-				}
-				if(aimItem < currentActive){
-					addAnimate();
-					self.find(options.item).eq(currentActive).removeClass('active').addClass('active-left').addClass('top-margin');
-					self.find(options.item).eq(currentActive).find('img').removeClass('preserve-left').addClass('preserve-right');
-					self.find(options.item).eq(aimItem).removeClass('top-margin').removeClass('transformed').addClass('active');
-					self.find(options.item).eq(aimItem).find('img').removeClass('preserve-left');
-					self.find(options.item).eq(addi).removeClass('active-left').addClass('transformed');
-					self.find(options.item).eq(0).addClass('the-first');
-				}
-				setIndex();
-				//setTimeout(setIndex,1)
-			})*/
+				}	
+			});
+		
 		});
 	}
  });
