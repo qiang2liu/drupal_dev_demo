@@ -40,7 +40,7 @@ $videos_list = _get_videos_list();
             	<ul class="img-list ">
 								<?php foreach($videos_list['3'] as $videoinfo):?>
 									<?php $nid = $videoinfo['nid']; ?>
-                	<li><a class="myytplayer" id="myytplayer<?php echo $nid;?>" href="javascript:playVideo(<?php echo $nid;?>, '<?php print($videoinfo['link'])?>', '<?php echo $videoinfo['screenshot'];?>');" target="_blank"><img src="<?php print($videoinfo['screenshot']); ?>"></a></li>
+                	<li><a class="myytplayer" id="myytplayer<?php echo $nid;?>" href="javascript:playVideo(<?php echo $nid;?>, '<?php print($videoinfo['link'])?>', '<?php echo $videoinfo['screenshot'];?>');"><img width="202" height="135" src="<?php print($videoinfo['screenshot']); ?>"></a></li>
 								<?php endforeach;?>
               </ul>
             </div>
@@ -49,7 +49,7 @@ $videos_list = _get_videos_list();
             <div class="da-content hide">
             	<ul class="img-list">
 								<?php foreach($videos_list['4'] as $videoinfo):?>
-                	<li><a class="myytplayer" id="myytplayer<?php echo $nid;?>" href="javascript:playVideo(<?php echo $nid;?>, '<?php print($videoinfo['link'])?>', '<?php echo $videoinfo['screenshot'];?>');" target="_blank"><img src="<?php print($videoinfo['screenshot']); ?>"></a></li>
+                	<li><a class="myytplayer" id="myytplayer<?php echo $nid;?>" href="javascript:playVideo(<?php echo $nid;?>, '<?php print($videoinfo['link'])?>', '<?php echo $videoinfo['screenshot'];?>');"><img width="202" height="135" src="<?php print($videoinfo['screenshot']); ?>"></a></li>
 								<?php endforeach;?>
                 </ul>
             </div>
@@ -158,7 +158,7 @@ function playVideo(nid, url, screenshot) {
 		"ytapiplayer", "202", "135", "8", null, null, params, atts);*/
   if(screenshotInfo) {
 	  var oldplayer = document.getElementById("myytplayer"+screenshotInfo[0]);
-		if(oldplayer) oldplayer.innerHTML = '<img src="'+ screenshotInfo[1] +'"/>';
+		if(oldplayer) oldplayer.innerHTML = '<img width="202" height="135" src="'+ screenshotInfo[1] +'"/>';
 	}
 	screenshotInfo = [nid, screenshot];
 }

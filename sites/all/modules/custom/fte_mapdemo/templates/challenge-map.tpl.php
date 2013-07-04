@@ -90,7 +90,7 @@ $terms_list = _get_terms_list();
         	<?php if(isset($terminfo['children'])): ?>					
             <ul class="topic-selector-sub-menu">
 							<?php foreach($terminfo['children'] as $subtid=>$subterminfo):?>
-            	<li><a href="#tid=<?php echo $subtid; ?>"><?php echo $subterminfo['name']; ?></a></li>
+            	<li><a href="<?php echo $base_url; ?>/Challenges/Topic"><?php echo $subterminfo['name']; ?></a></li>
 							<?php endforeach;?>
             </ul>
         	<?php endif; ?>	
