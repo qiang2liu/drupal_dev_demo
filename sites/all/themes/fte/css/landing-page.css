@@ -261,7 +261,8 @@ body #main{
    width:1024px;
    padding-top:1.6em;
 }
-body.page-node-41 #main{
+body.page-node-41 #main,
+body.page-node-104 #main{
 	padding-top:0;
 }
 .studio-columeiddle{
@@ -1059,6 +1060,9 @@ body.one-sidebar #content {
 }
 .page-changes .mock-nav{
    background:#5b008c;
+}
+.page-node-104 .mock-nav{
+	background:#640199;
 }
 .page-learn .mock-nav{
    background:#058f03;
