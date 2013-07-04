@@ -137,10 +137,11 @@ $terms_list = _get_terms_list();
     </div>-->
     <div>
       <div class='project_tabs'>
-        
+        <em class="active"></em>
         <span class="tab_1">All</span><span class="tab_2 active">Location</span><span class="tab_3">Topic</span><span class="tab_4">Rating</span>
         
       </div>
+      <div class="project_tabs_bottom">
       <div class="tab_1 content">
         <div>All</div>
         
@@ -206,7 +207,7 @@ $terms_list = _get_terms_list();
       </div>
       <div class="tab_2 content">
       <div class="cha-location">
-      	<div class="location-tab active">location: South Aftica</div>
+      	<div class="location-tab active"><span>location: South Aftica</span></div>
         <div class="location-content">
         <div style="margin-bottom:10px;">
           <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_1.jpg" class="project-directroy-img"/></div>
@@ -270,7 +271,7 @@ $terms_list = _get_terms_list();
         </div>
       </div>
         <div class="cha-location">
-      	<div class="location-tab">location: South Aftica</div>
+      	<div class="location-tab"><span>location: South Aftica</span></div>
         	<div class="location-content hide">
                     <div style="margin-bottom:10px;">
                       <div style="float:left"><img src="<?php print $base_url; ?>/images/mock_p_1.jpg" class="project-directroy-img"/></div>
@@ -462,7 +463,7 @@ $terms_list = _get_terms_list();
         
         
       </div>
-      
+      </div>
       
     </div>
   </div>
