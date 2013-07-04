@@ -221,17 +221,17 @@ $the_current_url = $_SERVER['HTTP_HOST'] . request_uri();
         <div class="studio-mid-title">personal 3</div>
         <ul>
           <li class="first">
-            <a href="<?php print $base_url;?>/node/60"><img src="<?php print $base_url;?>/images/mock_create_new.jpg"/></a>
+            <a href="<?php print $base_url;?>/add/mural-person"><img src="<?php print $base_url;?>/images/mock_create_new.jpg"/></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/61"><img src="<?php print $base_url;?>/images/mock_studio_17.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-person"><img src="<?php print $base_url;?>/images/mock_studio_17.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/61"><img src="<?php print $base_url;?>/images/mock_studio_18.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-person"><img src="<?php print $base_url;?>/images/mock_studio_18.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/61"><img src="<?php print $base_url;?>/images/mock_studio_19.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-person"><img src="<?php print $base_url;?>/images/mock_studio_19.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/61"><img src="<?php print $base_url;?>/images/mock_studio_19.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-person"><img src="<?php print $base_url;?>/images/mock_studio_19.jpg" class="setting-img" /></a>
           </li><li>
-            <a href="<?php print $base_url;?>/node/61"><img src="<?php print $base_url;?>/images/mock_studio_19.jpg" class="setting-img" /></a>
+            <a href="<?php print $base_url;?>/mural-person"><img src="<?php print $base_url;?>/images/mock_studio_19.jpg" class="setting-img" /></a>
           </li>
           
           
