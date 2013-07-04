@@ -1233,7 +1233,7 @@ body.one-sidebar #content {
 
 
 /*old*/
-/*.d3-item.transformed{
+.d3-item.transformed{
   margin-left:-140px;
 }
 .d3-item.active{
@@ -1276,7 +1276,7 @@ body.one-sidebar #content {
   box-shadow: -5px 5px 5px #000;
   width:205px;
   height:205px;
-}*/
+}
 /*carrsoul old end*/
 
 
