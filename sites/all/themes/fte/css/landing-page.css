@@ -531,7 +531,7 @@ em.stage_bottom_switcher.active{
 	margin:0;
 	padding:0;
 }
-.page-changes h3{
+.page-challenges h3{
 	display:inline-block;
 	margin:0;
 	color:#c065f1;
@@ -595,13 +595,14 @@ em.stage_bottom_switcher.active{
 	position:relative;
 	left:1px;
 	cursor: pointer;
-	background:url(../images/mock_arrow_purple.png) 0.5em 10px no-repeat;
+	background:url(../images/mock_arrow_purple.png) 0.3em 10px no-repeat;
+	font-size:85%;
   }
   .topic-selector>ul>li ul{
     display:none;
   }
   .topic-selector>ul>li.active{
-    background:url(../images/mock_arrow_purple_active.png) 0.5em 15px no-repeat #fff;
+    background:url(../images/mock_arrow_purple_active.png) 0.3em 13px no-repeat #fff;
 	border-right:1px solid #fff;
   }
   .topic-selector>ul>li.active ul{
@@ -654,24 +655,31 @@ em.stage_bottom_switcher.active{
 	 margin-bottom:15px;
    }
    .project_directory .project_tabs{
-     padding-left:15px;
-	 border-bottom:1px solid #c065f1;
-	 background:#ebc3ff;
+    
+	 border-bottom:1px dashed #bababa;
+	
+   }
+   .project_directory .project_tabs em{
+   		background: url("../images/mock_arrow_purple.png") center center no-repeat;
+	    cursor: pointer;
+	    display: inline-block;
+	    height: 14px;
+	    position: relative;
+	    top: 4px;
+	    width: 18px;
+   }
+   .project_directory .project_tabs em.active{
+   		background: url("../images/mock_arrow_purple_active.png") center center no-repeat;
    }
    .project_directory .project_tabs span{
      display:inline-block;
-	 border:1px solid #c065f0;
-	 border-top:0;
-	 margin-left:-1px;
-	 position:relative;
-	 top:1px;
-	 padding:5px 10px;
-	 background:#ebc3ff;
+	 margin:0 6px;
+	 border-bottom:4px solid #ebc3ff;
 	 cursor:pointer;
    }
    .project_directory .project_tabs span.active{
      background:#fff;
-	 border-bottom:1px solid #fff;
+	 border-bottom:4px solid #640199;
    }
    .project_directory .content{
      margin-top:0;
@@ -892,11 +900,15 @@ em.stage_bottom_switcher.active{
 	opacity:.5;
   }
   /*dashboard*/
-  body.front #main{
+ .project_directory{
+ 	background:#fff;
+ 	font-size:85%;
+ }
+  body.page-home #main{
     background:#036ae0;
   }
   
-  body.page-changes #main{
+  body.page-challenges #main{
     background:#640199;
   }
   
@@ -914,17 +926,14 @@ em.stage_bottom_switcher.active{
   .half-box-left{
     float:left;
   }
-  .da-tabs-box{
-	border-bottom:1px solid #036AE1;
-	background:#bddbff;
-	font-size:90%;
-  }
+ 
   .da-bottom-box .da-tabs-box{
   	font-size:80%;
   }
-  .half-box .da-tabs-box{
+  .da-tabs-box{
   	border-bottom:1px dashed #bababa;
   	background:#fff;
+  	font-size:90%;
   }
   .da-tabs-box em{
     cursor: pointer;
@@ -943,26 +952,20 @@ em.stage_bottom_switcher.active{
 	margin-bottom:1em;
 	border:1px solid #83bdfd;
   }
-  .da-tabs-box span{
-    cursor: pointer;
-    display: inline-block;
-    padding: 3px 6px;
-	text-transform:uppercase;
+  
+   .da-tabs-box span{
+   	margin: 0 6px;
+   	display:inline-block;
+   	text-transform:uppercase;
+   	cursor: pointer;
+   	border-bottom:4px solid #bddbff;
    }
-   .half-box .da-tabs-box span{
-   	padding: 0 10px 0 0;
-   }
+   
    .da-tabs-box span.active{
-   	 background:#fff;
-   	 border-left: 1px solid #036ae1;
-	 border-right: 1px solid #036ae1;
-	 position: relative;
-    top: 1px;
-   }
-   .half-box .da-tabs-box span.active{
    	 border-left:0;
    	 border-right:0;
    	 position:static;
+   	 border-bottom:4px solid #036ae0;
    }
    .da-content{
      padding:.2em 1px;
@@ -1055,10 +1058,10 @@ body.one-sidebar #content {
   height:42px;
   overflow:hidden;
 }
-.front .mock-nav{
+.page-home .mock-nav{
   background:#036ae0;
 }
-.page-changes .mock-nav{
+.page-challenges .mock-nav{
    background:#5b008c;
 }
 .page-node-104 .mock-nav{
@@ -1095,15 +1098,27 @@ body.one-sidebar #content {
   margin-left:10px;
 }
 .location-tab{
-  border: 1px solid #c065ee;
-  padding:.5em 0 0.5em 1.5em;
-  background:url(../images/mock_arrow_purple.png) .5em center no-repeat #ebc3ff;
+  border-bottom: 1px dashed #bababa;
+  padding: 0  1.5em;
+  background:url(../images/mock_arrow_purple.png) .5em center no-repeat #fff;
   margin-bottom:.4em;
-  margin-top:-1px;
+  
   cursor:pointer;
 }
+.location-tab span{
+	display:inline-block;
+	margin:0 6px;
+	border-bottom:4px solid #ebc3ff;
+}
 .location-tab.active{
-   background:url(../images/mock_arrow_purple_active.png) .5em center no-repeat #ebc3ff;
+   background:url(../images/mock_arrow_purple_active.png) .5em center no-repeat #fff;
+}
+.location-tab.active span{
+	border-bottom:4px solid #640199;
+}
+.cha-location{
+	border:1px solid #ebc3ff;
+	margin-bottom:1em;
 }
 .toolbar-wrapper{
   position:relative;
