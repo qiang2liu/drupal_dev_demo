@@ -196,7 +196,7 @@
             <div class="nav-bottom">
         	<div class="mock-nav-item">
             	<span class="mock-menu-challenges">
-                    <a href ='<?php print $base_url;?>/Changes/showchallengemap'> Challenges</a>
+                    <a href ='<?php print $base_url;?>/Challenges'> Challenges</a>
                   </span>   
                   
                   

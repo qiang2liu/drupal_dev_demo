@@ -3,7 +3,7 @@
  * Implements hook_menu().
  */
 function fte_mapdemo_menu() {
-  $items['Changes/showchallengemap'] = array(
+  $items['Challenges'] = array(
     'page callback' => 'showchallengemap',
     'access callback'=> TRUE,
     'file' => 'fte_map.inc',      
