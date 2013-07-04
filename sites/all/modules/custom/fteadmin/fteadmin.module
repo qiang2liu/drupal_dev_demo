@@ -135,7 +135,8 @@ function fteadmin_form_alter(&$form, $form_state, $form_id) {
     if (isset($form['field_video_type'])) {
       $langcode = isset($form['#language']) ? $form['#language'] : 'und';
       $requested_term_id = arg(3);
-      $form['field_video_type'][$langcode]['#default_value'] = is_numeric($requested_term_id) ? $requested_term_id : '';
+      if(is_numeric($requested_term_id))
+        $form['field_video_type'][$langcode]['#default_value'] = $requested_term_id;
     }
   }
 }
