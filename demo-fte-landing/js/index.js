@@ -534,12 +534,12 @@
 			},
 			setIfranmeUrl : function(){
 				$.ajax({
-					url      : 'http://54.251.157.200/fteuserlogon',
+					url      : '/fteuserlogon',
 					dataType : 'text',
 					type     : 'GET',
 					success  :function(data){
 						if(data === '0'){
-							$('.landing-iframe').attr('src','http://54.251.157.200/user')
+							$('.landing-iframe').attr('src','/user')
 						}
 					}
 				});
@@ -667,12 +667,12 @@ $(window).load(function(){
 		
 		
 		$.ajax({
-					url      : 'http://54.251.157.200/fteuserlogon',
+					url      : '/fteuserlogon',
 					dataType : 'html',
 					type     : 'GET',
 					success  :function(data){
 						if(data === '0'){
-							$('.landing-iframe').attr('src','http://54.251.157.200/user')
+							$('.landing-iframe').attr('src','/user')
 						}
 						makePageDefault();
 						$('.page').toggle(400);

@@ -1197,8 +1197,9 @@ body.one-sidebar #content {
 }
 /* for Firefox end */
 .d3-item img{
-	transform-style: preserve-3d;
+	-webkit-transform-style: preserve-3d;
 	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
 	box-shadow: 0px 5px 5px #000;
 }
 .d3-item.show-left img,
