@@ -23,7 +23,7 @@ function page_view($node) {
 function ftestaticpage_form_alter(&$form, $form_state, $form_id) {
 
   if ($form_id == 'static_page_node_form') {
-    dpm($form);
+   
     $langcode = isset($form['#language']) ? $form['#language'] : 'und';
     $r_list = user_roles(TRUE);
     $roles_array = array();
