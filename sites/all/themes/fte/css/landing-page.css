@@ -1185,9 +1185,13 @@ body.one-sidebar #content {
 .d3-item img.reload{
 	transition: all 0.5s linear;
 }
+/* for Firefox */
 .d3-item a{
-	display:block;
+	-moz-perspective: 300px;
+	display: block;
+	height:300px;
 }
+/* for Firefox end */
 .d3-item img{
 	transform-style: preserve-3d;
 	-moz-transform-style: preserve-3d;
