@@ -632,9 +632,12 @@ em.stage_bottom_switcher.active{
 	 padding: 10px;
 	 margin-top:1em;
    }
-   h1#page-title,
-   .tabs{
+   h1#page-title{
    	display:none;
+   }
+   .tabs{
+   	margin-top:0;
+   	margin-bottom:0;
    }
    .showcase_videos h5{
      float:left;
@@ -1182,6 +1185,7 @@ body.one-sidebar #content {
   perspective: 300px;
 }
 .d3-item.reload,
+.d3-item.reload a,
 .d3-item img.reload{
 	transition: all 0.5s linear;
 }
