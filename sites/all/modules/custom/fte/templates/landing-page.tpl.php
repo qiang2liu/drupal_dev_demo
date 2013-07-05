@@ -44,7 +44,7 @@ $videos_list = _get_videos_list();
             	<ul class="img-list ">
 								<?php foreach($videos_list['3'] as $videoinfo):?>
 									<?php $nid = $videoinfo['nid']; ?>
-                	<li><div class="ytplayerDiv" data-nid="<?php echo $nid;?>" data-videoid="<?php print($videoinfo['videoid'])?>"><img id="myytplayer<?php echo $nid;?>" width="202" height="135" src="http://img.youtube.com/vi/<?php print($videoinfo['videoid'])?>/default.jpg" /></div></li>
+                	<li><div class="ytplayerDiv" data-nid="<?php echo $nid;?>" data-videoid="<?php print($videoinfo['videoid'])?>"><img id="myytimg<?php echo $nid;?>" width="202" height="135" src="http://img.youtube.com/vi/<?php print($videoinfo['videoid'])?>/default.jpg" /></div></li>
 								<?php endforeach;?>
               </ul>
             </div>
@@ -53,7 +53,7 @@ $videos_list = _get_videos_list();
             <div class="da-content hide">
             	<ul class="img-list">
 								<?php foreach($videos_list['4'] as $videoinfo):?>
-                	<li><div class="ytplayerDiv" data-nid="<?php echo $nid;?>" data-videoid="<?php print($videoinfo['videoid'])?>"><img id="myytplayer<?php echo $nid;?>" width="202" height="135" src="http://img.youtube.com/vi/<?php print($videoinfo['videoid'])?>/default.jpg" /></div></li>
+                	<li><div class="ytplayerDiv" data-nid="<?php echo $nid;?>" data-videoid="<?php print($videoinfo['videoid'])?>"><img id="myytimg<?php echo $nid;?>" width="202" height="135" src="http://img.youtube.com/vi/<?php print($videoinfo['videoid'])?>/default.jpg" /></div></li>
 								<?php endforeach;?>
                 </ul>
             </div>
@@ -154,13 +154,13 @@ $videos_list = _get_videos_list();
 (function($){
   $(document).ready(function(){
 		$('.ytplayerDiv').each(function(){
-		  var nid = this.dataset['nid'];
-		  var videoid = this.dataset['videoid'];
-		  if(!this.dataset['nid']) 
-			  nid = datasetFallback(this, 'nid');
-		  if(!this.dataset['videoid'])
-			  videoid = datasetFallback(this, 'videoid');
-		  loadVideo(nid, videoid);
+			var nid = this.dataset['nid'];
+			var videoid = this.dataset['videoid'];
+			if(!this.dataset['nid']) 
+				nid = datasetFallback(this, 'nid');
+			if(!this.dataset['videoid'])
+				videoid = datasetFallback(this, 'videoid');
+			loadVideo(nid, videoid);
 		});
 	});
 })(jQuery);
@@ -171,7 +171,7 @@ function loadVideo(nid, videoid) {
 	var params = { allowScriptAccess: "always" };
 	var atts = { id: "myytplayer"+nid };
 	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid="+nid+"&version=3",
-		"myytplayer"+nid, "202", "135", "8", null, null, params, atts);
+		"myytimg"+nid, "202", "135", "8", null, null, params, atts);
 }
 /*
 function onYouTubePlayerReady(playerId) {
