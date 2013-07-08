@@ -53,6 +53,7 @@ $videos_list = _get_videos_list();
             <div class="da-content hide">
             	<ul class="img-list">
 								<?php foreach($videos_list['4'] as $videoinfo):?>
+									<?php $nid = $videoinfo['nid']; ?>
                 	<li><div class="ytplayerDiv" data-nid="<?php echo $nid;?>" data-videoid="<?php print($videoinfo['videoid'])?>"><img id="myytimg<?php echo $nid;?>" width="202" height="135" src="http://img.youtube.com/vi/<?php print($videoinfo['videoid'])?>/default.jpg" /></div></li>
 								<?php endforeach;?>
                 </ul>
@@ -173,28 +174,27 @@ function loadVideo(nid, videoid) {
 	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid="+nid+"&version=3",
 		"myytimg"+nid, "202", "135", "8", null, null, params, atts);
 }
-/*
 function onYouTubePlayerReady(playerId) {
   var elId = 'myytplayer'+playerId;
   var ytplayer = document.getElementById(elId);
-	ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
+	ytplayer.addEventListener("onStateChange", "onPlayerStateChange"+playerId);
 }
-function onPlayerStateChange(newState) {
+<?php $videos = array_merge($videos_list['3'], $videos_list['4']);
+foreach($videos as $item): ?>
+function onPlayerStateChange<?php echo $item['nid'];?>(newState) {
   if(newState == 1) {
 		var els = document.getElementsByClassName('ytplayerDiv');
-		for(var i in els) {
+		for(var i=0;i<els.length;i++) {
 			var el = els[i];
-		  if(typeof el == 'object') {
-				var nid = el.dataset['nid'];
-				if(!el.dataset['nid']) 
-					nid = datasetFallback(el, 'nid');
+			var nid = el.dataset['nid'];
+			if(nid != <?php echo $item['nid'];?>) {
 				var playerEl = document.getElementById('myytplayer'+nid);
-				//playerEl.pauseVideo();
+				playerEl.pauseVideo();
 		  }
 		}
   }
 }
-*/
+<?php endforeach; ?>
 </script>
 
 
