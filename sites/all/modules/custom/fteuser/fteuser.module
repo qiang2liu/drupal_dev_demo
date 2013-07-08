@@ -74,7 +74,7 @@ function fteuser_form_user_register_form_alter(&$form, &$form_state, $form_id) {
     unset($r_list);
     if (!empty($roles_array)) {
       $form['fte_assign_user_role'] = array(
-        '#type' => 'checkboxes',
+        '#type' => 'radios',
         '#options' => $roles_array,  
         '#title' => t('what\'s your role ?'),
         '#weight' => 15,  
@@ -99,8 +99,10 @@ function fteuser_user_register_submit($form, &$form_state) {
   // this form by taking over all values, which appear in the form values too.
   $edit = array_intersect_key((array) $account, $form_state['values']);
   
+  
   if (!empty($form_state['values']['fte_assign_user_role'])) {
-    foreach($form_state['values']['fte_assign_user_role'] as $k=>$v) {
+    $the_role_array[$form_state['values']['fte_assign_user_role']] = $form_state['values']['fte_assign_user_role'];
+    foreach($the_role_array as $k=>$v) {
       if ($v != 0 && isset($edit['roles'][$k])) {
         $edit['roles'][$k] = 1;        
       }
