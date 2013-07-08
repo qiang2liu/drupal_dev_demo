@@ -325,7 +325,7 @@
 						}
 					);
 				});
-			},*/
+			},
 			flyQuestions: function(options){
 				var defaults = {
 					data : [
@@ -385,6 +385,43 @@
 							scrollTop: t+top
 						},800);
 						return false;
+					})
+				});
+			},
+			*/
+			bigText: function(options){
+				var defaults = {
+					textArray   : ['A','B','C','D'],
+					beginNumber : 0
+				}
+				var options = $.extend(defaults, options);
+				return this.each(function(){
+					var j = options.beginNumber;
+					var ln = options.textArray.length-1;
+					$('.big-text').html(options.textArray[j]);
+					function textTimer(){
+						if(j < ln){
+							j+=1;
+							$('.big-text').html(options.textArray[j]);
+						}else{
+							j=0;
+							$('.big-text').html(options.textArray[0]);
+						}
+					}
+					window.setInterval(textTimer, 3000);
+				})
+			},
+			getCentralPosition: function(){
+				return this.each(function(){
+					var w = $(this).width();
+					var h = $(this).height();
+					var sw = $(window).width();
+					var sh = $(window).height();
+					var st = $(window).scrollTop();
+					var sl = $(window).scrollLeft();
+					$(this).css({
+						'top' : st + (sh - h)/2 + 'px',
+						'left': sl + (sw - w)/2 + 'px'
 					})
 				});
 			},
@@ -549,7 +586,11 @@
 		});
 })(jQuery);
 $(window).load(function(){
-	
+	//big text
+	$('body').bigText({
+		textArray : ['Where do you want to go today?','What do you want to dream today?','What change do you want to make today?','What do you want to do today?'] 
+	});
+	$('.big-text').getCentralPosition();
 	//get realwidth
 	$('.ribbon').setRealWidth();
 	
@@ -624,10 +665,10 @@ $(window).load(function(){
 		time     : 2500
 	});*/
 	
-	//flyQuestions
+	/*flyQuestions
 	$('html').flyQuestions({
 		
-	});
+	});*/
 	
 	//cube and content
 	function makePageDefault(){
@@ -688,6 +729,7 @@ $(window).load(function(){
 	})
 	$(window).scroll(function(){
 		$('.page').css('top', ($(window).height() - $('.page').height())/2 + $(window).scrollTop()  + 'px');
+		$('.big-text').getCentralPosition();
 	});
 	
 	$('.page-minimize').bind('click', function(){

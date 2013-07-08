@@ -337,3 +337,13 @@ span.close:hover{
 	opacity:0;
 	display:none;
 }
+/* big text */
+.big-text {
+	font-size:72px;
+	width:100%;
+	color:#fff;
+	text-align:center;
+	margin:auto;
+	position: absolute;
+	text-shadow: 2px 2px 3px #000;
+}
