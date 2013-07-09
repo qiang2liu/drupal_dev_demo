@@ -162,7 +162,7 @@
 							$(this).find('audio').eq(0).removeClass('active-audio');
 						}
 						$(this).find('audio.active-audio').get(0).play();
-						console.log($(this).find('audio.active-audio').attr('src'));
+						//console.log($(this).find('audio.active-audio').attr('src'));
 					}
 					self.bind('mouseover.playMusic', playMusic);
 					
