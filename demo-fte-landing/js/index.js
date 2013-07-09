@@ -136,13 +136,37 @@
 					});
 					
 					//music
+					
 					function playMusic(){
+						
+						//pause all ribbon music first
 						$('.ribbon').each(function(){
-							$(this).find('audio').get(0).pause();
+							$(this).find('audio').each(
+								function(){
+									$(this).removeClass('active-audio');
+									$(this).get(0).pause();
+								}
+							);
 						});
-						$(this).find('audio').get(0).play();
+						
+						
+						// listen the moving mouse over times and set the correspoding audio to play,
+						var times = parseInt($(this).attr('data-times'),10);
+						times += 1;
+						$(this).attr('data-times', times.toString());
+						if(times <= 1){
+							$(this).find('audio').eq(0).addClass('active-audio');
+							$(this).find('audio').eq(1).removeClass('active-audio');
+						}else{
+							$(this).find('audio').eq(1).addClass('active-audio');
+							$(this).find('audio').eq(0).removeClass('active-audio');
+						}
+						$(this).find('audio.active-audio').get(0).play();
+						console.log($(this).find('audio.active-audio').attr('src'));
 					}
 					self.bind('mouseover.playMusic', playMusic);
+					
+					
 					$('.sound-controller').bind('click', function(){
 						if(!$(this).hasClass('active')){
 							$(this).addClass('active');
@@ -182,7 +206,6 @@
 					function drawHotSpots(data){
 						
 						self.find('.ribbon-frame').each(function(){
-							
 							  var id = $(this).attr('id');
 							  var w = $(this).width();
 							  var h = $(this).height();
@@ -195,7 +218,6 @@
 						      layer.on('mouseover', function(evt) {
 						        $('.ribbon').css('cursor','pointer');
 						        var shape = evt.targetNode;
-						       
 								shape.setFill('rgba(3,150,83,0.8)');
 								layer.draw();
 						      });
@@ -595,7 +617,7 @@ $(window).load(function(){
 	$('.ribbon').setRealWidth();
 	
 	//make ribbon
-	$('.ribbon').eq(0).addClass('active').find('audio').get(0).play();
+	$('.ribbon').eq(0).addClass('active').find('audio.active-audio').get(0).play();
 	//$('.ribbon').eq(1).addClass('active');
 	//$('.ribbon').eq(2).addClass('active');
 	$('.ribbon').eq(0).ribbon({
@@ -618,8 +640,8 @@ $(window).load(function(){
 		direction : 'left',
 		distance  : 1
 	});
-	//add hot spot
-	$('.ribbon').eq(0).hotSpot({
+	//add hot spot ---------remove all hot spots! for now!
+	/*$('.ribbon').eq(0).hotSpot({
 		url:'hotspot.asp?123'
 	});
 	$('.ribbon').eq(1).hotSpot({
@@ -633,12 +655,13 @@ $(window).load(function(){
 	});
 	$('.ribbon').eq(4).hotSpot({
 		url:'hotspot2.asp?123'
-	});
+	});*/
 	
 	//popup close function
 	$('.pop-up').delegate('span.close','click',function(event){
 			$('.pop-up').fadeOut(500);
 			$('.pop-up-inner').find('iframe').remove();
+			//$('.active-audio').get(0).play();
 	})
 	
 	
