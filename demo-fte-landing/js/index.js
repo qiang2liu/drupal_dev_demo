@@ -168,15 +168,18 @@
 					
 					
 					$('.sound-controller').bind('click', function(){
+						
 						if(!$(this).hasClass('active')){
 							$(this).addClass('active');
 							$('.ribbon').each(function(){
+								
 								$(this).find('audio').get(0).pause();
+								$(this).find('audio').get(1).pause();
 							});
 							$('.ribbon').unbind('mouseover.playMusic');
 						}else{
 							$(this).removeClass('active');
-							$('.ribbon.active').find('audio').get(0).play();
+							$('.ribbon.active').find('audio.active-audio').get(0).play();
 							$('.ribbon').bind('mouseover.playMusic', playMusic);
 						}
 					});
