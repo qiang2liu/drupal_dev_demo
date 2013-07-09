@@ -218,14 +218,14 @@
 						      layer.on('mouseover', function(evt) {
 						        $('.ribbon').css('cursor','pointer');
 						        var shape = evt.targetNode;
-								shape.setFill('rgba(3,150,83,0.8)');
+								shape.setFill('rgba(3,150,83,0.0)');
 								layer.draw();
 						      });
 							  layer.on('mouseout', function(evt) {
 						        $('.ribbon').css('cursor','');
 						        var shape = evt.targetNode;
 						        
-								shape.setFill('rgba(3,150,83,0.4)');
+								shape.setFill('rgba(3,150,83,0.0)');
 								layer.draw();
 						      });
 						      layer.on('dblclick', function(evt) {
@@ -238,6 +238,16 @@
 						        var left = ($(document).width()-700)/2 + 'px';
 								var top = ($(window).height()-500)/2;
 								
+								function audioFadeOut(){
+									$('audio.active-audio').animate({
+										volume : 0
+									},1000);
+								}
+								
+								
+									
+								
+								
 								if(shape.getName().indexOf('small-video') != -1){
 									$('.pop-up, .pop-up-inner').addClass('small-video');
 									left = ($(document).width()-570)/2 + 'px';
@@ -246,12 +256,10 @@
 										'width' : '570px',
 										'height':  '350px'
 									});
-									
+									audioFadeOut();
 								};
 								
 								if(shape.getName().indexOf('big-video') != -1){
-									
-									
 									$('.pop-up, .pop-up-inner').addClass('big-video');
 									left = '0px';
 									top = 0;
@@ -259,7 +267,7 @@
 										'width' : $(document).width() - 27+ 'px',
 										'height': $(document).height() + 'px'
 									});
-									
+									audioFadeOut();
 								};
 								$('.pop-up .pop-up-inner').html('<span class="close">X</span>' + shape.getName());
 								$('.pop-up').css({'left':left,'top':$(window).scrollTop() + top + 'px'}).fadeIn(500); 
@@ -272,9 +280,9 @@
 							  	 
 							  	 var shape = new Kinetic.Blob({
 							  	 	points: p,
-							  	 	stroke: 'white',
-							        strokeWidth: 4,
-							        fill: 'rgba(3,150,83,0.4)',
+							  	 	//stroke: 'white',
+							        //strokeWidth: 4,
+							        fill: 'rgba(3,150,83,0.0)',
 							        
 							        tension: 0,
 							        name :text
@@ -640,8 +648,8 @@ $(window).load(function(){
 		direction : 'left',
 		distance  : 1
 	});
-	//add hot spot ---------remove all hot spots! for now!
-	/*$('.ribbon').eq(0).hotSpot({
+	//add hot spot ---------I don't know why make the hot spots invisible but I do it
+	$('.ribbon').eq(0).hotSpot({
 		url:'hotspot.asp?123'
 	});
 	$('.ribbon').eq(1).hotSpot({
@@ -655,12 +663,15 @@ $(window).load(function(){
 	});
 	$('.ribbon').eq(4).hotSpot({
 		url:'hotspot2.asp?123'
-	});*/
+	});
 	
 	//popup close function
 	$('.pop-up').delegate('span.close','click',function(event){
 			$('.pop-up').fadeOut(500);
 			$('.pop-up-inner').find('iframe').remove();
+			$('audio.active-audio').animate({
+				volume : 1
+			},1000);
 			//$('.active-audio').get(0).play();
 	})
 	
