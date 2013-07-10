@@ -23,7 +23,6 @@ function fteuser_theme($exusting, $type) {
   return array();
 }
 function fteuser_form_alter(&$form, &$form_state, $form_id){
-
   switch ($form_id) {
     
     case 'user_admin_settings':
@@ -34,11 +33,25 @@ function fteuser_form_alter(&$form, &$form_state, $form_id){
      // $form['registration_cancellation']['user_email_verification']['#disabled'] = true;
      // $form['registration_cancellation']['user_email_verification']['#description'] = t('This setting has been locked by the FTEUSER module. ');
       break;
+    
    
     
     
   }
 }
+/**
+ * Implement hook_form_FORM_ID_alter().
+ * FORM_ID == user_login
+ */
+function fteuser_form_user_login_alter(&$form, &$form_state, $form_id) {
+  $form['#submit'][] = 'fte_user_login_submit_handler';
+}
+
+function fte_user_login_submit_handler($form,&$form_state) {
+  global $base_path;
+  $form_state['redirect'] = 'home';
+}
+
 /**
  * Implement hook_form_FORM_ID_alter().
  * FORM_ID == user_register_form
@@ -198,4 +211,6 @@ function  fteuser_userreset($p, $uid, $timestamp, $hashed_pass) {
 function fte_user_login(&$edit,$account) {
   $edit['redirect'] = '';
 }
+
+
 
