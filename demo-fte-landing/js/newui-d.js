@@ -77,7 +77,7 @@
 		}
 	});
 })(jQuery);
-$(document).ready(function(){
+$(window).load(function(){
 	$('body').css('height', $('html').height() - 20 + 'px');
 	$('.nd-slide-box-r').slidingPane({
 		direction: 'right'
