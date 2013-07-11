@@ -191,26 +191,25 @@ function fteuser_userreset($p, $uid, $timestamp, $hashed_pass) {
             $mural_user = array();
             $mural_user['username'] = $account->name;
             $mural_user['email'] = $account->mail;
+            // $mural_user['email'] = "x16c3458@mail.com"; //test
             $mural_user['source'] = "edgemakers";
             $mural_user['nameIdentifier'] = $account->uid;
-            
-            $mural_api_result = $mural_api->create_user($mural_user,'/api/organizations/edgemakers/users', 'POST');
-            $muralapi_response_obj = drupal_json_decode($mural_api_result);
-            if (isset($muralapi_response_obj['hasErrors'])) {
-              if (!$muralapi_response_obj['hasErrors']){
-                // successful, then 
-                $edit = array();
-                // the $muralapi_response_obj will contain the user attribute ($muralapi_response_obj->user)
-                // but now ,it has no this attribute, so , just reguard the $account->name as the  mural username
-                $edit['field_muralusername'][LANGUAGE_NONE][0]['value'] = $account->name;
-                user_save($account, $edit);
+
+            $mural_api_result = $mural_api->create_user($mural_user, '/api/organizations/edgemakers/users', 'POST');
+            if (is_object($mural_api_result) && isset($mural_api_result->data)) {
+              $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
+
+              if (isset($muralapi_response_obj['hasErrors'])) {
+                if (!$muralapi_response_obj['hasErrors']) {
+                  // successful, then 
+                  $edit = array();
+                  // the $muralapi_response_obj will contain the user attribute ($muralapi_response_obj->user)
+                  // but now ,it has no this attribute, so , just reguard the $account->name as the  mural username
+                  $edit['field_muralusername'][LANGUAGE_NONE][0]['value'] = $account->name;
+                  user_save($account, $edit);
+                }
               }
             }
-              
-          
-            
-             
-             
           }
         }
       }

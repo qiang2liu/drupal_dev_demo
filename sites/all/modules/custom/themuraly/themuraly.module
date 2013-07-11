@@ -2,36 +2,34 @@
 
 function themuraly_menu() {
   $items['muraltest'] = array(
-    'page callback' => 'muralapi_test',
-    'access callback' => TRUE,   
-    'type' => MENU_CALLBACK,  
+      'page callback' => 'muralapi_test',
+      'access callback' => TRUE,
+      'type' => MENU_CALLBACK,
   );
   return $items;
 }
 
 function muralapi_test() {
-  
+
   $mural_api = new Muralapi;
   $auth_string = $mural_api->get_auth_string("edgemakers", "/api/organizations/edgemakers/users", "POST");
- //dpm($auth_string);
+  //dpm($auth_string);
   // creatuser
   $user = array();
-  $user['username'] = "test789";
-  $user['email'] = "test789@symbio.com";
+  $user['username'] = "test7891";
+  $user['email'] = "test7891@symbio.com";
   $user['source'] = "edgemakers";
   $user['nameIdentifier'] = 3;
   //$result = $mural_api->get_all_murals('testuser');
- 
- // $data = $result->data;
- // $r = drupal_json_decode($data);
- 
+  // $data = $result->data;
+  // $r = drupal_json_decode($data);
   //dpm($r);
   //return "ok111";
- $mural_api_result = $mural_api->create_user($user,'/api/organizations/edgemakers/users', 'POST');
- dpm($mural_api_result) ;
- $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
-   dpm($muralapi_response_obj);
+  $mural_api_result = $mural_api->create_user($user, '/api/organizations/edgemakers/users', 'POST');
+  dpm($mural_api_result);
+  //dd($mural_api_result);
+  $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
+  dpm($muralapi_response_obj);
   return "ok";
 }
-
 
