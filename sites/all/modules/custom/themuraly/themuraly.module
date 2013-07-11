@@ -16,10 +16,10 @@ function muralapi_test() {
  //dpm($auth_string);
   // creatuser
   $user = array();
-  $user['username'] = "edgemakers1";
-  $user['email'] = "edgermakers@mailinator.com";
+  $user['username'] = "test789";
+  $user['email'] = "test789@symbio.com";
   $user['source'] = "edgemakers";
-  $user['nameIdentifier'] = "oauth_test";
+  $user['nameIdentifier'] = 3;
   //$result = $mural_api->get_all_murals('testuser');
  
  // $data = $result->data;
@@ -27,8 +27,10 @@ function muralapi_test() {
  
   //dpm($r);
   //return "ok111";
-  $result = $mural_api->create_user($user,'/api/organizations/edgemakers/users', 'POST');
-  dpm($result);
+ $mural_api_result = $mural_api->create_user($user,'/api/organizations/edgemakers/users', 'POST');
+ dpm($mural_api_result) ;
+ $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
+   dpm($muralapi_response_obj);
   return "ok";
 }
 

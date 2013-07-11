@@ -1,44 +1,43 @@
 <?php
+
 function fteuser_menu() {
-   $items['welcome'] = array(
-    'page callback' => 'show_welcome',
-    'access callback' => TRUE,   
-    'type' => MENU_CALLBACK,  
+  $items['welcome'] = array(
+      'page callback' => 'show_welcome',
+      'access callback' => TRUE,
+      'type' => MENU_CALLBACK,
   );
   return $items;
 }
+
 function show_welcome() {
   return theme('welcomepage');
 }
+
 function fteuser_theme($exusting, $type) {
   if ($type == 'module') {
     return array(
-      'welcomepage' => array(
-      'variables' => array('data' => NULL),
-      'template' => 'templates/welcomepage',
-      ),
-      
+        'welcomepage' => array(
+            'variables' => array('data' => NULL),
+            'template' => 'templates/welcomepage',
+        ),
     );
   }
   return array();
 }
-function fteuser_form_alter(&$form, &$form_state, $form_id){
+
+function fteuser_form_alter(&$form, &$form_state, $form_id) {
   switch ($form_id) {
-    
+
     case 'user_admin_settings':
       // Disable the checkbox at the Account settings page which controls
       // whether e-mail verification is required upon registration or not.
       // The FTEUSER module implements e-mail verification functionality
-      
-     // $form['registration_cancellation']['user_email_verification']['#disabled'] = true;
-     // $form['registration_cancellation']['user_email_verification']['#description'] = t('This setting has been locked by the FTEUSER module. ');
+      // $form['registration_cancellation']['user_email_verification']['#disabled'] = true;
+      // $form['registration_cancellation']['user_email_verification']['#description'] = t('This setting has been locked by the FTEUSER module. ');
       break;
-    
-   
-    
-    
   }
 }
+
 /**
  * Implement hook_form_FORM_ID_alter().
  * FORM_ID == user_login
@@ -47,7 +46,7 @@ function fteuser_form_user_login_alter(&$form, &$form_state, $form_id) {
   $form['#submit'][] = 'fte_user_login_submit_handler';
 }
 
-function fte_user_login_submit_handler($form,&$form_state) {
+function fte_user_login_submit_handler($form, &$form_state) {
   global $base_path;
   $form_state['redirect'] = 'home';
 }
@@ -59,10 +58,10 @@ function fte_user_login_submit_handler($form,&$form_state) {
 function fteuser_form_user_register_form_alter(&$form, &$form_state, $form_id) {
 
   if (isset($form['administer_users']) && isset($form['administer_users']['#value'])
-    && $form['administer_users']['#value']  == TRUE) {
+          && $form['administer_users']['#value'] == TRUE) {
     return;
   }
-        
+
   // Ensure a valid submit array.
   $form['#submit'] = is_array($form['#submit']) ? $form['#submit'] : array();
 
@@ -74,50 +73,49 @@ function fteuser_form_user_register_form_alter(&$form, &$form_state, $form_id) {
     unset($form['#submit'][$key]);
   }
   //add role selector
-  
-    $langcode = isset($form['#language']) ? $form['#language'] : 'und';
-    $r_list = user_roles(TRUE);
-    $roles_array = array();
-    $del_roles = array('authenticated user', 'site administrator', 'site admin');
-    foreach ($r_list as $k => $v) {
-      if (!in_array($v, $del_roles)) {
-        $roles_array[$k] = $v;
-      }
+
+  $langcode = isset($form['#language']) ? $form['#language'] : 'und';
+  $r_list = user_roles(TRUE);
+  $roles_array = array();
+  $del_roles = array('authenticated user', 'site administrator', 'site admin');
+  foreach ($r_list as $k => $v) {
+    if (!in_array($v, $del_roles)) {
+      $roles_array[$k] = $v;
     }
-    unset($r_list);
-    if (!empty($roles_array)) {
-      $form['fte_assign_user_role'] = array(
+  }
+  unset($r_list);
+  if (!empty($roles_array)) {
+    $form['fte_assign_user_role'] = array(
         '#type' => 'radios',
-        '#options' => $roles_array,  
+        '#options' => $roles_array,
         '#title' => t('what\'s your role ?'),
-        '#weight' => 15,  
-      );
-    }
+        '#weight' => 15,
+    );
+  }
   //
-  array_unshift($form['#submit'],'fteuser_user_register_submit');
+  array_unshift($form['#submit'], 'fteuser_user_register_submit');
 }
 
-
 function fteuser_user_register_submit($form, &$form_state) {
-  
+
   $admin = $form_state['values']['administer_users'];
   $pass = $form_state['values']['pass'];  //password user input
   form_state_values_clean($form_state);
   $form_state['values']['pass'] = $pass;
   $form_state['values']['init'] = $form_state['values']['mail'];
   $account = $form['#user'];
-   //$form_state['values']['pass']
+  //$form_state['values']['pass']
   entity_form_submit_build_entity('user', $account, $form, $form_state);
   // Populate $edit with the properties of $account, which have been edited on
   // this form by taking over all values, which appear in the form values too.
   $edit = array_intersect_key((array) $account, $form_state['values']);
-  
-  
+
+
   if (!empty($form_state['values']['fte_assign_user_role'])) {
     $the_role_array[$form_state['values']['fte_assign_user_role']] = $form_state['values']['fte_assign_user_role'];
-    foreach($the_role_array as $k=>$v) {
+    foreach ($the_role_array as $k => $v) {
       if ($v != 0 && isset($edit['roles'][$k])) {
-        $edit['roles'][$k] = 1;        
+        $edit['roles'][$k] = 1;
       }
     }
   }
@@ -133,29 +131,28 @@ function fteuser_user_register_submit($form, &$form_state) {
   $form_state['values']['uid'] = $account->uid;
 
   watchdog('user', 'New user: %name (%email).', array('%name' => $form_state['values']['name'], '%email' => $form_state['values']['mail']), WATCHDOG_NOTICE, l(t('edit'), 'user/' . $account->uid . '/edit'));
-  
+
   // Add plain text password into user account to generate mail tokens.
   $account->password = $pass;
- 
-  
+
+
   $message = t('A validation e-mail has been sent to your e-mail address. In order to gain full access to the site, you will need to follow the instructions in that message.');
   $mailkey = 'register_no_approval_required';
   _user_mail_notify($mailkey, $account);
   drupal_set_message($message);
   $form_state['redirect'] = '';
-  
-}
-function fteuser_menu_alter(&$items) {
-  $items['user/reset/%/%/%']['page callback'] = 'fteuser_userreset';
-  
 }
 
-function  fteuser_userreset($p, $uid, $timestamp, $hashed_pass) {
-  
-  
+function fteuser_menu_alter(&$items) {
+  $items['user/reset/%/%/%']['page callback'] = 'fteuser_userreset';
+}
+
+function fteuser_userreset($p, $uid, $timestamp, $hashed_pass) {
+
+
   global $user;
   global $base_url;
-  
+
   if ($user->uid) {
     // The existing user is already logged in.
     if ($user->uid == $uid) {
@@ -165,52 +162,68 @@ function  fteuser_userreset($p, $uid, $timestamp, $hashed_pass) {
     else {
       $reset_link_account = user_load($uid);
       if (!empty($reset_link_account)) {
-        drupal_set_message(t('Another user (%other_user) is already logged into the site on this computer, but you tried to use a one-time link for user %resetting_user. Please <a href="!logout">logout</a> and try using the link again.',
-          array('%other_user' => $user->name, '%resetting_user' => $reset_link_account->name, '!logout' => url('user/logout'))));
+        drupal_set_message(t('Another user (%other_user) is already logged into the site on this computer, but you tried to use a one-time link for user %resetting_user. Please <a href="!logout">logout</a> and try using the link again.', array('%other_user' => $user->name, '%resetting_user' => $reset_link_account->name, '!logout' => url('user/logout'))));
       } else {
         // Invalid one-time link specifies an unknown user.
         drupal_set_message(t('The one-time login link you clicked is invalid.'));
       }
     }
     drupal_goto();
-  }
-  else {
+  } else {
     $current = REQUEST_TIME;
     $users = user_load_multiple(array($uid), array('status' => '0'));
     $account = reset($users);
-   
+
     if ($account) {
-       
+
       if ($account->uid && $timestamp >= $account->login && $timestamp <= $current && $hashed_pass == user_pass_rehash($account->pass, $timestamp, $account->login)) {
-    
-        
+
+
         $account = user_save($account, array('status' => 1));
         if ($account) {
           $user = $account;
           user_login_finalize();
           $_SESSION['userreset'] = 1;
-          
-        }
-        
-      }
-     
-      
-    }
-    
-    
-  }
-  
-  drupal_goto($base_url."/welcome");
-  
-}
 
+          if (empty($account->field_muralusername)) {
+            // call the mural api : create user
+            $mural_api = new Muralapi;
+            $mural_user = array();
+            $mural_user['username'] = $account->name;
+            $mural_user['email'] = $account->mail;
+            $mural_user['source'] = "edgemakers";
+            $mural_user['nameIdentifier'] = $account->uid;
+            
+            $mural_api_result = $mural_api->create_user($mural_user,'/api/organizations/edgemakers/users', 'POST');
+            $muralapi_response_obj = drupal_json_decode($mural_api_result);
+            if (isset($muralapi_response_obj['hasErrors'])) {
+              if (!$muralapi_response_obj['hasErrors']){
+                // successful, then 
+                $edit = array();
+                // the $muralapi_response_obj will contain the user attribute ($muralapi_response_obj->user)
+                // but now ,it has no this attribute, so , just reguard the $account->name as the  mural username
+                $edit['field_muralusername'][LANGUAGE_NONE][0]['value'] = $account->name;
+                user_save($account, $edit);
+              }
+            }
+              
+          
+            
+             
+             
+          }
+        }
+      }
+    }
+  }
+
+  drupal_goto($base_url . "/welcome");
+}
 
 /**
  * hook_user 
-*/
-function fte_user_login(&$edit,$account) {
+ */
+function fte_user_login(&$edit, $account) {
   $edit['redirect'] = '';
 }
-
-
 

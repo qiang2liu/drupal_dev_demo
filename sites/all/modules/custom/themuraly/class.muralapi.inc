@@ -15,10 +15,10 @@ class Muralapi {
   protected $signing_secret, $the_org, $muralapi_base_url, $user_agent;
 
   public function __construct() {
-    $this->the_org = 'edgemakers';
-    $this->signing_secret = 'C54DC45B6C1E4A9321936349FC8BB';
-    $this->muralapi_base_url = 'http://staging.mural.ly';
-    $this->user_agent = 'curl/7.22.0 (i686-pc-linux-gnu) libcurl/7.22.0 OpenSSL/1.0.1 zlib/1.2.3.4 libidn/1.23 librtmp/2.3';
+    $this->the_org = variable_get('muralapi_org', 'edgemakers');
+    $this->signing_secret = variable_get('muralapi_secretkey', 'C54DC45B6C1E4A9321936349FC8BB');
+    $this->muralapi_base_url = variable_get('muralapi_baseurl', 'http://staging.mural.ly');
+    $this->user_agent = variable_get('muralapi_useragent', 'curl/7.22.0 (i686-pc-linux-gnu) libcurl/7.22.0 OpenSSL/1.0.1 zlib/1.2.3.4 libidn/1.23 librtmp/2.3');
   }
 
   public function get_auth_string($theuser, $theurl, $themethod) {
@@ -51,6 +51,7 @@ class Muralapi {
 
   public function create_user($user, $theurl, $themethod) {
     $user_data = drupal_http_build_query($user);
+    $user_data = drupal_json_encode($user);
     $theuser = $this->the_org;
 
     $the_auth_string = $this->get_auth_string($theuser, $theurl, $themethod);
@@ -60,7 +61,8 @@ class Muralapi {
     $options['headers'] = array('x-mural-ly-user' => $this->the_org,
         'x-mural-ly-context' => $this->the_org,
         'Authorization' => "MURALLY edgemakers:" . $the_auth_string,
-         'User-Agent' => $this->user_agent,
+        'User-Agent' => $this->user_agent,
+        'Content-Type' => "application/json",
     );
 
 
