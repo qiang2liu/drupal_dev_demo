@@ -87,11 +87,11 @@
 ?>
 <div id="page-wrapper"><div id="page">
 
-    
-   
+
+
 
   <div style="background-color:#ffffff;background-image: none" id="header" class="<?php print $secondary_menu ? 'with-secondary-menu': 'without-secondary-menu'; ?>"><div class="section clearfix">
-        <div style="display:none"> 
+        <div style="display:none">
     <?php if ($logo): ?>
       <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home" id="logo">
         <img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" />
@@ -159,16 +159,16 @@
         )); ?>
       </div> <!-- /#secondary-menu -->
     <?php endif; ?>
-      
-      
+
+
         </div> <!-- /.section, /#header -->
-        
+
          <?php
-    
+
     global $base_url;
-   
+
     ?>
-    
+
     <div class="mock-nav">
     	<div class="mock-nav-left">
         	<a href ='<?php print $base_url;?>/Home'> <span class="mock-menu-logo"></span></a>
@@ -196,33 +196,49 @@
             <div class="nav-bottom">
         	<div class="mock-nav-item">
             	<span class="mock-menu-challenges">
-                    <a href ='<?php print $base_url;?>/Challenges'> Challenges</a>
-                  </span>   
-                  
-                  
-                  
+                    <!-- <a href ='<?php print $base_url;?>/Challenges'> Challenges</a> -->
+                    <?php echo l(' Challenges', 'Challenges');?>
+                  </span>
+
+
+
                   <span class="mock-menu-learn">
-                    <a href ='<?php print $base_url;?>/Learn'> Learn</a>
-                  </span>  
-                  
-                  
+                    <!-- <a href ='<?php print $base_url;?>/Learn'> Learn</a> -->
+                    <?php echo l(' Learn', 'Learn');?>
+                  </span>
+
+
                   <span class="mock-menu-workspace">
-                    <a href ='<?php print $base_url;?>/Studio'> Studio </a>
-                  </span>  
-                   
+                    <!-- <a href ='<?php print $base_url;?>/Studio'> Studio </a> -->
+                    <?php echo l(' Studio ', 'Studio');?>
+                  </span>
+
                    <span class="mock-menu-competitions">
-                    <a href ='<?php print $base_url;?>/Gallery'> Gallery </a>
-                  </span> 
-                  
+                    <!-- <a href ='<?php print $base_url;?>/Gallery'> Gallery </a> -->
+                    <?php echo l(' Gallery ', 'Gallery');?>
+                  </span>
+
                    <span class="mock-menu-gallery">
-                    <a href ='<?php print $base_url;?>/Competitions'> Competitions </a>
-                  </span>  
+                    <!-- <a href ='<?php print $base_url;?>/Competitions'> Competitions </a> -->
+                    <?php echo l(' Competitions ', 'Competitions');?>
+                  </span>
                   <?php if (fteadmin_admin_access()) { ?>
+                  <?php echo l('<span class="admin-intro">admin</span>', 'edgemakeradmin',
+					                  		array(
+																	'attributes' => array(
+																		'style'=> 'float:left; display:inline-block;'
+																	),
+					                  			'html' => TRUE,
+					                  		)
+                  		);
+                  ?>
+                    <!--
                     <a href='<?php print $base_url;?>/edgemakeradmin' style="float:left; display:inline-block;">
                       <span class="admin-intro">admin</span>
                     </a>
+                    -->
                   <?php } ?>
-                  
+
             </div>
             <div class="mock-nav-user">
             	<span class="mock-menu-log">
@@ -236,22 +252,22 @@
         ?>
         <a href ='<?php print $base_url;?>/user/login'> Login</a>
         <?php } ?>
-      </span>  
+      </span>
       <?php
           global $user;
-          
+
           if (user_is_logged_in()) {
-          
+
           if (!property_exists($user, 'field_image') || !property_exists($user, 'field_realname')  ) {
             $user = user_load($user->uid);
-           
+
            // $the_field_image = isset($user->field_image) ? $user->field_image : false;
             $the_field_image = field_get_items('user',$user,'field_image');
-            
-           
+
+
             $the_user_realname = field_get_items('user',$user,'field_realname');
-           
-            
+
+
             if ($the_field_image) {
               if (!empty($the_field_image[0]['uri'])) {
                 print "<span class='mock-portrait-span'><a href='" . $base_url . "/user'>";
@@ -261,9 +277,9 @@
                                'height'=>42,
                             'path'=>$the_field_image[0]['uri'],
                             'attributes' => array('class' => 'thumb'),
-                            
+
                             )
-                          
+
                       );
                 print "</a></span>";
                 }
@@ -277,54 +293,54 @@
             	<?php
             }
           }
-          } 
+          }
         ?>
-      
+
        <?php
-         
-          
+
+
           if (user_is_logged_in()) {
-            
+
             if  (!empty($the_user_realname)) {
               $the_name = $the_user_realname[0]['safe_value'];
-            } 
+            }
             else {
               $the_name = $user->name;
             }
-            
+
             print "<span class='mock-menu-userinfo'> " . $the_name . "<br/> <a href='".$base_url."/user'>" . 'view profile' . "</a></span>";
 		  }
 	   ?>
             </div>
         </div>
-     
+
       </div>
-      
-     
-      
-      
-      
-      
-      
-      
-     
-        
-      
-      
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
-        
-        
 
-  </div>
-  
-  
+
+
   </div>
 
 
+  </div>
 
-    
-   
-  
+
+
+
+
+
   <?php if ($messages): ?>
     <div id="messages"><div class="section clearfix">
       <?php print $messages; ?>
@@ -391,9 +407,9 @@
     </div></div> <!-- /#triptych, /#triptych-wrapper -->
   <?php endif; ?>
 
-    
+
     <div style=" display:none">
-    
+
   <div id="footer-wrapper"><div class="section">
 
     <?php if ($page['footer_firstcolumn'] || $page['footer_secondcolumn'] || $page['footer_thirdcolumn'] || $page['footer_fourthcolumn']): ?>
@@ -414,9 +430,9 @@
   </div></div> <!-- /.section, /#footer-wrapper -->
 
     </div>
-  
-  
-  
+
+
+
 </div>
 
 
