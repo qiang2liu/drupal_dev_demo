@@ -23,7 +23,7 @@ function edgemakers_box_menu() {
   );
   $items['admin/edgemakers/box/create'] = array(
     'title' => 'Create Box',
-    'page callback' => 'edgemakers_box_admin_create_page',
+    'page callback' => 'edgemakers_box_admin_create_page', 
     'access arguments' => array('access content'),
     'file path' => drupal_get_path('module', 'node'),
     'file' => 'node.pages.inc',
