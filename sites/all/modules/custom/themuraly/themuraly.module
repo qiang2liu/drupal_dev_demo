@@ -17,7 +17,7 @@ function muralapi_test() {
   // creatuser
   $user = array();
   $user['username'] = "test7891";
-  $user['email'] = "test7891@symbio.com";
+  $user['email'] = "test78et@symbio.com";
   $user['source'] = "edgemakers";
   $user['nameIdentifier'] = 3;
   $result = $mural_api->get_all_murals('testuser');
