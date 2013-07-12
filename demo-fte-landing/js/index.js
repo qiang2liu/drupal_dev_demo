@@ -149,8 +149,11 @@
 							);
 						});
 						
+						$(this).find('audio').eq(0).addClass('active-audio');
+						$(this).find('audio.active-audio').get(0).play();
 						
-						// listen the moving mouse over times and set the correspoding audio to play,
+						
+						/* listen the moving mouse over times and set the correspoding audio to play,
 						var times = parseInt($(this).attr('data-times'),10);
 						times += 1;
 						$(this).attr('data-times', times.toString());
@@ -161,8 +164,8 @@
 							$(this).find('audio').eq(1).addClass('active-audio');
 							$(this).find('audio').eq(0).removeClass('active-audio');
 						}
-						$(this).find('audio.active-audio').get(0).play();
-						//console.log($(this).find('audio.active-audio').attr('src'));
+						$(this).find('audio.active-audio').get(0).play();*/
+						
 					}
 					self.bind('mouseover.playMusic', playMusic);
 					
