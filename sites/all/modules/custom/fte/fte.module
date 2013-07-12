@@ -126,3 +126,17 @@ function fte_theme($exusting, $type) {
 }
 
 
+
+/**
+ * Implement hook_form_FORM_ID_alter().
+ * FORM_ID == mass_contact_mail_page
+ */
+function fte_form_mass_contact_mail_page_alter(&$form, &$form_state, $form_id) {
+  $form['#submit'][] = 'fte_mass_contact_mail_page_submit_handler';
+}
+
+function fte_mass_contact_mail_page_submit_handler($form, &$form_state) {
+  global $base_path;
+ 
+  $form_state['redirect'] = 'home';
+}
