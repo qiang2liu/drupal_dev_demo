@@ -20,10 +20,11 @@ function muralapi_test() {
   $user['email'] = "test7891@symbio.com";
   $user['source'] = "edgemakers";
   $user['nameIdentifier'] = 3;
-  //$result = $mural_api->get_all_murals('testuser');
-  // $data = $result->data;
-  // $r = drupal_json_decode($data);
-  //dpm($r);
+  $result = $mural_api->get_all_murals('testuser');
+  $data = $result->data;
+  $r = drupal_json_decode($data);
+  dpm($result );
+  dpm($r);
   //return "ok111";
   $mural_api_result = $mural_api->create_user($user, '/api/organizations/edgemakers/users', 'POST');
   dpm($mural_api_result);
