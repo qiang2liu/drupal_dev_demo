@@ -1,0 +1,59 @@
+<?php
+
+function themuraly_menu() {
+  $items['muraltest'] = array(
+      'page callback' => 'muralapi_test',
+      'access callback' => TRUE,
+      'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+function muralapi_test() {
+
+  $mural_api = new Muralapi;
+  $auth_string = $mural_api->get_auth_string("edgemakers", "/api/organizations/edgemakers/users", "POST");
+  //dpm($auth_string);
+  // creatuser
+  $user = array();
+  $user['username'] = "test777";
+  $user['email'] = "test778@symbio.com";
+  $user['source'] = "edgemakers";
+  $user['nameIdentifier'] = 3;
+  $result = $mural_api->get_all_murals('testuser');
+  $data = $result->data;
+  $r = drupal_json_decode($data);
+  dpm($result );
+  dpm($r);
+  //return "ok111";
+  $mural_api_result = $mural_api->create_user($user, '/api/organizations/edgemakers/users', 'POST');
+  dpm($mural_api_result);
+  //dd($mural_api_result);
+  $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
+  dpm($muralapi_response_obj);
+  
+  if (isset($muralapi_response_obj['hasErrors'])) {
+                if (!$muralapi_response_obj['hasErrors']) {
+                  // successful, then 
+                  $edit = array();
+                  // the $muralapi_response_obj will contain the user attribute ($muralapi_response_obj->user)
+                  // but now ,it has no this attribute, so , just reguard the $account->name as the  mural username
+                  $the_mural_username = "";
+                  if (isset($muralapi_response_obj['user'])) {
+                    if (isset($muralapi_response_obj['user']['username'])) {
+                       $the_mural_username = $muralapi_response_obj['user']['username'];
+                    }
+                  }
+                  
+                  
+                  $edit['field_muralusername'][LANGUAGE_NONE][0]['value'] = $the_mural_username;
+                 // user_save($account, $edit);
+                  dpm($edit);
+                }
+              }
+  
+  
+  
+  return "ok";
+}
+

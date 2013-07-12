@@ -136,23 +136,53 @@
 					});
 					
 					//music
+					
 					function playMusic(){
+						
+						//pause all ribbon music first
 						$('.ribbon').each(function(){
-							$(this).find('audio').get(0).pause();
+							$(this).find('audio').each(
+								function(){
+									$(this).removeClass('active-audio');
+									$(this).get(0).pause();
+								}
+							);
 						});
-						$(this).find('audio').get(0).play();
+						
+						$(this).find('audio').eq(0).addClass('active-audio');
+						$(this).find('audio.active-audio').get(0).play();
+						
+						
+						/* listen the moving mouse over times and set the correspoding audio to play,
+						var times = parseInt($(this).attr('data-times'),10);
+						times += 1;
+						$(this).attr('data-times', times.toString());
+						if(times <= 1){
+							$(this).find('audio').eq(0).addClass('active-audio');
+							$(this).find('audio').eq(1).removeClass('active-audio');
+						}else{
+							$(this).find('audio').eq(1).addClass('active-audio');
+							$(this).find('audio').eq(0).removeClass('active-audio');
+						}
+						$(this).find('audio.active-audio').get(0).play();*/
+						
 					}
 					self.bind('mouseover.playMusic', playMusic);
+					
+					
 					$('.sound-controller').bind('click', function(){
+						
 						if(!$(this).hasClass('active')){
 							$(this).addClass('active');
 							$('.ribbon').each(function(){
+								
 								$(this).find('audio').get(0).pause();
+								$(this).find('audio').get(1).pause();
 							});
 							$('.ribbon').unbind('mouseover.playMusic');
 						}else{
 							$(this).removeClass('active');
-							$('.ribbon.active').find('audio').get(0).play();
+							$('.ribbon.active').find('audio.active-audio').get(0).play();
 							$('.ribbon').bind('mouseover.playMusic', playMusic);
 						}
 					});
@@ -182,7 +212,6 @@
 					function drawHotSpots(data){
 						
 						self.find('.ribbon-frame').each(function(){
-							
 							  var id = $(this).attr('id');
 							  var w = $(this).width();
 							  var h = $(this).height();
@@ -195,26 +224,37 @@
 						      layer.on('mouseover', function(evt) {
 						        $('.ribbon').css('cursor','pointer');
 						        var shape = evt.targetNode;
-						       
-								shape.setFill('rgba(3,150,83,0.8)');
+								shape.setFill('rgba(3,150,83,0.0)');
 								layer.draw();
 						      });
 							  layer.on('mouseout', function(evt) {
 						        $('.ribbon').css('cursor','');
 						        var shape = evt.targetNode;
 						        
-								shape.setFill('rgba(3,150,83,0.4)');
+								shape.setFill('rgba(3,150,83,0.0)');
 								layer.draw();
 						      });
 						      layer.on('dblclick', function(evt) {
+						      	$('.vertical-column-cover').show();
 						        $('.pop-up, .pop-up-inner').removeClass('small-video').removeClass('big-video');
 						        $('.pop-up').css({
-										'width' : '700px',
+										
 										'height':'500px'
 									});
 						        var shape = evt.targetNode;
-						        var left = ($(document).width()-700)/2 + 'px';
+						        var left = ($(document).width()-680)/2 + 'px';
 								var top = ($(window).height()-500)/2;
+								
+								function audioFadeOut(){
+									
+									$('audio.active-audio').animate({
+										volume : 0
+									},1000);
+								}
+								
+								audioFadeOut();
+									
+								
 								
 								if(shape.getName().indexOf('small-video') != -1){
 									$('.pop-up, .pop-up-inner').addClass('small-video');
@@ -224,12 +264,10 @@
 										'width' : '570px',
 										'height':  '350px'
 									});
-									
+									audioFadeOut();
 								};
 								
 								if(shape.getName().indexOf('big-video') != -1){
-									
-									
 									$('.pop-up, .pop-up-inner').addClass('big-video');
 									left = '0px';
 									top = 0;
@@ -237,7 +275,7 @@
 										'width' : $(document).width() - 27+ 'px',
 										'height': $(document).height() + 'px'
 									});
-									
+									audioFadeOut();
 								};
 								$('.pop-up .pop-up-inner').html('<span class="close">X</span>' + shape.getName());
 								$('.pop-up').css({'left':left,'top':$(window).scrollTop() + top + 'px'}).fadeIn(500); 
@@ -250,9 +288,9 @@
 							  	 
 							  	 var shape = new Kinetic.Blob({
 							  	 	points: p,
-							  	 	stroke: 'white',
-							        strokeWidth: 4,
-							        fill: 'rgba(3,150,83,0.4)',
+							  	 	//stroke: 'white',
+							        //strokeWidth: 4,
+							        fill: 'rgba(3,150,83,0.0)',
 							        
 							        tension: 0,
 							        name :text
@@ -325,7 +363,7 @@
 						}
 					);
 				});
-			},*/
+			},
 			flyQuestions: function(options){
 				var defaults = {
 					data : [
@@ -385,6 +423,62 @@
 							scrollTop: t+top
 						},800);
 						return false;
+					})
+				});
+			},
+			*/
+			bigText: function(options){
+				var defaults = {
+					textArray   : ['A','B','C','D'],
+					beginNumber : 0
+				}
+				var options = $.extend(defaults, options);
+				return this.each(function(){
+					var j = options.beginNumber;
+					var ln = options.textArray.length-1;
+					$('.big-text').html(options.textArray[j]);
+					var w  = $('.big-text').width();
+					var h  = $('.big-text').height();
+					var sw = $(window).width();
+					var sh = $(window).height();
+					var st = $(window).scrollTop();
+					var sl = $(window).scrollLeft();
+					$(window).scroll(function(){
+						st = $(window).scrollTop();
+						sl = $(window).scrollLeft();
+					});
+					$('.big-text').css({
+						top  : (sh-h)*Math.random() + st + 'px',
+						left : (sw-w)*Math.random() + sl + 'px'
+					});
+					function textTimer(){
+						if(j < ln){
+							j+=1;
+							$('.big-text').html(options.textArray[j]);
+						}else{
+							j=0;
+							$('.big-text').html(options.textArray[0]);
+						}
+						
+						$('.big-text').css({
+							top : (sh-h)*Math.random() + st + 'px',
+							left : (sw-w)*Math.random() + sl + 'px'
+						});
+					}
+					window.setInterval(textTimer, 2000);
+				})
+			},
+			getCentralPosition: function(){
+				return this.each(function(){
+					var w = $(this).width();
+					var h = $(this).height();
+					var sw = $(window).width();
+					var sh = $(window).height();
+					var st = $(window).scrollTop();
+					var sl = $(window).scrollLeft();
+					$(this).css({
+						'top' : st + (sh - h)/2 + 'px',
+						'left': sl + (sw - w)/2 + 'px'
 					})
 				});
 			},
@@ -549,12 +643,16 @@
 		});
 })(jQuery);
 $(window).load(function(){
-	
+	//big text
+	$('body').bigText({
+		textArray : ['Where do you want to go today?','What do you want to dream today?','What change do you want to make today?','What do you want to do today?'] 
+	});
+	//$('.big-text').getCentralPosition();
 	//get realwidth
 	$('.ribbon').setRealWidth();
 	
 	//make ribbon
-	$('.ribbon').eq(0).addClass('active').find('audio').get(0).play();
+	$('.ribbon').eq(0).addClass('active').find('audio.active-audio').get(0).play();
 	//$('.ribbon').eq(1).addClass('active');
 	//$('.ribbon').eq(2).addClass('active');
 	$('.ribbon').eq(0).ribbon({
@@ -577,7 +675,7 @@ $(window).load(function(){
 		direction : 'left',
 		distance  : 1
 	});
-	//add hot spot
+	//add hot spot ---------I don't know why make the hot spots invisible but I do it
 	$('.ribbon').eq(0).hotSpot({
 		url:'hotspot.asp?123'
 	});
@@ -598,6 +696,11 @@ $(window).load(function(){
 	$('.pop-up').delegate('span.close','click',function(event){
 			$('.pop-up').fadeOut(500);
 			$('.pop-up-inner').find('iframe').remove();
+			$('.vertical-column-cover').hide();
+			$('audio.active-audio').animate({
+				volume : 1
+			},1000);
+			//$('.active-audio').get(0).play();
 	})
 	
 	
@@ -624,10 +727,10 @@ $(window).load(function(){
 		time     : 2500
 	});*/
 	
-	//flyQuestions
+	/*flyQuestions
 	$('html').flyQuestions({
 		
-	});
+	});*/
 	
 	//cube and content
 	function makePageDefault(){
@@ -688,6 +791,7 @@ $(window).load(function(){
 	})
 	$(window).scroll(function(){
 		$('.page').css('top', ($(window).height() - $('.page').height())/2 + $(window).scrollTop()  + 'px');
+		//$('.big-text').getCentralPosition();
 	});
 	
 	$('.page-minimize').bind('click', function(){
