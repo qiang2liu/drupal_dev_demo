@@ -50,6 +50,7 @@ function modal_nodeform_node_page_edit($node, $js, $force_page_reload = FALSE) {
  *   Indicates if page should be reloaded after form submission.
  */
 function modal_nodeform_node_form($node, $title, $force_page_reload = FALSE) {
+	drupal_add_js(drupal_get_path('module', 'edgemakers_box').'/js/box.js');
   $commands = array();
 
   ctools_include('node.pages', 'node', '');

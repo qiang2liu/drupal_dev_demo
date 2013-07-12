@@ -7,24 +7,24 @@ function edgemakers_box_menu() {
   $items['admin/edgemakers'] = array(
     'title' => 'Edgemakers',
     'page callback' => 'edgemakers_box_admin_page',
-    'access arguments' => array('Edgemakers Management'),
+    'access arguments' => array('access content'),
   );
   $items['admin/edgemakers/box'] = array(
     'title' => 'Manage Box',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('edgemakers_box_admin_list_form'),
-    'access arguments' => array('Edgemakers Management'),
+    'access arguments' => array('access content'),
   );
   $items['admin/edgemakers/box/list'] = array(
     'title' => 'Manage Box',
-    'access arguments' => array('Edgemakers Management'),
+    'access arguments' => array('access content'),
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => 1,
   );
   $items['admin/edgemakers/box/create'] = array(
     'title' => 'Create Box',
     'page callback' => 'edgemakers_box_admin_create_page',
-    'access arguments' => array('Edgemakers Management'),
+    'access arguments' => array('access content'),
     'file path' => drupal_get_path('module', 'node'),
     'file' => 'node.pages.inc',
     'type' => MENU_LOCAL_TASK,
@@ -34,7 +34,7 @@ function edgemakers_box_menu() {
     'title' => 'Delete Box',
     'page callback' => 'edgemakers_box_admin_delete_action',
     'page arguments' => array(4),
-    'access arguments' => array('Edgemakers Management'),
+    'access arguments' => array('access content'),
     'file path' => drupal_get_path('module', 'node'),
     'file' => 'node.pages.inc',
   );
