@@ -1,0 +1,40 @@
+<?php
+/**
+ * Implementation of hook_menu().
+ */
+function modal_nodeform_menu() {
+  $items = array();
+
+  // @see node_menu in node.module:
+  // @todo Remove this loop when we have a 'description callback' property.
+  // Reset internal static cache of _node_types_build(), forces to rebuild the
+  // node type information.
+  node_type_cache_reset();
+  foreach (node_type_get_types() as $type) {
+    $type_url_str = str_replace('_', '-', $type->type);
+    $items['modal/node/add/' . $type_url_str . '/%ctools_js/%'] = array(
+      'title' => $type->name,
+      'title callback' => 'check_plain',
+      'page callback' => 'modal_nodeform_node_page_add',
+      'page arguments' => array($type->type, 4, 5),
+      'access callback' => 'node_access',
+      'access arguments' => array('create', $type->type),
+      'description' => $type->description,
+      'file' => 'modal_nodeform.pages.inc',
+    );
+  }
+  $items['modal/node/%node/edit/%ctools_js/%'] = array(
+    'title' => 'Edit',
+    'page callback' => 'modal_nodeform_node_page_edit',
+    'page arguments' => array(2, 4, 5),
+    'access callback' => 'node_access',
+    'access arguments' => array('update', 2),
+    'weight' => 0,
+    'type' => MENU_LOCAL_TASK,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+    'file' => 'modal_nodeform.pages.inc',
+  );
+
+
+  return $items;
+}
