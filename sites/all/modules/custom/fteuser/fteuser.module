@@ -196,9 +196,11 @@ function fteuser_userreset($p, $uid, $timestamp, $hashed_pass) {
             $mural_user['nameIdentifier'] = $account->uid;
 
             $mural_api_result = $mural_api->create_user($mural_user, '/api/organizations/edgemakers/users', 'POST');
+            dd($mural_api_result,"step 1");
+            
             if (is_object($mural_api_result) && isset($mural_api_result->data)) {
               $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
-
+                dd($muralapi_response_obj,"step 2");
               if (isset($muralapi_response_obj['hasErrors'])) {
                 if (!$muralapi_response_obj['hasErrors']) {
                   // successful, then 
@@ -209,12 +211,14 @@ function fteuser_userreset($p, $uid, $timestamp, $hashed_pass) {
                   if (isset($muralapi_response_obj['user'])) {
                     if (isset($muralapi_response_obj['user']['username'])) {
                        $the_mural_username = $muralapi_response_obj['user']['username'];
+                       dd( $the_mural_username,'step3');
                     }
                   }
                   
                   
                   $edit['field_muralusername'][LANGUAGE_NONE][0]['value'] = $the_mural_username;
                   user_save($account, $edit);
+                  dd($edit,'step4');
                 }
               }
             }

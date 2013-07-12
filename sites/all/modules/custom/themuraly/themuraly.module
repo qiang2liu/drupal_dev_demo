@@ -16,8 +16,8 @@ function muralapi_test() {
   //dpm($auth_string);
   // creatuser
   $user = array();
-  $user['username'] = "test7891";
-  $user['email'] = "test78et@symbio.com";
+  $user['username'] = "test777";
+  $user['email'] = "test778@symbio.com";
   $user['source'] = "edgemakers";
   $user['nameIdentifier'] = 3;
   $result = $mural_api->get_all_murals('testuser');
@@ -31,6 +31,29 @@ function muralapi_test() {
   //dd($mural_api_result);
   $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
   dpm($muralapi_response_obj);
+  
+  if (isset($muralapi_response_obj['hasErrors'])) {
+                if (!$muralapi_response_obj['hasErrors']) {
+                  // successful, then 
+                  $edit = array();
+                  // the $muralapi_response_obj will contain the user attribute ($muralapi_response_obj->user)
+                  // but now ,it has no this attribute, so , just reguard the $account->name as the  mural username
+                  $the_mural_username = "";
+                  if (isset($muralapi_response_obj['user'])) {
+                    if (isset($muralapi_response_obj['user']['username'])) {
+                       $the_mural_username = $muralapi_response_obj['user']['username'];
+                    }
+                  }
+                  
+                  
+                  $edit['field_muralusername'][LANGUAGE_NONE][0]['value'] = $the_mural_username;
+                 // user_save($account, $edit);
+                  dpm($edit);
+                }
+              }
+  
+  
+  
   return "ok";
 }
 
