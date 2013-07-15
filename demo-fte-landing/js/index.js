@@ -235,10 +235,11 @@
 								layer.draw();
 						      });
 						      layer.on('dblclick', function(evt) {
+						      	$('.vertical-column-cover').css('height', $('body').height()+32 + 'px');
 						      	$('.vertical-column-cover').show();
 						        $('.pop-up, .pop-up-inner').removeClass('small-video').removeClass('big-video');
 						        $('.pop-up').css({
-										
+										'width' : '660px',
 										'height':'500px'
 									});
 						        var shape = evt.targetNode;
@@ -272,7 +273,7 @@
 									left = '0px';
 									top = 0;
 									$('.pop-up.big-video').css({
-										'width' : $(document).width() - 27+ 'px',
+										'width' : $(document).width() + 'px',
 										'height': $(document).height() + 'px'
 									});
 									audioFadeOut();

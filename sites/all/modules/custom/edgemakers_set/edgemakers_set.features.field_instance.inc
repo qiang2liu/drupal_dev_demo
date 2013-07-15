@@ -1,70 +1,18 @@
 <?php
 /**
  * @file
- * edgemakers_box.features.field_instance.inc
+ * edgemakers_set.features.field_instance.inc
  */
 
 /**
  * Implements hook_field_default_field_instances().
  */
-function edgemakers_box_field_default_field_instances() {
+function edgemakers_set_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-fte_box-body'
-  $field_instances['node-fte_box-body'] = array(
-    'bundle' => 'fte_box',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(
-          'trim_length' => 600,
-        ),
-        'type' => 'text_summary_or_trimmed',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'body',
-    'label' => 'Display Text',
-    'required' => 0,
-    'settings' => array(
-      'display_summary' => 1,
-      'mediafront' => array(
-        'custom' => '',
-        'field_type' => 0,
-        'media_type' => 'media',
-        'preview' => 0,
-        'thumbnail' => 0,
-      ),
-      'text_processing' => 1,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 20,
-        'summary_rows' => 5,
-      ),
-      'type' => 'text_textarea_with_summary',
-      'weight' => 2,
-    ),
-  );
-
-  // Exported field_instance: 'node-fte_box-field_box_image'
-  $field_instances['node-fte_box-field_box_image'] = array(
-    'bundle' => 'fte_box',
+  // Exported field_instance: 'node-edgemakers_set-field_set_image'
+  $field_instances['node-edgemakers_set-field_set_image'] = array(
+    'bundle' => 'edgemakers_set',
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -86,13 +34,13 @@ function edgemakers_box_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_box_image',
+    'field_name' => 'field_set_image',
     'label' => 'Proxy Image',
     'required' => 0,
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
-      'file_directory' => 'box',
+      'file_directory' => 'set',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
       'max_resolution' => '',
@@ -119,9 +67,9 @@ function edgemakers_box_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-fte_box-field_box_type'
-  $field_instances['node-fte_box-field_box_type'] = array(
-    'bundle' => 'fte_box',
+  // Exported field_instance: 'node-edgemakers_set-field_set_type'
+  $field_instances['node-edgemakers_set-field_set_type'] = array(
+    'bundle' => 'edgemakers_set',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -141,8 +89,8 @@ function edgemakers_box_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_box_type',
-    'label' => 'Box Type',
+    'field_name' => 'field_set_type',
+    'label' => 'Set Type',
     'required' => 1,
     'settings' => array(
       'mediafront' => array(
@@ -163,9 +111,9 @@ function edgemakers_box_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-fte_box-field_box_url'
-  $field_instances['node-fte_box-field_box_url'] = array(
-    'bundle' => 'fte_box',
+  // Exported field_instance: 'node-edgemakers_set-field_set_url'
+  $field_instances['node-edgemakers_set-field_set_url'] = array(
+    'bundle' => 'edgemakers_set',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -185,8 +133,8 @@ function edgemakers_box_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_box_url',
-    'label' => 'Box URL',
+    'field_name' => 'field_set_url',
+    'label' => 'Set URL',
     'required' => 0,
     'settings' => array(
       'attributes' => array(
@@ -224,9 +172,9 @@ function edgemakers_box_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-fte_box-field_box_withthumbnail'
-  $field_instances['node-fte_box-field_box_withthumbnail'] = array(
-    'bundle' => 'fte_box',
+  // Exported field_instance: 'node-edgemakers_set-field_set_withthumbnail'
+  $field_instances['node-edgemakers_set-field_set_withthumbnail'] = array(
+    'bundle' => 'edgemakers_set',
     'default_value' => array(
       0 => array(
         'value' => 0,
@@ -250,7 +198,7 @@ function edgemakers_box_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_box_withthumbnail',
+    'field_name' => 'field_set_withthumbnail',
     'label' => 'Use thumbnail as Proxy',
     'required' => 0,
     'settings' => array(
@@ -277,8 +225,8 @@ function edgemakers_box_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Proxy Image');
-  t('Box Type');
-  t('Box URL');
+  t('Set Type');
+  t('Set URL');
   t('Display Text');
   t('Use thumbnail as Proxy');
 

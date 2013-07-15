@@ -1,56 +1,22 @@
 <?php
 /**
  * @file
- * edgemakers_box.features.field_base.inc
+ * edgemakers_set.features.field_base.inc
  */
 
 /**
  * Implements hook_field_default_field_bases().
  */
-function edgemakers_box_field_default_field_bases() {
+function edgemakers_set_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'body'
-  $field_bases['body'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(
-      0 => 'node',
-    ),
-    'field_name' => 'body',
-    'field_permissions' => array(
-      'type' => 0,
-    ),
-    'foreign keys' => array(
-      'format' => array(
-        'columns' => array(
-          'format' => 'format',
-        ),
-        'table' => 'filter_format',
-      ),
-    ),
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'profile2_private' => FALSE,
-    ),
-    'translatable' => 0,
-    'type' => 'text_with_summary',
-  );
-
-  // Exported field_base: 'field_box_image'
-  $field_bases['field_box_image'] = array(
+  // Exported field_base: 'field_set_image'
+  $field_bases['field_set_image'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_box_image',
+    'field_name' => 'field_set_image',
     'field_permissions' => array(
       'type' => 0,
     ),
@@ -78,13 +44,13 @@ function edgemakers_box_field_default_field_bases() {
     'type' => 'image',
   );
 
-  // Exported field_base: 'field_box_type'
-  $field_bases['field_box_type'] = array(
+  // Exported field_base: 'field_set_type'
+  $field_bases['field_set_type'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_box_type',
+    'field_name' => 'field_set_type',
     'field_permissions' => array(
       'type' => 0,
     ),
@@ -106,7 +72,7 @@ function edgemakers_box_field_default_field_bases() {
     'settings' => array(
       'allowed_values' => array(
         0 => array(
-          'vocabulary' => 'box_types',
+          'vocabulary' => 'set_types',
           'parent' => 0,
         ),
       ),
@@ -116,13 +82,13 @@ function edgemakers_box_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_box_url'
-  $field_bases['field_box_url'] = array(
+  // Exported field_base: 'field_set_url'
+  $field_bases['field_set_url'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_box_url',
+    'field_name' => 'field_set_url',
     'field_permissions' => array(
       'type' => 0,
     ),
@@ -150,13 +116,13 @@ function edgemakers_box_field_default_field_bases() {
     'type' => 'link_field',
   );
 
-  // Exported field_base: 'field_box_withthumbnail'
-  $field_bases['field_box_withthumbnail'] = array(
+  // Exported field_base: 'field_set_withthumbnail'
+  $field_bases['field_set_withthumbnail'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_box_withthumbnail',
+    'field_name' => 'field_set_withthumbnail',
     'field_permissions' => array(
       'type' => 0,
     ),

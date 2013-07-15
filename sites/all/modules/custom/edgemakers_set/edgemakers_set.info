@@ -1,9 +1,9 @@
-name = edgemakers box
-description = edgemakers box management
+name = edgemakers set
+description = edgemakers set management
 core = 7.x
 package = edgemakers
-php = 5.3.13
+php = 5.2
 version = 7.x-1.0
-project = edgemakers_box
+project = edgemakers_set
 dependencies[] = link
 dependencies[] = modal_nodeform
