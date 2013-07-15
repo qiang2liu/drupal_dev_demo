@@ -6,8 +6,10 @@ require_once 'edgemakers_set.pages.inc';
 function edgemakers_set_menu() {
   $items['admin/edgemakers'] = array(
     'title' => 'Edgemakers',
-    'page callback' => 'edgemakers_set_admin_page',
+    'page callback' => 'system_admin_menu_block_page',
     'access arguments' => array('access content'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
   );
   $items['admin/edgemakers/set'] = array(
     'title' => 'Manage Set',

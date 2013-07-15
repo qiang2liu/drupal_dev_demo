@@ -19,17 +19,6 @@ function edgemakers_set_node_submit_redirect_handler($form, &$form_state) {
  * page callbacks
  *
  */
-//render the edgemakers admin page, with links listed
-function edgemakers_set_admin_page() {
-  $item = menu_get_item();
-  if ($content = system_admin_menu_block($item)) {
-    $output = theme('admin_block_content', array('content' => $content));
-  }
-  else {
-    $output = t('You do not have any administrative items.');
-  }
-  return $output;
-}
 //render the create set page
 function edgemakers_set_admin_create_page() {
   module_load_include('inc', 'node', 'node.pages');
