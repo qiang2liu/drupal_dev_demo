@@ -63,7 +63,7 @@ function modal_nodeform_node_form($node, $title, $force_page_reload = FALSE) {
       'args'  => array($node),
     ),
   );
-
+	drupal_add_library('system', 'ui.dialog');
   $commands = ctools_modal_form_wrapper($node->type . '_node_form', $form_state);
 
   if (!empty($form_state['executed']) && empty($form_state['rebuild'])) {

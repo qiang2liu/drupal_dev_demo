@@ -38,3 +38,10 @@ function modal_nodeform_menu() {
 
   return $items;
 }
+/**
+ * Implements hook_menu_alter().
+ */
+function modal_nodeform_menu_alter(&$items) {
+  $items['file/ajax']['file'] = 'node.pages.inc';
+  $items['file/ajax']['file path'] = drupal_get_path('module', 'node');
+}
