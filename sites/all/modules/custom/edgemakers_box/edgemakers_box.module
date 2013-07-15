@@ -69,29 +69,33 @@ function edgemakers_box_form_alter(&$form, $form_state, $form_id) {
  *
  */
 function edgemakers_box_node_validate($node, $form, &$form_state) {
-  $terms = _edgemakers_box_get_terms();
-  $types = field_get_items('node', $node, 'field_box_type');
-  $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
-  
-  if($type != 'Project' && $type != 'Activity') {
-    $urls = field_get_items('node', $node, 'field_box_url');
-    $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
-    if($url == '') {
-      form_set_error('field_box_url', t('Please fill in the URL'));
+  if ($node->type == 'edgemakers_box') {
+    $terms = _edgemakers_box_get_terms();
+    $types = field_get_items('node', $node, 'field_box_type');
+    $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
+    print_r($type);
+    if($type != 'Project' && $type != 'Activity') {
+    
+    print_r('a');
+      $urls = field_get_items('node', $node, 'field_box_url');
+      $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
+      if($url == '') {
+        form_set_error('field_box_url', t('Please fill in the URL'));
+      }
     }
-  }
-  if($type == 'Activity') {
-    $bodys = field_get_items('node', $node, 'body');
-    $body = $bodys && count($bodys) > 0 ? $bodys[0]['value'] : '';
-    if($body == '') {
-      form_set_error('body', t('Please fill in the Display text'));
+    if($type == 'Activity') {
+      $bodys = field_get_items('node', $node, 'body');
+      $body = $bodys && count($bodys) > 0 ? $bodys[0]['value'] : '';
+      if($body == '') {
+        form_set_error('body', t('Please fill in the Display text'));
+      }
     }
-  }
-  if($type == 'Learn Module') {
-    $images = field_get_items('node', $node, 'field_box_image');
-    $image = $images && count($images) > 0 ? (isset($images[0]['width']) ? $images[0]['width'] : '') : '';
-    if($image == '') {
-      form_set_error('field_box_image', t('Please upload the Proxy Image'));
+    if($type == 'Learn Module') {
+      $images = field_get_items('node', $node, 'field_box_image');
+      $image = $images && count($images) > 0 ? (isset($images[0]['width']) ? $images[0]['width'] : '') : '';
+      if($image == '') {
+        form_set_error('field_box_image', t('Please upload the Proxy Image'));
+      }
     }
   }
 }
