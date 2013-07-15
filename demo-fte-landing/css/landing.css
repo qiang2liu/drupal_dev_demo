@@ -55,17 +55,15 @@ body{
 /*layer1 - ribbon and ribbon popup*/
 .pop-up{
 	position:absolute;
-	width:670px;
+	width:660px;
 	height:480px;
 	padding:10px;
-	border-left:5px solid #5d413e;
-	border-right: 5px solid #5d413e;
-	background: rgba(255,255,255,0.5);
+	
 	top:5em;
 	display: none;
 	/*border-radius: 6px;*/
 	z-index: 10000;
-	box-shadow:2px 2px 10px #000;
+	
 }
 .pop-up.small-video{
 	width : 570px;
@@ -214,6 +212,25 @@ span.close:hover{
 	opacity: .5;
 	display:none;
 }
+.vertical-column-cover{
+	position:absolute;
+	top:0;
+	left:0;
+	z-index: 998;
+	background: rgba(102,102,102,0.8);
+	text-align:center;
+	display:none;
+	width:100%;
+	height:100%;
+}
+.vertical-column-cover-inner{
+	width:696px;
+	height:100%;
+	background-image:url(../images/ico_tranigle_pop_up.png),url(../images/ico_tranigle_pop_down.png),url(../images/ico_tranigle_pop.png);
+	background-position: center top, center bottom, center center;
+	background-repeat: no-repeat;
+	margin:0 auto;
+}
 .cube{
 	position:fixed;
 	top:1em;
@@ -340,9 +357,8 @@ span.close:hover{
 /* big text */
 .big-text {
 	font-size:72px;
-	width:100%;
+	display:inline-block;
 	color:#fff;
-	text-align:center;
 	margin:auto;
 	position: absolute;
 	text-shadow: 2px 2px 3px #000;

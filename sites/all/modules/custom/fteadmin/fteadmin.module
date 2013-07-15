@@ -38,6 +38,39 @@ function fteadmin_admin_settings() {
       '#default_value' => variable_get('ftesettings_youtube_video_id', '6rSHgAcL0cQ'),
       '#description' => t('input the youtube video key, for example : if the video url is http://youtu.be/6rSHgAcL0cQ, the key is 6rSHgAcL0cQ'),
   );
+  
+  $form['mural_api'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('mural api settings'),
+  );
+  $form['mural_api']['muralapi_org'] = array(
+      '#type' => 'textfield',
+      '#title' => t('organization in mural'),
+      '#default_value' => variable_get('muralapi_org', 'edgemakers'),
+      '#description' => t('input the organization name for mural api'),
+      '#required' => true,
+  );
+  $form['mural_api']['muralapi_secretkey'] = array(
+      '#type' => 'textfield',
+      '#title' => t('secretkey'),
+      '#default_value' => variable_get('muralapi_secretkey', 'C54DC45B6C1E4A9321936349FC8BB'),
+      '#description' => t('input the secretkey for mural api'),
+      '#required' => true,
+  );
+  $form['mural_api']['muralapi_baseurl'] = array(
+      '#type' => 'textfield',
+      '#title' => t('secretkey'),
+      '#default_value' => variable_get('muralapi_baseurl', 'http://staging.mural.ly'),
+      '#description' => t('input the base url for mural api'),
+      '#required' => true,
+  );
+  $form['mural_api']['muralapi_useragent'] = array(
+      '#type' => 'textfield',
+      '#title' => t('user agent setting'),
+      '#default_value' => variable_get('muralapi_useragent', 'curl/7.22.0 (i686-pc-linux-gnu) libcurl/7.22.0 OpenSSL/1.0.1 zlib/1.2.3.4 libidn/1.23 librtmp/2.3'),
+      '#description' => t('mural api has the right response only for some user agent '),
+      '#required' => true,
+  );
 
   return system_settings_form($form);
 }
@@ -129,14 +162,6 @@ function fteadmin_form_alter(&$form, $form_state, $form_id) {
           $form['field_parent_m'][$form['field_parent_m']['#language']]['#default_value'] = array($module_nid);
         }
       }
-    }
-  }
-  if ($form_id == 'fte_video_node_form') {  
-    if (isset($form['field_video_type'])) {
-      $langcode = isset($form['#language']) ? $form['#language'] : 'und';
-      $requested_term_id = arg(3);
-      if(is_numeric($requested_term_id))
-        $form['field_video_type'][$langcode]['#default_value'] = $requested_term_id;
     }
   }
 }

@@ -149,8 +149,11 @@
 							);
 						});
 						
+						$(this).find('audio').eq(0).addClass('active-audio');
+						$(this).find('audio.active-audio').get(0).play();
 						
-						// listen the moving mouse over times and set the correspoding audio to play,
+						
+						/* listen the moving mouse over times and set the correspoding audio to play,
 						var times = parseInt($(this).attr('data-times'),10);
 						times += 1;
 						$(this).attr('data-times', times.toString());
@@ -161,8 +164,8 @@
 							$(this).find('audio').eq(1).addClass('active-audio');
 							$(this).find('audio').eq(0).removeClass('active-audio');
 						}
-						$(this).find('audio.active-audio').get(0).play();
-						//console.log($(this).find('audio.active-audio').attr('src'));
+						$(this).find('audio.active-audio').get(0).play();*/
+						
 					}
 					self.bind('mouseover.playMusic', playMusic);
 					
@@ -232,22 +235,25 @@
 								layer.draw();
 						      });
 						      layer.on('dblclick', function(evt) {
+						      	$('.vertical-column-cover').css('height', $('body').height()+32 + 'px');
+						      	$('.vertical-column-cover').show();
 						        $('.pop-up, .pop-up-inner').removeClass('small-video').removeClass('big-video');
 						        $('.pop-up').css({
-										'width' : '700px',
+										'width' : '660px',
 										'height':'500px'
 									});
 						        var shape = evt.targetNode;
-						        var left = ($(document).width()-700)/2 + 'px';
+						        var left = ($(document).width()-680)/2 + 'px';
 								var top = ($(window).height()-500)/2;
 								
 								function audioFadeOut(){
+									
 									$('audio.active-audio').animate({
 										volume : 0
 									},1000);
 								}
 								
-								
+								audioFadeOut();
 									
 								
 								
@@ -267,7 +273,7 @@
 									left = '0px';
 									top = 0;
 									$('.pop-up.big-video').css({
-										'width' : $(document).width() - 27+ 'px',
+										'width' : $(document).width() + 'px',
 										'height': $(document).height() + 'px'
 									});
 									audioFadeOut();
@@ -432,6 +438,20 @@
 					var j = options.beginNumber;
 					var ln = options.textArray.length-1;
 					$('.big-text').html(options.textArray[j]);
+					var w  = $('.big-text').width();
+					var h  = $('.big-text').height();
+					var sw = $(window).width();
+					var sh = $(window).height();
+					var st = $(window).scrollTop();
+					var sl = $(window).scrollLeft();
+					$(window).scroll(function(){
+						st = $(window).scrollTop();
+						sl = $(window).scrollLeft();
+					});
+					$('.big-text').css({
+						top  : (sh-h)*Math.random() + st + 'px',
+						left : (sw-w)*Math.random() + sl + 'px'
+					});
 					function textTimer(){
 						if(j < ln){
 							j+=1;
@@ -440,8 +460,13 @@
 							j=0;
 							$('.big-text').html(options.textArray[0]);
 						}
+						
+						$('.big-text').css({
+							top : (sh-h)*Math.random() + st + 'px',
+							left : (sw-w)*Math.random() + sl + 'px'
+						});
 					}
-					window.setInterval(textTimer, 3000);
+					window.setInterval(textTimer, 2000);
 				})
 			},
 			getCentralPosition: function(){
@@ -623,7 +648,7 @@ $(window).load(function(){
 	$('body').bigText({
 		textArray : ['Where do you want to go today?','What do you want to dream today?','What change do you want to make today?','What do you want to do today?'] 
 	});
-	$('.big-text').getCentralPosition();
+	//$('.big-text').getCentralPosition();
 	//get realwidth
 	$('.ribbon').setRealWidth();
 	
@@ -672,6 +697,7 @@ $(window).load(function(){
 	$('.pop-up').delegate('span.close','click',function(event){
 			$('.pop-up').fadeOut(500);
 			$('.pop-up-inner').find('iframe').remove();
+			$('.vertical-column-cover').hide();
 			$('audio.active-audio').animate({
 				volume : 1
 			},1000);
@@ -766,7 +792,7 @@ $(window).load(function(){
 	})
 	$(window).scroll(function(){
 		$('.page').css('top', ($(window).height() - $('.page').height())/2 + $(window).scrollTop()  + 'px');
-		$('.big-text').getCentralPosition();
+		//$('.big-text').getCentralPosition();
 	});
 	
 	$('.page-minimize').bind('click', function(){
