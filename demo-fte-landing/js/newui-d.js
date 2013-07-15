@@ -8,7 +8,6 @@
 			return this.each(function(){
 				var distance = $(this).parent().width()-14;
 				var disranceVertical = $(this).parent().height()-$(this).siblings('h4').height()-14;
-				console.log($(this).parent());
 				var height = $(this).height();
 				var controller = $(this).find('.nd-slide-controller');
 				var originalGap = 0;
