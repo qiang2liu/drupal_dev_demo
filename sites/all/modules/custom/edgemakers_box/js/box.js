@@ -21,9 +21,9 @@ function edgemakers_box_togglefields(index, field_suffix) {
   }
   var term = terms[document.getElementById('edit-field-box-type-und'+field_suffix).selectedIndex].text;
   var labels = document.getElementsByTagName('label');
-  for(var i in labels) {
+  for(var i=0; i<labels.length; i++) {
     var label = labels[i];
-    var forItem = label.for;
+    var forItem = label.getAttribute('for');
     if(forItem == 'edit-title'+field_suffix) {
       label.innerHTML = label.innerHTML.replace(/.*Title/, term + ' Title');
     } else if(forItem == 'edit-field-box-url-und-0') {
