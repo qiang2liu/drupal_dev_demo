@@ -1,0 +1,407 @@
+<?php
+/**
+ * @file
+ * This module creates a Views Slideshow Xtra content type and
+ * example slide nodes.
+ */
+
+/**
+ * Implements hook_init().
+ */
+function edgemakers_stage_init () {
+  //drupal_add_css(drupal_get_path("module", "tt")."/tt.css");
+}
+
+/**
+ * Implements hook_menu().
+ */
+function edgemakers_stage_menu() {
+
+  $items = array();
+
+  // Module settings.
+  /*$items['admin/config/edgemakers'] = array(
+    'title' => 'Edgemakers',
+    'description' => 'Choice content type for this module, or choice default create by module.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('edgemakers_stage_settings'),
+    //'page callback' => 'edgemakers_stage_settings',
+    'access arguments' => array('access administration pages'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'edgemakers_stage') . '/inc',
+  );*/
+
+  $items['admin/config/system/ftesettings/edgemakers'] = array(
+    'title' => 'Edgemakers Stage',
+    'description' => 'settings for Stage',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('edgemakers_stage_settings'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer site configuration'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'edgemakers_stage') . '/inc',
+  );
+
+  // Page tab menu
+  $items['admin/edgemakers/stage'] = array(
+    'title' => 'Stage management',
+    //'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'edgemakers_stage_page',
+    'access arguments' => array('access administration pages'),
+  );
+
+  $items['admin/edgemakers/stage/list'] = array(
+    'title' => 'Manage stage',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    //'type' => MENU_LOCAL_TASK,
+    'page callback' => 'edgemakers_stage_page',
+    'access arguments' => array('access administration pages'),
+  );
+
+  $items['admin/edgemakers/stage/create'] = array(
+    'title' => 'Create Layout',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'edgemakers_stage_create',
+    'access arguments' => array('access administration pages'),
+  );
+
+  $items['admin/edgemakers/stage/%/managebox'] = array(
+    'title' => 'Manage Box',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'edgemakers_stage_page_managebox',
+    'page arguments' => array(3),
+    'access arguments' => array('access administration pages'),
+  );
+
+  /*$items['admin/edgemakers/stage/%/edit'] = array(
+    'title' => 'Edit Layout',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'edgemakers_stage_edit',
+    'page arguments' => array(3),
+    'access arguments' => array('access administration pages'),
+  );*/
+
+  return $items;
+
+}
+
+/**
+ * Implements hook_foo().
+ *
+ * Displays help and module information.
+ */
+function edgemakers_stage_help($path, $arg) {
+  switch ($path) {
+    case "admin/help#stage":
+      $help_test = '<p>' . t("Admin stage of set.") . '</p>';
+
+      return $help_test;
+
+      break;
+  }
+}
+
+/**
+ * edgemakers_stage_page()
+ *   - Layout admin page.
+ */
+function edgemakers_stage_page() {
+
+  ctools_include('modal');
+  ctools_modal_add_js();
+  $type = variable_get('edgemakers_stage_content_type', 'stage');
+  $nodes = node_load_multiple(array(), array('type' => $type));
+  $header = array(
+    'title' => array('data' => t('Set Title')),
+    'type' => array('data' => t('Set Type')),
+    'url' => array('data' => t('Set URL')),
+    'operations' => t('Operations'),
+  );
+  $terms = _edgemakers_set_get_terms();
+  $options = array();
+  foreach ($nodes as $node) {
+    $langcode = entity_language('node', $node);
+    $l_options = $langcode != LANGUAGE_NONE && isset($languages[$langcode]) ? array('language' => $languages[$langcode]) : array();
+    $destination = 'destination=custom_page_url';
+    //print l('Delete', 'node/' . $node->nid . '/delete', array('query' => array('destination' => 'admin/edgemakers/stage')));
+
+    $edit_url = l('Edit',
+      'modal/node/' . $node->nid . '/edit/nojs/1',
+      array(
+        'query' => array(
+          'destination' => 'admin/edgemakers/stage',
+        ),
+        'attributes' => array(
+          'class' => array('ctools-use-modal'),
+        ),
+      )
+    );
+    $managebox_url = l('Manage Box', 'admin/edgemakers/stage/' . $node->nid . '/managebox');
+    $delete_url = l('Delete', 'node/' . $node->nid . '/delete', array('query' => array('destination' => 'admin/edgemakers/stage')));
+
+    $operations = array(
+      l('Delete', 'url', array('query' => array('destination' => 'admin/edgemakers/stage'))),
+      'delete' => array(
+        'title' => t('delete'),
+        'href' =>
+          l('Delete', 'url', array('query' => array('destination' => 'admin/edgemakers/stage'))),
+          //l('Delete', 'node/' . $node->nid . '/delete', array('query' => $destination)),
+          //'node/' . $node->nid . '/delete',
+          //'node/' . $node->nid. '/delete' . '&destination=admin/edgemakers/stage',
+        //destination=admin/edgemakers/stage
+        //http://localhost/fte/?q=node/134/edit&destination=admin/content
+      ),
+      'edit' => array(
+        'title' => t('edit'),
+				'href' => 'modal/node/' . $node->nid . '/edit/nojs/1',
+        'attributes' => array('class' => array('ctools-use-modal')),
+      ),
+    );
+    $types = field_get_items('node', $node, 'field_set_type');
+    $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
+    $urls = field_get_items('node', $node, 'field_set_url');
+    $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
+    $options[$node->nid] = array(
+      'title' => check_plain($node->title),
+      'type' => $type,
+      'url' => $url,
+      'operations' => $delete_url . ' | ' . $edit_url . ' | ' . $managebox_url
+        /*array(
+          'data' => array(
+            '#theme' => 'links__node_operations',
+            '#links' => $operations,
+            '#attributes' => array('class' => array('links', 'inline')),
+          ),
+        ),*/
+    );
+  }
+  $form['nodes'] = array(
+    '#theme' => 'table',
+    '#header' => $header,
+    '#rows' => $options,
+    '#empty' => t('No content available.'),
+  );
+  $form['pager'] = array('#markup' => theme('pager'));
+  $form['#prefix'] = '<div id="setesListDiv">';
+  $form['#suffix'] = '</div>';
+  return $form;
+}
+
+/**
+ * edgemakers_stage_create()
+ *   - Create new layout page.
+ * @return string
+ */
+function edgemakers_stage_create() {
+  module_load_include('inc', 'node', 'node.pages');
+  $form = node_add('stage');
+  //$form['#action'] = '?q=admin/edgemakers/stage';
+  $form['#redirect'] = '?q=admin/edgemakers/stage';
+  $output = drupal_render($form);
+  return $output;
+}
+
+/**
+ * edgemakers_stage_edit()
+ *   - Edit layout page.
+ * @return string
+ */
+function edgemakers_stage_edit($nid = '') {
+  if ($nid) {
+    module_load_include('inc', 'node', 'node.pages');
+    $node = node_load($nid);
+    $form = drupal_get_form('node_form', $node);
+    $output = drupal_render($form);
+    return $output;
+  }
+  else {
+    drupal_goto('admin/edgemakers/stage/create');
+  }
+
+}
+
+/**
+ * Mangement box index.
+ * @return string
+ */
+function edgemakers_stage_page_managebox($sid = '') {
+
+  $output = 'edgemakers_stage_page_managebox';
+
+  if ($sid) {
+    $form = drupal_get_form('edgemakers_stage_managebox_form');
+
+    $form['stage_id'] = array(
+      '#type' => 'hidden',
+      '#value' => $sid,
+    );
+    $output .= drupal_render($form);
+  }
+
+  return $output;
+}
+
+/**
+ * Implements hook_form();
+ */
+function edgemakers_stage_managebox_form($form, &$form_state) {
+
+  $form = array();
+
+  //$vocabularies = taxonomy_get_vocabularies();
+  $vid = variable_get('edgemakers_set_type_term', 1);
+
+  $terms_tree = taxonomy_get_tree($vid);
+  foreach ($terms_tree as $ter) {
+    $perfix = '';
+    for ($i = 0; $i < $ter->depth; $i++) {
+      $perfix .= '-';
+    }
+    $terms_optins[$ter->tid] = $perfix . $ter->name;
+  }
+
+  $form['Set_Fields'] = array(
+    '#type' => 'fieldset',
+  );
+
+  $form['Set_Fields']['set_types'] = array(
+    '#type' => 'select',
+    '#title' => 'Set type',
+    '#options' => $terms_optins,
+    '#attributes' => array(
+      'class' => array(
+        'field-label-inline',
+        'clearfix',
+      ),
+    ),
+    '#ajax' => array(
+      'event'=>'change',
+      'callback' =>'_get_set_title_ajax',
+      'wrapper' => 'set-title-dropdown',
+    ),
+  );
+
+  // Wrapper for city dropdown list
+  $form['edgemakers_stage_managebox_form']['wrapper'] = array(
+    '#prefix' => '<div id="set-title-dropdown">',
+    '#suffix' => '</div>',
+  );
+
+  // Options for set dropdown list
+  //$options = array('- Select Set -');
+  $options = array('- Select Set In Empty -');
+  if (isset($form_state['values']['set_types'])) {
+    // Pre-populate options for city dropdown list if province id is set
+    //drupal_set_message('Realod set option now.');
+    $options = _load_set_ajax($form_state['values']['set_types']);
+  }
+
+  $form['Set_Fields']['set_title'] = array(
+    '#type' => 'select',
+    '#title' => 'Set title',
+    '#options' => $options,
+  );
+
+  $form['Set_Fields']['set_location_index'] = array(
+    '#type' => 'textfield',
+    '#title' => 'Set Location Index',
+  );
+
+  $form['add_set_to_stage'] = array(
+    '#type' => 'button',
+    '#ajax' => array(
+      'callback' => '_add_set_to_stage_ajax',
+      'wrapper' => 'my-form-wrapper',
+    ),
+  );
+
+  $form['update_stage'] = array(
+    '#type' => 'submit',
+    '#value' => t('Update Stage'),
+    '#weight' => 15,
+  );
+
+  return $form;
+
+}
+
+/**
+ *
+ */
+function edgemakers_stage_managebox_form_submit($form, &$form_state) {
+  $replacement = array(
+    '@province_id' => $form_state['values']['set_types'],
+    '@city_id' => $form_state['values']['set_title'],
+  );
+
+  drupal_set_message('<pre>' . print_r($form_state['values'], TRUE) . '</pre>');
+
+  drupal_set_message(t('Submitted data: Province ID = @province_id, City ID = @city_id.', $replacement));
+}
+
+/**
+ * Function for handling ajax request
+ */
+function _get_set_title_ajax($form, $form_state) {
+  // Return the dropdown list including the wrapper
+  return $form['edgemakers_stage_managebox_form']['wrapper'];
+}
+
+/**
+ * Load set by ajax for set title list.
+ */
+function _load_set_ajax($tid = '') {
+  $set_titles = array('- Select Set In AJAX -');
+
+  if ($tid) {
+    if ($nids = taxonomy_select_nodes($tid)) {
+      $nodes = node_load_multiple($nids);
+      foreach ($nodes AS $n) {
+        $set_options[$n->nid] = $n->title;
+      }
+      //drupal_set_message('Nids list:<pre>' . print_r($set_options, TRUE) . '</pre>');
+      return $set_options;
+    }
+  }
+
+  return $set_titles;
+}
+
+/**
+ *
+ */
+function _add_set_to_stage_ajax() {
+  $html = "json data? or HTML data?";
+  return $html;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function edgemakers_stage_form_alter(&$form, $form_state, $form_id) {
+  $type = str_replace("-", "_" ,variable_get('edgemakers_stage_content_type', 'stage'));
+  $stage_form_id = $type . '_node_form';
+
+  //drupal_set_message($stage_form_id);
+  //$stage_delete_form_id = $type . 'node_delete_confirm';
+
+  if ($form_id == $stage_form_id) {
+
+    $form['actions']['submit']['#submit'][] = '_edgemakers_stage_node_submit_redirect_handler';
+    $form['#redirect'] = 'admin/edgemakers/set';
+
+    unset($form['actions']['preview']);
+  }
+}
+
+/**
+ * handler form submit.
+ */
+function _edgemakers_stage_node_submit_redirect_handler($form, &$form_state) {
+  unset($_REQUEST['destination']);
+  unset($form['#redirect']);
+  //$node = $form_state['node'];
+  //if (!isset($node->nid)) {
+  $form_state['redirect'] = 'admin/edgemakers/stage';
+  //}
+}

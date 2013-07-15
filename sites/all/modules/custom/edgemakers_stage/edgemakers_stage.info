@@ -1,0 +1,8 @@
+name = Stage management.
+description = Set stage admin module.
+
+core = 7.x
+package = edgemaker
+
+version = "7.22"
+project = "edgmakers"

@@ -1,0 +1,137 @@
+<?php
+/**
+ * @file
+ * Install file for Views Slideshow Xtra Example module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function edgemakers_stage_install() {
+
+  $types = node_type_get_types();
+  if(array_key_exists('stage', $types)) {
+    return;
+  }
+
+  $t = get_t();
+  // Define and save the slide node type.
+  $slide_node_type = array(
+    'type' => 'stage',
+    'custom' => 1,
+    'name' => $t('Stage'),
+    'base' => 'node_content',
+    'description' => $t('Node type used for making stage.'),
+  );
+  $slide_node_type = node_type_set_defaults($slide_node_type);
+  node_type_save($slide_node_type);
+
+  // Create all the fields
+  // http://api.drupal.org/api/function/field_create_field/7
+  foreach (_edgemakers_stage_installed_fields() as $field) {
+    field_create_field($field);
+  }
+
+  // Create all the instances for our fields.
+  // http://api.drupal.org/api/function/field_create_instance/7
+  foreach (_edgemakers_stage_installed_instances() as $instance) {
+    $instance['entity_type'] = 'node';
+    $instance['bundle'] = 'stage';
+    field_create_instance($instance);
+  }
+}
+
+/**
+ * Return a structured array defining the fields created by this content type.
+ */
+function _edgemakers_stage_installed_fields() {
+
+  $t = get_t();
+  return array(
+    'dimension_x' => array(
+      'field_name' => 'dimension_x',
+      'type'       => 'number_integer',
+      'cardinality' => 1,
+    ),
+
+    'dimension_y' => array(
+      'field_name' => 'dimension_y',
+      'type'       => 'number_integer',
+      'cardinality' => 1,
+    ),
+  );
+}
+
+/**
+ * Return a structured array defining the instances for this content type.
+ */
+function _edgemakers_stage_installed_instances() {
+
+ $t = get_t();
+  return array(
+    'dimension_x' => array(
+      'field_name'  => 'dimension_x',
+      'label'       => $t('Set dimension X'),
+      'required'    => FALSE,
+      'widget' => array(
+        'type'    => 'number',
+      ),
+    ),
+    'dimension_y' => array(
+      'field_name'  => 'dimension_y',
+      'label'       => $t('Set dimension Y'),
+      'required'    => FALSE,
+      'widget' => array(
+          'type'    => 'number',
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function edgemakers_stage_uninstall() {
+
+  $sql = 'SELECT nid FROM {node} n WHERE n.type = :type';
+  $result = db_query($sql, array(':type' => 'stage'));
+  $nids = array();
+  foreach ($result as $row) {
+    $nids[] = $row->nid;
+  }
+
+  // Delete all the nodes at once
+  node_delete_multiple($nids);
+
+  $instance = array('field_name' => 'comment_body','bundle' => 'comment_node_newsletter','entity_type' => 'comment');
+  field_delete_instance($instance);
+
+  $instance = array('field_name' => 'body','bundle' => 'newsletter','entity_type' => 'node');
+  field_delete_instance($instance);
+
+  $fields = array_keys(_edgemakers_stage_installed_fields());
+  foreach ($fields as $field) {
+    field_delete_field($field);
+  }
+
+  // Purge all field infromation
+  field_purge_batch(1000);
+
+  // @link http://drupal.stackexchange.com/questions/44547/unable-to-delete-feature-content-type-after-uninstalling-feature
+  // List custom content types added by this feature
+  $custom_ctypes = array(
+    'stage',
+  );
+
+  // Go through each and unlock the content type
+  foreach ($custom_ctypes as $ctype) {
+    db_query("UPDATE {node_type} SET `custom` = 1, `locked` = 0 WHERE `type` = :ctype", array(':ctype' => $ctype));
+  }
+
+  //@link http://drupal.stackexchange.com/questions/63329/unable-to-delete-a-custom-content-type
+  node_type_delete('stage');
+
+  // Clean Drupal cache; this is necessary for the "Delete" link to appear
+  // next to the content type created by the feature.
+  drupal_flush_all_caches();
+}
