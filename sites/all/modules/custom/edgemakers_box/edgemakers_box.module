@@ -61,6 +61,7 @@ function edgemakers_box_form_alter(&$form, $form_state, $form_id) {
     }
     $langcode = isset($form['#language']) ? $form['#language'] : 'und';
     $form['field_box_type'][$langcode]['#after_build'] = array('_edgemakers_box_load_my_javascript');
+    $form['actions']['#suffix'] = '<script>edgemakers_box_fields_update();</script>';
   }
 }
 /**
