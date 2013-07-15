@@ -21,7 +21,17 @@ function fte_curriculum_menu() {
 
   return $items;
 }
-
+function fte_curriculum_page_alter(&$page) {
+  global $is_showstage_page;
+  if (isset($is_showstage_page) && $is_showstage_page == 1) {
+    unset($page['page_top']);
+    unset($page['page_bottom']);
+    unset($page['sidebar_first']);
+     unset($page['sidebar_second']);
+    
+  }
+  
+}
 function fte_curriculum_theme($existing, $type) {
   if ($type == 'module') {
     return array(

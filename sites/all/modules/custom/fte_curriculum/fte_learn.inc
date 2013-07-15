@@ -5,7 +5,8 @@
  * @param type $fte_learn_module_obj 
  */
 function fte_modulestage_view($mid, $sid) {
-  global $base_url;
+  global $base_url, $is_showstage_page;
+  $is_showstage_page = 1;
   //drupal_add_library('system', 'jquery.cookie');
   // $the_path = drupal_get_path('module', 'fte_curriculum');
   // drupal_add_js($the_path.'/js/fte_stage_show.js');
