@@ -1,6 +1,7 @@
 (function(){
 	$.fn.extend({
 			/*set image to real wdth, .e.g. prevent the huge image to zoom in*/
+			baseUrl:'/fte_demo',
 			setRealWidth:function(){
 				return this.each(function(){
 					//get real width
@@ -629,12 +630,12 @@
 			},
 			setIfranmeUrl : function(){
 				$.ajax({
-					url      : '/fteuserlogon',
+					url      : baseUrl + '/fteuserlogon',
 					dataType : 'text',
 					type     : 'GET',
 					success  :function(data){
 						if(data === '0'){
-							$('.landing-iframe').attr('src','/user')
+							$('.landing-iframe').attr('src',baseUrl + '/user')
 						}
 					}
 				});
@@ -771,12 +772,12 @@ $(window).load(function(){
 		
 		
 		$.ajax({
-					url      : '/fteuserlogon',
+					url      : baseUrl + '/fteuserlogon',
 					dataType : 'html',
 					type     : 'GET',
 					success  :function(data){
 						if(data === '0'){
-							$('.landing-iframe').attr('src','/user')
+							$('.landing-iframe').attr('src',baseUrl + '/user')
 						}
 						makePageDefault();
 						$('.page').toggle(400);
