@@ -59,6 +59,12 @@ function _edgemakers_stage_installed_fields() {
       'type'       => 'number_integer',
       'cardinality' => 1,
     ),
+
+    'box_index_data' => array(
+      'field_name' => 'box_index_data',
+      'type'       => 'text_long',
+      'cardinality' => 1,
+    ),
   );
 }
 
@@ -82,7 +88,15 @@ function _edgemakers_stage_installed_instances() {
       'label'       => $t('Set dimension Y'),
       'required'    => FALSE,
       'widget' => array(
-          'type'    => 'number',
+        'type'    => 'number',
+      ),
+    ),
+    'box_index_data' => array(
+      'field_name'  => 'box_index_data',
+      'label'       => $t('Box index data'),
+      'required'    => FALSE,
+      'widget' => array(
+        'type'    => 'text',
       ),
     ),
   );

@@ -20,17 +20,6 @@ function edgemakers_stage_menu() {
   $items = array();
 
   // Module settings.
-  /*$items['admin/config/edgemakers'] = array(
-    'title' => 'Edgemakers',
-    'description' => 'Choice content type for this module, or choice default create by module.',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('edgemakers_stage_settings'),
-    //'page callback' => 'edgemakers_stage_settings',
-    'access arguments' => array('access administration pages'),
-    'file' => 'system.admin.inc',
-    'file path' => drupal_get_path('module', 'edgemakers_stage') . '/inc',
-  );*/
-
   $items['admin/config/system/ftesettings/edgemakers'] = array(
     'title' => 'Edgemakers Stage',
     'description' => 'settings for Stage',
@@ -44,8 +33,8 @@ function edgemakers_stage_menu() {
 
   // Page tab menu
   $items['admin/edgemakers/stage'] = array(
-    'title' => 'Stage management',
-    //'type' => MENU_NORMAL_ITEM,
+    'title' => 'Manage Stage',
+    'type' => MENU_NORMAL_ITEM,
     'page callback' => 'edgemakers_stage_page',
     'access arguments' => array('access administration pages'),
   );
@@ -53,7 +42,6 @@ function edgemakers_stage_menu() {
   $items['admin/edgemakers/stage/list'] = array(
     'title' => 'Manage stage',
     'type' => MENU_DEFAULT_LOCAL_TASK,
-    //'type' => MENU_LOCAL_TASK,
     'page callback' => 'edgemakers_stage_page',
     'access arguments' => array('access administration pages'),
   );
@@ -65,11 +53,11 @@ function edgemakers_stage_menu() {
     'access arguments' => array('access administration pages'),
   );
 
-  $items['admin/edgemakers/stage/%/managebox'] = array(
+  $items['admin/edgemakers/stage/managebox'] = array(
     'title' => 'Manage Box',
     'type' => MENU_LOCAL_TASK,
     'page callback' => 'edgemakers_stage_page_managebox',
-    'page arguments' => array(3),
+    'page arguments' => array(4),
     'access arguments' => array('access administration pages'),
   );
 
@@ -123,7 +111,6 @@ function edgemakers_stage_page() {
     $langcode = entity_language('node', $node);
     $l_options = $langcode != LANGUAGE_NONE && isset($languages[$langcode]) ? array('language' => $languages[$langcode]) : array();
     $destination = 'destination=custom_page_url';
-    //print l('Delete', 'node/' . $node->nid . '/delete', array('query' => array('destination' => 'admin/edgemakers/stage')));
 
     $edit_url = l('Edit',
       'modal/node/' . $node->nid . '/edit/nojs/1',
@@ -136,27 +123,9 @@ function edgemakers_stage_page() {
         ),
       )
     );
-    $managebox_url = l('Manage Box', 'admin/edgemakers/stage/' . $node->nid . '/managebox');
+    $managebox_url = l('Manage Box', 'admin/edgemakers/stage/managebox/' . $node->nid);
     $delete_url = l('Delete', 'node/' . $node->nid . '/delete', array('query' => array('destination' => 'admin/edgemakers/stage')));
 
-    $operations = array(
-      l('Delete', 'url', array('query' => array('destination' => 'admin/edgemakers/stage'))),
-      'delete' => array(
-        'title' => t('delete'),
-        'href' =>
-          l('Delete', 'url', array('query' => array('destination' => 'admin/edgemakers/stage'))),
-          //l('Delete', 'node/' . $node->nid . '/delete', array('query' => $destination)),
-          //'node/' . $node->nid . '/delete',
-          //'node/' . $node->nid. '/delete' . '&destination=admin/edgemakers/stage',
-        //destination=admin/edgemakers/stage
-        //http://localhost/fte/?q=node/134/edit&destination=admin/content
-      ),
-      'edit' => array(
-        'title' => t('edit'),
-				'href' => 'modal/node/' . $node->nid . '/edit/nojs/1',
-        'attributes' => array('class' => array('ctools-use-modal')),
-      ),
-    );
     $types = field_get_items('node', $node, 'field_set_type');
     $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
     $urls = field_get_items('node', $node, 'field_set_url');
@@ -166,13 +135,6 @@ function edgemakers_stage_page() {
       'type' => $type,
       'url' => $url,
       'operations' => $delete_url . ' | ' . $edit_url . ' | ' . $managebox_url
-        /*array(
-          'data' => array(
-            '#theme' => 'links__node_operations',
-            '#links' => $operations,
-            '#attributes' => array('class' => array('links', 'inline')),
-          ),
-        ),*/
     );
   }
   $form['nodes'] = array(
@@ -195,8 +157,7 @@ function edgemakers_stage_page() {
 function edgemakers_stage_create() {
   module_load_include('inc', 'node', 'node.pages');
   $form = node_add('stage');
-  //$form['#action'] = '?q=admin/edgemakers/stage';
-  $form['#redirect'] = '?q=admin/edgemakers/stage';
+  unset($form['box_index_data']);
   $output = drupal_render($form);
   return $output;
 }
@@ -226,16 +187,20 @@ function edgemakers_stage_edit($nid = '') {
  */
 function edgemakers_stage_page_managebox($sid = '') {
 
-  $output = 'edgemakers_stage_page_managebox';
+  //$output = 'edgemakers_stage_page_managebox';
+  $output = '';
 
   if ($sid) {
     $form = drupal_get_form('edgemakers_stage_managebox_form');
-
-    $form['stage_id'] = array(
-      '#type' => 'hidden',
+    /*$form['stage_id'] = array(
+      '#name' => 'stage_id',
+      '#type' => 'textfield',
       '#value' => $sid,
-    );
+    );*/
     $output .= drupal_render($form);
+  }
+  else {
+    drupal_goto('admin/edgemakers/stage');
   }
 
   return $output;
@@ -248,7 +213,13 @@ function edgemakers_stage_managebox_form($form, &$form_state) {
 
   $form = array();
 
-  //$vocabularies = taxonomy_get_vocabularies();
+  $sid = arg(4);
+
+  $form['stage_id'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $sid,
+  );
+
   $vid = variable_get('edgemakers_set_type_term', 1);
 
   $terms_tree = taxonomy_get_tree($vid);
@@ -260,66 +231,64 @@ function edgemakers_stage_managebox_form($form, &$form_state) {
     $terms_optins[$ter->tid] = $perfix . $ter->name;
   }
 
+  // Get the list of options to populate the first dropdown.
+  $options_first = $terms_optins;
+  // If we have a value for the first dropdown from $form_state['values'] we use
+  // this both as the default value for the first dropdown and also as a
+  // parameter to pass to the function that retrieves the options for the
+  // second dropdown.
+  $selected = isset($form_state['values']['set_types']) ? $form_state['values']['set_types'] : key($options_first);
+
   $form['Set_Fields'] = array(
     '#type' => 'fieldset',
   );
 
   $form['Set_Fields']['set_types'] = array(
     '#type' => 'select',
-    '#title' => 'Set type',
-    '#options' => $terms_optins,
-    '#attributes' => array(
-      'class' => array(
-        'field-label-inline',
-        'clearfix',
-      ),
-    ),
+    '#title' => 'Set Type',
+    '#options' => $options_first,
+    '#default_value' => $selected,
+
+    // Bind an ajax callback to the change event (which is the default for the
+    // select form type) of the first dropdown. It will replace the second
+    // dropdown when rebuilt
     '#ajax' => array(
-      'event'=>'change',
-      'callback' =>'_get_set_title_ajax',
-      'wrapper' => 'set-title-dropdown',
-    ),
+      // When 'event' occurs, Drupal will perform an ajax request in the
+      // background. Usually the default value is sufficient (eg. change for
+      // select elements), but valid values include any jQuery event,
+          // most notably 'mousedown', 'blur', and 'submit'.
+          // 'event' => 'change',
+          'callback' => '_ajax_set_types_dropdown_callback',
+          'wrapper' => 'dropdown-title-replace',
+      ),
   );
-
-  // Wrapper for city dropdown list
-  $form['edgemakers_stage_managebox_form']['wrapper'] = array(
-    '#prefix' => '<div id="set-title-dropdown">',
-    '#suffix' => '</div>',
-  );
-
-  // Options for set dropdown list
-  //$options = array('- Select Set -');
-  $options = array('- Select Set In Empty -');
-  if (isset($form_state['values']['set_types'])) {
-    // Pre-populate options for city dropdown list if province id is set
-    //drupal_set_message('Realod set option now.');
-    $options = _load_set_ajax($form_state['values']['set_types']);
-  }
 
   $form['Set_Fields']['set_title'] = array(
     '#type' => 'select',
-    '#title' => 'Set title',
-    '#options' => $options,
+    '#title' => t('Set Title'),
+
+    // The entire enclosing div created here gets replaced when dropdown_first
+    // is changed.
+    '#prefix' => '<div id="dropdown-title-replace">',
+    '#suffix' => '</div>',
+
+    // when the form is rebuilt during ajax processing, the $selected variable
+    // will now have the new value and so the options will change
+    '#options' => _ajax_get_set_title_dropdown_options($selected),
+    '#default_value' => isset($form_state['values']['set_title']) ? $form_state['values']['set_title'] : '',
   );
 
   $form['Set_Fields']['set_location_index'] = array(
     '#type' => 'textfield',
     '#title' => 'Set Location Index',
+    '#required' => false,
   );
 
   $form['add_set_to_stage'] = array(
-    '#type' => 'button',
-    '#ajax' => array(
-      'callback' => '_add_set_to_stage_ajax',
-      'wrapper' => 'my-form-wrapper',
-    ),
+    '#type' => 'submit',
+    '#value' => t('Add set to stage'),
   );
 
-  $form['update_stage'] = array(
-    '#type' => 'submit',
-    '#value' => t('Update Stage'),
-    '#weight' => 15,
-  );
 
   return $form;
 
@@ -327,52 +296,187 @@ function edgemakers_stage_managebox_form($form, &$form_state) {
 
 /**
  *
+ * @param unknown_type $sid
  */
-function edgemakers_stage_managebox_form_submit($form, &$form_state) {
-  $replacement = array(
-    '@province_id' => $form_state['values']['set_types'],
-    '@city_id' => $form_state['values']['set_title'],
-  );
-
-  drupal_set_message('<pre>' . print_r($form_state['values'], TRUE) . '</pre>');
-
-  drupal_set_message(t('Submitted data: Province ID = @province_id, City ID = @city_id.', $replacement));
+function edgemakers_stage_default_set_list_table($sid) {
+  $output = '';
+  $sets = node_load($sid);
+  $output = stage_list_table($sid);
+  return $output;
 }
 
 /**
- * Function for handling ajax request
+ * Get dropdown callback;
+ * @param unknown_type $form
+ * @param unknown_type $form_state
  */
-function _get_set_title_ajax($form, $form_state) {
-  // Return the dropdown list including the wrapper
-  return $form['edgemakers_stage_managebox_form']['wrapper'];
+function _ajax_set_types_dropdown_callback($form, $form_state) {
+  return $form['Set_Fields']['set_title'];
 }
 
 /**
- * Load set by ajax for set title list.
+ * Get title options list by AJAX.
+ * @param int $tid
+ * @return Ambigous <An, multitype:>|multitype:
  */
-function _load_set_ajax($tid = '') {
-  $set_titles = array('- Select Set In AJAX -');
+function _ajax_get_set_title_dropdown_options($tid = '') {
 
   if ($tid) {
     if ($nids = taxonomy_select_nodes($tid)) {
+      $set_options = array();
       $nodes = node_load_multiple($nids);
       foreach ($nodes AS $n) {
         $set_options[$n->nid] = $n->title;
       }
-      //drupal_set_message('Nids list:<pre>' . print_r($set_options, TRUE) . '</pre>');
       return $set_options;
     }
   }
 
-  return $set_titles;
+  return array();
+
+}
+
+/**
+ * Implements hook_form_validate();
+ */
+function edgemakers_stage_managebox_form_validate($form, &$form_state) {
+  $values = $form_state['values'];
+  if (_has_set_in_stage($values['stage_id'], $values['set_title'])) {
+    form_set_error('set_title', t('Set has in Stage now.'));
+  }
+}
+
+/**
+ *
+ * @param int $stage_id
+ * @param int $set_id
+ */
+function _has_set_in_stage($stage_id = '', $set_id = '') {
+  if ($stage_id && $set_id) {
+    $stage = node_load($stage_id);
+
+    if (isset($stage->box_index_data[LANGUAGE_NONE])) {
+      $node_box_index_data = unserialize($stage->box_index_data[LANGUAGE_NONE][0]['value']);
+      foreach ($node_box_index_data AS $index) {
+        if ($index['set_id'] == $set_id) {
+          return true;
+        }
+      }
+      return false;
+    }
+    else {
+      return false;
+    }
+
+  }
+}
+
+
+/**
+ *
+ */
+function edgemakers_stage_managebox_form_submit($form, &$form_state) {
+
+  global $user;
+
+  // Form data.
+
+  if (empty($form_state['values']['set_location_index'])) {
+    $form_state['values']['set_location_index'] = 0;
+  }
+
+  $values = $form_state['values'];
+  $ignore = array('form_build_id','form_token','form_id','op','submit', 'set_types', 'set_title');
+
+  // Stage node data.
+  $node = node_load($form_state['values']['stage_id']);
+
+  if (isset($node->box_index_data[LANGUAGE_NONE])) {
+    $node_box_index_data = unserialize($node->box_index_data[LANGUAGE_NONE][0]['value']);
+  }
+  else {
+    $node_box_index_data = array();
+  }
+
+  $node_box_index_data[] = array(
+    'stage_id' => $form_state['values']['stage_id'],
+    'set_id' => $form_state['values']['set_title'],
+    'location_index' => $form_state['values']['set_location_index'],
+  );
+
+  $values['box_index_data'] = serialize($node_box_index_data);
+
+  //Loop through the values
+  foreach ($values as $key => $value)
+  {
+    if (in_array($key, $ignore)) continue;
+    $node->{$key}[$node->language][0]['value'] = $value;
+  }
+
+
+  $submit_status = node_submit($node);
+  $save_status = node_save($node);
+
+  drupal_set_message('<pre>' . print_r($save_status, TRUE) . '</pre>');
+
 }
 
 /**
  *
  */
-function _add_set_to_stage_ajax() {
-  $html = "json data? or HTML data?";
-  return $html;
+function _add_set_to_stage_ajax($form, &$form_state) {
+
+  $tableitem = $form_state['values']['set_title'];
+  $datas = $form_state['values'];
+
+  if (!in_array($tableitem, $_SESSION['lists'][$datas->stage_id])) {
+    $_SESSION['lists'][$datas->stage_id][] = array(
+      'nid' => $form_state['values']['set_title'],
+      'title' => $form_state['values']['set_title'],
+      'type' => $form_state['values']['set_types'],
+      'location' => $form_state['values']['set_location_index'],
+    );
+  }
+
+  //for ($i = 1; $i < $form_state['num_names']; $i++) {
+
+  $header = array(
+    'title' => array('data' => t('Set Title')),
+    'type' => array('data' => t('Set Type')),
+    'location' => array('data' => t('Set Location')),
+    'operations' => t('DELETE'),
+  );
+  foreach ($_SESSION['lists'][$datas->stage_id] AS $set) {
+
+    if ($set['nid']) {
+  //drupal_set_message('<pre>' . print_r($set, TRUE) . '</pre>');
+      $form['set_list']['set_list_table']['set_nid_' . $set['nid']] = array(
+        '#type' => 'textfield',
+        '#title' => t('SEt ' . $key),
+        '#value' => $set['nid'],
+        //'#prefix' => '<div style="float: left;">',
+        //'#suffix' => '</div>',
+      );
+      $form['set_list']['set_list_table']['set_type_' . $set['nid']] = array(
+        '#type' => 'textfield',
+        '#title' => t('Type ' . $key),
+        '#value' => $set['type'],
+        //'#prefix' => '<div style="float: left;">',
+        //'#suffix' => '</div>',
+      );
+      $form['set_list']['set_list_table']['set_location_' . $set['nid']] = array(
+        '#type' => 'textfield',
+        '#title' => t('Box location index ' . $key),
+        '#value' => $set['location'],
+        //'#prefix' => '<div style="float: left;">',
+        //'#suffix' => '</div>',
+      );
+    }
+
+  }
+  //unset($_SESSION['lists']);
+  //unset($_SESSION['lists'][$datas->stage_id][]);
+  return $form['set_list']['set_list_table'];
 }
 
 /**
@@ -387,10 +491,13 @@ function edgemakers_stage_form_alter(&$form, $form_state, $form_id) {
 
   if ($form_id == $stage_form_id) {
 
+
     $form['actions']['submit']['#submit'][] = '_edgemakers_stage_node_submit_redirect_handler';
     $form['#redirect'] = 'admin/edgemakers/set';
 
     unset($form['actions']['preview']);
+    unset($form['actions']['delete']);
+    //unset($form['box_index_data']);
   }
 }
 
@@ -404,4 +511,186 @@ function _edgemakers_stage_node_submit_redirect_handler($form, &$form_state) {
   //if (!isset($node->nid)) {
   $form_state['redirect'] = 'admin/edgemakers/stage';
   //}
+}
+
+/**
+ * Form builder for the taxonomy terms overview.
+ *
+ * Display a tree of all the terms in a vocabulary, with options to edit
+ * each one. The form is made drag and drop by the theme function.
+ *
+ * @ingroup forms
+ * @see taxonomy_overview_terms_submit()
+ * @see theme_taxonomy_overview_terms()
+ */
+function edgemakers_stage_set_list_form($form, &$form_state, $stage_id) {
+  global $pager_page_array, $pager_total, $pager_total_items;
+
+  // Check for confirmation forms.
+  if (isset($form_state['confirm_reset_alphabetical'])) {
+    return taxonomy_vocabulary_confirm_reset_alphabetical($form, $form_state, $vocabulary->vid);
+  }
+
+  $form['#vocabulary'] = $vocabulary;
+  $form['#tree'] = TRUE;
+  $form['#parent_fields'] = FALSE;
+
+  $page            = isset($_GET['page']) ? $_GET['page'] : 0;
+  $page_increment  = variable_get('taxonomy_terms_per_page_admin', 100);  // Number of terms per page.
+  $page_entries    = 0;   // Elements shown on this page.
+  $before_entries  = 0;   // Elements at the root level before this page.
+  $after_entries   = 0;   // Elements at the root level after this page.
+  $root_entries    = 0;   // Elements at the root level on this page.
+
+  // Terms from previous and next pages are shown if the term tree would have
+  // been cut in the middle. Keep track of how many extra terms we show on each
+  // page of terms.
+  $back_step    = NULL;
+  $forward_step = 0;
+
+  // An array of the terms to be displayed on this page.
+  $current_page = array();
+
+  $delta = 0;
+  $term_deltas = array();
+  $tree = taxonomy_get_tree($vocabulary->vid);
+  $term = current($tree);
+  do {
+    // In case this tree is completely empty.
+    if (empty($term)) {
+      break;
+    }
+    $delta++;
+    // Count entries before the current page.
+    if ($page && ($page * $page_increment) > $before_entries && !isset($back_step)) {
+      $before_entries++;
+      continue;
+    }
+    // Count entries after the current page.
+    elseif ($page_entries > $page_increment && isset($complete_tree)) {
+      $after_entries++;
+      continue;
+    }
+
+    // Do not let a term start the page that is not at the root.
+    if (isset($term->depth) && ($term->depth > 0) && !isset($back_step)) {
+      $back_step = 0;
+      while ($pterm = prev($tree)) {
+        $before_entries--;
+        $back_step++;
+        if ($pterm->depth == 0) {
+          prev($tree);
+          continue 2; // Jump back to the start of the root level parent.
+        }
+      }
+    }
+    $back_step = isset($back_step) ? $back_step : 0;
+
+    // Continue rendering the tree until we reach the a new root item.
+    if ($page_entries >= $page_increment + $back_step + 1 && $term->depth == 0 && $root_entries > 1) {
+      $complete_tree = TRUE;
+      // This new item at the root level is the first item on the next page.
+      $after_entries++;
+      continue;
+    }
+    if ($page_entries >= $page_increment + $back_step) {
+      $forward_step++;
+    }
+
+    // Finally, if we've gotten down this far, we're rendering a term on this page.
+    $page_entries++;
+    $term_deltas[$term->tid] = isset($term_deltas[$term->tid]) ? $term_deltas[$term->tid] + 1 : 0;
+    $key = 'tid:' . $term->tid . ':' . $term_deltas[$term->tid];
+
+    // Keep track of the first term displayed on this page.
+    if ($page_entries == 1) {
+      $form['#first_tid'] = $term->tid;
+    }
+    // Keep a variable to make sure at least 2 root elements are displayed.
+    if ($term->parents[0] == 0) {
+      $root_entries++;
+    }
+    $current_page[$key] = $term;
+  } while ($term = next($tree));
+
+  // Because we didn't use a pager query, set the necessary pager variables.
+  $total_entries = $before_entries + $page_entries + $after_entries;
+  $pager_total_items[0] = $total_entries;
+  $pager_page_array[0] = $page;
+  $pager_total[0] = ceil($total_entries / $page_increment);
+
+  // If this form was already submitted once, it's probably hit a validation
+  // error. Ensure the form is rebuilt in the same order as the user submitted.
+  if (!empty($form_state['input'])) {
+    $order = array_flip(array_keys($form_state['input'])); // Get the $_POST order.
+    $current_page = array_merge($order, $current_page); // Update our form with the new order.
+    foreach ($current_page as $key => $term) {
+      // Verify this is a term for the current page and set at the current depth.
+      if (is_array($form_state['input'][$key]) && is_numeric($form_state['input'][$key]['tid'])) {
+        $current_page[$key]->depth = $form_state['input'][$key]['depth'];
+      }
+      else {
+        unset($current_page[$key]);
+      }
+    }
+  }
+
+  // Build the actual form.
+  foreach ($current_page as $key => $term) {
+    // Save the term for the current page so we don't have to load it a second time.
+    $form[$key]['#term'] = (array) $term;
+    if (isset($term->parents)) {
+      $form[$key]['#term']['parent'] = $term->parent = $term->parents[0];
+      unset($form[$key]['#term']['parents'], $term->parents);
+    }
+
+    $form[$key]['view'] = array('#type' => 'link', '#title' => $term->name, '#href' => "taxonomy/term/$term->tid");
+    if ($vocabulary->hierarchy < 2 && count($tree) > 1) {
+      $form['#parent_fields'] = TRUE;
+      $form[$key]['tid'] = array(
+          '#type' => 'hidden',
+          '#value' => $term->tid
+      );
+      $form[$key]['parent'] = array(
+          '#type' => 'hidden',
+          // Yes, default_value on a hidden. It needs to be changeable by the javascript.
+          '#default_value' => $term->parent,
+      );
+      $form[$key]['depth'] = array(
+          '#type' => 'hidden',
+          // Same as above, the depth is modified by javascript, so it's a default_value.
+          '#default_value' => $term->depth,
+      );
+      $form[$key]['weight'] = array(
+          '#type' => 'weight',
+          '#delta' => $delta,
+          '#title_display' => 'invisible',
+          '#title' => t('Weight for added term'),
+          '#default_value' => $term->weight,
+      );
+    }
+    $form[$key]['edit'] = array('#type' => 'link', '#title' => t('edit'), '#href' => 'taxonomy/term/' . $term->tid . '/edit', '#options' => array('query' => drupal_get_destination()));
+  }
+
+  $form['#total_entries'] = $total_entries;
+  $form['#page_increment'] = $page_increment;
+  $form['#page_entries'] = $page_entries;
+  $form['#back_step'] = $back_step;
+  $form['#forward_step'] = $forward_step;
+  $form['#empty_text'] = t('No terms available. <a href="@link">Add term</a>.', array('@link' => url('admin/structure/taxonomy/' . $vocabulary->machine_name . '/add')));
+
+  if ($vocabulary->hierarchy < 2 && count($tree) > 1) {
+    $form['actions'] = array('#type' => 'actions', '#tree' => FALSE);
+    $form['actions']['submit'] = array(
+        '#type' => 'submit',
+        '#value' => t('Save')
+    );
+    $form['actions']['reset_alphabetical'] = array(
+        '#type' => 'submit',
+        '#value' => t('Reset to alphabetical')
+    );
+    $form_state['redirect'] = array($_GET['q'], (isset($_GET['page']) ? array('query' => array('page' => $_GET['page'])) : array()));
+  }
+
+  return $form;
 }
