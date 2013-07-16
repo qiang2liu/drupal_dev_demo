@@ -223,7 +223,7 @@
                     <?php echo l(' Competitions ', 'Competitions');?>
                   </span>
                   <?php if (fteadmin_admin_access()) { ?>
-                  <?php echo l('<span class="admin-intro">admin</span>', 'edgemakeradmin',
+                  <?php echo l('<span class="admin-intro">admin</span>', 'admin/edgemakers',
 					                  		array(
 																	'attributes' => array(
 																		'style'=> 'float:left; display:inline-block;'
