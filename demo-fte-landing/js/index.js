@@ -1,7 +1,7 @@
 (function(){
 	$.fn.extend({
 			/*set image to real wdth, .e.g. prevent the huge image to zoom in*/
-			baseUrl:'/fte_demo',
+			
 			setRealWidth:function(){
 				return this.each(function(){
 					//get real width
@@ -630,12 +630,12 @@
 			},
 			setIfranmeUrl : function(){
 				$.ajax({
-					url      : baseUrl + '/fteuserlogon',
+					url      : '/fte_demo' + '/fteuserlogon',
 					dataType : 'text',
 					type     : 'GET',
 					success  :function(data){
 						if(data === '0'){
-							$('.landing-iframe').attr('src',baseUrl + '/user')
+							$('.landing-iframe').attr('src','/fte_demo' + '/user')
 						}
 					}
 				});
@@ -751,7 +751,8 @@ $(window).load(function(){
 	}
 	makePageDefault();
 	function videoStop(){
-		if(typeof(fteFrame.window.ytplayer)!= undefined){
+		//alert(typeof(fteFrame.window.ytplayer));
+		if(typeof(fteFrame.window.ytplayer)!= 'undefined'){
 			fteFrame.window.ytplayer.stopVideo();
 			//$('.landing-iframe').contents().find('#myytplayer').hide();
 			clearInterval(videoTimer);
@@ -772,12 +773,12 @@ $(window).load(function(){
 		
 		
 		$.ajax({
-					url      : baseUrl + '/fteuserlogon',
+					url      : '/fte_demo' + '/fteuserlogon',
 					dataType : 'html',
 					type     : 'GET',
 					success  :function(data){
 						if(data === '0'){
-							$('.landing-iframe').attr('src',baseUrl + '/user')
+							$('.landing-iframe').attr('src','/fte_demo' + '/user')
 						}
 						makePageDefault();
 						$('.page').toggle(400);
