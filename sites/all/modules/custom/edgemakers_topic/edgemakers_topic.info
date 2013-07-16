@@ -1,0 +1,12 @@
+name = Edgemakers Topic
+description = Edgemakers Topic Management
+core = 7.x
+package = edgemakers
+php = 5.2
+version = 7.x-1.0
+project = edgemakers_topic
+dependencies[] = views
+dependencies[] = link
+dependencies[] = options
+dependencies[] = taxonomy
+dependencies[] = text

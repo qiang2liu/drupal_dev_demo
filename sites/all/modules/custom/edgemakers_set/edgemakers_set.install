@@ -70,16 +70,16 @@ function edgemakers_set_uninstall() {
   }
   // Delete all the nodes at once
   node_delete_multiple($nids);
-  // Loop over each of the fields defined by this module and delete
-  // all instances of the field, their data, and the field itself.
-  foreach (array_keys(edgemakers_set_field_default_field_bases()) as $field) {
-    field_delete_field($field);
-  }
   // Loop over any remaining field instances attached to the edgemakers_set
   // content type (such as the body field) and delete them individually.
   $instances = field_info_instances('node', 'edgemakers_set');
   foreach ($instances as $instance_name => $instance) {
     field_delete_instance($instance);
+  }
+  // Loop over each of the fields defined by this module and delete
+  // all instances of the field, their data, and the field itself.
+  foreach (array_keys(edgemakers_set_field_default_field_bases()) as $field) {
+    field_delete_field($field);
   }
   // Delete our content type
   node_type_delete('edgemakers_set');
