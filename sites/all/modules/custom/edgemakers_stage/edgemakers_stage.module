@@ -73,6 +73,14 @@ function edgemakers_stage_menu() {
 
 }
 
+function edgemakers_stage_theme() {
+  return array(
+    'edgemakers_stage_set_list_form' => array(
+      'render element' => 'form',
+    ),
+  );
+}
+
 /**
  * Implements hook_foo().
  *
@@ -101,17 +109,28 @@ function edgemakers_stage_page() {
   $nodes = node_load_multiple(array(), array('type' => $type));
   $header = array(
     'title' => array('data' => t('Set Title')),
-    'type' => array('data' => t('Set Type')),
-    'url' => array('data' => t('Set URL')),
+    'dimension' => array('data' => t('Dimension')),
     'operations' => t('Operations'),
   );
-  $terms = _edgemakers_set_get_terms();
+
   $options = array();
   foreach ($nodes as $node) {
+
     $langcode = entity_language('node', $node);
     $l_options = $langcode != LANGUAGE_NONE && isset($languages[$langcode]) ? array('language' => $languages[$langcode]) : array();
-    $destination = 'destination=custom_page_url';
+    $destination = drupal_get_destination();
 
+    // Dimension.
+    if (isset($node->dimension_x[LANGUAGE_NONE])) {
+      $dimension_x = $node->dimension_x[LANGUAGE_NONE][0]['value'];
+    }
+    if (isset($node->dimension_y[LANGUAGE_NONE])) {
+      $dimension_y = $node->dimension_y[LANGUAGE_NONE][0]['value'];
+    }
+
+    $dimension = $dimension_x . " X " . $dimension_y;
+
+    // Operations.
     $edit_url = l('Edit',
       'modal/node/' . $node->nid . '/edit/nojs/1',
       array(
@@ -126,14 +145,9 @@ function edgemakers_stage_page() {
     $managebox_url = l('Manage Box', 'admin/edgemakers/stage/managebox/' . $node->nid);
     $delete_url = l('Delete', 'node/' . $node->nid . '/delete', array('query' => array('destination' => 'admin/edgemakers/stage')));
 
-    $types = field_get_items('node', $node, 'field_set_type');
-    $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
-    $urls = field_get_items('node', $node, 'field_set_url');
-    $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
     $options[$node->nid] = array(
       'title' => check_plain($node->title),
-      'type' => $type,
-      'url' => $url,
+      'dimension' => $dimension,
       'operations' => $delete_url . ' | ' . $edit_url . ' | ' . $managebox_url
     );
   }
@@ -198,6 +212,10 @@ function edgemakers_stage_page_managebox($sid = '') {
       '#value' => $sid,
     );*/
     $output .= drupal_render($form);
+
+    $list_form = drupal_get_form('edgemakers_stage_set_list_form', $sid);
+
+    $output .= drupal_render($list_form);
   }
   else {
     drupal_goto('admin/edgemakers/stage');
@@ -326,7 +344,7 @@ function _ajax_get_set_title_dropdown_options($tid = '') {
       $set_options = array();
       $nodes = node_load_multiple($nids);
       foreach ($nodes AS $n) {
-        $set_options[$n->nid] = $n->title;
+        $set_options[$n->nid . ':' . $n->title ] = $n->title;
       }
       return $set_options;
     }
@@ -340,9 +358,15 @@ function _ajax_get_set_title_dropdown_options($tid = '') {
  * Implements hook_form_validate();
  */
 function edgemakers_stage_managebox_form_validate($form, &$form_state) {
+
   $values = $form_state['values'];
-  if (_has_set_in_stage($values['stage_id'], $values['set_title'])) {
-    form_set_error('set_title', t('Set has in Stage now.'));
+  $set_info = explode(':', $values['set_title']);
+
+  $set_nid = isset($set_info[0])?$set_info[0]:0;
+  $set_title = isset($set_info[1])?$set_info[1]:' ';
+
+  if (_has_set_in_stage($values['stage_id'], $set_nid)) {
+    form_set_error('set_title', t('Set "@set" has in Stage now.', array('@set' => $set_title)));
   }
 }
 
@@ -352,6 +376,7 @@ function edgemakers_stage_managebox_form_validate($form, &$form_state) {
  * @param int $set_id
  */
 function _has_set_in_stage($stage_id = '', $set_id = '') {
+
   if ($stage_id && $set_id) {
     $stage = node_load($stage_id);
 
@@ -373,7 +398,7 @@ function _has_set_in_stage($stage_id = '', $set_id = '') {
 
 
 /**
- *
+ * Implements hook_form_submit();
  */
 function edgemakers_stage_managebox_form_submit($form, &$form_state) {
 
@@ -386,6 +411,11 @@ function edgemakers_stage_managebox_form_submit($form, &$form_state) {
   }
 
   $values = $form_state['values'];
+
+  $set_info = explode(':', $values['set_title']);
+
+  $set_nid = isset($set_info[0])?$set_info[0]:0;
+
   $ignore = array('form_build_id','form_token','form_id','op','submit', 'set_types', 'set_title');
 
   // Stage node data.
@@ -400,7 +430,7 @@ function edgemakers_stage_managebox_form_submit($form, &$form_state) {
 
   $node_box_index_data[] = array(
     'stage_id' => $form_state['values']['stage_id'],
-    'set_id' => $form_state['values']['set_title'],
+    'set_id' => $set_nid,
     'location_index' => $form_state['values']['set_location_index'],
   );
 
@@ -514,183 +544,252 @@ function _edgemakers_stage_node_submit_redirect_handler($form, &$form_state) {
 }
 
 /**
- * Form builder for the taxonomy terms overview.
  *
- * Display a tree of all the terms in a vocabulary, with options to edit
- * each one. The form is made drag and drop by the theme function.
- *
- * @ingroup forms
- * @see taxonomy_overview_terms_submit()
- * @see theme_taxonomy_overview_terms()
  */
 function edgemakers_stage_set_list_form($form, &$form_state, $stage_id) {
-  global $pager_page_array, $pager_total, $pager_total_items;
 
-  // Check for confirmation forms.
-  if (isset($form_state['confirm_reset_alphabetical'])) {
-    return taxonomy_vocabulary_confirm_reset_alphabetical($form, $form_state, $vocabulary->vid);
-  }
+  $stage = node_load($stage_id);
 
-  $form['#vocabulary'] = $vocabulary;
-  $form['#tree'] = TRUE;
-  $form['#parent_fields'] = FALSE;
+  if (isset($stage->box_index_data[LANGUAGE_NONE])) {
+    $nodes = array();
+    $stage_index = unserialize($stage->box_index_data[LANGUAGE_NONE][0]['value']);
+    foreach ($stage_index AS $index) {
+      $nid = !empty($index['set_id'])?$index['set_id']:0;
+      if ($nid) {
+        $node = node_load($nid);
+        $node->weight = $index['location_index'];
 
-  $page            = isset($_GET['page']) ? $_GET['page'] : 0;
-  $page_increment  = variable_get('taxonomy_terms_per_page_admin', 100);  // Number of terms per page.
-  $page_entries    = 0;   // Elements shown on this page.
-  $before_entries  = 0;   // Elements at the root level before this page.
-  $after_entries   = 0;   // Elements at the root level after this page.
-  $root_entries    = 0;   // Elements at the root level on this page.
-
-  // Terms from previous and next pages are shown if the term tree would have
-  // been cut in the middle. Keep track of how many extra terms we show on each
-  // page of terms.
-  $back_step    = NULL;
-  $forward_step = 0;
-
-  // An array of the terms to be displayed on this page.
-  $current_page = array();
-
-  $delta = 0;
-  $term_deltas = array();
-  $tree = taxonomy_get_tree($vocabulary->vid);
-  $term = current($tree);
-  do {
-    // In case this tree is completely empty.
-    if (empty($term)) {
-      break;
-    }
-    $delta++;
-    // Count entries before the current page.
-    if ($page && ($page * $page_increment) > $before_entries && !isset($back_step)) {
-      $before_entries++;
-      continue;
-    }
-    // Count entries after the current page.
-    elseif ($page_entries > $page_increment && isset($complete_tree)) {
-      $after_entries++;
-      continue;
-    }
-
-    // Do not let a term start the page that is not at the root.
-    if (isset($term->depth) && ($term->depth > 0) && !isset($back_step)) {
-      $back_step = 0;
-      while ($pterm = prev($tree)) {
-        $before_entries--;
-        $back_step++;
-        if ($pterm->depth == 0) {
-          prev($tree);
-          continue 2; // Jump back to the start of the root level parent.
+        // Get box type by tid.
+        if (isset($node->field_set_type[LANGUAGE_NONE])) {
+          $node->tname = taxonomy_term_load($node->field_set_type[LANGUAGE_NONE][0]['tid']);
+          //drupal_set_message('Term name (location_index): <pre>' . print_r($node->tname, TRUE) . '</pre>');
         }
+
+        //drupal_set_message('weight (location_index): ' . $index['location_index']);
+        $nodes[] = $node;
       }
     }
-    $back_step = isset($back_step) ? $back_step : 0;
 
-    // Continue rendering the tree until we reach the a new root item.
-    if ($page_entries >= $page_increment + $back_step + 1 && $term->depth == 0 && $root_entries > 1) {
-      $complete_tree = TRUE;
-      // This new item at the root level is the first item on the next page.
-      $after_entries++;
-      continue;
-    }
-    if ($page_entries >= $page_increment + $back_step) {
-      $forward_step++;
-    }
-
-    // Finally, if we've gotten down this far, we're rendering a term on this page.
-    $page_entries++;
-    $term_deltas[$term->tid] = isset($term_deltas[$term->tid]) ? $term_deltas[$term->tid] + 1 : 0;
-    $key = 'tid:' . $term->tid . ':' . $term_deltas[$term->tid];
-
-    // Keep track of the first term displayed on this page.
-    if ($page_entries == 1) {
-      $form['#first_tid'] = $term->tid;
-    }
-    // Keep a variable to make sure at least 2 root elements are displayed.
-    if ($term->parents[0] == 0) {
-      $root_entries++;
-    }
-    $current_page[$key] = $term;
-  } while ($term = next($tree));
-
-  // Because we didn't use a pager query, set the necessary pager variables.
-  $total_entries = $before_entries + $page_entries + $after_entries;
-  $pager_total_items[0] = $total_entries;
-  $pager_page_array[0] = $page;
-  $pager_total[0] = ceil($total_entries / $page_increment);
-
-  // If this form was already submitted once, it's probably hit a validation
-  // error. Ensure the form is rebuilt in the same order as the user submitted.
-  if (!empty($form_state['input'])) {
-    $order = array_flip(array_keys($form_state['input'])); // Get the $_POST order.
-    $current_page = array_merge($order, $current_page); // Update our form with the new order.
-    foreach ($current_page as $key => $term) {
-      // Verify this is a term for the current page and set at the current depth.
-      if (is_array($form_state['input'][$key]) && is_numeric($form_state['input'][$key]['tid'])) {
-        $current_page[$key]->depth = $form_state['input'][$key]['depth'];
-      }
-      else {
-        unset($current_page[$key]);
-      }
-    }
+    $results = $tree = $nodes;
   }
 
-  // Build the actual form.
-  foreach ($current_page as $key => $term) {
-    // Save the term for the current page so we don't have to load it a second time.
-    $form[$key]['#term'] = (array) $term;
-    if (isset($term->parents)) {
-      $form[$key]['#term']['parent'] = $term->parent = $term->parents[0];
-      unset($form[$key]['#term']['parents'], $term->parents);
-    }
+  $header = array(
+    'title' => array('data' => t('Set Title')),
+    'type' => array('data' => t('Set Type')),
+    'weight' => t('Weight'),
+  );
 
-    $form[$key]['view'] = array('#type' => 'link', '#title' => $term->name, '#href' => "taxonomy/term/$term->tid");
-    if ($vocabulary->hierarchy < 2 && count($tree) > 1) {
-      $form['#parent_fields'] = TRUE;
-      $form[$key]['tid'] = array(
-          '#type' => 'hidden',
-          '#value' => $term->tid
-      );
-      $form[$key]['parent'] = array(
-          '#type' => 'hidden',
-          // Yes, default_value on a hidden. It needs to be changeable by the javascript.
-          '#default_value' => $term->parent,
-      );
-      $form[$key]['depth'] = array(
-          '#type' => 'hidden',
-          // Same as above, the depth is modified by javascript, so it's a default_value.
-          '#default_value' => $term->depth,
-      );
-      $form[$key]['weight'] = array(
-          '#type' => 'weight',
-          '#delta' => $delta,
-          '#title_display' => 'invisible',
-          '#title' => t('Weight for added term'),
-          '#default_value' => $term->weight,
-      );
-    }
-    $form[$key]['edit'] = array('#type' => 'link', '#title' => t('edit'), '#href' => 'taxonomy/term/' . $term->tid . '/edit', '#options' => array('query' => drupal_get_destination()));
-  }
+  $options = array();
 
-  $form['#total_entries'] = $total_entries;
-  $form['#page_increment'] = $page_increment;
-  $form['#page_entries'] = $page_entries;
-  $form['#back_step'] = $back_step;
-  $form['#forward_step'] = $forward_step;
-  $form['#empty_text'] = t('No terms available. <a href="@link">Add term</a>.', array('@link' => url('admin/structure/taxonomy/' . $vocabulary->machine_name . '/add')));
+  $operations = array('delete' => t('Delete'));
 
-  if ($vocabulary->hierarchy < 2 && count($tree) > 1) {
-    $form['actions'] = array('#type' => 'actions', '#tree' => FALSE);
-    $form['actions']['submit'] = array(
-        '#type' => 'submit',
-        '#value' => t('Save')
+  //$form['#tree'] = TRUE;
+
+  // Fetch the example data from the database, ordered by weight ascending.
+  //
+  // This query excludes the last two tabledrag_example database rows, as
+  // they are intended only for the 'parent/child' tabledrag examples.
+  // $result = db_query('SELECT id, name, description, weight FROM {tabledrag_example} WHERE id < 8 ORDER BY weight ASC');
+
+  // Iterate through each database result.
+  /*foreach ($results as $item) {
+
+  // Create a form entry for this item.
+    //
+    // Each entry will be an array using the the unique id for that item as
+    // the array key, and an array of table row data as the value.
+    $form[$item->nid] = array(
+
+      // We'll use a form element of type '#markup' to display the item name.
+      'name' => array(
+        '#markup' => check_plain($item->title),
+      ),
+
+      // We'll use a form element of type '#textfield' to display the item
+      // description, which will allow the value to be changed via the form.
+      // We limit the input to 255 characters, which is the limit we set on
+      // the database field.
+      'type' => array(
+        '#type' => 'textfield',
+        '#default_value' => check_plain($item->tname->name),
+        '#size' => 20,
+        '#maxlength' => 255,
+      ),
+
+      // The 'weight' field will be manipulated as we move the items around in
+      // the table using the tabledrag activity.  We use the 'weight' element
+      // defined in Drupal's Form API.
+      'weight' => array(
+        '#type' => 'weight',
+        '#title' => t('Weight'),
+        '#default_value' => $item->weight,
+        '#delta' => 10,
+        '#title-display' => 'invisible',
+      ),
     );
-    $form['actions']['reset_alphabetical'] = array(
-        '#type' => 'submit',
-        '#value' => t('Reset to alphabetical')
-    );
-    $form_state['redirect'] = array($_GET['q'], (isset($_GET['page']) ? array('query' => array('page' => $_GET['page'])) : array()));
+
   }
+
+  // Now we add our submit button, for submitting the form results.
+  //
+  // The 'actions' wrapper used here isn't strictly necessary for tabledrag,
+  // but is included as a Form API recommended practice.
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save Changes'),
+  );
+  return $form;
+  */
+
+  $form['options']['operation'] = array(
+    '#type' => 'select',
+    '#title' => t('Operation'),
+    '#title_display' => 'invisible',
+    '#options' => $operations,
+    '#default_value' => 'approve',
+  );
+
+  foreach ($nodes as $node) {
+    $edit_weight_url = l('edit', '#', array('attributes' => array('id' => 'weight_edit_'.$node->nid)));
+    $options[$node->nid] =array(
+      'title' => $node->title,
+      'type' => $node->tname->name,
+      'weight' => $node->weight . '(' . $edit_weight_url . ')',
+    );
+  }
+
+  $form['table'] = array(
+    '#type' => 'tableselect',
+    '#header' => $header,
+    '#options' => $options,
+    '#empty' => t('No users found'),
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Update Stage'),
+    '#validate' => array('edgemakers_stage_set_list_form_validate'),
+    '#submit' => array('edgemakers_stage_set_list_form_submit'),
+  );
 
   return $form;
+
 }
+
+function edgemakers_stage_set_list_form_validate($form, &$form_state) {
+
+}
+
+function edgemakers_stage_set_list_form_submit($form, &$form_state) {
+  //drupal_set_message('<pre>' . print_r($form_state, TRUE) . '</pre>');
+}
+
+
+function theme_edgemakers_stage_set_list_form($variables) {
+
+  $form = $variables['form'];
+
+  // Initialize the variable which will store our table rows.
+  $rows = array();
+
+  // Iterate over each element in our $form['example_items'] array.
+  foreach (element_children($form) as $id) {
+
+    // Before we add our 'weight' column to the row, we need to give the
+    // element a custom class so that it can be identified in the
+    // drupal_add_tabledrag call.
+    //
+    // This could also have been done during the form declaration by adding
+    // '#attributes' => array('class' => 'example-item-weight'),
+    // directy to the 'weight' element in tabledrag_example_simple_form().
+    $form[$id]['weight']['#attributes']['class'] = array('example-item-weight');
+
+    // We are now ready to add each element of our $form data to the $rows
+    // array, so that they end up as individual table cells when rendered
+    // in the final table.  We run each element through the drupal_render()
+    // function to generate the final html markup for that element.
+    $rows[] = array(
+    'data' => array(
+
+    // Add our 'name' column.
+    drupal_render($form['example_items'][$id]['title']),
+
+    // Add our 'description' column.
+        drupal_render($form['example_items'][$id]['title']),
+
+        // Add our 'weight' column.
+        drupal_render($form['example_items'][$id]['weight']),
+        ),
+
+        // To support the tabledrag behaviour, we need to assign each row of the
+        // table a class attribute of 'draggable'. This will add the 'draggable'
+        // class to the <tr> element for that row when the final table is
+        // rendered.
+        'class' => array('draggable'),
+        );
+  }
+
+  // We now define the table header values.  Ensure that the 'header' count
+  // matches the final column count for your table.
+  $header = array(t('Name'), t('Type'), t('Weight'));
+
+  // We also need to pass the drupal_add_tabledrag() function an id which will
+  // be used to identify the <table> element containing our tabledrag form.
+  // Because an element's 'id' should be unique on a page, make sure the value
+  // you select is NOT the same as the form ID used in your form declaration.
+  $table_id = 'example-items-table';
+
+  // We can render our tabledrag table for output.
+  $output = theme('table', array(
+    'header' => $header,
+  'rows' => $rows,
+  'attributes' => array('id' => $table_id),
+      ));
+
+      // And then render any remaining form elements (such as our submit button).
+      $output .= drupal_render_children($form);
+
+      // We now call the drupal_add_tabledrag() function in order to add the
+      // tabledrag.js goodness onto our page.
+      //
+      // For a basic sortable table, we need to pass it:
+      // - the $table_id of our <table> element,
+      // - the $action to be performed on our form items ('order'),
+      // - a string describing where $action should be applied ('siblings'),
+      // - and the class of the element containing our 'weight' element.
+      drupal_add_tabledrag($table_id, 'order', 'sibling', 'example-item-weight');
+
+      return $output;
+}
+/*function theme_edgemakers_stage_set_list_form($variables) {
+  $form = $variables['form'];
+
+  foreach (element_children($form['rows']) as $key) {
+    $row = array();
+    $row[] = array(
+        'data' => drupal_render($form['rows'][$key]['title']),
+    );
+    $row[] = array(
+        'data' => drupal_render($form['checkboxes'][$key]),
+    );
+    $rows[] = $row;
+  }
+
+  //$header = array('column_header_1', 'column_header_2');
+
+
+  $header = array(
+    'title' => array('data' => t('Set Title')),
+    'type' => array('data' => t('Set Type')),
+    'weight' => array('data' => t('Weight')),
+    'operations' => array('data' => t('Delete')),
+  );
+
+  $output = theme('table', array(
+    'header' => $header,
+  ));
+
+  $output .= drupal_render_children($form);
+  return $output;
+}*/
