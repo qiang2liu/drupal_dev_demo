@@ -82,7 +82,7 @@ function edgemakers_stage_menu() {
 
   // API URL
   // Remove set from stage.
-  $items['admin/edgemakers/stage/api/list'] = array(
+  $items['edgemakers/stage/api/list'] = array(
     'title' => 'Delete Set',
     'page callback' => 'edgemakers_stage_api_list_json',
     'access arguments' => array('access content'),
