@@ -319,7 +319,7 @@ function edgemakers_stage_managebox_form($form, &$form_state) {
   );
 
   $form['Set_Fields']['set_location_index'] = array(
-    '#type' => 'textfield',
+    '#type' => 'hidden',
     '#title' => 'Set Location Index',
     '#required' => false,
   );
@@ -755,8 +755,10 @@ function edgemakers_stage_set_list_form_submit($form, &$form_state) {
     $stage_index = unserialize($stage->box_index_data[LANGUAGE_NONE][0]['value']);
 
     foreach ($stage_index AS $key=>$index) {
-      $location_index = $values['set_' . $index['set_id']];
-      $stage_index[$key]['location_index'] = $values['set_' . $index['set_id']]['weight'];
+      if(is_numeric($index['set_id'])) {
+        $location_index = $values['set_' . $index['set_id']];
+        $stage_index[$key]['location_index'] = $values['set_' . $index['set_id']]['weight'];
+      }
       //drupal_set_message('<pre>' . print_r($location_index, TRUE) . '</pre>');
       //$stage_index[$key]
     }
