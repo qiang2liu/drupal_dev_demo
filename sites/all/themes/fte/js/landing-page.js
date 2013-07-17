@@ -88,6 +88,7 @@ $(document).ready(function(){
 	})*/
 	
 	//mockup
+        
 	$(window).bind('mouseover', function(event){
 		if($(event.target).hasClass('menu-learn-child')){
 			var t = $(event.target).offset().top;
@@ -95,7 +96,7 @@ $(document).ready(function(){
 			var h = $(event.target).width();
 			$('.menu-learn li li a').removeClass('active');
 			$(event.target).addClass('active');
-			$('.menu-learn-fly-layer').css({
+			$('.menu-learn-fly-layer').html($(event.target).attr('data-des')).css({
 				top  : t + 'px',
 				left : l + h +20 + 'px'
 			});

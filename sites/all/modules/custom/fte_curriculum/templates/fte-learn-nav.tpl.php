@@ -1,37 +1,35 @@
-
+<?php
+ global $base_url;
+?>
 	<ul class="menu-learn">
-		<li class="active">
-	    	<a href="#x">Finding our bearing</a>
+          
+      <?php
+          $the_class_var = '';
+          foreach ($data as $k=>$v) {
+      ?>
+          
+		<li <?php print $the_class_var;?>>
+                <?php $the_class_var = ''; ?>  
+                  
+	    	<a href="#x"><?php print $v['title'];?></a>
 	        <ul>
-	        	<li><a href="learn/1/stage/0" class="menu-learn-child has-link">Leaning Forward</a></li>
-	            <li><a href="#x" class="menu-learn-child">Innovation</a></li>
-	            <li><a href="#x" class="menu-learn-child">Brainstorming</a></li>
-	            <li><a href="#x" class="menu-learn-child">Collaboration</a></li>
-	            <li><a href="#x" class="menu-learn-child">Team Building</a></li>
-	        </ul>
+                  <?php
+                    foreach ($v['ftemodule'] as $m_k=>$m_v){
+                  ?>
+                  
+	        	<li><a href="<?php print $base_url;?>/learn/<?php print $m_k;?>/stage/0" class="menu-learn-child has-link" data-des="<?php print $m_v['desc'];?>"><?php print $m_v['title'];?></a></li>
+	           
+	        <?php } ?>
+                </ul>
 	    </li>
-	    <li>
-	    	<a href="#x">Finding our purpose</a>
-	        <ul>
-	        	<li><a href="learn/2/stage/0" class="menu-learn-child has-link">item1</a></li>
-	            <li><a href="#x" class="menu-learn-child">item2</a></li>
-	            <li><a href="#x" class="menu-learn-child">item3</a></li>
-	            <li><a href="#x" class="menu-learn-child">item4</a></li>
-	            <li><a href="#x" class="menu-learn-child">item5</a></li>
-	        </ul>
-	    </li>
-	    <li>
-	    	<a href="#x">Finding our "How"</a>
-	        <ul>
-	        	<li><a href="#x" class="menu-learn-child">item1</a></li>
-	            <li><a href="#x" class="menu-learn-child">item2</a></li>
-	            <li><a href="#x" class="menu-learn-child">item3</a></li>
-	            <li><a href="#x" class="menu-learn-child">item4</a></li>
-	            <li><a href="#x" class="menu-learn-child">item5</a></li>
-	        </ul>
-	    </li>
+	    
+	    
+         <?php
+         
+          }
+         ?>   
 	</ul>
 	<div class="menu-learn-fly-layer">
-		This is the fly layer to show detailed description of this item.
+		
 	</div>
 

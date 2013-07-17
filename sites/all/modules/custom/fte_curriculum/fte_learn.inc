@@ -24,862 +24,207 @@ function fte_modulestage_view($mid, $sid) {
   $current_stage_id = isset($_COOKIE['current_stage_id']) ? $_COOKIE['current_stage_id'] : 1;
 
 
-
+ 
 
 
   $ret = new stdClass();
 
-
-  if ($mid == 1) {
-    $v1 = new stdClass();
-    $v1->title = 'stage1';
-    $v1->sid = 1;
-    $v1->content = "<p>You see the state of the world and you want to make a difference.</p>
-
-<p>You have an idea about your future and you want to make it real</p>
-
-<p>You have a burning desire to realize an idea and make it come alive.</p>
-
-<p></h2>AND YOU WANT TO KNOW HOW.</h2></p>
-
-<p>To do these things, you’ll have to learn to lean forward – how to create new ideas, to breathe life into them and make them real.</p>
-
-<p>When you’ve gone through these courses, you’ll have acquired a whole new set of perspectives and skills that will allow you to find the edge – the edge for you, the edge of cool, the edge of what’s possible. </p>
-
-<p>When this module is over, you will be clearer on your own calling and more able to lean forward yourself.  To make new and valuable things come to life.  You will understand more about what people who are able to lean forward are good at.</p>
-
-<p>And you’ll be ready to take more steps into the learning journey that we have created for you</p>
-
-";
-    $v1->yid = '';    //'6rSHgAcL0cQ';
-    $v1->play = 0;
-    $v1->time = 0;
-    $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_1', array('data' => 1));
-
-    $ret->stages[1] = $v1;
-
-    $v1 = new stdClass();
-    $v1->title = 'stage2';
-    $v1->sid = 2;
-    $v1->yid = '6rSHgAcL0cQ'; //'gAEFqKEfJok';
-    $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_2', array('data' => 2));
-    $v1->play = 0;
-    $v1->time = 0;
-    $ret->stages[2] = $v1;
-
-    $v1 = new stdClass();
-    $v1->title = 'stage3';
-    $v1->yid = 'CKQVOqY_XGA';
-    $v1->sid = 3;
-    $v1->play = 0;
-    $v1->time = 0;
-    $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_2', array('data' => 3));
-    $ret->stages[3] = $v1;
-
-
-    $v1 = new stdClass();
-    $v1->title = 'stage4';
-    $v1->yid = 'nmwXdGm89Tk';
-    $v1->sid = 4;
-    $v1->play = 0;
-    $v1->time = 0;
-    $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_2', array('data' => 4));
-
-    $ret->stages[4] = $v1;
-
-
-
-
-    $v1 = new stdClass();
-    $v1->title = 'stage5';
-    $v1->sid = 5;
-    $v1->yid = '';
-    $v1->content = '<iframe src="http://mrl.li/14zQVid" width="730" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
-
-    $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_3', array('data' => 5));
-
-    $v1->content_right = theme('fte_learn_module_stage_right', array('data' => 5));
-
-    $ret->stages[5] = $v1;
-
-    $v1 = new stdClass();
-    $v1->title = 'stage6';
-    $v1->sid = 6;
-    $v1->yid = '';
-    $v1->content = '<iframe src="http://mrl.li/14zQVid" width="730" height="320" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
-    $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_3', array('data' => 6));
-    $v1->content_right = theme('fte_learn_module_stage_right', array('data' => 6));
-    $ret->stages[6] = $v1;
-
-
-
-    $v1 = new stdClass();
-    $v1->title = 'stage7';
-    $v1->yid = '';
-    $v1->sid = 7;
-    $v1->content = '<h2> Assessment</h2> 
-      <p>How doyou feel about this Module?
-      <select class="learn-select">
-        <option>0</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-        <option>6</option>
-        <option>7</option>
-        <option>8</option>
-        <option>9</option>
-        <option>10</option>
-        
-      </select>
-      </p>
-      <p>Please type in your feelings about your performance? <br/>
-      <textarea class="learn-textarea"></textarea></p>
-      <p>Please select which of the statement is most true for you...
-     <select class="learn-select">
-        <option>incredible site!</option>
-        <option>pretty cool site</option>
-        <option>yah-whatever site</option>
-        <option>this site sucks...</option>             
-      </select> 
-      </p>
-	  <p>
-      Here\'s what I would suggest to make this module better...<br/>
-       <textarea class="learn-textarea"></textarea>
-       </p>
-      
-      
-<p>There images should have been used for this Module<br/>
-<input name="shouldusedimage" value="image1" type="checkbox">
-<img  src="' . $base_url . '/images/mock_challenges_1.jpg" class="learn-form-img" />
-
-<input name="shouldusedimage" value="image2" type="checkbox">
-<img  src="' . $base_url . '/images/mock_challenges_2.jpg" class="learn-form-img"/>
-
-
-<input name="shouldusedimage" value="image3" type="checkbox">
-<img  src="' . $base_url . '/images/mock_challenges_3.jpg" class="learn-form-img"/>
-<input name="shouldusedimage" value="image4" type="checkbox">
-<img  src="' . $base_url . '/images/mock_challenges_4.jpg" class="learn-form-img"/>  
-        
-</p>
-
-
-';
-    $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_4', array('data' => 7));
-    $v1->content_right = theme('fte_learn_module_stage_right', array('data' => 7));
-    $ret->stages[7] = $v1;
-    $ret->mid = 1;
-    $ret->title = check_plain('module 1');
+  $stage_list = get_stage_list($mid);
+  if ($stage_list == -1) {
+    return "no stages";
   }
-
-  if ($mid == 2) {
+  dpm($stage_list);
+  $index_sid = 1;
+  foreach ($stage_list as $k => $v) {
     $v1 = new stdClass();
-    $v1->title = 'stage1';
-    $v1->sid = 1;
-    $v1->yid = 'O5rTcz7EXEQ';
-    $v1->play = 0;
-    $v1->time = 0;
-    $ret->stages[1] = $v1;
+    $v1->title = check_plain($v->title);
+    $v1->sid = $index_sid;
 
-    $v1 = new stdClass();
-    $v1->title = 'stage2';
-    $v1->sid = 2;
-    $v1->yid = 'wJ4iT0QQ1do';
-    $v1->play = 0;
-    $v1->time = 0;
-    $ret->stages[2] = $v1;
+    switch ($v->type) {
+      case 'stages_template1': //stage text template
+        $v1->yid = '';
+        $v1->play = 0;
+        $v1->time = 0;
+        $the_desc_array = field_get_items('node', $v, 'field_stage_text');
+        $v1->content = $the_desc_array[0]['safe_value'];
+        $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_1', array('data' => $v1->sid));
 
-    $v1 = new stdClass();
-    $v1->title = 'stage3';
-    $v1->yid = 'WTsfdROiotA';
-    $v1->sid = 3;
-    $v1->play = 0;
-    $v1->time = 0;
-    $ret->stages[3] = $v1;
-    $ret->mid = 2;
-    $ret->title = check_plain('module 2');
+        break;
+      case 'stage_mural_template':
+       
+
+        $v1->yid = '';
+        $v1->content = '<iframe src="http://mrl.li/14zQVid" width="730" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+
+        $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_3', array('data' => $v1->sid));
+
+        $v1->content_right = theme('fte_learn_module_stage_right', array('data' => $v1->sid));
+
+        break;
+      case 'stages_template2': //stage video template
+        $the_video_array = field_get_items('node', $v, 'field_video_key');
+        $the_video_url = $the_video_array[0]['safe_value'];
+      
+        $str_p = preg_match("/[a-z|A-Z|0-9]+$/", $the_video_url, $matches);
+        $v1->yid = '';
+        if ($str_p) {
+          $v1->yid = $matches[0];
+         
+         
+        }
+         $v1->play = 0;
+          $v1->time = 0;
+          $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_2', array('data' => $v1->sid));
+
+       break;
+       case 'stage_assignment_template':
+         $v1->yid = '';
+    
+      $the_node = clone $v;
+      unset($the_node->field_stage_order);
+      unset($the_node->field_parent_m);
+      unset($the_node->body);
+      $v1->content = render(node_view($the_node,'full',NULL));
+      unset($the_node);
+      $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_4', array('data' => $v1->sid));
+      $v1->content_right = theme('fte_learn_module_stage_right', array('data' => $v1->sid));
+    
+         
+       break;  
+        
+    }
+    $ret->stages[$index_sid] = $v1;
+       $index_sid++;
   }
+   $ret->mid = $mid;
+   
+  
+    dpm($ret);
 
-  if ($current_mid == $mid) {
-    if ($sid == $current_stage_id) {
-      $ret->stagedata = $ret->stages[$current_stage_id];
-      $ret->stagedata->time = $current_time;
+
+    if ($current_mid == $mid ) {
+      if ($sid == $current_stage_id) {
+       
+        $ret->stagedata = clone $ret->stages[$current_stage_id];
+        $ret->stagedata->time = $current_time;
+      } else {
+        if ($sid > 0 && isset($ret->stages[$sid])) {
+          $ret->stagedata = clone $ret->stages[$sid];
+          $ret->stagedata->time = 0;
+        } else { //$sid == 0
+          $ret->stagedata = clone $ret->stages[$current_stage_id];
+          $ret->stagedata->time = $current_time;
+        }
+      }
     } else {
       if ($sid > 0 && isset($ret->stages[$sid])) {
-        $ret->stagedata = $ret->stages[$sid];
+        $ret->stagedata = clone $ret->stages[$sid];
         $ret->stagedata->time = 0;
-      } else { //$sid == 0
-        $ret->stagedata = $ret->stages[$current_stage_id];
-        $ret->stagedata->time = $current_time;
+      } else {
+        $ret->stagedata = clone $ret->stages[1];
+        $ret->stagedata->time = 0;
       }
     }
-  } else {
-    if ($sid > 0 && isset($ret->stages[$sid])) {
-      $ret->stagedata = $ret->stages[$sid];
-      $ret->stagedata->time = 0;
+
+    $the_next_item_index = $ret->stagedata->sid + 1;
+    if (isset($ret->stages[$the_next_item_index])) {
+      $ret->stagedata->next_sid = $the_next_item_index;
     } else {
-      $ret->stagedata = $ret->stages[1];
-      $ret->stagedata->time = 0;
+      $ret->stagedata->next_sid = '-1';
     }
+    $ret->stagedata->next_mid = $mid;
+    dpm($ret);
+    return theme('fte_learn_module_stage_show', array('data' => $ret));
   }
 
-  $the_next_item_index = $ret->stagedata->sid + 1;
-  if (isset($ret->stages[$the_next_item_index])) {
-    $ret->stagedata->next_sid = $the_next_item_index;
-  } else {
-    $ret->stagedata->next_sid = '-1';
+  function learnnavpage() {
+
+    $data = get_learn_nav_info();
+    //drupal_add_js(array('fte_learn_nav' => $data), 'setting');
+
+    return theme('fte_learn_nav', array('data' => $data));
   }
-  $ret->stagedata->next_mid = $mid;
 
-  return theme('fte_learn_module_stage_show', array('data' => $ret));
-}
-
-function learnnavpage() {
-
-  $data = get_learn_nav_info();
-  //drupal_add_js(array('fte_learn_nav' => $data), 'setting');
-
-
-  return theme('fte_learn_nav');
-}
-
-function get_learn_nav_info() {
-  $ret = array();
-
-  $nav = new stdClass();
-  $nav->id = '';
-  $nav->url = '';
-  $nav->name = check_plain('Finding our bearing');
-  $nav->type = 'curriculum';
-  $nav->children = array();
-
-  $module = new stdClass();
-  $module->name = check_plain('Leaning forward');
-  $module->type = 'module';
-  $module->id = '';
-  $module->url = '';
-  $module->children = array();
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/111';
-  $stage->name = check_plain('Intro to FTE');
-  $stage->type = 'stage';
-  $stage->children = '';
-
-  $module->children[] = $stage;
-
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/112';
-  $stage->name = check_plain('Brieana video');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/113';
-  $stage->name = check_plain('John video');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/114';
-  $stage->name = check_plain('Think Different');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/115';
-  $stage->name = check_plain('Project assignment');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/116';
-  $stage->name = check_plain('Murally assignment');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/117';
-  $stage->name = check_plain('Self Assessment');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $nav->children[] = $module;
-
-
-
-  $module = new stdClass();
-  $module->name = check_plain('Innovation 101');
-  $module->type = 'module';
-  $module->id = '';
-  $module->url = '';
-  $module->children = array();
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/118';
-  $stage->name = check_plain('Innovation stage 1');
-  $stage->type = 'stage';
-  $stage->children = '';
-
-  $module->children[] = $stage;
-
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/119';
-  $stage->name = check_plain('Innovation stage 2');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/120';
-  $stage->name = check_plain('Innovation stage 3');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/121';
-  $stage->name = check_plain('Innovation stage 4');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $nav->children[] = $module;
-
-
-  $module = new stdClass();
-  $module->name = check_plain('collaboration');
-  $module->type = 'module';
-  $module->id = '';
-  $module->url = '';
-  $module->children = array();
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/122';
-  $stage->name = check_plain('collaboration stage 1');
-  $stage->type = 'stage';
-  $stage->children = '';
-
-  $module->children[] = $stage;
-
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/123';
-  $stage->name = check_plain('collaboration stage 2');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/124';
-  $stage->name = check_plain('collaboration stage 3');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/125';
-  $stage->name = check_plain('collaboration stage 4');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $nav->children[] = $module;
-
-
-  $module = new stdClass();
-  $module->name = check_plain('Team building');
-  $module->type = 'module';
-  $module->id = '';
-  $module->url = '';
-  $module->children = array();
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/122';
-  $stage->name = check_plain('Team building stage 1');
-  $stage->type = 'stage';
-  $stage->children = '';
-
-  $module->children[] = $stage;
-
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/123';
-  $stage->name = check_plain('Team building stage 2');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/124';
-  $stage->name = check_plain('Team building stage 3');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/125';
-  $stage->name = check_plain('Team building stage 4');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $nav->children[] = $module;
-
-  $ret[] = $nav;
-
-
-  /*   * **************** */
-  $nav = new stdClass();
-  $nav->id = '';
-  $nav->url = '';
-  $nav->name = check_plain('Finding our purpose');
-  $nav->type = 'curriculum';
-  $nav->children = array();
-
-  $module = new stdClass();
-  $module->name = check_plain('purpose module 1');
-  $module->type = 'module';
-  $module->id = '';
-  $module->url = '';
-  $module->children = array();
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/111';
-  $stage->name = check_plain('purpose module 1 stage 1');
-  $stage->type = 'stage';
-  $stage->children = '';
-
-  $module->children[] = $stage;
-
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/112';
-  $stage->name = check_plain('purpose module 1 stage 2 ');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/113';
-  $stage->name = check_plain('purpose module 1 stage 3');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/114';
-  $stage->name = check_plain('purpose module 1 stage 4');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/115';
-  $stage->name = check_plain('purpose module 1 stage 5');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/116';
-  $stage->name = check_plain('purpose module 1 stage 6');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/117';
-  $stage->name = check_plain('purpose module 1 stage 7');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $nav->children[] = $module;
-
-
-
-  $module = new stdClass();
-  $module->name = check_plain('purpose module 2');
-  $module->type = 'module';
-  $module->id = '';
-  $module->url = '';
-  $module->children = array();
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/118';
-  $stage->name = check_plain('purpose module 2 stage 1');
-  $stage->type = 'stage';
-  $stage->children = '';
-
-  $module->children[] = $stage;
-
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/119';
-  $stage->name = check_plain('purpose module 2 stage 2');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/120';
-  $stage->name = check_plain('purpose module 2  stage 3');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/121';
-  $stage->name = check_plain('purpose module 2  stage 4');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $nav->children[] = $module;
-
-
-  $module = new stdClass();
-  $module->name = check_plain('purpose module 3');
-  $module->type = 'module';
-  $module->id = '';
-  $module->url = '';
-  $module->children = array();
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/122';
-  $stage->name = check_plain('purpose module 3 stage 1');
-  $stage->type = 'stage';
-  $stage->children = '';
-
-  $module->children[] = $stage;
-
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/123';
-  $stage->name = check_plain('purpose module 3 stage 2');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/124';
-  $stage->name = check_plain('purpose module 3 stage 3');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/125';
-  $stage->name = check_plain('purpose module 3 stage 4');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $nav->children[] = $module;
-
-
-  $module = new stdClass();
-  $module->name = check_plain('purpose module 4');
-  $module->type = 'module';
-  $module->id = '';
-  $module->url = '';
-  $module->children = array();
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/122';
-  $stage->name = check_plain('purpose module 4 stage 1');
-  $stage->type = 'stage';
-  $stage->children = '';
-
-  $module->children[] = $stage;
-
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/123';
-  $stage->name = check_plain('purpose module 4 stage 2');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/124';
-  $stage->name = check_plain('purpose module 4 stage 3');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/125';
-  $stage->name = check_plain('purpose module 4 stage 4');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $nav->children[] = $module;
-
-  $ret[] = $nav;
-
-
-  /*   * **************** */
-  /*   * **************** */
-  $nav = new stdClass();
-  $nav->id = '';
-  $nav->url = '';
-  $nav->name = check_plain('Finding our "how"');
-  $nav->type = 'curriculum';
-  $nav->children = array();
-
-  $module = new stdClass();
-  $module->name = check_plain('how module 1');
-  $module->type = 'module';
-  $module->id = '';
-  $module->url = '';
-  $module->children = array();
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/111';
-  $stage->name = check_plain('how module 1 stage 1');
-  $stage->type = 'stage';
-  $stage->children = '';
-
-  $module->children[] = $stage;
-
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/112';
-  $stage->name = check_plain('how module 1 stage 2 ');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/113';
-  $stage->name = check_plain('how module 1 stage 3');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/114';
-  $stage->name = check_plain('how module 1 stage 4');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/115';
-  $stage->name = check_plain('how module 1 stage 5');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/116';
-  $stage->name = check_plain('how module 1 stage 6');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/117';
-  $stage->name = check_plain('how module 1 stage 7');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $nav->children[] = $module;
-
-
-
-  $module = new stdClass();
-  $module->name = check_plain('how module 2');
-  $module->type = 'module';
-  $module->id = '';
-  $module->url = '';
-  $module->children = array();
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/118';
-  $stage->name = check_plain('how module 2 stage 1');
-  $stage->type = 'stage';
-  $stage->children = '';
-
-  $module->children[] = $stage;
-
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/119';
-  $stage->name = check_plain('how module 2 stage 2');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/120';
-  $stage->name = check_plain('how module 2  stage 3');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/121';
-  $stage->name = check_plain('how module 2  stage 4');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $nav->children[] = $module;
-
-
-  $module = new stdClass();
-  $module->name = check_plain('how module 3');
-  $module->type = 'module';
-  $module->id = '';
-  $module->url = '';
-  $module->children = array();
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/122';
-  $stage->name = check_plain('how module 3 stage 1');
-  $stage->type = 'stage';
-  $stage->children = '';
-
-  $module->children[] = $stage;
-
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/123';
-  $stage->name = check_plain('how module 3 stage 2');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/124';
-  $stage->name = check_plain('how module 3 stage 3');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/125';
-  $stage->name = check_plain('how module 3 stage 4');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $nav->children[] = $module;
-
-
-  $module = new stdClass();
-  $module->name = check_plain('how module 4');
-  $module->type = 'module';
-  $module->id = '';
-  $module->url = '';
-  $module->children = array();
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/122';
-  $stage->name = check_plain('how module 4 stage 1');
-  $stage->type = 'stage';
-  $stage->children = '';
-
-  $module->children[] = $stage;
-
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/123';
-  $stage->name = check_plain('how module 4 stage 2');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/124';
-  $stage->name = check_plain('how module 4 stage 3');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $stage = new stdClass();
-  $stage->id = '';
-  $stage->url = 'node/125';
-  $stage->name = check_plain('how module 4 stage 4');
-  $stage->type = 'stage';
-  $stage->children = '';
-  $module->children[] = $stage;
-
-  $nav->children[] = $module;
-
-  $ret[] = $nav;
-
-  return $ret;
-}
-
+  function get_learn_nav_info() {
+    $ret = array();
+    // get theme list
+    $ftetheme_list = get_ftetheme_list();
+    $ret = $ftetheme_list;
+    //get module list
+    if (!empty($ftetheme_list)) {
+      $ftetheme_ids = array_keys($ftetheme_list);
+      $ftemodule_list = get_ftemodule_list($ftetheme_ids);
+      if (is_array($ftemodule_list)) {
+        foreach ($ftemodule_list as $m_nid => $v) {
+          $the_parent_v = field_get_items('node', $v, 'field_parent');
+          $the_parent_id = $the_parent_v[0]['target_id'];
+          if (isset($ret[$the_parent_id])) {
+            $ret[$the_parent_id]->modules[$m_nid] = $v;
+          }
+        }
+      }
+    }
+
+    $data = array();
+    if (!empty($ret)) {
+      foreach ($ret as $k => $v) {
+        $data[$k]['title'] = check_plain($v->title);
+        $data[$k]['ftemodule'] = array();
+        if (isset($v->modules)) {
+          foreach ($v->modules as $m_k => $m_v) {
+            $data[$k]['ftemodule'][$m_k]['title'] = check_plain($m_v->title);
+            // $the_desc_array  = field_view_field('node',$m_v,'body',array('label'=>'hidden'));
+            // $data[$k]['ftemodule'][$m_k]['desc'] = render($the_desc_array);
+            $the_desc_array = field_get_items('node', $m_v, 'body');
+            $data[$k]['ftemodule'][$m_k]['desc'] = $the_desc_array[0]['safe_value'];
+          }
+        }
+      }
+    }
+
+    return $data;
+  }
+
+  function get_ftemodule_list($ftetheme_ids) {
+    $ret = array();
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node')
+            ->entityCondition('bundle', 'curriculum_modules')
+            ->fieldCondition('field_parent', 'target_id', $ftetheme_ids, 'in')
+            ->fieldOrderBy('field_parent', 'target_id', 'ASC')
+            ->fieldOrderBy('field_sequence_order', 'value', 'ASC');
+
+    $results = $query->execute();
+    $the_modules_nid = array_keys($results['node']);
+    return node_load_multiple($the_modules_nid);
+  }
+
+  function get_ftetheme_list() {
+
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node')
+            ->entityCondition('bundle', 'educational_curriculum_theme')
+            ->fieldCondition('field_active', 'value', 1, '=')
+            ->fieldOrderBy('field_sequence_order', 'value', 'ASC');
+
+    $results = $query->execute();
+    $the_themes_nid = array_keys($results['node']);
+    return node_load_multiple($the_themes_nid);
+  }
+
+  function get_stage_list($mid) {
+    $the_stage_bundles = array('stages_template2', 'stages_template1', 'stage_mural_template', 'stage_assignment_template');
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node')
+            ->entityCondition('bundle', $the_stage_bundles, 'IN')
+            ->fieldCondition('field_parent_m', 'target_id', $mid, '=')
+            ->fieldOrderBy('field_stage_order', 'value', 'ASC');
+    $results = $query->execute();
+    if (!isset($results['node'])) {
+      return -1; // no data;
+    }
+    $the_stage_nid = array_keys($results['node']);
+    return node_load_multiple($the_stage_nid);
+  }
+
+  

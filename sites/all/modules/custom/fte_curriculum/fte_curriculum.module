@@ -79,7 +79,7 @@ function _fte_youtube_url_check($element, &$form_state) {
   $themax = (int) $element['#max_delta'];
 
   for ($i = 0; $i <= $themax; $i++) {
-    if (empty($element[$i]['value']['#value']) || !valid_url($element[$i]['value']['#value'])) {
+    if (!empty($element[$i]['value']['#value']) && !valid_url($element[$i]['value']['#value'])) {
       form_error($element[$i], t('The "!name"  must contain a valid url. You may either leave the text field empty or enter a string like "http://www.youtube.com/watch?v=DzgK96E3i60"', array('!name' => t($element['#title']))));
     }
   }
