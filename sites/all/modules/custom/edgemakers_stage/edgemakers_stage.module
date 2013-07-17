@@ -56,7 +56,7 @@ function edgemakers_stage_menu() {
   );
 
   $items['admin/edgemakers/stage/create'] = array(
-    'title' => 'Create Layout',
+    'title' => 'Create Stage',
     'type' => MENU_LOCAL_TASK,
     'page callback' => 'edgemakers_stage_create',
     'access arguments' => array('access content'),
