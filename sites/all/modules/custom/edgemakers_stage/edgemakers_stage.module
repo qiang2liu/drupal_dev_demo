@@ -45,21 +45,21 @@ function edgemakers_stage_menu() {
     'title' => 'Manage Stage',
     'type' => MENU_NORMAL_ITEM,
     'page callback' => 'edgemakers_stage_page',
-    'access arguments' => array('access administration pages'),
+    'access arguments' => array('access content'),
   );
 
   $items['admin/edgemakers/stage/list'] = array(
     'title' => 'Manage stage',
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'page callback' => 'edgemakers_stage_page',
-    'access arguments' => array('access administration pages'),
+    'access arguments' => array('access content'),
   );
 
   $items['admin/edgemakers/stage/create'] = array(
     'title' => 'Create Layout',
     'type' => MENU_LOCAL_TASK,
     'page callback' => 'edgemakers_stage_create',
-    'access arguments' => array('access administration pages'),
+    'access arguments' => array('access content'),
   );
 
   $items['admin/edgemakers/stage/managebox'] = array(
@@ -67,7 +67,7 @@ function edgemakers_stage_menu() {
     'type' => MENU_LOCAL_TASK,
     'page callback' => 'edgemakers_stage_page_managebox',
     'page arguments' => array(4),
-    'access arguments' => array('access administration pages'),
+    'access arguments' => array('access content'),
   );
 
   /*$items['admin/edgemakers/stage/%/edit'] = array(
@@ -75,7 +75,7 @@ function edgemakers_stage_menu() {
     'type' => MENU_LOCAL_TASK,
     'page callback' => 'edgemakers_stage_edit',
     'page arguments' => array(3),
-    'access arguments' => array('access administration pages'),
+    'access arguments' => array('access content'),
   );*/
 
   return $items;
@@ -144,7 +144,7 @@ function edgemakers_stage_page() {
       'modal/node/' . $node->nid . '/edit/nojs/1',
       array(
         'query' => array(
-          'destination' => 'admin/edgemakers/stage',
+          'destination' => drupal_get_destination(),
         ),
         'attributes' => array(
           'class' => array('ctools-use-modal'),
@@ -152,7 +152,13 @@ function edgemakers_stage_page() {
       )
     );
     $managebox_url = l('Manage Box', 'admin/edgemakers/stage/managebox/' . $node->nid);
-    $delete_url = l('Delete', 'node/' . $node->nid . '/delete', array('query' => array('destination' => 'admin/edgemakers/stage')));
+    $delete_url = l('Delete', 'node/' . $node->nid . '/delete',
+      array(
+        'query' => array(
+          'destination' => drupal_get_destination(),
+        )
+      )
+    );
 
     $options[$node->nid] = array(
       'title' => check_plain($node->title),
@@ -537,13 +543,18 @@ function edgemakers_stage_form_alter(&$form, $form_state, $form_id) {
 
   if ($form_id == $stage_form_id) {
 
+    if ((arg(1) == 'edgemakers' && arg(2) == 'stage')
+      || (arg(0) == 'modal')
+    ) {
 
-    $form['actions']['submit']['#submit'][] = '_edgemakers_stage_node_submit_redirect_handler';
-    $form['#redirect'] = 'admin/edgemakers/set';
+      $form['actions']['submit']['#submit'][] = '_edgemakers_stage_node_submit_redirect_handler';
+      $form['#redirect'] = 'admin/edgemakers/set';
 
-    unset($form['actions']['preview']);
-    unset($form['actions']['delete']);
-    //unset($form['box_index_data']);
+      unset($form['actions']['preview']);
+      unset($form['actions']['delete']);
+      unset($form['box_index_data']);
+
+    }
   }
 }
 
@@ -656,7 +667,7 @@ function edgemakers_stage_set_list_form($form, &$form_state, $stage_id = '') {
         'operations' => array(
           '#type' => 'link',
           '#title' => t('delete'),
-          '#href' => 'admin/edgemakers/stage/setindex/ajaxdelete/' . $stage_id . '/' . $item->nid . '/nojs/',
+          '#href' => 'admin/edgemakers/stage/setindex/ajaxdelete/' . $stage_id . '/' . $item->nid . '/nojs/1',
           '#attributes' => array('class' => array('use-ajax')),
         ),
 
