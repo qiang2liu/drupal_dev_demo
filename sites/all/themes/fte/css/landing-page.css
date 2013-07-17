@@ -254,6 +254,11 @@ ul.level-first-has-child ul>li{
 body.page-node-15 #main{
 	background:#c03030;
 }
+
+body.page-learn-stage #header{
+  display: none; 
+}
+
 body #main{
    background:#eee;
    font-family:sans-serif;

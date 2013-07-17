@@ -140,3 +140,9 @@ function fte_mass_contact_mail_page_submit_handler($form, &$form_state) {
  
   $form_state['redirect'] = 'home';
 }
+function fte_menu_alter(&$items) {
+  $items['node/add/webform']['description'] = '';
+  $items['mass_contact']['description'] = '';
+  $items['admin/people']['description'] = '';
+  
+}

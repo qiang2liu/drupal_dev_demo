@@ -49,8 +49,71 @@ class Muralapi {
     return $ret;
   }
 
+  public function duplicate_mural($username, $muralid, $params) {
+    $params['ownerId'] = $this->the_org;
+    $data = drupal_json_encode($params);
+    $apiname = "/api/murals/" . $this->the_org . '/' . $muralid . '/duplicate';
+    $apiurl = $this->muralapi_base_url . $apiname;
+    $the_auth_string = $this->get_auth_string($username, $apiname, 'POST');
+    $options = array();
+    $options['headers'] = array('x-mural-ly-user' => $username,
+        'x-mural-ly-context' => $this->the_org,
+        'Authorization' => "MURALLY " . $username . ":" . $the_auth_string,
+        'User-Agent' => $this->user_agent,
+        'Content-Type' => "application/json",
+    );
+
+
+    $options['method'] = 'POST';
+    $options['data'] = $data;
+
+
+
+
+
+    $ret = drupal_http_request($apiurl, $options);
+    return $ret;
+  }
+
+  public function create_mural($username, $params) {
+    /*
+      $ret = array();
+      $required_key = array('title','room',);
+      foreach($required_key as $k=>$v) {
+      if (empty($params[$v])) {
+      $ret['err'] = 1;
+      $ret['err_msg'] = "parameter error";
+      return $ret;
+      }
+      }
+     * 
+     */
+    $params['ownerId'] = $this->the_org;
+    $data = drupal_json_encode($params);
+    $apiurl = $this->muralapi_base_url . "/api/murals";
+    $the_auth_string = $this->get_auth_string($username, '/api/murals', 'POST');
+    $options = array();
+    $options['headers'] = array('x-mural-ly-user' => $username,
+        'x-mural-ly-context' => $this->the_org,
+        'Authorization' => "MURALLY " . $username . ":" . $the_auth_string,
+        'User-Agent' => $this->user_agent,
+        'Content-Type' => "application/json",
+    );
+
+
+    $options['method'] = 'POST';
+    $options['data'] = $data;
+
+
+
+
+
+    $ret = drupal_http_request($apiurl, $options);
+    return $ret;
+  }
+
   public function create_user($user, $theurl, $themethod) {
-    $user_data = drupal_http_build_query($user);
+    //$user_data = drupal_http_build_query($user);
     $user_data = drupal_json_encode($user);
     $theuser = $this->the_org;
 
