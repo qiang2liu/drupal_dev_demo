@@ -197,7 +197,7 @@ function  setup_video_status_capture(ytplayer) {
   
   
   function change_stage(m,s) {
-    location.href="/learn/"+m+"/stage/"+s;
+    location.href="<?php print $base_path;?>/learn/"+m+"/stage/"+s;
   }
   
   </script>

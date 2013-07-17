@@ -39,6 +39,7 @@ function fte_modulestage_view($mid, $sid) {
     $v1 = new stdClass();
     $v1->title = check_plain($v->title);
     $v1->sid = $index_sid;
+    $v1->desc = render(field_view_field('node',$v,'body',array('label'=>'hidden')));
 
     switch ($v->type) {
       case 'stages_template1': //stage text template
@@ -47,7 +48,7 @@ function fte_modulestage_view($mid, $sid) {
         $v1->time = 0;
         $the_desc_array = field_get_items('node', $v, 'field_stage_text');
         $v1->content = $the_desc_array[0]['safe_value'];
-        $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_1', array('data' => $v1->sid));
+        $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_1', array('data' => $v1));
 
         break;
       case 'stage_mural_template':
@@ -56,9 +57,9 @@ function fte_modulestage_view($mid, $sid) {
         $v1->yid = '';
         $v1->content = '<iframe src="http://mrl.li/14zQVid" width="730" height="330" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
 
-        $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_3', array('data' => $v1->sid));
+        $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_3', array('data' => $v1));
 
-        $v1->content_right = theme('fte_learn_module_stage_right', array('data' => $v1->sid));
+        $v1->content_right = theme('fte_learn_module_stage_right', array('data' => $v1));
 
         break;
       case 'stages_template2': //stage video template
@@ -74,7 +75,7 @@ function fte_modulestage_view($mid, $sid) {
         }
          $v1->play = 0;
           $v1->time = 0;
-          $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_2', array('data' => $v1->sid));
+          $v1->content_bottom = theme('fte_learn_module_stage_bottom_style_2', array('data' => $v1));
 
        break;
        case 'stage_assignment_template':
@@ -227,4 +228,4 @@ function fte_modulestage_view($mid, $sid) {
     return node_load_multiple($the_stage_nid);
   }
 
-  
+ 

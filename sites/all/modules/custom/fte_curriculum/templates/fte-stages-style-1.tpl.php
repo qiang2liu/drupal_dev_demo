@@ -21,7 +21,11 @@ global $base_path;
      </div>
      <div class="stage_bottom_content_inner">
     	<div class="stage_bottom_content_inner_content">
-          <p>Welcome to EDGEmakers: Finding our Bearing: Leaning Forward: Stage 1. Do not be fooled into thinking this is education. It's not. Its really just a sequence of videos, interactive interfaces and throbbing head banging ideas and content. You've been warned.</p>
+          <p>
+            <?php
+             print $data->desc;
+            ?>
+          </p>
         
         </div>  
     	<div class="stage_bottom_content_inner_content">
