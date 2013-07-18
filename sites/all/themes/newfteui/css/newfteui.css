@@ -1,0 +1,133 @@
+@charset "utf-8";
+/*reset*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+img{
+	max-height:100%;
+	max-width:100%;
+}
+
+/* general */
+html{
+	background:url(../images/momo.jpg) center center no-repeat;
+}
+body{
+	line-height: 1.5;
+	font-size:85%;
+	height:100%;
+	font-family:Tahoma;
+}
+/*community*/
+.community{
+	background:rgba(154,154,154,0.7);
+	width:63.5%;
+	margin:0 auto;
+	position:relative;
+	z-index:1;
+	padding-top:30px;
+	height:820px;
+	top:-790px;
+	transition-property: top;
+	transition-duration: 1s;
+	transition-timing-function: linear;
+	transition-delay: 0;
+}
+.community.active{
+	top:0;
+}
+@keyframes colorChange {
+  from {background: rgba(154,154,154,0.7);}
+  to {background: rgba(200,200,200,0.7);}
+}
+@-webkit-keyframes colorChange {
+  from {background: rgba(154,154,154,0.7);}
+  to {background: rgba(200,200,200,0.7);}
+}
+.community.flash{
+  animation:colorChange 0.5s infinite;
+  -webkit-animation:colorChange 0.5s infinite;
+}
+.community .region{
+	margin:0 35px;
+	background:rgba(255,255,255,0.5);
+	height:750px;
+}
+.community .indicator{
+	position:absolute;
+	text-align:center;
+	width:100%;
+	bottom:15px;
+}
+.community .indicator span{
+	border-radius:20px;
+	display:inline-block;
+	margin:auto;
+	width:20px;
+	height:20px;
+	background:#fff;
+	cursor: pointer;
+}
+.community .indicator span:hover{
+	background:#f5c226;
+	color:#fff;
+}
+
+/* toolbar */
+.tool-bar{
+	position:absolute;
+	top:150px;
+	left:0;
+}
+.tool-bar .toolbar-handler{
+	width:36px;
+	height:36px;
+	background-image:url(../images/newui_ico_toolbar.png) center center no-repeat rgba(154,154,154,0.7);
+}
+
+/* content */
+.main-content{
+	position:absolute;
+	top:150px;
+	left:24.5%;
+}

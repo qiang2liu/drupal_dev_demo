@@ -22,24 +22,9 @@ global $base_path, $base_url;
      </div>
      <div class="stage_bottom_content_inner">
     	<div class="stage_bottom_content_inner_content">
-           <?php  if ($data==5) {?>
-          <p>We've partnered with a tool company which makes a collaborative canvas called MURAL.LY. We're going to be sending you to Mural.ly throughout our LEARN Stages - asking you to think visually; utilizing templates, graphics, text, external documents and videos and images. Mural.ly produces documenst called "murals" and every EDGEmaker will have their own set of murals, or be able to participate in shared murals.</p>
-         <p>Mural.ly is a collaborative canvas - that you can use to design, produce and organize Projects - which can then be submitted as entries to Competitions.</p>
-         <p>We're also going to show you how to use Mural.ly murals to build and maintain Portfolios - which you can then use to send to colleges or internship applications.</p>
-
-            <?php
-             }
-			  
-			?>
-            
-            <?php  if ($data==6) {?>
-          <p>Here's another usage of Mural.ly - starting with a template and modifying it and saving off your own version.</p>
-         
-
-            <?php
-             }
-			  
-			?>
+          <?php
+             print $data->desc;
+            ?>
          
           
         </div>  

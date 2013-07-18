@@ -59,7 +59,11 @@ function fte_curriculum_theme($existing, $type) {
 }
 
 function fte_curriculum_form_alter(&$form, &$form_state, $form_id) {
+   
   switch ($form_id) {
+    
+    
+   
 
     case 'stage_assignment_template_node_form':
     case 'stages_template2_node_form':  //video stage
@@ -72,6 +76,8 @@ function fte_curriculum_form_alter(&$form, &$form_state, $form_id) {
         $form['field_video_key'][$lan]['#element_validate'][] = '_fte_youtube_url_check';
       }
       break;
+      
+    
   }
 }
 
