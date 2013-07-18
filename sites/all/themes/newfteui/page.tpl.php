@@ -2,13 +2,13 @@
 ?>
 
     <!-- /community -->
-    <?php if ($page['community']): ?>
+    
       <div class="community">
       	<h2>Community</h2>
         <div class="inner community-inner"><p>This is the sample date of the Community.</p></div>
         <div class="indicator"><span></span></div>
       </div>       
-	<?php endif; ?>
+	
 	
 	<!-- /tool bar and stage selector -->
    
