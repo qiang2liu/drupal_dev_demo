@@ -3,12 +3,11 @@ description = The final UI of Edgemaker.
 package = Core
 version = VERSION
 core = 7.x
-stylesheets[all][] = newfteui.css
+stylesheets[all][] = css/newfteui.css
+scripts[] = js/newfteui.js
 
-stylesheets[print][] = print.css
-settings[garland_width] = fluid
 
-regions[top_menu] = Top menu
+regions[user_profile] = User profile
 regions[tool_bar] = Tool bar
 regions[main_content] = Main content
 regions[sliding_panes] = Sliding panes
