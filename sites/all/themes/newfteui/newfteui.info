@@ -9,7 +9,7 @@ scripts[] = js/newfteui.js
 
 regions[user_profile] = User profile
 regions[tool_bar] = Tool bar
-regions[main_content] = Main content
+regions[content] = Content
 regions[sliding_panes] = Sliding panes
 regions[community] = Community
 
