@@ -120,8 +120,10 @@ function fte_preprocess_node(&$variables) {
     $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
     if($type == 'Inspiration' || $type == 'Showcase')
       $type = 'video';
-    if($type == 'Project' || $type == 'Activity' || $type == 'video')
+    if($type == 'Project' || $type == 'Activity' || $type == 'video') {
+      $variables['display_submitted'] = false;
       $variables['theme_hook_suggestions'][] = 'node__edgemakers_set__'.strtolower($type); 
+    }
   }
 }
 
