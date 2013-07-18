@@ -35,7 +35,7 @@ function edgemakers_stage_menu() {
   $items['admin/edgemakers/stage/setindex/ajaxdelete/%'] = array(
     'title' => 'Delete Set',
     'page callback' => 'edgemakers_set_index_delete_action',
-    'page arguments' => array(5, 6),
+    'page arguments' => array(5, 6, 7),
     'access arguments' => array('access content'),
     'file path' => drupal_get_path('module', 'node'),
     'file' => 'node.pages.inc',
@@ -130,6 +130,12 @@ function edgemakers_stage_help($path, $arg) {
  */
 function edgemakers_set_index_delete_action($stage_id = '', $set_id) {
 
+  $callbak_url = $_GET[q];
+
+  $destination = explode("&destination=", $callbak_url);
+
+  watchdog('Debug', 'Destination: ' . $destination[1] . ' AND args: ' . print_r($destination, TRUE));
+
   $stage = node_load($stage_id);
 
   if (isset($stage->box_index_data[LANGUAGE_NONE])) {
@@ -147,16 +153,13 @@ function edgemakers_set_index_delete_action($stage_id = '', $set_id) {
     node_submit($stage);
     $save_status = node_save($stage);
 
-    _edgemakers_stage_box_index_list_update($stage_id);
+    _edgemakers_stage_box_index_list_update($stage_id, $destination[1]);
 
   }
 
 }
 
-/**
- *
- */
-function _add_set_to_stage_ajax($form, &$form_state) {
+/*function _add_set_to_stage_ajax($form, &$form_state) {
 
   $tableitem = $form_state['values']['set_title'];
   $datas = $form_state['values'];
@@ -209,7 +212,7 @@ function _add_set_to_stage_ajax($form, &$form_state) {
   //unset($_SESSION['lists']);
   //unset($_SESSION['lists'][$datas->stage_id][]);
   return $form['set_list']['set_list_table'];
-}
+}*/
 
 /**
  * Implements hook_form_alter().
@@ -250,3 +253,33 @@ function _edgemakers_stage_node_submit_redirect_handler($form, &$form_state) {
   //}
 }
 
+/**
+ * Update setes list in stage.
+ *
+ * @param int $stage_id
+ */
+function _edgemakers_stage_box_index_list_update($stage_id = '', $destination = '') {
+  $output = _edgemakers_stage_mangebox_index_list_html($stage_id, $destination);
+  $commands = array();
+  $commands[] = ajax_command_replace('#stage_manage_box_index_list', '<div id="stage_manage_box_index_list">' . $output . '</div>');
+  $page = array('#type' => 'ajax', '#commands' => $commands);
+  ajax_deliver($page);
+}
+
+/**
+ * Build form html from hook_form().
+ * @param int $stage_id
+ * @return Ambigous <The, void, string, A, boolean>
+ */
+function _edgemakers_stage_mangebox_index_list_html($stage_id, $destination = '') {
+  module_load_include('inc', 'edgemakers_stage', 'stage.pages');
+  $form = drupal_get_form('edgemakers_stage_set_list_form', $stage_id);
+  $form['#action'] = url($destination);
+  //$form['action'] = drupal_get_destination();
+  //if ($stage_id) {
+    return drupal_render($form);
+  //}
+  //else {
+  //  return '';
+  //}
+}
