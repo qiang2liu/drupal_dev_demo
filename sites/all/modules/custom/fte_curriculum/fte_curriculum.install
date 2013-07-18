@@ -1,0 +1,40 @@
+<?php
+
+function fte_curriculum_schema() {
+  $schema = array();
+  $schema['stageuser'] = array(
+    'description' => 'user view the stage',
+    'fields' => array(
+      'suid' => array(
+        'description' => 'The primary identifier for a stageuser.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'Stores the user id of the stage viewer.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'sid' => array(
+        'description' => 'Stores the stage id of the stage. it is a node',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'created' => array(
+        'description' => 'Stores the creation time of the invite.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'unique keys' => array(
+      'sukey' => array('sid','uid'),
+    ),
+    'primary key' => array('suid'),
+  );
+
+  return $schema;
+}
