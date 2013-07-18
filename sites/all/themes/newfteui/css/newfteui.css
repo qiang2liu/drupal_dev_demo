@@ -309,4 +309,6 @@ body{
 	position:absolute;
 	top:150px;
 	left:24.5%;
+	height:500px;
+	overflow:hidden;
 }
