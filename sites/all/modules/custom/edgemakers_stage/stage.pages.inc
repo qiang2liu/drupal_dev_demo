@@ -43,7 +43,7 @@ function edgemakers_stage_page() {
         'modal/node/' . $node->nid . '/edit/nojs/1',
         array(
             'query' => array(
-                'destination' => drupal_get_destination(),
+                'destination' => $_GET["q"],
             ),
             'attributes' => array(
                 'class' => array('ctools-use-modal'),
@@ -202,15 +202,15 @@ function edgemakers_stage_managebox_form($form, &$form_state) {
 }
 
 /**
- *
- * @param unknown_type $sid
+ * Build options of set_edgemakers_stage_managebox_form
+ * @param int $sid
  */
-function edgemakers_stage_default_set_list_table($sid) {
+/*function edgemakers_stage_default_set_list_table($sid) {
   $output = '';
   $sets = node_load($sid);
   $output = stage_list_table($sid);
   return $output;
-}
+}*/
 
 /**
  * Get dropdown callback;
@@ -372,12 +372,15 @@ function edgemakers_stage_set_list_form($form, &$form_state, $stage_id = '') {
       $nid = !empty($index['set_id'])?$index['set_id']:0;
       if ($nid) {
         $node = node_load($nid);
-        $node->weight = $index['location_index'];
 
-        // Get box type by tid.
-        if (isset($node->field_set_type[LANGUAGE_NONE])) {
-          $node->tname = taxonomy_term_load($node->field_set_type[LANGUAGE_NONE][0]['tid']);
-          //drupal_set_message('Term name (location_index): <pre>' . print_r($node->tname, TRUE) . '</pre>');
+        if (isset($node->nid)) {
+          $node->weight = $index['location_index'];
+
+          // Get box type by tid.
+          if (isset($node->field_set_type[LANGUAGE_NONE])) {
+            $node->tname = taxonomy_term_load($node->field_set_type[LANGUAGE_NONE][0]['tid']);
+            //drupal_set_message('Term name (location_index): <pre>' . print_r($node->tname, TRUE) . '</pre>');
+          }
         }
 
         //drupal_set_message('weight (location_index): ' . $index['location_index']);
@@ -415,43 +418,60 @@ function edgemakers_stage_set_list_form($form, &$form_state, $stage_id = '') {
   if (isset($results)) {
     foreach ($results as $item) {
 
-      // Create a form entry for this item.
-      //
-      // Each entry will be an array using the the unique id for that item as
-      // the array key, and an array of table row data as the value.
-      $form['set_' . $item->nid] = array(
+      if (isset($item->nid)) {
 
-          // We'll use a form element of type '#markup' to display the item name.
-          'name' => array(
-              '#markup' => check_plain($item->title),
-          ),
+        // Create a form entry for this item.
+        //
+        // Each entry will be an array using the the unique id for that item as
+        // the array key, and an array of table row data as the value.
 
-          // We'll use a form element of type '#textfield' to display the item
-          // description, which will allow the value to be changed via the form.
-          // We limit the input to 255 characters, which is the limit we set on
-          // the database field.
-          'type' => array(
-            '#markup' => check_plain($item->tname->name),
-          ),
+        $delete_url = url(
+          'admin/edgemakers/stage/setindex/ajaxdelete/'
+            . $stage_id . '/' . $item->nid . '/nojs/1' ,
+          array('query' => array('destination' => $_GET["q"]))
+        );
+        //$delete_url .= '&destination=' . $_GET["q"];
+        //$uri = entity_uri('node', $item);
 
-          'operations' => array(
-            '#type' => 'link',
-            '#title' => t('delete'),
-            '#href' => 'admin/edgemakers/stage/setindex/ajaxdelete/' . $stage_id . '/' . $item->nid . '/nojs/1',
-            '#attributes' => array('class' => array('use-ajax')),
-          ),
 
-          // The 'weight' field will be manipulated as we move the items around in
-          // the table using the tabledrag activity.  We use the 'weight' element
-          // defined in Drupal's Form API.
-          'weight' => array(
-          '#type' => 'weight',
-          '#title' => t('Weight'),
-          '#default_value' => $item->weight,
-          '#delta' => 10,
-          '#title-display' => 'invisible',
-          ),
-      );
+        $form['set_' . $item->nid] = array(
+
+            // We'll use a form element of type '#markup' to display the item title.
+            'name' => array(
+                '#markup' => check_plain($item->title),
+            ),
+
+            'type' => array(
+              '#markup' => check_plain($item->tname->name),
+            ),
+
+            'operations' => array(
+              '#type' => 'link',
+              '#title' => t('delete'),
+              '#href' => 'admin/edgemakers/stage/setindex/ajaxdelete/'
+                . $stage_id . '/' . $item->nid . '/nojs/1/&destination=' . $_GET["q"],
+              //'admin/edgemakers/stage/setindex/ajaxdelete/' . $stage_id . '/' . $item->nid . '/nojs/1',
+              '#attributes' => array('class' => array('use-ajax')),
+              //'#options' => array('query'=>'query=queryvalue'),
+              /*'#options' => array(
+                'query' => 'destination=destinationcallback',
+                // . drupal_get_destination()
+              ),*/
+            ),
+
+            // The 'weight' field will be manipulated as we move the items around in
+            // the table using the tabledrag activity.  We use the 'weight' element
+            // defined in Drupal's Form API.
+            'weight' => array(
+              '#type' => 'weight',
+              '#title' => t('Weight'),
+              '#default_value' => $item->weight,
+              '#delta' => 10,
+              '#title-display' => 'invisible',
+            ),
+        );
+
+      }
 
     }
   }
@@ -531,8 +551,10 @@ function edgemakers_stage_set_list_form_submit($form, &$form_state) {
 
     foreach ($stage_index AS $key=>$index) {
       if(is_numeric($index['set_id'])) {
-        $location_index = $values['set_' . $index['set_id']];
-        $stage_index[$key]['location_index'] = $values['set_' . $index['set_id']]['weight'];
+        if (isset($values['set_' . $index['set_id']])) {
+          $location_index = $values['set_' . $index['set_id']];
+          $stage_index[$key]['location_index'] = $values['set_' . $index['set_id']]['weight'];
+        }
       }
       //drupal_set_message('<pre>' . print_r($location_index, TRUE) . '</pre>');
       //$stage_index[$key]
@@ -641,26 +663,4 @@ function theme_edgemakers_stage_set_list_form($variables) {
 
   return $output;
 
-}
-
-/**
- * Update setes list in stage.
- *
- * @param int $stage_id
- */
-function _edgemakers_stage_box_index_list_update($stage_id = '') {
-  $output = _edgemakers_stage_mangebox_index_list_html($stage_id);
-  $commands = array();
-  $commands[] = ajax_command_replace('#stage_manage_box_index_list', '<div id="stage_manage_box_index_list">' . $output . '</div>');
-  $page = array('#type' => 'ajax', '#commands' => $commands);
-  ajax_deliver($page);
-}
-
-/**
- * Build form html from hook_form().
- * @param int $stage_id
- * @return Ambigous <The, void, string, A, boolean>
- */
-function _edgemakers_stage_mangebox_index_list_html($stage_id) {
-  return drupal_render(drupal_get_form('edgemakers_stage_set_list_form', $stage_id));
 }

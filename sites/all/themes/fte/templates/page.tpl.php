@@ -245,12 +245,14 @@
         <?php
           if ($logged_in) {
          ?>
-             <a href ='<?php print $base_url;?>/user/logout'> Logout</a>
+             <!-- <a href ='<?php print $base_url;?>/user/logout'> Logout</a> -->
+             <?php echo l(' Logout', '/user/logout');?>
         <?php
           }
            else  {
         ?>
-        <a href ='<?php print $base_url;?>/user/login'> Login</a>
+        <!-- <a href ='<?php print $base_url;?>/user/login'> Login</a> -->
+        <?php echo l(' Login', '/user/login');?>
         <?php } ?>
       </span>
       <?php
