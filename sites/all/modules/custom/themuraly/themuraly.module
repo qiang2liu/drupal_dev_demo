@@ -16,12 +16,47 @@ function muralapi_test() {
   
   //_test_mural_create_mural();
   
-  _test_mural_duplicate_mural();
+ // _test_mural_duplicate_mural();
+  // _test_mural_update_property_mural();
+  //_test_mural_del();
+   //_test_mural_list_for_a_user();
+  return "ok333";
+}
+function _test_mural_del() {
+   $mural_api = new Muralapi;
+  $username = "testuser";
+  $muralid = "1373655029627";
+  $result = $mural_api->delete_mural($username,$muralid);
+  $data = $result->data;
+  $r = drupal_json_decode($data);
+  dpm($result);
+  dpm($r);
+}
+function _test_mural_archive() {
+  $mural_api = new Muralapi;
+  $username = "testuser";
+  $muralid = "1373060835200";
+  $archive_flag = 0;
+  $result = $mural_api->archive_mural($username,$muralid, $archive_flag);
+  $data = $result->data;
+  $r = drupal_json_decode($data);
+  dpm($result);
+  dpm($r);
   
-  _test_mural_list_for_a_user();
-  return "ok111";
 }
 
+function _test_mural_update_property_mural() {
+  $mural_api = new Muralapi;
+  $username = "testuser";
+  $muralid = "1373060835200";
+  $property_name = "xxt";
+  $property_value = "test change description value";
+  $result = $mural_api->update_mural_properties($username, $muralid, $property_name, $property_value);
+  $data = $result->data;
+  $r = drupal_json_decode($data);
+  dpm($result);
+  dpm($r);
+}
 
 function _test_mural_duplicate_mural() {
   $mural_api = new Muralapi;

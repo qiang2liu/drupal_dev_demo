@@ -35,9 +35,9 @@ class Muralapi {
     $apiurl = "http://staging.mural.ly/api/murals";
     $options = array();
     $options['headers'] = array('x-mural-ly-user' => $username,
-        'x-mural-ly-context' => $this->the_org,
-        'Authorization' => "MURALLY " . $username . ":" . $the_auth_string,
-        'User-Agent' => $this->user_agent,
+      'x-mural-ly-context' => $this->the_org,
+      'Authorization' => "MURALLY " . $username . ":" . $the_auth_string,
+      'User-Agent' => $this->user_agent,
     );
 
 
@@ -57,10 +57,10 @@ class Muralapi {
     $the_auth_string = $this->get_auth_string($username, $apiname, 'POST');
     $options = array();
     $options['headers'] = array('x-mural-ly-user' => $username,
-        'x-mural-ly-context' => $this->the_org,
-        'Authorization' => "MURALLY " . $username . ":" . $the_auth_string,
-        'User-Agent' => $this->user_agent,
-        'Content-Type' => "application/json",
+      'x-mural-ly-context' => $this->the_org,
+      'Authorization' => "MURALLY " . $username . ":" . $the_auth_string,
+      'User-Agent' => $this->user_agent,
+      'Content-Type' => "application/json",
     );
 
 
@@ -94,10 +94,10 @@ class Muralapi {
     $the_auth_string = $this->get_auth_string($username, '/api/murals', 'POST');
     $options = array();
     $options['headers'] = array('x-mural-ly-user' => $username,
-        'x-mural-ly-context' => $this->the_org,
-        'Authorization' => "MURALLY " . $username . ":" . $the_auth_string,
-        'User-Agent' => $this->user_agent,
-        'Content-Type' => "application/json",
+      'x-mural-ly-context' => $this->the_org,
+      'Authorization' => "MURALLY " . $username . ":" . $the_auth_string,
+      'User-Agent' => $this->user_agent,
+      'Content-Type' => "application/json",
     );
 
 
@@ -122,10 +122,10 @@ class Muralapi {
     $apiurl = $this->muralapi_base_url . $theurl;
     $options = array();
     $options['headers'] = array('x-mural-ly-user' => $this->the_org,
-        'x-mural-ly-context' => $this->the_org,
-        'Authorization' => "MURALLY edgemakers:" . $the_auth_string,
-        'User-Agent' => $this->user_agent,
-        'Content-Type' => "application/json",
+      'x-mural-ly-context' => $this->the_org,
+      'Authorization' => "MURALLY edgemakers:" . $the_auth_string,
+      'User-Agent' => $this->user_agent,
+      'Content-Type' => "application/json",
     );
 
 
@@ -138,6 +138,77 @@ class Muralapi {
 
     $ret = drupal_http_request($apiurl, $options);
 
+    return $ret;
+  }
+
+  public function update_mural_properties($theuser, $muralid, $the_name, $the_value) {
+    $themethod = "PUT";
+    $the_owner = $this->the_org;
+    $theapi = "/api/murals/" . $the_owner . "/" . $muralid . "/" . $the_name;
+    $theurl = $this->muralapi_base_url . $theapi;
+    $the_auth_string = $this->get_auth_string($theuser, $theapi, $themethod);
+    $data = array();
+    $data['value'] = $the_value;
+    $data = drupal_json_encode($data);
+
+    $options = array();
+    $options['headers'] = array('x-mural-ly-user' => $theuser,
+      'x-mural-ly-context' => $this->the_org,
+      'Authorization' => "MURALLY " . $theuser . ":" . $the_auth_string,
+      'User-Agent' => $this->user_agent,
+      'Content-Type' => "application/json",
+    );
+    $options['method'] = $themethod;
+    $options['data'] = $data;
+
+    $ret = drupal_http_request($theurl, $options);
+    return $ret;
+  }
+
+  public function delete_mural($username, $muralid) {
+    $the_method = "DELETE";
+    $the_api = "/api/murals/" . $this->the_org . "/" . $muralid;
+    $theurl = $this->muralapi_base_url . $the_api;
+    $the_auth_string = $this->get_auth_string($username, $the_api, $the_method);
+    $options = array();
+    $options['headers'] = array('x-mural-ly-user' => $username,
+      'x-mural-ly-context' => $this->the_org,
+      'Authorization' => "MURALLY " . $username . ":" . $the_auth_string,
+      'User-Agent' => $this->user_agent,
+      
+    );
+    $options['method'] = $the_method;
+    
+
+    $ret = drupal_http_request($theurl, $options);
+    return $ret;
+  }
+
+  public function archive_mural($username, $muralid, $archive_flag) {
+    $the_method = "POST";
+    $the_api = "/api/murals/" . $this->the_org . "/" . $muralid . "/archive";
+    $theurl = $this->muralapi_base_url . $the_api;
+    $the_auth_string = $this->get_auth_string($username, $the_api, $the_method);
+    $data = array();
+    $the_flag = (bool) $archive_flag;
+    if ($the_flag) {
+      $data['archive'] = 1;
+    } else {
+      $data['archive'] = 0;
+    }
+
+    $data = drupal_json_encode($data);
+    $options = array();
+    $options['headers'] = array('x-mural-ly-user' => $username,
+      'x-mural-ly-context' => $this->the_org,
+      'Authorization' => "MURALLY " . $username . ":" . $the_auth_string,
+      'User-Agent' => $this->user_agent,
+      'Content-Type' => "application/json",
+    );
+    $options['method'] = $the_method;
+    $options['data'] = $data;
+
+    $ret = drupal_http_request($theurl, $options);
     return $ret;
   }
 
