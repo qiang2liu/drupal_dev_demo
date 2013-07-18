@@ -47,7 +47,16 @@ global $base_path;
       
       </div>
    	   <div class="stage_bottom_content_inner">
-         <p>This is comments.</p>
+         <p>
+           
+           <?php
+            
+             print render((comment_node_page_additions($data->node)));
+            
+           ?>
+           
+           
+         </p>
         </div>
    </div>
 

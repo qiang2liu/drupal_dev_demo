@@ -25,28 +25,11 @@ global $base_url;
          </div>
          <div class="stage_bottom_content_inner">
             <div class="stage_bottom_content_inner_content">
-              <?php  if ($data==2) {?>
-          <p>Here's Brieana, our young and relevant tour guide, making all this change - easier.</p>
-            <?php
-             }
-			  
-			?>
-            
-            <?php  if ($data==3) {?>
-          <p>We'd like to introduce you to John Kao, our founder and longtime Creativity and Innovation instructor, professor and mentor. He's going to talk about what it means to "Lean forward.</p>
-            <?php
-             }
-			  
-			?>
-            
-            <?php  if ($data==4) {?>
-          <p>Now we'd like to show you an Apple ad from 1997 which describes pretty well - who you are.</p>
-            <?php
-             }
-			  
-			?>
-            
-            
+             <p>
+               <?php
+             print $data->desc;
+            ?>
+             </p>
 
 
               

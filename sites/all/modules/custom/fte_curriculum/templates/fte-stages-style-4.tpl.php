@@ -21,7 +21,9 @@ global $base_url;
      </div>
      <div class="stage_bottom_content_inner">
     	<div class="stage_bottom_content_inner_content">
-        	<p>Here's where YOU get to tell us what you think - what we should change inside of EDGEmakers and how we might make it better. Or you can just create a video and send it to us..... or send us a mural!</p>
+        	<p><?php
+             print $data->desc;
+            ?></p>
         </div>  
     	<div class="stage_bottom_content_inner_content">
          <ul>
