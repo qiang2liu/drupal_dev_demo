@@ -30,7 +30,7 @@
 			},
 			removeAllActive : function(){
 				$('div').not('.toolbar-handler').not('.toolbar-box').not(this).removeClass('active');
-				$(this).addClass('active');
+				$(this).toggleClass('active');
 			}
 		});
 	})(jQuery);
