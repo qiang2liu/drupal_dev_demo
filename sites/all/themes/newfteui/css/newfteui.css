@@ -50,12 +50,13 @@ img{
 
 /* general */
 html{
-	background:url(../images/momo.jpg) center center no-repeat;
+	background:url(../images/momo.jpg);
+	
 }
 body{
 	line-height: 1.5;
 	font-size:85%;
-	height:100%;
+	overflow-x:hidden;
 	font-family:Tahoma;
 }
 /*community*/
@@ -69,7 +70,7 @@ body{
 	height:820px;
 	top:-790px;
 	transition-property: top;
-	transition-duration: 1s;
+	transition-duration: .2s;
 	transition-timing-function: linear;
 	transition-delay: 0;
 }
@@ -77,16 +78,31 @@ body{
 	top:0;
 }
 @keyframes colorChange {
-  from {background: rgba(154,154,154,0.7);}
-  to {background: rgba(200,200,200,0.7);}
+  from {background-color: rgba(154,154,154,0.7);}
+  to {background-color: rgba(200,200,200,0.7);}
 }
 @-webkit-keyframes colorChange {
-  from {background: rgba(154,154,154,0.7);}
-  to {background: rgba(200,200,200,0.7);}
+  from {background-color: rgba(154,154,154,0.7);}
+  to {background-color: rgba(200,200,200,0.7);}
 }
-.community.flash{
+@keyframes colorChange1 {
+  from {background-color: rgba(200,200,200,0.7);}
+  to {background-color: rgba(240,240,240,0.7);}
+}
+@-webkit-keyframes colorChange1 {
+  from {background-color: rgba(200,200,200,0.7);}
+  to {background-color: rgba(240,240,240,0.7);}
+}
+
+.community.flash,
+.stage-selector-handler em.flash{
   animation:colorChange 0.5s infinite;
   -webkit-animation:colorChange 0.5s infinite;
+}
+.stage-box.flash,
+.stage-selector-handler span.flash{
+  animation:colorChange1 0.5s infinite;
+  -webkit-animation:colorChange1 0.5s infinite;
 }
 .community .region{
 	margin:0 35px;
@@ -114,20 +130,185 @@ body{
 }
 
 /* toolbar */
-.tool-bar{
+.toolbar-stage{
 	position:absolute;
 	top:150px;
 	left:0;
+	z-index:1;
 }
-.tool-bar .toolbar-handler{
-	width:36px;
-	height:36px;
-	background-image:url(../images/newui_ico_toolbar.png) center center no-repeat rgba(154,154,154,0.7);
+.tool-bar{
+	position:relative;
+   
+}
+.toolbar-handler{
+	width:50px;
+	height:50px;
+	background:url(../images/newui_ico_toolbar.png) center center no-repeat rgba(154,154,154,0.7);
+	cursor:pointer;
+	position:absolute;
+	z-index:5;
+	top:0;
+	left:0;
+}
+.toolbar-handler:hover,
+.toolbar-handler.active{
+	background:url(../images/newui_ico_toolbar.png) center center no-repeat;
+	
+}
+.toolbar-handler:hover{
+	animation:colorChange 0.5s infinite;
+  	-webkit-animation:colorChange 0.5s infinite;
 }
 
+.toolbar-box{
+	position:absolute;
+	width:180px;
+	top:0;
+	left:-180px;
+	transition-property: left;
+	transition-duration: .2s;
+	transition-timing-function: linear;
+	transition-delay: 0;
+	 /* for test */
+  	height:590px;
+  	background:url(../images/example_01.png);
+}
+.toolbar-box.active{
+	left:0;
+}
+
+/* stage-selector */
+.stage-selector{
+	overflow:hidden;
+	width:50px;
+	position:absolute;
+	top:600px;
+	transition-property: width;
+	transition-duration: .2s;
+	transition-timing-function: linear;
+	transition-delay: 0;
+}
+.stage-selector:hover,
+.stage-selector-handler{
+	width:180px;
+}
+.stage-selector-handler,
+.stage-box{
+	float: left;
+}
+.stage-box{
+	width:475px;
+	padding:15px;
+	/* for test */
+	height:101px;
+	background:url(../images/example_02.png) center center no-repeat rgba(200,200,200,0.7);
+}
+.stage-selector.active,
+.stage-selector-inner{
+	width:685px;
+}
+
+.stage-selector-handler em{
+	float:left;
+	width:50px;
+	height:50px;
+	background:url(../images/newui_ico_stage_selector.png) center center no-repeat rgba(154,154,154,0.7);
+	cursor:pointer;
+}
+
+.stage-selector-handler span{
+	float:left;
+	width:130px;
+	height:50px;
+	line-height:50px;
+	font-weight:bold;
+	color:#fff;
+	text-align:center;
+	background:rgba(200,200,200,0.7)
+}
+
+/* sliding panes */
+.sliding-panes{
+	position:absolute;
+	width:70px;
+	top:150px;
+	right:0;
+}
+.pane-handler{
+	width:35px;
+	height:64px;
+	border-radius: 10px 0 0 10px;
+	margin-bottom:8px;
+	float:right;
+	cursor:pointer;
+	clear:right;
+	transition-property: width border-radius;
+	transition-duration: .1s;
+	transition-timing-function: linear;
+	transition-delay: 0;
+	background-repeat:no-repeat;
+	background-position: center center;
+}
+
+.studio-handler{
+	background-color:rgba(189,21,54,1.0);
+}
+.chanllenge-handler{
+	background-color:rgba(19,119,151,1.0);
+}
+.competitions-handler{
+	background-color:rgba(244,126,64,1.0);
+}
+.pane-handler:hover{
+	width:70px;
+	border-radius:0;
+}
+.pane-handler.active{
+	width:70px;
+	border-radius:0;
+}
+.pane{
+	width:63.5%;
+	position:absolute;
+	right:-63.5%;
+	padding: 10px 0;
+	border-radius:10px;
+	top:150px;
+	transition-property: right;
+	transition-duration: .2s;
+	transition-timing-function: linear;
+	transition-delay: 0;
+    /* for test */
+	height:806px;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.pane.show{
+	right:70px;
+}
+#studio{
+	background-image: url(../images/example_03.png);
+	background-color:rgba(189,21,54,1.0);
+}
+#studio.show{
+	border-radius: 10px 0 10px 10px;
+}
+#challenge{
+	background-image: url(../images/example_04.png);
+	background-color:rgba(19,119,151,1.0);
+}
+#competitions{
+	background-image: url(../images/example_05.png);
+	background-color:rgba(244,126,64,1.0);
+}
+/*.pane-handler.active:hover{
+	background-image:url(../images/newui_ico_pane_handler_ac.png);
+}*/
 /* content */
 .main-content{
 	position:absolute;
 	top:150px;
 	left:24.5%;
+	height:500px;
+	overflow:hidden;
 }
