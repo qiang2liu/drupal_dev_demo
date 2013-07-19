@@ -7,3 +7,55 @@ function edgemakers_topic_views_api() {
     'api' => 3,
   );
 }
+/**
+ * Implements hook_form_alter().
+ *
+}*/
+function edgemakers_topic_form_alter(&$form, $form_state, $form_id) {
+  if ($form_id == 'taxonomy_form_term' && $form['vocabulary_machine_name']['#value'] == 'challenges_vocabulary') {
+    unset($form['description']);
+  } else if ($form_id == 'carousel_item_node_form') {
+    $form['field_carousel_item_topic'][LANGUAGE_NONE]['#options']['_none'] = t('Outer Link');
+    $form['field_carousel_item_topic'][LANGUAGE_NONE]['#after_build'] = array('_edgemakers_topic_load_my_javascript');
+    $form['field_carousel_item_topic']['#attributes']['onchange'] = 'edgemakers_topic_url_field_action();';
+    $topics = field_get_items('node', $form['#node'], 'field_carousel_item_topic');
+    if($topics && count($topics) > 0)
+      $form['field_carousel_item_link']['#attributes']['style'] = 'display:none;';
+  }
+}
+/**
+ * Implements hook_node_validate().
+ *
+ */
+function edgemakers_topic_node_validate($node, $form, &$form_state) {
+  if ($node->type == 'carousel_item') {
+    $topics = field_get_items('node', $node, 'field_carousel_item_topic');
+    $topic = $topics && count($topics) > 0 ? $topics[0]['target_id'] : '';
+    if(!$topic) {
+      $links = field_get_items('node', $node, 'field_carousel_item_link');
+      $link = $links && count($links) > 0 ? $links[0]['url'] : '';
+      if(!$link) {
+        form_set_error('field_carousel_item_topic', t('Please Select a Topic or Enter a Link'));
+      }
+    }
+  }
+}
+/**
+ * Implements hook_node_submit().
+ *
+ */
+function edgemakers_topic_node_submit($node, $form, &$form_state) {
+  if ($node->type == 'carousel_item') {
+    $topics = $form_state['values']['field_carousel_item_topic'][LANGUAGE_NONE];
+    $topic = $topics && count($topics) > 0 ? $topics[0]['target_id'] : '';
+    $links = $form_state['values']['field_carousel_item_link'][LANGUAGE_NONE];
+    $link = $links && count($links) > 0 ? $links[0]['url'] : '';
+    if($topic && $link) {
+      $node->field_carousel_item_link[LANGUAGE_NONE][0]['url'] = '';
+    }
+  }
+}
+function _edgemakers_topic_load_my_javascript($element){
+  drupal_add_js(drupal_get_path('module', 'edgemakers_topic').'/js/carouselform.js');
+  return($element);
+}
