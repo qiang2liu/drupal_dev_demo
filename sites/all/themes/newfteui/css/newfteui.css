@@ -93,6 +93,22 @@ body{
   from {background-color: rgba(200,200,200,0.7);}
   to {background-color: rgba(240,240,240,0.7);}
 }
+@keyframes colorChange-profile {
+  from {background-color: rgba(105,162,173,0.7);}
+  to {background-color: rgba(105,162,173,1.0);}
+}
+@-webkit-keyframes colorChange-profile {
+  from {background-color: rgba(105,162,173,0.7);}
+  to {background-color: rgba(105,162,173,1.0);}
+}
+@keyframes opacity {
+  from {opacity: .7;}
+  to {opacity: 1.0;}
+}
+@-webkit-keyframes opacity {
+  from {opacity: .7;}
+  to {opacity: 1.0;}
+}
 
 .community.flash,
 .stage-selector-handler em.flash{
@@ -103,6 +119,10 @@ body{
 .stage-selector-handler span.flash{
   animation:colorChange1 0.5s infinite;
   -webkit-animation:colorChange1 0.5s infinite;
+}
+.user-profile:hover{
+  animation:colorChange-profile 0.5s infinite;
+  -webkit-animation:colorChange-profile 0.5s infinite;
 }
 .community .region{
 	margin:0 35px;
@@ -249,7 +269,6 @@ body{
 	background-repeat:no-repeat;
 	background-position: center center;
 }
-
 .studio-handler{
 	background-color:rgba(189,21,54,1.0);
 }
@@ -262,6 +281,8 @@ body{
 .pane-handler:hover{
 	width:70px;
 	border-radius:0;
+	animation:opacity 0.5s infinite;
+   -webkit-animation:opacity 0.5s infinite;
 }
 .pane-handler.active{
 	width:70px;
@@ -304,6 +325,61 @@ body{
 /*.pane-handler.active:hover{
 	background-image:url(../images/newui_ico_pane_handler_ac.png);
 }*/
+
+/* user profile */
+.user-profile{
+	width:54px;
+	height:54px;
+	padding:4px;
+	top:1000px;
+	right:4px;
+	position:absolute;
+	border-radius:30px;
+	background:url(../images/newui_bg_profile.png) center center no-repeat;
+	cursor: pointer;
+}
+.user-profile:hover{
+	background:url(../images/newui_bg_profile.png) center center no-repeat rgba(105,162,173,0.7);
+}
+.user-profile-inner{
+   border-radius:30px;
+   position:absolute;
+   top:4px;
+   left:4px;
+    /* test */
+   height:54px;
+   width:54px;
+   background: url(../images/example_06.png);
+   
+}
+.user-box{
+	position:absolute;
+	right:27px;
+	bottom:27px;
+	background:rgba(105,162,173,0.7);
+	width:0;
+	height:0;
+	overflow:hidden;
+	padding:5px;
+	color: #fff;
+	text-align:center;
+	font-size:1.2em;
+	transition-property: width height;
+	transition-duration: .2s;
+	transition-timing-function: linear;
+	transition-delay: 0;
+}
+.user-profile.active .user-box{
+	width:100px;
+	height:100px;
+}
+.user-box h4{
+	font-weight:bold;
+	margin-bottom:.5em;
+}
+.user-box a{
+	color:#fff;
+}
 /* content */
 .main-content{
 	position:absolute;

@@ -70,15 +70,29 @@
 	
 	
 	<!-- /sliding panes -->
-      <div class="sliding-panes">
-      	<div class="studio-handler pane-handler" data-aim="studio"></div>
-      	<div class="chanllenge-handler pane-handler" data-aim="challenge"></div>
-      	<div class="competitions-handler pane-handler"  data-aim="competitions"></div>
-        <?php print render($page['sliding_panes']); ?>
-      </div>
-      <div class="pane" id="studio"></div>
-      <div class="pane" id="challenge"></div>
-      <div class="pane" id="competitions"></div>
+	  <div class="sliding-panes">
+	  	<div class="studio-handler pane-handler" data-aim="studio"></div>
+	  	<div class="chanllenge-handler pane-handler" data-aim="challenge"></div>
+	  	<div class="competitions-handler pane-handler"  data-aim="competitions"></div>
+	    <?php print render($page['sliding_panes']); ?>
+	  </div>
+	  <div class="pane" id="studio"></div>
+	  <div class="pane" id="challenge"></div>
+	  <div class="pane" id="competitions"></div>
+      
+    <!-- / user profile-->
+	  <div class="user-profile">
+	  		<div class="user-box">
+    			<h4>Name</h4>
+    			<ul>
+    				<li>Settings</li>
+    				<li>Log Out</li>
+    			</ul>
+    		</div>
+	    	<div class="user-profile-inner">
+	    		
+	    	</div>
+	  </div>
 	
 	
 	

@@ -62,5 +62,10 @@
 			$('.pane').not('#'+ id).removeClass('show');
 			$('#'+ id).toggleClass('show');
 		})
+		//user-profile
+		$('.user-profile-inner').bind('click', function(){
+			$.fn.removeAllActive.call($('.user-profile'));
+			$('.pane').removeClass('show');
+		});
 	});
 })(jQuery);
