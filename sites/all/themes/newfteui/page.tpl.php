@@ -2,16 +2,16 @@
 ?>
 
     <!-- /community -->
-    
+
       <div class="community">
       	<h2>Community</h2>
         <div class="inner community-inner"><p>This is the sample date of the Community.</p></div>
         <div class="indicator"><span></span></div>
-      </div>       
-	
-	
+      </div>
+
+
 	<!-- /tool bar and stage selector -->
-   
+
       <div class="toolbar-stage">
       	<div class="tool-bar">
       		<!-- {{{toolbar start-->
@@ -49,7 +49,7 @@
 	      		</div>-->
 	      	</div>
 	      	<!-- }}} toolbar end -->
-	      	
+
 	      	<!-- {{{ Stage Selector start -->
 	      	<div class="stage-selector">
 	      		<div class="stage-selector-inner">
@@ -60,15 +60,31 @@
 	      	<!-- }}} Stage Selector end -->
 	      </div>
         <!--<?php print render($page['tool_bar']); ?>-->
-      </div> 
-	
-	
+      </div>
+
+
 	<!-- /main content -->
       <div class="main-content">
+        <?php if ($messages): ?>
+          <div id="messages"><div class="section clearfix">
+            <?php print $messages; ?>
+          </div></div> <!-- /.section, /#messages -->
+        <?php endif; ?>
+
+        <?php if ($breadcrumb && 1 == 0): ?>
+          <div id="breadcrumb"><?php  print $breadcrumb; ?></div>
+        <?php endif; ?>
+
+        <?php if ($tabs): ?>
+          <div class="tabs">
+            <?php print render($tabs); ?>
+          </div>
+        <?php endif; ?>
+
         <?php print render($page['content']); ?>
-      </div> 
-	
-	
+      </div>
+
+
 	<!-- /sliding panes -->
 	  <div class="sliding-panes">
 	  	<div class="studio-handler pane-handler" data-aim="studio"></div>
@@ -79,22 +95,44 @@
 	  <div class="pane" id="studio"></div>
 	  <div class="pane" id="challenge"></div>
 	  <div class="pane" id="competitions"></div>
-      
+
     <!-- / user profile-->
 	  <div class="user-profile">
 	  		<div class="user-box">
-    			<h4>Name</h4>
-    			<ul>
-    				<li>Settings</li>
-    				<li>Log Out</li>
-    			</ul>
+	  		  <?php if (user_is_logged_in()):?>
+    			<h4><?php echo $user->name; ?></h4>
+    			<?php if ($secondary_menu): ?>
+          <nav id="secondary-menu" role="navigation">
+            <?php print theme('links__system_secondary_menu', array(
+              'links' => $secondary_menu,
+              'attributes' => array(
+                'class' => array('links', 'inline', 'clearfix'),
+              ),
+            )); ?>
+          </nav>
+          <?php endif; ?>
+          <?php endif; ?>
     		</div>
+    		<?php if (user_is_logged_in()):?>
 	    	<div class="user-profile-inner">
-	    		
 	    	</div>
+	    	<?php else: ?>
+	    	<?php
+	    	$login_div = '<div class="user-profile-inner-url">
+	    	</div>';
+	    	echo l($login_div, 'user/login',
+          array(
+            'html'=>TRUE,
+            'attributes' => array(
+              'style' => 'display: block;',
+            )
+          )
+        );
+	    	?>
+	    	<?php endif;?>
 	  </div>
-	
-	
-	
 
-  
+
+
+
+
