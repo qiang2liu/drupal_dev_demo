@@ -1,6 +1,6 @@
 <?php
 ?>
-
+<h1>Gyuotao</h1>
     <!-- /community -->
     
       <div class="community">

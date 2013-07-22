@@ -71,7 +71,7 @@
 		
 		//stage ajax
 		$.ajax({
-			url: 'edgemakers/stage/api/list',
+			url: '?q=edgemakers/stage/api/list',
 			dataType: 'json',
 			type : 'GET',
 			success : function(data){
