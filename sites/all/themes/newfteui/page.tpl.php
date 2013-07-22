@@ -11,9 +11,9 @@
           <?php if ($title): ?>
             <div id="branding"><strong><a href="<?php print $front_page ?>">
             <?php if ($logo): ?>
-              <img src="<?php print $logo ?>" alt="<?php print $site_name_and_slogan ?>" title="<?php print $site_name_and_slogan ?>" id="logo" />
+              <img src="<?php print $logo ?>" alt="<?php print isset($site_name_and_slogan)?$site_name_and_slogan:''; ?>" title="<?php print isset($site_name_and_slogan)?$site_name_and_slogan:''; ?>" id="logo" />
             <?php endif; ?>
-            <?php print $site_html ?>
+            <?php print isset($site_html)?$site_html:''; ?>
             </a></strong></div>
           <?php else: /* Use h1 when the content title is empty */ ?>
             <h1 id="branding"><a href="<?php print $front_page ?>">
@@ -26,11 +26,11 @@
         <?php endif; ?>
         </div>
 
-        <?php if ($primary_nav): print $primary_nav; endif; ?>
-        <?php if ($secondary_nav): print $secondary_nav; endif; ?>
+        <?php if (isset($primary_nav)): print $primary_nav; endif; ?>
+        <?php if (isset($secondary_nav)): print $secondary_nav; endif; ?>
       </div> <!-- /#header -->
 
-      <?php if ($page['sidebar_first']): ?>
+      <?php if (isset($page['sidebar_first'])): ?>
         <div id="sidebar-first" class="sidebar">
           <?php print render($page['sidebar_first']); ?>
         </div>
@@ -38,7 +38,7 @@
 
       <div id="center"><div id="squeeze"><div class="right-corner"><div class="left-corner">
           <?php print $breadcrumb; ?>
-          <?php if ($page['highlighted']): ?><div id="highlighted"><?php print render($page['highlighted']); ?></div><?php endif; ?>
+          <?php if (isset($page['highlighted'])): ?><div id="highlighted"><?php print render($page['highlighted']); ?></div><?php endif; ?>
           <a id="main-content"></a>
           <?php if ($tabs): ?><div id="tabs-wrapper" class="clearfix"><?php endif; ?>
           <?php print render($title_prefix); ?>
@@ -58,7 +58,7 @@
           <?php print render($page['footer']); ?>
       </div></div></div></div> <!-- /.left-corner, /.right-corner, /#squeeze, /#center -->
 
-      <?php if ($page['sidebar_second']): ?>
+      <?php if (isset($page['sidebar_second'])): ?>
         <div id="sidebar-second" class="sidebar">
           <?php print render($page['sidebar_second']); ?>
         </div>
