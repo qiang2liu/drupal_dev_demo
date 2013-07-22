@@ -21,7 +21,9 @@ function muralapi_test() {
    //_test_mural_archive();
    //_test_mural_del();
    _test_mural_list_for_a_user();
-  return "ok333";
+   $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/1374110398829' width='100%' height=500px'></iframe>
+";
+  return $output_html;
 }
 function _test_mural_del() {
    $mural_api = new Muralapi;
