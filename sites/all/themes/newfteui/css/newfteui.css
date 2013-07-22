@@ -217,11 +217,11 @@ body{
 	float: left;
 }
 .stage-box{
-	width:475px;
+	
 	padding:15px;
 	/* for test */
 	height:101px;
-	background:url(../images/example_02.png) center center no-repeat rgba(200,200,200,0.7);
+	background:rgba(200,200,200,0.7);
 }
 .stage-selector.active,
 .stage-selector-inner{
