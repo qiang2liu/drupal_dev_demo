@@ -35,7 +35,7 @@ function marker_clusterer_demo_menu() {
     'description' => 'Markers clusterer demo in edgemakers.',
     'page callback' => 'marker_clusterer_demo_example',
     'access callback' => 'user_access',
-    'access arguments' => array('node access'),
+    'access arguments' => array('access content'),
   );
 
   return $items;
