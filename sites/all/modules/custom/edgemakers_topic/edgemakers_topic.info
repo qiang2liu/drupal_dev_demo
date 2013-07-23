@@ -5,6 +5,7 @@ package = edgemakers
 php = 5.2
 version = 7.x-1.0
 project = edgemakers_topic
+dependencies[] = edgemakers
 dependencies[] = views
 dependencies[] = link
 dependencies[] = options
