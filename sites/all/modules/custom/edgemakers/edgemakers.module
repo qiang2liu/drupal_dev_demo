@@ -1,5 +1,13 @@
 <?php
 /**
+ * Implements hook_views_api().
+ */
+function edgemakers_views_api() {
+  return array(
+    'api' => 3,
+  );
+}
+/**
  * Implements hook_menu().
  */
 function edgemakers_menu() {
@@ -10,6 +18,18 @@ function edgemakers_menu() {
     'file' => 'system.admin.inc',
     'file path' => drupal_get_path('module', 'system'),
   );
+  $items['forbidden'] = array(
+    'title' => 'Access Denied',
+    'page callback' => 'edgemakers_forbidden_page',
+    'access callback' => true,
+    'file' => 'edgemakers.pages.inc',
+  );
+  /*$items['notfound'] = array(
+    'title' => 'Page Not Found',
+    'page callback' => 'edgemakers_notfound_page',
+    'access callback' => true,
+    'file' => 'edgemakers.pages.inc',
+  );*/
   return $items;
 }
 /**
@@ -116,4 +136,22 @@ function edgemakers_theme() {
       'variables' => array('contents' => NULL, 'num' => 0),
     ),
   );
+}
+/**
+ * Implements hook_image_default_styles().
+ */
+function edgemakers_image_default_styles() {
+  $styles = array();
+
+  $styles['edgemakers_avatar'] = array(
+    'effects' => array(
+      array(
+        'name' => 'image_scale',
+        'data' => array('width' => 74, 'height' => 74, 'upscale' => 1),
+        'weight' => 0,
+      ),
+    )
+  );
+
+  return $styles;
 }
