@@ -5,10 +5,16 @@ if($realnum>0) {
   for($i = 0; $i < $num && $i < $realnum; $i ++) {
     $item = '';
     $content = $contents[$i];
-    $variables = array(
-      'account' => $content,
-    );
-    $userpic = theme('user_picture', $variables);
+    $avatarUris = explode('/', variable_get('user_picture_default', ''));
+    $avatarUri = file_build_uri(array_pop($avatarUris));
+    if($content->picture) {
+      $account = user_load($content->uid);
+      $avatarUri = $account->picture->uri;
+    }
+    if(isset($avatarUri) && file_exists($avatarUri))
+      $userpic = theme('image_style', array('style_name' => 'edgemakers_avatar', 'path' => $avatarUri));
+    if(user_access('access user profiles'))
+      $userpic = l($userpic, 'user/'.$content->uid, array('html' => TRUE));
     $variables = array(
       'account' => $content, 
     );
