@@ -14,13 +14,13 @@ function muralapi_test() {
   _test_mural_list_for_a_user();
   //_test_user_add();
   
-  _test_mural_create_mural();
+ // _test_mural_create_mural();
   
   //_test_mural_duplicate_mural();
    //_test_mural_update_property_mural();
    //_test_mural_archive();
    //_test_mural_del();
-   _test_mural_list_for_a_user();
+   //_test_mural_list_for_a_user();
    $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/1374110398829' width=500px height=500px'></iframe>
 ";
   return $output_html;
@@ -84,7 +84,7 @@ function _test_mural_create_mural() {
 
 function _test_mural_list_for_a_user() {
   $mural_api = new Muralapi;
-  $result = $mural_api->get_all_murals('murallytest2012');
+  $result = $mural_api->get_all_murals('testuser');
   $data = $result->data;
   $r = drupal_json_decode($data);
   dpm($result);
