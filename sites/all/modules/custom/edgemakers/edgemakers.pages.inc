@@ -1,0 +1,53 @@
+<?php
+function edgemakers_community_page() {
+  $items = array();
+  $content_types = array_filter(array_values(variable_get('edgemakers_community_content_type', array())));
+  $comment_types = array_filter(array_values(variable_get('edgemakers_community_comment_type', array())));
+  $num = variable_get('edgemakers_community_activity_num', 5);
+  if(count($content_types)>0)
+    $nodes = edgemakers_node_get_recent($content_types, $num);
+  if(count($comment_types)>0)
+    $comments = edgemakers_comment_get_recent($comment_types, $num);
+  $contents = array_merge($nodes, $comments);
+  if(count($contents)>0) {
+    usort($contents, 'edgemakers_nodes_comp');
+    return theme('community', array('contents' => $contents, 'num' => $num));
+  }
+}
+function edgemakers_nodes_comp($a, $b) {
+  if ($a == $b) {
+    return 0;
+  }
+  return ($a->created < $b->created) ? 1 : -1;
+}
+function edgemakers_node_get_recent($types, $number = 5) {
+  $query = db_select('node', 'n');
+
+  if (!user_access('bypass node access')) {
+    // If the user is able to view their own unpublished nodes, allow them to
+    // see these in addition to published nodes. Check that they actually have
+    // some unpublished nodes to view before adding the condition.
+    if (user_access('view own unpublished content') && $own_unpublished = db_query('SELECT nid FROM {node} WHERE uid = :uid AND status = :status', array(':uid' => $GLOBALS['user']->uid, ':status' => NODE_NOT_PUBLISHED))->fetchCol()) {
+      $query->condition(db_or()->condition('n.status', NODE_PUBLISHED)->condition('n.nid', $own_unpublished, 'IN'));
+    }
+    else {
+      // If not, restrict the query to published nodes.
+      $query->condition('n.status', NODE_PUBLISHED);
+    }
+  }
+  $nids = $query->condition('n.type', $types, 'IN')->fields('n', array('nid'))->orderBy('n.created', 'DESC')->range(0, $number)->addTag('node_access')->execute()->fetchCol();
+  $nodes = node_load_multiple($nids);
+
+  return $nodes ? $nodes : array();
+}
+function edgemakers_comment_get_recent($types, $number = 5) {
+  $query = db_select('comment', 'c');
+  $query->innerJoin('node', 'n', 'n.nid = c.nid');
+  $query->addTag('node_access');
+  $comments = $query->fields('c')->condition('n.type', $types, 'IN')->condition('c.status', COMMENT_PUBLISHED)->condition('n.status', NODE_PUBLISHED)->orderBy('c.created', 'DESC')
+  // Additionally order by cid to ensure that comments with the same timestamp
+  // are returned in the exact order posted.
+  ->orderBy('c.cid', 'DESC')->range(0, $number)->execute()->fetchAll();
+
+  return $comments ? $comments : array();
+}
