@@ -1,7 +1,8 @@
 <?php
-if(count($contents)>0) {
+$realnum = count($contents);
+if($realnum>0) {
   $items = array();
-  for($i = 0; $i < $num; $i ++) {
+  for($i = 0; $i < $num && $i < $realnum; $i ++) {
     $item = '';
     $content = $contents[$i];
     $variables = array(
