@@ -67,8 +67,8 @@ body{
 	position:relative;
 	z-index:1;
 	padding-top:30px;
-	height:820px;
-	top:-790px;
+	height:710px;
+	top:-700px;
 	transition-property: top;
 	transition-duration: .2s;
 	transition-timing-function: linear;
@@ -133,7 +133,7 @@ body{
 	position:absolute;
 	text-align:center;
 	width:100%;
-	bottom:15px;
+	bottom:0;
 }
 .community .indicator span{
 	border-radius:20px;
@@ -152,7 +152,7 @@ body{
 /* toolbar */
 .toolbar-stage{
 	position:absolute;
-	top:150px;
+	top:90px;
 	left:0;
 	z-index:1;
 }
@@ -220,7 +220,7 @@ body{
 	
 	padding:15px;
 	/* for test */
-	height:101px;
+	
 	background:rgba(200,200,200,0.7);
 }
 .stage-selector.active,
@@ -251,7 +251,7 @@ body{
 .sliding-panes{
 	position:absolute;
 	width:70px;
-	top:150px;
+	top:90px;
 	right:0;
 }
 .pane-handler{
@@ -294,13 +294,13 @@ body{
 	right:-63.5%;
 	padding: 10px 0;
 	border-radius:10px;
-	top:150px;
+	top:90px;
 	transition-property: right;
 	transition-duration: .2s;
 	transition-timing-function: linear;
 	transition-delay: 0;
     /* for test */
-	height:806px;
+	height:680px;
 	background-repeat: no-repeat;
 	background-position: center center;
 }
@@ -331,7 +331,7 @@ body{
 	width:54px;
 	height:54px;
 	padding:4px;
-	top:1000px;
+	top:748px;
 	right:4px;
 	position:absolute;
 	border-radius:30px;
