@@ -27,7 +27,7 @@ if(count($contents)>0) {
     $item .= '<div class="time">'.$date.'</div></div>';
     $items[] = $item;
   }
-  echo theme('item_list', array('items' => $items, 'title'=>'Community Activity'));
+  echo theme('item_list', array('items' => $items));
 } else {
   echo t("No Activity.");
 }
