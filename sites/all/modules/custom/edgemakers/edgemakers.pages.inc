@@ -3,6 +3,7 @@ function edgemakers_community_contents() {
   $items = array();
   $content_types = array_filter(array_values(variable_get('edgemakers_community_content_type', array())));
   $comment_types = array_filter(array_values(variable_get('edgemakers_community_comment_type', array())));
+  $num = variable_get('edgemakers_community_activity_num', 5);
   if(count($content_types)>0)
     $nodes = edgemakers_node_get_recent($content_types, $num);
   if(count($comment_types)>0)
