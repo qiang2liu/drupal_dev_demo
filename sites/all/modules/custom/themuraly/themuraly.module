@@ -13,7 +13,7 @@ function muralapi_test() {
 
   _test_mural_list_for_a_user();
   //_test_user_add();
-  
+  _test_create_room();
  // _test_mural_create_mural();
   
   //_test_mural_duplicate_mural();
@@ -34,6 +34,17 @@ function _test_mural_del() {
   //$r = drupal_json_decode($data);
   dpm($result);
   dpm($data);
+}
+function _test_create_room() {
+  $mural_api = new Muralapi;
+  $username = "testuser";
+  $title = 'roomtest00002';
+  $result = $mural_api->create_room($username,$title);
+  $data = $result->data;
+  $r = drupal_json_decode($data);
+  dpm($result);
+  dpm($r);
+
 }
 function _test_mural_archive() {
   $mural_api = new Muralapi;
