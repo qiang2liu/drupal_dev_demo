@@ -43,7 +43,7 @@ function edgemakers_stage_menu() {
     'title' => 'Delete Set',
     'page callback' => 'edgemakers_set_index_delete_action',
     'page arguments' => array(5, 6, 7),
-    'access arguments' => array('access content'),
+    'access arguments' => array('administer edgemakers'),
     'file path' => drupal_get_path('module', 'node'),
     'file' => 'node.pages.inc',
   );
@@ -53,7 +53,7 @@ function edgemakers_stage_menu() {
     'title' => 'Manage Stage',
     'type' => MENU_NORMAL_ITEM,
     'page callback' => 'edgemakers_stage_page',
-    'access arguments' => array('access content'),
+    'access arguments' => array('administer edgemakers'),
     'file' => 'stage.pages.inc',
     'file path' => drupal_get_path('module', 'edgemakers_stage') ,
   );
@@ -62,7 +62,7 @@ function edgemakers_stage_menu() {
     'title' => 'Manage stage',
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'page callback' => 'edgemakers_stage_page',
-    'access arguments' => array('access content'),
+    'access arguments' => array('administer edgemakers'),
     'file' => 'stage.pages.inc',
     'file path' => drupal_get_path('module', 'edgemakers_stage') ,
   );
@@ -71,7 +71,7 @@ function edgemakers_stage_menu() {
     'title' => 'Create Stage',
     'type' => MENU_LOCAL_TASK,
     'page callback' => 'edgemakers_stage_create_page',
-    'access arguments' => array('access content'),
+    'access arguments' =>array('administer edgemakers'),
     'file' => 'stage.manage.inc',
     'file path' => drupal_get_path('module', 'edgemakers_stage') ,
   );
@@ -81,7 +81,7 @@ function edgemakers_stage_menu() {
     'type' => MENU_LOCAL_TASK,
     'page callback' => 'edgemakers_stage_managebox_page',
     'page arguments' => array(4),
-    'access arguments' => array('access content'),
+    'access arguments' => array('administer edgemakers'),
     'file' => 'stage.pages.inc',
     'file path' => drupal_get_path('module', 'edgemakers_stage') ,
   );

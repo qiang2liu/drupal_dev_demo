@@ -10,29 +10,91 @@ function edgemakers_menu() {
     'file' => 'system.admin.inc',
     'file path' => drupal_get_path('module', 'system'),
   );
-  $items['admin/config/system/edgemakers'] = array(
-    'title' => 'Edgemakers Settings',
-    'page callback' => 'system_admin_menu_block_page',
-    'access arguments' => array('administer site configuration'),
-    'file' => 'system.admin.inc',
-    'file path' => drupal_get_path('module', 'system'),
-  );
-  $items['admin/config/system/edgemakers/community'] = array(
-    'title' => 'Community Settings',
-    'description' => 'settings for Community',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('edgemakers_community_settings'),
-    'access callback' => 'user_access',
-    'access arguments' => array('administer site configuration'),
-    'file' => 'edgemakers.admin.inc',
-  );
-  $items['community'] = array(
-    'title' => 'Community Activity',
-    'page callback' => 'edgemakers_community_page',
-    'access callback' => TRUE,
-    'file' => 'edgemakers.pages.inc',
-  );
   return $items;
+}
+/**
+* Implements hook_block_info().
+*/
+function edgemakers_block_info() {
+  $blocks['community_activity'] = array(
+    'info' => t('Community Activity'),
+    'status' => TRUE,
+    'region' => 'community',
+    'weight' => 5,
+    'visibility' => 1,
+  );
+  return $blocks;
+}
+/**
+* Implements hook_block_configure().
+*/
+function edgemakers_block_configure($delta) {
+  $form = array();
+  switch($delta) {
+    case 'community_activity':
+      $types = node_type_get_types();
+      $content_type_options = array();
+      foreach ($types as $type) {
+        $content_type_options[$type->type] = $type->name;
+      }
+      
+      $form['edgemakers_community_content_type'] = array(
+        '#type' => 'checkboxes',
+        '#title' => t('Content types that will display for Community Page'),
+        '#default_value' => variable_get('edgemakers_community_content_type', array()),
+        '#description' => t('Set content types for community page.'),
+        '#options' => $content_type_options,
+      );
+
+      $form['edgemakers_community_comment_type'] = array(
+        '#type' => 'checkboxes',
+        '#title' => t('Comment Types that will display for Community Page.'),
+        '#default_value' => variable_get('edgemakers_community_comment_type', array()),
+        '#description' => t('Set comment types for community page.'),
+        '#options' => $content_type_options,
+      );
+      
+      $form['edgemakers_community_activity_num'] = array(
+        '#type' => 'select',
+        '#title' => t('Activity Num that will display for Community Page.'),
+        '#default_value' => variable_get('edgemakers_community_activity_num', 5),
+        '#description' => t('Set Activity Num for community page.'),
+        '#options' => range(0, 50),
+      );
+      break;
+  }
+  return $form;
+}
+/**
+* Implements hook_block_save().
+*/
+function edgemakers_block_save($delta = '', $edit = array()) {
+  switch($delta) {
+    case 'community_activity':
+      variable_set('edgemakers_community_content_type', $edit['edgemakers_community_content_type']);
+      variable_set('edgemakers_community_comment_type', $edit['edgemakers_community_comment_type']);
+      variable_set('edgemakers_community_activity_num', $edit['edgemakers_community_activity_num']);
+      break;
+  }
+  return;
+}
+/**
+* Implements hook_block_view().
+*/
+function edgemakers_block_view($delta = '') {
+  require_once drupal_get_path('module', 'edgemakers').'/edgemakers.pages.inc';
+  switch ($delta) {
+    case 'community_activity':
+      $contents = edgemakers_community_contents();
+      $block['subject'] = t('Community Activity');
+      $block['content'] = array(
+        '#theme' => 'community_activity_block',
+        '#contents' => $contents,
+        '#num' => variable_get('edgemakers_community_activity_num', 5),
+      );
+      return $block;
+      break;
+  }
 }
 /**
 * Implements hook_permission().
@@ -50,45 +112,8 @@ function edgemakers_permission() {
  */
 function edgemakers_theme() {
   return array(
-    'community' => array(
+    'community_activity_block' => array(
       'variables' => array('contents' => NULL, 'num' => 0),
     ),
   );
-}
-function theme_community($variables) {
-  $contents = $variables['contents'];
-  $num = $variables['num'];
-      $account = user_load(1);
-  if(count($contents)>0) {
-    $items = array();
-    for($i = 0; $i < $num; $i ++) {
-      $item = '';
-      $content = $contents[$i];
-      $variables = array(
-        'account' => $content,
-      );
-      $userpic = theme('user_picture', $variables);
-      $variables = array(
-        'account' => $content, 
-      );
-      $username = theme('username', $variables);
-      $date = format_interval(time()-$content->created) . ' ago';
-      $item .= $userpic.'<div class="cont">';
-      if($content->cid) {
-        //comment
-        $title = l($content->title, 'node/'.$content->nid, array('fragment' => 'comment-'.$comment->cid));
-        $item .= '<div class="activity">'.$username.' Submitted a commnet: '.$title.'</div>';
-      } else {
-        //node
-        $title = l($content->title, 'node/'.$content->nid);
-        $type = $content->type;
-        $item .= '<div class="activity">'.$username.' Submitted a '.$type.': '.$title.'</div>';
-      }
-      $item .= '<div class="time">'.$date.'</div></div>';
-      $items[] = $item;
-    }
-    return theme('item_list', array('items' => $items, 'title'=>'Community Activity'));
-  } else {
-    return "No Activity.";
-  }
 }

@@ -8,18 +8,18 @@ function edgemakers_set_menu() {
     'title' => 'Manage Set',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('edgemakers_set_admin_list_form'),
-    'access arguments' => array('access content'),
+    'access arguments' => array('administer edgemakers'),
   );
   $items['admin/edgemakers/set/list'] = array(
     'title' => 'Manage Set',
-    'access arguments' => array('access content'),
+    'access arguments' => array('administer edgemakers'),
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => 1,
   );
   $items['admin/edgemakers/set/create'] = array(
     'title' => 'Create Set',
     'page callback' => 'edgemakers_set_admin_create_page', 
-    'access arguments' => array('access content'),
+    'access arguments' => array('administer edgemakers'),
     'file path' => drupal_get_path('module', 'node'),
     'file' => 'node.pages.inc',
     'type' => MENU_LOCAL_TASK,
@@ -29,7 +29,7 @@ function edgemakers_set_menu() {
     'title' => 'Delete Set',
     'page callback' => 'edgemakers_set_admin_delete_action',
     'page arguments' => array(4),
-    'access arguments' => array('access content'),
+    'access arguments' => array('administer edgemakers'),
     'file path' => drupal_get_path('module', 'node'),
     'file' => 'node.pages.inc',
   );
