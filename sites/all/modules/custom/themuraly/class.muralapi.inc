@@ -74,7 +74,28 @@ class Muralapi {
     $ret = drupal_http_request($apiurl, $options);
     return $ret;
   }
+  public function create_room($username, $title) {
+    $apistr = "/api/rooms";
+    $apiurl = $this->muralapi_base_url . $apistr;
+    $the_auth_string = $this->get_auth_string($username, $apistr, 'POST');
+    $data = array('title' => $title);
+    $data = drupal_json_encode($data);
+    $options = array();
 
+    $options['headers'] = array('x-mural-ly-user' => $username,
+      'x-mural-ly-context' => $this->the_org,
+      'Authorization' => "MURALLY " . $username . ":" . $the_auth_string,
+      'User-Agent' => $this->user_agent,
+      'Content-Type' => "application/json",
+    );
+    $options['method'] = 'POST';
+    $options['data'] = $data;
+
+    $ret = drupal_http_request($apiurl, $options);
+    return $ret;
+     
+
+  }
   public function create_mural($username, $params) {
     /*
       $ret = array();
