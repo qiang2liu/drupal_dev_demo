@@ -51,9 +51,9 @@
 				$('.stage-box').removeClass('flash');
 			}
 		);
-		$('.stage-selector').bind('click', function(){
+		$('.stage-selector-handler>em').bind('click', function(){
 			$('.pane').removeClass('show');
-			$.fn.removeAllActive.call(this);
+			$.fn.removeAllActive.call($('.stage-selector'));
 			
 		});
 		$('.pane-handler').bind('click',function(){
@@ -62,5 +62,27 @@
 			$('.pane').not('#'+ id).removeClass('show');
 			$('#'+ id).toggleClass('show');
 		})
+		//user-profile
+		$('.user-profile-inner').bind('click', function(){
+			$.fn.removeAllActive.call($('.user-profile'));
+			$('.pane').removeClass('show');
+		});
+		
+		
+		//stage ajax
+		$.ajax({
+			url: '?q=edgemakers/stage/api/list',
+			dataType: 'json',
+			type : 'GET',
+			success : function(data){
+				for(var i=0; i<data.length; i++){
+					console.log(data[i]);
+					$('.stage-box').append('<div class="stage-item"><a href="#x">'+ data[i].title + '</a></div>');
+				}
+			},
+			error :function(){
+				alert('An error occurs when getting the stage sets!')
+			}
+		});
 	});
 })(jQuery);

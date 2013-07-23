@@ -1,0 +1,10 @@
+name = Marker Clusterer demo
+description = Set th clusterer of marker demo.
+
+core = 7.x
+package = edgemaker
+
+dependencies[] = gmap
+
+version = "7.22"
+project = "edgemakers"
