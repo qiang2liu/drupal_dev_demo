@@ -10,6 +10,13 @@
  */
 function edgemakers_stage_init () {
   //drupal_add_css(drupal_get_path("module", "tt")."/tt.css");
+  drupal_add_js(
+    drupal_get_path('module', 'edgemakers_stage')
+    . '/js/edgemakers_stage.js',
+    array(
+      'scope' => 'footer',
+    )
+  );
 }
 
 /**
@@ -83,13 +90,19 @@ function edgemakers_stage_menu() {
   // API URL
   // Remove set from stage.
   $items['edgemakers/stage/api/list'] = array(
-    'title' => 'Delete Set',
     'page callback' => 'edgemakers_stage_api_list_json',
     'access arguments' => array('access content'),
     'file path' => drupal_get_path('module', 'edgemakers_stage'),
     'file' => 'stage.api.inc',
   );
 
+  $items['edgemakers/stage/api/set/list'] = array (
+    'page callback' => 'edgemakers_stage_api_set_list_json',
+    'page arguments' => array(5),
+    'access arguments' => array('access content'),
+    'file path' => drupal_get_path('module', 'edgemakers_stage'),
+    'file' => 'stage.api.inc',
+  );
 
   return $items;
 
