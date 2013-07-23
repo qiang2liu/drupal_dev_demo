@@ -1,0 +1,94 @@
+<?php
+/**
+ * Implements hook_menu().
+ */
+function edgemakers_menu() {
+  $items['admin/edgemakers'] = array(
+    'title' => 'Edgemakers',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('administer edgemakers'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+  $items['admin/config/system/edgemakers'] = array(
+    'title' => 'Edgemakers Settings',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('administer site configuration'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+  $items['admin/config/system/edgemakers/community'] = array(
+    'title' => 'Community Settings',
+    'description' => 'settings for Community',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('edgemakers_community_settings'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer site configuration'),
+    'file' => 'edgemakers.admin.inc',
+  );
+  $items['community'] = array(
+    'title' => 'Community Activity',
+    'page callback' => 'edgemakers_community_page',
+    'access callback' => TRUE,
+    'file' => 'edgemakers.pages.inc',
+  );
+  return $items;
+}
+/**
+* Implements hook_permission().
+*/
+function edgemakers_permission() {
+  $perms = array(
+    'administer edgemakers' => array(
+      'title' => t('Administer Edgemakers'),
+    ),
+  );
+  return $perms;
+}
+/**
+ * Implements hook_theme().
+ */
+function edgemakers_theme() {
+  return array(
+    'community' => array(
+      'variables' => array('contents' => NULL, 'num' => 0),
+    ),
+  );
+}
+function theme_community($variables) {
+  $contents = $variables['contents'];
+  $num = $variables['num'];
+      $account = user_load(1);
+  if(count($contents)>0) {
+    $items = array();
+    for($i = 0; $i < $num; $i ++) {
+      $item = '';
+      $content = $contents[$i];
+      $variables = array(
+        'account' => $content,
+      );
+      $userpic = theme('user_picture', $variables);
+      $variables = array(
+        'account' => $content, 
+      );
+      $username = theme('username', $variables);
+      $date = format_interval(time()-$content->created) . ' ago';
+      $item .= $userpic.'<div class="cont">';
+      if($content->cid) {
+        //comment
+        $title = l($content->title, 'node/'.$content->nid, array('fragment' => 'comment-'.$comment->cid));
+        $item .= '<div class="activity">'.$username.' Submitted a commnet: '.$title.'</div>';
+      } else {
+        //node
+        $title = l($content->title, 'node/'.$content->nid);
+        $type = $content->type;
+        $item .= '<div class="activity">'.$username.' Submitted a '.$type.': '.$title.'</div>';
+      }
+      $item .= '<div class="time">'.$date.'</div></div>';
+      $items[] = $item;
+    }
+    return theme('item_list', array('items' => $items, 'title'=>'Community Activity'));
+  } else {
+    return "No Activity.";
+  }
+}

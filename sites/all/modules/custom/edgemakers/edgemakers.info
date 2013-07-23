@@ -1,0 +1,7 @@
+name = Edgemakers
+description = edgemakers misc management
+core = 7.x
+package = edgemakers
+php = 5.2
+version = 7.x-1.0
+project = edgemakers
