@@ -9,7 +9,13 @@
  * Implements hook_init().
  */
 function edgemakers_stage_init () {
-  //drupal_add_css(drupal_get_path("module", "tt")."/tt.css");
+  drupal_add_js(
+    drupal_get_path('module', 'edgemakers_stage')
+    . '/js/edgemakers_stage.js',
+    array(
+      'scope' => 'footer',
+    )
+  );
 }
 
 /**
@@ -83,13 +89,21 @@ function edgemakers_stage_menu() {
   // API URL
   // Remove set from stage.
   $items['edgemakers/stage/api/list'] = array(
-    'title' => 'Delete Set',
     'page callback' => 'edgemakers_stage_api_list_json',
     'access arguments' => array('access content'),
     'file path' => drupal_get_path('module', 'edgemakers_stage'),
     'file' => 'stage.api.inc',
   );
 
+  $items['edgemarkers/stage/get/set/ajax'] = array(
+    'page callback' => 'edgemakers_stage_api_set_list_html', // Render HTML
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+    'delivery callback' => 'edgemakers_stage_ajax_callback',  // Magic goes here
+    'page arguments' => array(5),
+    'file path' => drupal_get_path('module', 'edgemakers_stage'),
+    'file' => 'stage.api.inc',
+  );
 
   return $items;
 
@@ -159,61 +173,6 @@ function edgemakers_set_index_delete_action($stage_id = '', $set_id) {
 
 }
 
-/*function _add_set_to_stage_ajax($form, &$form_state) {
-
-  $tableitem = $form_state['values']['set_title'];
-  $datas = $form_state['values'];
-
-  if (!in_array($tableitem, $_SESSION['lists'][$datas->stage_id])) {
-    $_SESSION['lists'][$datas->stage_id][] = array(
-      'nid' => $form_state['values']['set_title'],
-      'title' => $form_state['values']['set_title'],
-      'type' => $form_state['values']['set_types'],
-      'location' => $form_state['values']['set_location_index'],
-    );
-  }
-
-  //for ($i = 1; $i < $form_state['num_names']; $i++) {
-
-  $header = array(
-    'title' => array('data' => t('Set Title')),
-    'type' => array('data' => t('Set Type')),
-    'location' => array('data' => t('Set Location')),
-    'operations' => t('DELETE'),
-  );
-  foreach ($_SESSION['lists'][$datas->stage_id] AS $set) {
-
-    if ($set['nid']) {
-  //drupal_set_message('<pre>' . print_r($set, TRUE) . '</pre>');
-      $form['set_list']['set_list_table']['set_nid_' . $set['nid']] = array(
-        '#type' => 'textfield',
-        '#title' => t('SEt ' . $key),
-        '#value' => $set['nid'],
-        //'#prefix' => '<div style="float: left;">',
-        //'#suffix' => '</div>',
-      );
-      $form['set_list']['set_list_table']['set_type_' . $set['nid']] = array(
-        '#type' => 'textfield',
-        '#title' => t('Type ' . $key),
-        '#value' => $set['type'],
-        //'#prefix' => '<div style="float: left;">',
-        //'#suffix' => '</div>',
-      );
-      $form['set_list']['set_list_table']['set_location_' . $set['nid']] = array(
-        '#type' => 'textfield',
-        '#title' => t('Box location index ' . $key),
-        '#value' => $set['location'],
-        //'#prefix' => '<div style="float: left;">',
-        //'#suffix' => '</div>',
-      );
-    }
-
-  }
-  //unset($_SESSION['lists']);
-  //unset($_SESSION['lists'][$datas->stage_id][]);
-  return $form['set_list']['set_list_table'];
-}*/
-
 /**
  * Implements hook_form_alter().
  */
@@ -247,10 +206,7 @@ function edgemakers_stage_form_alter(&$form, $form_state, $form_id) {
 function _edgemakers_stage_node_submit_redirect_handler($form, &$form_state) {
   unset($_REQUEST['destination']);
   unset($form['#redirect']);
-  //$node = $form_state['node'];
-  //if (!isset($node->nid)) {
   $form_state['redirect'] = 'admin/edgemakers/stage';
-  //}
 }
 
 /**
@@ -275,11 +231,55 @@ function _edgemakers_stage_mangebox_index_list_html($stage_id, $destination = ''
   module_load_include('inc', 'edgemakers_stage', 'stage.pages');
   $form = drupal_get_form('edgemakers_stage_set_list_form', $stage_id);
   $form['#action'] = url($destination);
-  //$form['action'] = drupal_get_destination();
-  //if ($stage_id) {
-    return drupal_render($form);
-  //}
-  //else {
-  //  return '';
-  //}
+  return drupal_render($form);
+}
+
+/**
+ * Implements hook_book_info();
+ */
+function edgemakers_stage_block_info() {
+  $blocks['stage_list'] = array(
+    'info' => t('Stage list'), //The name that will appear in the block list.
+    'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_book_view()
+ * @param unknown_type $delta
+ */
+function edgemakers_stage_block_view($delta = '') {
+
+  module_load_include('inc', 'edgemakers_stage', 'stage.api');
+
+  global $base_root;
+  global $base_path;
+
+  switch($delta){
+    case 'stage_list':
+
+      $block['subject'] = t('Stage list block title');
+
+      $type = variable_get('edgemakers_stage_content_type', 'stage');
+      $stages = node_load_multiple(array(), array('type' => $type));
+
+      $block['content'] = '<div id="stage-set-list">';
+
+      foreach ($stages AS $stage) {
+        $block['content'] .= '<div id="stage-set-list-' . $stage->nid . '" style="display: none;">';
+        $block['content'] .= '<h2>' . $stage->title . "</h2>";
+        $block['content'] .= edgemakers_stage_api_set_list_html($stage->nid);
+        $block['content'] .= '</div>';
+      }
+
+      $block['content'] .= '</div>';
+
+      break;
+    default:
+      break;
+  }
+
+  return $block;
 }

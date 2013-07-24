@@ -70,7 +70,8 @@
 		
 		
 		//stage ajax
-		$.ajax({
+		/** Move to edgemarkers_stage module **/
+		/*$.ajax({
 			url: '?q=edgemakers/stage/api/list',
 			dataType: 'json',
 			type : 'GET',
@@ -84,5 +85,6 @@
 				alert('An error occurs when getting the stage sets!')
 			}
 		});
+		*/
 	});
 })(jQuery);

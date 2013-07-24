@@ -18,6 +18,18 @@ function edgemakers_menu() {
     'file' => 'system.admin.inc',
     'file path' => drupal_get_path('module', 'system'),
   );
+  $items['forbidden'] = array(
+    'title' => 'Access Denied',
+    'page callback' => 'edgemakers_forbidden_page',
+    'access callback' => true,
+    'file' => 'edgemakers.pages.inc',
+  );
+  /*$items['notfound'] = array(
+    'title' => 'Page Not Found',
+    'page callback' => 'edgemakers_notfound_page',
+    'access callback' => true,
+    'file' => 'edgemakers.pages.inc',
+  );*/
   return $items;
 }
 /**

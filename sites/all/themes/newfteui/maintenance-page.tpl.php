@@ -23,7 +23,7 @@
   <body class="<?php print $classes ?>">
 
 <!-- Layout -->
-  <div id="header-region" class="clearfix"><?php print $header; ?></div>
+  <div id="header-region" class="clearfix"><?php print isset($header)?$header:''; ?></div>
 
     <div id="wrapper">
     <div id="container" class="clearfix">
@@ -57,7 +57,7 @@
 
       </div> <!-- /header -->
 
-      <?php if ($sidebar_first): ?>
+      <?php if (isset($sidebar_first)): ?>
         <div id="sidebar-first" class="sidebar">
           <?php print $sidebar_first ?>
         </div>
@@ -70,10 +70,10 @@
           <div class="clearfix">
             <?php print $content ?>
           </div>
-          <div id="footer"><?php print $footer ?></div>
+          <div id="footer"><?php print isset($footer)?$footer:''; ?></div>
       </div></div></div></div> <!-- /.left-corner, /.right-corner, /#squeeze, /#center -->
 
-      <?php if ($sidebar_second): ?>
+      <?php if (isset($sidebar_second)): ?>
         <div id="sidebar-second" class="sidebar">
           <?php print $sidebar_second ?>
         </div>

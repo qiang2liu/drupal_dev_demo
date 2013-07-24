@@ -18,9 +18,9 @@
           <?php else: /* Use h1 when the content title is empty */ ?>
             <h1 id="branding"><a href="<?php print $front_page ?>">
             <?php if ($logo): ?>
-              <img src="<?php print $logo ?>" alt="<?php print $site_name_and_slogan ?>" title="<?php print $site_name_and_slogan ?>" id="logo" />
+              <img src="<?php print $logo ?>" alt="<?php print isset($site_name_and_slogan)?$site_name_and_slogan:''; ?>" title="<?php print isset($site_name_and_slogan)?$site_name_and_slogan:''; ?>" id="logo" />
             <?php endif; ?>
-            <?php print $site_html ?>
+            <?php print isset($site_html)?$site_html:''; ?>
             </a></h1>
         <?php endif; ?>
         <?php endif; ?>
