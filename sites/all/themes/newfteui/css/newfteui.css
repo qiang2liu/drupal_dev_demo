@@ -262,6 +262,14 @@ li:after{
 	
 	background:rgba(200,200,200,0.7);
 }
+.stage-item{
+	float:left;
+	padding:0 10px;
+	text-align:center;
+}
+.stage-item:hover{
+	background-color:rgba(230,230,230,0.7);
+}
 .stage-selector.active,
 .stage-selector-inner{
 	width:685px;
@@ -390,8 +398,11 @@ li:after{
     /* test */
    height:54px;
    width:54px;
-   background: url(../images/example_06.png);
-   
+}
+.user-profile-inner-url img,
+.user-profile-inner img{
+	max-width:100%;
+	border-radius:30px;
 }
 .user-box{
 	position:absolute;
