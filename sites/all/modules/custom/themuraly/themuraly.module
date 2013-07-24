@@ -1,6 +1,28 @@
 <?php
 
 function themuraly_menu() {
+  
+  $items['mural/create'] = array(
+     'page callback' => 'muralcreate',
+     'access callback' => 'user_is_logged_in',
+     'type' => MENU_CALLBACK,
+     'file' => 'mural_op.inc',
+  );
+  $items['mural/create/%'] = array(
+    'page callback' => 'muralcreate',
+    'page arguments' => array(2),
+     'access callback' => 'user_is_logged_in',
+     'type' => MENU_CALLBACK,
+     'file' => 'mural_op.inc',
+  );
+  $items['mural/%'] = array(
+    'page callback' => 'muralshow',
+    'page arguments' => array(1),
+     'access callback' => 'user_is_logged_in',
+     'type' => MENU_CALLBACK,
+     'file' => 'mural_op.inc',
+  );
+  
   $items['muraltest'] = array(
       'page callback' => 'muralapi_test',
       'access callback' => TRUE,
@@ -8,11 +30,22 @@ function themuraly_menu() {
   );
   return $items;
 }
-
+function muralapi_create_room($mural_api, $muralusername, $title, $account) {
+  $mural_api_result = $mural_api->create_room($muralusername,$title);
+  if (is_object($mural_api_result) && isset($mural_api_result->data)) {
+    $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
+   if ( !empty($muralapi_response_obj['id'])){
+       $edit['field_muralroomid'][LANGUAGE_NONE][0]['value'] = $muralapi_response_obj['id'];
+       user_save($account, $edit);
+       return $muralapi_response_obj['id'];
+   }
+  }
+  return '';
+}
 function muralapi_test() {
 
-  _test_mural_list_for_a_user();
-  //_test_user_add();
+ // _test_mural_list_for_a_user();
+ // _test_user_add();
   _test_create_room();
  // _test_mural_create_mural();
   
@@ -38,7 +71,7 @@ function _test_mural_del() {
 function _test_create_room() {
   $mural_api = new Muralapi;
   $username = "testuser";
-  $title = 'roomtest00002';
+  $title = 'mymuralroom';
   $result = $mural_api->create_room($username,$title);
   $data = $result->data;
   $r = drupal_json_decode($data);
