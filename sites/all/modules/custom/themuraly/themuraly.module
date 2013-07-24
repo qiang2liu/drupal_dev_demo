@@ -1,6 +1,28 @@
 <?php
 
 function themuraly_menu() {
+  
+  $items['mural/create'] = array(
+     'page callback' => 'muralcreate',
+     'access callback' => 'user_is_logged_in',
+     'type' => MENU_CALLBACK,
+     'file' => 'mural_op.inc',
+  );
+  $items['mural/create/%'] = array(
+    'page callback' => 'muralcreate',
+    'page arguments' => array(2),
+     'access callback' => 'user_is_logged_in',
+     'type' => MENU_CALLBACK,
+     'file' => 'mural_op.inc',
+  );
+  $items['mural/%'] = array(
+    'page callback' => 'muralshow',
+    'page arguments' => array(1),
+     'access callback' => 'user_is_logged_in',
+     'type' => MENU_CALLBACK,
+     'file' => 'mural_op.inc',
+  );
+  
   $items['muraltest'] = array(
       'page callback' => 'muralapi_test',
       'access callback' => TRUE,
@@ -8,12 +30,22 @@ function themuraly_menu() {
   );
   return $items;
 }
-
+function muralapi_create_room($mural_api, $muralusername, $title, $account) {
+  $mural_api_result = $mural_api->create_room($muralusername,$title);
+  if (is_object($mural_api_result) && isset($mural_api_result->data)) {
+    $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
+   if ( !empty($muralapi_response_obj['id'])){
+       $edit['field_muralroomid'][LANGUAGE_NONE][0]['value'] = $muralapi_response_obj['id'];
+       user_save($account, $edit);
+       return $muralapi_response_obj['id'];
+   }
+  }
+  return '';
+}
 function muralapi_test() {
-
-  _test_mural_list_for_a_user();
-  //_test_user_add();
-  _test_create_room();
+ _test_mural_list_for_a_user();
+ // _test_user_add();
+  //_test_create_room();
  // _test_mural_create_mural();
   
   //_test_mural_duplicate_mural();
@@ -21,8 +53,10 @@ function muralapi_test() {
    //_test_mural_archive();
    //_test_mural_del();
    //_test_mural_list_for_a_user();
-   $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/1374110398829' width=500px height=500px'></iframe>
-";
+   $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/1374110398829' width=500px height=500px'></iframe>";
+   //$output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/1374641493558' width=500px height=500px'></iframe>";
+   
+   
   return $output_html;
 }
 function _test_mural_del() {
@@ -38,7 +72,7 @@ function _test_mural_del() {
 function _test_create_room() {
   $mural_api = new Muralapi;
   $username = "testuser";
-  $title = 'roomtest00002';
+  $title = 'mymuralroom';
   $result = $mural_api->create_room($username,$title);
   $data = $result->data;
   $r = drupal_json_decode($data);
@@ -95,7 +129,7 @@ function _test_mural_create_mural() {
 
 function _test_mural_list_for_a_user() {
   $mural_api = new Muralapi;
-  $result = $mural_api->get_all_murals('testuser');
+  $result = $mural_api->get_all_murals('kk2t');
   $data = $result->data;
   $r = drupal_json_decode($data);
   dpm($result);

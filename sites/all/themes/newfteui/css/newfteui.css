@@ -59,9 +59,20 @@ body{
 	overflow-x:hidden;
 	font-family:Tahoma;
 }
+li:after{
+	content:'';
+	display:block;
+	clear:both;
+	height:0;
+	visibility:hidden;
+}
+/*overdieen*/
+.item-list ul li{
+	margin:0;
+}
 /*community*/
 .community{
-	background:rgba(154,154,154,0.7);
+	background:rgba(180,180,180,0.7);
 	width:63.5%;
 	margin:0 auto;
 	position:relative;
@@ -126,8 +137,36 @@ body{
 }
 .community .region{
 	margin:0 35px;
-	background:rgba(255,255,255,0.5);
-	height:750px;
+}
+.region-community h2{
+	color:#fff;
+	font-size:1.8em;
+	padding-bottom:.2em;
+}
+#block-views-community-users-block{
+	margin-bottom:1em;
+}
+#block-views-community-users-block .view-content td{
+	padding-right:14px;
+	width:74px;
+}
+#block-views-community-users-block .view-content td img,
+#block-edgemakers-community-activity .item-list li.user-picture img{
+	width:74px;
+	height:74px;
+	display: block;
+}
+#block-edgemakers-community-activity .item-list li .user-picture{
+	float:left;
+	padding-right:1em;
+	width:74px;
+}
+#block-edgemakers-community-activity .item-list li .cont{
+	background-color:rgba(245,195,38,0.9);
+	float:left;
+	width:85%;
+	padding:10px;
+	min-height:54px;
 }
 .community .indicator{
 	position:absolute;
@@ -222,6 +261,14 @@ body{
 	/* for test */
 	
 	background:rgba(200,200,200,0.7);
+}
+.stage-item{
+	float:left;
+	padding:0 10px;
+	text-align:center;
+}
+.stage-item:hover{
+	background-color:rgba(230,230,230,0.7);
 }
 .stage-selector.active,
 .stage-selector-inner{
@@ -351,8 +398,11 @@ body{
     /* test */
    height:54px;
    width:54px;
-   background: url(../images/example_06.png);
-   
+}
+.user-profile-inner-url img,
+.user-profile-inner img{
+	max-width:100%;
+	border-radius:30px;
 }
 .user-box{
 	position:absolute;
