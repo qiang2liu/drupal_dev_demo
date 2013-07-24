@@ -4,7 +4,7 @@
     <!-- /community -->
 
       <div class="community">
-      	
+
         <?php print render($page['community']); ?>
         <div class="indicator"><span></span></div>
       </div>
@@ -64,6 +64,7 @@
 
 
 	<!-- /main content -->
+	    <?php print $messages; ?>
       <div class="main-content">
         <?php print render($page['content']); ?>
       </div>
@@ -96,15 +97,18 @@
           <?php endif; ?>
           <?php endif; ?>
     		</div>
-    		<?php if (user_is_logged_in()):?>
+    		<?php if (!user_is_logged_in()):?>
 	    	<div class="user-profile-inner">
 	    		<img src="sites/all/themes/newfteui/images/example_08.png" />
 	    	</div>
 	    	<?php else: ?>
 	    	<?php
-	    	$login_div = '<div class="user-profile-inner-url">
-	    	<img src="sites/all/themes/newfteui/images/example_08.png" />
-	    	</div>';
+	    	global $user;
+
+	    	$login_div = '<div class="user-profile-inner-url">';
+	    	$login_div .= theme('user_picture', array('account' =>$user));
+	    	$login_div .= '</div>';
+
 	    	echo l($login_div, 'user/login',
           array(
             'html'=>TRUE,

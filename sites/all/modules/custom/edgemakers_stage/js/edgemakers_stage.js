@@ -13,7 +13,8 @@
       success : function(data){
         for(var i=0; i<data.length; i++){
           console.log(data[i]);
-          var sta_url = '<a class="ctools-use-modal" href="#" onclick="set_ajax_load_by_stage(' + data[i].nid + ');return true;">' + data[i].title + '</a>';
+          var img = data[i].defualt_image;
+          var sta_url = '<a class="ctools-use-modal" href="#" onclick="set_ajax_load_by_stage(' + data[i].nid + ');return true;">' + data[i].defualt_image + data[i].title + '</a>';
           jQuery('.stage-box').append('<div class="stage-item">' + sta_url + '</div>');
         }
       },
