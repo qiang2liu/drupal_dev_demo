@@ -99,10 +99,12 @@
     		</div>
     		<?php if (user_is_logged_in()):?>
 	    	<div class="user-profile-inner">
+	    		<img src="sites/all/themes/newfteui/images/example_08.png" />
 	    	</div>
 	    	<?php else: ?>
 	    	<?php
 	    	$login_div = '<div class="user-profile-inner-url">
+	    	<img src="sites/all/themes/newfteui/images/example_08.png" />
 	    	</div>';
 	    	echo l($login_div, 'user/login',
           array(

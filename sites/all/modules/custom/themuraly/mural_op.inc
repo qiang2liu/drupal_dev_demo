@@ -60,17 +60,35 @@ function muralcreate($template_id = 0) {
       drupal_set_message(t('can\'t create mural!'), 'error');
       return '';
     } 
-     $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/".$the_m_id."' width=500px height=500px'></iframe>
+     
+  }
+  else {
+    // duplicate the mural
+    $title = 'my mural';
+    $the_m_id = create_mural($mural_api, $muralusername, $muralroomid, $title, $template_id);
+    if ($the_m_id == '') {
+      drupal_set_message(t('can\'t create mural!'), 'error');
+      return '';
+    } 
+  }
+  
+  $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/".$the_m_id."' width=500px height=500px'></iframe>
 ";
   return $output_html;
-  }
 }
 
-function create_mural($mural_api, $muser, $mroomid, $title = 'my mural') {
+function create_mural($mural_api, $muser, $mroomid, $title = 'my mural', $duplicate_id = '') {
   $params = array('title' => $title, 'room' => $mroomid);
-  $mural_api_result = $mural_api->create_mural($muser, $params);
+  if ($duplicate_id != '') {
+    $mural_api_result = $mural_api->duplicate_mural($muser, $duplicate_id,$params);
+  } 
+  else {
+    $mural_api_result = $mural_api->create_mural($muser, $params);
+  }
+  dpm($mural_api_result);
   if (is_object($mural_api_result) && isset($mural_api_result->data)) {
     $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
+    dpm($muralapi_response_obj);
     if (!empty($muralapi_response_obj['id'])) {
       $str_p = preg_match("/[0-9]+$/", $muralapi_response_obj['id'], $matches);
       $new_mural_id = '';
