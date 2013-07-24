@@ -72,7 +72,7 @@ function muralcreate($template_id = 0) {
     } 
   }
   
-  $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/".$the_m_id."' width=500px height=500px'></iframe>
+  $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/".$the_m_id."' width=100% height=500px'></iframe>
 ";
   return $output_html;
 }
