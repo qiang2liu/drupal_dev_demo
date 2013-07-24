@@ -177,7 +177,7 @@ function theme_set_item($variables) {
         break;
     }
   }
-  $output = '<li class="'.str_replace(' ', '_', $type).'">' . $output . '</li>';
+  $output = '<div class="'.str_replace(' ', '_', $type).'">' . $output . '</div>';
   return $output;
 }
 /**
