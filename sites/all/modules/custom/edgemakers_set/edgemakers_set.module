@@ -129,9 +129,9 @@ function theme_set_item($variables) {
           $set_image = theme('image_style', array('style_name' => 'edgemakers_set', 'path' => $image));
         }
         if($set_image) {
-          $output .= l($set_image, $link, array('html' => TRUE));
+          $output .= l($set_image, $link, array('html' => TRUE, 'attributes' => array('class' => str_replace(' ', '_', $type))));
         } else {
-          $output .= l($item->title, $link);
+          $output .= l($item->title, $link, array('attributes' => array('class' => str_replace(' ', '_', $type))));
         }
         break;
       case 'project':
@@ -143,16 +143,16 @@ function theme_set_item($variables) {
         } else {
           $link = 'mural/create';
         }
-        $output .= l($item->title, $link);
+        $output .= l($item->title, $link, array('attributes' => array('class' => str_replace(' ', '_', $type))));
         break;
       case 'activity':
-        $output .= l($item->title, $link);
+        $output .= l($item->title, $link, array('attributes' => array('class' => str_replace(' ', '_', $type))));
         break;
       case 'topic page':
         $topics = field_get_items('node', $item, 'field_set_topic');
         $topicId = $topics && count($topics) > 0 ? $topics[0]['target_id'] : '';
         $link = 'node/'.$topicId;
-        $output .= l($item->title, $link);
+        $output .= l($item->title, $link, array('attributes' => array('class' => str_replace(' ', '_', $type))));
         break;
       case 'inspiration':
       case 'showcase':
@@ -167,17 +167,16 @@ function theme_set_item($variables) {
           }
         }
         if($set_image) {
-          $output .= l($set_image, $link, array('html' => TRUE));
+          $output .= l($set_image, $link, array('html' => TRUE, 'attributes' => array('class' => str_replace(' ', '_', $type))));
         } else {
-          $output .= l($item->title, $link);
+          $output .= l($item->title, $link, array('attributes' => array('class' => str_replace(' ', '_', $type))));
         }
         break;
       default:
-        $output .= l($item->title, $link);
+        $output .= l($item->title, $link, array('attributes' => array('class' => str_replace(' ', '_', $type))));
         break;
     }
   }
-  $output = '<div class="'.str_replace(' ', '_', $type).'">' . $output . '</div>';
   return $output;
 }
 /**
