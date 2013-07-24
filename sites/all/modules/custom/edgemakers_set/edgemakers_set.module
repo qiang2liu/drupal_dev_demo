@@ -97,3 +97,117 @@ function edgemakers_set_node_validate($node, $form, &$form_state) {
     }
   }
 }
+/**
+ * Implements hook_theme().
+ */
+function edgemakers_set_theme() {
+  return array(
+    'set_item' => array(
+      'variables' => array('item' => NULL),
+    ),
+  );
+}
+/**
+ * Theme of each set item.
+ *
+ * @param object $item
+ */
+function theme_set_item($variables) {
+  $item = $variables['item'];
+  $output = '';
+  if (isset($item->nid)) {
+    $type = strtolower($item->term->name);
+    $set_image = '';
+    $link = 'node/'.$item->nid;
+    switch ($type) {
+      case 'learn module':
+        $urls = field_get_items('node', $item, 'field_set_url');
+        $link = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
+        $images = field_get_items('node', $item, 'field_set_image');
+        $image = $images && count($images) > 0 ? $images[0]['uri'] : '';
+        if ($image) {
+          $set_image = theme('image_style', array('style_name' => 'edgemakers_set', 'path' => $image));
+        }
+        if($set_image) {
+          $output .= l($set_image, $link, array('html' => TRUE));
+        } else {
+          $output .= l($item->title, $link);
+        }
+        break;
+      case 'project':
+        $urls = field_get_items('node', $item, 'field_set_url');
+        $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
+        if($url) {
+          $templateid = edgemakers_set_murally_parser($url);
+          $link = 'mural/create/'.$templateid;
+        } else {
+          $link = 'mural/create';
+        }
+        $output .= l($item->title, $link);
+        break;
+      case 'activity':
+        $output .= l($item->title, $link);
+        break;
+      case 'topic page':
+        $topics = field_get_items('node', $item, 'field_set_topic');
+        $topicId = $topics && count($topics) > 0 ? $topics[0]['target_id'] : '';
+        $link = 'node/'.$topicId;
+        $output .= l($item->title, $link);
+        break;
+      case 'inspiration':
+      case 'showcase':
+        $withThumbnails = field_get_items('node', $item, 'field_set_withthumbnail');
+        $withThumbnail = $withThumbnails && count($withThumbnails) > 0 ? $withThumbnails[0]['value'] : 0;
+        if($withThumbnail) {
+          $urls = field_get_items('node', $item, 'field_set_url');
+          $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
+          $videoId = edgemakers_set_youtube_parser($url);
+          if($videoId) {
+            $set_image = '<img src="http://img.youtube.com/vi/'.$videoId.'/default.jpg" />';
+          }
+        }
+        if($set_image) {
+          $output .= l($set_image, $link, array('html' => TRUE));
+        } else {
+          $output .= l($item->title, $link);
+        }
+        break;
+      default:
+        $output .= l($item->title, $link);
+        break;
+    }
+  }
+  $output = '<li class="'.str_replace(' ', '_', $type).'">' . $output . '</li>';
+  return $output;
+}
+/**
+ * Implements hook_image_default_styles().
+ */
+function edgemakers_set_image_default_styles() {
+  $styles = array();
+
+  $styles['edgemakers_set'] = array(
+    'effects' => array(
+      array(
+        'name' => 'image_scale',
+        'data' => array('width' => 120, 'height' => 90, 'upscale' => 1),
+        'weight' => 0,
+      ),
+    )
+  );
+
+  return $styles;
+}
+function edgemakers_set_murally_parser($url) {
+  return '123456789';
+	preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $url, $matches);
+	if(is_array($matches) && count($matches) > 0) 
+		return $matches[0];
+	return false;
+}
+function edgemakers_set_youtube_parser($url) {
+	preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $url, $matches);
+	if(is_array($matches) && count($matches) > 0) 
+		return $matches[0];
+	return false;
+}

@@ -53,8 +53,7 @@ function edgemakers_stage_api_set_list_html($stage_id) {
           if (isset($node->field_set_type[LANGUAGE_NONE])) {
             $node->term = taxonomy_term_load($node->field_set_type[LANGUAGE_NONE][0]['tid']);
           }
-
-          $item = theme_set_item_list($node->term, $node, $stage_id);
+          $item = theme('set_item', array('item'=>$node));
 
           $sets['items'][] = $item;
         }
@@ -73,54 +72,5 @@ function edgemakers_stage_api_set_list_html($stage_id) {
   }
 
   return $html;
-
-}
-
-/**
- * Theme of each category set.
- *
- * @param array $type
- * @param array $item
- */
-function theme_set_item_list($type, $item = array(), $stage_id = '') {
-
-  $output = '';
-
-  if (isset($item->nid)) {
-    $edit_url = l('Edit',
-      'modal/node/' . $item->nid . '/edit/nojs/1',
-      array(
-        'query' => array(
-          'destination' => $_GET["q"],
-        ),
-        'attributes' => array(
-          'class' => array('ctools-use-modal'),
-        ),
-      )
-    );
-
-    switch (strtolower($type->name)) {
-      case 'learn module':
-        if (isset($item->field_set_image[LANGUAGE_NONE])) {
-          $ary_image = array(
-            'path' => $item->field_set_image[LANGUAGE_NONE][0]['uri'],
-            'attributes' => array(),
-          );
-
-          $set_image = theme_image($ary_image);
-
-        }
-        $output .= '<li>' . $set_image . l($item->title . '(' . $type->name . ')', 'node/' . $item->nid . '') . '</li>';
-        break;
-      case '':
-        $output .= '<li>' . l($item->title . '(' . $type->name . ')', 'node/' . $item->nid . '') . '</li>';
-        break;
-      default:
-        $output .= '<li>' . l($item->title . '(' . $type->name . ')', 'node/' . $item->nid . '') . '</li>';
-        break;
-    }
-  }
-
-  return $output;
 
 }
