@@ -68,7 +68,6 @@
         <?php print render($page['content']); ?>
       </div>
 
-
 	<!-- /sliding panes -->
 	  <div class="sliding-panes">
 	  	<div class="studio-handler pane-handler" data-aim="studio"></div>
