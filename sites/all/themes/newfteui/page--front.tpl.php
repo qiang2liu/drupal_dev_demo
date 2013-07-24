@@ -4,7 +4,7 @@
     <!-- /community -->
 
       <div class="community">
-      	<h2>Community</h2>
+      	
         <?php print render($page['community']); ?>
         <div class="indicator"><span></span></div>
       </div>
