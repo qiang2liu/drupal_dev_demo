@@ -59,6 +59,12 @@ body{
 	overflow-x:hidden;
 	font-family:Tahoma;
 }
+a{
+	text-decoration: none;
+}
+a:hover{
+	text-decoration: underline;
+}
 ul:after,
 li:after{
 	content:'';
@@ -202,8 +208,8 @@ li:after{
    
 }
 .toolbar-handler{
-	width:50px;
-	height:50px;
+	width:54px;
+	height:54px;
 	background:url(../images/newui_ico_toolbar.png) center center no-repeat rgba(154,154,154,0.7);
 	cursor:pointer;
 	position:absolute;
@@ -226,18 +232,36 @@ li:after{
 	width:180px;
 	top:0;
 	left:-180px;
+	background: url(../images/newui_toolbar_bg.png) repeat-y;
 	transition-property: left;
 	transition-duration: .2s;
 	transition-timing-function: linear;
 	transition-delay: 0;
-	 /* for test */
-  	height:590px;
-  	background:url(../images/example_01.png);
+  	
 }
 .toolbar-box.active{
 	left:0;
 }
-
+.toolbar-item{
+	min-height:54px;
+}
+.toolbar-item h4{
+	line-height:54px;
+	padding-left:60px;
+	background-position:left center;
+	background-repeat: no-repeat;
+	font-weight:bold;
+	font-size:1.2em;
+	color:#fff;
+}
+.toolbar-item h4 a,
+.toolbar-item h4 a:hover{
+	color:#fff;
+	
+}
+.toolbar-item.add-an-idea h4{
+	background-image:url(../images/newui_ico_toolbar_additem.png);
+}
 /* stage-selector */
 .stage-selector{
 	overflow:hidden;
@@ -451,6 +475,6 @@ li:after{
 	padding:1%;
 	margin:1px;
 	text-align:center;
-	height:180px;
+	height:100px;
 	background-color: rgba(255,255,255,0.3);
 }

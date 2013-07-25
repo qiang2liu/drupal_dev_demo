@@ -9,7 +9,6 @@
         <div class="indicator"><span></span></div>
       </div>
 
-
 	<!-- /tool bar and stage selector -->
 
       <div class="toolbar-stage">
@@ -17,15 +16,16 @@
       		<!-- {{{toolbar start-->
 	      	<div class="toolbar-handler"></div>
 	      	<div class="toolbar-box">
-	      		<!--<div class="toolbar-item title">
+	      		<div class="toolbar-item title">
 	      			<h4>Toolbar</h4>
 	      		</div>
-	      		<div class="toolbar-item upload">
+	      		<div class="toolbar-item add-an-idea">
+	      			<h4><a href="#x">Add an Idea</a></h4>
+	      		</div>
+	      		<!--<div class="toolbar-item upload">
 	      			<h4>Upload</h4>
 	      		</div>
-	      		<div class="toolbar-item add-an-idea">
-	      			<h4>Add an Idea</h4>
-	      		</div>
+	      		
 	      		<div class="toolbar-item murals">
 	      			<h4>Murals</h4>
 	      		</div>

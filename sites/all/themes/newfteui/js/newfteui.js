@@ -37,6 +37,7 @@
 	
 	//load
 	$(document).ready(function(){
+		
 		$('.community').setCommunity();
 		$('.toolbar-handler').bind('click', $.fn.toggleToolbar);
 		$('.stage-selector-handler>em').hover(
