@@ -30,6 +30,16 @@ function themuraly_menu() {
   );
   return $items;
 }
+
+function themuraly_theme($existing, $type) {
+  return array(
+        'muralypage' => array(
+            'variables' => array('data' => NULL),
+            'template' => 'templates/muralypage',
+        ),
+       
+    );
+}
 function muralapi_create_room($mural_api, $muralusername, $title, $account) {
   $mural_api_result = $mural_api->create_room($muralusername,$title);
   if (is_object($mural_api_result) && isset($mural_api_result->data)) {
