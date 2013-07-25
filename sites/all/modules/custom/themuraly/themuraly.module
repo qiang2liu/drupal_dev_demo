@@ -53,8 +53,9 @@ function muralapi_create_room($mural_api, $muralusername, $title, $account) {
   return '';
 }
 function muralapi_test() {
- _test_mural_list_for_a_user();
- // _test_user_add();
+ 
+ //_test_mural_list_for_a_user();
+ _test_user_add();
   //_test_create_room();
  // _test_mural_create_mural();
   
@@ -63,8 +64,8 @@ function muralapi_test() {
    //_test_mural_archive();
    //_test_mural_del();
    //_test_mural_list_for_a_user();
-   $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/1374110398829' width=500px height=500px'></iframe>";
-   //$output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/1374641493558' width=500px height=500px'></iframe>";
+  // $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/1374110398829' width=500px height=500px'></iframe>";
+   $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/1374641493558' width=500px height=500px'></iframe>";
    
    
   return $output_html;
@@ -151,9 +152,9 @@ function _test_user_add() {
   $mural_api = new Muralapi;
   $str = rand(800,10000);
   $user = array();
-  $user['username'] = "test" . $str;
-  $user['username'] = "ppt777";
-  $user['email'] = "ppt" . $str . "@symbio.com";
+  $user['username'] = "cldf" . $str;
+ // $user['username'] = "ppt777";
+  $user['email'] = "cldf" . $str . "@symbio.com";
   $user['source'] = "edgemakers";
   $user['nameIdentifier'] = 3;
 

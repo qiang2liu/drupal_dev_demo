@@ -1,7 +1,34 @@
 <?php
 
-function muralshow($mid) {
-  return "show the mural, id ==" . $mid;
+function muralshow($nid, $mid = 0) {
+
+  if ($mid == 0) {
+    $the_node = node_load($nid);
+    $muralid_array = field_get_items('node', $the_node, 'field_muralid');
+    $mid = $muralid_array[0]['value'];
+  }
+
+  ctools_include('modal');
+  ctools_include('ajax');
+  ctools_modal_add_js();
+
+  $img_gear = '<img title="set" alt="set" src="' . $GLOBALS['base_path'] . path_to_theme() . '/images/mock-gear.png"/>';
+
+  $edit_url = l($img_gear, 'modal/node/' . $nid . '/edit/nojs/1', array(
+    'query' => array(
+     'destination' => $GLOBALS['base_path'] . 'mural/' . $nid,
+    ),
+    'html' => true,
+    'attributes' => array(
+      'class' => array('ctools-use-modal'),
+    ),
+          )
+  );
+
+
+  return theme("muralypage", array('data' => array('m_id' => $mid,
+              'seturl' => $edit_url,
+                  )));
 }
 
 function muralcreate($template_id = 0) {
@@ -14,7 +41,7 @@ function muralcreate($template_id = 0) {
 
   // return $ret;
   $account = user_load($user->uid);
-  
+
   $mural_api = new Muralapi;
   $muralusername = '';
   $muralroomid = '';
@@ -28,7 +55,7 @@ function muralcreate($template_id = 0) {
     }
   } else {
     $fieldinfo = field_get_items('user', $account, 'field_muralusername');
-   
+
     if ($fieldinfo) {
       $muralusername = $fieldinfo[0]['value'];
     }
@@ -38,13 +65,12 @@ function muralcreate($template_id = 0) {
       //create mural room for the muraluser
       $title = 'mymuralroom';
       $muralroomid = muralapi_create_room($mural_api, $muralusername, $title, $account);
-    } 
-    else {
+    } else {
       $fieldinfo = field_get_items('user', $account, 'field_muralroomid');
-   
-    if ($fieldinfo) {
-      $muralroomid = $fieldinfo[0]['value'];
-    }
+
+      if ($fieldinfo) {
+        $muralroomid = $fieldinfo[0]['value'];
+      }
     }
   }
   if ($muralusername == '' || $muralroomid == '') {
@@ -59,30 +85,42 @@ function muralcreate($template_id = 0) {
     if ($the_m_id == '') {
       drupal_set_message(t('can\'t create mural!'), 'error');
       return '';
-    } 
-     
-  }
-  else {
+    }
+  } else {
     // duplicate the mural
     $title = 'my mural';
     $the_m_id = create_mural($mural_api, $muralusername, $muralroomid, $title, $template_id);
     if ($the_m_id == '') {
       drupal_set_message(t('can\'t create mural!'), 'error');
       return '';
-    } 
+    }
   }
-  return theme("muralypage",array('data' =>$the_m_id));
-  $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/".$the_m_id."' width=100% height=500px'></iframe>
-";
-  return $output_html;
+
+  $newNode = (object) NULL;
+  $newNode->type = 'murals';
+  $newNode->title = 'my mural';
+  $newNode->created = strtotime("now");
+  $newNode->changed = strtotime("now");
+  $newNode->status = 1;
+  $newNode->comment = 0;
+  $newNode->promote = 0;
+  $newNode->moderate = 0;
+  $newNode->sticky = 0;
+  $newNode->language = 'und';
+  $newNode->field_muralid['und'][0]['value'] = $the_m_id;
+  $newNode->field_muraluser['und'][0]['value'] = $muralusername;
+
+  node_object_prepare($newNode);
+  node_save($newNode);
+  $the_nid = $newNode->nid;
+  drupal_goto( 'mural/' . $the_nid);
 }
 
 function create_mural($mural_api, $muser, $mroomid, $title = 'my mural', $duplicate_id = '') {
   $params = array('title' => $title, 'room' => $mroomid);
   if ($duplicate_id != '') {
-    $mural_api_result = $mural_api->duplicate_mural($muser, $duplicate_id,$params);
-  } 
-  else {
+    $mural_api_result = $mural_api->duplicate_mural($muser, $duplicate_id, $params);
+  } else {
     $mural_api_result = $mural_api->create_mural($muser, $params);
   }
   dpm($mural_api_result);
