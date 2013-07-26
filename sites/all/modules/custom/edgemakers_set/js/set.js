@@ -47,8 +47,8 @@ function edgemakers_set_togglefields(index, field_suffix) {
     document.getElementById('edit-actions'+field_suffix).style.display = 'none';
   } else {
     document.getElementsByClassName('form-item-title'+field_suffix)[0].style.display = 'block';
-    //body only display for text type
-    if(index == (startIndex + 2)) document.getElementById('edit-body'+field_suffix).style.display = 'block';
+    //body only display for text, video with comments and video with Q&A type
+    if(index == (startIndex + 2) || index == (startIndex + 6) || index == (startIndex + 7)) document.getElementById('edit-body'+field_suffix).style.display = 'block';
     else document.getElementById('edit-body'+field_suffix).style.display = 'none';
     //url only display for idea, inspiration, showcase, video with comments and video with Q&A type
     if(index == (startIndex + 1) || index == (startIndex + 4) || index == (startIndex + 5) || index == (startIndex + 6) || index == (startIndex + 7)) document.getElementById('edit-field-set-url'+field_suffix).style.display = 'block';
@@ -62,8 +62,8 @@ function edgemakers_set_togglefields(index, field_suffix) {
     //image only display for Image type
     if(index == (startIndex)) document.getElementById('edit-field-set-image'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-image'+field_suffix).style.display = 'none';
-    //image only display for inspiration and showcase type
-    if(index == (startIndex + 4) || index == (startIndex + 5)) document.getElementById('edit-field-set-withthumbnail'+field_suffix).style.display = 'block';
+    //withthumbnail only display for inspiration, showcase, video with comments and video with Q&A type
+    if(index == (startIndex + 4) || index == (startIndex + 5) || index == (startIndex + 6) || index == (startIndex + 7)) document.getElementById('edit-field-set-withthumbnail'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-withthumbnail'+field_suffix).style.display = 'none';
     document.getElementById('edit-actions'+field_suffix).style.display = 'block';
   }
