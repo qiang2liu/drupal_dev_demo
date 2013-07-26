@@ -3,7 +3,6 @@ description = The final UI of Edgemaker.
 package = Core
 version = VERSION
 core = 7.x
-stylesheets[all][] = style.css
 stylesheets[all][] = css/newfteui.css
 scripts[] = js/newfteui.js
 
@@ -18,4 +17,3 @@ regions[community] = Community
 version = "1.0"
 project = "drupal"
 datestamp = "1365027012"
-
