@@ -46,20 +46,20 @@ function edgemakers_set_togglefields(index, field_suffix) {
     document.getElementById('edit-actions'+field_suffix).style.display = 'none';
   } else {
     document.getElementsByClassName('form-item-title'+field_suffix)[0].style.display = 'block';
-    //body only display for activity type
+    //body only display for text type
     if(index == (startIndex + 2)) document.getElementById('edit-body'+field_suffix).style.display = 'block';
     else document.getElementById('edit-body'+field_suffix).style.display = 'none';
-    //url only hide for activity and topic type
-    if(index != (startIndex + 2) && index != (startIndex + 3)) document.getElementById('edit-field-set-url'+field_suffix).style.display = 'block';
+    //url only hide for text and topic type
+    if(index != (startIndex) && index != (startIndex + 2) && index != (startIndex + 3)) document.getElementById('edit-field-set-url'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-url'+field_suffix).style.display = 'none';
     //topic dropdownlist only display for topic type
     if(index == (startIndex + 3)) document.getElementById('edit-field-set-topic'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-topic'+field_suffix).style.display = 'none';
-    //image only display for learn module type
-    if(index == (startIndex + 0)) document.getElementById('edit-field-set-image'+field_suffix).style.display = 'block';
+    //image only display for Image type
+    if(index == (startIndex)) document.getElementById('edit-field-set-image'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-image'+field_suffix).style.display = 'none';
     //image only display for inspiration and showcase type
-    if(index > (startIndex + 3)) document.getElementById('edit-field-set-withthumbnail'+field_suffix).style.display = 'block';
+    if(index == (startIndex + 4) || index == (startIndex + 5)) document.getElementById('edit-field-set-withthumbnail'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-withthumbnail'+field_suffix).style.display = 'none';
     document.getElementById('edit-actions'+field_suffix).style.display = 'block';
   }

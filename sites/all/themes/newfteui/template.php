@@ -11,7 +11,7 @@ function newfteui_preprocess_node(&$vars) {
     $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
     if($type == 'Inspiration' || $type == 'Showcase')
       $type = 'video';
-    if($type == 'Activity' || $type == 'video') {
+    if($type == 'Image' || $type == 'Text' || $type == 'video') {
       $vars['display_submitted'] = false;
       $vars['theme_hook_suggestions'][] = 'node__edgemakers_set__'.strtolower($type); 
     }

@@ -54,7 +54,7 @@ function edgemakers_set_form_alter(&$form, $form_state, $form_id) {
         unset($form['actions']['preview'], $form['actions']['delete']);
       }
     }
-    $langcode = isset($form['#language']) ? $form['#language'] : 'und';
+    $langcode = isset($form['#language']) ? $form['#language'] : LANGUAGE_NONE;
     $form['field_set_type'][$langcode]['#after_build'] = array('_edgemakers_set_load_my_javascript');
     $form['actions']['#suffix'] = '<script>edgemakers_set_fields_update();</script>';
   }
@@ -69,14 +69,14 @@ function edgemakers_set_node_validate($node, $form, &$form_state) {
     $types = field_get_items('node', $node, 'field_set_type');
     $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
     
-    if($type != 'Project' && $type != 'Activity' && $type != 'Topic Page') {
+    if($type != 'Image' && $type != 'Idea' && $type != 'Text' && $type != 'Topic Page') {
       $urls = field_get_items('node', $node, 'field_set_url');
       $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
       if($url == '') {
         form_set_error('field_set_url', t('Please fill in the URL'));
       }
     }
-    if($type == 'Activity') {
+    if($type == 'Text') {
       $bodys = field_get_items('node', $node, 'body');
       $body = $bodys && count($bodys) > 0 ? $bodys[0]['value'] : '';
       if($body == '') {
@@ -134,7 +134,7 @@ function theme_set_item($variables) {
           $output .= l($item->title, $link, array('attributes' => array('class' => str_replace(' ', '_', $type))));
         }
         break;
-      case 'project':
+      case 'idea':
         $urls = field_get_items('node', $item, 'field_set_url');
         $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
         if($url) {
@@ -145,7 +145,7 @@ function theme_set_item($variables) {
         }
         $output .= l($item->title, $link, array('attributes' => array('class' => str_replace(' ', '_', $type))));
         break;
-      case 'activity':
+      case 'text':
         $output .= l($item->title, $link, array('attributes' => array('class' => str_replace(' ', '_', $type))));
         break;
       case 'topic page':
@@ -165,6 +165,18 @@ function theme_set_item($variables) {
           if($videoId) {
             $set_image = '<img src="http://img.youtube.com/vi/'.$videoId.'/default.jpg" />';
           }
+        }
+        if($set_image) {
+          $output .= l($set_image, $link, array('html' => TRUE, 'attributes' => array('class' => str_replace(' ', '_', $type))));
+        } else {
+          $output .= l($item->title, $link, array('attributes' => array('class' => str_replace(' ', '_', $type))));
+        }
+        break;
+      case 'image':
+        $images = field_get_items('node', $item, 'field_set_image');
+        $image = $images && count($images) > 0 ? $images[0]['uri'] : '';
+        if ($image) {
+          $set_image = theme('image_style', array('style_name' => 'edgemakers_set', 'path' => $image));
         }
         if($set_image) {
           $output .= l($set_image, $link, array('html' => TRUE, 'attributes' => array('class' => str_replace(' ', '_', $type))));
