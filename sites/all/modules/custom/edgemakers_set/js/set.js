@@ -16,7 +16,7 @@ function edgemakers_set_fields_update() {
 function edgemakers_set_togglefields(index, field_suffix) {
   var startIndex = 0;
   var terms = document.getElementById('edit-field-set-type-und'+field_suffix).options; 
-  if(terms.length == 7) {
+  if(terms.length == 10) {
     startIndex = 1;
   }
   var term = terms[document.getElementById('edit-field-set-type-und'+field_suffix).selectedIndex].text;
@@ -41,6 +41,7 @@ function edgemakers_set_togglefields(index, field_suffix) {
     document.getElementById('edit-body'+field_suffix).style.display = 'none';
     document.getElementById('edit-field-set-url'+field_suffix).style.display = 'none';
     document.getElementById('edit-field-set-topic'+field_suffix).style.display = 'none';
+    document.getElementById('edit-field-set-survey'+field_suffix).style.display = 'none';
     document.getElementById('edit-field-set-image'+field_suffix).style.display = 'none';
     document.getElementById('edit-field-set-withthumbnail'+field_suffix).style.display = 'none';
     document.getElementById('edit-actions'+field_suffix).style.display = 'none';
@@ -49,12 +50,15 @@ function edgemakers_set_togglefields(index, field_suffix) {
     //body only display for text type
     if(index == (startIndex + 2)) document.getElementById('edit-body'+field_suffix).style.display = 'block';
     else document.getElementById('edit-body'+field_suffix).style.display = 'none';
-    //url only hide for text and topic type
-    if(index != (startIndex) && index != (startIndex + 2) && index != (startIndex + 3)) document.getElementById('edit-field-set-url'+field_suffix).style.display = 'block';
+    //url only display for idea, inspiration, showcase, video with comments and video with Q&A type
+    if(index == (startIndex + 1) || index == (startIndex + 4) || index == (startIndex + 5) || index == (startIndex + 6) || index == (startIndex + 7)) document.getElementById('edit-field-set-url'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-url'+field_suffix).style.display = 'none';
     //topic dropdownlist only display for topic type
     if(index == (startIndex + 3)) document.getElementById('edit-field-set-topic'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-topic'+field_suffix).style.display = 'none';
+    //survey dropdownlist only display for survey & assessment type
+    if(index == (startIndex + 8)) document.getElementById('edit-field-set-survey'+field_suffix).style.display = 'block';
+    else document.getElementById('edit-field-set-survey'+field_suffix).style.display = 'none';
     //image only display for Image type
     if(index == (startIndex)) document.getElementById('edit-field-set-image'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-image'+field_suffix).style.display = 'none';
