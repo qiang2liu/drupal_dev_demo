@@ -149,7 +149,7 @@ function theme_set_item($variables) {
           $link = 'mural/create/'.$templateid;
         } else {
           $link = 'mural/create';
-        }
+        } 
         $output .= l($item->title, $link, array('attributes' => array('class' => str_replace(' ', '_', $type))));
         break;
       case 'text':
