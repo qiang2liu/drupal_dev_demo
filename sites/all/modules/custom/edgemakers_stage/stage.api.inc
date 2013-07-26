@@ -44,6 +44,7 @@ function edgemakers_stage_api_set_list_html($stage_id) {
 
       $stage_index = unserialize($stage->box_index_data[LANGUAGE_NONE][0]['value']);
       //dpm($stage_index);
+       aasort($stage_index, 'location_index');
 
       foreach ($stage_index AS $set) {
         if($set['set_id']) {
@@ -65,7 +66,7 @@ function edgemakers_stage_api_set_list_html($stage_id) {
         }
       }
 
-      $sets['title'] = 'Set list.';
+      $sets['title'] = '';
       $sets['type'] = 'ul';
       $sets['attributes'] = array();
 
@@ -80,3 +81,27 @@ function edgemakers_stage_api_set_list_html($stage_id) {
   return $html;
 
 }
+
+/**
+ * Sort array by value key.
+ *
+ * @link http://stackoverflow.com/questions/2699086/sort-multidimensional-array-by-value-2
+ *
+ * @param array $array
+ * @param array $key
+ */
+function aasort (&$array, $key) {
+  $sorter=array();
+  $ret=array();
+  reset($array);
+  foreach ($array as $ii => $va) {
+    $sorter[$ii]=$va[$key];
+  }
+  asort($sorter);
+  foreach ($sorter as $ii => $va) {
+    $ret[$ii]=$array[$ii];
+  }
+  $array=$ret;
+}
+
+//aasort($your_array,"order");
