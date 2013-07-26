@@ -199,6 +199,18 @@ function fteuser_userreset($p, $uid, $timestamp, $hashed_pass) {
   drupal_goto($base_url . "/home");
 }
 
+function fte_user_logout($account) {
+  global $base_url;
+
+  $appurl = 'http://staging.mural.ly/bye?' . http_build_query(array('return_url' => $base_url . '/home',));
+  $options = array(
+    'method' => 'GET',
+  );
+
+  $ret = drupal_http_request($appurl, $options);
+  dd($ret);
+}
+
 /**
  * hook_user 
  */
@@ -231,11 +243,25 @@ function fteuser_set_mural_user($mural_api, $account) {
           if (isset($muralapi_response_obj['user']['username'])) {
             $the_mural_username = $muralapi_response_obj['user']['username'];
             dd($the_mural_username, 'step3');
+            $edit['field_muralusername'][LANGUAGE_NONE][0]['value'] = $the_mural_username;
           }
         }
 
 
-        $edit['field_muralusername'][LANGUAGE_NONE][0]['value'] = $the_mural_username;
+
+
+        if (isset($muralapi_response_obj['room'])) {
+          if (isset($muralapi_response_obj['room']['id'])) {
+            $the_mural_roomid = $muralapi_response_obj['room']['id'];
+            dd($the_mural_roomid, 'step3_1');
+            $edit['field_muralroomid'][LANGUAGE_NONE][0]['value'] = $the_mural_roomid;
+          }
+        }
+
+
+
+
+
         user_save($account, $edit);
         dd($edit, 'step4');
       }
