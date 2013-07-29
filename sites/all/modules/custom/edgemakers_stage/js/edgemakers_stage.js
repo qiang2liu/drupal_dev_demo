@@ -53,7 +53,7 @@
     
     jQuery('#stage-set-list').animate({
       opacity: 1
-    }, 3000, 'linear', function() {
+    }, 5000, 'linear', function() {
       
       jQuery('#stage-set-list ul li a').each(function( index ) {
         
