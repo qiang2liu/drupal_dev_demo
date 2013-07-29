@@ -80,6 +80,7 @@
   height: 400px;
   background-color: transparent;
   border: none;
+  overflow: hidden;
 }
 
 
