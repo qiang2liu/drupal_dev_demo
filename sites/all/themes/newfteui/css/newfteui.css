@@ -66,7 +66,7 @@ a:hover{
 	text-decoration: underline;
 }
 ul:after,
-li:after{
+.item-list li:after{
 	content:'';
 	display:block;
 	clear:both;
@@ -245,6 +245,13 @@ li:after{
 .toolbar-item{
 	min-height:54px;
 }
+.toolbar-item.test1{
+	background: url(../images/example_10.png) center center no-repeat;
+}
+.toolbar-item.test2{
+	background: url(../images/example_11.png) center center no-repeat;
+	height:620px;
+}
 .toolbar-item h4{
 	line-height:54px;
 	padding-left:60px;
@@ -267,7 +274,7 @@ li:after{
 	overflow:hidden;
 	width:50px;
 	position:absolute;
-	top:600px;
+	top:790px;
 	transition-property: width;
 	transition-duration: .2s;
 	transition-timing-function: linear;
@@ -370,10 +377,15 @@ li:after{
 	transition-duration: .2s;
 	transition-timing-function: linear;
 	transition-delay: 0;
+	
     /* for test */
-	height:680px;
+	height:740px;
 	background-repeat: no-repeat;
 	background-position: center center;
+}
+.pane.flash{
+	animation:opacity 0.5s infinite;
+   -webkit-animation:opacity 0.5s infinite;
 }
 .pane.show{
 	right:70px;
@@ -392,6 +404,8 @@ li:after{
 #competitions{
 	background-image: url(../images/example_05.png);
 	background-color:rgba(244,126,64,1.0);
+    /* test */
+    height:810px;
 }
 /*.pane-handler.active:hover{
 	background-image:url(../images/newui_ico_pane_handler_ac.png);
@@ -462,7 +476,8 @@ li:after{
 	top:90px;
 	left:200px;
 	height:550px;
-	overflow:auto;
+	min-height:500px;
+	/*overflow:hidden;*/
 	padding:20px;
 	background-color: rgba(255,255,255,0.1);
 }

@@ -19,12 +19,14 @@
 	      		<div class="toolbar-item title">
 	      			<h4>Toolbar</h4>
 	      		</div>
+	      		<div class="toolbar-item test1"></div>
 	      		<div class="toolbar-item add-an-idea">
 	      			<h4>
 	      			<?php echo l('Add an Idea', 'mural/create')?>
 	      			<!-- <a href="#x">Add an Idea</a> -->
 	      			</h4>
 	      		</div>
+	      		<div class="toolbar-item test2"></div>
 	      		<!--<div class="toolbar-item upload">
 	      			<h4>Upload</h4>
 	      		</div>

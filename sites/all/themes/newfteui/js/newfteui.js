@@ -79,14 +79,24 @@
 		$('.pane-handler').bind('click',function(){
 			$.fn.removeAllActive.call(this);
 			var id = $(this).attr('data-aim');
-			$('.pane').not('#'+ id).removeClass('show').setWidthRight();
+			$('.pane').not('#'+ id).setWidthRight().removeClass('show');
 			//$('#'+ id).toggleClass('show');
 			if($('#'+ id).hasClass('show')){
 				$('#'+ id).setWidthRight().removeClass('show');
 			}else{
 				$('#'+ id).css('right','').addClass('show');
 			}
-		})
+		});
+		$('.pane-handler').hover(
+			function(){
+				var idx=$(this).index('.pane-handler');
+				$('.pane').eq(idx).addClass('flash');
+			},
+			function(){
+				var idx=$(this).index('.pane-handler');
+				$('.pane').eq(idx).removeClass('flash');
+			}
+		);
 		//user-profile
 		$('.user-profile-inner').bind('click', function(){
 			$.fn.removeAllActive.call($('.user-profile'));
