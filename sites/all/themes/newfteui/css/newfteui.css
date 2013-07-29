@@ -459,10 +459,10 @@ li:after{
 /* content */
 .main-content{
 	position:absolute;
-	top:150px;
+	top:90px;
 	left:200px;
-	height:500px;
-	overflow:hidden;
+	height:550px;
+	overflow:auto;
 	padding:20px;
 	background-color: rgba(255,255,255,0.1);
 }

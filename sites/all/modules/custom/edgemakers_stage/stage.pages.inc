@@ -13,12 +13,14 @@ function edgemakers_stage_page() {
 
   ctools_include('modal');
   ctools_modal_add_js();
+
   $type = variable_get('edgemakers_stage_content_type', 'stage');
   $nodes = node_load_multiple(array(), array('type' => $type));
+
   $header = array(
-      'title' => array('data' => t('Set Title')),
-      'dimension' => array('data' => t('Dimension')),
-      'operations' => t('Operations'),
+    'title' => array('data' => t('Set Title')),
+    'dimension' => array('data' => t('Dimension')),
+    'operations' => t('Operations'),
   );
 
   $options = array();
@@ -60,16 +62,16 @@ function edgemakers_stage_page() {
     );
 
     $options[$node->nid] = array(
-        'title' => check_plain($node->title),
-        'dimension' => $dimension,
-        'operations' => $delete_url . ' | ' . $edit_url . ' | ' . $managebox_url
+      'title' => check_plain($node->title),
+      'dimension' => $dimension,
+      'operations' => $delete_url . ' | ' . $edit_url . ' | ' . $managebox_url
     );
   }
   $form['nodes'] = array(
-      '#theme' => 'table',
-      '#header' => $header,
-      '#rows' => $options,
-      '#empty' => t('No content available.'),
+    '#theme' => 'table',
+    '#header' => $header,
+    '#rows' => $options,
+    '#empty' => t('No content available.'),
   );
   $form['pager'] = array('#markup' => theme('pager'));
   $form['#prefix'] = '<div id="setesListDiv">';
@@ -393,9 +395,9 @@ function edgemakers_stage_set_list_form($form, &$form_state, $stage_id = '') {
   }
 
   $header = array(
-      'title' => array('data' => t('Set Title')),
-      'type' => array('data' => t('Set Type')),
-      'weight' => t('Weight'),
+    'title' => array('data' => t('Set Title')),
+    'type' => array('data' => t('Set Type')),
+    'weight' => t('Weight'),
   );
 
   $options = array();
@@ -404,8 +406,8 @@ function edgemakers_stage_set_list_form($form, &$form_state, $stage_id = '') {
 
   $form['#tree'] = TRUE;
   $form['stage_id'] = array(
-      '#type' => 'hidden',
-      '#value' => $stage_id,
+    '#type' => 'hidden',
+    '#value' => $stage_id,
   );
 
   // Fetch the example data from the database, ordered by weight ascending.

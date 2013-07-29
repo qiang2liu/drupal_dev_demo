@@ -16,6 +16,9 @@ function edgemakers_stage_init () {
       'scope' => 'footer',
     )
   );
+
+  drupal_add_css(drupal_get_path('module', 'edgemakers_stage') . '/css/edgemakers_stage.css');
+
 }
 
 /**
@@ -105,6 +108,16 @@ function edgemakers_stage_menu() {
     'file' => 'stage.api.inc',
   );
 
+  $items['edgemakers/stage/api/set/info/ajax'] = array(
+    'page callback' => 'edgemakers_stage_api_set_view_html', // Render HTML
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+    'delivery callback' => 'edgemakers_stage_ajax_callback',  // Magic goes here
+    'page arguments' => array(6),
+    'file path' => drupal_get_path('module', 'edgemakers_stage'),
+    'file' => 'stage.api.inc',
+  );
+
   return $items;
 
 }
@@ -182,6 +195,19 @@ function edgemakers_stage_form_alter(&$form, $form_state, $form_id) {
 
   //drupal_set_message($stage_form_id);
   //$stage_delete_form_id = $type . 'node_delete_confirm';
+
+  //Debug
+  if ($form_id == 'media_add_upload') {
+    $form['types'] = array(
+      '#type' => 'select',
+      '#options' => array(
+        'video' => 'Video',
+        'image' => 'Images',
+        'audio' => 'Audio',
+        'docs' => 'Docs',
+      ),
+    );
+  }
 
   if ($form_id == $stage_form_id) {
 
@@ -265,7 +291,38 @@ function edgemakers_stage_block_view($delta = '') {
       $type = variable_get('edgemakers_stage_content_type', 'stage');
       $stages = node_load_multiple(array(), array('type' => $type));
 
-      $block['content'] = '<div id="stage-set-list">';
+      //Load the javascript and the css:
+      drupal_add_library('system', 'ui.dialog');
+
+      //Add the code that triggers the effect:
+      //Replace XXXXXXXXXX with a unique name
+      drupal_add_js('
+      (function ($) {
+              Drupal.behaviors.StageSetInfoView = {
+                attach: function(context, settings) {
+
+                  //Enter the jQuery-Code here
+                  //********************************************
+
+                  /*    $( "#stage-set-view" ).dialog({
+                          dialogClass: "no-close",
+                          modal: true,
+                          buttons: {
+                              Ok: function() {
+                                  $( this ).dialog( "close" );
+                              }
+                          }
+                      });
+                  */
+                  //********************************************
+
+                  }
+              };
+      })(jQuery);
+      ', 'inline');
+
+      $block['content'] = '<div id="set-view-region" class="hidden"><div id="stage-set-view"></div><div id="back-set-list"> ' . t('Back to Stage') . '</div></div>';
+      $block['content'] .= '<div id="ajaxload"></div><div id="stage-set-list">';
 
       foreach ($stages AS $stage) {
         $block['content'] .= '<div id="stage-set-list-' . $stage->nid . '" style="display: none;">';
