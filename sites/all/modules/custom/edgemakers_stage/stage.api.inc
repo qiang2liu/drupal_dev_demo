@@ -101,12 +101,40 @@ function edgemakers_stage_api_set_view_html($set_id = '') {
   if ($set_id) {
     $node = node_load($set_id);
 
+
+    if($type == 'Image' || $type == 'Text' || $type == 'video') {
+
+    }
   // Get box type by tid.
   if (isset($node->field_set_type[LANGUAGE_NONE])) {
     $node->term = taxonomy_term_load($node->field_set_type[LANGUAGE_NONE][0]['tid']);
   }
-  switch (strtolower($node->term->name)) {
-    case '':
+
+  if($node->term->name == 'Inspiration' || $node->term->name == 'Showcase') {
+    $type = 'video';
+  }
+  else {
+    $type = $node->term->name;
+  }
+
+  switch (strtolower($type)) {
+    case 'survey & assessment':
+      $html = '<div id="buildingSet"><h3>This is a survey & assessment set, will be developped later</h3></div>';
+      return $html;
+      break;
+    case 'topic page':
+
+      $html = '<div id="buildingSet"><h3>This is a topic set, will be developped later</h3></div>';
+
+      return $html;
+      break;
+    case 'idea':
+      $img = array(
+        'path' => drupal_get_path('module', 'edgemakers_stage') . '/images/Mural.ly-work-area.png',
+      );
+      $html = '<div id="buildingSet">' . theme('image', $img) . '</div>';
+
+      return $html;
       break;
     default:
       return drupal_render(node_view($node, 'full'));
