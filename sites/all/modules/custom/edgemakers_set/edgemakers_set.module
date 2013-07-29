@@ -18,7 +18,7 @@ function edgemakers_set_menu() {
   );
   $items['admin/edgemakers/set/create'] = array(
     'title' => 'Create Set',
-    'page callback' => 'edgemakers_set_admin_create_page', 
+    'page callback' => 'edgemakers_set_admin_create_page',
     'access arguments' => array('administer edgemakers'),
     'file path' => drupal_get_path('module', 'node'),
     'file' => 'node.pages.inc',
@@ -68,7 +68,7 @@ function edgemakers_set_node_validate($node, $form, &$form_state) {
     $terms = _edgemakers_set_get_terms();
     $types = field_get_items('node', $node, 'field_set_type');
     $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
-    
+
     if($type == 'Inspiration' || $type == 'Showcase' || $type == 'Video with Comments' || $type == 'Video with Q&A') {
       $urls = field_get_items('node', $node, 'field_set_url');
       $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
@@ -137,9 +137,9 @@ function theme_set_item($variables) {
           $set_image = theme('image_style', array('style_name' => 'edgemakers_set', 'path' => $image));
         }
         if($set_image) {
-          $output .= l($set_image, $link, array('html' => TRUE, 'attributes' => array('class' => $className)));
+          $output .= l($set_image, $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         } else {
-          $output .= l($item->title, $link, array('attributes' => array('class' => $className)));
+          $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         }
         break;
       case 'idea':
@@ -150,17 +150,17 @@ function theme_set_item($variables) {
           $link = 'mural/create/'.$templateid;
         } else {
           $link = 'mural/create';
-        } 
-        $output .= l($item->title, $link, array('attributes' => array('class' => $className)));
+        }
+        $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         break;
       case 'text':
-        $output .= l($item->title, $link, array('attributes' => array('class' => $className)));
+        $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         break;
       case 'topic page':
         $topics = field_get_items('node', $item, 'field_set_topic');
         $topicId = $topics && count($topics) > 0 ? $topics[0]['target_id'] : '';
         $link = 'node/'.$topicId;
-        $output .= l($item->title, $link, array('attributes' => array('class' => $className)));
+        $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         break;
       case 'inspiration':
       case 'showcase':
@@ -177,19 +177,19 @@ function theme_set_item($variables) {
           }
         }
         if($set_image) {
-          $output .= l($set_image, $link, array('html' => TRUE, 'attributes' => array('class' => $className)));
+          $output .= l($set_image, $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         } else {
-          $output .= l($item->title, $link, array('attributes' => array('class' => $className)));
+          $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         }
         break;
       case 'survey & assessment':
         $surveys = field_get_items('node', $item, 'field_set_survey');
         $surveyId = $surveys && count($surveys) > 0 ? $surveys[0]['target_id'] : '';
         $link = 'node/'.$surveyId;
-        $output .= l($item->title, $link, array('attributes' => array('class' => $className)));
+        $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         break;
       default:
-        $output .= l($item->title, $link, array('attributes' => array('class' => $className)));
+        $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         break;
     }
   }
@@ -216,13 +216,13 @@ function edgemakers_set_image_default_styles() {
 function edgemakers_set_murally_parser($url) {
   return '123456789';
 	preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $url, $matches);
-	if(is_array($matches) && count($matches) > 0) 
+	if(is_array($matches) && count($matches) > 0)
 		return $matches[0];
 	return false;
 }
 function edgemakers_set_youtube_parser($url) {
 	preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $url, $matches);
-	if(is_array($matches) && count($matches) > 0) 
+	if(is_array($matches) && count($matches) > 0)
 		return $matches[0];
 	return false;
 }
