@@ -14,7 +14,7 @@ function muralshow($nid, $mid = 0) {
 
   $img_gear = '<img title="set" alt="set" src="' . $GLOBALS['base_path'] . path_to_theme() . '/images/mock-gear.png"/>';
 
-  $edit_url = l($img_gear, 'modal/node/' . $nid . '/edit/nojs/1', array(
+  $edit_url = l($img_gear, 'modal/node/' . $nid . '/edit/nojs/0', array(
     'query' => array(
      'destination' => $GLOBALS['base_path'] . 'mural/' . $nid,
     ),
@@ -138,4 +138,19 @@ function create_mural($mural_api, $muser, $mroomid, $title = 'my mural', $duplic
   }
   return '';
 }
+
+function _mural_usersearch_autocomplete( $string='') {
+  $ret = array();
+  $query = db_select('users', 'u');
+  $query->leftJoin('field_data_field_muralusername', 'f', '(u.uid = f.entity_id and f.bundle = :p)', array(':p'=>'user'));  
+  $query->fields('u',array('uid','name'))
+    ->isNotNull(field_muralusername_value)
+    -> condition('u.name', '%' . db_like($string) . '%', 'LIKE');
+  $result = $query->execute();
+  foreach ($result as $row) {
+    $ret[$row->name] = check_plain($row->name);
+  }
+  drupal_json_output($ret);
+}
+
 
