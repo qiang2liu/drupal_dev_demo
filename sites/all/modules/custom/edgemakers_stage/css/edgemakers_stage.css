@@ -50,9 +50,11 @@
   display: block;
 }
 
-#set-user-info .user-picture a img {
+#set-user-info .user-picture img {
   border-radius: 30px;
   height: 54px;
+  padding: 2px;
+  background-color: white;
 }
 
 .set-video-content,
