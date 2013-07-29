@@ -322,7 +322,7 @@ function edgemakers_stage_block_view($delta = '') {
       ', 'inline');
 
       $block['content'] = '<div id="set-view-region" class="hidden"><div id="stage-set-view"></div><div id="back-set-list"> ' . t('Back to Stage') . '</div></div>';
-      $block['content'] .= '<div id="ajaxload"></div><div id="stage-set-list">';
+      $block['content'] .= '<div id="ajaxload">&nbsp;</div><div id="stage-set-list">';
 
       foreach ($stages AS $stage) {
         $block['content'] .= '<div id="stage-set-list-' . $stage->nid . '" style="display: none;">';
