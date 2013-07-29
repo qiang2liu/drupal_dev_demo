@@ -362,9 +362,7 @@ li:after{
 	border-radius:0;
 }
 .pane{
-	width:63.5%;
 	position:absolute;
-	right:-63.5%;
 	padding: 10px 0;
 	border-radius:10px;
 	top:90px;
@@ -462,11 +460,10 @@ li:after{
 .main-content{
 	position:absolute;
 	top:150px;
-	left:25%;
+	left:200px;
 	height:500px;
 	overflow:hidden;
-	width:48%;
-	padding:1%;
+	padding:20px;
 	background-color: rgba(255,255,255,0.1);
 }
 #block-edgemakers-stage-stage-list #stage-set-list li{

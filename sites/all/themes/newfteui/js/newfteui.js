@@ -19,7 +19,7 @@
 						}
 					);
 					self.find('.indicator span').bind('click', function(){
-						$('.pane').removeClass('show');
+						$('.pane').setWidthRight().removeClass('show');
 						$('div').not(self).not('.toolbar-handler').not('.toolbar-box').removeClass('active');
 						self.toggleClass('active');
 					})
@@ -27,6 +27,21 @@
 			},
 			toggleToolbar: function(){
 				$('.toolbar-handler, .toolbar-box').toggleClass('active');
+			},
+			setWidth: function(){
+				return this.each(function(){
+					$(this).css({
+						'width' : $(window).width()-440 + 'px'
+					})
+				})
+			},
+			setWidthRight: function(){
+				return this.each(function(){
+					$(this).css({
+						'width' : $(window).width() - 270 + 'px',
+						'right' : -($(window).width() - 270 ) + 'px'
+					})
+				})
 			},
 			removeAllActive : function(){
 				$('div').not('.toolbar-handler').not('.toolbar-box').not(this).removeClass('active');
@@ -37,6 +52,10 @@
 	
 	//load
 	$(document).ready(function(){
+		//set width
+		$('.main-content').setWidth();
+		$('.pane').setWidthRight();
+		
 		
 		$('.community').setCommunity();
 		$('.toolbar-handler').bind('click', $.fn.toggleToolbar);
@@ -53,20 +72,25 @@
 			}
 		);
 		$('.stage-selector-handler>em').bind('click', function(){
-			$('.pane').removeClass('show');
+			$('.pane').setWidthRight().removeClass('show');
 			$.fn.removeAllActive.call($('.stage-selector'));
 			
 		});
 		$('.pane-handler').bind('click',function(){
 			$.fn.removeAllActive.call(this);
 			var id = $(this).attr('data-aim');
-			$('.pane').not('#'+ id).removeClass('show');
-			$('#'+ id).toggleClass('show');
+			$('.pane').not('#'+ id).removeClass('show').setWidthRight();
+			//$('#'+ id).toggleClass('show');
+			if($('#'+ id).hasClass('show')){
+				$('#'+ id).setWidthRight().removeClass('show');
+			}else{
+				$('#'+ id).css('right','').addClass('show');
+			}
 		})
 		//user-profile
 		$('.user-profile-inner').bind('click', function(){
 			$.fn.removeAllActive.call($('.user-profile'));
-			$('.pane').removeClass('show');
+			$('.pane').setWidthRight().removeClass('show');
 		});
 		
 		
