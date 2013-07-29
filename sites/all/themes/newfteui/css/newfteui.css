@@ -371,7 +371,7 @@ li:after{
 	transition-timing-function: linear;
 	transition-delay: 0;
     /* for test */
-	height:680px;
+	height:740px;
 	background-repeat: no-repeat;
 	background-position: center center;
 }
@@ -392,6 +392,8 @@ li:after{
 #competitions{
 	background-image: url(../images/example_05.png);
 	background-color:rgba(244,126,64,1.0);
+    /* test */
+    height:810px;
 }
 /*.pane-handler.active:hover{
 	background-image:url(../images/newui_ico_pane_handler_ac.png);
@@ -459,10 +461,10 @@ li:after{
 /* content */
 .main-content{
 	position:absolute;
-	top:150px;
+	top:90px;
 	left:200px;
-	height:500px;
-	overflow:hidden;
+	min-height:500px;
+	/*overflow:hidden;*/
 	padding:20px;
 	background-color: rgba(255,255,255,0.1);
 }
