@@ -118,6 +118,22 @@ function edgemakers_stage_api_set_view_html($set_id = '') {
   }
 
   switch (strtolower($type)) {
+    case 'video with q&a':
+      $img = array(
+        'path' => drupal_get_path('module', 'edgemakers_stage') . '/images/Video w-QandA Set.png',
+      );
+      $html = '<div id="buildingSet">' . theme('image', $img) . '</div>';
+
+      return $html;
+      break;
+    case 'video with comments':
+      $img = array(
+        'path' => drupal_get_path('module', 'edgemakers_stage') . '/images/Video w-Comments Set.png',
+      );
+      $html = '<div id="buildingSet">' . theme('image', $img) . '</div>';
+
+      return $html;
+      break;
     case 'survey & assessment':
       $html = '<div id="buildingSet"><h3>This is a survey & assessment set, will be developped later</h3></div>';
       return $html;
