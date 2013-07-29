@@ -370,10 +370,15 @@ li:after{
 	transition-duration: .2s;
 	transition-timing-function: linear;
 	transition-delay: 0;
+	
     /* for test */
 	height:740px;
 	background-repeat: no-repeat;
 	background-position: center center;
+}
+.pane.flash{
+	animation:opacity 0.5s infinite;
+   -webkit-animation:opacity 0.5s infinite;
 }
 .pane.show{
 	right:70px;
