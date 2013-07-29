@@ -65,8 +65,6 @@
 
           ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid;
           
-          //return false;
-          
           var ajaxContent;
           
           jQuery.ajax({
