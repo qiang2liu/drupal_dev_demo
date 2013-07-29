@@ -89,6 +89,7 @@
 
 #set-user-info dl {
   text-align: center;
+  position: relative;
 }
 
 #set-user-info dt {
@@ -98,7 +99,7 @@
   overflow: hidden;
   position: absolute;
   left: 12%;
-  top: 43px;
+  /* top: 60px; */
 }
 
 #set-user-info dd {

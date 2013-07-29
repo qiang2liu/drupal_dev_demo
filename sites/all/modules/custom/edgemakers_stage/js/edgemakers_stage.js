@@ -53,7 +53,7 @@
     
     jQuery('#stage-set-list').animate({
       opacity: 1
-    }, 1000, 'linear', function() {
+    }, 3000, 'linear', function() {
       
       jQuery('#stage-set-list ul li a').each(function( index ) {
         
@@ -62,8 +62,6 @@
         jQuery(this).bind('click', function(){
           
           var nid = jQuery(this).attr('id').substring(5);
-
-          alert("Node id: " + nid);
 
           ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid;
           
