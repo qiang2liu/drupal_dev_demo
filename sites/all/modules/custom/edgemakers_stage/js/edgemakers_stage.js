@@ -32,6 +32,7 @@
   
   
   function openAjaxLoad(id) {
+
     jQuery("#" + id).html("Loading......");
     jQuery("#" + id).dialog({modal: true});
     jQuery('.ui-dialog-titlebar').attr("style", "display: none;");
@@ -140,9 +141,10 @@
       
       /* jQuery("#stage-set-view").dialog("close"); */
       
+      closeAjaxLoad("ajaxload");
+      
     });
-    
-    closeAjaxLoad("ajaxload");
+
 
     //jQuery("#stage-set-view").dialog("close");
     
