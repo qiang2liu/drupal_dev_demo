@@ -32,7 +32,6 @@
   
   
   function openAjaxLoad(id) {
-
     jQuery("#" + id).html("Loading......");
     jQuery("#" + id).dialog({modal: true});
     jQuery('.ui-dialog-titlebar').attr("style", "display: none;");
@@ -64,7 +63,7 @@
           
           var nid = jQuery(this).attr('id').substring(5);
 
-          //alert("Node id: " + nid);
+          alert("Node id: " + nid);
 
           ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid;
           
@@ -103,9 +102,10 @@
             },
             error :function(){
               jQuery("#stage-set-view").html("Load set data error.");
+              alert("Error");
               //ajaxContent = "Load set data error.";
               //jQuery("stage-set-view").html("Load set data error.");
-              //return false;
+              return false;
             }
           });
           
