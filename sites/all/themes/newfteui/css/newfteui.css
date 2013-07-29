@@ -245,6 +245,13 @@ li:after{
 .toolbar-item{
 	min-height:54px;
 }
+.toolbar-item.test1{
+	background: url(../images/example_10.png) center center no-repeat;
+}
+.toolbar-item.test2{
+	background: url(../images/example_11.png) center center no-repeat;
+	height:620px;
+}
 .toolbar-item h4{
 	line-height:54px;
 	padding-left:60px;
@@ -267,7 +274,7 @@ li:after{
 	overflow:hidden;
 	width:50px;
 	position:absolute;
-	top:600px;
+	top:790px;
 	transition-property: width;
 	transition-duration: .2s;
 	transition-timing-function: linear;
