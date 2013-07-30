@@ -397,8 +397,9 @@ ul:after,
 	right:70px;
 }
 #studio{
-	background-image: url(../images/example_03.png);
+	/*background-image: url(../images/example_03.png);*/
 	background-color:rgba(189,21,54,1.0);
+	text-align:center;
 }
 #studio.show{
 	border-radius: 10px 0 10px 10px;
