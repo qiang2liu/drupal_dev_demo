@@ -86,6 +86,15 @@ function edgemakers_block_configure($delta) {
   return $form;
 }
 /**
+ * Implements hook_form_alter().
+ *
+}*/
+function edgemakers_form_alter(&$form, $form_state, $form_id) {
+  if ($form_id == 'bg_image_ui_paths_form') {
+    $form['description']['#suffix'] = '<p>'.l(t('Upload a new background image'), 'node/add/site-bg-image', array('query' => drupal_get_destination())).'</p>';
+  }
+}
+/**
 * Implements hook_block_save().
 */
 function edgemakers_block_save($delta = '', $edit = array()) {
