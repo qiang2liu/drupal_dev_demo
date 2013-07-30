@@ -52,7 +52,7 @@ function edgemakers_stage_page() {
             ),
         )
     );
-    $managebox_url = l('Manage Box', 'admin/edgemakers/stage/managebox/' . $node->nid);
+    $managebox_url = l('Manage Set', 'admin/edgemakers/stage/managebox/' . $node->nid);
     $delete_url = l('Delete', 'node/' . $node->nid . '/delete',
       array(
         'query' => array(
