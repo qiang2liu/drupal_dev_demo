@@ -24,7 +24,7 @@ function newfteui_preprocess_node(&$vars) {
  */
 function newfteui_breadcrumb($variables) {
 
-  drupal_set_message("edgemakers_stage_breadcrumb include home link");
+  //drupal_set_message("edgemakers_stage_breadcrumb include home link");
 
   $breadcrumb = $variables['breadcrumb'];
   $crumb_arrow = '<span class="crumbs-arrow"> &raquo </span>';
