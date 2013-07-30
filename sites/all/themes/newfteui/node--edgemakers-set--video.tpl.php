@@ -68,6 +68,6 @@ function loadVideo(videoid) {
 	var params = { allowScriptAccess: "always" };
 	var atts = { id: "myytplayer" };
 	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
-		"yt", "640", "390", "8", null, null, params, atts);
+		"yt", "840", "425", "8", null, null, params, atts);
 }
 </script>
