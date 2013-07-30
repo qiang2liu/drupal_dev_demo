@@ -87,7 +87,7 @@
   display: block;
   width: 900px;
   position: absolute;
-  left: -150px;
+  /* left: -150px; */
 }
 #stage-set-view {
   min-height: 460px;
