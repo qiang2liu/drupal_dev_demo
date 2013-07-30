@@ -173,7 +173,7 @@ function theme_set_item($variables) {
           $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
           $videoId = edgemakers_set_youtube_parser($url);
           if($videoId) {
-            $set_image = '<div class="crop" style="width:133px;height:133px;overflow: hidden;"><img src="http://img.youtube.com/vi/'.$videoId.'/0.jpg" style="width:177px;height:133px;margin:0 -22px;"/></div>';
+            $set_image = '<div class="crop"><img src="http://img.youtube.com/vi/'.$videoId.'/0.jpg" /></div>';
           }
         }
         if($set_image) {
