@@ -173,7 +173,7 @@ function theme_set_item($variables) {
           $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
           $videoId = edgemakers_set_youtube_parser($url);
           if($videoId) {
-            $set_image = '<img src="http://img.youtube.com/vi/'.$videoId.'/default.jpg" />';
+            $set_image = '<div class="crop"><img src="http://img.youtube.com/vi/'.$videoId.'/0.jpg" /></div>';
           }
         }
         if($set_image) {
@@ -204,8 +204,8 @@ function edgemakers_set_image_default_styles() {
   $styles['edgemakers_set'] = array(
     'effects' => array(
       array(
-        'name' => 'image_scale',
-        'data' => array('width' => 120, 'height' => 90, 'upscale' => 1),
+        'name' => 'image_scale_and_crop',
+        'data' => array('width' => 133, 'height' => 133),
         'weight' => 0,
       ),
     )

@@ -50,7 +50,9 @@ img{
 
 /* general */
 html{
-	background:#0069ac;
+	background:url(../images/bg_body.png) no-repeat center center fixed;
+	-moz-background-size: cover;
+	background-size: cover;
 	
 }
 body{
@@ -58,6 +60,8 @@ body{
 	font-size:85%;
 	overflow-x:hidden;
 	font-family:Tahoma;
+	
+	
 }
 a{
 	text-decoration: none;
@@ -481,14 +485,24 @@ ul:after,
 	min-height:500px;
 	/*overflow:hidden;*/
 	padding:20px;
-	background-color: rgba(255,255,255,0.1);
+	
+}
+#block-edgemakers-stage-stage-list{
+	width:596px;
+	margin:0 auto;
 }
 #block-edgemakers-stage-stage-list #stage-set-list li{
 	float:left;
-	width:22%;
-	padding:1%;
-	margin:1px;
+	width:133px;
+	margin: 0 8px;
 	text-align:center;
-	height:100px;
-	background-color: rgba(255,255,255,0.3);
+	height:133px;
+	overflow:hidden;
+}
+
+#block-edgemakers-stage-stage-list #stage-set-list li.crop img{
+	display:block;
+	width:177px;
+	height:133px;
+	margin-left:-22px;
 }
