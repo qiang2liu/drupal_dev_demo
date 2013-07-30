@@ -8,6 +8,15 @@ function themuraly_menu() {
     'type' => MENU_CALLBACK,
     'file' => 'mural_op.inc',
   );
+  $items['mural/share/%'] = array(
+    'page callback' => 'muralshow_share',
+    'page arguments' => array(2),
+    'access callback' => 'user_is_logged_in',
+    'type' => MENU_CALLBACK,
+    'file' => 'mural_op.inc',
+    
+    
+  );
   $items['mural/create/%'] = array(
     'page callback' => 'muralcreate',
     'page arguments' => array(2),

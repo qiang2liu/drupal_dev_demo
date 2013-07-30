@@ -1,19 +1,68 @@
 <?php
 
-function muralshow($nid, $mid = 0) {
+function muralshow_share($nid) {
+  
+  
   global $user;
+  $the_node = node_load($nid);
+  $muralid_obj = field_get_items('node', $the_node, 'field_muralid');
+  $muralowner_obj = field_get_items('node', $the_node, 'field_muraluser');
+  $mid = 0;
+  $node_uid = 0;
+  if (isset($the_node->uid)) {
+    $node_uid = $the_node->uid;
+  }
+  
+  if (!empty($muralid_obj[0]['value'])) {
+    $the_muralid = $muralid_obj[0]['value'];
+    $mid = $the_muralid;
+  }
+  if (!empty($muralowner_obj[0]['value'])) {
+    $the_muralowner = $muralowner_obj[0]['value'];
+  }
+  if (!empty($the_muralid) && !empty($the_muralowner)) {
+
+    $account = user_load($user->uid);
+    if (!empty($account->field_muralusername)) {
+      $fieldinfo = field_get_items('user', $account, 'field_muralusername');
+      if ($fieldinfo) {
+        $muraluser_invite = $fieldinfo[0]['value'];
+      }
+    }
+
+
+    if ($user->uid > 0 && !empty($muraluser_invite)) {
+
+      $mural_api = new Muralapi;
+      $result = $mural_api->invite_user_mural($the_muralowner, $the_muralid, array($muraluser_invite));
+      
+    }
+  }
+  return muralshow($nid, $mid, $node_uid);
+  
+}
+
+function muralshow($nid, $mid = 0, $uid = 0) {
+ 
+  global $user;
+  $the_node_uid = 0;
+  if ($uid > 0) {
+    $the_node_uid = $uid;
+  }
   if ($mid == 0) {
     $the_node = node_load($nid);
     $muralid_array = field_get_items('node', $the_node, 'field_muralid');
     $mid = $muralid_array[0]['value'];
+    $the_node_uid = $the_node->uid;
   }
-
+  
+  
   ctools_include('modal');
   ctools_include('ajax');
   ctools_modal_add_js();
-
+  
   $img_gear = '<img title="set" alt="set" src="' . $GLOBALS['base_path'] . path_to_theme() . '/images/mock-gear.png"/>';
-  if ($user->uid == $the_node->uid) {
+  if ($user->uid ==  $the_node_uid) {
     $edit_url = l($img_gear, 'modal/node/' . $nid . '/edit/nojs/0', array(
       'query' => array(
         'destination' => $GLOBALS['base_path'] . 'mural/' . $nid,
@@ -24,8 +73,7 @@ function muralshow($nid, $mid = 0) {
       ),
             )
     );
-  }
-  else {
+  } else {
     $edit_url = '';
   }
 
