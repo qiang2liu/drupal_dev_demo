@@ -1,7 +1,7 @@
 <?php
 
 function muralshow($nid, $mid = 0) {
-
+  global $user;
   if ($mid == 0) {
     $the_node = node_load($nid);
     $muralid_array = field_get_items('node', $the_node, 'field_muralid');
@@ -13,17 +13,22 @@ function muralshow($nid, $mid = 0) {
   ctools_modal_add_js();
 
   $img_gear = '<img title="set" alt="set" src="' . $GLOBALS['base_path'] . path_to_theme() . '/images/mock-gear.png"/>';
+  if ($user->uid == $the_node->uid) {
+    $edit_url = l($img_gear, 'modal/node/' . $nid . '/edit/nojs/0', array(
+      'query' => array(
+        'destination' => $GLOBALS['base_path'] . 'mural/' . $nid,
+      ),
+      'html' => true,
+      'attributes' => array(
+        'class' => array('ctools-use-modal'),
+      ),
+            )
+    );
+  }
+  else {
+    $edit_url = '';
+  }
 
-  $edit_url = l($img_gear, 'modal/node/' . $nid . '/edit/nojs/0', array(
-    'query' => array(
-     'destination' => $GLOBALS['base_path'] . 'mural/' . $nid,
-    ),
-    'html' => true,
-    'attributes' => array(
-      'class' => array('ctools-use-modal'),
-    ),
-          )
-  );
 
 
   return theme("muralypage", array('data' => array('m_id' => $mid,
@@ -113,7 +118,7 @@ function muralcreate($template_id = 0) {
   node_object_prepare($newNode);
   node_save($newNode);
   $the_nid = $newNode->nid;
-  drupal_goto( 'mural/' . $the_nid);
+  drupal_goto('mural/' . $the_nid);
 }
 
 function create_mural($mural_api, $muser, $mroomid, $title = 'my mural', $duplicate_id = '') {
@@ -139,18 +144,17 @@ function create_mural($mural_api, $muser, $mroomid, $title = 'my mural', $duplic
   return '';
 }
 
-function _mural_usersearch_autocomplete( $string='') {
+function _mural_usersearch_autocomplete($string = '') {
   $ret = array();
   $query = db_select('users', 'u');
-  $query->leftJoin('field_data_field_muralusername', 'f', '(u.uid = f.entity_id and f.bundle = :p)', array(':p'=>'user'));  
-  $query->fields('u',array('uid','name'))
-    ->isNotNull(field_muralusername_value)
-    -> condition('u.name', '%' . db_like($string) . '%', 'LIKE');
+  $query->leftJoin('field_data_field_muralusername', 'f', '(u.uid = f.entity_id and f.bundle = :p)', array(':p' => 'user'));
+  $query->fields('u', array('uid', 'name'))
+          ->isNotNull(field_muralusername_value)
+          ->condition('u.name', '%' . db_like($string) . '%', 'LIKE');
   $result = $query->execute();
   foreach ($result as $row) {
     $ret[$row->name] = check_plain($row->name);
   }
   drupal_json_output($ret);
 }
-
 
