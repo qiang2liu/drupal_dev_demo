@@ -50,7 +50,9 @@ img{
 
 /* general */
 html{
-	background:#0069ac;
+	background:url(../images/bg_body.png) no-repeat center center fixed;
+	-moz-background-size: cover;
+	background-size: cover;
 	
 }
 body{
@@ -58,6 +60,8 @@ body{
 	font-size:85%;
 	overflow-x:hidden;
 	font-family:Tahoma;
+	
+	
 }
 a{
 	text-decoration: none;
