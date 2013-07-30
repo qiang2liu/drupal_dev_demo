@@ -494,7 +494,7 @@ ul:after,
 #block-edgemakers-stage-stage-list #stage-set-list li{
 	float:left;
 	width:133px;
-	margin: 0 8px;
+	margin: 0 8px 25px;
 	text-align:center;
 	height:133px;
 }
