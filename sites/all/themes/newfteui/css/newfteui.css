@@ -142,10 +142,10 @@ ul:after,
   animation:colorChange1 0.5s infinite;
   -webkit-animation:colorChange1 0.5s infinite;
 }
-.user-profile:hover{
+/*.user-profile:hover{
   animation:colorChange-profile 0.5s infinite;
   -webkit-animation:colorChange-profile 0.5s infinite;
-}
+}*/
 .community .region{
 	margin:0 35px;
 }
@@ -226,10 +226,10 @@ ul:after,
 	background:url(../images/newui_ico_toolbar.png) center center no-repeat;
 	
 }
-.toolbar-handler:hover{
+/*.toolbar-handler:hover{
 	animation:colorChange 0.5s infinite;
   	-webkit-animation:colorChange 0.5s infinite;
-}
+}*/
 
 .toolbar-box{
 	position:absolute;
@@ -367,8 +367,8 @@ ul:after,
 .pane-handler:hover{
 	width:70px;
 	border-radius:0;
-	animation:opacity 0.5s infinite;
-   -webkit-animation:opacity 0.5s infinite;
+	/*animation:opacity 0.5s infinite;
+   -webkit-animation:opacity 0.5s infinite;*/
 }
 .pane-handler.active{
 	width:70px;
