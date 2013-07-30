@@ -152,8 +152,13 @@ function edgemakers_stage_api_set_view_html($set_id = '') {
 
       return $html;
       break;
-    default:
+    case 'image':
+    case 'text':
+    case 'video':
       return drupal_render(node_view($node, 'full'));
+    default:
+      $html = '<div id="buildingSet"><h3>This is a ' . $node->term->name . ' set, will be developped later</h3></div>';
+      return $html;
   }
 
     return drupal_render(node_view($node, 'full'));
