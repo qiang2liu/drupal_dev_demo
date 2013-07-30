@@ -39,6 +39,7 @@ function edgemakers_stage_api_set_list_html($stage_id) {
 
   if ($stage_id) {
     $stage = node_load($stage_id);
+    $html .= '<div id="stage-title"><h2>' . $stage->title . '</h2></div>';
 
     if (isset($stage->box_index_data[LANGUAGE_NONE])) {
 
@@ -70,8 +71,6 @@ function edgemakers_stage_api_set_list_html($stage_id) {
 
         if (count($sets['items'] > 0)) {
 
-
-
           $sets['title'] = '';
           $sets['type'] = 'ul';
           $sets['attributes'] = array();
@@ -80,7 +79,7 @@ function edgemakers_stage_api_set_list_html($stage_id) {
 
         }
         else {
-          drupal_set_message("Set is empty.");
+          //drupal_set_message("Set is empty.");
           $set_list = t('Set is empty in stage.');
         }
 

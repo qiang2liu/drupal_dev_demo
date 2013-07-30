@@ -79,7 +79,7 @@ function edgemakers_stage_menu() {
   );
 
   $items['admin/edgemakers/stage/managebox'] = array(
-    'title' => 'Manage Box',
+    'title' => 'Manage Set',
     'type' => MENU_LOCAL_TASK,
     'page callback' => 'edgemakers_stage_managebox_page',
     'page arguments' => array(4),
