@@ -53,7 +53,9 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
     $the_nid = $form['nid']['#value'];
     unset($form['field_muralid']);
     unset($form['field_muraluser']);
+
     if ($the_nid) {  //edit form
+      unset($form['actions']['delete']);
       $form['mural_member_search'] = array(
         '#type' => 'textfield',
         '#title' => t('user'),
@@ -111,7 +113,7 @@ function _mural_member_list($the_nid, $para_muralid = '') {
         $fieldinfo = field_get_items('user', $account, 'field_muralusername');
         if ($fieldinfo) {
           $muralusername = $fieldinfo[0]['value'];
-         
+
           if (!empty($muralusername)) {
             //call api , get member 
             $mural_api = new Muralapi;
@@ -144,7 +146,7 @@ function _mural_member_list($the_nid, $para_muralid = '') {
                       } else {
                         $avatarUri = $avatarUri_default;
                       }
-                      $userpic = theme('image_style', array('style_name' => 'edgemakers_avatar', 'path' => $avatarUri, 'alt' =>$u->name, 'title' => $u->name,));
+                      $userpic = theme('image_style', array('style_name' => 'edgemakers_avatar', 'path' => $avatarUri, 'alt' => $u->name, 'title' => $u->name,));
                       if (user_access('access user profiles')) {
                         //$userpic = l($userpic, 'user/' . $u->uid, array('html' => TRUE));
                       }
@@ -167,7 +169,74 @@ function _mural_member_list($the_nid, $para_muralid = '') {
 }
 
 function _themuralyajax_validate($form, &$form_state) {
+  global $user;
   form_load_include($form_state, 'inc', 'node', 'node.pages');
+
+  if ($form_state['triggering_element']['#type'] == 'submit') {
+    //dpm($form_state);
+   // dpm($form);
+    //dd($form_state, '11111');
+   // dd($form, '22222');
+
+
+    $property_array = array();
+
+    $title = check_plain($form_state['values']['title']);
+    if (empty($title)) {
+      return;
+    }
+    $property_array['title'] = $title;
+    $lang = $form_state['values']['language'];
+    $muralshared = $form_state['values']['field_muralshared'][$lang][0]['value'];
+    $property_array['shared'] = (bool) $muralshared;
+
+    // invoked by submit button, not ajax button :'invite'
+    $the_nid = $form_state['values']['nid'];
+    // get muralid
+    $the_muralid = '';
+    $the_mural = node_load($the_nid);
+    if (isset($the_mural->nid)) {
+      $muralid_obj = field_get_items('node', $the_mural, 'field_muralid');
+      if (!empty($muralid_obj[0]['value'])) {
+        $the_muralid = $muralid_obj[0]['value'];
+      }
+    }
+    if (!empty($the_muralid)) {
+      if ($user->uid > 0) {
+        $account = user_load($user->uid);
+        if (!empty($account->field_muralusername)) {
+          $fieldinfo = field_get_items('user', $account, 'field_muralusername');
+          if ($fieldinfo) {
+            $muralusername = $fieldinfo[0]['value'];
+
+            if (!empty($muralusername)) {
+              
+              
+              foreach ($property_array as $k => $v) {
+                $mural_api = new Muralapi;
+                $property_name = $k;
+                $property_value = $v;
+                $result = $mural_api->update_mural_properties($muralusername, $the_muralid, $property_name, $property_value);
+               
+                if (is_object($result) && isset($result->data)) {
+                  $data = $result->data;
+                   
+                  if (!is_string($data) || strtoupper($data) != 'OK') {
+                    $the_form_ele = $k;
+                    if ($k == 'shared') {
+                      $the_form_ele = 'field_muralshared';
+                    }
+                    form_set_error($the_form_ele, t('can\'t update the mural properties.'));
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 function _themuralyajax_submit($form, &$form_state) {
@@ -186,21 +255,20 @@ function mural_addmember_ajax_callback($form, $form_state) {
     }
   }
   if (!empty($the_muralid)) {
-   
+
     $member_username = $form_state['values']['mural_member_search'];
     $muraluser_invite = check_plain($member_username);
 
-    if ($user->uid > 0 && !empty($muraluser_invite )) {
+    if ($user->uid > 0 && !empty($muraluser_invite)) {
       $account = user_load($user->uid);
       if (!empty($account->field_muralusername)) {
         $fieldinfo = field_get_items('user', $account, 'field_muralusername');
         if ($fieldinfo) {
           $muralusername = $fieldinfo[0]['value'];
-          
+
           if (!empty($muralusername)) {
             $mural_api = new Muralapi;
             $result = $mural_api->invite_user_mural($muralusername, $the_muralid, array($muraluser_invite));
-            
           }
         }
 
@@ -227,12 +295,12 @@ function muralapi_create_room($mural_api, $muralusername, $title, $account) {
 
 function muralapi_test() {
 
-  _test_mural_list_for_a_user();
+  //_test_mural_list_for_a_user();
   //_test_user_add();
   //_test_create_room();
   // _test_mural_create_mural();
   //_test_mural_duplicate_mural();
-  //_test_mural_update_property_mural();
+  _test_mural_update_property_mural();
   //_test_mural_archive();
   //_test_mural_del();
   //_test_mural_list_for_a_user();
@@ -304,10 +372,11 @@ function _test_mural_archive() {
 
 function _test_mural_update_property_mural() {
   $mural_api = new Muralapi;
-  $username = "testuser";
-  $muralid = "1374197201377";
-  $property_name = "xxt";
-  $property_value = "test change description value";
+
+  $username = 'kk2t';
+  $muralid = '1375063051875';
+  $property_name = "shared";
+  $property_value = (bool) 1;
   $result = $mural_api->update_mural_properties($username, $muralid, $property_name, $property_value);
   $data = $result->data;
   $r = drupal_json_decode($data);
