@@ -497,12 +497,15 @@ ul:after,
 	margin: 0 8px;
 	text-align:center;
 	height:133px;
+}
+#block-edgemakers-stage-stage-list #stage-set-list li .crop{
+	width:133px;
+	height:133px;
 	overflow:hidden;
 }
-
-#block-edgemakers-stage-stage-list #stage-set-list li.crop img{
+#block-edgemakers-stage-stage-list #stage-set-list li .crop img{
 	display:block;
 	width:177px;
 	height:133px;
-	margin-left:-22px;
+	
 }
