@@ -81,7 +81,9 @@
 	  	<div class="competitions-handler pane-handler"  data-aim="competitions"></div>
 	    <?php print render($page['sliding_panes']); ?>
 	  </div>
-	  <div class="pane" id="studio"></div>
+	  <div class="pane" id="studio">
+	  	<img src="sites/all/themes/newfteui/images/example_12.png" style="margin:-35px auto 0" />
+	  </div>
 	  <div class="pane" id="challenge"></div>
 	  <div class="pane" id="competitions"></div>
 
