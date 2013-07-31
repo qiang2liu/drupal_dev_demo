@@ -254,7 +254,7 @@ ul:after,
 }
 .toolbar-item.test2{
 	background: url(../images/example_11.png) center center no-repeat;
-	height:620px;
+	height:310px;
 }
 .toolbar-item h4{
 	line-height:54px;
@@ -279,7 +279,7 @@ ul:after,
 	width:50px;
 	height: 50px;
 	position:absolute;
-	top:790px;
+	top:480px;
 	transition-property: width;
 	transition-duration: .2s;
 	transition-timing-function: linear;
@@ -385,7 +385,7 @@ ul:after,
 	transition-delay: 0;
 	
     /* for test */
-	height:740px;
+	height:700px;
 	background-repeat: no-repeat;
 	background-position: center center;
 }
@@ -423,7 +423,7 @@ ul:after,
 	width:54px;
 	height:54px;
 	padding:4px;
-	top:880px;
+	top:730px;
 	right:4px;
 	position:absolute;
 	border-radius:30px;
@@ -485,28 +485,41 @@ ul:after,
 	height:720px;
 	min-height:500px;
 	/*overflow:hidden;*/
-	padding:20px;
-	
+	padding:0 20px;
 }
-#block-edgemakers-stage-stage-list{
+#set-view-region{
+	border-radius:10px;
+	background-color:rgba(120,120,120,0.7);
+}
+#stage-title h2{
+	border:3px solid #989090;
+	border-radius:20px;
+	line-height:48px;
+	text-align:center;
+	font-size:24px;
+	color:#fff;
+	background-color:rgba(235,235,235,0.6);
+}
+#stage-set-list{
 	width:596px;
 	margin:0 auto;
 }
-#block-edgemakers-stage-stage-list #stage-set-list li{
+#stage-set-list li{
 	float:left;
 	width:133px;
 	margin: 0 8px 25px;
 	text-align:center;
 	height:133px;
 }
-#block-edgemakers-stage-stage-list #stage-set-list li .crop{
+#stage-set-list li .crop{
 	width:133px;
 	height:133px;
 	overflow:hidden;
 }
-#block-edgemakers-stage-stage-list #stage-set-list li .crop img{
+#stage-set-list li .crop img{
 	display:block;
 	width:177px;
 	height:133px;
-	
+	margin: 0 -22px;
+    max-width: none;
 }

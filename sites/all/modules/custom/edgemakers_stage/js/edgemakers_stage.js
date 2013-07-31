@@ -79,7 +79,9 @@
               jQuery("#stage-set-view").html(data);
               jQuery("#set-view-region").slideToggle();
               jQuery("#stage-set-list").hide();
-              
+              jQuery('#set-view-region').css({
+              	'width' : jQuery(window).width()-400 + 'px'
+              })
               closeAjaxLoad("ajaxload");
             },
             error :function(){
