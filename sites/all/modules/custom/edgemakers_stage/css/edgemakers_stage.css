@@ -66,7 +66,11 @@
   border: 1px solid gray;
   margin: 20px 60px;
   color: #666;
-  overflow: auto;
+/*  height: 400px; */
+/*  overflow: auto; */
+}
+
+.set-text-content {
   height: 400px;
   overflow: auto;
 }
@@ -75,12 +79,30 @@
 .set-image-content 
 {
   padding: 0;
-  margin: 20px auto;
+  margin: 20px auto 0px auto;
   text-align: center;
-  height: 460px;
+/*  min-height: 460px; */
   background-color: transparent;
   border: none;
-  overflow: auto;
+  width: 95%;
+/*  overflow: auto; */
+}
+
+#wrapper {
+  width: 90%;
+  min-height: 426px; 
+}
+
+#flash {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#yt {
+  display: block;
+  height: 90%;
+  width: 90%;
 }
 
 #set-view-region {
@@ -89,13 +111,16 @@
   position: absolute;
   left: 0px;
 }
+
 #stage-set-view {
-  min-height: 460px;
+  /* min-height: 460px; */
 }
 
 #stage-set-view .field-name-field-set-image .field-items img {
-  max-width: 842px;
-  max-height: 426px;
+  max-width: 100%;
+  height: auto;
+  /*max-width: 842px;
+  max-height: 426px;*/
 } 
 
 #set-user-info dl {

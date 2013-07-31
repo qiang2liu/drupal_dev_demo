@@ -39,7 +39,7 @@ function edgemakers_stage_api_set_list_html($stage_id) {
 
   if ($stage_id) {
     $stage = node_load($stage_id);
-    $html .= '<div id="stage-title"><h2>' . $stage->title . '</h2></div>';
+    $html .= '<div id="stage-title" style="display: none;"><h2>' . $stage->title . '</h2></div>';
 
     if (isset($stage->box_index_data[LANGUAGE_NONE])) {
 

@@ -18,7 +18,7 @@ function youtube_parser($url) {
 </style>
 
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
-
+<!--
 <div id="set-type-text"><h3><?php echo isset($node->term->name)?$node->term->name: ''; ?></h3></div>
 <div id="ytduration"></div>
 <div id="set-user-info">
@@ -39,6 +39,8 @@ function youtube_parser($url) {
     <span class="submitted"><?php print $submitted ?></span>
   <?php endif; ?>
 </div>
+-->
+  <span id="set-title" style="display: none;"><?php print $title;?></span>
   <div class="content set-video-content clearfix"<?php print $content_attributes; ?>>
     <?php
       // We hide the comments and links now so that we can render them later.
@@ -68,8 +70,9 @@ function youtube_parser($url) {
 function loadVideo(videoid) {
 	var params = { allowScriptAccess: "always" };
 	var atts = { id: "myytplayer" };
+
 	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
-		"yt", "840", "425", "8", null, null, params, atts);
+		"yt", "100%", "425", "8", null, null, params, atts);
 }
 function onYouTubePlayerReady(playerId) {
   var ytplayer = document.getElementById('myytplayer');
