@@ -523,3 +523,22 @@ ul:after,
 	margin: 0 -22px;
     max-width: none;
 }
+/* stage title and set title */
+.s-s-title{
+	position:absolute;
+	top:10px;
+	left:0;
+	padding: 0 15px 0 10px;
+	border-radius: 0 10px 10px 0;
+	background-color: rgba(180,180,180,0.7);
+	border:3px solid #eee;
+	border-left:0;
+}
+.s-s-title h2{
+	color:#fff;
+	font-size:1.6em;
+}
+.s-s-title h3{
+	color:#eee;
+	font-size:1.3em;
+}
