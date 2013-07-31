@@ -32,6 +32,7 @@
   <?php endif; ?>
 </div>
 -->
+  <span id="set-title" style="display: none;"><?php print $title;?></span>
   <div class="content set-image-content clearfix"<?php print $content_attributes; ?>>
     <?php
       // We hide the comments and links now so that we can render them later.

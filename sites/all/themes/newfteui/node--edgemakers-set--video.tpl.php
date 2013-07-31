@@ -40,6 +40,7 @@ function youtube_parser($url) {
   <?php endif; ?>
 </div>
 -->
+  <span id="set-title" style="display: none;"><?php print $title;?></span>
   <div class="content set-video-content clearfix"<?php print $content_attributes; ?>>
     <?php
       // We hide the comments and links now so that we can render them later.
@@ -71,7 +72,7 @@ function loadVideo(videoid) {
 	var atts = { id: "myytplayer" };
 
 	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
-		"yt", "95%", "425", "8", null, null, params, atts);
+		"yt", "100%", "425", "8", null, null, params, atts);
 }
 function onYouTubePlayerReady(playerId) {
   var ytplayer = document.getElementById('myytplayer');

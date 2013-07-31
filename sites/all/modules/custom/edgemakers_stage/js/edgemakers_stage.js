@@ -3,6 +3,7 @@
  */
   
   var initStage;
+  var initStageTitle;
   
   // Load stage list on front page.
   // stage ajax.
@@ -16,6 +17,7 @@
       success : function(data){
         
         initStage = data[0].nid;
+        initStageTitle = data[0].title;
 
         for(var i=0; i<data.length; i++){
           console.log(data[i]);
@@ -35,6 +37,7 @@
     jQuery("#back-set-list").bind("click", function(){
       jQuery("#set-view-region").slideToggle();
       jQuery("#stage-set-list").show();
+      jQuery(".s-s-title h3").empty();
     });
 
   }
@@ -58,6 +61,10 @@
     openAjaxLoad("ajaxload");
     
     jQuery('#stage-set-list').load("?q=edgemarkers/stage/get/set/ajax/" + $stage_id, function(){
+      
+      var stageTitle = jQuery("#stage-title h2").html();
+
+      jQuery(".s-s-title h2").html(stageTitle);
 
       jQuery('#stage-set-list ul li a').each(function( index ) {
         
@@ -77,6 +84,11 @@
             success: function(data) {
               
               jQuery("#stage-set-view").html(data);
+              
+              var setTitle = jQuery("#set-title").html();
+
+              jQuery(".s-s-title h3").html(setTitle);
+              
               jQuery("#set-view-region").slideToggle();
               jQuery("#stage-set-list").hide();
               jQuery('#set-view-region').css({
