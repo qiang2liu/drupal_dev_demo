@@ -53,19 +53,21 @@ function edgemakers_stage_api_set_list_html($stage_id) {
           if($set['set_id']) {
             $node = node_load($set['set_id']);
 
-            // Get box type by tid.
-            if (isset($node->field_set_type[LANGUAGE_NONE])) {
-              $node->term = taxonomy_term_load($node->field_set_type[LANGUAGE_NONE][0]['tid']);
-            }
+            if ($node->nid) {
+              // Get box type by tid.
+              if (isset($node->field_set_type[LANGUAGE_NONE])) {
+                $node->term = taxonomy_term_load($node->field_set_type[LANGUAGE_NONE][0]['tid']);
+              }
 
-            //if (function_exists(theme_set_item)) {
-            $item = theme('set_item', array('item'=>$node));
-              //$item = theme_set_item_list($node->term, $node);
-            //}
-            //else {
-            //$item = l($node->title, 'stage/set/view/' . $node->nid);
-            //}
-            $sets['items'][] = $item;
+              //if (function_exists(theme_set_item)) {
+              $item = theme('set_item', array('item'=>$node));
+                //$item = theme_set_item_list($node->term, $node);
+              //}
+              //else {
+              //$item = l($node->title, 'stage/set/view/' . $node->nid);
+              //}
+              $sets['items'][] = $item;
+            }
           }
         }
 
