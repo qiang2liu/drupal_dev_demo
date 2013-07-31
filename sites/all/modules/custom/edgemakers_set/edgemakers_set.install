@@ -17,7 +17,7 @@ function edgemakers_set_install() {
 	taxonomy_vocabulary_save((object)array('name'=>'Set Types', 'machine_name'=>'set_types'));
 	$vocabulary = edgemakers_set_get_vocabulary_by_name('Set Types');
 	$vid = $vocabulary->vid;
-	$terms = array('Image','Idea','Text','Topic Page','Inspiration','Showcase','Video with Comments','Video with Q&A','Survey & Assessment');
+	$terms = array('Image','Idea','Text','Topic Page','Inspiration','Showcase','Video with Comments','Video with Q&A','Survey & Assessment','Video','Document');
 	foreach($terms as $i=>$term){
 		$edit = (object)array('vid'=>$vid, 'name'=>$term, 'weight'=>$i);
 		taxonomy_term_save($edit);
