@@ -10,9 +10,15 @@ function newfteui_preprocess_node(&$vars) {
     $types = field_get_items('node', $node, 'field_set_type');
     $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
 
-    if($type == 'Inspiration' || $type == 'Showcase')
+    if($type == 'Inspiration' || $type == 'Showcase' || $type == 'Video')
       $type = 'video';
-    if($type == 'Image' || $type == 'Text' || $type == 'video' || $type == 'Idea') {
+    else if($type == 'Video with Comments')
+      $type = 'videocomments';
+    else if($type == 'Video with Q&A')
+      $type = 'videoqa';
+    else if($type == 'Survey & Assessment')
+      $type = 'survey';
+    if($type == 'Image' || $type == 'Text' || $type == 'video' || $type == 'Idea' || $type == 'videocomments' || $type == 'videoqa' || $type == 'survey' || $type == 'Document') {
       $vars['display_submitted'] = false;
       $vars['theme_hook_suggestions'][] = 'node__edgemakers_set__'.strtolower($type);
     }

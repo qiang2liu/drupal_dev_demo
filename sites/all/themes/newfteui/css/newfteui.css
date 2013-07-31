@@ -279,7 +279,7 @@ ul:after,
 	width:50px;
 	height: 50px;
 	position:absolute;
-	top:480px;
+	top:610px;
 	transition-property: width;
 	transition-duration: .2s;
 	transition-timing-function: linear;

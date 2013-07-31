@@ -20,6 +20,7 @@ function youtube_parser($url) {
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 <!--
 <div id="set-type-text"><h3><?php echo isset($node->term->name)?$node->term->name: ''; ?></h3></div>
+<div id="ytduration"></div>
 <div id="set-user-info">
   <dl>
   <dt>
@@ -71,5 +72,35 @@ function loadVideo(videoid) {
 
 	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
 		"yt", "95%", "425", "8", null, null, params, atts);
+}
+function onYouTubePlayerReady(playerId) {
+  var ytplayer = document.getElementById('myytplayer');
+  ytplayer.addEventListener("onStateChange", "myOnPlayerStateChange");
+  ytplayer.addEventListener("onError", "myOnPlayerError");
+}
+function myOnPlayerStateChange(newState) {
+  var elDuration = document.getElementById('ytduration');
+  if(elDuration) {
+    var ytplayer = document.getElementById('myytplayer');
+    document.getElementById('ytduration').innerHTML = "Duration: " + formatSecondsAsTime(ytplayer.getDuration());
+  }
+}
+function myOnPlayerError(errorCode) {
+  document.getElementById('yt').innerHTML = " Error occurred: " + errorCode;
+}
+function formatSecondsAsTime(secs) {
+  var hr = Math.floor(secs / 3600);
+  var min = Math.floor((secs - (hr * 3600)) / 60);
+  var sec = Math.floor(secs - (hr * 3600) - (min * 60));
+  if (hr < 10) {
+    hr = "0" + hr;
+  }
+  if (min < 10) {
+    min = "0" + min;
+  }
+  if (sec < 10) {
+    sec = "0" + sec;
+  }
+  return hr + ':' + min + ':' + sec;
 }
 </script>

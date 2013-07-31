@@ -11,12 +11,21 @@ function edgemakers_set_fields_update() {
       var index  = this.selectedIndex;
       edgemakers_set_togglefields(index, field_suffix);
     };
+    document.getElementById('edit-field-set-murally-type-und-0').onchange = function() {
+      edgemakers_set_murallyfield(1, field_suffix);
+    };
+    document.getElementById('edit-field-set-murally-type-und-1').onchange = function() {
+      edgemakers_set_murallyfield(1, field_suffix);
+    };
+    document.getElementById('edit-field-set-murally-type-und-2').onchange = function() {
+      edgemakers_set_murallyfield(1, field_suffix);
+    };
   }
 }
 function edgemakers_set_togglefields(index, field_suffix) {
   var startIndex = 0;
   var terms = document.getElementById('edit-field-set-type-und'+field_suffix).options; 
-  if(terms.length == 10) {
+  if(terms.length == 12) {
     startIndex = 1;
   }
   var term = terms[document.getElementById('edit-field-set-type-und'+field_suffix).selectedIndex].text;
@@ -28,11 +37,9 @@ function edgemakers_set_togglefields(index, field_suffix) {
       label.innerHTML = label.innerHTML.replace(/.*Title/, term + ' Title');
     } else if(forItem == 'edit-field-set-url-und-0') {
       if(index == (startIndex + 1)) {
-        label.innerHTML = 'Mural.ly Template';
-        document.getElementById('edit-field-set-url-und-0-url').placeholder = 'Leave blank for No Template';
+        label.innerHTML = '';
       } else {
-        label.innerHTML = term + ' URL';  
-        document.getElementById('edit-field-set-url-und-0-url').placeholder = '';   
+        label.innerHTML = term + ' URL';
       }
     }
   }
@@ -40,9 +47,11 @@ function edgemakers_set_togglefields(index, field_suffix) {
     document.getElementsByClassName('form-item-title'+field_suffix)[0].style.display = 'none';
     document.getElementById('edit-body'+field_suffix).style.display = 'none';
     document.getElementById('edit-field-set-url'+field_suffix).style.display = 'none';
+    document.getElementById('edit-field-set-murally-type'+field_suffix).style.display = 'none';
     document.getElementById('edit-field-set-topic'+field_suffix).style.display = 'none';
     document.getElementById('edit-field-set-survey'+field_suffix).style.display = 'none';
     document.getElementById('edit-field-set-image'+field_suffix).style.display = 'none';
+    document.getElementById('edit-field-set-document'+field_suffix).style.display = 'none';
     document.getElementById('edit-field-set-withthumbnail'+field_suffix).style.display = 'none';
     document.getElementById('edit-actions'+field_suffix).style.display = 'none';
   } else {
@@ -50,9 +59,13 @@ function edgemakers_set_togglefields(index, field_suffix) {
     //body only display for text, video with comments and video with Q&A type
     if(index == (startIndex + 2) || index == (startIndex + 6) || index == (startIndex + 7)) document.getElementById('edit-body'+field_suffix).style.display = 'block';
     else document.getElementById('edit-body'+field_suffix).style.display = 'none';
-    //url only display for idea, inspiration, showcase, video with comments and video with Q&A type
-    if(index == (startIndex + 1) || index == (startIndex + 4) || index == (startIndex + 5) || index == (startIndex + 6) || index == (startIndex + 7)) document.getElementById('edit-field-set-url'+field_suffix).style.display = 'block';
+    //url only display for idea, inspiration, showcase, video with comments, video with Q&A and video type
+    if(index == (startIndex + 4) || index == (startIndex + 5) || index == (startIndex + 6) || index == (startIndex + 7) || index == (startIndex + 9)) document.getElementById('edit-field-set-url'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-url'+field_suffix).style.display = 'none';
+    //murally type only display for idea type
+    if(index == (startIndex + 1)) document.getElementById('edit-field-set-murally-type'+field_suffix).style.display = 'block';
+    else document.getElementById('edit-field-set-murally-type'+field_suffix).style.display = 'none';
+    edgemakers_set_murallyfield(index == (startIndex + 1), field_suffix);
     //topic dropdownlist only display for topic type
     if(index == (startIndex + 3)) document.getElementById('edit-field-set-topic'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-topic'+field_suffix).style.display = 'none';
@@ -62,9 +75,33 @@ function edgemakers_set_togglefields(index, field_suffix) {
     //image only display for Image type
     if(index == (startIndex)) document.getElementById('edit-field-set-image'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-image'+field_suffix).style.display = 'none';
-    //withthumbnail only display for inspiration, showcase, video with comments and video with Q&A type
-    if(index == (startIndex + 4) || index == (startIndex + 5) || index == (startIndex + 6) || index == (startIndex + 7)) document.getElementById('edit-field-set-withthumbnail'+field_suffix).style.display = 'block';
+    //document only display for document type
+    if(index == (startIndex+10)) document.getElementById('edit-field-set-document'+field_suffix).style.display = 'block';
+    else document.getElementById('edit-field-set-document'+field_suffix).style.display = 'none';
+    //withthumbnail only display for inspiration, showcase, video with comments, video with Q&A and video type
+    if(index == (startIndex + 4) || index == (startIndex + 5) || index == (startIndex + 6) || index == (startIndex + 7) || index == (startIndex + 9)) document.getElementById('edit-field-set-withthumbnail'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-withthumbnail'+field_suffix).style.display = 'none';
     document.getElementById('edit-actions'+field_suffix).style.display = 'block';
+  }
+}
+function edgemakers_set_murallyfield(ismurally, field_suffix) {
+  var elUrl = document.getElementById('edit-field-set-url'+field_suffix);
+  if(ismurally) {
+    var elEmptyMural = document.getElementById('edit-field-set-murally-type-und-0');
+    var elSharedMural = document.getElementById('edit-field-set-murally-type-und-1');
+    var elTemplateMural = document.getElementById('edit-field-set-murally-type-und-2');
+    if(elSharedMural.checked || elTemplateMural.checked) {
+      elUrl.parentNode.removeChild(elUrl);
+      document.getElementsByClassName('form-item-field-set-murally-type-und')[elSharedMural.checked ? 2 : 3].appendChild(elUrl);
+      elUrl.style.display = 'block';
+    } else if(elEmptyMural.checked) {
+      elUrl.style.display = 'none';
+    }
+  } else {
+    if(elUrl.parentNode.className) {
+      var elMurally = document.getElementById('edit-field-set-murally-type'+field_suffix);
+      elUrl.parentNode.removeChild(elUrl);
+      elMurally.parentNode.insertBefore(elUrl, elMurally);
+    }
   }
 }

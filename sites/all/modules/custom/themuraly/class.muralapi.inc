@@ -49,10 +49,10 @@ class Muralapi {
     $ret = curl_http_request($apiurl, $options);
     return $ret;
   }
-  public function get_all_murals($username) {
+  public function get_all_murals($username,$the_para = array() ) {
     $the_auth_string = $this->get_auth_string($username, '/api/murals', 'GET');
     $apiurl = $this->muralapi_base_url . '/api/murals';
-  
+    
     $options = array();
     $options['headers'] = array('x-mural-ly-user' => $username,
       'x-mural-ly-context' => $this->the_org,
@@ -60,12 +60,13 @@ class Muralapi {
       'User-Agent' => $this->user_agent,
     );
 
-
+  //  $options['data'] = 'Qty=2';
     $options['method'] = 'GET';
+    
 
 
-
-    $ret = curl_http_request($apiurl, $options);
+    //$ret = curl_http_request($apiurl, $options);
+    $ret = drupal_http_request($apiurl, $options);
     return $ret;
   }
 

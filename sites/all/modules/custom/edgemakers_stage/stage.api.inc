@@ -101,69 +101,55 @@ function edgemakers_stage_api_set_list_html($stage_id) {
 function edgemakers_stage_api_set_view_html($set_id = '') {
   if ($set_id) {
     $node = node_load($set_id);
-
-
-    if($type == 'Image' || $type == 'Text' || $type == 'video') {
-
+    // Get box type by tid.
+    if (isset($node->field_set_type[LANGUAGE_NONE])) {
+      $node->term = taxonomy_term_load($node->field_set_type[LANGUAGE_NONE][0]['tid']);
     }
-  // Get box type by tid.
-  if (isset($node->field_set_type[LANGUAGE_NONE])) {
-    $node->term = taxonomy_term_load($node->field_set_type[LANGUAGE_NONE][0]['tid']);
-  }
-
-  if($node->term->name == 'Inspiration' || $node->term->name == 'Showcase') {
-    $type = 'video';
-  }
-  else {
-    $type = $node->term->name;
-  }
-
-  switch (strtolower($type)) {
-    case 'video with q&a':
-      $img = array(
-        'path' => drupal_get_path('module', 'edgemakers_stage') . '/images/Video w-QandA Set.png',
-      );
-      $html = '<div id="buildingSet">' . theme('image', $img) . '</div>';
-
-      return $html;
-      break;
-    case 'video with comments':
-      $img = array(
-        'path' => drupal_get_path('module', 'edgemakers_stage') . '/images/Video w-Comments Set.png',
-      );
-      $html = '<div id="buildingSet">' . theme('image', $img) . '</div>';
-
-      return $html;
-      break;
-    case 'survey & assessment':
-      $html = '<div id="buildingSet"><h3>This is a survey & assessment set, will be developped later</h3></div>';
-      return $html;
-      break;
-    case 'topic page':
-
-      $html = '<div id="buildingSet"><h3>This is a topic set, will be developped later</h3></div>';
-
-      return $html;
-      break;
-    case 'idea':
-      $img = array(
-        'path' => drupal_get_path('module', 'edgemakers_stage') . '/images/Mural.ly-work-area.png',
-      );
-      $html = '<div id="buildingSet">' . theme('image', $img) . '</div>';
-
-      return $html;
-      break;
-    case 'image':
-    case 'text':
-    case 'video':
-      return drupal_render(node_view($node, 'full'));
-    default:
-      $html = '<div id="buildingSet"><h3>This is a ' . $node->term->name . ' set, will be developped later</h3></div>';
-      return $html;
-  }
-
+    $term = $node->term->name;
+    if($term == 'Inspiration' || $term == 'Showcase' || $term == 'Video') {
+      $type = 'video';
+    } else {
+      $type = $term;
+    }
+    switch (strtolower($type)) {
+      case 'video with q&a':
+        $img = array(
+          'path' => drupal_get_path('module', 'edgemakers_stage') . '/images/Video w-QandA Set.png',
+        );
+        $html = '<div id="buildingSet">' . theme('image', $img) . '</div>';
+        return $html;
+        break;
+      case 'video with comments':
+        $img = array(
+          'path' => drupal_get_path('module', 'edgemakers_stage') . '/images/Video w-Comments Set.png',
+        );
+        $html = '<div id="buildingSet">' . theme('image', $img) . '</div>';
+        return $html;
+        break;
+      case 'survey & assessment':
+        $html = '<div id="buildingSet"><h3>This is a survey & assessment set, will be developed later</h3></div>';
+        return $html;
+        break;
+      case 'topic page':
+        $html = '<div id="buildingSet"><h3>This is a topic set, will be developed later</h3></div>';
+        return $html;
+        break;
+      case 'idea':
+        $img = array(
+          'path' => drupal_get_path('module', 'edgemakers_stage') . '/images/Mural.ly-work-area.png',
+        );
+        $html = '<div id="buildingSet">' . theme('image', $img) . '</div>';
+        return $html;
+        break;
+      case 'image':
+      case 'text':
+      case 'video':
+        return drupal_render(node_view($node, 'full'));
+      default:
+        $html = '<div id="buildingSet"><h3>This is a ' . $term . ' set, will be developed later</h3></div>';
+        return $html;
+    }
     return drupal_render(node_view($node, 'full'));
-    //print drupal_render(node_view($node, 'full'));
   }
 }
 
