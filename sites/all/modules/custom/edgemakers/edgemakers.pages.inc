@@ -52,5 +52,9 @@ function edgemakers_comment_get_recent($types, $number = 5) {
   return $comments ? $comments : array();
 }
 function edgemakers_forbidden_page() {
-  return t("Access denied, please !logout and switch to another user", array('!logout'=>l('logout', 'user/logout')));
+  if(user_is_logged_in()) {
+    return t("Access denied, please !logout and switch to another user", array('!logout'=>l('logout', 'user/logout')));
+  } else {
+    return t("Access denied, please !login first", array('!login'=>l('login', 'user/login')));
+  }
 }
