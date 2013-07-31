@@ -303,13 +303,13 @@ function muralapi_create_room($mural_api, $muralusername, $title, $account) {
 }
 
 function muralapi_test() {
-
-  //_test_mural_list_for_a_user();
+  ini_set('display_errors','on');
+  _test_mural_list_for_a_user();
   //_test_user_add();
   //_test_create_room();
   // _test_mural_create_mural();
   //_test_mural_duplicate_mural();
-  _test_mural_update_property_mural();
+  //_test_mural_update_property_mural();
   //_test_mural_archive();
   //_test_mural_del();
   //_test_mural_list_for_a_user();
@@ -318,7 +318,7 @@ function muralapi_test() {
   // $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/1374110398829' width=500px height=500px'></iframe>";
   $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/1374641493558' width=500px height=500px'></iframe>";
 
-
+  
   return $output_html;
 }
 
@@ -357,8 +357,12 @@ function _test_create_room() {
 }
 
 function _test_retrieve_a_mural() {
-  $username = 'kk2t';
+  $username = 'kk2t';  //owner
+ // $username = 'kikora';
+  $muralid = '1375231303413';
   $muralid = '1375063051875';
+  $muralid = '1375252040839';
+  $muralid = '1375252809540';
   $mural_api = new Muralapi;
   $result = $mural_api->retrieve_a_mural($username, $muralid);
   $data = $result->data;
