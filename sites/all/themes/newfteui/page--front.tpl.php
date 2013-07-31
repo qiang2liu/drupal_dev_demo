@@ -8,7 +8,11 @@
         <?php print render($page['community']); ?>
         <div class="indicator"><span></span></div>
       </div>
-
+	<!--stage title and set title-->
+	<div class="s-s-title">
+		<h2><!--stage title here--></h2>
+		<h3><!--set title here--></h3>
+	</div>
 	<!-- /tool bar and stage selector -->
 
       <div class="toolbar-stage">
