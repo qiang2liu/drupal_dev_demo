@@ -9,7 +9,10 @@
 </style>
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 
+<!--
 <div id="set-type-text"><h3><?php echo isset($node->term->name)?$node->term->name: ''; ?></h3></div>
+-->
+<!--
 <div id="set-user-info">
   <dl>
   <dt>
@@ -28,6 +31,7 @@
     <span class="submitted"><?php print $submitted ?></span>
   <?php endif; ?>
 </div>
+-->
   <div class="content set-image-content clearfix"<?php print $content_attributes; ?>>
     <?php
       // We hide the comments and links now so that we can render them later.

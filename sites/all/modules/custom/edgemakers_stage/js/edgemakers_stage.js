@@ -1,7 +1,7 @@
 /**
  * @file edgemakers_stage.js
  */
-
+  
   var initStage;
   
   // Load stage list on front page.
