@@ -116,7 +116,7 @@
 }
 
 #stage-set-view .field-name-field-set-image .field-items img {
-  width: 95%;
+  max-width: 100%;
   height: auto;
   /*max-width: 842px;
   max-height: 426px;*/
