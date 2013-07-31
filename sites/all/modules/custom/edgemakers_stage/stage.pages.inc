@@ -314,15 +314,25 @@ function edgemakers_stage_managebox_form_submit($form, &$form_state) {
 
   if (isset($node->box_index_data[LANGUAGE_NONE])) {
     $node_box_index_data = unserialize($node->box_index_data[LANGUAGE_NONE][0]['value']);
+
+    if (empty($form_state['values']['set_location_index'])) {
+      $max_index = $node_box_index_data[count($node_box_index_data) - 1]['location_index'];
+      $set_location_index = $max_index + 1;
+    }
+    else {
+      $set_location_index = $form_state['values']['set_location_index'];
+    }
+
   }
   else {
     $node_box_index_data = array();
+    $set_location_index = 0;
   }
 
   $node_box_index_data[] = array(
-      'stage_id' => $form_state['values']['stage_id'],
-      'set_id' => $set_nid,
-      'location_index' => $form_state['values']['set_location_index'],
+    'stage_id' => $form_state['values']['stage_id'],
+    'set_id' => $set_nid,
+    'location_index' => $set_location_index,
   );
 
   $values['box_index_data'] = serialize($node_box_index_data);
