@@ -9,15 +9,15 @@
 				var options = $.extend(defaults,options);
 				return this.each(function(){
 					var self = $(this);
-					//self.css('top', options.topDistance);
-					self.find('.indicator span').hover(
+					
+					/*self.find('.indicator span').hover(
 						function(){
 							self.addClass('flash');
 						},
 						function(){
 							self.removeClass('flash');
 						}
-					);
+					);*/
 					self.find('.indicator span').bind('click', function(){
 						$('.pane').setWidthRight().removeClass('show');
 						$('div').not(self).not('.toolbar-handler').not('.toolbar-box').removeClass('active');
@@ -59,7 +59,7 @@
 		
 		$('.community').setCommunity();
 		$('.toolbar-handler').bind('click', $.fn.toggleToolbar);
-		$('.stage-selector-handler>em').hover(
+		/*$('.stage-selector-handler>em').hover(
 			function(){
 				$(this).addClass('flash');
 				$('.stage-selector-handler>span').addClass('flash');
@@ -70,7 +70,7 @@
 				$('.stage-selector-handler>span').removeClass('flash');
 				$('.stage-box').removeClass('flash');
 			}
-		);
+		);*/
 		$('.stage-selector-handler>em').bind('click', function(){
 			$('.pane').setWidthRight().removeClass('show');
 			$.fn.removeAllActive.call($('.stage-selector'));
@@ -90,11 +90,11 @@
 		$('.pane-handler').hover(
 			function(){
 				var idx=$(this).index('.pane-handler');
-				$('.pane').eq(idx).addClass('flash');
+				//$('.pane').eq(idx).addClass('flash');
 			},
 			function(){
 				var idx=$(this).index('.pane-handler');
-				$('.pane').eq(idx).removeClass('flash');
+				//$('.pane').eq(idx).removeClass('flash');
 			}
 		);
 		//user-profile
