@@ -52,6 +52,7 @@
 	
 	//load
 	$(document).ready(function(){
+		alert($(document).height());
 		//set width
 		$('.main-content').setWidth();
 		$('.pane').setWidthRight();
