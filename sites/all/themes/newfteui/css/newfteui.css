@@ -348,7 +348,7 @@ ul:after,
 	float:right;
 	cursor:pointer;
 	clear:right;
-	transition-property: width border-radius;
+	transition-property: width;
 	transition-duration: .1s;
 	transition-timing-function: linear;
 	transition-delay: 0;
@@ -366,7 +366,6 @@ ul:after,
 }
 .pane-handler:hover{
 	width:70px;
-	border-radius:0;
 	/*animation:opacity 0.5s infinite;
    -webkit-animation:opacity 0.5s infinite;*/
 }
@@ -380,7 +379,7 @@ ul:after,
 	border-radius:10px;
 	top:90px;
 	transition-property: right;
-	transition-duration: .2s;
+	transition-duration: 1s;
 	transition-timing-function: linear;
 	transition-delay: 0;
 	
