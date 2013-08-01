@@ -153,8 +153,7 @@
 </div>
 
 <?php
-dpm('front.tpl');
-dpm($_SESSION);
+
 if (isset($_SESSION['need_logout_muraleditor']) && $_SESSION['need_logout_muraleditor'] == 1) {
   unset($_SESSION['need_logout_muraleditor']);
   $the_mural_url = variable_get('muralapi_baseurl', 'http://staging.mural.ly') . "/bye";
