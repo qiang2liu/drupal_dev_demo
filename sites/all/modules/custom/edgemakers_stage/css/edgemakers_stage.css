@@ -50,6 +50,7 @@
   padding: 20px 20px 20px 50px;
   color: white;
   display: block;
+  float: left;
 }
 
 #set-user-info .user-picture img {
@@ -81,7 +82,7 @@
 .set-image-content 
 {
   padding: 0;
-  margin: 20px auto 0px auto;
+  margin: 0px auto;
   text-align: center;
 /*  min-height: 460px; */
   background-color: transparent;

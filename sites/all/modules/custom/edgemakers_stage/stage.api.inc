@@ -128,6 +128,8 @@ function edgemakers_stage_api_set_view_html($set_id = '') {
       case 'image':
       case 'text':
       case 'video':
+        //$youtube_video_info = _get_youtube_video_data($node);
+        //$node->youtube_info = $youtube_video_info;
         return drupal_render(node_view($node, 'full'));
       case 'video with comments':
       case 'video with q&a':
@@ -140,6 +142,47 @@ function edgemakers_stage_api_set_view_html($set_id = '') {
     }
     return drupal_render(node_view($node, 'full'));
   }
+}
+
+function _get_youtube_video_data($node) {
+
+  $urls = field_get_items('node', $node, 'field_set_url');
+  $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
+  $ytid = _youtube_parser($url);
+
+  if ($ytid) {
+    drupal_set_message("_get_youtube_video_info " . $ytid);
+    $youtube_info = _get_youtube_video_info($ytid);
+    return $youtube_info;
+  }
+
+  return false;
+
+}
+
+function _youtube_parser($url) {
+	preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $url, $matches);
+	if(is_array($matches) && count($matches) > 0)
+		return $matches[0];
+	return false;
+}
+
+function _get_youtube_video_info($id) {
+
+  $path = 'http://gdata.youtube.com/feeds/api/videos/' . $id;
+
+  $query = array(
+    'v' => '2',
+    'alt' => 'jsonc',
+  );
+
+  $url = url($path, array('query' => $query));
+  $result = drupal_http_request($url);
+  $data = json_decode($result->data);
+
+  drupal_set_message($url . 'Youtube data is:<pre>' . print_r($data, TRUE) . '</pre>');
+
+  return $data;
 }
 
 /**

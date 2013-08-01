@@ -32,6 +32,11 @@
   <?php endif; ?>
 </div>
 -->
+
+  <div id="<?php echo isset($node->term->name)?$node->term->name: ''; ?>-image-icon" class="set-type-icon set-image-type-icon">
+    Image<br/>
+  </div>
+
   <span id="set-title" style="display: none;"><?php print $title;?></span>
   <div class="content set-image-content clearfix"<?php print $content_attributes; ?>>
     <?php
@@ -40,6 +45,25 @@
       hide($content['links']);
       print render($content['field_set_image']);
     ?>
+    <span id="image-download-it">
+    <?php
+
+      //drupal_set_message('<pre>' . print_r($node, TRUE) . '</pre>');
+      $image_url = file_create_url($node->field_set_image[$node->language][0]['uri']);
+
+      $download_icon = array('path' => drupal_get_path('theme', 'newfteui'). '/images/iconDownload.png');
+      //drupal_set_message('<pre>' . print_r($download_icon, TRUE) . '</pre>');
+
+      $download_icon_img = theme($download_icon);
+      echo l($download_icon_img, $image_url, array(
+        'attributes' => array(
+          'target' => '_blank',
+        ),
+        'html' => TRUE,
+        )
+      );
+    ?>
+    </span>
   </div>
 
   <div class="clearfix">

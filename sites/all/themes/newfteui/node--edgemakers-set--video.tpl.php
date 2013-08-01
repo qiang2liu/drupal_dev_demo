@@ -10,7 +10,33 @@ function youtube_parser($url) {
 		return $matches[0];
 	return false;
 }
+
+
 ?>
+
+<script>
+function youtubeFeedCallback(json) {
+  console.log(json);
+  //document.getElementById("#yotube-duration-time").innerHtml = json["data"]["duration"];
+  var duration_s = json["data"]["duration"];
+  var duration_m;
+
+  if (duration_s > 60) {
+    duration_m = Math.floor(duration_s / 60);
+    drration_ms = duration_s - ( duration_m * 60 );
+  }
+
+  console.log(duration_m);
+  console.log(drration_ms);
+
+  jQuery("#yotube-duration-time").empty();
+  jQuery("#yotube-duration-time").html("Unknow");
+  jQuery("#yotube-duration-time").html(duration_m + " mins " + drration_ms + " second(s)");
+}
+</script>
+
+<script type="text/javascript" src="http://gdata.youtube.com/feeds/api/videos/<?php echo $ytid;?>?v=2&alt=jsonc&callback=youtubeFeedCallback&prettyprint=true"></script>
+
 <style>
 #content div.tabs {
   display: none;
@@ -40,6 +66,12 @@ function youtube_parser($url) {
   <?php endif; ?>
 </div>
 -->
+
+  <div id="<?php echo isset($node->term->name)?$node->term->name: ''; ?>-video-icon" class="set-type-icon set-video-type-icon">
+    <?php echo isset($node->term->name)?$node->term->name: ''; ?> video <br/>
+    Duration: <span id="yotube-duration-time"></span>
+  </div>
+
   <span id="set-title" style="display: none;"><?php print $title;?></span>
   <div class="content set-video-content clearfix"<?php print $content_attributes; ?>>
     <?php
@@ -81,8 +113,11 @@ function loadVideo(videoid) {
   console.log(height);
   console.log(vHeight);
 
+	/*swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
+		yt", "100%", vHeight+"px", "8", null, null, params, atts);*/
+
 	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
-		"yt", "100%", vHeight+"px", "8", null, null, params, atts);
+			"yt", "640", "390", "8", null, null, params, atts);
 
 }
 function onYouTubePlayerReady(playerId) {
