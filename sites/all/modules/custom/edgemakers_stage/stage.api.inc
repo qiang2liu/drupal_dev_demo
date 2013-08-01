@@ -112,24 +112,8 @@ function edgemakers_stage_api_set_view_html($set_id = '') {
       $type = $term;
     }
     switch (strtolower($type)) {
-      case 'video with q&a':
-        $img = array(
-          'path' => drupal_get_path('module', 'edgemakers_stage') . '/images/Video w-QandA Set.png',
-        );
-        $html = '<div id="buildingSet">' . theme('image', $img) . '</div>';
-        return $html;
-        break;
-      case 'video with comments':
-        $img = array(
-          'path' => drupal_get_path('module', 'edgemakers_stage') . '/images/Video w-Comments Set.png',
-        );
-        $html = '<div id="buildingSet">' . theme('image', $img) . '</div>';
-        return $html;
-        break;
       case 'survey & assessment':
-        $html = '<div id="buildingSet"><h3>This is a survey & assessment set, will be developed later</h3></div>';
-        return $html;
-        break;
+        return drupal_render(node_view($node, 'full'));
       case 'topic page':
         $html = '<div id="buildingSet"><h3>This is a topic set, will be developed later</h3></div>';
         return $html;
@@ -145,6 +129,11 @@ function edgemakers_stage_api_set_view_html($set_id = '') {
       case 'text':
       case 'video':
         return drupal_render(node_view($node, 'full'));
+      case 'video with comments':
+      case 'video with q&a':
+        $node_view = node_view($node);
+        $node_view['comments'] = comment_node_page_additions($node);
+        return drupal_render($node_view);
       default:
         $html = '<div id="buildingSet"><h3>This is a ' . $term . ' set, will be developed later</h3></div>';
         return $html;

@@ -201,20 +201,15 @@ function fteuser_userreset($p, $uid, $timestamp, $hashed_pass) {
 
 function fte_user_logout($account) {
   global $base_url;
-
-  $appurl = 'http://staging.mural.ly/bye?' . http_build_query(array('return_url' => $base_url . '/home',));
-  $options = array(
-    'method' => 'GET',
-  );
-
-  $ret = drupal_http_request($appurl, $options);
-  dd($ret);
+   $_SESSION['need_logout_muraleditor'] = 1;
+ 
 }
 
 /**
  * hook_user 
  */
 function fte_user_login(&$edit, $account) {
+  $_SESSION['need_logout_muraleditor'] = 1;
   $edit['redirect'] = '';
 }
 
