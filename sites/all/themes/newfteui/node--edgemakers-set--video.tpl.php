@@ -16,22 +16,28 @@ function youtube_parser($url) {
 
 <script>
 function youtubeFeedCallback(json) {
-  console.log(json);
+  //console.log(json);
   //document.getElementById("#yotube-duration-time").innerHtml = json["data"]["duration"];
   var duration_s = json["data"]["duration"];
-  var duration_m;
+  var duration_m = 0;
+  var drration_ms = duration_s;
 
   if (duration_s > 60) {
     duration_m = Math.floor(duration_s / 60);
     drration_ms = duration_s - ( duration_m * 60 );
+    duration = duration_m + " mins " + drration_ms + " second(s)";
+  }
+  else {
+    duration = drration_ms + " second(s)";
   }
 
+  console.log(duration_s);
   console.log(duration_m);
   console.log(drration_ms);
 
   jQuery("#yotube-duration-time").empty();
   jQuery("#yotube-duration-time").html("Unknow");
-  jQuery("#yotube-duration-time").html(duration_m + " mins " + drration_ms + " second(s)");
+  jQuery("#yotube-duration-time").html(duration);
 }
 </script>
 
