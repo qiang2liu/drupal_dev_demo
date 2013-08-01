@@ -12,19 +12,35 @@
  * @return html string 
  *   the user's own mural lists
  */
-function get_myideas($uid, $musername, $mroomid) {
-
+function get_myideas_shareideas($uid, $musername, $mroomid) {
+  $myideas_list = array();
+  $shareideas_list = array();
+  $the_muralid_array = array();
   // call mural api to get list 
   $mural_api = new Muralapi;
   $result = $mural_api->get_all_murals($musername);
-  if (is_object($rersult) && isset($result->data)) {
+
+  if (is_object($result) && isset($result->data)) {
     $data = drupal_json_decode($result->data);
-    $mural_list = array();
     if (is_array($data)) {
       foreach ($data as $k => $mobj) {
+        $the_pos = strpos($mobj['id'], '.');
+        if ($the_pos === false) {
+          $the_pos = 0;
+        } else {
+          $the_pos += 1;
+        }
+        $the_muralid = substr($mobj['id'], $the_pos);
+        $the_muralid_array[] = $the_muralid;
         if (!empty($mobj['members'][$musername])) {
           if ($mobj['members'][$musername]['role'] == 'owner') {
-           // $mural_list[]
+            $myideas_list[$the_muralid] = array('muralid' => $the_muralid,
+              'thumburl' => $mobj['thumbUrl'],
+            );
+          } else {
+            $shareideas_list[$the_muralid] = array('muralid' => $the_muralid,
+              'thumburl' => $mobj['thumbUrl'],
+            );
           }
         }
       }
@@ -32,22 +48,39 @@ function get_myideas($uid, $musername, $mroomid) {
   }
 
 
-
-
-  /*
-    $the_user_muralusername = $the_field_obj[0]['value'];
+  if (!empty($myideas_list) || !empty($shareideas_list)) {
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'murals')
-    ->propertyCondition('uid', $uid);
+            ->entityCondition('bundle', 'murals')
+            ->fieldCondition('field_muralid', 'value', $the_muralid_array, 'IN');
     $results = $query->execute();
-    if (!empty($results['node'])) {
-    $the_mids = array_keys($results['node']);
-    $mymurals = node_load_multiple($the_mids);
-    get_murals_detail($mymurals);
+
+    if (is_array($results['node']) && !empty($results['node'])) {
+      $the_nids = array_keys($results['node']);
+      $nodes = node_load_multiple($the_nids);
+      if (is_array($nodes)) {
+        foreach ($nodes as $knid => $vnode) {
+          $node_muralfield = field_get_items('node', $vnode, 'field_muralid');
+          $node_muralid = $node_muralfield[0]['value'];
+          if (isset($myideas_list[$node_muralid])) {
+            $myideas_list[$node_muralid]['nid'] = $knid;
+          } else {
+            if (isset($shareideas_list[$node_muralid])) {
+              $shareideas_list[$node_muralid]['nid'] = $knid;
+            }
+          }
+        }
+      }
     }
-   * 
-   */
+  }
+
+  if (!empty($myideas_list)) {
+    ctools_include('modal');
+    ctools_include('ajax');
+    ctools_modal_add_js();
+  }
+  $content = theme('studio_ideas_list', array('myideas' => $myideas_list, 'myshareideas' => $shareideas_list));
+  return $content;
 }
 
 /**
@@ -237,10 +270,9 @@ function create_mural($mural_api, $muser, $mroomid, $title = 'my mural', $duplic
   } else {
     $mural_api_result = $mural_api->create_mural($muser, $params);
   }
-  dpm($mural_api_result);
   if (is_object($mural_api_result) && isset($mural_api_result->data)) {
     $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
-    dpm($muralapi_response_obj);
+    
     if (!empty($muralapi_response_obj['id'])) {
       $str_p = preg_match("/[0-9]+$/", $muralapi_response_obj['id'], $matches);
       $new_mural_id = '';

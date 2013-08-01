@@ -153,8 +153,9 @@
 </div>
 
 <?php
+$ignore_mural_bye = getenv('ignore_mural_bye');
 
-if (isset($_SESSION['need_logout_muraleditor']) && $_SESSION['need_logout_muraleditor'] == 1) {
+if ($ignore_mural_bye != 1 && isset($_SESSION['need_logout_muraleditor']) && $_SESSION['need_logout_muraleditor'] == 1) {
   unset($_SESSION['need_logout_muraleditor']);
   $the_mural_url = variable_get('muralapi_baseurl', 'http://staging.mural.ly') . "/bye";
   ?>

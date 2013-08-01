@@ -47,7 +47,7 @@ function themuraly_menu() {
 function themuraly_block_info() {
   $blocks['studio_list'] = array(
     'info' => t('Studio list'), //The name that will appear in the block list.
-    'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+    'cache' => DRUPAL_NO_CACHE, 
   );
 
   return $blocks;
@@ -60,13 +60,14 @@ function themuraly_block_view($delta = '') {
       module_load_include('inc', 'themuraly', 'mural_op');
       $block['subject'] = t('studio');
       // get user's mural name and room id
-      $account = user_load($uid);
+      $account = user_load($user->uid);
       $the_field_obj = field_get_items('user', $account, 'field_muralusername');
       $the_user_muralusername = $the_field_obj[0]['value'];
       $the_field_obj = field_get_items('user', $account, 'field_muralroomid');
       $the_user_roomid = $the_field_obj[0]['value'];
-      if (!empty($the_user_muralusername)) {
-        $block['content'] = get_myideas($user->uid, $the_user_muralusername,  $the_user_roomid);
+      if (1==1 || !empty($the_user_muralusername)) {
+        $block['content'] = get_myideas_shareideas($user->uid, $the_user_muralusername,  $the_user_roomid);
+        
       }
 
       break;
@@ -79,6 +80,10 @@ function themuraly_theme($existing, $type) {
     'muralypage' => array(
       'variables' => array('data' => NULL),
       'template' => 'templates/muralypage',
+    ),
+    'studio_ideas_list' => array(
+      'variables' => array('myideas' => array(), 'myshareideas' => array()),
+      'template' => 'templates/studioideas',
     ),
   );
 }
@@ -210,13 +215,7 @@ function _themuralyajax_validate($form, &$form_state) {
   form_load_include($form_state, 'inc', 'node', 'node.pages');
 
   if ($form_state['triggering_element']['#type'] == 'submit') {
-    //dpm($form_state);
-    // dpm($form);
-    //dd($form_state, '11111');
-    // dd($form, '22222');
-
-
-    $property_array = array();
+   $property_array = array();
 
     $title = check_plain($form_state['values']['title']);
     if (empty($title)) {
@@ -330,7 +329,6 @@ function muralapi_create_room($mural_api, $muralusername, $title, $account) {
 }
 
 function muralapi_test() {
-  ini_set('display_errors', 'on');
   _test_mural_list_for_a_user();
   //_test_user_add();
   //_test_create_room();
@@ -447,7 +445,7 @@ function _test_mural_create_mural() {
 
 function _test_mural_list_for_a_user() {
   $mural_api = new Muralapi;
-  $result = $mural_api->get_all_murals('kk2t');
+  $result = $mural_api->get_all_murals('lwgmural');
   $data = $result->data;
   $r = drupal_json_decode($data);
   dpm($result);
