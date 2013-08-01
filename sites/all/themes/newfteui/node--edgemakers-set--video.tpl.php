@@ -64,15 +64,15 @@ function youtube_parser($url) {
 <script>
 (function($){
   $(document).ready(function(){
-    loadVideo('<?php echo $ytid;?>');
+    setTimeout(function() {loadVideo('<?php echo $ytid;?>');}, 100);
 	});
 })(jQuery);
 function loadVideo(videoid) {
 	var params = { allowScriptAccess: "always" };
 	var atts = { id: "myytplayer" };
-  var whRatio = 64/39*1.0;
-  var width = document.body.offsetWidth-400;
-  var height = width/whRatio;
+  var width = document.getElementById('node-'+<?php print $node->nid; ?>).offsetWidth*0.95;
+  var whratio = 64/39*1.0;
+  var height = width/whratio;
 	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
 		"yt", "100%", height+"px", "8", null, null, params, atts);
 }
