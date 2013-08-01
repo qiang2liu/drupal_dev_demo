@@ -1,6 +1,6 @@
 <?php
 /**
- * Override or insert variables into the node template.
+ * Implements theme_preprocess_node();
  */
 function newfteui_preprocess_node(&$vars) {
   $node = $vars['node'];
@@ -23,6 +23,30 @@ function newfteui_preprocess_node(&$vars) {
       $vars['theme_hook_suggestions'][] = 'node__edgemakers_set__'.strtolower($type);
     }
   }
+}
+/**
+ * Implements theme_preprocess_comment_wrapper();
+ */
+function newfteui_preprocess_comment_wrapper(&$vars) {
+  $vars['comments_title'] = t('Comments:');
+  $node = $vars['node'];
+  if($node->type == 'edgemakers_set') {
+    require_once drupal_get_path('module', 'edgemakers_set').'/edgemakers_set.pages.inc';
+    $terms = _edgemakers_set_get_terms();
+    $types = field_get_items('node', $node, 'field_set_type');
+    $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
+    if($type == 'Video with Comments')
+      $vars['comments_title'] = '';
+    else if($type == 'Video with Q&A')
+      $vars['comments_title'] = t('Answer:');
+  }
+}
+/**
+ * Implements theme_preprocess_comment();
+ */
+function newfteui_preprocess_comment(&$vars) {
+  $vars['submitted'] = false;
+  $vars['title'] = '';
 }
 
 /**

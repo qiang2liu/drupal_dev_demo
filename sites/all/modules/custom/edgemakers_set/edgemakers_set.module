@@ -33,6 +33,24 @@ function edgemakers_set_menu() {
     'file path' => drupal_get_path('module', 'node'),
     'file' => 'node.pages.inc',
   );
+  $items['admin/edgemakers/set/answers/%'] = array(
+    'title' => 'Answers',
+    'page callback' => 'edgemakers_set_answers_page',
+    'page arguments' => array(4),
+    'access arguments' => array('administer edgemakers'),
+    'file' => 'edgemakers_set.pages.inc',
+    'type' => MENU_LOCAL_ACTION,
+  );
+  $items['admin/edgemakers/set/submissions/%webform_menu'] = array(
+    'title' => 'Submissions',
+    'page callback' => 'webform_results_submissions',
+    'page arguments' => array(4, FALSE, '50'),
+    'access callback' => 'webform_results_access',
+    'access arguments' => array(4),
+    'file path' => drupal_get_path('module', 'webform'),
+    'file' => 'includes/webform.report.inc',
+    'type' => MENU_LOCAL_ACTION,
+  );
   return $items;
 }
 /**
@@ -104,6 +122,13 @@ function edgemakers_set_node_validate($node, $form, &$form_state) {
       $survey = $surveys && count($surveys) > 0 ? $surveys[0]['target_id'] : '';
       if($survey == '') {
         form_set_error('field_set_survey', t('Please Select a Survey'));
+      }
+    }
+    if($type == 'Document') {
+      $documents = field_get_items('node', $node, 'field_set_document');
+      $document = $documents && count($documents) > 0 ? $documents[0]['fid'] : '';
+      if($document == '') {
+        form_set_error('field_set_document', t('Please Upload a Document'));
       }
     }
     if($type == 'Idea') {

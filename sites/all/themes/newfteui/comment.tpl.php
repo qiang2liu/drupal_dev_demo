@@ -26,6 +26,4 @@
       <?php endif; ?>
     </div>
   </div>
-
-  <?php print render($content['links']) ?>
 </div>

@@ -68,6 +68,7 @@ function edgemakers_set_admin_list_form() {
     'operations' => t('Operations'),
   );
   $terms = _edgemakers_set_get_terms();
+  $destination = drupal_get_destination();
   $options = array();
   foreach ($nodes as $node) {
     $langcode = entity_language('node', $node);
@@ -86,6 +87,23 @@ function edgemakers_set_admin_list_form() {
     );
     $types = field_get_items('node', $node, 'field_set_type');
     $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
+    if($type == 'Video with Q&A') {
+      $operations['answers'] = array(
+        'title' => t('Answers'),
+        'href' => 'admin/edgemakers/set/answers/' . $node->nid,
+        'query' => $destination,
+      );
+    } else if($type == 'Survey & Assessment') {
+      $surveys = field_get_items('node', $node, 'field_set_survey');
+      $survey = $surveys && count($surveys) > 0 ? $surveys[0]['target_id'] : '';
+      if($survey) {
+        $operations['submissions'] = array(
+          'title' => t('Submissions'),
+          'href' => 'admin/edgemakers/set/submissions/' . $survey,
+          'query' => $destination,
+        );
+      }
+    }
     $urls = field_get_items('node', $node, 'field_set_url');
     $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
     $options[$node->nid] = array(
@@ -110,6 +128,72 @@ function edgemakers_set_admin_list_form() {
   $form['pager'] = array('#markup' => theme('pager'));
   $form['#prefix'] = '<div id="setesListDiv">';
   $form['#suffix'] = '</div>';
+  return $form;
+}
+function edgemakers_set_answers_page($nid) {
+  return drupal_get_form(edgemakers_set_answers_form, $nid);
+}
+function edgemakers_set_answers_form($form, &$form_state, $nid) {
+  $header = array(
+    'subject' => array('data' => t('Subject'), 'field' => 'subject'),
+    'author' => array('data' => t('Author'), 'field' => 'name'),
+    'changed' => array('data' => t('Updated'), 'field' => 'c.changed', 'sort' => 'desc'),
+    'operations' => array('data' => t('Operations')),
+  );
+
+  $query = db_select('comment', 'c')->extend('PagerDefault')->extend('TableSort');
+  $query->addTag('node_access');
+  $result = $query
+    ->fields('c', array('cid', 'subject', 'name', 'changed'))
+    ->condition('c.nid', $nid)
+    ->limit(50)
+    ->orderByHeader($header)
+    ->execute();
+
+  $cids = array();
+
+  foreach ($result as $row) {
+    $cids[] = $row->cid;
+  }
+  $comments = comment_load_multiple($cids);
+  // Build a table listing the appropriate comments.
+  $options = array();
+  $destination = drupal_get_destination();
+
+  foreach ($comments as $comment) {
+    $comment_body = field_get_items('comment', $comment, 'comment_body');
+    $options[$comment->cid] = array(
+      'subject' => array(
+        'data' => array(
+          '#type' => 'link',
+          '#title' => $comment->subject,
+          '#href' => 'comment/' . $comment->cid,
+          '#options' => array('attributes' => array('title' => truncate_utf8($comment_body[0]['value'], 128)), 'fragment' => 'comment-' . $comment->cid),
+        ),
+      ),
+      'author' => theme('username', array('account' => $comment)),
+      'changed' => format_date($comment->changed, 'short'),
+      'operations' => array(
+        'data' => array(
+          '#type' => 'link',
+          '#title' => t('edit'),
+          '#href' => 'comment/' . $comment->cid . '/edit',
+          '#options' => array('query' => $destination),
+        ),
+      ),
+    );
+  }
+
+  $form['backlink'] = array('#markup' => l(t('Go Back'), $_GET['destination']));
+  $form['comments'] = array(
+    '#theme' => 'table',
+    '#header' => $header,
+    '#options' => $options,
+    '#empty' => t('No comments available.'),
+  );
+
+  $form['pager'] = array('#theme' => 'pager');
+
   return $form;
 }
 function _edgemakers_set_get_terms() {

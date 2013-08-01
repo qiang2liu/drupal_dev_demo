@@ -128,8 +128,7 @@ function edgemakers_stage_api_set_view_html($set_id = '') {
       case 'image':
       case 'text':
       case 'video':
-        //$youtube_video_info = _get_youtube_video_data($node);
-        //$node->youtube_info = $youtube_video_info;
+      case 'document':
         return drupal_render(node_view($node, 'full'));
       case 'video with comments':
       case 'video with q&a':

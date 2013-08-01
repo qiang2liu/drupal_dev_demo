@@ -13,9 +13,17 @@ function youtube_parser($url) {
 $user = user_load($uid);
 $username = $user->name;
 ?>
+<script type="text/javascript" src="<?php echo $base_url;?>/sites/all/modules/contributes/ajax_comments/ajax_comments.js"></script>
 <style>
 #content div.tabs {
   display: none;
+}
+.field-name-body {
+  float: left;
+  max-width: 255px;
+}
+#yr-wrapper {
+  float: right;
 }
 </style>
 
@@ -47,16 +55,12 @@ $username = $user->name;
       hide($content['links']);
       print render($content['body']);
     ?>    
-    <div id="yt">
+    <div id="yr-wrapper"><div id="yt">
     You need Flash player 8+ and JavaScript enabled to view this video.
-    </div>
+    </div></div>
   </div>
 
   <div class="clearfix">
-    <?php if (!empty($content['links'])): ?>
-      <div class="links"><?php print render($content['links']); ?></div>
-    <?php endif; ?>
-
     <?php print render($content['comments']); ?>
   </div>
 
@@ -71,7 +75,7 @@ function loadVideo(videoid) {
 	var params = { allowScriptAccess: "always" };
 	var atts = { id: "myytplayer" };
 	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
-		"yt", "840", "425", "8", null, null, params, atts);
+		"yt", "640", "390", "8", null, null, params, atts);
 }
 function onYouTubePlayerReady(playerId) {
   var ytplayer = document.getElementById('myytplayer');
