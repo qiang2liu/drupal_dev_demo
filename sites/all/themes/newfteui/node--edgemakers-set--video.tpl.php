@@ -70,9 +70,11 @@ function youtube_parser($url) {
 function loadVideo(videoid) {
 	var params = { allowScriptAccess: "always" };
 	var atts = { id: "myytplayer" };
-
+  var whRatio = 64/39*1.0;
+  var width = document.body.offsetWidth-400;
+  var height = width/whRatio;
 	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
-		"yt", "100%", "60%", "8", null, null, params, atts);
+		"yt", "100%", height+"px", "8", null, null, params, atts);
 }
 function onYouTubePlayerReady(playerId) {
   var ytplayer = document.getElementById('myytplayer');
