@@ -394,18 +394,22 @@ ul:after,
 }
 .pane.show{
 	right:70px;
+	display: block !important;
 }
 #studio{
 	/*background-image: url(../images/example_03.png);*/
 	background-color:rgba(189,21,54,1.0);
 	text-align:center;
+	display: none;
 }
 #studio.show{
 	border-radius: 10px 0 10px 10px;
+	display: block;
 }
 #challenge{
 	background-image: url(../images/example_04.png);
 	background-color:rgba(19,119,151,1.0);
+	display: none;
 }
 #competitions{
 	background-image: url(../images/example_05.png);
