@@ -14,8 +14,6 @@ function themuraly_menu() {
     'access callback' => 'user_is_logged_in',
     'type' => MENU_CALLBACK,
     'file' => 'mural_op.inc',
-    
-    
   );
   $items['mural/create/%'] = array(
     'page callback' => 'muralcreate',
@@ -44,6 +42,36 @@ function themuraly_menu() {
   );
   $items['mural/ajax_link_callback'] = array();
   return $items;
+}
+
+function themuraly_block_info() {
+  $blocks['studio_list'] = array(
+    'info' => t('Studio list'), //The name that will appear in the block list.
+    'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+  );
+
+  return $blocks;
+}
+
+function themuraly_block_view($delta = '') {
+  global $user;
+  switch ($delta) {
+    case 'studio_list':
+      module_load_include('inc', 'themuraly', 'mural_op');
+      $block['subject'] = t('studio');
+      // get user's mural name and room id
+      $account = user_load($uid);
+      $the_field_obj = field_get_items('user', $account, 'field_muralusername');
+      $the_user_muralusername = $the_field_obj[0]['value'];
+      $the_field_obj = field_get_items('user', $account, 'field_muralroomid');
+      $the_user_roomid = $the_field_obj[0]['value'];
+      if (!empty($the_user_muralusername)) {
+        $block['content'] = get_myideas($user->uid, $the_user_muralusername,  $the_user_roomid);
+      }
+
+      break;
+  }
+  return $block;
 }
 
 function themuraly_theme($existing, $type) {
@@ -128,7 +156,7 @@ function _mural_member_list($the_nid, $para_muralid = '') {
             $mural_api = new Muralapi;
             $mural_api_result = $mural_api->retrieve_a_mural($muralusername, $the_muralid);
             if (is_object($mural_api_result) && isset($mural_api_result->data)) {
-              $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
+             
               if (!empty($muralapi_response_obj['members']) && is_array($muralapi_response_obj['members'])) {
                 $the_muralusers = array_keys($muralapi_response_obj['members']);
               }
@@ -183,9 +211,9 @@ function _themuralyajax_validate($form, &$form_state) {
 
   if ($form_state['triggering_element']['#type'] == 'submit') {
     //dpm($form_state);
-   // dpm($form);
+    // dpm($form);
     //dd($form_state, '11111');
-   // dd($form, '22222');
+    // dd($form, '22222');
 
 
     $property_array = array();
@@ -219,24 +247,23 @@ function _themuralyajax_validate($form, &$form_state) {
             $muralusername = $fieldinfo[0]['value'];
 
             if (!empty($muralusername)) {
-              
-              
+
+
               foreach ($property_array as $k => $v) {
                 $mural_api = new Muralapi;
                 $property_name = $k;
                 $property_value = $v;
                 $result = $mural_api->update_mural_properties($muralusername, $the_muralid, $property_name, $property_value);
-               
+
                 if (is_object($result) && isset($result->data)) {
                   $data = $result->data;
-                   
+
                   if (!is_string($data) || strtoupper($data) != 'OK') {
                     $the_form_ele = $k;
                     if ($k == 'shared') {
                       $the_form_ele = 'field_muralshared';
                     }
                     form_set_error($the_form_ele, t('can\'t update the mural properties.'));
-                    
                   }
                 }
               }
@@ -303,7 +330,7 @@ function muralapi_create_room($mural_api, $muralusername, $title, $account) {
 }
 
 function muralapi_test() {
-  ini_set('display_errors','on');
+  ini_set('display_errors', 'on');
   _test_mural_list_for_a_user();
   //_test_user_add();
   //_test_create_room();
@@ -318,7 +345,7 @@ function muralapi_test() {
   // $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/1374110398829' width=500px height=500px'></iframe>";
   $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/1374641493558' width=500px height=500px'></iframe>";
 
-  
+
   return $output_html;
 }
 
@@ -358,7 +385,7 @@ function _test_create_room() {
 
 function _test_retrieve_a_mural() {
   $username = 'kk2t';  //owner
- // $username = 'kikora';
+  // $username = 'kikora';
   $muralid = '1375231303413';
   $muralid = '1375063051875';
   $muralid = '1375252040839';

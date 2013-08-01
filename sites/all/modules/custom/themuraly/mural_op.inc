@@ -1,8 +1,71 @@
 <?php
 
+/**
+ *
+ * @param int $uid  
+ *   user id
+ * @param string $musername
+ *   mural username
+ * @param string $mroomid 
+ *   mural user room id
+ * 
+ * @return html string 
+ *   the user's own mural lists
+ */
+function get_myideas($uid, $musername, $mroomid) {
+
+  // call mural api to get list 
+  $mural_api = new Muralapi;
+  $result = $mural_api->get_all_murals($musername);
+  if (is_object($rersult) && isset($result->data)) {
+    $data = drupal_json_decode($result->data);
+    $mural_list = array();
+    if (is_array($data)) {
+      foreach ($data as $k => $mobj) {
+        if (!empty($mobj['members'][$musername])) {
+          if ($mobj['members'][$musername]['role'] == 'owner') {
+           // $mural_list[]
+          }
+        }
+      }
+    }
+  }
+
+
+
+
+  /*
+    $the_user_muralusername = $the_field_obj[0]['value'];
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'murals')
+    ->propertyCondition('uid', $uid);
+    $results = $query->execute();
+    if (!empty($results['node'])) {
+    $the_mids = array_keys($results['node']);
+    $mymurals = node_load_multiple($the_mids);
+    get_murals_detail($mymurals);
+    }
+   * 
+   */
+}
+
+/**
+ * get the thumburl info of the every mural by mural api , put it to the node array $murals
+ * @param array $murals
+ * 
+ */
+function get_murals_detail(&$murals) {
+  $the_mid_array = array();
+  foreach ($murals as $k => $v) {
+    $the_field_obj = field_get_items('node', $v, 'field_muralid');
+    //  $the_mid_array
+  }
+}
+
 function muralshow_share($nid) {
-  
-  
+
+
   global $user;
   $the_node = node_load($nid);
   $muralid_obj = field_get_items('node', $the_node, 'field_muralid');
@@ -12,7 +75,7 @@ function muralshow_share($nid) {
   if (isset($the_node->uid)) {
     $node_uid = $the_node->uid;
   }
-  
+
   if (!empty($muralid_obj[0]['value'])) {
     $the_muralid = $muralid_obj[0]['value'];
     $mid = $the_muralid;
@@ -35,15 +98,13 @@ function muralshow_share($nid) {
 
       $mural_api = new Muralapi;
       $result = $mural_api->invite_user_mural($the_muralowner, $the_muralid, array($muraluser_invite));
-      
     }
   }
   return muralshow($nid, $mid, $node_uid);
-  
 }
 
 function muralshow($nid, $mid = 0, $uid = 0) {
- 
+
   global $user;
   $the_node_uid = 0;
   if ($uid > 0) {
@@ -55,14 +116,14 @@ function muralshow($nid, $mid = 0, $uid = 0) {
     $mid = $muralid_array[0]['value'];
     $the_node_uid = $the_node->uid;
   }
-  
-  
+
+
   ctools_include('modal');
   ctools_include('ajax');
   ctools_modal_add_js();
-  
+
   $img_gear = '<img title="set" alt="set" src="' . $GLOBALS['base_path'] . path_to_theme() . '/images/mock-gear.png"/>';
-  if ($user->uid ==  $the_node_uid) {
+  if ($user->uid == $the_node_uid) {
     $edit_url = l($img_gear, 'modal/node/' . $nid . '/edit/nojs/0', array(
       'query' => array(
         'destination' => $GLOBALS['base_path'] . 'mural/' . $nid,
