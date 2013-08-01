@@ -180,3 +180,8 @@ div.set-video-content {
   z-index: -1;
   top: 0;
 }
+
+/* Debug */
+.toolbar-item.test2 {
+  display: none;
+}
