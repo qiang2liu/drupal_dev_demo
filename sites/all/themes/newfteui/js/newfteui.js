@@ -19,107 +19,85 @@
 						}
 					);*/
 					self.find('.indicator span').bind('click', function(){
-						$('.pane').setWidthRight().removeClass('show');
+						
 						$('div').not(self).not('.toolbar-handler').not('.toolbar-box').removeClass('active');
 						self.toggleClass('active');
+						$('.pane-handler').css('width','').removeClass('current');
+						$('.pane').removeClass('show').css('right','-760px');
 					})
 				});
+			},
+			makePaneNormal: function(){
+				$('.pane-handler').css('width','').removeClass('current');
+				$('.pane').removeClass('show').css('right','-760px');
+			},
+			setPositionofElements : function(){
+				var space = ($(window).width() - 760)/2;
+				// set
+				$('.main-content').css({
+					'left': space + 'px'
+				});
+				
+				//pane
+				
+				$('.pane-handler').bind('click',function(){
+					$('.pane-handler').not($(this)).removeClass('current').css('width','');
+					$(this).toggleClass('current')
+					
+					var id = $(this).attr('data-aim');
+					$('.pane').not('#'+ id).removeClass('show').css('right','');
+					
+					if($('#'+ id).hasClass('show')){
+						$('#'+ id).removeClass('show').css('right','');
+					}else{
+						$('#'+ id).css('right','').addClass('show').css('right', space + 'px' );
+					}
+				});
+				$('.pane-handler').hover(
+					function(){
+						$(this).css('width',space+'px');
+					},
+					function(){
+						if(!$(this).hasClass('active')){
+							$(this).css('width','');
+						}
+						
+					}
+				);
 			},
 			toggleToolbar: function(){
 				$('.toolbar-handler, .toolbar-box').toggleClass('active');
 			},
-			setWidth: function(){
-				return this.each(function(){
-					$(this).css({
-						'width' : $(window).width()-440 + 'px'
-					})
-				})
-			},
-			setWidthRight: function(){
-				return this.each(function(){
-					$(this).css({
-						'width' : $(window).width() - 270 + 'px',
-						'right' : -($(window).width() - 270 ) + 'px'
-					})
-				})
-			},
 			removeAllActive : function(){
 				$('div').not('.toolbar-handler').not('.toolbar-box').not(this).removeClass('active');
 				$(this).toggleClass('active');
+				
 			}
 		});
 	})(jQuery);
 	
 	//load
 	$(document).ready(function(){
-		//set width
-		$('.main-content').setWidth();
-		$('.pane').setWidthRight();
-		
-		
+		//set position
+		$.fn.setPositionofElements();
 		$('.community').setCommunity();
 		$('.toolbar-handler').bind('click', $.fn.toggleToolbar);
-		/*$('.stage-selector-handler>em').hover(
-			function(){
-				$(this).addClass('flash');
-				$('.stage-selector-handler>span').addClass('flash');
-				$('.stage-box').addClass('flash');
-			},
-			function(){
-				$(this).removeClass('flash');
-				$('.stage-selector-handler>span').removeClass('flash');
-				$('.stage-box').removeClass('flash');
-			}
-		);*/
+		
 		$('.stage-selector-handler>em').bind('click', function(){
-			$('.pane').setWidthRight().removeClass('show');
 			$.fn.removeAllActive.call($('.stage-selector'));
-			
+			$.fn.makePaneNormal();
 		});
-		$('.pane-handler').bind('click',function(){
-			$.fn.removeAllActive.call(this);
-			var id = $(this).attr('data-aim');
-			$('.pane').not('#'+ id).setWidthRight().removeClass('show');
-			//$('#'+ id).toggleClass('show');
-			if($('#'+ id).hasClass('show')){
-				$('#'+ id).setWidthRight().removeClass('show');
-			}else{
-				$('#'+ id).css('right','').addClass('show');
-			}
-		});
-		$('.pane-handler').hover(
-			function(){
-				var idx=$(this).index('.pane-handler');
-				//$('.pane').eq(idx).addClass('flash');
-			},
-			function(){
-				var idx=$(this).index('.pane-handler');
-				//$('.pane').eq(idx).removeClass('flash');
-			}
-		);
+		
+		
 		//user-profile
 		$('.user-profile-inner').bind('click', function(){
 			$.fn.removeAllActive.call($('.user-profile'));
-			$('.pane').setWidthRight().removeClass('show');
+			$.fn.makePaneNormal();
 		});
 		
-		
-		//stage ajax
-		/** Move to edgemarkers_stage module **/
-		/*$.ajax({
-			url: '?q=edgemakers/stage/api/list',
-			dataType: 'json',
-			type : 'GET',
-			success : function(data){
-				for(var i=0; i<data.length; i++){
-					console.log(data[i]);
-					$('.stage-box').append('<div class="stage-item"><a href="#x">'+ data[i].title + '</a></div>');
-				}
-			},
-			error :function(){
-				alert('An error occurs when getting the stage sets!')
-			}
+		$('.pane-handler').bind('click',function(){
+			$.fn.removeAllActive.call(this);
 		});
-		*/
+		
 	});
 })(jQuery);
