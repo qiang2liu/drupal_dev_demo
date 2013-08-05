@@ -84,7 +84,7 @@ ul:after,
 /*community*/
 .community{
 	background:rgba(180,180,180,0.7);
-	width:63.5%;
+	width:760px;
 	margin:0 auto;
 	position:relative;
 	z-index:1;
@@ -364,13 +364,8 @@ ul:after,
 .competitions-handler{
 	background-color:rgba(244,126,64,1.0);
 }
-.pane-handler:hover{
-	width:70px;
-	/*animation:opacity 0.5s infinite;
-   -webkit-animation:opacity 0.5s infinite;*/
-}
-.pane-handler.active{
-	width:70px;
+
+.pane-handler.current{
 	border-radius:0;
 }
 .pane{
@@ -379,10 +374,11 @@ ul:after,
 	border-radius:10px;
 	top:90px;
 	transition-property: right;
-	transition-duration: 1s;
+	transition-duration: .2s;
 	transition-timing-function: linear;
 	transition-delay: 0;
-	
+	width:760px;
+	right:-760px;
     /* for test */
 	height:700px;
 	background-repeat: no-repeat;
@@ -393,7 +389,7 @@ ul:after,
    -webkit-animation:opacity 0.5s infinite;
 }
 .pane.show{
-	right:70px;
+	
 	
 }
 #studio{
@@ -488,7 +484,8 @@ ul:after,
 	height:720px;
 	min-height:500px;
 	/*overflow:hidden;*/
-	padding:0 20px;
+	
+	width:760px;
 }
 #set-view-region{
 	border-radius:10px;
