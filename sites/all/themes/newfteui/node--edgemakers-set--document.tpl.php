@@ -40,12 +40,7 @@
       // We hide the comments and links now so that we can render them later.
       hide($content['comments']);
       hide($content['links']);
-      $documents = field_get_items('node', $node, 'field_set_document');
-      $document = $documents && count($documents) > 0 ? $documents[0]['uri'] : '';
-      if($document != '') {
-        $fileUrl = file_create_url($document);
-        echo '<embed src="'.$fileUrl.'" width="880px" height="375px"/>';
-      }
+      print render($content['field_set_document']);
     ?>
   </div>
 
