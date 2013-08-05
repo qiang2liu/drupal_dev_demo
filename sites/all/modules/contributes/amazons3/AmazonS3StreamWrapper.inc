@@ -869,6 +869,10 @@ class AmazonS3StreamWrapper implements DrupalStreamWrapperInterface {
       $uri = $this->uri;
     }
 
+    if (trim($uri) == 's3:') { //special case fix
+      $uri = 's3://';
+    }
+
     $path  = str_replace('s3://', '', $uri);
     $path = trim($path, '/');
     return $path;
@@ -988,6 +992,12 @@ class AmazonS3StreamWrapper implements DrupalStreamWrapperInterface {
     }
     if($uri != null) {
       $path = $this->getLocalPath($uri);
+
+      if (!$path) {
+        //special case; it's the bucket itself. should be TRUE
+        return TRUE;
+      }
+
       $response = $this->getS3()->list_objects($this->bucket, array(
           'prefix' => $path . '/',
           'max-keys' => 1,
