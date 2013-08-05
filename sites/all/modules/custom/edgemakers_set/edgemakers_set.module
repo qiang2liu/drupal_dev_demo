@@ -75,6 +75,7 @@ function edgemakers_set_form_alter(&$form, $form_state, $form_id) {
     $langcode = isset($form['#language']) ? $form['#language'] : LANGUAGE_NONE;
     $form['field_set_type'][$langcode]['#after_build'] = array('_edgemakers_set_load_my_javascript');
     $form['actions']['#suffix'] = '<script>edgemakers_set_fields_update();</script>';
+    unset($form['field_set_murally_type'][$langcode]['#options']['_none']);
   }
 }
 /**
