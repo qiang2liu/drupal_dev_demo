@@ -119,11 +119,11 @@ function loadVideo(videoid) {
   console.log(height);
   console.log(vHeight);
 
-	/*swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
-		yt", "100%", vHeight+"px", "8", null, null, params, atts);*/
-
 	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
-			"yt", "640", "390", "8", null, null, params, atts);
+		"yt", "100%", vHeight+"px", "8", null, null, params, atts);
+
+	/*swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
+			"yt", "640", "390", "8", null, null, params, atts);*/
 
 }
 function onYouTubePlayerReady(playerId) {

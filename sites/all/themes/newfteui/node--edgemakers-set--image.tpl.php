@@ -44,20 +44,38 @@
       hide($content['comments']);
       hide($content['links']);
       print render($content['field_set_image']);
+      //print render($content);
+
+      /*
+      // @link https://drupal.org/node/1145890
+      $image_style_name = 'medium';
+      $image_uri = $file_uri = $node->field_set_image[$node->language][0]['uri'];
+
+      $file_uri = $node->field_set_image[$node->language][0]['uri'];
+      $image = theme('image_style', array('style_name' => $image_style_name, 'path' => $image_uri));
+      $link = file_create_url($file_uri);
+      print l($image, $link, array('html' => TRUE));
+      */
+
+      // print('<pre>' . print_r($node, TRUE) . '</pre>');
+      //echo image_file_download($image_uri);
+
     ?>
     <span id="image-download-it">
     <?php
 
       //drupal_set_message('<pre>' . print_r($node, TRUE) . '</pre>');
-      $image_url = file_create_url($node->field_set_image[$node->language][0]['uri']);
+      $image_uri = file_create_url($node->field_set_image[$node->language][0]['uri']);
+      $download_uri = 'download/file/fid/' . $node->field_set_image[$node->language][0]['fid'];
 
       $download_icon = array('path' => drupal_get_path('theme', 'newfteui'). '/images/iconDownload.png');
       //drupal_set_message('<pre>' . print_r($download_icon, TRUE) . '</pre>');
 
-      $download_icon_img = theme($download_icon);
-      echo l($download_icon_img, $image_url, array(
+      $download_icon_img = theme('image' , $download_icon);
+      //echo image_file_download($image_uri);
+      echo l($download_icon_img, $download_uri, array(
         'attributes' => array(
-          'target' => '_blank',
+          //'target' => '_blank',
         ),
         'html' => TRUE,
         )

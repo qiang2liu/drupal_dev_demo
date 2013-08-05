@@ -56,9 +56,9 @@
     //jQuery("#ajax-target").load("?q=edgemarkers/stage/get/set/ajax/" + $stage_id);
     jQuery("#set-view-region").hide();
     jQuery('#stage-set-list').show();
-    jQuery('#stage-set-list').html("Loading......");
+    //jQuery('#stage-set-list').html("Loading......");
     
-    openAjaxLoad("ajaxload");
+    //openAjaxLoad("ajaxload");
     
     jQuery('#stage-set-list').load("?q=edgemarkers/stage/get/set/ajax/" + $stage_id, function(){
       
@@ -76,7 +76,7 @@
           var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid;
           var ajaxContent;
           
-          openAjaxLoad("ajaxload");
+          //openAjaxLoad("ajaxload");
           
           jQuery.ajax({
             url: ajaxUrl,
@@ -91,14 +91,15 @@
               
               jQuery("#set-view-region").slideToggle();
               jQuery("#stage-set-list").hide();
+              jQuery("#back-set-list").show();
               jQuery('#set-view-region').css({
               	'width' : jQuery(window).width()-400 + 'px'
               })
-              closeAjaxLoad("ajaxload");
+              //closeAjaxLoad("ajaxload");
             },
             error :function(){
               jQuery("#stage-set-view").html("Load set data error.");
-              closeAjaxLoad("ajaxload");
+              //closeAjaxLoad("ajaxload");
               return false;
             }
           });
@@ -108,7 +109,7 @@
         });
       });
       
-      closeAjaxLoad("ajaxload");
+      //closeAjaxLoad("ajaxload");
       
     });
     
