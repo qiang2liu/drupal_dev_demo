@@ -8,13 +8,14 @@
 }
 .set-text-content {
   width: 720px;
-  margin: 20px;
+  margin:0 20px ;
   padding: 0;
   border:none;
   background: transparent;
 }
 .set-text-content iframe{
 	width:100%;
+	height:390px;
 }
 </style>
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
