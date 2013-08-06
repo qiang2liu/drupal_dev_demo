@@ -7,11 +7,14 @@
   display: none;
 }
 .set-text-content {
-  width: 900px;
+  width: 720px;
   margin: 20px;
   padding: 0;
   border:none;
   background: transparent;
+}
+.set-text-content iframe{
+	width:100%;
 }
 </style>
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
