@@ -92,9 +92,10 @@
               jQuery("#set-view-region").slideToggle();
               jQuery("#stage-set-list").hide();
               jQuery("#back-set-list").show();
-              jQuery('#set-view-region').css({
+              
+              /*jQuery('#set-view-region').css({
               	'width' : jQuery(window).width()-400 + 'px'
-              })
+              })*/
               //closeAjaxLoad("ajaxload");
             },
             error :function(){
