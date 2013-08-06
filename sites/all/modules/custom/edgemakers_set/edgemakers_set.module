@@ -76,7 +76,46 @@ function edgemakers_set_form_alter(&$form, $form_state, $form_id) {
     $form['field_set_type'][$langcode]['#after_build'] = array('_edgemakers_set_load_my_javascript');
     $form['actions']['#suffix'] = '<script>edgemakers_set_fields_update();</script>';
     unset($form['field_set_murally_type'][$langcode]['#options']['_none']);
+  } else if (substr($form_id, 0, 20) == 'webform_client_form_') {
+    $form['actions']['submit']['#ajax'] = array(
+      'wrapper' => 'em-webform',
+      'callback' => 'webform_client_form_callback',
+      'method' => 'replace',
+      'effect' => 'fade',
+    );
+    $form['actions']['#suffix'] = '<script>
+    Drupal.settings.ajax = Drupal.settings.ajax || [];
+    Drupal.settings.ajax["edit-submit"] = {
+        callback: "webform_client_form_callback",
+        event: "mousedown",
+        keypress: true,
+        prevent: "key",
+        submit: {
+            _triggering_element_name: "op",
+            _triggering_element_value: "Submit"
+        },
+        url: "system/ajax",
+        wrapper:"em-webform"
+    };
+    Drupal.attachBehaviors();</script>';
   }
+}
+function webform_client_form_callback($form, &$form_state) {
+  module_load_include('inc', 'webform', 'webform.pages');
+  webform_client_form_validate($form, $form_state);
+  $errors = form_get_errors();
+  form_clear_error();
+  if (!$errors) {
+    webform_client_form_pages($form, $form_state);
+    webform_client_form_submit($form, $form_state);
+    $output = "Thank you!";
+  } else {
+    $output = '<div id="em-webform">';
+    $output .= drupal_render($form);
+    $output .= '</div>';
+    form_clear_error();
+  }
+  return $output;
 }
 /**
  * Implements hook_node_validate().

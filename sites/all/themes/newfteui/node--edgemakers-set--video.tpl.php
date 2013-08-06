@@ -91,11 +91,6 @@ function youtubeFeedCallback(json) {
   </div>
 
   <div class="clearfix">
-    <?php if (!empty($content['links'])): ?>
-      <div class="links"><?php print render($content['links']); ?></div>
-    <?php endif; ?>
-
-    <?php print render($content['comments']); ?>
   </div>
 
 </div>
@@ -109,22 +104,13 @@ function loadVideo(videoid) {
 	var params = { allowScriptAccess: "always" };
 	var atts = { id: "myytplayer" };
 
-  var width = document.getElementById('node-'+<?php print $node->nid; ?>).offsetWidth*0.95;
-  var whratio = 64/39*1.0;
-  var height = width/whratio;
-
   //Get width from video destination element continar
   var videoWidth = jQuery(".set-video-content").width();
+  var whratio = 64/39*1.0;
   var vHeight = videoWidth/whratio;
-  console.log(height);
-  console.log(vHeight);
 
 	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
-		"yt", "100%", vHeight+"px", "8", null, null, params, atts);
-
-	/*swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
-			"yt", "640", "390", "8", null, null, params, atts);*/
-
+		"yt", "100%", vHeight, "8", null, null, params, atts);
 }
 function onYouTubePlayerReady(playerId) {
   var ytplayer = document.getElementById('myytplayer');

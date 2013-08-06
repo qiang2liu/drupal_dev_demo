@@ -13,41 +13,33 @@ function youtube_parser($url) {
 $user = user_load($uid);
 $username = $user->name;
 ?>
-<script type="text/javascript" src="<?php echo $base_url;?>/sites/all/modules/contributes/ajax_comments/ajax_comments.js"></script>
 <style>
 #content div.tabs {
   display: none;
 }
 .field-name-body {
   float: left;
-  max-width: 255px;
+  max-width: 170px;
+  height:332px;
+  background: white;
 }
 #yr-wrapper {
   float: right;
+}
+#comments {
+  background: white;
+  width: 95%;
+  margin:auto;
 }
 </style>
 
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 
-<div id="set-type-text"><h3><?php echo isset($node->term->name)?$node->term->name: ''; ?></h3></div>
-<div id="set-user-info">
-  <dl>
-  <dt>
-  <?php print $user_picture; ?>
-  </dt>
+  <div id="<?php echo isset($node->term->name)?$node->term->name: ''; ?>-video-icon" class="set-type-icon set-video-type-icon">
+    <?php echo isset($node->term->name)?$node->term->name: ''; ?><br/>
+  </div>
 
-  <?php print render($title_prefix); ?>
-  <dd>
-    <h2<?php print $title_attributes; ?>>Teacher: <?php print $username; ?></h2>
-    <div class="shadeDiv" style="">&nbsp;</div>
-  </dd>
-  <?php print render($title_suffix); ?>
-  </dl>
-
-  <?php if ($display_submitted): ?>
-    <span class="submitted"><?php print $submitted ?></span>
-  <?php endif; ?>
-</div>
+  <span id="set-title" style="display: none;">Teacher: <?php print $username; ?></span>
   <div class="content set-video-content clearfix"<?php print $content_attributes; ?>>
     <?php
       // We hide the comments and links now so that we can render them later.
@@ -68,14 +60,20 @@ $username = $user->name;
 <script>
 (function($){
   $(document).ready(function(){
-    loadVideo('<?php echo $ytid;?>');
+    setTimeout(function() {loadVideo('<?php echo $ytid;?>');}, 100);
 	});
 })(jQuery);
 function loadVideo(videoid) {
 	var params = { allowScriptAccess: "always" };
 	var atts = { id: "myytplayer" };
+
+  //Get width from video destination element continar
+  var videoWidth = 545;
+  var whratio = 64/39*1.0;
+  var vHeight = videoWidth/whratio;
+
 	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
-		"yt", "640", "390", "8", null, null, params, atts);
+		"yt", videoWidth, vHeight, "8", null, null, params, atts);
 }
 function onYouTubePlayerReady(playerId) {
   var ytplayer = document.getElementById('myytplayer');

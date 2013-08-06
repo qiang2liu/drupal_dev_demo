@@ -24,6 +24,14 @@ function newfteui_preprocess_node(&$vars) {
     }
   }
 }
+/*
+ * Implments hook_preprocess_html().
+ */
+function newfteui_preprocess_html() {
+  drupal_add_library('system', 'drupal.ajax');
+  drupal_add_library('system', 'jquery.form');
+  drupal_add_library('system', 'drupal.form');
+}
 /**
  * Implements theme_preprocess_comment_wrapper();
  */
@@ -39,6 +47,7 @@ function newfteui_preprocess_comment_wrapper(&$vars) {
       $vars['comments_title'] = '';
     else if($type == 'Video with Q&A')
       $vars['comments_title'] = t('Answer:');
+    $vars['content']['comments'] = array_reverse($vars['content']['comments'], true);
   }
 }
 /**
