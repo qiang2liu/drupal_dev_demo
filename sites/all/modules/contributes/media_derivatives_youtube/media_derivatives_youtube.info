@@ -1,0 +1,17 @@
+description = Media Derivatives: Youtube engine.
+features[ctools][] = "media_derivatives:media_derivatives_presets:1"
+features[media_derivatives_presets][] = "youtube_video"
+name = Youtube engine
+package = Media
+core = 7.x
+
+dependencies[] = media_derivatives
+dependencies[] = media_youtube
+dependencies[] = libraries
+
+; Information added by drupal.org packaging script on 2012-04-16
+version = "7.x-1.0"
+core = "7.x"
+project = "media_derivatives_youtube"
+datestamp = "1334579799"
+

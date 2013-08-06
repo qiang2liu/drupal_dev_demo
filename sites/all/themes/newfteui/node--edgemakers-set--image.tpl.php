@@ -46,20 +46,6 @@
       print render($content['field_set_image']);
       //print render($content);
 
-      /*
-      // @link https://drupal.org/node/1145890
-      $image_style_name = 'medium';
-      $image_uri = $file_uri = $node->field_set_image[$node->language][0]['uri'];
-
-      $file_uri = $node->field_set_image[$node->language][0]['uri'];
-      $image = theme('image_style', array('style_name' => $image_style_name, 'path' => $image_uri));
-      $link = file_create_url($file_uri);
-      print l($image, $link, array('html' => TRUE));
-      */
-
-      // print('<pre>' . print_r($node, TRUE) . '</pre>');
-      //echo image_file_download($image_uri);
-
     ?>
     <span id="image-download-it">
     <?php

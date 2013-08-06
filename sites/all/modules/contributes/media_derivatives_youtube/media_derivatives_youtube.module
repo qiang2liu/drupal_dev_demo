@@ -1,0 +1,182 @@
+<?php
+/**
+ * @file
+ * Code for the Media derivatives Youtube feature.
+ */
+
+include_once 'media_derivatives_youtube.features.inc';
+
+define('MEDIA_DERIVATIVES_YOUTUBE_AUTH_URL', 'https://www.google.com/youtube/accounts/ClientLogin');
+define('MEDIA_DERIVATIVES_YOUTUBE_AUTH_URL_2', 'https://www.google.com/accounts/ClientLogin');
+define('MEDIA_DERIVATIVES_YOUTUBE_AUTH_2_0', 'https://accounts.google.com/o/oauth2/auth');
+define('MEDIA_DERIVATIVES_YOUTUBE_UPLOAD_URL', 'http://uploads.gdata.youtube.com/feeds/users/default/uploads');
+define('MEDIA_DERIVATIVES_YOUTUBE_UPLOAD_URL_2_0', 'http://uploads.gdata.youtube.com/feeds/api/users/default/uploads');
+define('MEDIA_DERIVATIVES_YOUTUBE_APP_ID', 'Drupal Derviative Youtube Uploader');
+
+/**
+ * Implements hook_media_derivatives_engine_info().
+ */
+function media_derivatives_youtube_media_derivatives_engine_info() {
+  return array(
+    'name' => t('Youtube engine'),
+    'type' => 'video',
+    'ui_callback' => 'media_derivatives_youtube_ui_callback',
+  );
+}
+
+/**
+ * Implements hook_ui_callback().
+ */
+function media_derivatives_youtube_ui_callback() {
+  $form = array();
+
+  $form['youtube_username'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Username Account'),
+    '#description' => t('Enter your youtube account username.'),
+  );
+
+  $form['youtube_password'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Password Account'),
+    '#description' => t('Enter your youtube account username.'),
+  );
+
+  $form['youtube_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Youtube Dev Key'),
+    '#description' => t('Enter your youtube dev key.'),
+  );
+
+  $form['youtube_default_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Youtube default title'),
+    '#description' => t('Enter the default title.'),
+  );
+
+  $form['youtube_default_description'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Youtube default description'),
+    '#description' => t('Enter the default description.'),
+  );
+
+  $form['youtube_default_tags'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Youtube default tags'),
+    '#description' => t('Enter the default tags.'),
+  );
+
+  $form['youtube_default_category'] = array(
+    '#title' => t('Youtube default Category'),
+    '#type' => 'textfield',
+    '#description' => t('The category where videos will be added. This has to be a Youtube category.'),
+  );
+
+  return $form;
+}
+
+/**
+ * Implements hook_media_derivatives_create_derivative().
+ */
+function media_derivatives_youtube_media_derivatives_create_derivative($file, $derivative) {
+
+  // Get path to url and test if exists.
+  if ($path = libraries_get_path('Zend_Gdata')) {
+    // Do something with the library, knowing the path, for instance:
+    set_include_path($path);
+    require_once $path . '/Zend/Loader.php';
+    Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
+    Zend_Loader::loadClass('Zend_Gdata_YouTube');
+    Zend_Loader::loadClass('Zend_Gdata_App_Exception');
+    Zend_Loader::loadClass('Zend_Gdata_App_HttpException');
+    Zend_Loader::loadClass('Zend_Gdata_HttpClient');
+  }
+
+  // Load account details from preset settings:
+  $title = $derivative->preset->engine_settings['youtube_default_title'];
+  $description = $derivative->preset->engine_settings['youtube_default_description'];
+  $tags = $derivative->preset->engine_settings['youtube_default_tags'];
+  $username = $derivative->preset->engine_settings['youtube_username'];
+  $password = $derivative->preset->engine_settings['youtube_password'];
+  $devkey   = $derivative->preset->engine_settings['youtube_key'];
+  $category = $derivative->preset->engine_settings['youtube_default_category'];
+
+  // Authenticate to Youtube API.
+  try {
+    $authenticationURL= 'https://www.google.com/accounts/ClientLogin';
+    $httpClient =
+      Zend_Gdata_ClientLogin::getHttpClient(
+                  $username = 'lugal.cn@gmail.com',
+                  $password = 'xiaoyu17',
+                  $service = 'youtube',
+                  $client = null,
+                  $source = 'localhost', // a short string identifying your application
+                  $loginToken = null,
+                  $loginCaptcha = null,
+                  MEDIA_DERIVATIVES_YOUTUBE_AUTH_2_0);
+drupal_set_message('Http Client ok: <pre>' . print_r($httpClient, TRUE) . '</pre>');
+//    $httpclient = Zend_Gdata_ClientLogin::getHttpClient($username, $password, 'youtube', NULL, MEDIA_DERIVATIVES_YOUTUBE_APP_ID, NULL, NULL, MEDIA_DERIVATIVES_YOUTUBE_AUTH_2_0);
+    watchdog('Media Derivative Youtube', 'Authenticate ok.: @username', array('@username' => $username), WATCHDOG_ERROR);
+  }
+  catch (Exception $e) {
+    watchdog('Media Derivative Youtube', 'Cannot authenticate. Error: @error', array('@error' => strip_tags($e->getMessage())), WATCHDOG_ERROR);
+    return FALSE;
+  }
+
+  // Create Youtube API object.
+  $youtube = new Zend_Gdata_YouTube($httpClient, MEDIA_DERIVATIVES_YOUTUBE_APP_ID, NULL, $devkey);
+
+  $upload = new Zend_Gdata_YouTube_VideoEntry();
+
+  // Load local file path.
+  $filepath = drupal_realpath($file->uri);
+  $fileinfo = pathinfo($filepath);
+
+  // Add local file to Youtube API object.
+  $filesource = $youtube->newMediaFileSource($filepath);
+  $filesource->setContentType($file->filemime);
+  $filesource->setSlug($filepath);
+
+  // Set upload handler.
+  $upload->setMediaSource($filesource);
+  $upload->setVideoTitle($title);
+  $upload->setVideoDescription($description);
+  $upload->setVideoCategory($category);
+  $upload->setVideoTags($tags);
+  $upload->setVideoDeveloperTags('dev upload');
+
+  // Launch upload:
+  try {
+    $video = $youtube->insertEntry($upload, MEDIA_DERIVATIVES_YOUTUBE_UPLOAD_URL_2_0, 'Zend_Gdata_YouTube_VideoEntry');
+
+    $story_id = $video->getVideoId();
+
+    watchdog('Media Derivative Youtube', 'Uploaded file @file to Youtube. Story id: @story_id', array(
+        '@file' => $fileinfo['basename'],
+        '@story_id' => $story_id,
+      ),
+      WATCHDOG_NOTICE,
+      l($title, 'http://www.youtube.com/watch?v=' . $story_id, array('absolute' => TRUE))
+    );
+
+    // Build derivative filename.
+    $new_file_uri = file_stream_wrapper_uri_normalize('youtube://v/' . $story_id);
+
+    // Return derivative file to Derivatives API.
+    return $new_file_uri;
+
+  }
+  catch (Zend_Gdata_App_HttpException $http_exception) {
+    watchdog('Media Derivative Youtube', 'Upload failed. Error: @error. Exception: @exception.', array(
+      '@error' => strip_tags($http_exception->getMessage()),
+      '@exception' => strip_tags($http_exception->getRawResponseBody())),
+      WATCHDOG_ERROR
+    );
+    return FALSE;
+  }
+  catch (Zend_Gdata_App_Exception $e) {
+    watchdog('Media Derivative Youtube', print_r($file, TRUE));
+    watchdog('Media Derivative Youtube', 'Upload failed. Error: @error.', array('@error' => $e->getMessage()), WATCHDOG_ERROR);
+    return FALSE;
+  }
+}
