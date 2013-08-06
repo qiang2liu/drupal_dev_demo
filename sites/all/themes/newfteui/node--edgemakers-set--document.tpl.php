@@ -8,7 +8,7 @@
 }
 .set-text-content {
   width: 720px;
-  height:440px;
+  height:455px;
   margin:0 20px ;
   padding: 0;
   border:none;
@@ -16,8 +16,9 @@
 }
 .set-text-content iframe{
 	width:100%;
-	height:390px;
+	height:430px;
 }
+
 </style>
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 
