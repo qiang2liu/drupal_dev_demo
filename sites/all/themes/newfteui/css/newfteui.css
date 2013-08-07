@@ -484,9 +484,9 @@ ul:after,
 .main-content{
 	position:absolute;
 	top:90px;
-	left:200px;
-	height:720px;
-	min-height:500px;
+	
+	
+	min-height:562px;
 	/*overflow:hidden;*/
 	
 	width:760px;
@@ -570,9 +570,24 @@ ul:after,
   padding-left: 80px;
 }
 
-.set-image-type-icon {
+#Text-image-icon {
   background: url(../images/icon_set_image.png) no-repeat;
   background-position: 20px 10px;
-  padding-left: 70px;
+  padding-left: 80px;
   line-height: 40px;
+}
+#Document-video-icon{
+	background: url(../images/icon_set_doc.png) no-repeat;
+	background-position: 20px 10px;
+	padding-left: 70px;
+	line-height: 40px;
+}
+#Image-image-icon{
+	background: url(../images/icon_set_image.png) no-repeat;
+	background-position: 20px 10px;
+	padding-left: 70px;
+	line-height: 40px;
+}
+#back-set-list{
+	padding:18px 0 18px 50px;
 }
