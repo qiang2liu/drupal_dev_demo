@@ -9,7 +9,7 @@
 </style>
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 
-  <div id="<?php echo isset($node->term->name)?$node->term->name: ''; ?>-video-icon" class="set-type-icon set-video-type-icon">
+  <div id="survey-icon" class="set-type-icon set-survey-type-icon">
     <?php echo isset($node->term->name)?$node->term->name: ''; ?><br/>
   </div>
 
