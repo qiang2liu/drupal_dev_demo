@@ -588,6 +588,13 @@ ul:after,
 	padding-left: 70px;
 	line-height: 40px;
 }
+#videoqa-icon,
+#videocomments-icon{
+	background: url(../images/icon_set_video.png) no-repeat;
+    background-position: 20px 10px;
+    padding-left: 80px;
+    line-height: 40px;
+}
 #back-set-list{
 	padding:18px 0 18px 50px;
 }
