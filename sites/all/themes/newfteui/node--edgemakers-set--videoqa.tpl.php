@@ -20,7 +20,7 @@ $username = $user->name;
 .field-name-body {
   float: left;
   max-width: 170px;
-  height:332px;
+  min-height:332px;
   background: white;
 }
 #yr-wrapper {
@@ -31,11 +31,14 @@ $username = $user->name;
   width: 95%;
   margin:auto;
 }
+#comments .filter-wrapper {
+  display:none;
+}
 </style>
 
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
 
-  <div id="<?php echo isset($node->term->name)?$node->term->name: ''; ?>-video-icon" class="set-type-icon set-video-type-icon">
+  <div id="videoqa-icon" class="set-type-icon set-videoqa-type-icon">
     <?php echo isset($node->term->name)?$node->term->name: ''; ?><br/>
   </div>
 

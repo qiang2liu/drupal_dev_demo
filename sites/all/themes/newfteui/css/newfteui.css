@@ -511,7 +511,7 @@ ul:after,
 #stage-set-list li{
 	float:left;
 	width:133px;
-	margin: 0 8px 25px;
+	margin: 0 8px 20px;
 	text-align:center;
 	height:133px;
 }
@@ -582,6 +582,19 @@ ul:after,
 	padding-left: 70px;
 	line-height: 40px;
 }
+#Image-image-icon{
+	background: url(../images/icon_set_image.png) no-repeat;
+	background-position: 20px 10px;
+	padding-left: 70px;
+	line-height: 40px;
+}
+#videoqa-icon,
+#videocomments-icon{
+	background: url(../images/icon_set_video.png) no-repeat;
+    background-position: 20px 10px;
+    padding-left: 80px;
+    line-height: 40px;
+}
 #back-set-list{
-	padding:10px 0 10px 50px;
+	padding:18px 0 18px 50px;
 }

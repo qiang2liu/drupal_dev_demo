@@ -6,7 +6,8 @@
 	body{
 		background:#111;
 		text-align:center;
-		padding:5em 0;
+		padding: 0;
+		margin:0;
 	}
 	.video-wrapper{
 		text-align:center;
@@ -45,7 +46,7 @@ function onytplayerStateChange(newState) {
     var params = { allowScriptAccess: "always" };
     var atts = { id: "myytplayer" };
     swfobject.embedSWF("http://www.youtube.com/v/3dI8t_n50gk?rel=0&enablejsapi=1&playerapiid=ytplayer&version=3",
-                       "ytapiplayer", "640", "360", "8", null, null, params, atts);
+                       "ytapiplayer", "1280", "720", "8", null, null, params, atts);
 
 
    
