@@ -71,7 +71,8 @@
         var ajaxUrl = jQuery(this).attr('href');
         
         jQuery(this).bind('click', function(){
-          
+          jQuery('div').not('.toolbar-handler').not('.toolbar-box').not(jQuery(this)).removeClass('active');
+          jQuery.fn.makePaneNormal();
           var nid = jQuery(this).attr('id').substring(5);
           var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid;
           var ajaxContent;
