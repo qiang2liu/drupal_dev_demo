@@ -582,6 +582,12 @@ ul:after,
 	padding-left: 70px;
 	line-height: 40px;
 }
+#Image-image-icon{
+	background: url(../images/icon_set_image.png) no-repeat;
+	background-position: 20px 10px;
+	padding-left: 70px;
+	line-height: 40px;
+}
 #back-set-list{
-	padding:15px 0 15px 50px;
+	padding:18px 0 18px 50px;
 }
