@@ -17,7 +17,8 @@
 				});
 			},
 			setPositionofElements : function(){
-				var space = ($(window).width() - 760)/2;
+				var space = ($(window).width() - $('.main-content').width())/2;
+				
 				// Desitination
 				$('.main-content').css({
 					'left': space + 'px'
@@ -57,6 +58,7 @@
 			$.fn.removeAllActive.call($('.stage-selector'));
 			$.fn.makePaneNormal();
 		});
+		
 		
 		//user-profile
 		$('.user-profile-inner').bind('click', function(){

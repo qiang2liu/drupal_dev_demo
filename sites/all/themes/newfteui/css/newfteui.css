@@ -176,7 +176,7 @@ ul:after,
 #block-edgemakers-community-activity .item-list li .cont{
 	background-color:rgba(245,195,38,0.9);
 	float:left;
-	width:85%;
+	width:84%;
 	padding:10px;
 	min-height:54px;
 }
@@ -489,11 +489,12 @@ ul:after,
 	min-height:562px;
 	/*overflow:hidden;*/
 	
-	width:760px;
+	width:70%;
 }
 #set-view-region{
 	border-radius:10px;
 	background-color:rgba(120,120,120,0.7);
+	width:100%;
 }
 #stage-title h2{
 	border:3px solid #989090;
@@ -505,7 +506,7 @@ ul:after,
 	background-color:rgba(235,235,235,0.6);
 }
 #stage-set-list{
-	width:596px;
+	width:600px;
 	margin:0 auto;
 }
 #stage-set-list li{
