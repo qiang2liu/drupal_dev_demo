@@ -494,6 +494,7 @@ ul:after,
 #set-view-region{
 	border-radius:10px;
 	background-color:rgba(120,120,120,0.7);
+	width:100%;
 }
 #stage-title h2{
 	border:3px solid #989090;
