@@ -22,7 +22,7 @@
       <div class="toolbar-item title">
         <h4>Toolbar</h4>
       </div>
-      <div class="toolbar-item test1"></div>
+      <?php print render($page['tool_bar']); ?>
       <div class="toolbar-item add-an-idea">
         <h4>
           <?php echo l('Create Mural', 'mural/create') ?>
@@ -30,7 +30,7 @@
         </h4>
       </div>
       <div class="toolbar-item test2"></div>
-      <!--<div class="toolbar-item upload">
+      <div class="toolbar-item upload">
         <h4>Upload</h4>
       </div>
 
@@ -39,7 +39,7 @@
       </div>
       <div class="toolbar-item media">
         <h4 class="has-child">Media<em></em></h4>
-        <ul>
+        <ul id="media-list">
           <li class="media-video">Video</li>
           <li class="media-image">Images</li>
           <li class="media-audio">Audio</li>
@@ -54,7 +54,7 @@
       <div class="toolbar-item tour-guides">
         <h4>Tour Guides</h4>
         <p>images here</p>
-      </div>-->
+      </div>
     </div>
     <!-- }}} toolbar end -->
 
