@@ -25,7 +25,9 @@
           var sta_url = '<a class="ctools-use-modal" href="#" onclick="set_ajax_load_by_stage(' + data[i].nid + ');return true;">' + data[i].defualt_image + '<br/>' + data[i].title + '</a>';
           jQuery('.stage-box').append('<div class="stage-item">' + sta_url + '</div>');
         }
-        
+        jQuery('.stage-item').bind('click', function(){
+			jQuery('.stage-selector').removeClass('active');
+		});
         set_ajax_load_by_stage(initStage);
         
       },
@@ -71,8 +73,7 @@
         var ajaxUrl = jQuery(this).attr('href');
         
         jQuery(this).bind('click', function(){
-          jQuery('div').not('.toolbar-handler').not('.toolbar-box').not(jQuery(this)).removeClass('active');
-          jQuery.fn.makePaneNormal();
+          
           var nid = jQuery(this).attr('id').substring(5);
           var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid;
           var ajaxContent;

@@ -58,6 +58,7 @@
 			$.fn.makePaneNormal();
 		});
 		
+		
 		//user-profile
 		$('.user-profile-inner').bind('click', function(){
 			$.fn.removeAllActive.call($('.user-profile'));
