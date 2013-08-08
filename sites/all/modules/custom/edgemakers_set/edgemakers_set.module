@@ -51,6 +51,13 @@ function edgemakers_set_menu() {
     'file' => 'includes/webform.report.inc',
     'type' => MENU_LOCAL_ACTION,
   );
+  $items['edgemakers/set/ajaxlike'] = array(
+    'title' => 'Delete Set',
+    'page callback' => 'edgemakers_set_like',
+    'page arguments' => array(3),
+    'access callback' => TRUE,
+    'file' => 'edgemakers_set.pages.inc',
+  );
   return $items;
 }
 /**
@@ -77,16 +84,17 @@ function edgemakers_set_form_alter(&$form, $form_state, $form_id) {
     $form['actions']['#suffix'] = '<script>edgemakers_set_fields_update();</script>';
     unset($form['field_set_murally_type'][$langcode]['#options']['_none']);
   } else if (substr($form_id, 0, 20) == 'webform_client_form_') {
+    if(arg(0) == 'node') return;
     $form['actions']['submit']['#ajax'] = array(
       'wrapper' => 'em-webform',
-      'callback' => 'webform_client_form_callback',
+      'callback' => 'edgemakers_set_webform_client_form_callback',
       'method' => 'replace',
       'effect' => 'fade',
     );
     $form['actions']['#suffix'] = '<script>
-    Drupal.settings.ajax = Drupal.settings.ajax || [];
+    Drupal.settings.ajax = Drupal.settings.ajax || {};
     Drupal.settings.ajax["edit-submit"] = {
-        callback: "webform_client_form_callback",
+        callback: "edgemakers_set_webform_client_form_callback",
         event: "mousedown",
         keypress: true,
         prevent: "key",
@@ -98,10 +106,74 @@ function edgemakers_set_form_alter(&$form, $form_state, $form_id) {
         wrapper:"em-webform"
     };
     Drupal.attachBehaviors();</script>';
+  } else if ($form_id == 'comment_node_edgemakers_set_form') {
+    if(arg(0) == 'node') return;
+    $form['#validate'][] = 'edgemakers_set_comment_validate';
+    $form['#prefix'] = '<div id="comment-form-wrapper">';
+    $form['#suffix'] = '</div>';
+    $form['actions']['submit']['#ajax'] = array(
+      'callback' => 'edgemakers_set_comment_form_callback',
+    );
+    $form['actions']['#suffix'] = '<script>
+    Drupal.settings.ajax = Drupal.settings.ajax || {};
+    Drupal.settings.ajax["edit-submit"] = {
+        callback: "edgemakers_set_comment_form_callback",
+        event: "mousedown",
+        keypress: true,
+        prevent: "key",
+        submit: {
+            _triggering_element_name: "op",
+            _triggering_element_value: "Submit"
+        },
+        url: "system/ajax"
+    };
+    Drupal.attachBehaviors();
+    </script>';
   }
 }
-function webform_client_form_callback($form, &$form_state) {
-  module_load_include('inc', 'webform', 'webform.pages');
+function edgemakers_set_comment_validate($form, &$form_state) {
+  $isanonymous = $form_state['values']['is_anonymous'];
+  $node = $form['#node'];
+  $term = strtolower($node->term->name);
+  if($term == 'video with q&a' && $isanonymous) {
+    form_set_error('', t('Sorry, you have to login to answer the question.'));
+  }
+}
+function edgemakers_set_comment_form_callback($form, &$form_state) {
+  comment_form_validate($form, $form_state);
+  $errors = form_get_errors();
+  $commands = array();
+  $formSelector = "#comment-form-wrapper";
+  if (!$errors) {
+    comment_form_submit($form, $form_state);
+    $comment = $form_state['comment'];
+    $node = $form['#node'];
+    $output = drupal_render(comment_view($comment, $node));
+    $commands[] = ajax_command_prepend("#comments-list", $output);
+    $term = strtolower($node->term->name);
+    if($term == 'video with q&a') {
+      $commands[] = ajax_command_remove($formSelector);
+    } else {
+      $new_form_state = array();
+      $new_form_state['build_info']['args'][] = (object) array('nid' => $node->nid);
+      $new_form_state['input'] = array();
+      $output = drupal_render(drupal_build_form($form['#form_id'], $new_form_state));
+      $commands[] = ajax_command_replace($formSelector, $output);
+    }
+    drupal_get_messages('status');
+  } else {
+    form_clear_error();
+    $output = '';
+    foreach($errors as $error) {
+      $output .= '<div class="messages error">'.$error.'</div>';
+    }
+    $commands[] = ajax_command_remove($formSelector.' .messages');
+    $commands[] = ajax_command_prepend($formSelector, $output);
+    drupal_get_messages('error');
+  }
+  return array('#type' => 'ajax', '#commands' => $commands);
+}
+function edgemakers_set_webform_client_form_callback($form, &$form_state) {
   webform_client_form_validate($form, $form_state);
   $errors = form_get_errors();
   form_clear_error();
@@ -189,6 +261,12 @@ function edgemakers_set_theme() {
   return array(
     'set_item' => array(
       'variables' => array('item' => NULL),
+    ),
+    // Templates for default widget types.
+    'rate_template_like' => array(
+      'variables' => array('links' => NULL, 'results' => NULL, 'mode' => NULL, 'just_voted' => FALSE, 'content_type' => NULL, 'content_id' => NULL, 'display_options' => NULL),
+      'template' => 'like',
+      'path' => drupal_get_path('module', 'edgemakers_set') . '/templates',
     ),
   );
 }
@@ -295,6 +373,24 @@ function edgemakers_set_image_default_styles() {
   );
 
   return $styles;
+}
+/**
+ * Implements hook_rate_templates().
+ */
+function edgemakers_set_rate_templates() {
+  $templates = array();
+
+  $templates['like'] = new stdClass();
+  $templates['like']->value_type = 'points';
+  $templates['like']->options = array(
+    array(1, 'like'),
+  );
+  $templates['like']->theme = 'rate_template_like';
+  $templates['like']->customizable = FALSE;
+  $templates['like']->translate = TRUE;
+  $templates['like']->template_title = t('Like');
+
+  return $templates;
 }
 function edgemakers_set_murally_parser($url) {
 	preg_match("#(?<=murally\/)[\d]{13}#", $url, $matches);

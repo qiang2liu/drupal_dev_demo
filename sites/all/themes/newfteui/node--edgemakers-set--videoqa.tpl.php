@@ -31,9 +31,6 @@ $username = $user->name;
   width: 95%;
   margin:auto;
 }
-#comments .filter-wrapper {
-  display:none;
-}
 </style>
 
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>

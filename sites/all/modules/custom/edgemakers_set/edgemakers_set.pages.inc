@@ -196,6 +196,32 @@ function edgemakers_set_answers_form($form, &$form_state, $nid) {
 
   return $form;
 }
+function edgemakers_set_like($cid) {
+  $content_type = 'comment';
+  $content_id = (int) $cid;
+  $widget_id = (int) $_GET['widget_id'];
+  $widget_mode = RATE_COMPACT;
+
+  $widgets = variable_get(RATE_VAR_WIDGETS, array());
+  $widget_id = '';
+  foreach($widgets as $widget_id => $widget) {
+    if($widget->name == 'like') {
+      foreach ($widget->options as $option) {
+        rate_save_vote($widget, $content_type, $content_id, $widget->options[0], TRUE);
+      }
+      break;
+    }
+  }
+  $results = rate_get_results($content_type, $cid, $widget_id);
+  // Process options.
+  
+  $selector = '.rate-button-cid-'.$cid;
+  $output = $results['count'];
+  $commands = array();
+  $commands[] = ajax_command_html($selector , $output);
+  $page = array('#type' => 'ajax', '#commands' => $commands);
+  ajax_deliver($page);
+}
 function _edgemakers_set_get_terms() {
   $terms = array();
   $vid = variable_get('set_vid');
