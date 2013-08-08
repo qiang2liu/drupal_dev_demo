@@ -95,7 +95,7 @@
               jQuery("#stage-set-list").hide();
               jQuery("#back-set-list").show();
               //make small image bigger to reach the edge of the content!
-              if(jQuery('#stage-set-view .field-name-field-set-image .field-items img')){
+              /*if(jQuery('#stage-set-view .field-name-field-set-image .field-items img')){
               	
               	var ratio = (jQuery('.main-content').width()*0.96)/jQuery('#stage-set-view .field-name-field-set-image .field-items img').width();
               	
@@ -107,7 +107,7 @@
               			'height' : h * ratio + 'px'
               		})
               	}
-              }
+              }*/
               
               /*jQuery('#set-view-region').css({
               	'width' : jQuery(window).width()-400 + 'px'
