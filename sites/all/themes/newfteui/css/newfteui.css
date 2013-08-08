@@ -489,7 +489,7 @@ ul:after,
 	min-height:562px;
 	/*overflow:hidden;*/
 	
-	width:760px;
+	width:70%;
 }
 #set-view-region{
 	border-radius:10px;
@@ -505,7 +505,7 @@ ul:after,
 	background-color:rgba(235,235,235,0.6);
 }
 #stage-set-list{
-	width:596px;
+	width:600px;
 	margin:0 auto;
 }
 #stage-set-list li{
