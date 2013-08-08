@@ -85,7 +85,15 @@
   <?php print render($page['sliding_panes']); ?>
 </div>
 <div class="pane" id="studio">
-  <img src="sites/all/themes/newfteui/images/example_12.png" style="margin:-35px auto 0" />
+  <h2 class="pane-tab studio active">Studio</h2>
+  <h2 class="pane-tab gallery">Gallery</h2>
+  <div class="pane-con studio">
+  	
+  </div>
+  <div class="pane-con gallery">
+  	
+  </div>
+  
 </div>
 <div class="pane" id="challenge"></div>
 <!--<div class="pane" id="competitions"></div>-->

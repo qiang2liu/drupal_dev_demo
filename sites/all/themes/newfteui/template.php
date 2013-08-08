@@ -43,11 +43,39 @@ function newfteui_preprocess_comment_wrapper(&$vars) {
     $terms = _edgemakers_set_get_terms();
     $types = field_get_items('node', $node, 'field_set_type');
     $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
-    if($type == 'Video with Comments')
+    global $user;
+    if($type == 'Video with Comments') {
       $vars['comments_title'] = '';
-    else if($type == 'Video with Q&A')
+      $oldComments = $vars['content']['comments'];
+      /*if(isset($oldComments['#sorted'])) {
+        $sorted = $oldComments['#sorted'];
+        unset($oldComments['#sorted']);
+      }
+      if(isset($oldComments['pager'])) {
+        $pager = $oldComments['pager'];
+        unset($oldComments['pager']);
+      }
+      $oldComments = array_reverse($oldComments, true);
+      if(isset($oldComments['#sorted'])) {
+        $oldComments = array_merge(array('#sorted'=>$sorted), $oldComments);
+      }
+      if(isset($oldComments['pager'])) {
+        $vars['content']['comments'] = array_merge($oldComments, array('pager'=>$pager));
+      }*/
+    } else if($type == 'Video with Q&A') {
       $vars['comments_title'] = t('Answer:');
-    $vars['content']['comments'] = array_reverse($vars['content']['comments'], true);
+      $comments = array();
+      if($user->uid != 0) {
+        foreach($vars['content']['comments'] as $cid=>$comment) {
+          if($user->uid == $comment['#comment']->uid) {
+            $comments[$cid] = $comment;
+            $vars['content']['comment_form'] = false;
+            break;
+          }
+        }
+      }
+      $vars['content']['comments'] = $comments;
+    }
   }
 }
 /**
@@ -101,3 +129,8 @@ function newfteui_breadcrumb($variables) {
   }
 }
 
+function newfteui_preprocess_rate_template_like(&$variables) {
+  extract($variables);
+
+  $variables['like_button'] = theme('rate_button', array('text' => $results['count'], 'href' => url('edgemakers/set/ajaxlike/'.$content_id), 'class' => 'rate-like-btn use-ajax rate-button-cid-'.$content_id));
+}

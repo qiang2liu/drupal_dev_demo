@@ -31,8 +31,8 @@ $username = $user->name;
   width: 95%;
   margin:auto;
 }
-#comments .filter-wrapper {
-  display:none;
+#comments .rate-widget {
+  display: none;
 }
 </style>
 

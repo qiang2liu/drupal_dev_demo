@@ -87,7 +87,7 @@
 /*  min-height: 460px; */
   background-color: transparent;
   border: none;
-  width: 95%;
+  width: 96%;
 /*  overflow: auto; */
 }
 
@@ -119,7 +119,6 @@ div.set-video-content {
 
 #set-view-region {
   display: block;
-  width: 760px;
   position: absolute;
   left: 0px;
 }

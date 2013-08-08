@@ -176,7 +176,7 @@ ul:after,
 #block-edgemakers-community-activity .item-list li .cont{
 	background-color:rgba(245,195,38,0.9);
 	float:left;
-	width:85%;
+	width:84%;
 	padding:10px;
 	min-height:54px;
 }
@@ -375,7 +375,7 @@ ul:after,
 }
 .pane{
 	position:absolute;
-	padding: 10px 0;
+	
 	border-radius:10px;
 	top:90px;
 	transition-property: right;
@@ -396,15 +396,48 @@ ul:after,
 .pane.show{
 	right: 70px;
 }
+.pane-tab{
+	float:left;
+	width:64px;
+	border-radius: 6px 6px 0 0;
+	background-color:#bd1536;
+	text-indent:-9999em;
+	cursor:pointer;
+	height:26px;
+	line-height: 26px;
+}
+.pane-tab.studio{
+	margin:0 5px 0 35px;
+}
+.pane-tab.active{
+	background-color:#962f44;
+}
+.pane-con{
+	clear:both;
+	border-radius:10px 0 10px 10px;
+}
+.pane-con.studio{
+	width:760px;
+	height:706px;
+	background:url(../images/example_13.png)
+}
+.pane-con.gallery{
+	width:760px;
+	height:706px;
+	background:url(../images/example_14.png)
+}
+.pane-con.gallery{
+	display:none;
+}
 #studio{
-	/*background-image: url(../images/example_03.png);*/
-	background-color:rgba(189,21,54,1.0);
+	/*background-image: url(../images/example_03.png);
+	background-color:rgba(189,21,54,1.0);*/
 	text-align:center;
 	
 }
 #studio.show{
 	border-radius: 10px 0 10px 10px;
-	
+	top:64px;
 }
 #challenge{
 	background-image: url(../images/example_04.png);
@@ -489,11 +522,12 @@ ul:after,
 	min-height:562px;
 	/*overflow:hidden;*/
 	
-	width:760px;
+	width:70%;
 }
 #set-view-region{
 	border-radius:10px;
 	background-color:rgba(120,120,120,0.7);
+	width:100%;
 }
 #stage-title h2{
 	border:3px solid #989090;
@@ -505,7 +539,7 @@ ul:after,
 	background-color:rgba(235,235,235,0.6);
 }
 #stage-set-list{
-	width:596px;
+	width:600px;
 	margin:0 auto;
 }
 #stage-set-list li{

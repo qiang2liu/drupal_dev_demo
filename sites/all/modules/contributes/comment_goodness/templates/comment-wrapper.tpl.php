@@ -18,6 +18,13 @@
  * - $title_suffix (array): An array containing additional output populated by
  *   modules, intended to be displayed after the main title tag that appears in
  *   the template.
+ * - $comment_form_placement (string): Indicates if the comment form should be
+ *   placed above the comments when they are sorted newest to oldest, or below
+ *   the comments when they are sorted oldest to newest, the Drupal default.
+ * - $labels (array): An array of labels that can be configured in the content
+ *   type edit form in the comment vertical tab.
+ *   - form_label: The label above the new comment form.
+ *   - section_label: The label above the list of comments.
  *
  * The following variables are provided for contextual information.
  * - $node: Node object the comments are attached to.
@@ -32,20 +39,29 @@
  *   into a string within the variable $classes.
  *
  * @see template_preprocess_comment_wrapper()
- *
- * @ingroup themeable
+ * @see theme_comment_wrapper()
  */
 ?>
 <div id="comments" class="<?php print $classes; ?>"<?php print $attributes; ?>>
-  <?php if ($content['comment_form']): ?>
-    <?php print render($content['comment_form']); ?>
+  <?php if ($comment_form_placement == 'top') : ?>
+    <?php if ($content['comment_form']): ?>
+      <h2 class="title comment-form"><?php print $labels['form_label']; ?></h2>
+      <?php print render($content['comment_form']); ?>
+    <?php endif; ?>
   <?php endif; ?>
+
   <?php if ($content['comments'] && $node->type != 'forum'): ?>
     <?php print render($title_prefix); ?>
-    <h2 class="title"><?php print $comments_title; ?></h2>
+    <h2 class="title"><?php print $labels['section_label']; ?></h2>
     <?php print render($title_suffix); ?>
   <?php endif; ?>
-  <div id="comments-list">
+
   <?php print render($content['comments']); ?>
-  </div>
+
+  <?php if (empty($comment_form_placement) || $comment_form_placement == 'bottom') : ?>
+    <?php if ($content['comment_form']): ?>
+      <h2 class="title comment-form"><?php print $labels['form_label']; ?></h2>
+      <?php print render($content['comment_form']); ?>
+    <?php endif; ?>
+  <?php endif; ?>
 </div>
