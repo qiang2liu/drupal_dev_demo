@@ -94,6 +94,16 @@
               jQuery("#set-view-region").slideToggle();
               jQuery("#stage-set-list").hide();
               jQuery("#back-set-list").show();
+              //make small image bigger to reach the edge of the content!
+              if(jQuery('#stage-set-view .field-name-field-set-image .field-items img')){
+              	var ratio = (jQuery('.main-content').width()*0.96)/jQuery('#stage-set-view .field-name-field-set-image .field-items img').width();
+              	if(ratio>1){
+              		jQuery('#stage-set-view .field-name-field-set-image .field-items img').css({
+              			'width' : jQuery(this).width() * ration + 'px',
+              			'height' : jQuery(this).height() * ration + 'px'
+              		})
+              	}
+              }
               
               /*jQuery('#set-view-region').css({
               	'width' : jQuery(window).width()-400 + 'px'
