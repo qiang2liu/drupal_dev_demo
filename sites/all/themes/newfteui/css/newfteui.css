@@ -375,7 +375,7 @@ ul:after,
 }
 .pane{
 	position:absolute;
-	padding: 10px 0;
+	
 	border-radius:10px;
 	top:90px;
 	transition-property: right;
@@ -396,15 +396,48 @@ ul:after,
 .pane.show{
 	right: 70px;
 }
+.pane-tab{
+	float:left;
+	width:64px;
+	border-radius: 6px 6px 0 0;
+	background-color:#bd1536;
+	text-indent:-9999em;
+	cursor:pointer;
+	height:26px;
+	line-height: 26px;
+}
+.pane-tab.studio{
+	margin:0 5px 0 35px;
+}
+.pane-tab.active{
+	background-color:#962f44;
+}
+.pane-con{
+	clear:both;
+	border-radius:10px 0 10px 10px;
+}
+.pane-con.studio{
+	width:760px;
+	height:706px;
+	background:url(../images/example_13.png)
+}
+.pane-con.gallery{
+	width:760px;
+	height:706px;
+	background:url(../images/example_14.png)
+}
+.pane-con.gallery{
+	display:none;
+}
 #studio{
-	/*background-image: url(../images/example_03.png);*/
-	background-color:rgba(189,21,54,1.0);
+	/*background-image: url(../images/example_03.png);
+	background-color:rgba(189,21,54,1.0);*/
 	text-align:center;
 	
 }
 #studio.show{
 	border-radius: 10px 0 10px 10px;
-	
+	top:64px;
 }
 #challenge{
 	background-image: url(../images/example_04.png);

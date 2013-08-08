@@ -78,6 +78,16 @@
 				$('#'+ id).css('right','').addClass('show');
 			}
 		});
+		//pane switch
+		$('.pane-tab').bind('click', function(){
+			if(!$(this).hasClass('active')){
+				$('.pane-tab').removeClass('active');
+				$(this).addClass('active');
+				var idx = $(this).index('.pane-tab');
+				$('.pane-con').hide();
+				$('.pane-con').eq(idx).show();
+			}
+		});
 		
 	});
 })(jQuery);
