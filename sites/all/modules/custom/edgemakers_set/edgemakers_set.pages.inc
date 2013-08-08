@@ -188,7 +188,7 @@ function edgemakers_set_answers_form($form, &$form_state, $nid) {
   $form['comments'] = array(
     '#theme' => 'table',
     '#header' => $header,
-    '#options' => $options,
+    '#rows' => $options,
     '#empty' => t('No comments available.'),
   );
 
