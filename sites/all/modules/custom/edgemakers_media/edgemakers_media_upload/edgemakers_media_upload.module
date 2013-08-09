@@ -202,13 +202,13 @@ function edgemakers_media_upload_block_view($delta = '') {
         //$upload_link = 'ajax/upload/media/ajax/1';
         $upload_link = 'ajax/upload/nojs/media/1';
         $link_class = 'ctools-modal-ctools-sample-style';
+        $links[] = ctools_modal_text_button('<h4>' . t('Upload') . '</h4>', $upload_link, t('Upload media'),  $link_class);
       }
       else {
-        $upload_link = 'user';
-        $link_class = '';
+        $links[] = l('<h4>' . t('Upload') . '</h4>', 'user', array('html'=>TRUE));
       }
 
-      $links[] = ctools_modal_text_button('<h4>' . t('Upload') . '</h4>', $upload_link, t('Upload media'),  $link_class);
+      //$links[] = ctools_modal_text_button('<h4>' . t('Upload') . '</h4>', $upload_link, t('Upload media'),  $link_class);
 
 
       $output = theme('item_list', array('items' => $links, 'title' => ''));
