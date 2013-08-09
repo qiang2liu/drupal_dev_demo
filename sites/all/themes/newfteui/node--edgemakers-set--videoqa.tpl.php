@@ -76,15 +76,17 @@ function loadVideo(videoid) {
 	var atts = { id: "myytplayer" };
 
   //Get width from video destination element continar
-  var videoWidth = ((document.body.clientWidth * 0.70)*0.95)* 0.72;
-  window.onresize = function(){
-  	videoWidth = ((document.body.clientWidth * 0.70)*0.95)* 0.72;
-  }
-  var whratio = 64/39*1.0;
-  var vHeight = videoWidth/whratio;
-
-	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
+  function getSzie(){
+  	var videoWidth = ((document.body.clientWidth * 0.70)*0.95)* 0.72;
+ 	 var whratio = 64/39*1.0;
+ 	 var vHeight = videoWidth/whratio;
+	 swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
 		"yt", videoWidth, vHeight, "8", null, null, params, atts);
+  }
+  getSize();
+  window.onresize=function(){
+  	getSize();
+  }
 }
 function onYouTubePlayerReady(playerId) {
   var ytplayer = document.getElementById('myytplayer');
