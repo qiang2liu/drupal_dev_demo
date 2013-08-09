@@ -2,6 +2,8 @@
 $realnum = count($contents);
 if($realnum>0) {
   $items = array();
+  require_once drupal_get_path('module', 'edgemakers_set').'/edgemakers_set.pages.inc';
+  $terms = _edgemakers_set_get_terms();
   for($i = 0; $i < $num && $i < $realnum; $i ++) {
     $item = '';
     $content = $contents[$i];
@@ -21,17 +23,24 @@ if($realnum>0) {
     $username = theme('username', $variables);
     $date = format_interval(time()-$content->created) . ' ago';
     $item .= $userpic.'<div class="cont">';
+    $item .= '<div class="usertime">'.$username.'<div class="time">'.$date.'</div></div>';
     if($content->cid) {
       //comment
-      $title = l($content->title, 'node/'.$content->nid, array('fragment' => 'comment-'.$comment->cid));
-      $item .= '<div class="activity">'.$username.' Submitted a commnet: '.$title.'</div>';
+      $title = l($content->title, 'node/'.$content->nid, array('fragment' => 'comment-'.$content->cid));
+      $item .= '<div class="activity">Left a comment on '.$title.'</div>';
     } else {
       //node
       $title = l($content->title, 'node/'.$content->nid);
       $type = $content->type;
-      $item .= '<div class="activity">'.$username.' Submitted a '.$type.': '.$title.'</div>';
+      if($type == 'edgemakers_set') {
+        $types = field_get_items('node', $content, 'field_set_type');
+        $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
+      } else if($type == 'murals') {
+        $type = 'Mural';
+      }
+      $item .= '<div class="activity">Created a '.$type.' named "'.$title.'"</div>';
     }
-    $item .= '<div class="time">'.$date.'</div></div>';
+    $item .= '</div>';
     $items[] = $item;
   }
   echo theme('item_list', array('items' => $items));

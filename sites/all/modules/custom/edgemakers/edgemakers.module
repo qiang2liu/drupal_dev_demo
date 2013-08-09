@@ -115,7 +115,7 @@ function edgemakers_block_view($delta = '') {
   switch ($delta) {
     case 'community_activity':
       $contents = edgemakers_community_contents();
-      $block['subject'] = t('Community Activity');
+      $block['subject'] = t('Community Activity Stream');
       $block['content'] = array(
         '#theme' => 'community_activity_block',
         '#contents' => $contents,

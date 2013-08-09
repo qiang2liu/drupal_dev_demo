@@ -44,11 +44,25 @@ function edgemakers_comment_get_recent($types, $number = 5) {
   $query = db_select('comment', 'c');
   $query->innerJoin('node', 'n', 'n.nid = c.nid');
   $query->addTag('node_access');
-  $comments = $query->fields('c')->condition('n.type', $types, 'IN')->condition('c.status', COMMENT_PUBLISHED)->condition('n.status', NODE_PUBLISHED)->orderBy('c.created', 'DESC')
+  $allcomments = $query->fields('c')->fields('n', array('title', 'type'))->condition('n.type', $types, 'IN')->condition('c.status', COMMENT_PUBLISHED)->condition('n.status', NODE_PUBLISHED)->orderBy('c.created', 'DESC')
   // Additionally order by cid to ensure that comments with the same timestamp
   // are returned in the exact order posted.
   ->orderBy('c.cid', 'DESC')->range(0, $number)->execute()->fetchAll();
 
+  require_once drupal_get_path('module', 'edgemakers_set').'/edgemakers_set.pages.inc';
+  $terms = _edgemakers_set_get_terms();
+  $comments = array();
+  foreach($allcomments as $comment) {
+    if($comment->type == 'edgemakers_set') {
+      $node = node_load($comment->nid);
+      $types = field_get_items('node', $node, 'field_set_type');
+      $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
+      if($type == 'Video with Comments')
+        $comments[] = $comment;
+    } else {
+      $comments[] = $comment;
+    }
+  }
   return $comments ? $comments : array();
 }
 function edgemakers_forbidden_page() {
