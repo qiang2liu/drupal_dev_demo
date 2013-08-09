@@ -1,0 +1,338 @@
+<?php
+/**
+ * @file edgemarkes media upload
+ */
+
+
+/**
+ * Implements hook_init().
+ */
+function edgemakers_media_upload_init() {
+  drupal_add_css(drupal_get_path('module', 'edgemakers_media_upload') . '/css/edgemakers_media_upload.css');
+
+  //include ctools modal
+  drupal_add_library('system', 'drupal.ajax');
+  ctools_include('ajax');
+  ctools_include('modal');
+  ctools_modal_add_js();
+
+}
+
+function edgemakers_media_upload_menu() {
+  $items = array();
+
+  // Module settings.
+  $items['admin/config/system/ftesettings/media'] = array(
+    'title' => 'Edgemakers Media Config',
+    'description' => 'Edgemakers media settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('edgemakers_media_upload_settings'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer site configuration'),
+  );
+
+  //ajax callback add new organization
+  $items['ajax/upload/%ctools_js/media'] = array(
+    'title' => 'Upload media',
+    'page callback' => 'edgemakers_media_upload_new',
+    'page arguments' => array(2),
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function edgemakers_media_upload_form_alter(&$form, $form_state, $form_id) {
+
+  if ($form_id == 'media_for_upload_node_form') {
+
+    //drupal_set_message('Submited: <pre>' . print_r($form_state['values'], TRUE) . '</pre>');
+
+    $form['#prefix'] = '<div id="upload-media-ajax-wrapper">';
+    $form['#suffix'] = '</div>';
+
+    //drupal_set_message('<pre>' . print_r($form, TRUE) . '</pre>');
+    //$form['actions']['submit']['#submit'][] = '_edgemakers_stage_node_submit_redirect_handler';
+
+    $form['title']["#default_value"] = "My media";
+    $form['title']["#type"] = "hidden";
+    unset($form['actions']['preview']);
+    unset($form['actions']['delete']);
+    unset($form['box_index_data']);
+    //unset($form['actions']['submit']);
+
+    $form['actions']['submit']['#ajax'] = array(
+      'callback' => 'edgemakers_media_upload_ajax_submit',
+      'wrapper' => 'upload-media-ajax-wrapper',
+      'effect' => 'fade',
+    );
+
+    $form['actions']['submit']['#value'] = t('Complete');
+    $form['actions']['submit']['#validate'] = array('edgemakers_media_upload_ajax_validate');
+    //$form['actions']['submit']['#submit'] = array('_media_upload_submit');
+
+    // Don't reload page.
+    // array_unshift($form['#validate'], '_media_upload_validate');
+    // array_unshift($form['#submit'], '_media_upload_submit');
+
+    require_once(DRUPAL_ROOT . "/modules/node/node.pages.inc");
+
+    //$form['#attributes']['class'][] = 'user-info-from-cookie';
+
+  }
+}
+
+function edgemakers_media_upload_ajax_validate($form, &$form_state) {
+
+}
+
+function _media_upload_submit($form, &$form_state) {
+  $form_state['complete'] = TRUE;
+  drupal_set_message("Upload an media.");
+  //drupal_set_message('Submited: <pre>' . print_r($form_state, TRUE) . '</pre>');
+  //return "Sumbited";
+}
+
+/**
+ * Ajax sumbit new media node.
+ *
+ * @param object $form
+ * @param array $form_state
+ */
+function edgemakers_media_upload_ajax_submit($form, &$form_state) {
+
+  if (form_get_errors()) {
+    return $form;
+  }
+
+  $vals = $form_state['values'];
+  if ($vals['field_upload_to_s3_media'][LANGUAGE_NONE][0]['fid']) {
+    $img_info = file_load($vals['field_upload_to_s3_media'][LANGUAGE_NONE][0]['fid']);
+    //drupal_set_message('Image\'s info: <pre>' . print_r($img_info, TRUE) . '</pre>');
+    $form_state['title']['#value'] = $img_info->filename;
+
+    //Update node title by filename.
+    $node = node_load($form_state['node']->nid);
+    $node->title = $img_info->filename;
+    node_save($node);
+  }
+
+  # Create a new markup field and return it. It will replace the form output.
+  $element = array();
+  $element['#type'] = 'markup';
+  $element['#markup'] = t("You upload " . $img_info->filename);
+
+  return $element;
+
+}
+
+/**
+ * Implements hook_book_info();
+ */
+function edgemakers_media_upload_block_info() {
+
+  $blocks['media_upload_link'] = array(
+    'info' => t('Media upload link'), //The name that will appear in the block list.
+    'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_book_view()
+ * @param unknown_type $delta
+ */
+function edgemakers_media_upload_block_view($delta = '') {
+
+  global $base_root;
+  global $base_path;
+
+  global $user;
+
+  switch($delta){
+    case 'media_upload_link':
+
+      ctools_include('modal');
+      ctools_modal_add_js();
+      $type = variable_get('edgemakers_media_content_type', 'media_for_upload');
+      $type = str_replace('_', '-', $type);
+
+      $block['subject'] = t('Media upload');
+      $html = '<div class="toolbar-item test1">';
+
+      if ($user->uid) {
+        $upload_link = 'modal/node/add/' . $type . '/ajax/1';
+        //$upload_link = 'ajax/upload/media/ajax/1';
+        $upload_link = 'ajax/upload/nojs/media/1';
+        $link_class = array('ctools-use-modal');
+      }
+      else {
+        $upload_link = 'user';
+        $link_class = array();
+      }
+
+      $html .= l('<h4>Upload</h4>',
+          $upload_link,
+            array(
+              'query' => array(
+                'destination' => $_GET["q"],
+              ),
+              'attributes' => array(
+                'class' => $link_class,
+              ),
+              'html' => TRUE,
+            )
+        );
+
+      //$html .= '<li><a class="orgbtn ctools-use-modal  ctools-use-modal-processed" id="edit-add-test" href="/ajax/upload/media/nojs"><span>Add New Test</span></a></li>';
+      $html .= '</div>';
+
+      $block['content'] = $html;
+
+      //$block['content'] .= '</div>';
+
+      break;
+    default:
+      break;
+  }
+
+  return $block;
+}
+
+/**
+ * Copy from ctools_example.
+ *
+ * @param unknown_type $js
+ * @param unknown_type $step
+ * @return Ambigous <multitype:string The , multitype:string The Ambigous <The, unknown, string, A, Optional> >|Ambigous <The, void, string, A, boolean>
+ */
+function edgemakers_media_upload_new($js = NULL, $step = NULL) {
+
+  global $user;
+  $type = variable_get('edgemakers_media_content_type', 'media_for_upload');
+  $args = arg();
+
+  //drupal_set_message("Load js is $js <pre>" . print_r($args, TRUE) . '</pre>');
+
+  if ($js) {
+    ctools_include('modal');
+    ctools_include('ajax');
+  }
+
+  module_load_include('inc', 'node', 'node.pages');
+  $form = node_add($type);
+  $form['#states'] = array(
+    'ajax' => $js,
+  );
+
+  //$output = '<h2>Call from my define menu.</h2>';
+  $output .= drupal_render($form);
+
+  if ($output === FALSE || !empty($form_state['complete'])) {
+    drupal_set_message("Output is FALSE");
+  }
+
+  // If $output is FALSE, there was no actual form.
+  if ($js) {
+    // If javascript is active, we have to use a render array.
+    $commands = array();
+    if ($output === FALSE || !empty($form_state['complete'])) {
+      // Dismiss the modal.
+      $commands[] = ajax_command_html('#ctools-sample', $animal);
+      $commands[] = ctools_modal_command_dismiss();
+      $commands[] = ctools_ajax_command_redirect();
+      ctools_ajax_render($commands);
+    }
+    else if (!empty($form_state['cancel'])) {
+      // If cancelling, return to the activity.
+      $commands[] = ctools_modal_command_dismiss();
+    }
+    else {
+      $commands = ctools_modal_form_render($form_state, $output);
+    }
+    print ajax_render($commands);
+    exit;
+  }
+  else {
+    if ($output === FALSE || !empty($form_state['complete'])) {
+      return $animal;
+    }
+    else if (!empty($form_state['cancel'])) {
+      drupal_goto('ctools_ajax_sample');
+    }
+    else {
+      return $output;
+    }
+  }
+
+  //return drupal_render($form);
+
+}
+
+/**
+ * Form builder function for module settings.
+ */
+function edgemakers_media_upload_settings() {
+
+  $types = node_type_get_types();
+  $content_type_options = array();
+  $terms_optins = array();
+
+  $vocabularies = taxonomy_get_vocabularies();
+
+  foreach ($vocabularies AS $voca) {
+    $voca_optins[$voca->vid] = $voca->name;
+  }
+
+  foreach ($vocabularies as $vocabula) {
+
+    $terms_tree[$vocabula->vid] = taxonomy_get_tree($vocabula->vid);
+    foreach ($terms_tree[$vocabula->vid] as $ter) {
+
+      $perfix = '';
+
+      for ($i = 0; $i < $ter->depth; $i++) {
+        $perfix .= '-';
+      }
+
+      $terms_optins[$ter->tid] = $perfix . $ter->name;
+    }
+
+  }
+
+
+  foreach ($types as $type) {
+    $content_type_options[$type->type] = $type->name;
+  }
+
+  $form['Content_Type']['edgemakers_media_content_type'] = array(
+    '#type' => 'select',
+    '#title' => t('Content type for media.'),
+    '#default_value' => variable_get('edgemakers_media_content_type', 'media_for_upload'),
+    '#description' => t('Set the content type to media.'),
+    '#options' => $content_type_options,
+  );
+
+  /*
+  // Config it in field.
+  $form['Content_Type']['edgemakers_media_type_term'] = array(
+    '#type' => 'select',
+    '#title' => t('Type term of Set.'),
+    '#default_value' => variable_get('edgemakers_media_type_term', 'media_file_types'),
+    '#description' => t('Set the type term to media.'),
+    '#options' => $voca_optins,
+  );
+  */
+
+  //dpm($form);
+
+  //return $form;
+
+  return system_settings_form($form);
+
+}

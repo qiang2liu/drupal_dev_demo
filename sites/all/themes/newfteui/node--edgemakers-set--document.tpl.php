@@ -7,7 +7,7 @@
   display: none;
 }
 .set-text-content {
-  width: 720px;
+ 
   height:455px;
   margin:0 20px ;
   padding: 0;
