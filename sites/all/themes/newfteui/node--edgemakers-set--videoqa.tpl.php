@@ -20,12 +20,12 @@ $username = $user->name;
 .field-name-body {
   float: left;
   width: 25%;
-  padding:10px;
+  padding:10px 0.5%;
   min-height:332px;
   color:#fff;
   background-color: rgba(215,152,94, 0.7);
   text-align:left;
-  margin-right:15px;
+  margin-right:1%;
 }
 #yr-wrapper {
   float: left;
@@ -47,7 +47,7 @@ $username = $user->name;
   </div>
 
   <span id="set-title" style="display: none;">Teacher: <?php print $username; ?></span>
-  <div class="content set-video-content clearfix"<?php print $content_attributes; ?>>
+  <div id="v-c" class="content set-video-content clearfix"<?php print $content_attributes; ?>>
     <?php
       // We hide the comments and links now so that we can render them later.
       hide($content['comments']);
@@ -71,11 +71,12 @@ $username = $user->name;
 	});
 })(jQuery);
 function loadVideo(videoid) {
+	
 	var params = { allowScriptAccess: "always" };
 	var atts = { id: "myytplayer" };
 
   //Get width from video destination element continar
-  var videoWidth = 545;
+  var videoWidth = ((window.screen.width * 0.70)-40)* 0.73;
   var whratio = 64/39*1.0;
   var vHeight = videoWidth/whratio;
 
