@@ -68,8 +68,9 @@ function edgemakers_media_upload_form_alter(&$form, $form_state, $form_id) {
 function edgemakers_media_upload_ajax_validate($form, &$form_state) {
   $vals = $form_state['values'];
 
-  if (isset($vals['field_youtube_url'][LANGUAGE_NONE][0]['url'])) {
-    $url_parse = _youtube_url_parse($vals['field_youtube_url'][LANGUAGE_NONE][0]['url']);
+  //drupal_set_message('<pre>' . print_r($vals, TRUE) . '</pre>');
+  if (isset($vals['field_youtube_url'][LANGUAGE_NONE][0]['value'])) {
+    $url_parse = _youtube_url_parse($vals['field_youtube_url'][LANGUAGE_NONE][0]['value']);
     //drupal_set_message('<pre>' . print_r($url_parse, TRUE) . '</pre>');
     if (isset($url_parse[1])) {
       $vaildYid = _youtube_validId($url_parse[1]);
