@@ -19,12 +19,15 @@ $username = $user->name;
 }
 .field-name-body {
   float: left;
-  max-width: 170px;
-  min-height:332px;
-  background: white;
+  width: 25%;
+  padding:10px 0.5%;
+  color:#fff;
+  background-color: rgba(215,152,94, 0.7);
+  text-align:left;
+  margin-right:1%;
 }
 #yr-wrapper {
-  float: right;
+  float: left;
 }
 #comments {
   background: white;
@@ -43,7 +46,7 @@ $username = $user->name;
   </div>
 
   <span id="set-title" style="display: none;">Teacher: <?php print $username; ?></span>
-  <div class="content set-video-content clearfix"<?php print $content_attributes; ?>>
+  <div id="v-c" class="content set-video-content clearfix"<?php print $content_attributes; ?>>
     <?php
       // We hide the comments and links now so that we can render them later.
       hide($content['comments']);
@@ -64,19 +67,35 @@ $username = $user->name;
 (function($){
   $(document).ready(function(){
     setTimeout(function() {loadVideo('<?php echo $ytid;?>');}, 100);
+    function setH(){
+    	var w = ((document.body.clientWidth * 0.70)*0.95)* 0.72;
+    	var mh = (w * 39/64) * 1.0 - 20;
+    	$('.field-name-body').css('minHeight', mh+ 'px');
+    }
+    setH();
+    window.onresize=function(){
+    	var w = ((document.body.clientWidth * 0.70)*0.95)* 0.72
+	  	$('#myytplayer').css({
+	  		'width': w + 'px',
+	  		'height': (w * 39/64) * 1.0  + 'px'
+	  	});
+	  	setH();
+	  }
+    
 	});
 })(jQuery);
 function loadVideo(videoid) {
+	//Get width from video destination element continar
 	var params = { allowScriptAccess: "always" };
 	var atts = { id: "myytplayer" };
-
-  //Get width from video destination element continar
-  var videoWidth = 545;
-  var whratio = 64/39*1.0;
-  var vHeight = videoWidth/whratio;
-
-	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
+  	var videoWidth = ((document.body.clientWidth * 0.70)*0.95)* 0.72;
+ 	 var whratio = 64/39*1.0;
+ 	 var vHeight = videoWidth/whratio;
+	 swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
 		"yt", videoWidth, vHeight, "8", null, null, params, atts);
+
+  
+ 
 }
 function onYouTubePlayerReady(playerId) {
   var ytplayer = document.getElementById('myytplayer');
