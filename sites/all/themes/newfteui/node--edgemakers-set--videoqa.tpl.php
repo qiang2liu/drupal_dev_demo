@@ -72,11 +72,12 @@ $username = $user->name;
 })(jQuery);
 function loadVideo(videoid) {
 	
-	var params = { allowScriptAccess: "always" };
-	var atts = { id: "myytplayer" };
+	
 
   //Get width from video destination element continar
   function getSzie(){
+  	var params = { allowScriptAccess: "always" };
+	var atts = { id: "myytplayer" };
   	var videoWidth = ((document.body.clientWidth * 0.70)*0.95)* 0.72;
  	 var whratio = 64/39*1.0;
  	 var vHeight = videoWidth/whratio;
