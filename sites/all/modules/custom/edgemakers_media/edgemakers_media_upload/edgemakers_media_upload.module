@@ -9,13 +9,6 @@
  */
 function edgemakers_media_upload_init() {
   drupal_add_css(drupal_get_path('module', 'edgemakers_media_upload') . '/css/edgemakers_media_upload.css');
-
-  //include ctools modal
-  drupal_add_library('system', 'drupal.ajax');
-  ctools_include('ajax');
-  ctools_include('modal');
-  ctools_modal_add_js();
-
 }
 
 function edgemakers_media_upload_menu() {
@@ -50,16 +43,9 @@ function edgemakers_media_upload_form_alter(&$form, $form_state, $form_id) {
 
   if ($form_id == 'media_for_upload_node_form') {
 
-    //drupal_set_message('Submited: <pre>' . print_r($form_state['values'], TRUE) . '</pre>');
-
     $form['#prefix'] = '<div id="upload-media-ajax-wrapper">';
     $form['#suffix'] = '</div>';
 
-    //drupal_set_message('<pre>' . print_r($form, TRUE) . '</pre>');
-    //$form['actions']['submit']['#submit'][] = '_edgemakers_stage_node_submit_redirect_handler';
-
-    $form['title']["#default_value"] = "My media";
-    $form['title']["#type"] = "hidden";
     unset($form['actions']['preview']);
     unset($form['actions']['delete']);
     unset($form['box_index_data']);
@@ -71,22 +57,31 @@ function edgemakers_media_upload_form_alter(&$form, $form_state, $form_id) {
       'effect' => 'fade',
     );
 
-    $form['actions']['submit']['#value'] = t('Complete');
+    $form['actions']['submit']['#value'] = t('Upload?');
     $form['actions']['submit']['#validate'] = array('edgemakers_media_upload_ajax_validate');
-    //$form['actions']['submit']['#submit'] = array('_media_upload_submit');
-
-    // Don't reload page.
-    // array_unshift($form['#validate'], '_media_upload_validate');
-    // array_unshift($form['#submit'], '_media_upload_submit');
 
     require_once(DRUPAL_ROOT . "/modules/node/node.pages.inc");
-
-    //$form['#attributes']['class'][] = 'user-info-from-cookie';
 
   }
 }
 
 function edgemakers_media_upload_ajax_validate($form, &$form_state) {
+  $vals = $form_state['values'];
+
+  if (isset($vals['field_youtube_url'][LANGUAGE_NONE][0]['url'])) {
+    $url_parse = _youtube_url_parse($vals['field_youtube_url'][LANGUAGE_NONE][0]['url']);
+    //drupal_set_message('<pre>' . print_r($url_parse, TRUE) . '</pre>');
+    if (isset($url_parse[1])) {
+      $vaildYid = _youtube_validId($url_parse[1]);
+      if ($vaildYid !== TRUE) {
+        //drupal_set_message('<pre>' . print_r($vaildYid, TRUE) . '</pre>', 'error');
+        form_set_error('field_youtube_url', $vaildYid);
+      }
+      else {
+        //drupal_set_message('<pre>Youtube ID valid.</pre>');
+      }
+    }
+  }
 
 }
 
@@ -157,8 +152,69 @@ function edgemakers_media_upload_block_view($delta = '') {
   switch($delta){
     case 'media_upload_link':
 
+      $html = '<div class="toolbar-item test1">';
+
+      global $user;
+
+      // Include the CTools tools that we need.
+      ctools_include('ajax');
       ctools_include('modal');
+
+      // Add CTools' javascript to the page.
       ctools_modal_add_js();
+
+      // Create our own javascript that will be used to theme a modal.
+      $sample_style = array(
+        'ctools-sample-style' => array(
+          'modalSize' => array(
+            'type' => 'fixed',
+            'width' => 650,
+            'height' => 400,
+            'addWidth' => 20,
+            'addHeight' => 15,
+          ),
+          'modalOptions' => array(
+            'opacity' => .5,
+            'background-color' => '#000',
+          ),
+          'animation' => 'fadeIn',
+          'modalTheme' => 'CToolsSampleModal',
+          'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'ctools_ajax_sample'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+        ),
+      );
+
+      drupal_add_js($sample_style, 'setting');
+
+      // Since we have our js, css and images in well-known named directories,
+      // CTools makes it easy for us to just use them without worrying about
+      // using drupal_get_path() and all that ugliness.
+      ctools_add_js('ctools-ajax-sample', 'ctools_ajax_sample');
+      ctools_add_css('ctools-ajax-sample', 'ctools_ajax_sample');
+
+      // Create a list of clickable links.
+      $links = array();
+
+      // Four ways to do our animal picking wizard.
+
+      if ($user->uid) {
+        $upload_link = 'modal/node/add/' . $type . '/ajax/1';
+        //$upload_link = 'ajax/upload/media/ajax/1';
+        $upload_link = 'ajax/upload/nojs/media/1';
+        $link_class = 'ctools-modal-ctools-sample-style';
+      }
+      else {
+        $upload_link = 'user';
+        $link_class = '';
+      }
+
+      $links[] = ctools_modal_text_button('<h4>' . t('Upload') . '</h4>', $upload_link, t('Upload media'),  $link_class);
+
+
+      $output = theme('item_list', array('items' => $links, 'title' => ''));
+
+      $html .= $output;
+
+      /*
       $type = variable_get('edgemakers_media_content_type', 'media_for_upload');
       $type = str_replace('_', '-', $type);
 
@@ -176,6 +232,8 @@ function edgemakers_media_upload_block_view($delta = '') {
         $link_class = array();
       }
 
+      $html .= $output;
+
       $html .= l('<h4>Upload</h4>',
           $upload_link,
             array(
@@ -188,7 +246,7 @@ function edgemakers_media_upload_block_view($delta = '') {
               'html' => TRUE,
             )
         );
-
+      */
       //$html .= '<li><a class="orgbtn ctools-use-modal  ctools-use-modal-processed" id="edit-add-test" href="/ajax/upload/media/nojs"><span>Add New Test</span></a></li>';
       $html .= '</div>';
 
@@ -335,4 +393,55 @@ function edgemakers_media_upload_settings() {
 
   return system_settings_form($form);
 
+}
+
+
+/**
+ * Valida youtube id.
+ *
+ * @param unknown_type $id
+ * @return boolean
+ */
+function _youtube_validId($id) {
+  $url = 'http://www.youtube.com/oembed?url=http%3A//youtube.com/watch%3Fv%3D'. $id;
+  $response = drupal_http_request($url, array('method' => 'HEAD'));
+  if ($response->code == 401) {
+    return "Embedding has been disabled for this video.";
+  }
+  elseif ($response->code != 200) {
+    //return TRUE;
+    return "The YouTube video ID is invalid or the video was deleted.";
+  }
+  return TRUE;
+}
+
+/**
+ * Parse youtube url.
+ * @param unknown_type $embedCode
+ * @return Ambigous <The, String, string>
+ */
+function _youtube_url_parse($embedCode) {
+
+  $url = array();
+
+  $patterns = array(
+    '@youtube\.com/watch[#\?].*?v=([^"\& ]+)@i',
+    '@youtube\.com/embed/([^"\&\? ]+)@i',
+    '@youtube\.com/v/([^"\&\? ]+)@i',
+    '@youtube\.com/\?v=([^"\& ]+)@i',
+    '@youtu\.be/([^"\&\? ]+)@i',
+    '@gdata\.youtube\.com/feeds/api/videos/([^"\&\? ]+)@i',
+  );
+
+  foreach ($patterns as $pattern) {
+    preg_match($pattern, $embedCode, $matches);
+
+    if (isset($matches[1])) {
+      //drupal_set_message('<pre>' . print_r($matches, TRUE) . '</pre>');
+      return $matches;
+    }
+
+  }
+
+  return $url;
 }
