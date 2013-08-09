@@ -29,6 +29,7 @@
           <!-- <a href="#x">Add an Idea</a> -->
         </h4>
       </div>
+      <!--
       <div class="toolbar-item test2"></div>
       <div class="toolbar-item upload">
         <h4>Upload</h4>
@@ -55,6 +56,7 @@
         <h4>Tour Guides</h4>
         <p>images here</p>
       </div>
+      -->
     </div>
     <!-- }}} toolbar end -->
 
@@ -88,12 +90,12 @@
   <h2 class="pane-tab studio active">Studio</h2>
   <h2 class="pane-tab gallery">Gallery</h2>
   <div class="pane-con studio">
-  	
+
   </div>
   <div class="pane-con gallery">
-  	
+
   </div>
-  
+
 </div>
 <div class="pane" id="challenge"></div>
 <!--<div class="pane" id="competitions"></div>-->
