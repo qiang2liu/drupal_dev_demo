@@ -82,12 +82,12 @@
 .set-image-content 
 {
   padding: 0;
-  margin: 0px auto;
+  margin: 0px auto 10px;
   text-align: center;
 /*  min-height: 460px; */
   background-color: transparent;
   border: none;
-  width: 96%;
+  
 /*  overflow: auto; */
 }
 

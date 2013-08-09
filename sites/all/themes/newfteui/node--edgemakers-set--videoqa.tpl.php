@@ -24,15 +24,16 @@ $username = $user->name;
   color:#fff;
   background-color: rgba(215,152,94, 0.7);
   text-align:left;
-  margin-right:1%;
+  margin-right:1.7%;
 }
 #yr-wrapper {
   float: left;
 }
 #comments {
-  background: white;
-  width: 95%;
-  margin:auto;
+   background-color: rgba(215,152,94, 0.7);
+   width: 91%;
+   margin:auto;
+   padding:2%;
 }
 #comments .rate-widget {
   display: none;

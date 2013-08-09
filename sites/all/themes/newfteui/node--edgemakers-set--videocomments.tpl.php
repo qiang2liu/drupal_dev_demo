@@ -18,18 +18,23 @@ $username = $user->name;
   display: none;
 }
 .field-name-body {
-  float: left;
-  max-width: 170px;
-  min-height:332px;
-  background: white;
+   float: left;
+  width: 25%;
+  padding:10px 0.5%;
+  color:#fff;
+  background-color: rgba(215,152,94, 0.7);
+  text-align:left;
+  margin-right:1.7%;
+}
 }
 #yr-wrapper {
-  float: right;
+  float: left;
 }
 #comments {
-  background: white;
-  width: 95%;
-  margin:auto;
+  background-color: rgba(215,152,94, 0.7);
+   width: 91%;
+   margin:auto;
+   padding:2%;
 }
 </style>
 
@@ -61,19 +66,33 @@ $username = $user->name;
 (function($){
   $(document).ready(function(){
     setTimeout(function() {loadVideo('<?php echo $ytid;?>');}, 100);
+    function setH(){
+    	var w = ((document.body.clientWidth * 0.70)*0.95)* 0.72;
+    	var mh = (w * 39/64) * 1.0 - 20;
+    	$('.field-name-body').css('minHeight', mh+ 'px');
+    }
+    setH();
+    window.onresize=function(){
+    	var w = ((document.body.clientWidth * 0.70)*0.95)* 0.72
+	  	$('#myytplayer').css({
+	  		'width': w + 'px',
+	  		'height': (w * 39/64) * 1.0  + 'px'
+	  	});
+	  	setH();
+	  }
+    
 	});
 })(jQuery);
 function loadVideo(videoid) {
+	//Get width from video destination element continar
 	var params = { allowScriptAccess: "always" };
 	var atts = { id: "myytplayer" };
-
-  //Get width from video destination element continar
-  var videoWidth = 545;
-  var whratio = 64/39*1.0;
-  var vHeight = videoWidth/whratio;
-
-	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
+  	var videoWidth = ((document.body.clientWidth * 0.70)*0.95)* 0.72;
+ 	 var whratio = 64/39*1.0;
+ 	 var vHeight = videoWidth/whratio;
+	 swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
 		"yt", videoWidth, vHeight, "8", null, null, params, atts);
+
 }
 function onYouTubePlayerReady(playerId) {
   var ytplayer = document.getElementById('myytplayer');
