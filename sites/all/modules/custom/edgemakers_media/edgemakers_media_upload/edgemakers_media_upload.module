@@ -73,7 +73,7 @@ function edgemakers_media_upload_ajax_validate($form, &$form_state) {
     $url_parse = _youtube_url_parse($vals['field_youtube_url'][LANGUAGE_NONE][0]['value']);
     //drupal_set_message('<pre>' . print_r($url_parse, TRUE) . '</pre>');
     if (isset($url_parse[1])) {
-      drupal_set_message('<pre>' . print_r($url_parse[1], TRUE) . '</pre>');
+      //drupal_set_message('<pre>' . print_r($url_parse[1], TRUE) . '</pre>');
       $vaildYid = _youtube_validId($url_parse[1]);
       if ($vaildYid !== TRUE) {
         drupal_set_message('<pre>' . print_r($vaildYid, TRUE) . '</pre>');
@@ -152,9 +152,12 @@ function edgemakers_media_upload_block_view($delta = '') {
   switch($delta){
     case 'media_upload_link':
 
-      $html = '<div class="toolbar-item test1">';
-
       global $user;
+
+      $type = variable_get('edgemakers_media_content_type', 'media_for_upload');
+      $type = str_replace('_', '-', $type);
+
+      $html = '<div class="toolbar-item test1">';
 
       // Include the CTools tools that we need.
       ctools_include('ajax');
@@ -198,16 +201,16 @@ function edgemakers_media_upload_block_view($delta = '') {
       $link_class = '';
 
       if ($user->uid) {
-        $upload_link = 'modal/node/add/' . $type . '/ajax/1';
+        //$upload_link = 'modal/node/add/' . $type . '/ajax/1';
         //$upload_link = 'ajax/upload/media/ajax/1';
         $upload_link = 'ajax/upload/nojs/media/1';
         //$link_class = 'ctools-modal-ctools-sample-style';
+        $links[] = ctools_modal_text_button('<h4>' . t('Upload') . '</h4>', $upload_link, t('Upload media'),  $link_class);
       }
       else {
+        $links[] = l('<h4>' . t('Upload') . '</h4>', 'user');
         $upload_link = 'user';
       }
-
-      $links[] = ctools_modal_text_button('<h4>' . t('Upload') . '</h4>', $upload_link, t('Upload media'),  $link_class);
 
 
       $output = theme('item_list', array('items' => $links, 'title' => ''));
