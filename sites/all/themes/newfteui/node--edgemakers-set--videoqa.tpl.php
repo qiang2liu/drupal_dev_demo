@@ -68,10 +68,18 @@ $username = $user->name;
 (function($){
   $(document).ready(function(){
     setTimeout(function() {loadVideo('<?php echo $ytid;?>');}, 100);
+    window.onresize=function(){
+    	var w = ((document.body.clientWidth * 0.70)*0.95)* 0.72
+	  	$('#myytplayer').css({
+	  		'width': w + 'px',
+	  		'height': (w * 39/64) * 1.0  + 'px'
+	  	})
+	  }
+    
 	});
 })(jQuery);
 function loadVideo(videoid) {
-	
+	//Get width from video destination element continar
 	var params = { allowScriptAccess: "always" };
 	var atts = { id: "myytplayer" };
   	var videoWidth = ((document.body.clientWidth * 0.70)*0.95)* 0.72;
@@ -80,14 +88,8 @@ function loadVideo(videoid) {
 	 swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
 		"yt", videoWidth, vHeight, "8", null, null, params, atts);
 
-  //Get width from video destination element continar
-  function getSzie(){
-  	
-  }
-  getSize();
-  window.onresize=function(){
-  	getSize();
-  }
+  
+ 
 }
 function onYouTubePlayerReady(playerId) {
   var ytplayer = document.getElementById('myytplayer');
