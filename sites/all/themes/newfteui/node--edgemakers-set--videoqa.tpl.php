@@ -76,7 +76,10 @@ function loadVideo(videoid) {
 	var atts = { id: "myytplayer" };
 
   //Get width from video destination element continar
-  var videoWidth = ((window.screen.width * 0.70)*0.95)* 0.72;
+  var videoWidth = ((document.body.clientWidth * 0.70)*0.95)* 0.72;
+  window.onresize = function(){
+  	videoWidth = ((document.body.clientWidth * 0.70)*0.95)* 0.72;
+  }
   var whratio = 64/39*1.0;
   var vHeight = videoWidth/whratio;
 
