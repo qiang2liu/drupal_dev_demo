@@ -21,7 +21,6 @@ $username = $user->name;
   float: left;
   width: 25%;
   padding:10px 0.5%;
-  min-height:332px;
   color:#fff;
   background-color: rgba(215,152,94, 0.7);
   text-align:left;
@@ -68,12 +67,19 @@ $username = $user->name;
 (function($){
   $(document).ready(function(){
     setTimeout(function() {loadVideo('<?php echo $ytid;?>');}, 100);
+    function setH(){
+    	var w = ((document.body.clientWidth * 0.70)*0.95)* 0.72;
+    	var mh = (w * 39/64) * 1.0 - 20;
+    	$('.field-name-body').css('minHeight', mh+ 'px');
+    }
+    setH();
     window.onresize=function(){
     	var w = ((document.body.clientWidth * 0.70)*0.95)* 0.72
 	  	$('#myytplayer').css({
 	  		'width': w + 'px',
 	  		'height': (w * 39/64) * 1.0  + 'px'
-	  	})
+	  	});
+	  	setH();
 	  }
     
 	});
