@@ -19,12 +19,16 @@ $username = $user->name;
 }
 .field-name-body {
   float: left;
-  max-width: 170px;
+  width: 25%;
+  padding:10px;
   min-height:332px;
-  background: white;
+  color:#fff;
+  background-color: rgba(215,152,94, 0.7);
+  text-align:left;
+  margin-right:15px;
 }
 #yr-wrapper {
-  float: right;
+  float: left;
 }
 #comments {
   background: white;
