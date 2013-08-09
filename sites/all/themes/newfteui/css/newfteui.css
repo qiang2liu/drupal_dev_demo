@@ -642,6 +642,9 @@ ul:after,
 	display:inline-block;
 	padding-right:2em;
 }
+#edit-submitted-there-images-should-have-been-used-for-thos-module .option img{
+	vertical-align: middle;
+}
 #edit-actions .form-submit{
 	border:1px solid #fff;
 	background-color:rgba(189,21,54,0.7);
