@@ -36,7 +36,7 @@
  * @ingroup themeable
  */
 ?>
-<?php if($_GET['page']): ?>
+<?php if(isset($_GET['page'])): ?>
   <?php print render($content['comments']); ?>
 <?php else: ?>
 <div id="comments" class="<?php print $classes; ?>"<?php print $attributes; ?>>

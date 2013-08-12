@@ -133,7 +133,7 @@ function edgemakers_stage_api_set_view_html($set_id = '') {
       case 'video with comments':
       case 'video with q&a':
         $comments = comment_node_page_additions($node);
-        if($_GET['page']) {
+        if(isset($_GET['page'])) {
           unset($comments['comment_form']);
           $output = drupal_render($comments);
           $output .= '<script>Drupal.attachBehaviors();</script>';
