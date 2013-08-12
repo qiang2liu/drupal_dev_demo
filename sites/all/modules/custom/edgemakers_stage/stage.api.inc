@@ -132,9 +132,21 @@ function edgemakers_stage_api_set_view_html($set_id = '') {
         return drupal_render(node_view($node, 'full'));
       case 'video with comments':
       case 'video with q&a':
-        $node_view = node_view($node);
-        $node_view['comments'] = comment_node_page_additions($node);
-        return drupal_render($node_view);
+        $comments = comment_node_page_additions($node);
+        if(isset($_GET['page'])) {
+          unset($comments['comment_form']);
+          $output = drupal_render($comments);
+          $output .= '<script>Drupal.attachBehaviors();</script>';
+          $commands = array();
+          $commands[] = ajax_command_html('#comments-list' , $output);
+          $page = array('#type' => 'ajax', '#commands' => $commands);
+          ajax_deliver($page);
+          return;
+        } else {
+          $node_view = node_view($node);
+          $node_view['comments'] = $comments;
+          return drupal_render($node_view);
+        }
       default:
         $html = '<div id="buildingSet"><h3>This is a ' . $term . ' set, will be developed later</h3></div>';
         return $html;

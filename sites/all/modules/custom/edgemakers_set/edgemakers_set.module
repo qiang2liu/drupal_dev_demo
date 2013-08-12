@@ -394,6 +394,7 @@ function edgemakers_set_rate_templates() {
 }
 function edgemakers_set_theme_registry_alter(&$theme_registry) {
   $theme_registry['webform_results_submissions']['template'] = drupal_get_path('module', 'edgemakers_set').'/templates/webform-results-submissions';
+  $theme_registry['pager']['variables']['item_attributes'] = NULL;
 }
 function edgemakers_set_murally_parser($url) {
 	preg_match("#(?<=murally\/)[\d]{13}#", $url, $matches);

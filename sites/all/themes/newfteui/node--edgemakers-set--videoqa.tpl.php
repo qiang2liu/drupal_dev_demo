@@ -29,15 +29,12 @@ $username = $user->name;
 #yr-wrapper {
   float: left;
 }
-#comments {
-   background-color: rgba(215,152,94, 0.7);
-   width: 91%;
-   margin:auto;
-   padding:2%;
-}
+
 #comments .rate-widget {
   display: none;
 }
+
+   
 </style>
 
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
@@ -59,7 +56,7 @@ $username = $user->name;
     </div></div>
   </div>
 
-  <div class="clearfix">
+  <div class="clearfix set-comment">
     <?php print render($content['comments']); ?>
   </div>
 
