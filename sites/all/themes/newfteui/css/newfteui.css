@@ -695,7 +695,29 @@ ul:after,
 }
 .set-comment #comments #comments-list .content{
 	padding:0 60px;
+	position:relative;
+	margin-bottom:10px;
 }
+.set-comment #comments #comments-list .content .rate-widget{
+	position:absolute;
+	width:30px;
+	height:30px;
+	top:15px;
+	right:15px;
+	font-size:12px;
+	text-align:center;
+	line-height:30px;
+	color:#fff;
+	background:url(../images/icon_like.png) no-repeat;
+}
+.set-comment #comments #comments-list .content .rate-widget a,
+.set-comment #comments .item-list li a{
+	color:#fff;
+}
+.set-comment #comments .item-list li:after{
+	display:inline-block;
+}
+
 .set-comment #comments #comments-list .field-name-comment-body{
 	padding-left:18px;
 	background:url(../images/bg_corner_set_comment.png) 0 15px no-repeat;
@@ -703,7 +725,7 @@ ul:after,
 .set-comment #comments #comments-list .field-items{
 	border-radius:5px;
 	background-color:rgba(255,255,255,1.0);
-	padding:10px;
-	min-height:100px;
+	padding:5px 10px;
+	min-height:40px;
 	box-shadow: 3px 3px 3px rgba(50, 50, 50, 0.17);
 }
