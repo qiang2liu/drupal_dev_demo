@@ -36,6 +36,9 @@
  * @ingroup themeable
  */
 ?>
+<?php if($_GET['page']): ?>
+  <?php print render($content['comments']); ?>
+<?php else: ?>
 <div id="comments" class="<?php print $classes; ?>"<?php print $attributes; ?>>
   <?php if ($content['comment_form']): ?>
     <?php print render($content['comment_form']); ?>
@@ -49,3 +52,4 @@
   <?php print render($content['comments']); ?>
   </div>
 </div>
+<?php endif; ?>
