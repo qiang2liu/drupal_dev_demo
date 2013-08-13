@@ -101,7 +101,7 @@ function youtubeFeedCallback(json) {
 	});
 })(jQuery);
 function loadVideo(videoid) {
-	var params = { allowScriptAccess: "always" };
+	var params = { allowScriptAccess: "always", wmode : 'opaque' };
 	var atts = { id: "myytplayer" };
 
   //Get width from video destination element continar
