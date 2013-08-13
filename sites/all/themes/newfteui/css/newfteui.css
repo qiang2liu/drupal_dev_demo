@@ -601,6 +601,18 @@ ul:after,
 	text-align:center;
 	height:133px;
 }
+#stage-set-list li .image img{
+	width:auto;
+	height:auto;
+}
+#stage-set-list li .image{
+	line-height: 100%;
+	display: table-cell;
+	height: 133px;
+	background-color:rgba(255,255,255,0.7);
+	vertical-align: middle;
+	width: 133px;
+}
 #stage-set-list li .crop{
 	width:133px;
 	height:133px;
