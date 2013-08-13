@@ -41,6 +41,7 @@
 	
 	//load
 	$(document).ready(function(){
+		
 		//set position
 		$.fn.setPositionofElements();
 		$('.community').setCommunity();

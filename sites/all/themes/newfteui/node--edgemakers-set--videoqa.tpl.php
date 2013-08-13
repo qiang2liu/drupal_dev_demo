@@ -24,10 +24,9 @@ $username = $user->name;
   color:#fff;
   background-color: rgba(215,152,94, 0.7);
   text-align:left;
-  margin-right:1.7%;
 }
 #yr-wrapper {
-  float: left;
+  float: right;
 }
 
 #comments .rate-widget {
@@ -84,7 +83,7 @@ $username = $user->name;
 })(jQuery);
 function loadVideo(videoid) {
 	//Get width from video destination element continar
-	var params = { allowScriptAccess: "always" };
+	var params = { allowScriptAccess: "always", wmode : 'opaque' };
 	var atts = { id: "myytplayer" };
   	var videoWidth = ((document.body.clientWidth * 0.70)*0.95)* 0.72;
  	 var whratio = 64/39*1.0;
