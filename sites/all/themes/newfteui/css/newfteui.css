@@ -196,7 +196,7 @@ ul:after,
 #block-edgemakers-community-activity .content{
 	background-color:rgba(245,195,38,0.6);
 	padding:10px;
-	height:440px;
+	
 	overflow:auto;
 }
 #block-edgemakers-community-activity .item-list li{
@@ -331,7 +331,7 @@ ul:after,
 	width:50px;
 	height: 50px;
 	position:absolute;
-	top:610px;
+	top:620px;
 	transition-property: width;
 	transition-duration: .2s;
 	transition-timing-function: linear;
@@ -362,7 +362,7 @@ ul:after,
 }
 .stage-selector.active,
 .stage-selector-inner{
-	width:1024px;
+	width:1280px;
 	height: auto;
 }
 
@@ -511,7 +511,7 @@ ul:after,
 	width:54px;
 	height:54px;
 	padding:4px;
-	top:730px;
+	top:710px;
 	right:4px;
 	position:absolute;
 	border-radius:30px;

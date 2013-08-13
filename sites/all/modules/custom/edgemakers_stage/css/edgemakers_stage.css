@@ -79,10 +79,9 @@
 }
 
 .set-video-content,
-.set-image-content 
-{
+.set-image-content {
   padding: 0;
-  margin: 0px auto 10px;
+  margin: 0px auto;
   text-align: center;
 /*  min-height: 460px; */
   background-color: transparent;
@@ -90,15 +89,15 @@
   
 /*  overflow: auto; */
 }
+.set-image-content {
+	margin:0 20px;
+}
 
 div.set-video-content {
   width: 95%;
   height: 95%;
 }
 
-.node-edgemakers-set {
-  height: 100% !important;
-}
 
 #wrapper {
   width: 90%;
@@ -130,7 +129,8 @@ div.set-video-content {
 
 #stage-set-view .field-name-field-set-image .field-items img {
   max-width: 100%;
-  height: auto;
+  max-height:578px;
+  width:auto;
   /*max-width: 842px;
   max-height: 426px;*/
 } 
