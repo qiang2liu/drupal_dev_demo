@@ -24,10 +24,9 @@ $username = $user->name;
   color:#fff;
   background-color: rgba(215,152,94, 0.7);
   text-align:left;
-  margin-right:1.7%;
 }
 #yr-wrapper {
-  float: left;
+  float: right;
 }
 
 #comments .rate-widget {

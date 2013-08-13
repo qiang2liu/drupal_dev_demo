@@ -79,8 +79,7 @@
 }
 
 .set-video-content,
-.set-image-content 
-{
+.set-image-content {
   padding: 0;
   margin: 0px auto 10px;
   text-align: center;
@@ -89,6 +88,9 @@
   border: none;
   
 /*  overflow: auto; */
+}
+.set-image-content {
+	margin:0 20px 10px;
 }
 
 div.set-video-content {
