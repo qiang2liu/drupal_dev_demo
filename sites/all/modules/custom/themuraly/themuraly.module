@@ -161,7 +161,7 @@ function _mural_member_list($the_nid, $para_muralid = '') {
             $mural_api = new Muralapi;
             $mural_api_result = $mural_api->retrieve_a_mural($muralusername, $the_muralid);
             if (is_object($mural_api_result) && isset($mural_api_result->data)) {
-             
+              $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
               if (!empty($muralapi_response_obj['members']) && is_array($muralapi_response_obj['members'])) {
                 $the_muralusers = array_keys($muralapi_response_obj['members']);
               }
