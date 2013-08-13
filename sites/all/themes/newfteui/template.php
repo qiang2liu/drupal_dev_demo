@@ -395,6 +395,11 @@ function newfteui_breadcrumb($variables) {
 
 function newfteui_preprocess_rate_template_like(&$variables) {
   extract($variables);
-
-  $variables['like_button'] = theme('rate_button', array('text' => $results['count'], 'href' => url('edgemakers/set/ajaxlike/'.$content_id), 'class' => 'rate-like-btn use-ajax rate-button-cid-'.$content_id));
+  global $user;
+  if(user_is_logged_in()) {
+    $link = url('edgemakers/set/ajaxlike/'.$content_id);
+  } else {
+    $link = url('user/login');
+  }
+  $variables['like_button'] = theme('rate_button', array('text' => $results['count'], 'href' => $link, 'class' => 'rate-like-btn use-ajax rate-button-cid-'.$content_id));
 }
