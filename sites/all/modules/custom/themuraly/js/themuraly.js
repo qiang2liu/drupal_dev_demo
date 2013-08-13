@@ -28,7 +28,7 @@ jQuery(document).ready(function(){
         zIndex: 1000,
         buttons: {
           Ok: function() {
-            $( this ).dialog( "close" );
+            jQuery(this).dialog( "close" );
           }
         }
       });
