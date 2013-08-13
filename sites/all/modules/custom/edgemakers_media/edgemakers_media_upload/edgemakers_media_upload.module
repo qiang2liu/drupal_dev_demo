@@ -167,8 +167,8 @@ function edgemakers_media_upload_block_view($delta = '') {
 
       global $user;
 
-      $type = variable_get('edgemakers_media_content_type', 'media_for_upload');
-      $type = str_replace('_', '-', $type);
+      $content_type = variable_get('edgemakers_media_content_type', 'media_for_upload');
+      $type = str_replace('_', '-', $content_type);
 
       $html = '<div class="toolbar-item test1">';
 
@@ -270,6 +270,8 @@ function edgemakers_media_upload_block_view($delta = '') {
       );
 
       $html .= '<h4>' . $output . '</h4>';
+      
+      
 
       /*
       $type = variable_get('edgemakers_media_content_type', 'media_for_upload');
@@ -305,6 +307,40 @@ function edgemakers_media_upload_block_view($delta = '') {
         );
       */
       //$html .= '<li><a class="orgbtn ctools-use-modal  ctools-use-modal-processed" id="edit-add-test" href="/ajax/upload/media/nojs"><span>Add New Test</span></a></li>';
+      $html .= '</div>';
+      
+      $my_coditions = array(
+      		'uid' => $user->uid,
+      		'type' => $content_type,
+      );
+      $my_media_nodes = node_load_multiple('', $my_coditions);
+      
+      arsort($my_media_nodes);
+      
+      $i = 0;
+      foreach ($my_media_nodes as $node) {
+      	if ($i <= 5) {
+      		$my_media_list['items'][$i]['data'] = l($node->title,
+      				'node/' . $node->nid
+      		);
+      		$my_media_list['items'][$i]['class'][] = 'mural-item';
+      
+      		$i++;
+      	}
+      }
+      
+      //$my_mural_node['items']['class'][] = 'media-video';
+      
+      $my_media_list['title'] = 'My media';
+      $my_media_list['type'] = 'ul';
+      $my_media_list['attributes'] = array('id' => 'media-list', 'class' => 'media-video');
+      
+      $media_list = theme_item_list($my_media_list);
+      
+      $html .= '<div class="toolbar-item media">
+      <h4 class="has-child">Media<em></em></h4>';
+      $html .= $media_list;
+      
       $html .= '</div>';
 
       $block['content'] = $html;
