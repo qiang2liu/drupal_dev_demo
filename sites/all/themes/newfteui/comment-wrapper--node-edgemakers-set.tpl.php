@@ -36,6 +36,11 @@
  * @ingroup themeable
  */
 ?>
+<style>
+#comment-form-wrapper .form-item-name {
+  display: none;
+}
+</style>
 <?php if(isset($_GET['page'])): ?>
   <?php print render($content['comments']); ?>
 <?php else: ?>
