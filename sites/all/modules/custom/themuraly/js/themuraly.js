@@ -26,11 +26,11 @@ jQuery(document).ready(function(){
         width: "100%",
         height: jQuery(document).height() + 50,
         zIndex: 1000,
-        buttons: {
+        /*buttons: {
           Ok: function() {
             jQuery(this).dialog( "close" );
           }
-        }
+        }*/
       });
       jQuery('.ui-dialog-titlebar').attr("style", "display: none;");
       //jQuery("#mural-region").show();
