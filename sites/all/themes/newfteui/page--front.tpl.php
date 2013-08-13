@@ -2,6 +2,14 @@
 
 <!-- /community -->
 
+<div id="mural-region" class="hidden">
+  <div id="mural-top">Mural top contrl</div>
+  <div>
+  	<iframe id="mural-iframe" width="500" height="500" src=""></iframe>
+  </div>
+   <div id="mural-bottom">Mural bottom info</div>
+</div>
+
 <div class="community">
 
   <?php print render($page['community']); ?>
@@ -23,12 +31,12 @@
         <h4>Toolbar</h4>
       </div>
       <?php print render($page['tool_bar']); ?>
-      <div class="toolbar-item add-an-idea">
+      <!--  <div class="toolbar-item add-an-idea">
         <h4>
           <?php echo l('Create Mural', 'mural/create') ?>
-          <!-- <a href="#x">Add an Idea</a> -->
         </h4>
       </div>
+      -->
       <!--
       <div class="toolbar-item test2"></div>
       <div class="toolbar-item upload">
