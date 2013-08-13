@@ -102,6 +102,43 @@ function themuraly_block_view($delta = '') {
       drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/themuraly.js');
       
       $html .= '<h4>' . $links . '</h4></div>';
+      
+      $my_coditions = array(
+      	'uid' => $user->uid,
+      	'type' => 'murals',
+      );
+      $my_mural_nodes = node_load_multiple('', $my_coditions);
+      
+      arsort($my_mural_nodes);
+
+      $i = 0;
+      foreach ($my_mural_nodes as $node) {
+      	if ($i <= 5) {
+	      	$my_mural_node['items'][$i]['data'] = l($node->title, 
+      			'mural/' . $node->nid
+	      	);
+	      	$my_mural_node['items'][$i]['class'][] = 'mural-item'; 
+
+	      	$i++;
+      	}
+      }
+
+      //$my_mural_node['items']['class'][] = 'media-video';
+      
+      $my_mural_node['title'] = 'My murals';
+      $my_mural_node['type'] = 'ul';
+      $my_mural_node['attributes'] = array('id' => 'media-list', 'class' => 'media-video');
+      
+      $mural_list = theme_item_list($my_mural_node);
+      
+      $my_murals = '<div class="toolbar-item media">
+      <h4 class="has-child">Murals<em></em></h4>';
+      $my_murals .= $mural_list;
+
+      $my_murals .= '</div>';
+      
+      $html .= $my_murals;
+      
     	$block['content'] = $html;
     	break;
   }
