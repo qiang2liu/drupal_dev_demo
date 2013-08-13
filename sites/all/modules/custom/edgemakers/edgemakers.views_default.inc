@@ -60,10 +60,6 @@ function edgemakers_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'users';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Sort criterion: User: realname (field_realname) */
-  $handler->display->display_options['sorts']['field_realname_value']['id'] = 'field_realname_value';
-  $handler->display->display_options['sorts']['field_realname_value']['table'] = 'field_data_field_realname';
-  $handler->display->display_options['sorts']['field_realname_value']['field'] = 'field_realname_value';
   /* Filter criterion: User: Active */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
