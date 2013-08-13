@@ -49,6 +49,11 @@ function themuraly_block_info() {
     'info' => t('Studio list'), //The name that will appear in the block list.
     'cache' => DRUPAL_NO_CACHE, 
   );
+  
+  $blocks['mural_link'] = array(
+    'info' => t('mural link'), //The name that will appear in the block list.
+    'cache' => DRUPAL_NO_CACHE,
+  );
 
   return $blocks;
 }
@@ -71,6 +76,34 @@ function themuraly_block_view($delta = '') {
       }
 
       break;
+    case 'mural_link':
+    	
+    	global $user;
+    	
+    	$block['subject'] = 'mural link';
+    	$html = '<div class="toolbar-item add-an-idea" class="hidden"><h4>';
+
+      if ($user->uid) {
+        $mural_create_url = 'mural/create';
+        $links = l(t('Create Mural'), 
+        		$mural_create_url, 
+        		array('html' => TRUE, 
+        			'attributes' => array(
+        				'class' => array('create-mural'),
+        			)
+        		)
+        );
+      }
+      else {
+        $links = l(t('Create Mural'), 'user', array('html' => TRUE));
+      }
+      
+      drupal_add_css(drupal_get_path('module', 'themuraly') . '/css/themuraly.css');
+      drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/themuraly.js');
+      
+      $html .= '<h4>' . $links . '</h4></div>';
+    	$block['content'] = $html;
+    	break;
   }
   return $block;
 }
