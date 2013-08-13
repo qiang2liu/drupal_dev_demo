@@ -135,8 +135,11 @@ function edgemakers_set_comment_validate($form, &$form_state) {
   $isanonymous = $form_state['values']['is_anonymous'];
   $node = $form['#node'];
   $term = strtolower($node->term->name);
-  if($term == 'video with q&a' && $isanonymous) {
-    form_set_error('', t('Sorry, you have to login to answer the question.'));
+  if($isanonymous) {
+    if($term == 'video with q&a')
+      form_set_error('', t('Sorry, you have to !login to answer the question.', array('!login'=>l('login', 'user/login'))));
+    else if($term == 'video with comments')
+      form_set_error('', t('Sorry, you have to !login to comment.', array('!login'=>l('login', 'user/login'))));
   }
 }
 function edgemakers_set_comment_form_callback($form, &$form_state) {
