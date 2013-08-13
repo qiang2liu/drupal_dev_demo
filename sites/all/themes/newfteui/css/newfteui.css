@@ -715,6 +715,7 @@ ul:after,
    width: 91%;
    margin:auto;
    padding:1% 2%;
+   margin-top:10px;
 }
 .set-comment #comments{
    height:180px;
