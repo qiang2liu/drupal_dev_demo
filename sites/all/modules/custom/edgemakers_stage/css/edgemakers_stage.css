@@ -132,7 +132,8 @@ div.set-video-content {
 
 #stage-set-view .field-name-field-set-image .field-items img {
   max-width: 100%;
-  height: auto;
+  max-height:590px;
+  width:auto;
   /*max-width: 842px;
   max-height: 426px;*/
 } 

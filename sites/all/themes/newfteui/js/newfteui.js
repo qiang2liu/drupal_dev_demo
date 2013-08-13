@@ -41,6 +41,7 @@
 	
 	//load
 	$(document).ready(function(){
+		alert($(document).height());
 		//set position
 		$.fn.setPositionofElements();
 		$('.community').setCommunity();
