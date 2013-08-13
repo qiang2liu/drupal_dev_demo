@@ -137,8 +137,12 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
         '#maxlength' => 255,
         '#required' => FALSE,
         '#autocomplete_path' => 'mural/usersearch/autocomplete',
+      	'#attributes' => array('autocomplete' => 'on'),
+        /*'#attributes' => array(
+        	'class' => array('position-relative'),
+        ),*/
       );
-
+      
       $form['mural_addmember_ajax_link'] = array(
         '#type' => 'button',
         '#value' => t('invite'),
@@ -374,7 +378,7 @@ function muralapi_test() {
   // _test_mural_invite_member();
   _test_retrieve_a_mural();
   // $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/1374110398829' width=500px height=500px'></iframe>";
-  $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/1374641493558' width=500px height=500px'></iframe>";
+  $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/1374641493558' scrolling='no' width=500px height=500px'></iframe>";
 
 
   return $output_html;

@@ -22,8 +22,8 @@ jQuery(document).ready(function(){
       jQuery( "#mural-region" ).dialog({
         resizable: false,
         modal: true,
-        position: ["left","top"],
-        width: "100%",
+        position: ["left", "top"],
+        width: "99%",
         height: jQuery(document).height() + 50,
         zIndex: 1000,
         /*buttons: {
@@ -32,7 +32,9 @@ jQuery(document).ready(function(){
           }
         }*/
       });
-      jQuery('.ui-dialog-titlebar').attr("style", "display: none;");
+      
+      //jQuery('.ui-dialog-titlebar').attr("style", "display: none;");
+      //jQuery(".ui-dialog").attr("style", "padding-left: 1px;");
       //jQuery("#mural-region").show();
 
     }
