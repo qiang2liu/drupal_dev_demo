@@ -24,7 +24,7 @@ jQuery(document).ready(function(){
         modal: true,
         position: ["left","top"],
         width: "100%",
-        height: jQuery(window).height() + 80,
+        height: jQuery(document).height() + 50,
         zIndex: 1000,
         buttons: {
           Ok: function() {
