@@ -60,7 +60,7 @@ function edgemakers_media_upload_form_alter(&$form, $form_state, $form_id) {
     );
     */
 
-    //$form['actions']['submit']['#value'] = t('Upload');
+    $form['actions']['submit']['#value'] = t('Upload');
     
     array_unshift($form['#validate'], 'edgemakers_media_upload_ajax_validate');
     array_unshift($form['#submit'], '_media_upload_submit');
@@ -249,13 +249,21 @@ function edgemakers_media_upload_block_view($delta = '') {
       ctools_include('ajax');
       ctools_modal_add_js();
       
-      $output = l(t('Upload'), 'modal/node/add/' . $type . '/nojs/0', array(
+      if ($user->uid) {
+      	$upload_link = 'modal/node/add/' . $type . '/nojs/0';
+      	$link_class = 'ctools-use-modal';
+      }
+      else {
+      	$upload_link = 'user';
+      }
+      
+      $output = l(t('Upload'), $upload_link , array(
       		'query' => array(
       			'destination' => $_GET['q'],
       		),
       		'attributes' => array(
       			'class' => array(
-      				'ctools-use-modal',
+      				$link_class,
       			),
       		)
       	)
