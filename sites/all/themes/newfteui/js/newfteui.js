@@ -18,7 +18,6 @@
 			},
 			setPositionofElements : function(){
 				var space = ($(window).width() - $('.main-content').width())/2;
-				
 				// Desitination
 				$('.main-content').css({
 					'left': space + 'px'
@@ -34,6 +33,17 @@
 			removeAllActive : function(){
 				$('div').not('.toolbar-handler').not('.toolbar-box').not(this).removeClass('active');
 				$(this).toggleClass('active');
+			},
+			navToggleList: function(){
+				return this.each(function(){
+					var self = $(this);
+					var h = self.find('h4');
+					if(h.hasClass('has-child')){
+						h.find('em').bind('click', function(){
+							self.find('.item-list').toggle();
+						})
+					}
+				});
 				
 			}
 		});
@@ -53,6 +63,8 @@
 		
 		//toolbar
 		$('.toolbar-handler').bind('click', $.fn.toggleToolbar);
+		//toolbar item expand/collapse
+		$('.mural').navToggleList();
 		
 		//stage selector
 		$('.stage-selector-handler>em').bind('click', function(){
