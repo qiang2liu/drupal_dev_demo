@@ -729,6 +729,9 @@ ul:after,
    padding:1% 2%;
    margin-top:10px;
 }
+.video-comments #comment-form .form-type-item{
+	display:none;
+}
 .set-comment #comments{
    height:180px;
    overflow-y:auto;
