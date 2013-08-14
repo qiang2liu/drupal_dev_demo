@@ -100,12 +100,20 @@ function edgemakers_stage_api_set_list_html($stage_id) {
 
 function edgemakers_stage_api_set_view_html($set_id = '') {
   if ($set_id) {
+  	
+  	$media_type = variable_get('edgemakers_media_content_type', 'media_for_upload');
+  	
     $node = node_load($set_id);
     // Get box type by tid.
     if (isset($node->field_set_type[LANGUAGE_NONE])) {
       $node->term = taxonomy_term_load($node->field_set_type[LANGUAGE_NONE][0]['tid']);
     }
     $term = $node->term->name;
+    
+    if ($term == $media_type) {
+    	$type = 'video';
+    }
+
     if($term == 'Inspiration' || $term == 'Showcase' || $term == 'Video') {
       $type = 'video';
     } else {
@@ -125,6 +133,7 @@ function edgemakers_stage_api_set_view_html($set_id = '') {
         $html = '<div id="buildingSet">' . theme('image', $img) . '</div>';
         return $html;
         break;
+      case '':
       case 'image':
       case 'text':
       case 'video':

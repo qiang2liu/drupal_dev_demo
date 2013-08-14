@@ -34,6 +34,7 @@ jQuery(document).ready(function(){
       });
       
       //jQuery('.ui-dialog-titlebar').attr("style", "display: none;");
+      jQuery('.ui-dialog-titlebar').attr("style", "height: 21px;");
       //jQuery(".ui-dialog").attr("style", "padding-left: 1px;");
       //jQuery("#mural-region").show();
 

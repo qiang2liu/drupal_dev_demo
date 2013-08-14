@@ -54,22 +54,6 @@
     jQuery("#" + id).dialog("close");
   }
   
-  function getPreSetId(stage_id) {
-    if (stage_id.length !== 0) {
-      jQuery.ajax({
-        url: ajaxUrl,
-        type: "GET",
-        success: function(data) {
-
-        },
-        error :function(){
-          return false;
-        }
-        
-      });
-    }
-  }
-  
   function set_ajax_load_by_stage(stage_id) {
     //jQuery("#ajax-target").load("?q=edgemarkers/stage/get/set/ajax/" + stage_id);
     jQuery("#set-view-region").hide();
