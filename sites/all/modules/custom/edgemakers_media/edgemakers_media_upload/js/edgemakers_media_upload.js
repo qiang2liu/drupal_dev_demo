@@ -60,6 +60,10 @@ console.log("media_ajax_load_list loaded.");
 });
 */
   jQuery('#my-media-list').load("?q=edgemarkers/media/get/list/ajax", function(){
+    
+  	jQuery('.media .has-child em').bind('click', function(){
+  		jQuery(this).parents('.media').find('.item-list').toggle();
+  	});
 
     jQuery('ul#media-list li a').each(function( index ) {
 

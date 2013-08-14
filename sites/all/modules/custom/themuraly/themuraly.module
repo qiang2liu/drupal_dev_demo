@@ -93,8 +93,8 @@ function themuraly_block_view($delta = '') {
         $link_class = array('create-mural');
       }
       else {
-      	$mural_link = 'user';
-      	$link_class = array();
+      	$mural_link = 'modal_forms/nojs/login';
+      	$link_class = array('ctools-use-modal',  'ctools-modal-modal-popup-small');
       }
       
       $links = l(t('Create Mural'), $mural_link , array(

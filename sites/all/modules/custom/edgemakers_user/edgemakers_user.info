@@ -1,0 +1,8 @@
+name = Edgemakers User
+description = Users profile, register/login/find password functionalities
+core = 7.x
+package = edgemakers
+php = 5.2
+version = 7.x-1.0
+project = edgemakers_user
+dependencies[] = modal_forms

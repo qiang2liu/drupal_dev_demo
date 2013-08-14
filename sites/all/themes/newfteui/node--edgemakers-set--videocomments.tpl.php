@@ -52,7 +52,7 @@ $username = $user->name;
     </div></div>
   </div>
 
-  <div class="clearfix  set-comment">
+  <div class="clearfix  set-comment video-comments">
     <?php print render($content['comments']); ?>
   </div>
 
