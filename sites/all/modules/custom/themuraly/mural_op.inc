@@ -229,6 +229,7 @@ function muralcreate($template_id = 0) {
   if ($template_id == 0) {
     //create new mural
     $the_m_id = create_mural($mural_api, $muralusername, $muralroomid);
+    dd($the_m_id, 'create mural');
     if ($the_m_id == '') {
       drupal_set_message(t('can\'t create mural!'), 'error');
       return '';
@@ -267,11 +268,15 @@ function create_mural($mural_api, $muser, $mroomid, $title = 'my mural', $duplic
   $params = array('title' => $title, 'room' => $mroomid);
   if ($duplicate_id != '') {
     $mural_api_result = $mural_api->duplicate_mural($muser, $duplicate_id, $params);
+    dd($mural_api_result, 'mural api results of duplicate_mural');
   } else {
     $mural_api_result = $mural_api->create_mural($muser, $params);
+    dd($mural_api_result, 'mural api results of create_mural');
   }
   if (is_object($mural_api_result) && isset($mural_api_result->data)) {
     $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
+    
+    dd($muralapi_response_obj, 'mural api results of $mural_api_result json data.');
     
     if (!empty($muralapi_response_obj['id'])) {
       $str_p = preg_match("/[0-9]+$/", $muralapi_response_obj['id'], $matches);

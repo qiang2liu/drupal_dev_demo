@@ -91,14 +91,17 @@ function edgemakers_media_upload_ajax_validate($form, &$form_state) {
 	
   $vals = $form_state['values'];
 
+  //drupal_set_message('URL:' . $vals['field_youtube_url'][LANGUAGE_NONE][0]['url']);
+  
   if (isset($vals['field_youtube_url'][LANGUAGE_NONE][0]['url'])) {
-    $url_parse = _youtube_url_parse($vals['field_youtube_url'][LANGUAGE_NONE][0]['value']);
+    $url_parse = _youtube_url_parse($vals['field_youtube_url'][LANGUAGE_NONE][0]['url']);
     //drupal_set_message('<pre>' . print_r($url_parse, TRUE) . '</pre>');
     if (isset($url_parse[1])) {
       //drupal_set_message('<pre>' . print_r($url_parse[1], TRUE) . '</pre>');
       $vaildYid = _youtube_validId($url_parse[1]);
       if ($vaildYid !== TRUE) {
-        drupal_set_message('<pre>' . print_r($vaildYid, TRUE) . '</pre>');
+        //drupal_set_message('<pre>' . print_r($vaildYid, TRUE) . '</pre>');
+        form_set_error('field_youtube_url', 'Invalid youtube url.');
       }
     }
   }
@@ -157,6 +160,11 @@ function edgemakers_media_upload_block_info() {
     'info' => t('Media upload link'), //The name that will appear in the block list.
     'cache' => DRUPAL_CACHE_PER_ROLE, //Default
   );
+  
+  $blocks['media_list'] = array(
+  		'info' => t('Media list'), //The name that will appear in the block list.
+  		'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+  );
 
   return $blocks;
 }
@@ -183,20 +191,20 @@ function edgemakers_media_upload_block_view($delta = '') {
       $html = '<div class="toolbar-item test1">';
 
       // Include the CTools tools that we need.
-      //ctools_include('ajax');
-      //ctools_include('modal');
+      ctools_include('ajax');
+      ctools_include('modal');
 
       // Add CTools' javascript to the page.
-      //ctools_modal_add_js();
+      ctools_modal_add_js();
 
       /******** Custom style of ctool modal **********/
       // Create our own javascript that will be used to theme a modal.
-      /*$sample_style = array(
+      $sample_style = array(
         'ctools-sample-style' => array(
           'modalSize' => array(
             'type' => 'fixed',
-            'width' => 650,
-            'height' => 400,
+            'width' => 500,
+            'height' => 320,
             'addWidth' => 20,
             'addHeight' => 15,
           ),
@@ -205,33 +213,43 @@ function edgemakers_media_upload_block_view($delta = '') {
             'background-color' => '#000',
           ),
           'animation' => 'fadeIn',
-          'modalTheme' => 'CToolsSampleModal',
+          //'modalTheme' => 'CToolsSampleModal',
+        	'modalTheme' => 'CToolsEdgemakersUploadMediaModal',
           'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'ctools_ajax_sample'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
         ),
       );
 
       drupal_add_js($sample_style, 'setting');
-
-			*/
       
       // Since we have our js, css and images in well-known named directories,
       // CTools makes it easy for us to just use them without worrying about
       // using drupal_get_path() and all that ugliness.
-      // ctools_add_js('ctools-ajax-sample', 'ctools_ajax_sample');
-      // ctools_add_css('ctools-ajax-sample', 'ctools_ajax_sample');
+      //ctools_add_js('ctools-ajax-sample', 'ctools_ajax_sample');
+      ctools_add_js('ctools-ajax-upload-media', 'edgemakers_media_upload');
+      ctools_add_css('ctools-ajax-upload-media', 'edgemakers_media_upload');
 
       // Create a list of clickable links.
-      //$links = array();
+      $links = array();
 
       // Four ways to do our animal picking wizard.
-      /* $link_class = '';
+      $link_class = '';
 
       if ($user->uid) {
-        //$upload_link = 'modal/node/add/' . $type . '/ajax/1';
+        $upload_link = 'modal/node/add/' . $type . '/nojs/0';
         //$upload_link = 'ajax/upload/media/ajax/1';
-        $upload_link = 'ajax/upload/nojs/media/1';
-        //$link_class = 'ctools-modal-ctools-sample-style';
-        $links[] = ctools_modal_text_button('<h4>' . t('Upload') . '</h4>', $upload_link, t('Upload media'),  $link_class);
+        //$upload_link = 'ajax/upload/nojs/media/1';
+        $link_class = 'ctools-modal-ctools-sample-style';
+        //'attributes' => array('class' => array('ctools-use-modal')
+        //$links[] = ctools_modal_text_button('<h4>' . t('Upload') . '</h4>', $upload_link, t('Upload media'),  $link_class);
+        $links[] = l(t('Upload'), $upload_link, array(
+        	'html' => TRUE,
+        	'attributes' => array(
+        		'class' => array(
+        			'ctools-use-modal',
+        			'ctools-modal-ctools-sample-style'
+        		),
+        	)
+        ));
       }
       else {
         $links[] = l(t('Upload'), 'user', array('html' => TRUE));
@@ -239,12 +257,11 @@ function edgemakers_media_upload_block_view($delta = '') {
       }
 
       $output = theme('item_list', array('items' => $links, 'title' => ''));
-      */
-      
+
       /******** End custom style of ctool modal **********/
       
-      /*
-      $output = l(t('Upload') , 'ajax/upload/nojs/media/1', array('attributes' => 
+
+      /*$output = l(t('Upload') , 'ajax/upload/nojs/media/1', array('attributes' => 
       		array(
       			'class' => array(
       				'ctools-use-modal',
@@ -252,12 +269,13 @@ function edgemakers_media_upload_block_view($delta = '') {
       			)
       		)
       	)
-      );
-      */
+      );*/
       
-      ctools_include('modal');
+      
+      /*ctools_include('modal');
       ctools_include('ajax');
       ctools_modal_add_js();
+
       
       if ($user->uid) {
       	$upload_link = 'modal/node/add/' . $type . '/nojs/0';
@@ -277,6 +295,7 @@ function edgemakers_media_upload_block_view($delta = '') {
       		)
       	)
       );
+      */
 
       $html .= '<h4>' . $output . '</h4>';
 
@@ -316,13 +335,16 @@ function edgemakers_media_upload_block_view($delta = '') {
       //$html .= '<li><a class="orgbtn ctools-use-modal  ctools-use-modal-processed" id="edit-add-test" href="/ajax/upload/media/nojs"><span>Add New Test</span></a></li>';
       $html .= '</div>';
       
-      $html .= '<div id="my-media-list" class="toolbar-item media"></div>';
+      //$html .= '<div id="my-media-list" class="toolbar-item media"></div>';
 
       $block['content'] = $html;
 
       //$block['content'] .= '</div>';
 
       break;
+    case 'media_list':
+    	$block['subject'] = t('Media List');
+    	$block['content'] = '<div id="my-media-list" class="toolbar-item media"></div>';
     default:
       break;
   }
@@ -472,7 +494,9 @@ function edgemakers_media_upload_settings() {
  */
 function _youtube_validId($id) {
   $url = 'http://www.youtube.com/oembed?url=http%3A//youtube.com/watch%3Fv%3D'. $id;
-  $response = drupal_http_request($url, array('method' => 'HEAD'));
+  //$response = drupal_http_request($url, array('method' => 'HEAD'));
+  $response = curl_http_request($url, array('method' => 'HEAD'));
+  //drupal_set_message('<pre>' . print_r($response, TRUE) . '</pre>');
   if ($response->code == 401) {
     return "Embedding has been disabled for this video.";
   }
@@ -556,7 +580,7 @@ function edgemakers_media_list_html($limit = 5) {
 
       //$my_mural_node['items']['class'][] = 'media-video';
       if (count($media_item['items']) > 0) {
-	      $media_item['title'] = t('My Media');
+	      $media_item['title'] = '';
 	      $media_item['type'] = 'ul';
 	      $media_item['attributes'] = array('id' => 'media-list', 'class' => 'media-video');
 	      

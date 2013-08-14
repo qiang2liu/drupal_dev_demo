@@ -135,8 +135,11 @@ function edgemakers_set_comment_validate($form, &$form_state) {
   $isanonymous = $form_state['values']['is_anonymous'];
   $node = $form['#node'];
   $term = strtolower($node->term->name);
-  if($term == 'video with q&a' && $isanonymous) {
-    form_set_error('', t('Sorry, you have to login to answer the question.'));
+  if($isanonymous) {
+    if($term == 'video with q&a')
+      form_set_error('', t('Sorry, you have to !login to answer the question.', array('!login'=>l('login', 'user/login'))));
+    else if($term == 'video with comments')
+      form_set_error('', t('Sorry, you have to !login to comment.', array('!login'=>l('login', 'user/login'))));
   }
 }
 function edgemakers_set_comment_form_callback($form, &$form_state) {
@@ -394,6 +397,7 @@ function edgemakers_set_rate_templates() {
 }
 function edgemakers_set_theme_registry_alter(&$theme_registry) {
   $theme_registry['webform_results_submissions']['template'] = drupal_get_path('module', 'edgemakers_set').'/templates/webform-results-submissions';
+  $theme_registry['pager']['variables']['item_attributes'] = NULL;
 }
 function edgemakers_set_murally_parser($url) {
 	preg_match("#(?<=murally\/)[\d]{13}#", $url, $matches);

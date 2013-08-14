@@ -2,6 +2,14 @@
 
 <!-- /community -->
 
+<div id="mural-region" class="hidden">
+  <div id="mural-top">Mural top contrl</div>
+  <div>
+  	<iframe id="mural-iframe" border="0" scrolling="no" width="500" height="500" src=""></iframe>
+  </div>
+   <div id="mural-bottom">Mural bottom info</div>
+</div>
+
 <div class="community">
 
   <?php print render($page['community']); ?>
@@ -23,11 +31,29 @@
         <h4>Toolbar</h4>
       </div>
       <?php print render($page['tool_bar']); ?>
-      <div class="toolbar-item add-an-idea">
+      <!-- <div class="toolbar-item add-an-idea">
         <h4>
           <?php echo l('Create Mural', 'mural/create') ?>
-          <!-- <a href="#x">Add an Idea</a> -->
         </h4>
+      </div>
+      -->
+      <div class="toolbar-item tour-guides">
+        <h4>Tour Guides</h4>
+        <p>
+	        	<?php
+	        		$img = array(
+								'path' => drupal_get_path('theme', 'newfteui') . '/images/iconTourGuide1.png',
+	        		);
+							$img_src = theme('image', $img);
+							echo l($img_src, 'http://www.youtube.com/watch?&v=EAuXzCiIWlU', array(
+								'attributes' => array(
+									'class' => array('set-to-destination')
+								),
+								'html' => true,
+							));
+	        	?>
+
+        </p>
       </div>
       <!--
       <div class="toolbar-item test2"></div>

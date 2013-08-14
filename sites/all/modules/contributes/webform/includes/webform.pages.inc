@@ -36,7 +36,7 @@ function webform_configure_form($form, &$form_state, $node) {
   $form['submission']['confirmation'] = array(
     '#type' => 'text_format',
     '#title' => t('Confirmation message'),
-    '#description' => t('Message to be shown upon successful submission. If the redirection location is set to <em>Confirmation page</em> it will be shown on its own page, otherwise this displays as a message. Supports Webform token replacements.') . ' ' . theme('webform_token_help', array('groups' => array('node', 'submission'))),
+    '#description' => t('Message to be shown upon successful submission. If the redirection location is set to <em>Confirmation page</em> it will be shown on its own page, otherwise this displays as a message.'),
     '#default_value' => $node->webform['confirmation'],
     '#cols' => 40,
     '#rows' => 10,
@@ -64,7 +64,7 @@ function webform_configure_form($form, &$form_state, $node) {
     '#type' => 'item',
     '#title' => t('Redirection location'),
     '#theme' => 'webform_advanced_redirection_form',
-    '#description' => t('Choose where to redirect the user upon successful submission.') . ' ' . t('The <em>Custom URL</em> option supports Webform token replacements.') . ' ' . theme('webform_token_help', array('groups' => array('node', 'submission'))),
+    '#description' => t('Choose where to redirect the user upon successful submission.') . ' ' . t('The <em>Custom URL</em> option supports Webform token replacements.') . theme('webform_token_help', array('groups' => array('basic', 'node', 'special', 'submission'))),
   );
   $form['submission']['redirection']['redirect']= array(
     '#type' => 'radios',
@@ -80,7 +80,7 @@ function webform_configure_form($form, &$form_state, $node) {
     '#title' => t('Redirect URL'),
     '#description' => t('URL to redirect the user to upon successful submission.'),
     '#default_value' => $redirect_url,
-    '#maxlength' => 2048,
+    '#maxlength' => 255,
   );
 
   // Submission limit settings for all submissions.
@@ -264,7 +264,7 @@ function webform_configure_form_validate($form, &$form_state) {
     if (empty($redirect_url)) {
       form_error($form['submission']['redirection']['redirect_url'], t('A valid URL is required for custom redirection.'));
     }
-    elseif (strpos($redirect_url, 'http') === 0 && !valid_url(_webform_filter_values($redirect_url, $form['#node']), TRUE)) {
+    elseif (strpos($redirect_url, 'http') === 0 && !valid_url($redirect_url, TRUE)) {
       form_error($form['submission']['redirection']['redirect_url'], t('The entered URL is not a valid address.'));
     }
     else {
