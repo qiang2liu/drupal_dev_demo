@@ -302,29 +302,63 @@ ul:after,
 	min-height:54px;
 }
 .toolbar-item.test1{
-	background: url(../images/example_10.png) center center no-repeat;
+	border-top:3px solid #e6e4e3;
+	background: url(../images/newui_ico_tooblar_upload.png) left center no-repeat;
 }
-.toolbar-item.test2{
-	background: url(../images/example_11.png) center center no-repeat;
-	height:310px;
+.toolbar-item.test1 .item-list ul{
+	margin:0;
+	background:none;
 }
+.toolbar-item.test1 h4 .item-list{
+	
+	display:block;
+}
+.toolbar-item.media h4{
+	background-image: url(../images/newui_ico_tooblar_media.png);
+}
+.toolbar-item.mural h4{
+	background-image: url(../images/newui_ico_toolbar_mural.png);
+}
+.toolbar-item h4.has-child em{
+	display:inline-block;
+	width:14px;
+	height:12px;
+	background: url(../images/newui_ico_tooblar_em_haschild.png) no-repeat;
+	float:right;
+	margin:24px 12px 0 0;
+	cursor:pointer;
+}
+.toolbar-item.add-an-idea h4{
+	background-image:url(../images/newui_ico_toolbar_additem.png);
+}
+
 .toolbar-item h4{
 	line-height:54px;
 	padding-left:60px;
 	background-position:left center;
 	background-repeat: no-repeat;
-	font-weight:bold;
-	font-size:1.2em;
+	font-size:16px;
 	color:#fff;
 }
-.toolbar-item h4 a,
-.toolbar-item h4 a:hover{
+.toolbar-item.title h4{
+	border-right:13px solid #928c7d;
+}
+.toolbar-item  a,
+.toolbar-item  a:hover{
 	color:#fff;
-	
 }
-.toolbar-item.add-an-idea h4{
-	background-image:url(../images/newui_ico_toolbar_additem.png);
+.toolbar-item .item-list,
+.region-tool-bar .block h2{
+	display:none;
 }
+.toolbar-item .item-list ul{
+	margin:5px 7px 5px 68px;
+	background:#938e7e;
+}
+.toolbar-item .item-list li{
+	padding:3px 5px;
+}
+
 /* stage-selector */
 .stage-selector{
 	overflow:hidden;
@@ -485,11 +519,12 @@ ul:after,
 	/*background-image: url(../images/example_03.png);
 	background-color:rgba(189,21,54,1.0);*/
 	text-align:center;
+	top:64px;
 	
 }
 #studio.show{
 	border-radius: 10px 0 10px 10px;
-	top:64px;
+	
 }
 #challenge{
 	background-image: url(../images/example_04.png);
