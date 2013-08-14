@@ -452,7 +452,7 @@ ul:after,
 	float:left;
 	width:64px;
 	border-radius: 6px 6px 0 0;
-	background-color:#bd1536;
+	background-color:#962f44;
 	text-indent:-9999em;
 	cursor:pointer;
 	height:26px;
@@ -462,7 +462,7 @@ ul:after,
 	margin:0 5px 0 35px;
 }
 .pane-tab.active{
-	background-color:#962f44;
+	background-color:#bd1536;
 }
 .pane-con{
 	clear:both;
@@ -500,7 +500,7 @@ ul:after,
 	background-image: url(../images/example_05.png);
 	background-color:rgba(244,126,64,1.0);
     /* test */
-    height:810px;
+    height:720px;
 }
 /*.pane-handler.active:hover{
 	background-image:url(../images/newui_ico_pane_handler_ac.png);
@@ -729,6 +729,9 @@ ul:after,
    padding:1% 2%;
    margin-top:10px;
 }
+.video-comments #comment-form .form-type-item{
+	display:none;
+}
 .set-comment #comments{
    height:180px;
    overflow-y:auto;
@@ -773,6 +776,9 @@ ul:after,
 }
 .set-comment #comments a{
 	color:#fff;
+}
+.set-comment #comments .messages a{
+	color:#000;
 }
 .set-comment #comments .item-list li:after{
 	display:inline-block;

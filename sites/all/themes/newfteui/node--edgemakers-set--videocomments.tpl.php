@@ -19,8 +19,8 @@ $username = $user->name;
 }
 .field-name-body {
    float: left;
-  width: 25%;
-  padding:10px 0.5%;
+  width: 23%;
+  padding:10px 5px;
   color:#fff;
   background-color: rgba(215,152,94, 0.7);
   text-align:left;
@@ -52,7 +52,7 @@ $username = $user->name;
     </div></div>
   </div>
 
-  <div class="clearfix  set-comment">
+  <div class="clearfix  set-comment video-comments">
     <?php print render($content['comments']); ?>
   </div>
 
@@ -64,7 +64,7 @@ $username = $user->name;
     function setH(){
     	
     	var w = ((document.body.clientWidth * 0.70)*0.95)* 0.72;
-    	alert(w);
+    	
     	var mh = (w * 39/64) * 1.0 - 20;
     	$('.field-name-body').css('minHeight', mh+ 'px');
     }
