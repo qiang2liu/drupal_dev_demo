@@ -19,8 +19,8 @@ $username = $user->name;
 }
 .field-name-body {
    float: left;
-  width: 25%;
-  padding:10px 0.5%;
+  width: 23%;
+  padding:10px 5px;
   color:#fff;
   background-color: rgba(215,152,94, 0.7);
   text-align:left;

@@ -774,6 +774,9 @@ ul:after,
 .set-comment #comments a{
 	color:#fff;
 }
+.set-comment #comments .messages a{
+	color:#000;
+}
 .set-comment #comments .item-list li:after{
 	display:inline-block;
 }
