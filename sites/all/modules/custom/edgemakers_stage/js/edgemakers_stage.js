@@ -153,3 +153,28 @@
       
     });*/
   }
+
+  if (jQuery(".view-community-users a.community-user-profile").length !== 0) {
+    jQuery(".view-community-users a.community-user-profile").bind('click', function() {
+      jQuery.ajax({
+        url: this.href,
+        type : 'GET',
+        success : function(data){
+          var el = document.getElementById('community-user-profile');
+          if(!el)
+            jQuery('<div id="community-user-profile">'+data+'</div>').insertAfter(jQuery('.region-community'));
+          else 
+            jQuery('#community-user-profile').html(data);
+          jQuery("#back-community").bind("click", function(){
+            jQuery(".region-community").slideToggle();
+            jQuery("#community-user-profile").hide();
+          });
+          jQuery(".region-community").slideToggle();
+          jQuery("#community-user-profile").show();
+        },
+        error :function(){
+        }
+      });
+      return false;
+    });
+  }
