@@ -427,7 +427,7 @@ function edgemakers_media_upload_block_view($delta = '') {
       break;
     case 'media_list':
     	$block['subject'] = t('Media List');
-    	$block['content'] = '<div id="my-media-list" class="toolbar-item media"></div>';
+    	$block['content'] = '<div id="my-media-list" class="toolbar-item media"><h4 class="has-child">Media<em></em></h4></div>';
     default:
       break;
   }
