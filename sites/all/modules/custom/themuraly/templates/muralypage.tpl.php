@@ -9,6 +9,6 @@ $the_m_id = $data['m_id'];
 
 
 <div>
-<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/<?php print $the_m_id;?>' width=100% height=500px'></iframe>
+<iframe id="mural-ly-iframe" frameborder='0' scrolling='no' src='http://staging.mural.ly/embed/edgemakers/edgemakers/<?php print $the_m_id;?>' width=100% height=auto'></iframe>
 
 </div>
