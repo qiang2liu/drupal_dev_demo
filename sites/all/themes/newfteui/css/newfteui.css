@@ -452,7 +452,7 @@ ul:after,
 	float:left;
 	width:64px;
 	border-radius: 6px 6px 0 0;
-	background-color:#bd1536;
+	background-color:#962f44;
 	text-indent:-9999em;
 	cursor:pointer;
 	height:26px;
@@ -462,7 +462,7 @@ ul:after,
 	margin:0 5px 0 35px;
 }
 .pane-tab.active{
-	background-color:#962f44;
+	background-color:#bd1536;
 }
 .pane-con{
 	clear:both;
