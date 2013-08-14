@@ -585,6 +585,9 @@ class RESTServer {
     }
 
     $controller = $resource[$operation_type][$operation];
+    $controller['resource_name'] = $resource_name;
+    $controller['class'] = $operation_type;
+    $controller['operation'] = $operation;
     if (isset($resource['file']) && empty($controller['file'])) {
       $controller['file'] = $resource['file'];
     }

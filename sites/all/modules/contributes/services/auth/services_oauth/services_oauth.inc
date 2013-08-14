@@ -18,12 +18,6 @@
  *  Returns nothing, or a error message if authentication fails
  */
 function _services_oauth_authenticate_call($settings, $method, $args) {
-  $endpoint = array();
-  // Grep the specific settings for this method
-  if (!empty($method['endpoint']['services_oauth']['credentials'])) {
-    $endpoint += array_filter($method['endpoint']['services_oauth']);
-  }
-  $endpoint += $settings;
   $cred       = isset($endpoint['credentials']) ? $endpoint['credentials'] : 'token';
   $auth_level = isset($endpoint['authorization']) ? $endpoint['authorization'] : '*';
 
