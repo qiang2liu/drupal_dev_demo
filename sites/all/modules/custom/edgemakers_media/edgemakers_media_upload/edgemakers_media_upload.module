@@ -61,18 +61,21 @@ function edgemakers_media_upload_form_alter(&$form, $form_state, $form_id) {
     unset($form['actions']['delete']);
     //unset($form['actions']['submit']);
 
-    /*
+
     $form['actions']['submit']['#ajax'] = array(
       'callback' => 'edgemakers_media_upload_ajax_submit',
       'wrapper' => 'upload-media-ajax-wrapper',
+    	'method' => 'replace',
       'effect' => 'fade',
     );
-    */
+
 
     $form['actions']['submit']['#value'] = t('Upload');
+
+    //$form['actions']['submit']['#submit'] = array('_media_upload_submit');
     
     array_unshift($form['#validate'], 'edgemakers_media_upload_ajax_validate');
-    array_unshift($form['#submit'], '_media_upload_submit');
+    //array_unshift($form['#submit'], '_media_upload_submit');
     
     //$form['actions']['submit']['#validate'] = array('edgemakers_media_upload_ajax_validate');
     //$form['actions']['submit']['#submit'] = array('_media_upload_submit');
@@ -111,12 +114,42 @@ function edgemakers_media_upload_ajax_validate($form, &$form_state) {
 function _media_upload_submit($form, &$form_state) {
   //$form_state['complete'] = TRUE;
   form_load_include($form_state, 'inc', 'node', 'node.pages');
-  drupal_add_js('alert("After submit js callback.");', 
-  	array('type' => 'inline')
-  );
+  
+  $vals = $form_state['values'];
+  
+  /*$content_type = variable_get('edgemakers_media_content_type', 'media_for_upload');
+  
+  $newNode = (object) NULL;
+  $newNode->type = $content_type;
+  $newNode->title = $vals['title'];
+  $newNode->created = strtotime("now");
+  $newNode->changed = strtotime("now");
+  $newNode->status = 1;
+  $newNode->comment = 0;
+  $newNode->promote = 0;
+  $newNode->moderate = 0;
+  $newNode->sticky = 0;
+  $newNode->language = 'und';
+  $newNode->field_youtube_url['und'][0]['url'] = $vals['field_youtube_url'];
+  
+  node_object_prepare($newNode);
+  node_save($newNode);
+  
+  if ($vals['title']) {
+  	$items = edgemakers_media_list_html();
+  	return $items;
+  	//print('Update: ' . $items);
+  }
+  */
   //drupal_set_message("Upload an media.");
   //drupal_set_message('Submited: <pre>' . print_r($form_state, TRUE) . '</pre>');
   //return "Sumbited";
+}
+
+function _customReloadMediaList() {
+	return array(
+    'command' => 'media_list_reload',
+  );
 }
 
 /**
@@ -130,8 +163,50 @@ function edgemakers_media_upload_ajax_submit($form, &$form_state) {
   if (form_get_errors()) {
     return $form;
   }
+  
+  //form_load_include($form_state, 'inc', 'node', 'node.pages');
 
-  $vals = $form_state['values'];
+  //drupal_add_js("Drupal.CTools.Modal.modal_dismiss", array('type' => 'inline'));
+
+  $items = edgemakers_media_list_html();
+  
+  $content_type = variable_get('edgemakers_media_content_type', 'media_for_upload');
+  ctools_include('node.pages', 'node', '');
+  ctools_include('modal');
+  ctools_include('ajax');
+
+  /*$form_state = array(
+    'title' => $title,
+    'ajax'  => TRUE,
+    'build_info' => array(
+      'args'  => array($node),
+    ),
+  );*/
+	//drupal_add_library('system', 'ui.dialog');
+  $commands = ctools_modal_form_wrapper($content_type . '_node_form', $form_state);
+  // overwrite commands.
+  //$commands = array();
+  
+  ctools_add_js('ajax-responder');
+  $commands[] = ctools_modal_command_dismiss();
+  //$commands[] = ajax_command_html("#my-media-list", $items . '<script>media_list_reload()</script>');
+  //$commands[] = ajax_render('media_list_reload()');
+  
+  //ctools_add_js('ctools-ajax-upload-media', 'edgemakers_media_upload');
+  
+  //$commands[] = _customReloadMediaList();
+  
+  /*$vals = $form_state['values'];
+  
+  if ($vals['title']) {
+  	$items = edgemakers_media_list_html();
+  	return $items;
+  }
+  */
+  print ajax_render($commands);
+  exit;
+
+  //return $form;
 
   /*$vals = $form_state['values'];
   if ($vals['field_upload_to_s3_media'][LANGUAGE_NONE][0]['fid']) {
@@ -146,11 +221,11 @@ function edgemakers_media_upload_ajax_submit($form, &$form_state) {
   }*/
 
   # Create a new markup field and return it. It will replace the form output.
-  $element = array();
+  /*$element = array();
   $element['#type'] = 'markup';
   $element['#markup'] = t("You upload " . $vals['field_youtube_url'][LANGUAGE_NONE][0]['value']);
 
-  return $element;
+  return $element;*/
 
 }
 
@@ -565,7 +640,7 @@ function edgemakers_media_list_html($limit = 5) {
 
       $i = 0;
       foreach ($my_media_nodes as $node) {
-      	if ($i <= 5) {
+      	if ($i < 5) {
 	      	$media_item['items'][$i]['data'] = l($node->title, 
       			'node/' . $node->nid,
 	      		array(
@@ -582,6 +657,8 @@ function edgemakers_media_list_html($limit = 5) {
       }
 
       //$my_mural_node['items']['class'][] = 'media-video';
+      $media_html = '<div class="toolbar-item media"><h4 class="has-child">Media<em></em></h4>';
+      
       if (count($media_item['items']) > 0) {
 	      $media_item['title'] = '';
 	      $media_item['type'] = 'ul';
@@ -589,11 +666,11 @@ function edgemakers_media_list_html($limit = 5) {
 	      
 	      $media_list = theme_item_list($media_item);
 	      
-	      $media_html = '<div class="toolbar-item media">
-	      <h4 class="has-child">Media<em></em></h4>';
 	      $media_html .= $media_list;
-	      $media_html .= '</div>';
+
       }
+      
+      $media_html .= '</div>';
 		
 		$html .= $media_html;
 

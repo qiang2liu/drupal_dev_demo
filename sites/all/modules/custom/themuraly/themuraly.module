@@ -143,6 +143,7 @@ function themuraly_block_view($delta = '') {
     	}
     	
     	//$my_mural_node['items']['class'][] = 'media-video';
+    	$my_murals = '<div class="toolbar-item mural"><h4 class="has-child">Murals<em></em></h4>';
     	if (count($my_mural_node['items']) > 0) {
     		$my_mural_node['title'] = '';
     		$my_mural_node['type'] = 'ul';
@@ -150,11 +151,11 @@ function themuraly_block_view($delta = '') {
     		 
     		$mural_list = theme_item_list($my_mural_node);
     		 
-    		$my_murals = '<div class="toolbar-item media">
-	      <h4 class="has-child">Murals<em></em></h4>';
     		$my_murals .= $mural_list;
-    		$my_murals .= '</div>';
+
     	}
+    	
+    	$my_murals .= '</div>';
 
     	$block['content'] = $my_murals;
     	break;
