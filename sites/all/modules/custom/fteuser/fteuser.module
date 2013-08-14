@@ -88,7 +88,7 @@ function fteuser_form_user_register_form_alter(&$form, &$form_state, $form_id) {
     $form['fte_assign_user_role'] = array(
       '#type' => 'radios',
       '#options' => $roles_array,
-      '#title' => t('what\'s your role ?'),
+      '#title' => t('What is your role ?'),
       '#weight' => 15,
     );
   }
