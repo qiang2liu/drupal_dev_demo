@@ -64,7 +64,7 @@ $username = $user->name;
     function setH(){
     	
     	var w = ((document.body.clientWidth * 0.70)*0.95)* 0.72;
-    	alert(w);
+    	
     	var mh = (w * 39/64) * 1.0 - 20;
     	$('.field-name-body').css('minHeight', mh+ 'px');
     }
