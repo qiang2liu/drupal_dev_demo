@@ -76,7 +76,6 @@ function fteuser_form_user_register_form_alter(&$form, &$form_state, $form_id) {
 
   $langcode = isset($form['#language']) ? $form['#language'] : 'und';
   $r_list = user_roles(TRUE);
-  print_r($r_list);
   $roles_array = array();
   $del_roles = array('authenticated user', 'site administrator', 'site admin', 'parent');
   foreach ($r_list as $k => $v) {
