@@ -78,7 +78,7 @@ function edgemakers_set_togglefields(index, field_suffix) {
     if(index == (startIndex + 8)) document.getElementById('edit-field-set-survey'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-survey'+field_suffix).style.display = 'none';
     //image only display for Image, Text, Topic Page, Survey & Assessment, Document type
-    if(index == startIndex || index == (startIndex + 2) || index == (startIndex + 3) || index == (startIndex + 8) || index == (startIndex + 10)) document.getElementById('edit-field-set-image'+field_suffix).style.display = 'block';
+    if(index != (startIndex + 4)) document.getElementById('edit-field-set-image'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-image'+field_suffix).style.display = 'none';
     //document only display for document type
     if(index == (startIndex+10)) document.getElementById('edit-field-set-document'+field_suffix).style.display = 'block';
