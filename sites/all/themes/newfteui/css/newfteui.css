@@ -361,6 +361,9 @@ ul:after,
 .region-tool-bar .block h2{
 	display:none;
 }
+.toolbar-item .item-list.active{
+	display:block;
+}
 .toolbar-item .item-list ul{
 	margin:5px 7px 5px 68px;
 	background:#938e7e;

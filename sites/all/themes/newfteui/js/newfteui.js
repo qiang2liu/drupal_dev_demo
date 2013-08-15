@@ -33,19 +33,20 @@
 			removeAllActive : function(){
 				$('div').not('.toolbar-handler').not('.toolbar-box').not(this).removeClass('active');
 				$(this).toggleClass('active');
-			},
+			}/*,
 			navToggleList: function(){
 				return this.each(function(){
 					var self = $(this);
 					var h = self.find('h4');
 					if(h.hasClass('has-child')){
+						
 						h.find('em').bind('click', function(){
 							self.find('.item-list').toggle();
 						})
 					}
 				});
 				
-			}
+			}*/
 		});
 	})(jQuery);
 	
@@ -64,7 +65,7 @@
 		//toolbar
 		$('.toolbar-handler').bind('click', $.fn.toggleToolbar);
 		//toolbar item expand/collapse
-		$('.mural').navToggleList();
+		//$('.mural').navToggleList();
 		
 		//stage selector
 		$('.stage-selector-handler>em').bind('click', function(){

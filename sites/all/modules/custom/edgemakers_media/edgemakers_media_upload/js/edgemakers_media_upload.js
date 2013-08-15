@@ -8,8 +8,17 @@ function media_ajax_load_list() {
     
     console.log("media_ajax_load_list loaded.");
     
-  	jQuery('.media .has-child em').bind('click', function(){
-  		jQuery(this).parents('.media').find('.item-list').toggle();
+  	jQuery('.toolbar-item').each(function(){
+  		var self = jQuery(this);
+  		
+  		if(self.children().first().hasClass('has-child')){
+  			self.find('h4>em').bind('click', function(){
+  				if(!self.find('.item-list').hasClass('active')){
+  					jQuery('.toolbar-item').find('.item-list').removeClass('active');
+  					self.find('.item-list').addClass('active')
+  				}
+  			})
+  		}
   	});
 
     jQuery('ul#media-list li a').each(function( index ) {
