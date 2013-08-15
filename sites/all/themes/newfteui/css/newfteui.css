@@ -147,10 +147,7 @@ ul:after,
   animation:colorChange1 0.5s infinite;
   -webkit-animation:colorChange1 0.5s infinite;
 }
-/*.user-profile:hover{
-  animation:colorChange-profile 0.5s infinite;
-  -webkit-animation:colorChange-profile 0.5s infinite;
-}*/
+
 .community .region{
 	margin:0 35px;
 }
@@ -252,6 +249,68 @@ ul:after,
 	color:#fff;
 }
 
+/* community facewall profile */
+#community-user-profile{
+	height:243px;
+	position:relative;
+	top:-30px;
+	background:url(../images/newui_bg_ggb.png) no-repeat;
+	padding-top:76px;
+	
+}
+#community-user-profile .userinfo{
+	box-shadow: 0 2px 2px #909090;
+	height:70px;
+	border-radius:10px;
+	background-color:rgba(255,255,255,0.7);
+}
+#community-user-profile .userinfo div{
+	float:left;
+}
+#community-user-profile .userinfo .username{
+	width:265px;
+	padding:10px 0 0 65px;
+}
+#community-user-profile .userinfo .userpic{
+	position:relative;
+	width:100px;
+}
+#community-user-profile .userinfo .userpic img{
+	position:absolute;
+	min-width:94px;
+	min-height:94px;
+	width:auto;
+	height:auto;
+	border:3px solid #fff;
+	box-shadow: 0 1px 2px #909090;
+	border-radius:50px;
+	top:-12px;
+}
+#community-user-profile .userinfo .useredu{
+	padding:10px 0 0 120px;
+	width:300px;
+}
+#community-user-profile .userinfo .username,
+#community-user-profile .userinfo .useredu .userschool{
+	color:#53b99d;
+	font-size:20px;
+}
+#community-user-profile .userinfo .useredu .userclass{
+	display:block;
+	text-shadow:0 1px 0 #fff;
+}
+#back-community{
+	background: url("../images/arrowBackToStage.png") no-repeat scroll 10px 10px;
+    cursor: pointer;
+    float: right;
+    margin-top: 10px;
+    padding: 10px 20px 0 50px;
+    text-shadow: 0 1px 0 #fff;
+}
+#back-community:hover{
+	color:#111;
+	
+}
 /* toolbar */
 .toolbar-stage{
 	position:absolute;
