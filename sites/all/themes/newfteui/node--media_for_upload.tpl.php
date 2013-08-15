@@ -149,13 +149,23 @@ function formatSecondsAsTime(secs) {
 <?php
 else : 
 ?>
+<div id="Image-image-icon" class="set-type-icon set-image-type-icon">
+  Image<br/>
+</div>
 <span id="set-title" style="display: none;"><?php print $title;?></span>
   <div class="content set-image-content clearfix"<?php print $content_attributes; ?>>
     <?php
       // We hide the comments and links now so that we can render them later.
       hide($content['comments']);
       hide($content['links']);
-      print render($content['field_set_image']);
+      
+      $media_image = array(
+				'path' => $url,
+      );
+
+			print theme('image', $media_image);
+
+      //print render($content['field_youtube_url']);
       //print render($content);
 
     ?>
