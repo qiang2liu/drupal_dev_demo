@@ -41,6 +41,12 @@ function edgemakers_set_togglefields(index, field_suffix) {
       } else {
         label.innerHTML = term + ' URL';
       }
+    } else if(forItem == 'edit-field-set-image-und-0') {
+      if(index == startIndex) {
+        label.innerHTML = 'Image';
+      } else {
+        label.innerHTML = term + ' Thumbnail';
+      }
     }
   }
   if(index == (startIndex + -1)) {
@@ -52,7 +58,6 @@ function edgemakers_set_togglefields(index, field_suffix) {
     document.getElementById('edit-field-set-survey'+field_suffix).style.display = 'none';
     document.getElementById('edit-field-set-image'+field_suffix).style.display = 'none';
     document.getElementById('edit-field-set-document'+field_suffix).style.display = 'none';
-    document.getElementById('edit-field-set-withthumbnail'+field_suffix).style.display = 'none';
     document.getElementById('edit-actions'+field_suffix).style.display = 'none';
   } else {
     document.getElementsByClassName('form-item-title'+field_suffix)[0].style.display = 'block';
@@ -72,15 +77,12 @@ function edgemakers_set_togglefields(index, field_suffix) {
     //survey dropdownlist only display for survey & assessment type
     if(index == (startIndex + 8)) document.getElementById('edit-field-set-survey'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-survey'+field_suffix).style.display = 'none';
-    //image only display for Image type
-    if(index == (startIndex)) document.getElementById('edit-field-set-image'+field_suffix).style.display = 'block';
+    //image only display for Image, Text, Topic Page, Survey & Assessment, Document type
+    if(index == startIndex || index == (startIndex + 2) || index == (startIndex + 3) || index == (startIndex + 8) || index == (startIndex + 10)) document.getElementById('edit-field-set-image'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-image'+field_suffix).style.display = 'none';
     //document only display for document type
     if(index == (startIndex+10)) document.getElementById('edit-field-set-document'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-document'+field_suffix).style.display = 'none';
-    //withthumbnail only display for inspiration, showcase, video with comments, video with Q&A and video type
-    if(index == (startIndex + 4) || index == (startIndex + 5) || index == (startIndex + 6) || index == (startIndex + 7) || index == (startIndex + 9)) document.getElementById('edit-field-set-withthumbnail'+field_suffix).style.display = 'block';
-    else document.getElementById('edit-field-set-withthumbnail'+field_suffix).style.display = 'none';
     document.getElementById('edit-actions'+field_suffix).style.display = 'block';
   }
 }

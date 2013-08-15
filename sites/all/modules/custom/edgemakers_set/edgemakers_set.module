@@ -85,6 +85,7 @@ function edgemakers_set_form_alter(&$form, $form_state, $form_id) {
     unset($form['field_set_murally_type'][$langcode]['#options']['_none']);
   } else if (substr($form_id, 0, 20) == 'webform_client_form_') {
     if(arg(0) == 'node') return;
+    $form['#validate'][] = 'edgemakers_set_survey_validate';
     $form['actions']['submit']['#ajax'] = array(
       'wrapper' => 'em-webform',
       'callback' => 'edgemakers_set_webform_client_form_callback',
@@ -129,6 +130,12 @@ function edgemakers_set_form_alter(&$form, $form_state, $form_id) {
     };
     Drupal.attachBehaviors();
     </script>';
+  }
+}
+function edgemakers_set_survey_validate($form, &$form_state) {
+  $isanonymous = user_is_anonymous();
+  if($isanonymous) {
+    form_set_error('', t('Sorry, you have to !login to answer the question.', array('!login'=>l('login', 'user/login'))));
   }
 }
 function edgemakers_set_comment_validate($form, &$form_state) {
@@ -237,6 +244,9 @@ function edgemakers_set_node_validate($node, $form, &$form_state) {
       $survey = $surveys && count($surveys) > 0 ? $surveys[0]['target_id'] : '';
       if($survey == '') {
         form_set_error('field_set_survey', t('Please Select a Survey'));
+      } else {
+        if(_edgemakers_set_check_refernid_exist($types[0]['tid'], 'field_set_survey', $surveys[0]['target_id']))
+          form_set_error('field_set_survey', t('This survey has been taken by another set'));
       }
     }
     if($type == 'Document') {
@@ -256,6 +266,20 @@ function edgemakers_set_node_validate($node, $form, &$form_state) {
       }
     }
   }
+}
+function _edgemakers_set_check_refernid_exist($tid, $referfield, $nid){
+  $query = new EntityFieldQuery();
+
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'edgemakers_set')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_set_type', 'tid', $tid, '=')
+    ->fieldCondition($referfield, 'target_id', $nid, '=')
+    ->range(0, 1)
+    ->addMetaData('account', user_load(1)); // Run the query as user 1.
+
+  $result = $query->execute();
+  return $result ? true : false;
 }
 /**
  * Implements hook_theme().
@@ -279,6 +303,7 @@ function edgemakers_set_theme() {
  * @param object $item
  */
 function theme_set_item($variables) {
+  $defaultThumbs = array();
   $item = $variables['item'];
   $output = '';
   if (isset($item->nid)) {
@@ -304,6 +329,14 @@ function theme_set_item($variables) {
         $murallyType = $murallyTypes && count($murallyTypes) > 0 ? $murallyTypes[0]['value'] : '';
         if($murallyType == 0) {
           $link = 'mural/create';
+          if(!isset($defaultThumbs[$type])) {
+            $defaultThumbs[$type] = edgemakers_set_get_set_type_default_thumbnail($item->term);
+          }
+          if($defaultThumbs[$type]) {
+            $output .= l($defaultThumbs[$type], $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+          } else {
+            $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+          }
         } else {
           $urls = field_get_items('node', $item, 'field_set_url');
           $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
@@ -313,32 +346,51 @@ function theme_set_item($variables) {
           } else if($murallyType == 2) {
             $link = 'mural/create/'.$templateid;
           }
+          //need further info to develop
+          $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         } 
-        $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         break;
       case 'text':
-        $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+        $thumbnail = edgemakers_set_get_set_thumbnail($item);
+        if(!$thumbnail) {
+          if(!isset($defaultThumbs[$type])) {
+            $defaultThumbs[$type] = edgemakers_set_get_set_type_default_thumbnail($item->term);
+          }
+          $thumbnail = $defaultThumbs[$type];
+        }
+        if($thumbnail) {
+          $output .= l($thumbnail, $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+        } else {
+          $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+        }
         break;
       case 'topic page':
         $topics = field_get_items('node', $item, 'field_set_topic');
         $topicId = $topics && count($topics) > 0 ? $topics[0]['target_id'] : '';
         $link = 'node/'.$topicId;
-        $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+        $thumbnail = edgemakers_set_get_set_thumbnail($item);
+        if(!$thumbnail) {
+          if(!isset($defaultThumbs[$type])) {
+            $defaultThumbs[$type] = edgemakers_set_get_set_type_default_thumbnail($item->term);
+          }
+          $thumbnail = $defaultThumbs[$type];
+        }
+        if($thumbnail) {
+          $output .= l($thumbnail, $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+        } else {
+          $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+        }
         break;
       case 'inspiration':
       case 'showcase':
       case 'video':
       case 'video with comments':
       case 'video with q&a':
-        $withThumbnails = field_get_items('node', $item, 'field_set_withthumbnail');
-        $withThumbnail = $withThumbnails && count($withThumbnails) > 0 ? $withThumbnails[0]['value'] : 0;
-        if($withThumbnail) {
-          $urls = field_get_items('node', $item, 'field_set_url');
-          $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
-          $videoId = edgemakers_set_youtube_parser($url);
-          if($videoId) {
-            $set_image = '<div class="crop"><img src="http://img.youtube.com/vi/'.$videoId.'/0.jpg" /></div>';
-          }
+        $urls = field_get_items('node', $item, 'field_set_url');
+        $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
+        $videoId = edgemakers_set_youtube_parser($url);
+        if($videoId) {
+          $set_image = '<div class="crop"><img src="http://img.youtube.com/vi/'.$videoId.'/0.jpg" /></div>';
         }
         if($set_image) {
           $output .= l($set_image, $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
@@ -350,7 +402,18 @@ function theme_set_item($variables) {
         $surveys = field_get_items('node', $item, 'field_set_survey');
         $surveyId = $surveys && count($surveys) > 0 ? $surveys[0]['target_id'] : '';
         $link = 'node/'.$surveyId;
-        $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+        $thumbnail = edgemakers_set_get_set_thumbnail($item);
+        if(!$thumbnail) {
+          if(!isset($defaultThumbs[$type])) {
+            $defaultThumbs[$type] = edgemakers_set_get_set_type_default_thumbnail($item->term);
+          }
+          $thumbnail = $defaultThumbs[$type];
+        }
+        if($thumbnail) {
+          $output .= l($thumbnail, $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+        } else {
+          $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+        }
         break;
       default:
         $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
@@ -358,6 +421,22 @@ function theme_set_item($variables) {
     }
   }
   return $output;
+}
+function edgemakers_set_get_set_type_default_thumbnail($term) {
+  $pics = field_get_items('taxonomy_term', $term, 'field_set_type_default_thumbnail');
+  $pic = $pics && count($pics) > 0 ? $pics[0]['uri'] : '';
+  if ($pic) {
+    return theme('image_style', array('style_name' => 'edgemakers_set', 'path' => $pic));
+  }
+  return false;
+}
+function edgemakers_set_get_set_thumbnail($node) {
+  $images = field_get_items('node', $node, 'field_set_image');
+  $image = $images && count($images) > 0 ? $images[0]['uri'] : '';
+  if ($image) {
+    return theme('image_style', array('style_name' => 'edgemakers_set', 'path' => $image));
+  }
+  return false;
 }
 /**
  * Implements hook_image_default_styles().
