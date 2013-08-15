@@ -20,7 +20,6 @@
         initStageTitle = data[0].title;
 
         for(var i=0; i<data.length; i++){
-          console.log(data[i]);
           var img = data[i].defualt_image;
           var sta_url = '<a class="" href="#" onclick="set_ajax_load_by_stage(' + data[i].nid + ');return true;">' + data[i].defualt_image + '<br/>' + data[i].title + '</a>';
           jQuery('.stage-box').append('<div class="stage-item">' + sta_url + '</div>');
@@ -162,3 +161,35 @@
       return false;
     });
   }
+  if (jQuery("a.set-to-destination").length !== 0) {
+    jQuery("a.set-to-destination").bind('click', function() {
+      jQuery("#stage-set-view").html('<div class="set-video-content"><div id="yt">You need Flash player 8+ and JavaScript enabled to view this video.</div></div><div id="back-dashboard">Back to Dashboard</div>');
+      videoid = this.getAttribute('videoid');
+      setTimeout(function() {loadVideo(videoid);}, 100);
+      jQuery("#back-dashboard").bind("click", function(){
+        var stageTitle = jQuery("#stage-title h2").html();
+        jQuery(".s-s-title h2").html(stageTitle);
+        jQuery("#set-view-region").hide();
+        jQuery("#stage-set-list").show();
+        jQuery("#back-set-list").hide();
+      });
+      jQuery(".s-s-title h2").html('Tour Guide');
+      jQuery(".s-s-title h3").empty();
+      jQuery("#set-view-region").show();
+      jQuery("#stage-set-list").hide();
+      jQuery("#back-set-list").hide();
+      return false;
+    });
+  }
+function loadVideo(videoid) {
+	var params = { allowScriptAccess: "always", wmode : 'opaque' };
+	var atts = { id: "myytplayer" };
+
+  //Get width from video destination element continar
+  var videoWidth = jQuery(".set-video-content").width();
+  var whratio = 64/39*1.0;
+  var vHeight = videoWidth/whratio;
+
+	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
+		"yt", "100%", vHeight, "8", null, null, params, atts);
+}

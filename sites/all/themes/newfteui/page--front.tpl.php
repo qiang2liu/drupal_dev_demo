@@ -43,9 +43,10 @@
 								'path' => drupal_get_path('theme', 'newfteui') . '/images/iconTourGuide1.png',
 	        		);
 							$img_src = theme('image', $img);
-							echo l($img_src, 'http://www.youtube.com/watch?&v=EAuXzCiIWlU', array(
+							echo l($img_src, '', array(
 								'attributes' => array(
-									'class' => array('set-to-destination')
+									'class' => array('set-to-destination'),
+									'videoid' => 'EAuXzCiIWlU',
 								),
 								'html' => true,
 							));
