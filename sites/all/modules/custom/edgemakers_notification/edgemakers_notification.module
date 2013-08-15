@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * Implementation of hook_services_resources().
+ */
+function edgemakers_notification_services_resources() {
+  return array(
+    'notification' => array(
+      'actions' => array(
+        'mural_updated' => array(
+          'help' => 'Notify owner and modifier that a mural is updated.',
+          'file' => array('file' => 'inc', 'module' => 'edgemakers_notification'),
+          'callback' => '_edgemakers_notification_mural_updated',
+          'access callback' => '_edgemakers_notification_resources_access',
+          'access arguments' => array('mural_updated'),
+          'access arguments append' => TRUE,
+          'args' => array(
+            array(
+              'name' => 'mural_id',
+              'optional' => FALSE,
+              'type' => 'int',
+              'description' => 'The id of updated mural',
+              'source' => 'data',
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+/**
+ * Access control of resources.
+ */
+function _edgemakers_notification_resources_access($event = NULL) {
+  // @TODO: for now just always return TRUE
+  return TRUE;
+}
+
+function edgemakers_notification_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'mural_updated':
+      // send notification when a mural is updated
+      $message['subject'] = t('Mural updated');
+      $message['body'][] = t('Your mural @mural_name is updated.', array('@mural_name' => $params['node']->title));
+      $message['body'][] = url('node/' . $params['node']->nid, array('absolute' => TRUE));
+      break;
+
+    default:
+      // nothing
+  }
+}
