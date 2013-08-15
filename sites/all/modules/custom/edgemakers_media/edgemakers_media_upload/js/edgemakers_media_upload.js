@@ -31,6 +31,7 @@ function media_ajax_load_list() {
             jQuery("#stage-set-view").html(data);
             jQuery("#set-view-region").show();
             //jQuery("#stage-set-list").hide();
+            jQuery("#back-set-list").html("");
             jQuery("#back-set-list").show();
             
             return false;
