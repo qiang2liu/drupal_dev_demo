@@ -40,7 +40,7 @@ function edgemakers_user_form_alter(&$form, &$form_state, $form_id) {
         $form['account']['mail']['#weight'] = -11;
         $form['field_firstname'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('FIRST NAME');
         $form['field_lastname'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('LAST NAME');
-        $form['actions']['submit']['#value'] = t('Continue ->');
+        $form['actions']['submit']['#value'] = t('Continue');
         $element_info = element_info('password_confirm');
         $process = $element_info['#process'];
         // Add our process function to the array:
@@ -53,14 +53,14 @@ function edgemakers_user_form_alter(&$form, &$form_state, $form_id) {
         unset($form['name']['#title'], $form['name']['#description'], $form['pass']['#title'], $form['pass']['#description']);
         $form['name']['#attributes']['placeholder'] = t('USER NAME');
         $form['pass']['#attributes']['placeholder'] = t('PASSWORD');
-        $form['actions']['submit']['#value'] = t('Log in ->');
+        $form['actions']['submit']['#value'] = t('Log in');
       }
       break;
     case 'user_pass':
       if (arg(0) == 'modal_forms') {
         unset($form['name']['#title'], $form['name']['#description']);
         $form['name']['#attributes']['placeholder'] = t('USER NAME OR EMAIL');
-        $form['actions']['submit']['#value'] = t('Email New Password ->');
+        $form['actions']['submit']['#value'] = t('Email New Password');
       }
       break;
   }
