@@ -3,9 +3,10 @@
 function themuraly_menu() {
 
   $items['mural/create'] = array(
-    'page callback' => 'muralcreate',
+    'page callback' => 'themuraly_mural_page',
     'access callback' => 'user_is_logged_in',
     'type' => MENU_CALLBACK,
+  	'page arguments' => array(2, 3),
     'file' => 'mural_op.inc',
   );
   $items['mural/share/%'] = array(
@@ -15,13 +16,15 @@ function themuraly_menu() {
     'type' => MENU_CALLBACK,
     'file' => 'mural_op.inc',
   );
+  /*
   $items['mural/create/%'] = array(
-    'page callback' => 'muralcreate',
-    'page arguments' => array(2),
+    'page callback' => 'themuraly_mural_page',
+    'page arguments' => array(2, 3),
     'access callback' => 'user_is_logged_in',
     'type' => MENU_CALLBACK,
     'file' => 'mural_op.inc',
   );
+  */
   $items['mural/%'] = array(
     'page callback' => 'muralshow',
     'page arguments' => array(1),
@@ -40,6 +43,15 @@ function themuraly_menu() {
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
+  
+  $items['mural/delete'] = array(
+  	'page callback' => 'mural_delete',
+  	'access callback' => TRUE,
+ 		'type' => MENU_CALLBACK,
+ 		'page arguments' => array(2),
+  	'file' => 'mural_op.inc',
+  );
+  
   $items['mural/ajax_link_callback'] = array();
   return $items;
 }
@@ -106,9 +118,6 @@ function themuraly_block_view($delta = '') {
       		)
       )
       );
-      
-      drupal_add_css(drupal_get_path('module', 'themuraly') . '/css/themuraly.css');
-      drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/themuraly.js');
       
       $html .= '<h4>' . $links . '</h4></div>';
 
@@ -583,4 +592,12 @@ function _test_user_add() {
       dpm($edit);
     }
   }
+}
+
+/**
+ * Implments hook_init();
+ */
+function themuraly_init() {
+	drupal_add_css(drupal_get_path('module', 'themuraly') . '/css/themuraly.css');
+	drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/themuraly.js');
 }

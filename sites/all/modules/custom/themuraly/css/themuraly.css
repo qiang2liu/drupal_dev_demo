@@ -24,3 +24,18 @@
   z-index: 1001;
   height: 600px;
 }*/
+
+ul#mural-region-nav li {
+  display: inline;
+  float: right;
+  right: 20px;
+  padding: 20px;
+}
+
+.close-mural-dialog {
+  line-height: 40px; 
+  background-color: gray; 
+  display: block; 
+  cursor: pointer; 
+  padding: 0px 15px;
+}

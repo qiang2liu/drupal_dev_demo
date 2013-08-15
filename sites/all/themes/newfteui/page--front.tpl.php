@@ -3,11 +3,9 @@
 <!-- /community -->
 
 <div id="mural-region" class="hidden">
-  <div id="mural-top">Mural top contrl</div>
   <div>
   	<iframe id="mural-iframe" border="0" scrolling="no" width="500" height="500" src=""></iframe>
   </div>
-   <div id="mural-bottom">Mural bottom info</div>
 </div>
 
 <div class="community">
