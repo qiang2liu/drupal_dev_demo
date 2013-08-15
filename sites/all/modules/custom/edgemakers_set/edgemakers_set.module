@@ -386,14 +386,23 @@ function theme_set_item($variables) {
       case 'video':
       case 'video with comments':
       case 'video with q&a':
-        $urls = field_get_items('node', $item, 'field_set_url');
-        $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
-        $videoId = edgemakers_set_youtube_parser($url);
-        if($videoId) {
-          $set_image = '<div class="crop"><img src="http://img.youtube.com/vi/'.$videoId.'/0.jpg" /></div>';
+        $thumbnail = edgemakers_set_get_set_thumbnail($item);
+        if(!$thumbnail) {
+          if(!isset($defaultThumbs[$type])) {
+            $defaultThumbs[$type] = edgemakers_set_get_set_type_default_thumbnail($item->term);
+          }
+          $thumbnail = $defaultThumbs[$type];
         }
-        if($set_image) {
-          $output .= l($set_image, $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+        if(!$thumbnail) {
+          $urls = field_get_items('node', $item, 'field_set_url');
+          $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
+          $videoId = edgemakers_set_youtube_parser($url);
+          if($videoId) {
+            $thumbnail = '<div class="crop"><img src="http://img.youtube.com/vi/'.$videoId.'/0.jpg" /></div>';
+          }
+        }
+        if($thumbnail) {
+          $output .= l($thumbnail, $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         } else {
           $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         }
