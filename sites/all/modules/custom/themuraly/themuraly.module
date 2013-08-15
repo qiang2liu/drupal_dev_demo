@@ -52,6 +52,14 @@ function themuraly_menu() {
   	'file' => 'mural_op.inc',
   );
   
+  $items['mural/get/list/ajax'] = array(
+  	'page callback' => 'themuraly_mural_list_html', // Render HTML
+  	'type' => MENU_CALLBACK,
+ 		'access arguments' => array('access content'),
+ 		'delivery callback' => 'themuraly_mural_ajax_callback',  // Magic goes here
+ 		'page arguments' => array(5),
+  );
+  
   $items['mural/ajax_link_callback'] = array();
   return $items;
 }
@@ -124,52 +132,8 @@ function themuraly_block_view($delta = '') {
     	$block['content'] = $html;
     	break;
     case 'mural_list':
-    	
     	$block['subject'] = t('Mural List');
-    	$my_coditions = array(
-    			'uid' => $user->uid,
-    			'type' => 'murals',
-    	);
-    	$my_mural_nodes = node_load_multiple('', $my_coditions);
-    	
-    	arsort($my_mural_nodes);
-    	
-    	$i = 0;
-    	foreach ($my_mural_nodes as $node) {
-    		if ($i <= 5) {
-    			$my_mural_node['items'][$i]['data'] = l($node->title,
-    					'mural/' . $node->nid,
-    					array(
-    							'attributes' => array(
-    									'class' => $link_class,
-    							),
-    					)
-    			);
-    			$my_mural_node['items'][$i]['class'][] = 'mural-item';
-    	
-    			$i++;
-    		}
-    	}
-    	
-    	//$my_mural_node['items']['class'][] = 'media-video';
-    	$my_murals = '<div class="toolbar-item mural">';
-    	
-    	if (count($my_mural_node['items']) > 0) {
-    		$my_mural_node['title'] = '';
-    		$my_mural_node['type'] = 'ul';
-    		$my_mural_node['attributes'] = array('id' => 'murals-list', 'class' => 'media-video');
-    		 
-    		$mural_list = theme_item_list($my_mural_node);
-    		 
-    		$my_murals .= '<h4 class="has-child">Murals<em></em></h4>' . $mural_list;
-
-    	}
-    	else {
-    		$my_murals .= '<h4 class="has-child">Murals</h4>';
-    	}
-    	$my_murals .= '</div>';
-
-    	$block['content'] = $my_murals;
+    	$block['content'] = '<div id="my-mural-list" class="toolbar-item mural"></div>';
     	break;
   }
   return $block;
@@ -600,4 +564,94 @@ function _test_user_add() {
 function themuraly_init() {
 	drupal_add_css(drupal_get_path('module', 'themuraly') . '/css/themuraly.css');
 	drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/themuraly.js');
+}
+
+/**
+ * Return media list data by uid.
+ *
+ * @param int $limit
+ * @return string html
+ */
+function themuraly_mural_list_html($limit = 5) {
+
+	global $user;
+	$my_mural_nodes = array();
+
+	$content_type = 'murals';
+	
+	//drupal_set_message($content_type);
+	
+	//return 'test end';
+
+	$html = '<div class="toolbar-item media">';
+	//<h4 class="has-child">Media<em></em></h4>';
+
+	if ($user->uid !== 0) {
+
+		$my_coditions = array(
+				'uid' => $user->uid,
+				'type' => $content_type,
+		);
+
+		$my_mural_nodes = node_load_multiple('', $my_coditions);
+
+		arsort($my_mural_nodes);
+
+		$i = 0;
+
+		foreach ($my_mural_nodes as $node) {
+			
+			if ($i < 5) {
+				$mural_item['items'][$i]['data'] = l($node->title,
+					'mural/' . $node->nid,
+					array(
+						'attributes' => array(
+							'id' => 'media-node-' . $node->nid,
+						)
+					)
+				);
+
+				$mural_item['items'][$i]['class'][] = 'media-item';
+
+				$i++;
+			}
+			
+		}
+
+		if (count($mural_item['items']) > 0) {
+				
+			$html .= '<h4 class="has-child">Mural<em></em></h4>';
+
+			$mural_item['title'] = '';
+			$mural_item['type'] = 'ul';
+			$mural_item['attributes'] = array('id' => 'mural-list', 'class' => 'media-video');
+	   
+			$media_html = theme_item_list($mural_item);
+		}
+
+		//dd($media_html, 'media list');
+
+		$html .= $media_html;
+
+	}
+
+	if(count($my_mural_nodes) <= 0) {
+		$html .= '<h4 class="has-child">Mural</h4>';
+	}
+
+	$html .= '</div>';
+
+	return $html;
+
+}
+
+/**
+ * Ajax link callback;
+ * @param unknown_type $page_callback_result
+ */
+function themuraly_mural_ajax_callback($page_callback_result) {
+	// Only render content
+	print $page_callback_result;
+	// Perform end-of-request tasks.
+	drupal_page_footer();
 }

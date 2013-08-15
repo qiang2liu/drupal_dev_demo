@@ -6,6 +6,14 @@ $the_m_id = $data['m_id'];
 div.breadcrumb {
   display: none;
 }
+body {
+  background-image: url();
+  background-color: rgb(240, 240, 240);
+}
+
+.page-mural #wrapper {
+  width: 100%;
+}
 </style>
 <div>
 
@@ -23,7 +31,7 @@ div.breadcrumb {
 			echo $delete_link; ?>
 		</li>
 		<li>
-			EDGEmakers settings <?php print_r($data['seturl'])?>
+			<?php print_r($data['seturl'])?>
 		</li>
 		<li>
 		<?php 
