@@ -3,7 +3,7 @@
  * functions for user profile view
  *
  */
-function edgemakers_user_view($account) {
+function edgemakers_user_profile_view($account) {
   if($account->uid == 0) return false;
 
   //userpic, username, school, class generation  

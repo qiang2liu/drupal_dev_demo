@@ -4,7 +4,7 @@
  */
 function edgemakers_user_menu() {
   $items['edgemakers/user/profile/ajax/%user'] = array(
-    'page callback' => 'edgemakers_user_view', // Render HTML
+    'page callback' => 'edgemakers_user_profile_view', // Render HTML
     'page arguments' => array(4),
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
