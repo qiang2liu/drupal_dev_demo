@@ -362,7 +362,7 @@ div.modal-forms-modal-content .modal-header{
 	padding:10px 2em;
 }
 #modal-content .form-item .form-item{
-	padding:10px 0;
+	padding:6px 0;
 }
 #modal-content .form-item input[type="text"],
 #modal-content .form-item input[type="password"]{
@@ -385,17 +385,17 @@ div.modal-forms-modal-content .modal-header{
 	width:100%;
 }
 #modal-content .form-actions{
-	padding:10px 2em 30px;
+	padding:6px 2em 30px;
 	text-align:right;
 }
 #modal-content .form-actions input.form-submit{
 	background: url(../images/newui_ico_actionarrow.png) right center no-repeat #60cd9b;
-	padding:10px 30px 10px 15px;
+	padding:6px 30px 6px 15px;
 	font-weight:normal;
 }
 #modal-content  #user-pass .form-item-name{
 	text-align:center;
-	padding-borrom:20px;
+	padding-bottom:20px;
 }
 #modal-content #user-register-form .password-strength,
 #modal-content #user-register-form  div.password-confirm{
@@ -419,7 +419,7 @@ div.modal-forms-modal-content .modal-header{
 	padding-top:10px;
 }
 #modal-content #user-register-form #edit-field-profile-picture .form-item.form-type-managed-file .image-widget-data input{
-	max-width:75%;
+	
   	padding:0;
     
 }
@@ -427,7 +427,7 @@ div.modal-forms-modal-content .modal-header{
 #modal-content #user-register-form  #edit-field-profile-picture .form-item{
 	float:none;
 	width:auto;
-	padding:10px 0 0;
+	padding:6px 0 0;
 }
 #modal-content #user-register-form .form-item.form-type-password-confirm{
 	width:90%;
