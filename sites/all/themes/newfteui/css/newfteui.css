@@ -309,7 +309,146 @@ ul:after,
 }
 #back-community:hover{
 	color:#111;
+}
+
+/* rewrite the login/register/request new password */
+div.modal-forms-modal-content .popups-container{
+	background:none;
+	border-radius:0;
+}
+div.modal-forms-modal-content .modal-title{
+	display:none;
+}
+div.modal-forms-modal-content .item-list ul{
+	margin:0;
+	border-bottom:20px solid #fff;
+}
+div.modal-forms-modal-content .item-list ul li{
+	float:left;
 	
+	font-style:italic;
+	margin:0 2px 0 0;
+	
+	font-size:14px;
+	font-weight:normal;
+}
+div.modal-forms-modal-content .item-list ul li a{
+	color:#fff;
+	background:#60cd9b;
+	padding:10px 14px;
+	display:block;
+}
+div.modal-forms-modal-content .item-list ul li a.active{
+	padding-top:17px;
+	background:#fff;
+	color:#000102;
+	margin-top:-7px;
+}
+div.modal-forms-modal-content .modal-header{
+	padding-top:52px;
+	float:right;
+	position:relative;
+	z-index:9;
+	right:3px;
+}
+#modal-content .form-item,
+#modal-content .form-actions{
+	background:#fff;
+	margin:0;
+	font-size:12px;
+}
+
+#modal-content .form-item{
+	padding:10px 2em;
+}
+#modal-content .form-item .form-item{
+	padding:10px 0;
+}
+#modal-content .form-item input[type="text"],
+#modal-content .form-item input[type="password"]{
+	height:34px;
+	padding:0 10px;
+	border:1px solid #e6e9ea;
+	box-shadow: 0 2px 3px #eee inset; 
+	color:#7b8a97;
+	width:100%;
+}
+#modal-content  #user-pass .form-item input[type="text"]{
+	width:50%;
+}
+#modal-content  #user-login .form-item{
+	width:38.7%;
+	float: left;
+	padding-bottom:30px;
+}
+#modal-content  #user-login .form-item input{
+	width:100%;
+}
+#modal-content .form-actions{
+	padding:10px 2em 30px;
+	text-align:right;
+}
+#modal-content .form-actions input.form-submit{
+	background: url(../images/newui_ico_actionarrow.png) right center no-repeat #60cd9b;
+	padding:10px 30px 10px 15px;
+	font-weight:normal;
+}
+#modal-content  #user-pass .form-item-name{
+	text-align:center;
+	padding-borrom:20px;
+}
+#modal-content #user-register-form .password-strength,
+#modal-content #user-register-form  div.password-confirm{
+	display:none;
+}
+#modal-content #user-register-form .form-item{
+	width:38%;
+	float:left;
+}
+#modal-content #user-register-form .form-item.form-item-fte-assign-user-role,
+#modal-content #user-register-form #edit-field-profile-picture{
+	float:left;
+	width:43%;
+	padding-top:0;
+}
+#modal-content #user-register-form #edit-field-profile-picture .form-item.form-type-managed-file{
+	padding-top:0;
+	padding-bottom:30px;
+}
+#modal-content #user-register-form #edit-field-profile-picture .form-item.form-type-managed-file .image-widget-data{
+	padding-top:10px;
+}
+#modal-content #user-register-form #edit-field-profile-picture .form-item.form-type-managed-file .image-widget-data input{
+	max-width:75%;
+  	padding:0;
+    
+}
+#modal-content #user-register-form  #edit-fte-assign-user-role .form-item,
+#modal-content #user-register-form  #edit-field-profile-picture .form-item{
+	float:none;
+	width:auto;
+	padding:10px 0 0;
+}
+#modal-content #user-register-form .form-item.form-type-password-confirm{
+	width:90%;
+}
+#modal-content #user-register-form .form-type-password-confirm.form-item .form-item{
+	float:left;
+	
+	clear:none;
+	width:47%;
+	padding:0 3% 0 0;
+}
+#modal-content #user-register-form .form-type-password-confirm.form-item .form-item.confirm-parent{
+	padding:0 0 0 3%;
+	padding-right:0;
+}
+#modal-content #user-register-form .form-type-password-confirm.form-item .form-item input{
+	width:90%;
+}
+
+div.ctools-modal-content .form-item .description{
+	display:none;
 }
 /* toolbar */
 .toolbar-stage{
