@@ -174,6 +174,8 @@ else :
 
       $image_uri = file_create_url($node->field_youtube_url[$node->language][0]['url']);
       $download_uri = 'download/file/fid/' . $node->field_youtube_url[$node->language][0]['url'];
+      
+      $download_uri = $image_uri;
 
       $download_icon = array('path' => drupal_get_path('theme', 'newfteui'). '/images/iconDownload.png');
 
