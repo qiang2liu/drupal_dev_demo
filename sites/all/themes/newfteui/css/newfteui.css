@@ -314,7 +314,9 @@ ul:after,
 /* rewrite the login/register/request new password */
 div.ctools-modal-content .modal-content{
 	padding:12px 0 0 0;
+	overflow-x:hidden;
 }
+
 div.modal-forms-modal-content .popups-container{
 	background:none;
 	border-radius:0;
