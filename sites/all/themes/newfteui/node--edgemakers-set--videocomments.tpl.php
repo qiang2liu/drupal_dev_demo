@@ -19,23 +19,18 @@ $username = $user->name;
 }
 .field-name-body {
    float: left;
-  width: 25%;
-  padding:10px 0.5%;
+  width: 23%;
+  padding:10px 5px;
   color:#fff;
   background-color: rgba(215,152,94, 0.7);
   text-align:left;
-  margin-right:1.7%;
+ 
 }
 }
 #yr-wrapper {
-  float: left;
+  float: right;
 }
-#comments {
-  background-color: rgba(215,152,94, 0.7);
-   width: 91%;
-   margin:auto;
-   padding:2%;
-}
+
 </style>
 
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
@@ -57,7 +52,7 @@ $username = $user->name;
     </div></div>
   </div>
 
-  <div class="clearfix">
+  <div class="clearfix  set-comment video-comments">
     <?php print render($content['comments']); ?>
   </div>
 
@@ -67,7 +62,9 @@ $username = $user->name;
   $(document).ready(function(){
     setTimeout(function() {loadVideo('<?php echo $ytid;?>');}, 100);
     function setH(){
+    	
     	var w = ((document.body.clientWidth * 0.70)*0.95)* 0.72;
+    	
     	var mh = (w * 39/64) * 1.0 - 20;
     	$('.field-name-body').css('minHeight', mh+ 'px');
     }
@@ -85,7 +82,7 @@ $username = $user->name;
 })(jQuery);
 function loadVideo(videoid) {
 	//Get width from video destination element continar
-	var params = { allowScriptAccess: "always" };
+	var params = { allowScriptAccess: "always", wmode : 'opaque' };
 	var atts = { id: "myytplayer" };
   	var videoWidth = ((document.body.clientWidth * 0.70)*0.95)* 0.72;
  	 var whratio = 64/39*1.0;

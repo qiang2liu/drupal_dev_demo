@@ -2,6 +2,12 @@
 
 <!-- /community -->
 
+<div id="mural-region" class="hidden">
+  <div>
+  	<iframe id="mural-iframe" border="0" scrolling="no" width="500" height="500" src=""></iframe>
+  </div>
+</div>
+
 <div class="community">
 
   <?php print render($page['community']); ?>
@@ -23,11 +29,30 @@
         <h4>Toolbar</h4>
       </div>
       <?php print render($page['tool_bar']); ?>
-      <div class="toolbar-item add-an-idea">
+      <!-- <div class="toolbar-item add-an-idea">
         <h4>
           <?php echo l('Create Mural', 'mural/create') ?>
-          <!-- <a href="#x">Add an Idea</a> -->
         </h4>
+      </div>
+      -->
+      <div class="toolbar-item tour-guides">
+        <h4>Tour Guides</h4>
+        <p>
+	        	<?php
+	        		$img = array(
+								'path' => drupal_get_path('theme', 'newfteui') . '/images/iconTourGuide1.png',
+	        		);
+							$img_src = theme('image', $img);
+							echo l($img_src, '', array(
+								'attributes' => array(
+									'class' => array('set-to-destination'),
+									'videoid' => 'EAuXzCiIWlU',
+								),
+								'html' => true,
+							));
+	        	?>
+
+        </p>
       </div>
       <!--
       <div class="toolbar-item test2"></div>
@@ -74,7 +99,7 @@
 
 
 <!-- /main content -->
-<?php print $messages; ?>
+<?php //print $messages; ?>
 <div class="main-content">
   <?php print render($page['content']); ?>
 </div>
@@ -83,7 +108,7 @@
 <div class="sliding-panes">
   <div class="studio-handler pane-handler" data-aim="studio"></div>
   <div class="chanllenge-handler pane-handler" data-aim="challenge"></div>
-  <!--<div class="competitions-handler pane-handler"  data-aim="competitions"></div>-->
+  <div class="competitions-handler pane-handler"  data-aim="competitions"></div>
   <?php print render($page['sliding_panes']); ?>
 </div>
 <div class="pane" id="studio">
@@ -98,7 +123,7 @@
 
 </div>
 <div class="pane" id="challenge"></div>
-<!--<div class="pane" id="competitions"></div>-->
+<div class="pane" id="competitions"></div>
 
 <!-- / user profile-->
 <div class="user-profile">

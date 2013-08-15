@@ -47,6 +47,9 @@ class Muralapi {
 
 
     $ret = curl_http_request($apiurl, $options);
+    
+    dd($ret);
+    
     return $ret;
   }
   public function get_all_murals($username,$the_para = array() ) {

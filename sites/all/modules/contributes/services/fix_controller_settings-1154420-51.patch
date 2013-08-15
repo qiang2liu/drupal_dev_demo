@@ -1,0 +1,39 @@
+diff --git a/includes/services.runtime.inc b/includes/services.runtime.inc
+index 9cdf864..5333b95 100644
+--- a/includes/services.runtime.inc
++++ b/includes/services.runtime.inc
+@@ -411,8 +411,15 @@ function _services_access_value($data, $fields) {
+ function _services_authenticate_user($controller, $endpoint, $args, $options) {
+   if (!isset($options['skip_authentication']) || !$options['skip_authentication']) {
+     foreach ($endpoint->authentication as $auth_module => $auth_settings) {
+-      if (!empty($auth_settings) && $auth_error = services_auth_invoke($auth_module, 'authenticate_call', $auth_settings, $controller, $args)) {
+-        return services_error($auth_error, 401);
++      if (!empty($auth_settings)) {
++        // Add in the auth module's endpoint settings if present.
++        if (isset($controller['endpoint'][$auth_module])) {
++          $auth_settings += $controller['endpoint'][$auth_module];
++        }
++
++        if ($auth_error = services_auth_invoke($auth_module, 'authenticate_call', $auth_settings, $controller, $args)) {
++          return services_error($auth_error, 401);
++        }
+       }
+     }
+   }
+diff --git a/servers/rest_server/includes/RESTServer.inc b/servers/rest_server/includes/RESTServer.inc
+index eeaa00e..6d3ce4e 100755
+--- a/servers/rest_server/includes/RESTServer.inc
++++ b/servers/rest_server/includes/RESTServer.inc
+@@ -585,6 +585,12 @@ class RESTServer {
+     }
+ 
+     $controller = $resource[$operation_type][$operation];
++
++    if (isset($resource['endpoint']['operations'][$operation]['settings'])) {
++      // Add the endpoint's settings for the specified operation.
++      $controller['endpoint'] = $resource['endpoint']['operations'][$operation]['settings'];
++    }
++
+     if (isset($resource['file']) && empty($controller['file'])) {
+       $controller['file'] = $resource['file'];
+     }

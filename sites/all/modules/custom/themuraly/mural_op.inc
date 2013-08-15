@@ -98,7 +98,6 @@ function get_murals_detail(&$murals) {
 
 function muralshow_share($nid) {
 
-
   global $user;
   $the_node = node_load($nid);
   $muralid_obj = field_get_items('node', $the_node, 'field_muralid');
@@ -133,7 +132,9 @@ function muralshow_share($nid) {
       $result = $mural_api->invite_user_mural($the_muralowner, $the_muralid, array($muraluser_invite));
     }
   }
+  
   return muralshow($nid, $mid, $node_uid);
+
 }
 
 function muralshow($nid, $mid = 0, $uid = 0) {
@@ -175,12 +176,17 @@ function muralshow($nid, $mid = 0, $uid = 0) {
 
   return theme("muralypage", array('data' => array('m_id' => $mid,
               'seturl' => $edit_url,
+  		'node' => $the_node,
                   )));
 }
 
-function muralcreate($template_id = 0) {
+function muralcreate($template_id = 0, $nid = 0) {
   global $user;
 
+  //drupal_set_message('Template id: ' . $template_id);
+  //drupal_set_message('Node id: ' . $nid);
+  $title = 'my mural';
+  
   $ret = "mural create page";
   if ($template_id != 0) {
     $ret = " duplicate mural,  the  id ==" . $template_id;
@@ -229,13 +235,19 @@ function muralcreate($template_id = 0) {
   if ($template_id == 0) {
     //create new mural
     $the_m_id = create_mural($mural_api, $muralusername, $muralroomid);
+    dd($the_m_id, 'create mural');
     if ($the_m_id == '') {
       drupal_set_message(t('can\'t create mural!'), 'error');
       return '';
     }
   } else {
+  	if ($nid) {
+  		$node = node_load($nid);
+  	}
+
     // duplicate the mural
-    $title = 'my mural';
+    $title = isset($node->title)?'Copy of ' . $node->title:'my mural';
+    
     $the_m_id = create_mural($mural_api, $muralusername, $muralroomid, $title, $template_id);
     if ($the_m_id == '') {
       drupal_set_message(t('can\'t create mural!'), 'error');
@@ -245,7 +257,7 @@ function muralcreate($template_id = 0) {
 
   $newNode = (object) NULL;
   $newNode->type = 'murals';
-  $newNode->title = 'my mural';
+  $newNode->title = $title;
   $newNode->created = strtotime("now");
   $newNode->changed = strtotime("now");
   $newNode->status = 1;
@@ -260,18 +272,25 @@ function muralcreate($template_id = 0) {
   node_object_prepare($newNode);
   node_save($newNode);
   $the_nid = $newNode->nid;
-  drupal_goto('mural/' . $the_nid);
+  
+  return $newNode;
+
+  //drupal_goto('mural/' . $the_nid);
 }
 
 function create_mural($mural_api, $muser, $mroomid, $title = 'my mural', $duplicate_id = '') {
   $params = array('title' => $title, 'room' => $mroomid);
   if ($duplicate_id != '') {
     $mural_api_result = $mural_api->duplicate_mural($muser, $duplicate_id, $params);
+    dd($mural_api_result, 'mural api results of duplicate_mural');
   } else {
     $mural_api_result = $mural_api->create_mural($muser, $params);
+    dd($mural_api_result, 'mural api results of create_mural');
   }
   if (is_object($mural_api_result) && isset($mural_api_result->data)) {
     $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
+    
+    dd($muralapi_response_obj, 'mural api results of $mural_api_result json data.');
     
     if (!empty($muralapi_response_obj['id'])) {
       $str_p = preg_match("/[0-9]+$/", $muralapi_response_obj['id'], $matches);
@@ -299,3 +318,73 @@ function _mural_usersearch_autocomplete($string = '') {
   drupal_json_output($ret);
 }
 
+/**
+ * Move muralcreate page here.
+ * 
+ * @param int $template_id
+ */
+function themuraly_mural_page($template_id = 0, $nid = 0) {
+	$node = muralcreate($template_id, $nid);
+	if ($node->nid) {
+		drupal_goto('mural/' . $node->nid);
+	}
+}
+
+/**
+ * Create mural AJAX.
+ */
+function themuraly_mural_create_ajax() {
+	$node = muralcreate($template_id);
+	print(drupal_json_output($node));
+	exit;
+}
+
+function mural_delete($nid = 0) {
+	
+	$html = '';
+	
+	global $user;
+	
+	if ($nid) {
+		
+		$node = node_load($nid);
+
+		$field_muraluser = field_get_items('node', $node, 'field_muraluser');
+		
+		if ($field_muraluser) {
+			$muralusername = $field_muraluser[0]['value'];
+		}
+		
+		$field_muralid = field_get_items('node', $node, 'field_muralid');
+		
+		if ($field_muralid) {
+			$muralid = $field_muralid[0]['value'];
+		}
+		
+		$mural_api = new Muralapi;
+		
+		$delete_status = $mural_api->delete_mural($muralusername, $muralid);
+		
+		if ($delete_status->data == 'OK') {
+			drupal_set_message('Mural ' . $node->title . ' have deleted.');
+			//drupal_set_message('<pre>' . print_r($delete_status, TRUE) . '</pre>');
+			$html .= 'Mural ' . $node->title . ' have deleted.';
+		}
+		else {
+			drupal_set_message(t('Delete fail'), 'error');
+			$html .= 'Mural ' . $node->title . ' fail.';
+		}
+
+		
+	}
+	else {
+		drupal_set_message(t('Delete fail'), 'error');
+		$html .= 'Mural ' . $node->title . ' fail.';
+	}
+	
+	$html .= 'Close it after 5 seconds';
+	
+	drupal_add_js('setInterval(window.parent.closeFromIframe(), 5000);', array('type'=>'inline'));
+	
+	return $html;
+}

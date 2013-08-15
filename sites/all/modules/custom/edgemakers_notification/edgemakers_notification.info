@@ -1,0 +1,5 @@
+name = EdgeMakers notification
+description = EdgeMakers' notification system including API resource.
+package = edgemakers
+dependencies[] = services
+core = 7.x

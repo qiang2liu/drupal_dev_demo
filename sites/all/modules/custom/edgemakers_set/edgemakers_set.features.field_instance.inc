@@ -358,56 +358,6 @@ function edgemakers_set_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-edgemakers_set-field_set_withthumbnail'
-  $field_instances['node-edgemakers_set-field_set_withthumbnail'] = array(
-    'bundle' => 'edgemakers_set',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 4,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_set_withthumbnail',
-    'label' => 'Use thumbnail as Proxy',
-    'required' => 0,
-    'settings' => array(
-      'mediafront' => array(
-        'custom' => '',
-        'field_type' => 0,
-        'media_type' => 'media',
-        'preview' => 0,
-        'thumbnail' => 0,
-      ),
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 9,
-    ),
-  );
-
   // Translatables
   // Included for use with string extractors like potx.
   t('Display Text');
@@ -418,6 +368,5 @@ function edgemakers_set_field_default_field_instances() {
   t('Set URL');
   t('Survey & Assessment');
   t('Topic');
-  t('Use thumbnail as Proxy');
   return $field_instances;
 }
