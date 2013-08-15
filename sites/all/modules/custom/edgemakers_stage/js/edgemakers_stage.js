@@ -20,7 +20,7 @@
         initStageTitle = data[0].title;
 
         for(var i=0; i<data.length; i++){
-          console.log(data[i]);
+          //console.log(data[i]);
           var img = data[i].defualt_image;
           var sta_url = '<a class="" href="#" onclick="set_ajax_load_by_stage(' + data[i].nid + ');return true;">' + data[i].defualt_image + '<br/>' + data[i].title + '</a>';
           jQuery('.stage-box').append('<div class="stage-item">' + sta_url + '</div>');

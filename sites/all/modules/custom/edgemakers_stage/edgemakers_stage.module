@@ -198,19 +198,6 @@ function edgemakers_stage_form_alter(&$form, $form_state, $form_id) {
   //drupal_set_message($stage_form_id);
   //$stage_delete_form_id = $type . 'node_delete_confirm';
 
-  //Debug
-  if ($form_id == 'media_add_upload') {
-    $form['types'] = array(
-      '#type' => 'select',
-      '#options' => array(
-        'video' => 'Video',
-        'audio' => 'Audio',
-        'image' => 'Images',
-        'docs' => 'Docs',
-      ),
-    );
-  }
-
   if ($form_id == $stage_form_id) {
 
     if ((arg(1) == 'edgemakers' && arg(2) == 'stage')

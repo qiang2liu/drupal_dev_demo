@@ -149,3 +149,43 @@ function edgemakers_stage_uninstall() {
   // next to the content type created by the feature.
   drupal_flush_all_caches();
 }
+
+/**
+ * Implements hook_update_N();
+ *   - Add picture of stage.
+ */
+function edgemakers_stage_update_7200() {
+
+  //@TODO add picture of stage
+  $fields = array (
+    /*'field_stage_image' => array(
+      'field_name' => 'field_stage_image',
+      'type'       => 'image',
+      'cardinality' => 1,
+    ),*/
+  );
+
+  $instancess = array(
+    /*'field_stage_image' => array(
+      'field_name'  => 'field_stage_image',
+      'label'       => t('Picture of stage'),
+      'required'    => FALSE,
+      'widget' => array(
+        'type'    => 'image',
+      ),
+    ),*/
+  );
+
+  foreach ($fields as $field) {
+    field_create_field($field);
+  }
+
+  // Create all the instances for our fields.
+  // http://api.drupal.org/api/function/field_create_instance/7
+  foreach ($instancess as $instance) {
+    $instance['entity_type'] = 'node';
+    $instance['bundle'] = 'stage';
+    field_create_instance($instance);
+  }
+
+}
