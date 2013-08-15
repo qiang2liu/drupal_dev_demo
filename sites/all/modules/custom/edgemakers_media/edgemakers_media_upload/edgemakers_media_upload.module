@@ -41,8 +41,27 @@ function edgemakers_media_upload_menu() {
     'delivery callback' => 'edgemakers_media_ajax_callback',  // Magic goes here
     'page arguments' => array(5),
   );
+  
+  $items['edgemakers/media/info/ajax'] = array(
+  	'page callback' => 'edgemakers_media_view_html', // Render HTML
+  	'type' => MENU_CALLBACK,
+  	'access arguments' => array('access content'),
+  	'delivery callback' => 'edgemakers_stage_ajax_callback',  // Magic goes here
+  	'page arguments' => array(4),
+  	'file path' => drupal_get_path('module', 'edgemakers_stage'),
+  	'file' => 'stage.api.inc',
+  );
 
   return $items;
+}
+
+
+function edgemakers_media_view_html($nid) {
+	if ($nid) {
+		$node = node_load($nid);
+		return drupal_render(node_view($node, 'full'));
+	}
+	return 'Media page building.';
 }
 
 /**
@@ -630,9 +649,12 @@ function _youtube_url_parse($embedCode) {
 function edgemakers_media_list_html($limit = 5) {
 
 	global $user;
+	$my_media_nodes = array();
+	
 	$content_type = variable_get('edgemakers_media_content_type', 'media_for_upload');
 	
-	$html = '<div class="toolbar-item media"><h4 class="has-child">Media<em></em></h4>';
+	$html = '<div class="toolbar-item media">';
+	//<h4 class="has-child">Media<em></em></h4>';
 
 	if ($user->uid !== 0) {
 
@@ -666,6 +688,9 @@ function edgemakers_media_list_html($limit = 5) {
     }
 
 		if (count($media_item['items']) > 0) {
+			
+			$html .= '<h4 class="has-child">Media<em></em></h4>';
+
 			$media_item['title'] = '';
 			$media_item['type'] = 'ul';
 			$media_item['attributes'] = array('id' => 'media-list', 'class' => 'media-video');
@@ -673,10 +698,14 @@ function edgemakers_media_list_html($limit = 5) {
 			$media_html = theme_item_list($media_item);
 		}
 		
-		dd($media_html, 'media list');
+		//dd($media_html, 'media list');
 		
 		$html .= $media_html;
 
+	}
+	
+	if(count($my_media_nodes) <= 0) {
+		$html .= '<h4 class="has-child">Media</h4>';
 	}
 	
 	$html .= '</div>';

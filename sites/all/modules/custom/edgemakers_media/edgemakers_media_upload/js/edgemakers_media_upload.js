@@ -16,7 +16,7 @@ function media_ajax_load_list() {
 
       var nid = jQuery(this).attr('id').substring(11);
       //alert("Node nid:" + nid);
-      var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid;
+      var ajaxUrl = '?q=edgemakers/media/info/ajax/' + nid;
       var ajaxContent;
       
       jQuery(this).bind('click', function(){
@@ -30,7 +30,7 @@ function media_ajax_load_list() {
 
             jQuery("#stage-set-view").html(data);
             jQuery("#set-view-region").show();
-            jQuery("#stage-set-list").hide();
+            //jQuery("#stage-set-list").hide();
             jQuery("#back-set-list").show();
             
             return false;
