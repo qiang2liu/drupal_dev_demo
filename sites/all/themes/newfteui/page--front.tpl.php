@@ -186,6 +186,8 @@
     ?>
   <?php endif; ?>
 </div>
+<!--this is for profile settings demo-->
+<div class="demo-setting-wrapper"></div>
 
 <?php
 $ignore_mural_bye = getenv('ignore_mural_bye');

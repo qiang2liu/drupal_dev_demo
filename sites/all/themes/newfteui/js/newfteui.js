@@ -33,20 +33,19 @@
 			removeAllActive : function(){
 				$('div').not('.toolbar-handler').not('.toolbar-box').not(this).removeClass('active');
 				$(this).toggleClass('active');
-			}/*,
-			navToggleList: function(){
+			},
+			numbering : function(){
+				var defaults = {
+					node: '.item-list:first li'
+				}
+				var options = $.extend(defaults,options);
 				return this.each(function(){
 					var self = $(this);
-					var h = self.find('h4');
-					if(h.hasClass('has-child')){
-						
-						h.find('em').bind('click', function(){
-							self.find('.item-list').toggle();
-						})
-					}
+					self.find(options.node).each(function(i){
+						//
+					})
 				});
-				
-			}*/
+			}
 		});
 	})(jQuery);
 	
@@ -103,5 +102,17 @@
 			}
 		});
 		
+		//profile settings demo
+		$('.demo-setting-wrapper').css({
+			left : ($(window).width() - $('.demo-setting-wrapper').width())/2 + 'px',
+			top  : ($(window).height() - $('.demo-setting-wrapper').height())/2 + 'px'
+		});
+		$('#secondary-menu ul.links li.first').bind('click', function(evt){
+			evt.preventDefault();
+			$('.demo-setting-wrapper').toggle();
+		});
+		
+		//content numbering
+		$('#stage-set-list').numbering();
 	});
 })(jQuery);

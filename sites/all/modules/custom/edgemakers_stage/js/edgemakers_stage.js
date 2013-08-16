@@ -62,7 +62,13 @@
     //openAjaxLoad("ajaxload");
     
     jQuery('#stage-set-list').load("?q=edgemarkers/stage/get/set/ajax/" + stage_id, function(){
-      
+      function numbering(){
+      	var el = jQuery('#stage-set-list .item-list:first li');
+      	el.each(function(i){
+      		jQuery(this).append('<span class="set-numbering">' + (i+1) + '</span>');
+      	});
+      }
+      numbering();
       var stageTitle = jQuery("#stage-title h2").html();
 
       jQuery(".s-s-title h2").html(stageTitle);

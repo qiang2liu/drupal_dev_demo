@@ -821,6 +821,13 @@ div.ctools-modal-content .form-item .description{
 .user-box a{
 	color:#fff;
 }
+.demo-setting-wrapper{
+	width:473px;
+	height:501px;
+	position:absolute;
+	background: url(../images/example_15.png) no-repeat;
+	display: none;
+}
 /* content */
 .main-content{
 	position:absolute;
@@ -856,6 +863,21 @@ div.ctools-modal-content .form-item .description{
 	margin: 0 8px 20px;
 	text-align:center;
 	height:133px;
+	position:relative;
+}
+
+#stage-set-list li span.set-numbering{
+	position:absolute;
+	display:block;
+	width:22px;
+	height:22px;
+	border-radius:11px;
+	background:#959595;
+	line-height:22px;
+	text-align:center;
+	color:#fff;
+	top:-11px;
+	left:-11px;
 }
 #stage-set-list li .image img{
 	width:auto;
