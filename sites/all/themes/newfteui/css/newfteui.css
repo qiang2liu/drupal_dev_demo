@@ -452,7 +452,7 @@ div.modal-forms-modal-content .modal-header{
 #modal-content #user-register-form .form-type-password-confirm.form-item .form-item input{
 	width:90%;
 }
-#modal-content #user-register-form .password-description {
+#modal-content #user-register-form .password-suggestions {
   position: absolute;
   left: -9999px;
 }
