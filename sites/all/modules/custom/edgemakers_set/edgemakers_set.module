@@ -109,6 +109,11 @@ function edgemakers_set_form_alter(&$form, $form_state, $form_id) {
     Drupal.attachBehaviors();</script>';
   } else if ($form_id == 'comment_node_edgemakers_set_form') {
     if(arg(0) == 'node') return;
+    $node = $form['#node'];
+    $term = strtolower($node->term->name);
+    if($term == 'video with q&a') {
+      $form['comment_body'][LANGUAGE_NONE][0]['value']['#title'] = t('Answer');
+    }
     $form['#validate'][] = 'edgemakers_set_comment_validate';
     $form['#prefix'] = '<div id="comment-form-wrapper">';
     $form['#suffix'] = '</div>';
