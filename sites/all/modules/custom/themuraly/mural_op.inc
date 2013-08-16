@@ -2,21 +2,21 @@
 
 /**
  *
- * @param int $uid  
+ * @param int $uid
  *   user id
  * @param string $musername
  *   mural username
- * @param string $mroomid 
+ * @param string $mroomid
  *   mural user room id
- * 
- * @return html string 
+ *
+ * @return html string
  *   the user's own mural lists
  */
 function get_myideas_shareideas($uid, $musername, $mroomid) {
   $myideas_list = array();
   $shareideas_list = array();
   $the_muralid_array = array();
-  // call mural api to get list 
+  // call mural api to get list
   $mural_api = new Muralapi;
   $result = $mural_api->get_all_murals($musername);
 
@@ -86,7 +86,7 @@ function get_myideas_shareideas($uid, $musername, $mroomid) {
 /**
  * get the thumburl info of the every mural by mural api , put it to the node array $murals
  * @param array $murals
- * 
+ *
  */
 function get_murals_detail(&$murals) {
   $the_mid_array = array();
@@ -132,7 +132,7 @@ function muralshow_share($nid) {
       $result = $mural_api->invite_user_mural($the_muralowner, $the_muralid, array($muraluser_invite));
     }
   }
-  
+
   return muralshow($nid, $mid, $node_uid);
 
 }
@@ -186,7 +186,7 @@ function muralcreate($template_id = 0, $nid = 0) {
   //drupal_set_message('Template id: ' . $template_id);
   //drupal_set_message('Node id: ' . $nid);
   $title = 'my mural';
-  
+
   $ret = "mural create page";
   if ($template_id != 0) {
     $ret = " duplicate mural,  the  id ==" . $template_id;
@@ -247,7 +247,7 @@ function muralcreate($template_id = 0, $nid = 0) {
 
     // duplicate the mural
     $title = isset($node->title)?'Copy of ' . $node->title:'my mural';
-    
+
     $the_m_id = create_mural($mural_api, $muralusername, $muralroomid, $title, $template_id);
     if ($the_m_id == '') {
       drupal_set_message(t('can\'t create mural!'), 'error');
@@ -272,7 +272,7 @@ function muralcreate($template_id = 0, $nid = 0) {
   node_object_prepare($newNode);
   node_save($newNode);
   $the_nid = $newNode->nid;
-  
+
   return $newNode;
 
   //drupal_goto('mural/' . $the_nid);
@@ -289,9 +289,9 @@ function create_mural($mural_api, $muser, $mroomid, $title = 'my mural', $duplic
   }
   if (is_object($mural_api_result) && isset($mural_api_result->data)) {
     $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
-    
+
     dd($muralapi_response_obj, 'mural api results of $mural_api_result json data.');
-    
+
     if (!empty($muralapi_response_obj['id'])) {
       $str_p = preg_match("/[0-9]+$/", $muralapi_response_obj['id'], $matches);
       $new_mural_id = '';
@@ -320,14 +320,20 @@ function _mural_usersearch_autocomplete($string = '') {
 
 /**
  * Move muralcreate page here.
- * 
+ *
  * @param int $template_id
  */
 function themuraly_mural_page($template_id = 0, $nid = 0) {
+
 	$node = muralcreate($template_id, $nid);
 	if ($node->nid) {
 		drupal_goto('mural/' . $node->nid);
 	}
+	else {
+	  drupal_set_message(t('Can\'t create mural on create page.'));
+	  echo '<span class="close-mural-dialog" onclick=\'window.parent.closeFromIframe();\'> X </span>';
+	}
+
 }
 
 /**
@@ -340,31 +346,31 @@ function themuraly_mural_create_ajax() {
 }
 
 function mural_delete($nid = 0) {
-	
+
 	$html = '';
-	
+
 	global $user;
-	
+
 	if ($nid) {
-		
+
 		$node = node_load($nid);
 
 		$field_muraluser = field_get_items('node', $node, 'field_muraluser');
-		
+
 		if ($field_muraluser) {
 			$muralusername = $field_muraluser[0]['value'];
 		}
-		
+
 		$field_muralid = field_get_items('node', $node, 'field_muralid');
-		
+
 		if ($field_muralid) {
 			$muralid = $field_muralid[0]['value'];
 		}
-		
+
 		$mural_api = new Muralapi;
-		
+
 		$delete_status = $mural_api->delete_mural($muralusername, $muralid);
-		
+
 		if ($delete_status->data == 'OK') {
 			drupal_set_message('Mural ' . $node->title . ' have deleted.');
 			//drupal_set_message('<pre>' . print_r($delete_status, TRUE) . '</pre>');
@@ -375,16 +381,16 @@ function mural_delete($nid = 0) {
 			$html .= 'Mural ' . $node->title . ' fail.';
 		}
 
-		
+
 	}
 	else {
 		drupal_set_message(t('Delete fail'), 'error');
 		$html .= 'Mural ' . $node->title . ' fail.';
 	}
-	
+
 	$html .= 'Close it after 5 seconds';
-	
+
 	drupal_add_js('setInterval(window.parent.closeFromIframe(), 5000);', array('type'=>'inline'));
-	
+
 	return $html;
 }

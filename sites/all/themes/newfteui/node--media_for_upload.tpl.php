@@ -3,13 +3,29 @@
 //url:
 $urls = field_get_items('node', $node, 'field_youtube_url');
 $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
-$ytid = youtube_parser($url);
-function youtube_parser($url) {
-	preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $url, $matches);
-	if(is_array($matches) && count($matches) > 0)
-		return $matches[0];
-	return false;
+//$ytid = youtube_parser($url);
+
+$yt_url = _youtube_url_parse($url);
+// print("get youtube url: <pre>" . print_r($yt_url, TRUE) . '</pre>');
+
+if ($yt_url[1]) {
+  $ytid = $yt_url[1];
 }
+
+/*$php_parse_url = parse_url($url);
+print("get youtube url: <pre>" . print_r($php_parse_url, TRUE) . '</pre>');
+
+if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $url, $match)) {
+  print("get youtube url: <pre>" . print_r($match, TRUE) . '</pre>');
+  $video_id = $match[1];
+}*/
+
+// function youtube_parser($url) {
+// 	preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $url, $matches);
+// 	if(is_array($matches) && count($matches) > 0)
+// 		return $matches[0];
+// 	return false;
+// }
 
 if ($ytid) :
 	//print("Video model.");
@@ -147,7 +163,7 @@ function formatSecondsAsTime(secs) {
 </script>
 
 <?php
-else : 
+else :
 ?>
 <div id="Image-image-icon" class="set-type-icon set-image-type-icon">
   Image<br/>
@@ -158,7 +174,7 @@ else :
       // We hide the comments and links now so that we can render them later.
       hide($content['comments']);
       hide($content['links']);
-      
+
       $media_image = array(
 				'path' => $url,
       );
@@ -174,7 +190,7 @@ else :
 
       $image_uri = file_create_url($node->field_youtube_url[$node->language][0]['url']);
       $download_uri = 'download/file/fid/' . $node->field_youtube_url[$node->language][0]['url'];
-      
+
       $download_uri = $image_uri;
 
       $download_icon = array('path' => drupal_get_path('theme', 'newfteui'). '/images/iconDownload.png');
@@ -182,6 +198,7 @@ else :
       $download_icon_img = theme('image' , $download_icon);
       echo l($download_icon_img, $download_uri, array(
         'attributes' => array(
+          'target' => '_blank',
         ),
         'html' => TRUE,
         )

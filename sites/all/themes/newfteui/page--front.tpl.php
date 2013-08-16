@@ -6,6 +6,7 @@
   <div>
   	<iframe id="mural-iframe" border="0" scrolling="no" width="500" height="500" src=""></iframe>
   </div>
+  <div id="mural-region-bottom">bottom nav</div>
 </div>
 
 <div class="community">

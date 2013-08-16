@@ -51,6 +51,7 @@
   color: white;
   display: block;
   float: left;
+  min-height: 20px;
 }
 
 #set-user-info .user-picture img {
