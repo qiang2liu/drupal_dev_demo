@@ -199,3 +199,13 @@ function loadVideo(videoid) {
 	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
 		"yt", "100%", vHeight, "8", null, null, params, atts);
 }
+function viewallusers() {
+  if(jQuery('.region-community').hasClass('allusers')) {
+    jQuery('.region-community').removeClass('allusers');
+    //jQuery('.region-community a.viewall')[0].innerHTML = 'View All';
+  } else {
+    jQuery('.region-community').addClass('allusers');
+    //jQuery('.region-community a.viewall')[0].innerHTML = 'View Less';
+  }
+  return false;
+}

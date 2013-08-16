@@ -249,6 +249,32 @@ ul:after,
 	color:#fff;
 }
 
+/* community viewall */
+.view-community-users ul.pager {
+  display:none;
+}
+.view-community-users table tr {
+  display:none;
+}
+.view-community-users table tr.row-1 {
+  display:table-row;
+}
+.view-community-users table tr.row-2 {
+  display:table-row;
+}
+.allusers .view-community-users ul.pager {
+  display:block;
+}
+.allusers .view-community-users table tr {
+  display:table-row;
+}
+.allusers .view-community-users .view-content {
+  height: 500px;
+}
+.allusers #block-edgemakers-community-activity {
+  display:none;
+}
+
 /* community facewall profile */
 #community-user-profile{
 	height:243px;
