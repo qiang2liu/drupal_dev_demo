@@ -41,7 +41,7 @@ body {
 		<li>
 		<?php
 		  $img_duplicate = array(
-        'path' => drupal_get_path('newfteui') . '/images/iconMuralDuplicate.png',
+        'path' => drupal_get_path('theme' , 'newfteui') . '/images/iconMuralDuplicate.png',
       );
 			$duplicate_link = l(t('Duplicate'),
 				'mural/create/' . $the_m_id . '/' . $data['node']->nid
