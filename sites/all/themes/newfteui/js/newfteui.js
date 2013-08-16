@@ -111,8 +111,20 @@
 			evt.preventDefault();
 			$('.demo-setting-wrapper').toggle();
 		});
+		//login
+		$('.login-regisiter-newpassword-wrapper').css({
+			'left': ($(window).width() - $('.login-regisiter-newpassword-wrapper').width())/2 + 'px'
+		});
+		$('.login-regisiter-newpassword-wrapper .lrn-tab li').bind('click', function(){
+			if(!$(this).hasClass('active')){
+			    $('.login-regisiter-newpassword-wrapper .lrn-tab li.active').removeClass('active');
+			    $(this).addClass('active');
+				var idx = $(this).index(); 
+				$('.lrn-box.tab-active').removeClass('tab-active');
+				$('.lrn-box').eq(idx).addClass('tab-active');
+			}
+		})
 		
-		//content numbering
-		$('#stage-set-list').numbering();
+		
 	});
 })(jQuery);

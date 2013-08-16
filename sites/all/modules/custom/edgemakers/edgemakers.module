@@ -33,6 +33,17 @@ function edgemakers_menu() {
   return $items;
 }
 /**
+* Implements hook_views_post_render().
+*/
+function edgemakers_views_post_render(&$view, &$output, &$cache) {
+  if ($view->name == 'community_users') {
+    $output = str_replace('viewallusers', 'javascript:viewallusers();', $output);
+    /*if(substr($output, 0, 1) != '<') {
+      $output = str_replace('View All', 'View Less', $output);
+    }*/
+  }
+}
+/**
 * Implements hook_block_info().
 */
 function edgemakers_block_info() {

@@ -189,7 +189,65 @@
 </div>
 <!--this is for profile settings demo-->
 <div class="demo-setting-wrapper"></div>
-
+<!--{{{the mock up of the login start-->
+<div class="login-regisiter-newpassword-wrapper">
+	<ul class="lrn-tab">
+		<li>Regisiter</li>
+		<li class="active">Log in</li>
+		<li>Request new password</li>
+	</ul>
+	<form class="box-register lrn-box">
+		<table>
+			<tr>
+				<td><input type="text" placeholder="FIRST NAME" /></td>
+				<td><input type="text" placeholder="LAST NAME" /></td>
+			</tr>
+			<tr>
+				<td><input type="text" placeholder="EMAIL" /></td>
+				<td><input type="text" placeholder="USER NAME" /></td>
+			</tr>
+			<tr>
+				<td><input type="password" placeholder="PASSWORD" /></td>
+				<td><input type="password" placeholder="CONFIRM PASSWORD" /></td>
+			</tr>
+			<tr>
+				<td>
+					<dl>
+						<dt>What's your role?</dt>
+						<dd>Teacher <input type="radio" /></dd>
+						<dd>Student <input type="radio" /></dd>
+					</dl>
+				</td>
+				<td>
+					<dl>
+						<dt>Upload Profile Picture</dt>
+						<dd><input type="file" /></dd>
+					</dl>
+                </td>
+			</tr>
+		</table>
+		<div class="submit">
+			<button>Continue</button>
+		</div>
+	</form>
+	<form class="box-login tab-active lrn-box">
+		<div class="items">
+			<input type="text" placeholder="USER NAME OR EMAIL" /><input type="password" placeholder="PASSWORD" />
+		</div>
+		<div class="submit">
+			<button>Login</button>
+		</div>
+	</form>
+	<form class="box-newpassword lrn-box">
+		<div class="items">
+			<input type="text" placeholder="USER NAME OR EMAIL" />
+		</div>
+		<div class="submit">
+			<button>Email New Password</button>
+		</div>
+	</form>
+</div>
+<!--the mock up of the login end--}}}-->
 <?php
 $ignore_mural_bye = getenv('ignore_mural_bye');
 
