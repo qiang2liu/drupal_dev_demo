@@ -15,11 +15,12 @@ function _webform_defaults_number() {
     'pid' => 0,
     'weight' => 0,
     'value' => '',
-    'mandatory' => 0,
+    'required' => 0,
     'extra' => array(
       'type' => 'textfield',
       'field_prefix' => '',
       'field_suffix' => '',
+      'disabled' => 0,
       'unique' => 0,
       'title_display' => 0,
       'description' => '',
@@ -62,7 +63,7 @@ function _webform_edit_number($component) {
     '#type' => 'textfield',
     '#title' => t('Default value'),
     '#default_value' => $component['value'],
-    '#description' => t('The default value of the field.') . theme('webform_token_help'),
+    '#description' => t('The default value of the field.') . ' ' . theme('webform_token_help'),
     '#size' => 60,
     '#maxlength' => 1024,
     '#weight' => 0,
@@ -98,6 +99,15 @@ function _webform_edit_number($component) {
     '#maxlength' => 127,
     '#weight' => 1.2,
     '#parents' => array('extra', 'field_suffix'),
+  );
+  $form['display']['disabled'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Disabled'),
+    '#return_value' => 1,
+    '#description' => t('Make this field non-editable. Useful for setting an unchangeable default value.'),
+    '#weight' => 11,
+    '#default_value' => $component['extra']['disabled'],
+    '#parents' => array('extra', 'disabled'),
   );
   $form['display']['decimals'] = array(
     '#type' => 'select',
@@ -251,14 +261,14 @@ function _webform_render_number($component, $value = NULL, $filter = TRUE) {
   $node = isset($component['nid']) ? node_load($component['nid']) : NULL;
 
   $element = array(
-    '#title' => $filter ? _webform_filter_xss($component['name']) : $component['name'],
+    '#title' => $filter ? webform_filter_xss($component['name']) : $component['name'],
     '#title_display' => $component['extra']['title_display'] ? $component['extra']['title_display'] : 'before',
-    '#default_value' => $filter ? _webform_filter_values($component['value'], $node, NULL, NULL, FALSE) : $component['value'],
-    '#required' => $component['mandatory'],
+    '#default_value' => $filter ? webform_replace_tokens($component['value'], $node) : $component['value'],
+    '#required' => $component['required'],
     '#weight' => $component['weight'],
-    '#field_prefix' => empty($component['extra']['field_prefix']) ? NULL : ($filter ? _webform_filter_xss($component['extra']['field_prefix']) : $component['extra']['field_prefix']),
-    '#field_suffix' => empty($component['extra']['field_suffix']) ? NULL : ($filter ? _webform_filter_xss($component['extra']['field_suffix']) : $component['extra']['field_suffix']),
-    '#description' => $filter ? _webform_filter_descriptions($component['extra']['description'], $node) : $component['extra']['description'],
+    '#field_prefix' => empty($component['extra']['field_prefix']) ? NULL : ($filter ? webform_filter_xss($component['extra']['field_prefix']) : $component['extra']['field_prefix']),
+    '#field_suffix' => empty($component['extra']['field_suffix']) ? NULL : ($filter ? webform_filter_xss($component['extra']['field_suffix']) : $component['extra']['field_suffix']),
+    '#description' => $filter ? webform_filter_descriptions($component['extra']['description'], $node) : $component['extra']['description'],
     '#attributes' => $component['extra']['attributes'],
     '#element_validate' => array('_webform_validate_number'),
     '#theme_wrappers' => array('webform_element'),
@@ -316,6 +326,16 @@ function _webform_render_number($component, $value = NULL, $filter = TRUE) {
     $element['#element_validate'][] = 'webform_validate_unique';
   }
 
+  // Set readonly if disabled.
+  if ($component['extra']['disabled']) {
+    if ($filter) {
+      $element['#attributes']['readonly'] = 'readonly';
+    }
+    else {
+      $element['#disabled'] = TRUE;
+    }
+  }
+
   return $element;
 }
 
@@ -342,8 +362,8 @@ function _webform_display_number($component, $value, $format = 'html') {
  */
 function theme_webform_display_number($variables) {
   $element = $variables['element'];
-  $prefix = $element['#format'] == 'html' ? filter_xss($element['#field_prefix']) : $element['#field_prefix'];
-  $suffix = $element['#format'] == 'html' ? filter_xss($element['#field_suffix']) : $element['#field_suffix'];
+  $prefix = $element['#format'] == 'html' ? '' : $element['#field_prefix'];
+  $suffix = $element['#format'] == 'html' ? '' : $element['#field_suffix'];
   $value = $element['#format'] == 'html' ? check_plain($element['#value']) : $element['#value'];
   return $value !== '' ? ($prefix . $value . $suffix) : ' ';
 }
@@ -438,6 +458,11 @@ function _webform_analysis_number($component, $sids = array(), $single = FALSE) 
       $stddev = sqrt($stddev);
     }
 
+    // Skip the rest of the distribution rows if standard deviation is 0.
+    if (empty($stddev)) {
+      return $rows;
+    }
+
     // Build normal distribution table rows.
     $count = array();
     $percent = array();
@@ -510,7 +535,7 @@ function _webform_csv_headers_number($component, $export_options) {
   $header = array();
   $header[0] = '';
   $header[1] = '';
-  $header[2] = $component['name'];
+  $header[2] = $export_options['header_keys'] ? $component['form_key'] : $component['name'];
   return $header;
 }
 
@@ -571,7 +596,7 @@ function _webform_validate_number($element, &$form_state) {
 
       // Step test.
       $starting_number = $element['#min'] ? $element['#min'] : 0;
-      if ($element['#step'] != 0 && fmod($element['#value'] - $starting_number, $element['#step']) != 0) {
+      if ($element['#step'] != 0 && webform_modulo($element['#value'] - $starting_number, $element['#step']) != 0) {
         $samples = array(
           $starting_number,
           $starting_number + ($element['#step'] * 1),
@@ -718,4 +743,13 @@ function _webform_number_format($component, $value) {
   }
 
   return number_format($value, $decimals, $component['extra']['point'], $component['extra']['separator']);
+}
+
+/**
+ * Custom modulo function that properly handles float division.
+ *
+ * See https://drupal.org/node/1601968.
+ */
+function webform_modulo($a, $b) {
+  return $a - $b * (($b < 0) ? ceil($a / $b) : floor($a / $b));
 }
