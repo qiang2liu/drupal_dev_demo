@@ -291,7 +291,7 @@
   Drupal.CTools.Modal.modal_dismiss = function(command) {
     Drupal.CTools.Modal.dismiss();
     $('link.ctools-temporary-css').remove();
-    media_ajax_load_list();
+    //media_ajax_load_list();
   }
 
   /**
