@@ -535,6 +535,7 @@ div.ctools-modal-content .form-item .description{
 	color:#7b8a97;
 	width:auto;
 	min-width:180px;
+	-webkit-min-width:auto;
 }
 .login-regisiter-newpassword-wrapper input[type="radio"]{
 	position:relative;
