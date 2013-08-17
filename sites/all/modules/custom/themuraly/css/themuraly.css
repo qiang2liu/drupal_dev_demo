@@ -34,9 +34,11 @@ ul#mural-region-nav li {
   display: inline;
   float: right;
   right: 20px;
-  padding: 0px;
   margin: 0 1px;
-  background-color: gray;
+  background-color: #67b0d1;
+  padding: 4px 3px 3px 5px;
+  height: 21px;
+  text-align: center;
 }
 
 .close-mural-dialog {
@@ -51,7 +53,7 @@ ul#mural-region-nav li {
   height: 36px;
   overflow: hidden;
   position: relative;
-  background-color: blue;
+  background-color: #2d6ca9;
   padding: 0;
   margin: 0;
 }
@@ -60,17 +62,28 @@ ul#mural-region-nav li {
   position: absolute;
   left: 50%;
   line-height: 36px;
+  font-size: 18px;
+  color: white;
 }
 
 #mural-region-bottom {
-  height: 36px;
+  height: 45px;
   overflow: hidden;
-  line-height: 36px;
+  line-height: 45px;
 }
 
 a.mural-nav-link {  
-  color: red;
-  padding: 0 12px;
+  color: white;
+  padding: 1px 12px;
   display: block;
   line-height: 26px;
+  background-color: #e87352;
+}
+
+ul#mural-region-nav li.mural-nav-link-delete {
+  padding: 0px;
+}
+
+ul#mural-region-nav li.mural-nav-link-duplicate {
+  padding: 4px 8px 3px 8px;
 }

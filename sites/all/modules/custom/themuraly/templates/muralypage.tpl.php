@@ -22,7 +22,7 @@ body {
 		<?php echo $data['node']->title; ?>
   </span>
 	<ul id="mural-region-nav">
-		<li>
+		<li class="mural-nav-link-delete">
 			<?php
 			$delete_link = l(t('Delete'),
 				'mural/delete/' . $data['node']->nid,
@@ -38,18 +38,20 @@ body {
 		<li>
 			<?php print_r($data['seturl'])?>
 		</li>
-		<li>
+		<li class="mural-nav-link-duplicate">
 		<?php
 		  $img_duplicate = array(
         'path' => drupal_get_path('theme' , 'newfteui') . '/images/iconMuralDuplicate.png',
       );
-			$duplicate_link = l(t('Duplicate'),
-				'mural/create/' . $the_m_id . '/' . $data['node']->nid
-//         array(
-//           'attributes' => array(
+			$icon_duplicate = theme('image', $img_duplicate);
+			$duplicate_link = l($icon_duplicate,
+				'mural/create/' . $the_m_id . '/' . $data['node']->nid,
+        array(
+          'attributes' => array(
 //             'class' => array('mural-nav-link'),
-//           ),
-//         )
+          ),
+					'html' => TRUE,
+        )
 			);
 			echo $duplicate_link;
 		?>
