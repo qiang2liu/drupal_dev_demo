@@ -80,7 +80,7 @@
         jQuery(this).bind('click', function(){
           
           var nid = jQuery(this).attr('id').substring(5);
-          var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid;
+          var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid + '/' + stage_id;
           var ajaxContent;
 
           //openAjaxLoad("ajaxload");
