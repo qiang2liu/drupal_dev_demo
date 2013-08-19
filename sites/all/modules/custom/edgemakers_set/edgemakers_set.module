@@ -328,7 +328,7 @@ function theme_set_item($variables) {
   $output = '';
   if (isset($item->nid)) {
     $type = $item->term->name;
-    $className = strtolower(str_replace(' ', '_', $type).'');
+    $className = strtolower(str_replace(array(' ', '&'), array('_', ''), $type).'');
     $title = $item->title;
     $cover = '<div class="set-cover">
       <h5>'.$title.'</h5>
