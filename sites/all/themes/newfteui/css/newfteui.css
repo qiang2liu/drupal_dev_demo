@@ -493,7 +493,7 @@ div.ctools-modal-content .form-item .description{
 	position:absolute;
 	top:90px;
 	color:#3f4b56;
-	display:none;
+/*	display:none; */
 }
 .lrn-tab li{
 	float:left;
@@ -519,7 +519,7 @@ div.ctools-modal-content .form-item .description{
 .box-newpassword{
 	background:#fff;
 	padding:25px 25px 10px;
-	display:none;
+/*  display:none; */
 }
 .box-register.tab-active,
 .box-login.tab-active,
