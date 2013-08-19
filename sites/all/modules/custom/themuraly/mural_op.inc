@@ -157,6 +157,10 @@ function muralshow($nid, $mid = 0, $uid = 0) {
   ctools_modal_add_js();
 
   $img_gear = '<img title="set" alt="set" src="' . $GLOBALS['base_path'] . path_to_theme() . '/images/mock-gear.png"/>';
+  $img_settings = array(
+  	'path' => drupal_get_path('theme', 'newfteui') . '/images/iconMuralSettings.png',
+  );
+  $img_gear = theme('image', $img_settings);
   if ($user->uid == $the_node_uid) {
     $edit_url = l($img_gear, 'modal/node/' . $nid . '/edit/nojs/0', array(
       'query' => array(
