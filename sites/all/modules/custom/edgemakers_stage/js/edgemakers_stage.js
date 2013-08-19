@@ -73,13 +73,13 @@
 
       jQuery(".s-s-title h2").html(stageTitle);
 
-      jQuery('#stage-set-list ul li a').each(function( index ) {
+      jQuery('#stage-set-list ul li .set-cover').each(function( index ) {
         
-        var ajaxUrl = jQuery(this).attr('href');
+        var ajaxUrl = jQuery(this).siblings('a').attr('href');
         
         jQuery(this).bind('click', function(){
           
-          var nid = jQuery(this).attr('id').substring(5);
+          var nid = jQuery(this).siblings('a').attr('id').substring(5);
           var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid;
           var ajaxContent;
 
