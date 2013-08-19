@@ -1031,14 +1031,14 @@ div.ctools-modal-content .form-item .description{
 	opacity:1;
 }
 #stage-set-list li .set-cover h5{
-	padding:25px 0 5px;
-	height:55px;
+	padding:10px 0 10px;
+	height:65px;
 }
 #stage-set-list li .set-cover p{
 	text-align:left;
 	padding-left:30px;
 	line-height:24px;
-	background-position:5px center;
+	background-position:left top;
 	background-repeat:no-repeat;
 }
 #stage-set-list li .set-cover p.inspiration,
