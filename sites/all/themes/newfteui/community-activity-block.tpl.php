@@ -16,7 +16,7 @@ if($realnum>0) {
     if(isset($avatarUri) && file_exists($avatarUri))
       $userpic = theme('image_style', array('style_name' => 'edgemakers_avatar', 'path' => $avatarUri));
     if(user_access('access user profiles'))
-      $userpic = l($userpic, 'user/'.$content->uid, array('html' => TRUE));
+      $userpic = l($userpic, 'edgemakers/user/profile/ajax/'.$content->uid, array('html' => TRUE, 'attributes'=> array('class' => array('community-user-profile'))));
     $variables = array(
       'account' => $content, 
     );
@@ -26,17 +26,21 @@ if($realnum>0) {
     $item .= '<div class="usertime">'.$username.'<div class="time">'.$date.'</div></div>';
     if($content->cid) {
       //comment
-      $title = l($content->title, 'node/'.$content->nid, array('fragment' => 'comment-'.$content->cid));
+      //$title = l($content->title, 'node/'.$content->nid, array('fragment' => 'comment-'.$content->cid));
+      $title = $content->node_title;
       $item .= '<div class="activity">Left a comment on '.$title.'</div>';
     } else {
       //node
-      $title = l($content->title, 'node/'.$content->nid);
+      //$title = l($content->title, 'node/'.$content->nid);
+      $title = $content->title;
       $type = $content->type;
       if($type == 'edgemakers_set') {
         $types = field_get_items('node', $content, 'field_set_type');
         $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
       } else if($type == 'murals') {
         $type = 'Mural';
+      } else if($type == 'media_for_upload') {
+        $type = 'Media';
       }
       $item .= '<div class="activity">Created a '.$type.' named "'.$title.'"</div>';
     }

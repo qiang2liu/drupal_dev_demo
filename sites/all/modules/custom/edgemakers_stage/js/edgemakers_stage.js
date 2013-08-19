@@ -143,8 +143,8 @@
     });*/
   }
 
-  if (jQuery(".view-community-users a.community-user-profile").length !== 0) {
-    jQuery(".view-community-users a.community-user-profile").live('click', function() {
+  if (jQuery(".region-community a.community-user-profile").length !== 0) {
+    jQuery(".region-community a.community-user-profile").live('click', function() {
       jQuery.ajax({
         url: this.href,
         type : 'GET',
