@@ -99,6 +99,14 @@ function _edgemakers_stage_installed_instances() {
         'type'    => 'text',
       ),
     ),
+    'field_teacher_notes' => array(
+      'field_name'  => 'field_teacher_notes',
+      'label'       => $t('Teacher\'s Notes'),
+      'required'    => FALSE,
+      'widget' => array(
+        'type'    => 'text',
+      ),
+    ),
   );
 }
 
@@ -117,10 +125,7 @@ function edgemakers_stage_uninstall() {
   // Delete all the nodes at once
   node_delete_multiple($nids);
 
-  $instance = array('field_name' => 'comment_body','bundle' => 'comment_node_newsletter','entity_type' => 'comment');
-  field_delete_instance($instance);
-
-  $instance = array('field_name' => 'body','bundle' => 'newsletter','entity_type' => 'node');
+  $instance = array('field_name' => 'comment_body','bundle' => 'comment_node_stage','entity_type' => 'comment');
   field_delete_instance($instance);
 
   $fields = array_keys(_edgemakers_stage_installed_fields());
