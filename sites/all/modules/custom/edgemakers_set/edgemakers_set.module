@@ -327,8 +327,16 @@ function theme_set_item($variables) {
   $item = $variables['item'];
   $output = '';
   if (isset($item->nid)) {
-    $type = strtolower($item->term->name);
-    $className = array(str_replace(' ', '_', $type).'');
+    $type = $item->term->name;
+    $className = strtolower(str_replace(' ', '_', $type).'');
+    $title = $item->title;
+    $cover = '<div class="set-cover">
+      <h5>'.$title.'</h5>
+      <p class="'.$className.'">'.$type.'</p>
+    </div>';
+    
+    $type = strtolower($type);
+    $className = array($className);
     $set_image = '';
     $link = 'node/'.$item->nid;
     switch ($type) {
@@ -341,7 +349,7 @@ function theme_set_item($variables) {
         if($set_image) {
           $output .= l($set_image, $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         } else {
-          $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+          $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         }
         break;
       case 'idea':
@@ -355,7 +363,7 @@ function theme_set_item($variables) {
           if($defaultThumbs[$type]) {
             $output .= l($defaultThumbs[$type], $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
           } else {
-            $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+            $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
           }
         } else {
           $urls = field_get_items('node', $item, 'field_set_url');
@@ -367,7 +375,7 @@ function theme_set_item($variables) {
             $link = 'mural/create/'.$templateid;
           }
           //need further info to develop
-          $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+          $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         } 
         break;
       case 'text':
@@ -381,7 +389,7 @@ function theme_set_item($variables) {
         if($thumbnail) {
           $output .= l($thumbnail, $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         } else {
-          $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+          $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         }
         break;
       case 'topic page':
@@ -398,7 +406,7 @@ function theme_set_item($variables) {
         if($thumbnail) {
           $output .= l($thumbnail, $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         } else {
-          $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+          $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         }
         break;
       case 'inspiration':
@@ -424,7 +432,7 @@ function theme_set_item($variables) {
         if($thumbnail) {
           $output .= l($thumbnail, $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         } else {
-          $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+          $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         }
         break;
       case 'survey & assessment':
@@ -441,13 +449,14 @@ function theme_set_item($variables) {
         if($thumbnail) {
           $output .= l($thumbnail, $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         } else {
-          $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+          $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         }
         break;
       default:
-        $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+        $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         break;
     }
+    $output .= $cover;
   }
   return $output;
 }
