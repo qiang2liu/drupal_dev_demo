@@ -73,13 +73,13 @@
 
       jQuery(".s-s-title h2").html(stageTitle);
 
-      jQuery('#stage-set-list ul li a').each(function( index ) {
+      jQuery('#stage-set-list ul li .set-cover').each(function( index ) {
         
-        var ajaxUrl = jQuery(this).attr('href');
+        var ajaxUrl = jQuery(this).siblings('a').attr('href');
         
         jQuery(this).bind('click', function(){
           
-          var nid = jQuery(this).attr('id').substring(5);
+          var nid = jQuery(this).siblings('a').attr('id').substring(5);
           var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid;
           var ajaxContent;
 
@@ -143,8 +143,8 @@
     });*/
   }
 
-  if (jQuery(".view-community-users a.community-user-profile").length !== 0) {
-    jQuery(".view-community-users a.community-user-profile").live('click', function() {
+  if (jQuery(".region-community a.community-user-profile").length !== 0) {
+    jQuery(".region-community a.community-user-profile").live('click', function() {
       jQuery.ajax({
         url: this.href,
         type : 'GET',
@@ -169,7 +169,7 @@
   }
   if (jQuery("a.set-to-destination").length !== 0) {
     jQuery("a.set-to-destination").bind('click', function() {
-      jQuery("#stage-set-view").html('<div class="set-video-content"><div id="yt">You need Flash player 8+ and JavaScript enabled to view this video.</div></div><div id="back-dashboard">Back to Dashboard</div>');
+      jQuery("#stage-set-view").html('<div class="set-type-icon set-video-type-icon">Tour Guide</div><div class="set-video-content"><div id="yt">You need Flash player 8+ and JavaScript enabled to view this video.</div></div><div id="back-dashboard">Back to Dashboard</div>');
       videoid = this.getAttribute('videoid');
       setTimeout(function() {loadVideo(videoid);}, 100);
       jQuery("#back-dashboard").bind("click", function(){
