@@ -409,7 +409,8 @@ div.modal-forms-modal-content .item-list ul li a{
 div.modal-forms-modal-content .item-list ul li a.active{
 	padding-top:17px;
 	background:#fff;
-	color:#000102;
+/*	color:#000102; */
+	color:rgb(96, 205, 155);
 	margin-top:-7px;
 }
 div.modal-forms-modal-content .modal-header{
@@ -433,6 +434,7 @@ div.modal-forms-modal-content .modal-header{
 #modal-content .form-item .form-item{
 	padding:6px 0;
 }
+
 #modal-content .form-item input[type="text"],
 #modal-content .form-item input[type="password"]{
 	height:34px;
@@ -470,10 +472,16 @@ div.modal-forms-modal-content .modal-header{
 #modal-content #user-register-form  div.password-confirm{
 	display:none;
 }
+
 #modal-content #user-register-form .form-item{
 	width:38%;
 	float:left;
 }
+
+#modal-content #user-register-form .login-regisiter-newpassword-wrapper .form-item {
+  width: 100%;
+}
+
 #modal-content #user-register-form .form-item.form-item-fte-assign-user-role,
 #modal-content #user-register-form #edit-field-profile-picture{
 	float:left;
@@ -501,6 +509,14 @@ div.modal-forms-modal-content .modal-header{
 #modal-content #user-register-form .form-item.form-type-password-confirm{
 	width:90%;
 }
+
+#modal-content .login-regisiter-newpassword-wrapper .form-item {
+  padding: 0px;
+}
+#modal-content #user-register-form .login-regisiter-newpassword-wrapper .form-type-password-confirm.form-item .form-item {
+  width: 48%;
+  padding: 0;
+}
 #modal-content #user-register-form .form-type-password-confirm.form-item .form-item{
 	float:left;
 	
@@ -508,6 +524,11 @@ div.modal-forms-modal-content .modal-header{
 	width:47%;
 	padding:0 3% 0 0;
 }
+
+#modal-content #user-register-form .login-regisiter-newpassword-wrapper .form-type-password-confirm.form-item .form-item.confirm-parent {
+  padding: 0;
+}
+
 #modal-content #user-register-form .form-type-password-confirm.form-item .form-item.confirm-parent{
 	padding:0 0 0 3%;
 	padding-right:0;
@@ -551,20 +572,25 @@ div.ctools-modal-content .form-item .description{
 	border-top:8px solid rgba(255,255,255,1);
 	color:#60cd9b;
 }
+
 .box-register,
 .box-login,
 .box-newpassword{
-	background:#fff;
+/*	background:#fff; */
 	padding:25px 25px 10px;
-/*  display:none; */
+  display: block;
+  background-color: transparent;
 }
 .box-register.tab-active,
 .box-login.tab-active,
 .box-newpassword.tab-active{
 	display:block;
 }
-.login-regisiter-newpassword-wrapper input[type="text"],
-.login-regisiter-newpassword-wrapper input[type="password"]{
+
+/* #modal-content #user-register-form .form-type-password-confirm.form-item .form-item input */
+
+#modal-content .login-regisiter-newpassword-wrapper input[type="text"],
+#modal-content #user-register-form .login-regisiter-newpassword-wrapper .form-item input[type="password"]{
 	height:34px;
 	padding:0 2%;
 	border:1px solid #e6e9ea;
@@ -1220,3 +1246,7 @@ div.ctools-modal-content .form-item .description{
 	min-height:40px;
 	box-shadow: 3px 3px 3px rgba(50, 50, 50, 0.17);
 }
+
+/*.modal-scroll {
+  background-color: white;
+}*/
