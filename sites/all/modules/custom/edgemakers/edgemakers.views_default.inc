@@ -73,6 +73,7 @@ function edgemakers_views_default_views() {
   $handler->display->display_options['fields']['picture']['alter']['path'] = 'edgemakers/user/profile/ajax/[uid]';
   $handler->display->display_options['fields']['picture']['alter']['link_class'] = 'community-user-profile';
   $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['picture']['link_photo_to_profile'] = FALSE;
   $handler->display->display_options['fields']['picture']['image_style'] = 'edgemakers_avatar';
   /* Sort criterion: User: Created date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';

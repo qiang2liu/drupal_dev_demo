@@ -153,18 +153,20 @@ function edgemakers_set_comment_validate($form, &$form_state) {
     else if($term == 'video with comments')
       form_set_error('', t('Sorry, you have to !login to comment.', array('!login'=>l('login', 'user/login'))));
   } else {
-    global $user;
-    $query = db_query_range('SELECT cid FROM {comment} WHERE nid = :nid AND uid = :uid AND status = :status', 0, 1, array(
-      ':nid' => $node->nid,
-      ':uid' => $user->uid,
-      ':status' => COMMENT_PUBLISHED,
-    ));
-    $cid = $query->fetchField();
-    if($cid)
-      if($term == 'video with q&a')
-        form_set_error('', t('Sorry, you have already answered the question.'));
-      else if($term == 'video with comments')
-        form_set_error('', t('Sorry, you have already commented.'));
+    if($term == 'video with q&a') {
+      global $user;
+      $query = db_query_range('SELECT cid FROM {comment} WHERE nid = :nid AND uid = :uid AND status = :status', 0, 1, array(
+        ':nid' => $node->nid,
+        ':uid' => $user->uid,
+        ':status' => COMMENT_PUBLISHED,
+      ));
+      $cid = $query->fetchField();
+      if($cid)
+        if($term == 'video with q&a')
+          form_set_error('', t('Sorry, you have already answered the question.'));
+        else if($term == 'video with comments')
+          form_set_error('', t('Sorry, you have already commented.'));
+    }
   }
 }
 function edgemakers_set_comment_form_callback($form, &$form_state) {
@@ -325,8 +327,16 @@ function theme_set_item($variables) {
   $item = $variables['item'];
   $output = '';
   if (isset($item->nid)) {
-    $type = strtolower($item->term->name);
-    $className = array(str_replace(' ', '_', $type).'');
+    $type = $item->term->name;
+    $className = strtolower(str_replace(array(' ', '&'), array('_', ''), $type).'');
+    $title = $item->title;
+    $cover = '<div class="set-cover">
+      <h5>'.$title.'</h5>
+      <p class="'.$className.'">'.$type.'</p>
+    </div>';
+    
+    $type = strtolower($type);
+    $className = array($className);
     $set_image = '';
     $link = 'node/'.$item->nid;
     switch ($type) {
@@ -339,7 +349,7 @@ function theme_set_item($variables) {
         if($set_image) {
           $output .= l($set_image, $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         } else {
-          $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+          $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         }
         break;
       case 'idea':
@@ -353,7 +363,7 @@ function theme_set_item($variables) {
           if($defaultThumbs[$type]) {
             $output .= l($defaultThumbs[$type], $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
           } else {
-            $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+            $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
           }
         } else {
           $urls = field_get_items('node', $item, 'field_set_url');
@@ -365,7 +375,7 @@ function theme_set_item($variables) {
             $link = 'mural/create/'.$templateid;
           }
           //need further info to develop
-          $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+          $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         } 
         break;
       case 'text':
@@ -379,7 +389,7 @@ function theme_set_item($variables) {
         if($thumbnail) {
           $output .= l($thumbnail, $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         } else {
-          $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+          $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         }
         break;
       case 'topic page':
@@ -396,7 +406,7 @@ function theme_set_item($variables) {
         if($thumbnail) {
           $output .= l($thumbnail, $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         } else {
-          $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+          $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         }
         break;
       case 'inspiration':
@@ -422,7 +432,7 @@ function theme_set_item($variables) {
         if($thumbnail) {
           $output .= l($thumbnail, $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         } else {
-          $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+          $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         }
         break;
       case 'survey & assessment':
@@ -439,13 +449,14 @@ function theme_set_item($variables) {
         if($thumbnail) {
           $output .= l($thumbnail, $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         } else {
-          $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+          $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         }
         break;
       default:
-        $output .= l($item->title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+        $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         break;
     }
+    $output .= $cover;
   }
   return $output;
 }

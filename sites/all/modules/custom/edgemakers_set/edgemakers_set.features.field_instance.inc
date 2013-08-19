@@ -357,6 +357,53 @@ function edgemakers_set_field_default_field_instances() {
       'weight' => 1,
     ),
   );
+  
+  // Exported field_instance: 'node-edgemakers_set-field_teacher_notes'
+  $field_instances['node-edgemakers_set-field_teacher_notes'] = array(
+    'bundle' => 'edgemakers_set',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 9,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_teacher_notes',
+    'label' => 'Teacher\'s Notes',
+    'required' => 0,
+    'settings' => array(
+      'mediafront' => array(
+        'custom' => '',
+        'field_type' => 0,
+        'media_type' => 'media',
+        'preview' => 0,
+        'thumbnail' => 0,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 9,
+    ),
+  );
 
   // Translatables
   // Included for use with string extractors like potx.
@@ -368,5 +415,6 @@ function edgemakers_set_field_default_field_instances() {
   t('Set URL');
   t('Survey & Assessment');
   t('Topic');
+  t('Teacher\'s Notes');
   return $field_instances;
 }
