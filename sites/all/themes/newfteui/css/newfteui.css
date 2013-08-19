@@ -177,6 +177,43 @@ ul:after,
 	float:left;
 	width:578px;
 }
+.allusers #block-views-community-users-block .view-content{
+	padding:40px 10px;
+}
+.allusers #block-views-community-users-block ul.pager{
+	margin:0 0 0 92px;
+	background:#98813f;
+	border-radius:5px;
+	text-align:right;
+	padding:5px 15px;
+	position:relative;
+	top:-30px;
+}
+.allusers #block-views-community-users-block ul.pager li{
+	display:inline-block;
+	line-height:18px;
+	width:18px;
+	height:18px;
+	text-align:center;
+	background:#c8a250;
+	padding:0;
+}
+.allusers #block-views-community-users-block ul.pager li:hover{
+	background:#fff;
+}
+.allusers #block-views-community-users-block ul.pager li:hover a{
+	color:#949494;
+	text-decoration:none;
+}
+.allusers #block-views-community-users-block ul.pager li.pager-current{
+	background:#fff;
+	color:#949494
+}
+.allusers #block-views-community-users-block ul.pager li a{
+	display:block;
+	color:#fff;
+	
+}
 #block-views-community-users-block{
 	margin-bottom:1em;
 }
