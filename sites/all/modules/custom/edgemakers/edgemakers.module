@@ -38,9 +38,7 @@ function edgemakers_menu() {
 function edgemakers_views_post_render(&$view, &$output, &$cache) {
   if ($view->name == 'community_users') {
     $output = str_replace('viewallusers', 'javascript:viewallusers();', $output);
-    /*if(substr($output, 0, 1) != '<') {
-      $output = str_replace('View All', 'View Less', $output);
-    }*/
+    $output .= "<script>setTimeout(viewallChange, 1);</script>";
   }
 }
 /**
