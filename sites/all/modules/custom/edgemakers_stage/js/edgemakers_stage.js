@@ -144,7 +144,7 @@
   }
 
   if (jQuery(".view-community-users a.community-user-profile").length !== 0) {
-    jQuery(".view-community-users a.community-user-profile").bind('click', function() {
+    jQuery(".view-community-users a.community-user-profile").live('click', function() {
       jQuery.ajax({
         url: this.href,
         type : 'GET',
