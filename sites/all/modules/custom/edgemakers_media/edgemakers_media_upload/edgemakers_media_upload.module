@@ -167,7 +167,7 @@ function _media_upload_submit($form, &$form_state) {
 
 function _customReloadMediaList() {
 	return array(
-    'command' => 'media_list_reload',
+    'command' => 'mediaListAjaxload',
   );
 }
 
@@ -208,10 +208,13 @@ function edgemakers_media_upload_ajax_submit($form, &$form_state) {
 
   ctools_add_js('ajax-responder');
   $commands[] = ctools_modal_command_dismiss();
+
+  ctools_add_js('mediaListAjaxload', 'edgemakers_media_upload');
+  $commands[] = _customReloadMediaList();
   //$commands[] = ajax_command_html("#my-media-list", $items . '<script>media_list_reload()</script>');
   //$commands[] = ajax_render('media_list_reload()');
 
-  //ctools_add_js('ctools-ajax-upload-media', 'edgemakers_media_upload');
+  ctools_add_js('ctools-ajax-upload-media', 'edgemakers_media_upload');
 
   //$commands[] = _customReloadMediaList();
 
@@ -300,8 +303,8 @@ function edgemakers_media_upload_block_view($delta = '') {
         'ctools-sample-style' => array(
           'modalSize' => array(
             'type' => 'fixed',
-            'width' => 500,
-            'height' => 320,
+            'width' => 600,
+            'height' => 420,
             'addWidth' => 20,
             'addHeight' => 15,
           ),
@@ -600,7 +603,8 @@ function _youtube_validId($id) {
   $response = curl_http_request($url, array('method' => 'HEAD'));
   //drupal_set_message('<pre>' . print_r($response, TRUE) . '</pre>');
   if ($response->code == 401) {
-    return "Embedding has been disabled for this video.";
+    return FALSE;
+//     return "Embedding has been disabled for this video.";
   }
   elseif ($response->code != 200) {
     return TRUE;
@@ -727,4 +731,43 @@ function edgemakers_media_ajax_callback($page_callback_result) {
 	print $page_callback_result;
 	// Perform end-of-request tasks.
 	drupal_page_footer();
+}
+
+
+
+/**
+ * Implements hook_theme().
+ */
+function edgemakers_media_upload_theme($existing, $type, $theme, $path) {
+
+
+  return array(
+    'media_for_upload_node_form' => array(
+      'render element' => 'form',
+      'template' => 'media-upload-node-form',
+      // this will set to module/theme path by default:
+      'path' => drupal_get_path('module', 'edgemakers_media_upload') . '/templates',
+    ),
+  );
+
+}
+
+/**
+ * Preprocessor for theme('article_node_form').
+ */
+function template_preprocess_media_for_upload_node_form(&$variables) {
+
+  // nodeformcols is an alternative for this solution.
+  if (!module_exists('nodeformcols')) {
+
+    $variables['sidebar'] = array();   // Put taxonomy fields in sidebar.
+
+    $variables['sidebar'][] = $variables['form']['field_tags'];
+    hide($variables['form']['field_tags']);
+
+    // Extract the form buttons, and put them in independent variable.
+    $variables['buttons'] = $variables['form']['actions'];
+    hide($variables['form']['actions']);
+  }
+
 }

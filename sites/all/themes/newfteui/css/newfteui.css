@@ -486,6 +486,91 @@ div.modal-forms-modal-content .modal-header{
 div.ctools-modal-content .form-item .description{
 	display:none;
 }
+
+/*new template of login*/
+.login-regisiter-newpassword-wrapper{
+	width:500px;
+	position:absolute;
+	top:90px;
+	color:#3f4b56;
+	display:none;
+}
+.lrn-tab li{
+	float:left;
+	color:#fff;
+	background:#60cd9b;
+	padding:10px 20px;
+	cursor:pointer;
+	font-size:16px;
+	font-style:italic;
+	text-align:center;
+	border-top:8px solid rgba(255,255,255,0);
+	margin-right:2px;
+	-webkit-background-clip: padding-box; /* for Safari */
+    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+}
+.lrn-tab li.active{
+	background:#fff;
+	border-top:8px solid rgba(255,255,255,1);
+	color:#60cd9b;
+}
+.box-register,
+.box-login,
+.box-newpassword{
+	background:#fff;
+	padding:25px 25px 10px;
+	display:none;
+}
+.box-register.tab-active,
+.box-login.tab-active,
+.box-newpassword.tab-active{
+	display:block;
+}
+.login-regisiter-newpassword-wrapper input[type="text"],
+.login-regisiter-newpassword-wrapper input[type="password"]{
+	height:34px;
+	padding:0 2%;
+	border:1px solid #e6e9ea;
+	box-shadow: 0 2px 3px #eee inset; 
+	color:#7b8a97;
+	width:180px;
+	
+}
+.login-regisiter-newpassword-wrapper input[type="radio"]{
+	position:relative;
+	top:3px;
+}
+.login-regisiter-newpassword-wrapper .submit{
+	text-align:right;
+	padding-top:15px;
+}
+.login-regisiter-newpassword-wrapper .submit button{
+	background: url(../images/newui_ico_actionarrow.png) right center no-repeat #60cd9b;
+	padding:6px 30px 6px 15px;
+	border:none;
+	color:#fff;
+}
+.box-register table{
+	width:450px;
+}
+.box-register td{
+	width:50%;
+	padding:2%;
+}
+.box-register dt{
+	padding-bottom:5px;
+}
+.box-register dd{
+	padding-left:5px;
+	color:#7b8a97
+}
+
+.box-login input:first-child{
+	margin-right:4%;
+}
+.box-newpassword .items{
+	text-align:center;
+}
 /* toolbar */
 .toolbar-stage{
 	position:absolute;

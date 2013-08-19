@@ -24,18 +24,66 @@
   z-index: 1001;
   height: 600px;
 }*/
+ul#mural-region-nav {
+  padding: 5px 0;
+  height: 26px;
+  overflow: hidden;
+}
 
 ul#mural-region-nav li {
   display: inline;
   float: right;
   right: 20px;
-  padding: 20px;
+  margin: 0 1px;
+  background-color: #67b0d1;
+  padding: 4px 3px 3px 5px;
+  height: 21px;
+  text-align: center;
 }
 
 .close-mural-dialog {
-  line-height: 40px; 
+  line-height: 36px; 
   background-color: gray; 
-  display: block; 
+  float: left; 
   cursor: pointer; 
   padding: 0px 15px;
+}
+
+#mural-top-bar {
+  height: 36px;
+  overflow: hidden;
+  position: relative;
+  background-color: #2d6ca9;
+  padding: 0;
+  margin: 0;
+}
+
+#mural-top-bar #mural-title {
+  position: absolute;
+  left: 50%;
+  line-height: 36px;
+  font-size: 18px;
+  color: white;
+}
+
+#mural-region-bottom {
+  height: 45px;
+  overflow: hidden;
+  line-height: 45px;
+}
+
+a.mural-nav-link {  
+  color: white;
+  padding: 1px 12px;
+  display: block;
+  line-height: 26px;
+  background-color: #e87352;
+}
+
+ul#mural-region-nav li.mural-nav-link-delete {
+  padding: 0px;
+}
+
+ul#mural-region-nav li.mural-nav-link-duplicate {
+  padding: 4px 8px 3px 8px;
 }
