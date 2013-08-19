@@ -169,7 +169,7 @@
   }
   if (jQuery("a.set-to-destination").length !== 0) {
     jQuery("a.set-to-destination").bind('click', function() {
-      jQuery("#stage-set-view").html('<div class="set-video-content"><div id="yt">You need Flash player 8+ and JavaScript enabled to view this video.</div></div><div id="back-dashboard">Back to Dashboard</div>');
+      jQuery("#stage-set-view").html('<div class="set-type-icon set-video-type-icon">Tour Guide</div><div class="set-video-content"><div id="yt">You need Flash player 8+ and JavaScript enabled to view this video.</div></div><div id="back-dashboard">Back to Dashboard</div>');
       videoid = this.getAttribute('videoid');
       setTimeout(function() {loadVideo(videoid);}, 100);
       jQuery("#back-dashboard").bind("click", function(){
