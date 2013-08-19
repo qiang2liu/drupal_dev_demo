@@ -207,5 +207,5 @@ function viewallusers() {
     jQuery('.region-community').addClass('allusers');
     //jQuery('.region-community a.viewall')[0].innerHTML = 'View Less';
   }
-  return false;
+  
 }
