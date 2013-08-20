@@ -11,7 +11,7 @@ function themuraly_menu() {
   );
   $items['mural/share/%'] = array(
     'page callback' => 'muralshow_share',
-    'page arguments' => array(2),
+    'page arguments' => array(2, 3),
     'access callback' => 'user_is_logged_in',
     'type' => MENU_CALLBACK,
     'file' => 'mural_op.inc',
@@ -399,6 +399,10 @@ function muralapi_create_room($mural_api, $muralusername, $title, $account) {
 
 function muralapi_test() {
   $output_html = '';
+
+  include_once('mural_op.inc');
+  muralshow_share('admin1', '1376997022220');
+
 //   _test_mural_list_for_a_user();
   //_test_user_add();
   //_test_create_room();

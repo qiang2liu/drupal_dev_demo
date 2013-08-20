@@ -96,26 +96,63 @@ function get_murals_detail(&$murals) {
   }
 }
 
-function muralshow_share($nid) {
+// function muralshow_share($nid) {
+function muralshow_share($owerid = '', $mid = '') {
 
   global $user;
-  $the_node = node_load($nid);
-  $muralid_obj = field_get_items('node', $the_node, 'field_muralid');
-  $muralowner_obj = field_get_items('node', $the_node, 'field_muraluser');
-  $mid = 0;
-  $node_uid = 0;
-  if (isset($the_node->uid)) {
-    $node_uid = $the_node->uid;
+
+  // Get node info by mid and owerid
+
+  $nodeQuery = new EntityFieldQuery;
+// $result = $query
+//   ->entityCondition('entity_type', 'node')
+//   ->propertyCondition('type', $node_type)
+//   ->propertyCondition('title', $title)
+//   ->execute();
+
+// // $result['node'] contains a list of nids where the title matches
+// if (!empty($result['node']) {
+//   // You could use node_load_multiple() instead of entity_load() for nodes
+//   $nodes = entity_load('node', $result['node']);
+// }
+
+  $entities = $nodeQuery->entityCondition('entity_type', 'node')
+  ->entityCondition('bundle', 'murals')
+  ->fieldCondition('field_muralid','value', $mid, '=')
+  ->fieldCondition('field_muraluser','value', $owerid, '=')
+  ->execute();
+
+//   print('<pre>' . print_r($entities, TRUE) . '</pre>');
+//   print("owerid = $owerid, mural id: $mid");
+
+
+  if (!empty($entities['node'])) {
+    foreach ($entities['node'] AS $node_en) {
+      $the_node = node_load($node_en->nid);
+    }
+//     $the_node = entity_load('node', $entities['node']);
+//     dpm($the_node);
   }
 
-  if (!empty($muralid_obj[0]['value'])) {
-    $the_muralid = $muralid_obj[0]['value'];
-    $mid = $the_muralid;
-  }
-  if (!empty($muralowner_obj[0]['value'])) {
-    $the_muralowner = $muralowner_obj[0]['value'];
-  }
-  if (!empty($the_muralid) && !empty($the_muralowner)) {
+
+//   $the_node = node_load($nid);
+//   $muralid_obj = field_get_items('node', $the_node, 'field_muralid');
+//   $muralowner_obj = field_get_items('node', $the_node, 'field_muraluser');
+//   $mid = 0;
+//   $node_uid = 0;
+
+//   if (isset($the_node->uid)) {
+//     $node_uid = $the_node->uid;
+//   }
+
+//   if (!empty($muralid_obj[0]['value'])) {
+//     $the_muralid = $muralid_obj[0]['value'];
+//     $mid = $the_muralid;
+//   }
+//   if (!empty($muralowner_obj[0]['value'])) {
+//     $the_muralowner = $muralowner_obj[0]['value'];
+//   }
+//   if (!empty($the_muralid) && !empty($the_muralowner)) {
 
     $account = user_load($user->uid);
     if (!empty($account->field_muralusername)) {
@@ -129,11 +166,14 @@ function muralshow_share($nid) {
     if ($user->uid > 0 && !empty($muraluser_invite)) {
 
       $mural_api = new Muralapi;
-      $result = $mural_api->invite_user_mural($the_muralowner, $the_muralid, array($muraluser_invite));
+      $result = $mural_api->invite_user_mural($owerid, $mid, array($muraluser_invite));
+//       dpm($result);
+//       $result = $mural_api->invite_user_mural($the_muralowner, $the_muralid, array($muraluser_invite));
     }
-  }
+//   }
 
-  return muralshow($nid, $mid, $node_uid);
+//   return muralshow($nid, $mid, $node_uid);
+  return muralshow($the_node->nid, $mid, $the_node->uid);
 
 }
 
