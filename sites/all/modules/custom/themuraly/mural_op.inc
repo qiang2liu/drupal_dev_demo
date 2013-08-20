@@ -135,6 +135,9 @@ function muralshow_share($owerid = '', $mid = '') {
   }
 
 
+  $username = $owerid;
+  $muralid = $mid;
+
 //   $the_node = node_load($nid);
 //   $muralid_obj = field_get_items('node', $the_node, 'field_muralid');
 //   $muralowner_obj = field_get_items('node', $the_node, 'field_muraluser');
@@ -166,8 +169,22 @@ function muralshow_share($owerid = '', $mid = '') {
     if ($user->uid > 0 && !empty($muraluser_invite)) {
 
       $mural_api = new Muralapi;
+
+      $property_name = "shared";
+      $property_value = (bool) 1;
+      $result = $mural_api->update_mural_properties($username, $muralid, $property_name, $property_value);
+      $data = $result->data;
+
       $result = $mural_api->invite_user_mural($owerid, $mid, array($muraluser_invite));
       dpm($result);
+
+//       $property_name = "shared";
+//       $property_value = (bool) 1;
+//       $result = $mural_api->update_mural_properties($username, $muralid, $property_name, $property_value);
+//       $data = $result->data;
+
+      dpm($result);
+
 //       $result = $mural_api->invite_user_mural($the_muralowner, $the_muralid, array($muraluser_invite));
     }
 //   }
@@ -176,6 +193,7 @@ function muralshow_share($owerid = '', $mid = '') {
   return muralshow($the_node->nid, $mid, $the_node->uid);
 
 }
+
 
 function muralshow($nid, $mid = 0, $uid = 0) {
 
