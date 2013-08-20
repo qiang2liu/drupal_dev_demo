@@ -212,7 +212,7 @@ function muralshow($nid, $mid = 0, $uid = 0) {
     $the_node_uid = $the_node->uid;
   }
 
-  dmp($nid);
+  dpm($nid);
 
   ctools_include('modal');
   ctools_include('ajax');
