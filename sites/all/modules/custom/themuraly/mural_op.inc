@@ -167,7 +167,7 @@ function muralshow_share($owerid = '', $mid = '') {
 
       $mural_api = new Muralapi;
       $result = $mural_api->invite_user_mural($owerid, $mid, array($muraluser_invite));
-//       dpm($result);
+      dpm($result);
 //       $result = $mural_api->invite_user_mural($the_muralowner, $the_muralid, array($muraluser_invite));
     }
 //   }
