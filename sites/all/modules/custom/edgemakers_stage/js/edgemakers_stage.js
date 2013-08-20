@@ -120,7 +120,8 @@
   function teacherNotes(notes) {
   	
     if(notes) {
-      jQuery('.teacher-notes').show().html(notes);
+      jQuery('.teacher-notes').show();
+      jQuery('.teacher-notes-cont').html(notes);
       jQuery(".teacher-notes .indicator").bind('click', function() {
       	jQuery(this).parent().toggleClass('active');
       	var h = jQuery('.teacher-notes-cont').height();
