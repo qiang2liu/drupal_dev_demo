@@ -96,7 +96,9 @@
         
         jQuery(this).bind('click', function(){
           var nid = jQuery(this).siblings('a').attr('id').substring(5);
-          showSetOnDestion(nid);
+
+          showSetOnDestion(nid, stage_id);
+
           return false;
         });
         
@@ -191,7 +193,8 @@ function viewallusers() {
 
 function showSetOnDestion(nid) {
 
-  var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid;
+  //var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid;
+  var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid + '/' + stage_id;
   var ajaxContent;
   
   var prevId = jQuery('[current="'+nid+'"]').attr("prev");
