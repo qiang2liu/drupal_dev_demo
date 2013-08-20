@@ -586,7 +586,7 @@ function edgemakers_content_types_field_default_field_instances() {
         'preview' => 0,
         'thumbnail' => 0,
       ),
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1557,7 +1557,7 @@ function edgemakers_content_types_field_default_field_instances() {
         'preview' => 0,
         'thumbnail' => 0,
       ),
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
