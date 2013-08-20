@@ -183,7 +183,7 @@ function muralshow_share($owerid = '', $mid = '') {
 //       $result = $mural_api->update_mural_properties($username, $muralid, $property_name, $property_value);
 //       $data = $result->data;
 
-      dpm($result);
+//       dpm($result);
 
 //       $result = $mural_api->invite_user_mural($the_muralowner, $the_muralid, array($muraluser_invite));
     }
@@ -234,7 +234,7 @@ function muralshow($nid, $mid = 0, $uid = 0) {
     $edit_url = '';
   }
 
-
+dpm($the_node);
 
   return theme("muralypage", array('data' => array('m_id' => $mid,
               'seturl' => $edit_url,
