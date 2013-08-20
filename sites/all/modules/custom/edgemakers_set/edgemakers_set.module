@@ -337,7 +337,7 @@ function theme_set_item($variables) {
       <h5>'.$title.'</h5>
       <p class="'.$className.'">'.$type.'</p>
     </div>';
-    
+
     $type = strtolower($type);
     $className = array($className);
     $set_image = '';
@@ -377,7 +377,8 @@ function theme_set_item($variables) {
           if($info) {
             list(, $muralid) = explode('.', $info['id']);
             if($murallyType == 1) {
-              $ownerId = $info['ownerId'];
+//               $ownerId = $info['ownerId'];
+              $ownerId = $info['lastUpdatedBy'];
               $link = 'mural/share/'.$ownerId.'/'.$muralid;
             } else if($murallyType == 2) {
               $link = 'mural/create/'.$muralid;
@@ -388,7 +389,7 @@ function theme_set_item($variables) {
           } else {
             $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
           }
-        } 
+        }
         break;
       case 'text':
         $thumbnail = edgemakers_set_get_set_thumbnail($item);

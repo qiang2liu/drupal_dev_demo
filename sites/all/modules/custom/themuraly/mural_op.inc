@@ -131,7 +131,7 @@ function muralshow_share($owerid = '', $mid = '') {
       $the_node = node_load($node_en->nid);
     }
 //     $the_node = entity_load('node', $entities['node']);
-//     dpm($the_node);
+    dpm($the_node);
   }
 
 
