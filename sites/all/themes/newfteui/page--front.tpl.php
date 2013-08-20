@@ -6,7 +6,12 @@
   <div>
   	<iframe id="mural-iframe" border="0" scrolling="no" width="500" height="500" src=""></iframe>
   </div>
-  <div id="mural-region-bottom">bottom nav</div>
+  <div id="mural-region-bottom">
+    <div id="mural-set-nav" class="set-nav hidden">
+      <span id="node-1010" class="prev">Previous</span>
+      <span id="node-2020" class="next">Next</span>
+    </div>
+  </div>
 </div>
 
 <div class="community">
@@ -105,7 +110,7 @@
 </div>
 
 <!-- /main content -->
-<?php //print $messages; ?>
+<?php print $messages; ?>
 <div class="main-content">
   <?php print render($page['content']); ?>
 </div>

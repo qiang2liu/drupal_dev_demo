@@ -701,7 +701,7 @@ function themuraly_get_mural_info($mural_url = '') {
       $data = $mural_info->data;
       $r = drupal_json_decode($data);
 //       dpm($data);
-//       dpm($r);
+      dpm($r);
 
 //       drupal_set_message('Mural url: <pre>' . print_r($r, TRUE) . '</pre>');
 

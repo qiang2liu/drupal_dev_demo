@@ -27,6 +27,8 @@ function closeFromIframe()
 
 function showMuralDialog(source) {
   
+  jQuery("#mural-set-nav").hide();
+  
   var iframeHtml = "<iframe id=\"mural-iframe\" width=\"100%\" height=\"90%\" src=\"?q=" + source + "\"></iframe>";
   
   //jQuery("#mural-region").html("Mural display here by iframe " + source);

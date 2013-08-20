@@ -403,3 +403,18 @@ function newfteui_preprocess_rate_template_like(&$variables) {
   }
   $variables['like_button'] = theme('rate_button', array('text' => $results['count'], 'href' => $link, 'class' => 'rate-like-btn use-ajax rate-button-cid-'.$content_id));
 }
+
+/**
+ * Implements hook_theme() in theme.
+ */
+// function newfteui_theme($existing, $type, $theme, $path){
+//   $hooks['user_register_form']=array(
+//     'render element'=>'form',
+//     'template' =>'templates/user-register',
+//   );
+// return $hooks;
+// }
+
+// function newfteui_preprocess_user_register(&$variables) {
+//   $variables['form'] = drupal_build_form('user_register_form', user_register_form(array()));
+// }
