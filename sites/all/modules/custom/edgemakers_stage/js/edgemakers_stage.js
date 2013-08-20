@@ -62,15 +62,44 @@
     //jQuery('#stage-set-list').html("Loading......");
     
     //Set destination nav.
-    jQuery("#set-nav .next").bind("click", function(){
-      var nid = jQuery(this).attr('id').substring(5);
-      showSetOnDestion(nid);
+    jQuery(".set-nav .next").bind("click", function(){
+      var nid = jQuery(this).attr("id").substring(5);
+      var setType = jQuery(this).attr("settype");
+      
+      if (setType == "idea") {
+        var source = jQuery('[current="'+nid+'"] a').attr("href");
+//        alert("Mural opeaation on nav." + source);
+//      var source = jQuery(this).attr("href");
+        showMuralDialog(source);
+        jQuery("#mural-set-nav").show();
+        resetDestinationNav(nid);
+
+        jQuery("#set-view-region").hide();
+        jQuery("#stage-set-list").show();
+      }
+      else {
+        showSetOnDestion(nid, stage_id);
+      }
       return false;
     });
     
-    jQuery("#set-nav .prev").bind("click", function(){
-      var nid = jQuery(this).attr('id').substring(5);
-      showSetOnDestion(nid);
+    jQuery(".set-nav .prev").bind("click", function(){
+      var nid = jQuery(this).attr("id").substring(5);
+      var setType = jQuery(this).attr("settype");
+      
+      if (setType == "idea") {
+        var source = jQuery('[current="'+nid+'"] a').attr("href");
+//        alert("Mural opeaation on nav." + source);
+        showMuralDialog(source);
+        jQuery("#mural-set-nav").show();
+        resetDestinationNav(nid);
+
+        jQuery("#set-view-region").hide();
+        jQuery("#stage-set-list").show();
+      }
+      else {
+        showSetOnDestion(nid, stage_id);
+      }
       return false;
     });
     
@@ -98,10 +127,17 @@
         var ajaxUrl = jQuery(this).siblings('a').attr('href');
         
         jQuery(this).bind('click', function(){
+          
+          var setType = jQuery(this).siblings('a').attr("class");
+          console.log(setType);
+          
+          
           var nid = jQuery(this).siblings('a').attr('id').substring(5);
+          showSetOnDestion(nid, stage_id, setType);
 
-          showSetOnDestion(nid, stage_id);
           return false;
+          
+          
         });
         
       });
@@ -208,66 +244,90 @@ function viewallusers() {
 }
 
 
-function showSetOnDestion(nid, stage_id) {
+function resetDestinationNav(nid) {
+//Nav reset.
+  var prevId = jQuery('[current="'+nid+'"]').attr("prev");
+  var nextId = jQuery('[current="'+nid+'"]').attr("next");
+  var prevType = jQuery('[current="'+nid+'"]').attr("prevtype");
+  var nextType = jQuery('[current="'+nid+'"]').attr("nexttype");
+  jQuery(".set-nav .prev").attr("id", "node-" + prevId);
+  jQuery(".set-nav .prev").attr("settype", prevType);
+  jQuery(".set-nav .next").attr("id", "node-" + nextId);
+  jQuery(".set-nav .next").attr("settype", nextType);
+  // End nav.
+}
+
+function showSetOnDestion(nid, stage_id, setType) {
 
   //var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid;
   var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid + '/' + stage_id;
   var ajaxContent;
   
-  var prevId = jQuery('[current="'+nid+'"]').attr("prev");
-  var nextId = jQuery('[current="'+nid+'"]').attr("next");
-  
-  jQuery("#set-nav .prev").attr("id", "node-" + prevId);
-  jQuery("#set-nav .next").attr("id", "node-" + nextId);
+  closeFromIframe();
 
-  //openAjaxLoad("ajaxload");
+  resetDestinationNav(nid);
   
-  jQuery.ajax({
-    url: ajaxUrl,
-    type: "GET",
-    success: function(data) {
-      
-      jQuery("#stage-set-view").html(data);
-      
-      var setTitle = jQuery("#set-title").html();
 
-      jQuery(".s-s-title h3").html(setTitle);
-      
-      var setNotes = jQuery("#set-notes").html();
-      teacherNotes(setNotes);
-      
-      //jQuery("#set-view-region").slideToggle();
-      jQuery("#set-view-region").show();
-      jQuery("#stage-set-list").hide();
-      
-      //jQuery("#back-set-list").show();
-      jQuery("#set-nav").show();
-      //make small image bigger to reach the edge of the content!
-      /*if(jQuery('#stage-set-view .field-name-field-set-image .field-items img')){
+  if (setType == 'idea') {
+    var source = jQuery('[current="'+nid+'"] a').attr("href");
+//    alert('Mural operation.' + source);
+//    var source = jQuery(this).attr("href");
+    showMuralDialog(source);
+    jQuery("#mural-set-nav").show();
+
+    jQuery("#set-view-region").hide();
+    jQuery("#stage-set-list").show();
+  }
+  else {
+
+    //openAjaxLoad("ajaxload");
+    
+    jQuery.ajax({
+      url: ajaxUrl,
+      type: "GET",
+      success: function(data) {
         
-        var ratio = (jQuery('.main-content').width()*0.96)/jQuery('#stage-set-view .field-name-field-set-image .field-items img').width();
+        jQuery("#stage-set-view").html(data);
         
-        if(ratio>1){
-          var w = jQuery('#stage-set-view .field-name-field-set-image .field-items img').width();
-          var h = jQuery('#stage-set-view .field-name-field-set-image .field-items img').height();
-          jQuery('#stage-set-view .field-name-field-set-image .field-items img').css({
-            'width' : w * ratio + 'px',
-            'height' : h * ratio + 'px'
-          })
-        }
-      }*/
-      
-      /*jQuery('#set-view-region').css({
-        'width' : jQuery(window).width()-400 + 'px'
-      })*/
-      //closeAjaxLoad("ajaxload");
-    },
-    error :function(){
-      jQuery("#stage-set-view").html("Load set data error.");
-      //closeAjaxLoad("ajaxload");
-      return false;
-    }
-  });
+        var setTitle = jQuery("#set-title").html();
   
+        jQuery(".s-s-title h3").html(setTitle);
+        
+        var setNotes = jQuery("#set-notes").html();
+        teacherNotes(setNotes);
+        
+        //jQuery("#set-view-region").slideToggle();
+        jQuery("#set-view-region").show();
+        jQuery("#stage-set-list").hide();
+        
+        //jQuery("#back-set-list").show();
+        jQuery("#set-nav").show();
+        //make small image bigger to reach the edge of the content!
+        /*if(jQuery('#stage-set-view .field-name-field-set-image .field-items img')){
+          
+          var ratio = (jQuery('.main-content').width()*0.96)/jQuery('#stage-set-view .field-name-field-set-image .field-items img').width();
+          
+          if(ratio>1){
+            var w = jQuery('#stage-set-view .field-name-field-set-image .field-items img').width();
+            var h = jQuery('#stage-set-view .field-name-field-set-image .field-items img').height();
+            jQuery('#stage-set-view .field-name-field-set-image .field-items img').css({
+              'width' : w * ratio + 'px',
+              'height' : h * ratio + 'px'
+            })
+          }
+        }*/
+        
+        /*jQuery('#set-view-region').css({
+          'width' : jQuery(window).width()-400 + 'px'
+        })*/
+        //closeAjaxLoad("ajaxload");
+      },
+      error :function(){
+        jQuery("#stage-set-view").html("Load set data error.");
+        //closeAjaxLoad("ajaxload");
+        return false;
+      }
+    });
+  }
 
 }

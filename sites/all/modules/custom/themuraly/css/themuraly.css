@@ -4,6 +4,9 @@
   padding: 0px;
   margin: 0px 1px 1px 0px;
   overflow: hidden;
+  background-color: #2d6ca9;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 .position-relative {
@@ -69,7 +72,7 @@ ul#mural-region-nav li {
 #mural-region-bottom {
   height: 45px;
   overflow: hidden;
-  line-height: 45px;
+/*  line-height: 45px; */
 }
 
 a.mural-nav-link {  
