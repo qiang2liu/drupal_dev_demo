@@ -224,8 +224,8 @@ function edgemakers_set_like($cid) {
 }
 function _edgemakers_set_get_terms() {
   $terms = array();
-  $vid = variable_get('set_vid');
-  $oterms = taxonomy_get_tree($vid);
+  $vocabulary = taxonomy_vocabulary_machine_name_load('set_types');
+  $oterms = taxonomy_get_tree($vocabulary->vid);
   foreach($oterms as $term) {
     $terms[$term->tid] = $term->name;
   }

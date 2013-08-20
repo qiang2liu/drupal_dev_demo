@@ -22,7 +22,6 @@ function edgemakers_set_install() {
 		$edit = (object)array('vid'=>$vid, 'name'=>$term, 'weight'=>$i);
 		taxonomy_term_save($edit);
 	};
-	variable_set('set_vid', $vid);
 	//node creation
   $types = node_type_get_types();
   if(array_key_exists($nodetype, $types)) {
@@ -57,9 +56,8 @@ function edgemakers_set_install() {
  */
 function edgemakers_set_uninstall() {
   //deal with vocabulary
-	$vid = variable_get('set_vid');
-	taxonomy_vocabulary_delete($vid);
-	variable_del('set_vid');
+  $vocabulary = taxonomy_vocabulary_machine_name_load('set_types');
+  taxonomy_vocabulary_delete($vocabulary->vid);
   // Gather all the example content that might have been created while this
   // module was enabled.
   $sql = 'SELECT nid FROM {node} n WHERE n.type = :type';
