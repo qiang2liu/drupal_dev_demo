@@ -98,9 +98,9 @@
   <!--<?php print render($page['tool_bar']); ?>-->
 </div>
 
-<div class="teacher-notes" style="display:none">
-  <div class="indicator"><span></span></div>
+<div class="teacher-notes">
   <div class="teacher-notes-header">My teacher notes</div>
+  <div class="indicator"><span></span></div>
   <div class="teacher-notes-cont"></div>
 </div>
 
