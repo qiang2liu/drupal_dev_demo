@@ -707,7 +707,7 @@ function themuraly_get_mural_info($mural_url = '') {
 
 // //       dpm($mural_info);
 //      //drupal_set_message('<pre>' . $mural_info . '</pre>');
-     return $mural_info;
+     return $r;
 
    }
 
