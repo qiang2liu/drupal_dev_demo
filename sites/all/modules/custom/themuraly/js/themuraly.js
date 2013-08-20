@@ -33,16 +33,23 @@ function showMuralDialog(source) {
   
   //jQuery("#mural-region").html("Mural display here by iframe " + source);
   jQuery("#mural-iframe").attr("src", source);
-  jQuery("#mural-iframe").attr("width", jQuery(window).width());
-  jQuery("#mural-iframe").attr("height", jQuery(document).height() + 30);
+  function setMuralWidth(){
+  	jQuery("#mural-iframe").attr("width", jQuery(window).width());
+    jQuery("#mural-iframe").attr("height", jQuery(window).height() + 30);
+  }
+  setMuralWidth();
+  jQuery(window).resize(function(){
+  	setMuralWidth();
+  })
   
   jQuery( "#mural-region" ).dialog({
     resizable: false,
     modal: true,
     position: ["left", "top"],
     width: "100%",
-    height: jQuery(document).height() + 120,
-    zIndex: 1000,
+    height: jQuery(window).height() + 120,
+    zIndex: 1000
+    
     /*buttons: {
       Ok: function() {
         jQuery(this).dialog( "close" );

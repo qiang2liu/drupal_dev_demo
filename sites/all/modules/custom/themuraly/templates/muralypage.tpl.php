@@ -69,5 +69,5 @@ body {
 <script>
   //jQuery("#mural-ly-iframe").attr("src", source);
   jQuery("#mural-ly-iframe").attr("width", jQuery(window).width());
-  jQuery("#mural-ly-iframe").attr("height", jQuery(document).height() - 40);
+  jQuery("#mural-ly-iframe").attr("height", jQuery(window).height() - 40);
 </script>
