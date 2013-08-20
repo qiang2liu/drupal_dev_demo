@@ -10,7 +10,7 @@ function edgemakers_stage_api_list_json() {
   $type = variable_get('edgemakers_stage_content_type', 'stage');
   $nodes = node_load_multiple(array(), array('type' => $type));
   foreach($nodes AS $node) {
-    $set_html = edgemakers_stage_api_set_list_html($node->nid);
+    //$set_html = edgemakers_stage_api_set_list_html($node->nid);
     $node->defualt_image = theme('image', array('path'=>drupal_get_path('module', 'edgemakers_stage') . '/images/stageDefault.png'));
   	$json[] = $node;
   }
@@ -40,6 +40,13 @@ function edgemakers_stage_api_set_list_html($stage_id) {
   if ($stage_id) {
     $stage = node_load($stage_id);
     $html .= '<div id="stage-title" style="display: none;"><h2>' . $stage->title . '</h2></div>';
+    if(user_access('view teacher notes')) {
+      $notes = $stage->field_teacher_notes[LANGUAGE_NONE];
+      $note = $notes && count($notes>0) ? $notes[0]['value'] : '';
+    } else {
+      $note = '';
+    }
+    $html .= '<div id="stage-notes" style="display: none;">' . $note . '</div>';
 
     if (isset($stage->box_index_data[LANGUAGE_NONE])) {
 
@@ -166,6 +173,13 @@ function edgemakers_stage_api_set_view_html($set_id = '') {
     }
     $term = $node->term->name;
 
+    if(user_access('view teacher notes')) {
+      $notes = $node->field_teacher_notes[LANGUAGE_NONE];
+      $note = $notes && count($notes>0) ? $notes[0]['value'] : '';
+    } else {
+      $note = '';
+    }
+    $note = '<div id="set-notes" style="display: none;">' . $note . '</div>';
     if($term == 'Inspiration' || $term == 'Showcase' || $term == 'Video') {
       $type = 'video';
     } else {
@@ -173,7 +187,7 @@ function edgemakers_stage_api_set_view_html($set_id = '') {
     }
     switch (strtolower($type)) {
       case 'survey & assessment':
-        return drupal_render(node_view($node, 'full'));
+        return drupal_render(node_view($node, 'full')).$note;
       case 'topic page':
         $html = '<div id="buildingSet"><h3>This is a topic set, will be developed later</h3></div>';
         return $html;
@@ -182,7 +196,7 @@ function edgemakers_stage_api_set_view_html($set_id = '') {
         $img = array(
           'path' => drupal_get_path('module', 'edgemakers_stage') . '/images/Mural.ly-work-area.png',
         );
-        $html = '<div id="buildingSet">' . theme('image', $img) . '</div>';
+        $html = '<div id="buildingSet">' . theme('image', $img) . '</div>'.$note;
         return $html;
         break;
       case '':
@@ -190,7 +204,7 @@ function edgemakers_stage_api_set_view_html($set_id = '') {
       case 'text':
       case 'video':
       case 'document':
-        return drupal_render(node_view($node, 'full'));
+        return drupal_render(node_view($node, 'full')).$note;
       case 'video with comments':
       case 'video with q&a':
         $comments = comment_node_page_additions($node);
@@ -206,13 +220,13 @@ function edgemakers_stage_api_set_view_html($set_id = '') {
         } else {
           $node_view = node_view($node);
           $node_view['comments'] = $comments;
-          return drupal_render($node_view);
+          return drupal_render($node_view).$note;
         }
       default:
-        $html = '<div id="buildingSet"><h3>This is a ' . $term . ' set, will be developed later</h3></div>';
+        $html = '<div id="buildingSet"><h3>This is a ' . $term . ' set, will be developed later</h3></div>'.$note;
         return $html;
     }
-    return drupal_render(node_view($node, 'full'));
+    return drupal_render(node_view($node, 'full')).$note;
   }
 }
 

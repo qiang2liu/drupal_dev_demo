@@ -25,8 +25,8 @@
           jQuery('.stage-box').append('<div class="stage-item">' + sta_url + '</div>');
         }
         jQuery('.stage-item').bind('click', function(){
-			jQuery('.stage-selector').removeClass('active');
-		});
+          jQuery('.stage-selector').removeClass('active');
+        });
         set_ajax_load_by_stage(initStage);
         
       },
@@ -36,6 +36,8 @@
     });
     
     jQuery("#back-set-list").bind("click", function(){
+      var stageNotes = jQuery("#stage-notes").html();
+      teacherNotes(stageNotes);
       jQuery("#set-view-region").slideToggle();
       jQuery("#stage-set-list").show();
       jQuery(".s-s-title h3").empty();
@@ -62,14 +64,12 @@
     //Set destination nav.
     jQuery("#set-nav .next").bind("click", function(){
       var nid = jQuery(this).attr('id').substring(5);
-      console.log(nid);
       showSetOnDestion(nid);
       return false;
     });
     
     jQuery("#set-nav .prev").bind("click", function(){
       var nid = jQuery(this).attr('id').substring(5);
-      console.log(nid);
       showSetOnDestion(nid);
       return false;
     });
@@ -89,6 +89,9 @@
       var stageTitle = jQuery("#stage-title h2").html();
 
       jQuery(".s-s-title h2").html(stageTitle);
+      
+      var stageNotes = jQuery("#stage-notes").html();
+      teacherNotes(stageNotes);
 
       jQuery('#stage-set-list ul li .set-cover').each(function( index ) {
         
@@ -98,7 +101,6 @@
           var nid = jQuery(this).siblings('a').attr('id').substring(5);
 
           showSetOnDestion(nid, stage_id);
-
           return false;
         });
         
@@ -114,6 +116,18 @@
     }, 1000, 'linear', function() {
       
     });*/
+  }
+  function teacherNotes(notes) {
+    if(notes) {
+      jQuery(".teacher-notes-cont").html(notes).css('display', 'none');
+      jQuery(".teacher-notes .indicator").css('display', 'none');
+      jQuery(".teacher-notes").css('display', 'block').bind('click', function() {
+        jQuery(".teacher-notes-cont").css('display', 'block');
+        jQuery(".teacher-notes .indicator").css('display', 'block');
+      });
+    } else {
+      jQuery(".teacher-notes").css('display', 'none');
+    }
   }
 
   if (jQuery(".region-community a.community-user-profile").length !== 0) {
@@ -146,12 +160,15 @@
       videoid = this.getAttribute('videoid');
       setTimeout(function() {loadVideo(videoid);}, 100);
       jQuery("#back-dashboard").bind("click", function(){
+        var stageNotes = jQuery("#stage-notes").html();
+        teacherNotes(stageNotes);
         var stageTitle = jQuery("#stage-title h2").html();
         jQuery(".s-s-title h2").html(stageTitle);
         jQuery("#set-view-region").hide();
         jQuery("#stage-set-list").show();
         jQuery("#back-set-list").hide();
       });
+      teacherNotes('');
       jQuery(".s-s-title h2").html('Tour Guide');
       jQuery(".s-s-title h3").empty();
       jQuery("#set-view-region").show();
@@ -215,6 +232,9 @@ function showSetOnDestion(nid, stage_id) {
       var setTitle = jQuery("#set-title").html();
 
       jQuery(".s-s-title h3").html(setTitle);
+      
+      var setNotes = jQuery("#set-notes").html();
+      teacherNotes(setNotes);
       
       //jQuery("#set-view-region").slideToggle();
       jQuery("#set-view-region").show();
