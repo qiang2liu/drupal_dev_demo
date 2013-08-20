@@ -58,16 +58,17 @@ function edgemakers_set_togglefields(index, field_suffix) {
     document.getElementById('edit-field-set-survey'+field_suffix).style.display = 'none';
     document.getElementById('edit-field-set-image'+field_suffix).style.display = 'none';
     document.getElementById('edit-field-set-document'+field_suffix).style.display = 'none';
+    document.getElementById('edit-field-teacher-notes'+field_suffix).style.display = 'none';
     document.getElementById('edit-actions'+field_suffix).style.display = 'none';
   } else {
     document.getElementsByClassName('form-item-title'+field_suffix)[0].style.display = 'block';
     //body only display for text, video with comments and video with Q&A type
     if(index == (startIndex + 2) || index == (startIndex + 6) || index == (startIndex + 7)) document.getElementById('edit-body'+field_suffix).style.display = 'block';
     else document.getElementById('edit-body'+field_suffix).style.display = 'none';
-    //url only display for idea, inspiration, showcase, video with comments, video with Q&A and video type
+    //url only display for inspiration, showcase, video with comments, video with Q&A and video type
     if(index == (startIndex + 4) || index == (startIndex + 5) || index == (startIndex + 6) || index == (startIndex + 7) || index == (startIndex + 9)) document.getElementById('edit-field-set-url'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-url'+field_suffix).style.display = 'none';
-    //murally type only display for idea type
+    //murally type only display for mural type
     if(index == (startIndex + 1)) document.getElementById('edit-field-set-murally-type'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-murally-type'+field_suffix).style.display = 'none';
     edgemakers_set_murallyfield(index == (startIndex + 1), field_suffix);
@@ -78,11 +79,12 @@ function edgemakers_set_togglefields(index, field_suffix) {
     if(index == (startIndex + 8)) document.getElementById('edit-field-set-survey'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-survey'+field_suffix).style.display = 'none';
     //image only display for Image, Text, Topic Page, Survey & Assessment, Document type
-    if(index != (startIndex + 4)) document.getElementById('edit-field-set-image'+field_suffix).style.display = 'block';
+    if(index != (startIndex + 1)) document.getElementById('edit-field-set-image'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-image'+field_suffix).style.display = 'none';
     //document only display for document type
     if(index == (startIndex+10)) document.getElementById('edit-field-set-document'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-document'+field_suffix).style.display = 'none';
+    document.getElementById('edit-field-teacher-notes'+field_suffix).style.display = 'block';
     document.getElementById('edit-actions'+field_suffix).style.display = 'block';
   }
 }
