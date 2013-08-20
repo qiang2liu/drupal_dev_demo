@@ -588,7 +588,7 @@ div.ctools-modal-content .form-item .description{
 	position:absolute;
 	top:90px;
 	color:#3f4b56;
-/*	display:none; */
+	display:none;
 }
 .lrn-tab li{
 	float:left;
