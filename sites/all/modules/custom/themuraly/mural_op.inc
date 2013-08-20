@@ -172,11 +172,11 @@ function muralshow_share($owerid = '', $mid = '') {
 
       $property_name = "shared";
       $property_value = (bool) 1;
-      $result = $mural_api->update_mural_properties($username, $muralid, $property_name, $property_value);
-      $data = $result->data;
+      $result_share = $mural_api->update_mural_properties($username, $muralid, $property_name, $property_value);
+      $data = $result_share->data;
 
-      $result = $mural_api->invite_user_mural($owerid, $mid, array($muraluser_invite));
-      dpm($result);
+      $result_invite = $mural_api->invite_user_mural($owerid, $mid, array($muraluser_invite));
+      dpm($result_invite);
 
 //       $property_name = "shared";
 //       $property_value = (bool) 1;
@@ -190,6 +190,9 @@ function muralshow_share($owerid = '', $mid = '') {
 //   }
 
 //   return muralshow($nid, $mid, $node_uid);
+
+  dpm($the_node);
+
   return muralshow($the_node->nid, $mid, $the_node->uid);
 
 }
@@ -209,6 +212,7 @@ function muralshow($nid, $mid = 0, $uid = 0) {
     $the_node_uid = $the_node->uid;
   }
 
+  dmp($nid);
 
   ctools_include('modal');
   ctools_include('ajax');
