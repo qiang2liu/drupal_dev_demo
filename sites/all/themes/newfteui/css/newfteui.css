@@ -95,6 +95,7 @@ ul:after,
 	top:710px;
 	z-index:1;
 	padding:10px;
+	display:none;
 	transition-property: top;
 	transition-duration: .2s;
 	transition-timing-function: linear;
