@@ -43,7 +43,9 @@ body {
 		  $img_duplicate = array(
         'path' => drupal_get_path('theme' , 'newfteui') . '/images/iconMuralDuplicate.png',
       );
+
 			$icon_duplicate = theme('image', $img_duplicate);
+
 			$duplicate_link = l($icon_duplicate,
 				'mural/create/' . $the_m_id . '/' . $data['node']->nid,
         array(
@@ -51,6 +53,7 @@ body {
 //             'class' => array('mural-nav-link'),
           ),
 					'html' => TRUE,
+
         )
 			);
 			echo $duplicate_link;

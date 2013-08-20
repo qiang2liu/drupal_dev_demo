@@ -61,6 +61,21 @@
     jQuery('#stage-set-list').show();
     //jQuery('#stage-set-list').html("Loading......");
     
+    //Set destination nav.
+    jQuery("#set-nav .next").bind("click", function(){
+      var nid = jQuery(this).attr('id').substring(5);
+      showSetOnDestion(nid);
+      return false;
+    });
+    
+    jQuery("#set-nav .prev").bind("click", function(){
+      var nid = jQuery(this).attr('id').substring(5);
+      showSetOnDestion(nid);
+      return false;
+    });
+    
+//    jQuery("#set-nav-prev").attr('href', 'node/' + nid + '/prev');
+    
     //openAjaxLoad("ajaxload");
     
     jQuery('#stage-set-list').load("?q=edgemarkers/stage/get/set/ajax/" + stage_id, function(){
@@ -83,59 +98,12 @@
         var ajaxUrl = jQuery(this).siblings('a').attr('href');
         
         jQuery(this).bind('click', function(){
-          
           var nid = jQuery(this).siblings('a').attr('id').substring(5);
-          var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid;
-          var ajaxContent;
 
-          //openAjaxLoad("ajaxload");
-          
-          jQuery.ajax({
-            url: ajaxUrl,
-            type: "GET",
-            success: function(data) {
-              
-              jQuery("#stage-set-view").html(data);
-              
-              var setTitle = jQuery("#set-title").html();
-
-              jQuery(".s-s-title h3").html(setTitle);
-              
-              var setNotes = jQuery("#set-notes").html();
-              teacherNotes(setNotes);
-              jQuery("#set-view-region").slideToggle();
-              jQuery("#stage-set-list").hide();
-              jQuery("#back-set-list").show();
-              //make small image bigger to reach the edge of the content!
-              /*if(jQuery('#stage-set-view .field-name-field-set-image .field-items img')){
-              	
-              	var ratio = (jQuery('.main-content').width()*0.96)/jQuery('#stage-set-view .field-name-field-set-image .field-items img').width();
-              	
-              	if(ratio>1){
-              		var w = jQuery('#stage-set-view .field-name-field-set-image .field-items img').width();
-              		var h = jQuery('#stage-set-view .field-name-field-set-image .field-items img').height();
-              		jQuery('#stage-set-view .field-name-field-set-image .field-items img').css({
-              			'width' : w * ratio + 'px',
-              			'height' : h * ratio + 'px'
-              		})
-              	}
-              }*/
-              
-              /*jQuery('#set-view-region').css({
-              	'width' : jQuery(window).width()-400 + 'px'
-              })*/
-              //closeAjaxLoad("ajaxload");
-            },
-            error :function(){
-              jQuery("#stage-set-view").html("Load set data error.");
-              //closeAjaxLoad("ajaxload");
-              return false;
-            }
-          });
-          
+          showSetOnDestion(nid, stage_id);
           return false;
-          
         });
+        
       });
       
       //closeAjaxLoad("ajaxload");
@@ -237,4 +205,68 @@ function viewallusers() {
     jQuery('.region-community a.viewall')[0].innerHTML = 'View Less';
   }
   
+}
+
+
+function showSetOnDestion(nid, stage_id) {
+
+  //var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid;
+  var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid + '/' + stage_id;
+  var ajaxContent;
+  
+  var prevId = jQuery('[current="'+nid+'"]').attr("prev");
+  var nextId = jQuery('[current="'+nid+'"]').attr("next");
+  
+  jQuery("#set-nav .prev").attr("id", "node-" + prevId);
+  jQuery("#set-nav .next").attr("id", "node-" + nextId);
+
+  //openAjaxLoad("ajaxload");
+  
+  jQuery.ajax({
+    url: ajaxUrl,
+    type: "GET",
+    success: function(data) {
+      
+      jQuery("#stage-set-view").html(data);
+      
+      var setTitle = jQuery("#set-title").html();
+
+      jQuery(".s-s-title h3").html(setTitle);
+      
+      var setNotes = jQuery("#set-notes").html();
+      teacherNotes(setNotes);
+      
+      //jQuery("#set-view-region").slideToggle();
+      jQuery("#set-view-region").show();
+      jQuery("#stage-set-list").hide();
+      jQuery("#back-set-list").show();
+      jQuery("#set-nav").show();
+      //make small image bigger to reach the edge of the content!
+      /*if(jQuery('#stage-set-view .field-name-field-set-image .field-items img')){
+        
+        var ratio = (jQuery('.main-content').width()*0.96)/jQuery('#stage-set-view .field-name-field-set-image .field-items img').width();
+        
+        if(ratio>1){
+          var w = jQuery('#stage-set-view .field-name-field-set-image .field-items img').width();
+          var h = jQuery('#stage-set-view .field-name-field-set-image .field-items img').height();
+          jQuery('#stage-set-view .field-name-field-set-image .field-items img').css({
+            'width' : w * ratio + 'px',
+            'height' : h * ratio + 'px'
+          })
+        }
+      }*/
+      
+      /*jQuery('#set-view-region').css({
+        'width' : jQuery(window).width()-400 + 'px'
+      })*/
+      //closeAjaxLoad("ajaxload");
+    },
+    error :function(){
+      jQuery("#stage-set-view").html("Load set data error.");
+      //closeAjaxLoad("ajaxload");
+      return false;
+    }
+  });
+  
+
 }

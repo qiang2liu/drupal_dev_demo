@@ -52,15 +52,66 @@ function edgemakers_stage_api_set_list_html($stage_id) {
 
       $stage_index = unserialize($stage->box_index_data[LANGUAGE_NONE][0]['value']);
 
+//       print('Indexes: <pre>' . print_r($stage_index, TRUE) . '</pre>');
+
+      // Remove lost data, @TODO on stage's set manage.
+      foreach ($stage_index AS $key => $set_index) {
+        if (!node_load($set_index['set_id'])) {
+//           print('Key ' . $key . ' node data lost.');
+          unset($stage_index[$key]);
+        }
+        //edgemakers_set_index_delete_action
+      }
+
       if ($stage_index) {
         //dpm($stage_index);
         aasort($stage_index, 'location_index');
 
-        foreach ($stage_index AS $set) {
+        $count = count($stage_index);
+
+        $i = 0;
+
+        foreach ($stage_index AS $key => $set) {
+
           if($set['set_id']) {
+
             $node = node_load($set['set_id']);
 
             if ($node->nid) {
+
+              //Get prev/next.
+              if (($key - 1) < 0)
+              {
+                $prev = $stage_index[$count - 1];
+              }
+              else
+              {
+                $prev = $stage_index[$key - 1];
+              }
+
+              if (($key + 1) > ($count - 1))
+              {
+                $next = $stage_index[0];
+              }
+              else
+              {
+                $next = $stage_index[$key + 1];
+              }
+
+//               echo '<li>' . $key . '=' . $prev['set_id'] . ', ' . $set['set_id'] . ', ' . $next['set_id'] . "</li>\n";
+              //End Get prev/next.
+
+
+//               $nav_set[$i] = $set;
+
+//               print('<li>Set id in list function.' . $set['set_id']);
+//               if ($i > 0) {
+//                 print(' prev = ' . $nav_set[$i - 1]['set_id']);
+//               }
+//               print('</li>');
+
+//               print('<li>Set id in list function after nav.' . $set['set_id'] . '</li>');
+
               // Get box type by tid.
               if (isset($node->field_set_type[LANGUAGE_NONE])) {
                 $node->term = taxonomy_term_load($node->field_set_type[LANGUAGE_NONE][0]['tid']);
@@ -73,7 +124,13 @@ function edgemakers_stage_api_set_list_html($stage_id) {
               //else {
               //$item = l($node->title, 'stage/set/view/' . $node->nid);
               //}
-              $sets['items'][] = $item;
+              $sets['items'][$i]['data'] = $item;
+              $sets['items'][$i]['prev'] = $prev['set_id'];
+              $sets['items'][$i]['next'] = $next['set_id'];
+              $sets['items'][$i]['current'] = $set['set_id'];
+
+              $i++;
+
             }
           }
         }
@@ -106,9 +163,9 @@ function edgemakers_stage_api_set_list_html($stage_id) {
 }
 
 function edgemakers_stage_api_set_view_html($set_id = '') {
-	
+
   if ($set_id) {
-  	
+
     $node = node_load($set_id);
     // Get box type by tid.
     if (isset($node->field_set_type[LANGUAGE_NONE])) {
@@ -180,7 +237,7 @@ function _get_youtube_video_data($node) {
   $ytid = _youtube_parser($url);
 
   if ($ytid) {
-    drupal_set_message("_get_youtube_video_info " . $ytid);
+//     drupal_set_message("_get_youtube_video_info " . $ytid);
     $youtube_info = _get_youtube_video_info($ytid);
     return $youtube_info;
   }
@@ -209,7 +266,7 @@ function _get_youtube_video_info($id) {
   $result = drupal_http_request($url);
   $data = json_decode($result->data);
 
-  drupal_set_message($url . 'Youtube data is:<pre>' . print_r($data, TRUE) . '</pre>');
+//   drupal_set_message($url . 'Youtube data is:<pre>' . print_r($data, TRUE) . '</pre>');
 
   return $data;
 }
@@ -230,8 +287,10 @@ function aasort (&$array, $key) {
     $sorter[$ii]=$va[$key];
   }
   asort($sorter);
+  $i = 0;
   foreach ($sorter as $ii => $va) {
-    $ret[$ii]=$array[$ii];
+    $ret[$i]=$array[$ii];
+    $i++;
   }
   $array=$ret;
 }
