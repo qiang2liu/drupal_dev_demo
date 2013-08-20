@@ -28,12 +28,12 @@ class Muralapi {
     $the_string_auth = base64_encode($the_string);
     return $the_string_auth;
   }
-  
+
   public function retrieve_a_mural($username, $muralid) {
     $apistr = '/api/murals/' . $this->the_org . '/' . $muralid;
     $apiurl = $this->muralapi_base_url . $apistr;
     $the_auth_string = $this->get_auth_string($username, $apistr, 'GET');
-    
+
     $options = array();
     $options['headers'] = array('x-mural-ly-user' => $username,
       'x-mural-ly-context' => $this->the_org,
@@ -47,15 +47,15 @@ class Muralapi {
 
 
     $ret = curl_http_request($apiurl, $options);
-    
-    dd($ret);
-    
+
+//     dd($ret);
+
     return $ret;
   }
   public function get_all_murals($username,$the_para = array() ) {
     $the_auth_string = $this->get_auth_string($username, '/api/murals', 'GET');
     $apiurl = $this->muralapi_base_url . '/api/murals';
-    
+
     $options = array();
     $options['headers'] = array('x-mural-ly-user' => $username,
       'x-mural-ly-context' => $this->the_org,
@@ -65,7 +65,7 @@ class Muralapi {
 
   //  $options['data'] = 'Qty=2';
     $options['method'] = 'GET';
-    
+
 
 
     //$ret = curl_http_request($apiurl, $options);
@@ -117,7 +117,7 @@ class Muralapi {
 
     $ret = drupal_http_request($apiurl, $options);
     return $ret;
-     
+
 
   }
   public function create_mural($username, $params) {
@@ -131,7 +131,7 @@ class Muralapi {
       return $ret;
       }
       }
-     * 
+     *
      */
     $params['ownerId'] = $this->the_org;
     $data = drupal_json_encode($params);
@@ -220,10 +220,10 @@ class Muralapi {
       'x-mural-ly-context' => $this->the_org,
       'Authorization' => "MURALLY " . $username . ":" . $the_auth_string,
       'User-Agent' => $this->user_agent,
-      
+
     );
     $options['method'] = $the_method;
-    
+
 
     $ret = drupal_http_request($theurl, $options);
     return $ret;
@@ -260,7 +260,7 @@ class Muralapi {
     $params = array();
     $params['members'] = $muraluserids;
     $params['pendings'] = $muraluseremails;
-    
+
     $data = drupal_json_encode($params);
     $the_api = "/api/murals/" . $this->the_org . "/" . $muralid . "/collaborators";
     $apiurl = $this->muralapi_base_url . $the_api;
@@ -278,7 +278,7 @@ class Muralapi {
     $ret = drupal_http_request($apiurl, $options);
     return $ret;
   }
-  
+
 
 }
 

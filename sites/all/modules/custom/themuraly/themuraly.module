@@ -675,7 +675,7 @@ function themuraly_get_mural_info($mural_url = '') {
 
     $mural_info = explode('/' , $mural_url_info['fragment']);
 
-//     drupal_set_message('Mural url: <pre>' . print_r($mural_info, TRUE) . '</pre>');
+    drupal_set_message('Mural url: <pre>' . print_r($mural_info, TRUE) . '</pre>');
 
     $mural_username = $mural_info[1];
     $mural_id = $mural_info[2];
@@ -703,7 +703,7 @@ function themuraly_get_mural_info($mural_url = '') {
 //       dpm($data);
 //       dpm($r);
 
-      drupal_set_message('Mural url: <pre>' . print_r($r, TRUE) . '</pre>');
+//       drupal_set_message('Mural url: <pre>' . print_r($r, TRUE) . '</pre>');
 
 // //       dpm($mural_info);
 //      //drupal_set_message('<pre>' . $mural_info . '</pre>');
