@@ -66,7 +66,7 @@
       var nid = jQuery(this).attr("id").substring(5);
       var setType = jQuery(this).attr("settype");
       
-      if (setType == "idea") {
+      if (setType == "mural") {
         var source = jQuery('[current="'+nid+'"] a').attr("href");
 //        alert("Mural opeaation on nav." + source);
 //      var source = jQuery(this).attr("href");
@@ -87,7 +87,7 @@
       var nid = jQuery(this).attr("id").substring(5);
       var setType = jQuery(this).attr("settype");
       
-      if (setType == "idea") {
+      if (setType == "mural") {
         var source = jQuery('[current="'+nid+'"] a').attr("href");
 //        alert("Mural opeaation on nav." + source);
         showMuralDialog(source);
@@ -272,7 +272,7 @@ function showSetOnDestion(nid, stage_id, setType) {
   resetDestinationNav(nid);
   
 
-  if (setType == 'idea') {
+  if (setType == "mural") {
     var source = jQuery('[current="'+nid+'"] a').attr("href");
 //    alert('Mural operation.' + source);
 //    var source = jQuery(this).attr("href");
