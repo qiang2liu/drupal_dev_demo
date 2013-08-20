@@ -357,7 +357,7 @@ function theme_set_item($variables) {
           $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         }
         break;
-      case 'idea':
+      case 'mural':
         $murallyTypes = field_get_items('node', $node, 'field_set_murally_type');
         $murallyType = $murallyTypes && count($murallyTypes) > 0 ? $murallyTypes[0]['value'] : '';
         if($murallyType == 0) {
