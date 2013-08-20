@@ -35,6 +35,17 @@ function fteuser_form_alter(&$form, &$form_state, $form_id) {
       // $form['registration_cancellation']['user_email_verification']['#disabled'] = true;
       // $form['registration_cancellation']['user_email_verification']['#description'] = t('This setting has been locked by the FTEUSER module. ');
       break;
+    case 'user_register_form':
+      $form['#attributes'] = array(
+        'class' => array('box-register', 'lrn-box'),
+      );
+      //$form['#client_validation'] = TRUE;
+//       $form['account']['email']['#validate'] = array(
+//         'required' => array(true, t('Email address is required.')),
+//         'email' => array(true, t('Email is not valid.')),
+//         'remote' => array('check_existing_mail', t('This email address is already registered'))
+//       );
+      break;
   }
 }
 
@@ -202,11 +213,11 @@ function fteuser_userreset($p, $uid, $timestamp, $hashed_pass) {
 function fte_user_logout($account) {
   global $base_url;
    $_SESSION['need_logout_muraleditor'] = 1;
- 
+
 }
 
 /**
- * hook_user 
+ * hook_user
  */
 function fte_user_login(&$edit, $account) {
   $_SESSION['need_logout_muraleditor'] = 1;
@@ -222,13 +233,13 @@ function fteuser_set_mural_user($mural_api, $account) {
   $mural_user['nameIdentifier'] = $account->uid;
 
   $mural_api_result = $mural_api->create_user($mural_user, '/api/organizations/edgemakers/users', 'POST');
-  
+
   if (is_object($mural_api_result) && isset($mural_api_result->data)) {
     $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
-    
+
     if (isset($muralapi_response_obj['hasErrors'])) {
       if (!$muralapi_response_obj['hasErrors']) {
-        // successful, then 
+        // successful, then
         $edit = array();
         // the $muralapi_response_obj will contain the user attribute ($muralapi_response_obj->user)
         // but now ,it has no this attribute, so , just reguard the $account->name as the  mural username
@@ -236,7 +247,7 @@ function fteuser_set_mural_user($mural_api, $account) {
         if (isset($muralapi_response_obj['user'])) {
           if (isset($muralapi_response_obj['user']['username'])) {
             $the_mural_username = $muralapi_response_obj['user']['username'];
-            
+
             $edit['field_muralusername'][LANGUAGE_NONE][0]['value'] = $the_mural_username;
           }
         }
@@ -247,7 +258,7 @@ function fteuser_set_mural_user($mural_api, $account) {
         if (isset($muralapi_response_obj['room'])) {
           if (isset($muralapi_response_obj['room']['id'])) {
             $the_mural_roomid = $muralapi_response_obj['room']['id'];
-           
+
             $edit['field_muralroomid'][LANGUAGE_NONE][0]['value'] = $the_mural_roomid;
           }
         }
@@ -257,7 +268,7 @@ function fteuser_set_mural_user($mural_api, $account) {
 
 
         user_save($account, $edit);
-       
+
       }
     }
   }
