@@ -142,6 +142,9 @@ function edgemakers_permission() {
     'administer edgemakers' => array(
       'title' => t('Administer Edgemakers'),
     ),
+    'view teacher notes' => array(
+      'title' => t('View Teacher Notes'),
+    ),
   );
   return $perms;
 }
