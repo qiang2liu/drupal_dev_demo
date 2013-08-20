@@ -401,7 +401,7 @@ function muralapi_test() {
   $output_html = '';
 
   include_once('mural_op.inc');
-  muralshow_share('admin1', '1376997022220');
+  muralshow_share('lwgmural', '1376967210186');
 
 //   _test_mural_list_for_a_user();
   //_test_user_add();
