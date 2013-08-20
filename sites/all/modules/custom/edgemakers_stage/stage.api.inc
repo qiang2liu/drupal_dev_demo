@@ -192,7 +192,7 @@ function edgemakers_stage_api_set_view_html($set_id = '') {
         $html = '<div id="buildingSet"><h3>This is a topic set, will be developed later</h3></div>';
         return $html;
         break;
-      case 'idea':
+      case 'mural':
         $img = array(
           'path' => drupal_get_path('module', 'edgemakers_stage') . '/images/Mural.ly-work-area.png',
         );

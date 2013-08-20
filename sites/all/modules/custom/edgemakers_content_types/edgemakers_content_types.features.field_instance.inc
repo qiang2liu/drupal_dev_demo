@@ -1680,7 +1680,7 @@ function edgemakers_content_types_field_default_field_instances() {
     'entity_type' => 'taxonomy_term',
     'field_name' => 'field_set_type_default_thumbnail',
     'label' => 'Set Type Default Thumbnail',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,

@@ -18,7 +18,7 @@ function newfteui_preprocess_node(&$vars) {
       $type = 'videoqa';
     else if($type == 'Survey & Assessment')
       $type = 'survey';
-    if($type == 'Image' || $type == 'Text' || $type == 'video' || $type == 'Idea' || $type == 'videocomments' || $type == 'videoqa' || $type == 'survey' || $type == 'Document') {
+    if($type == 'Image' || $type == 'Text' || $type == 'video' || $type == 'Mural' || $type == 'videocomments' || $type == 'videoqa' || $type == 'survey' || $type == 'Document') {
       $vars['display_submitted'] = false;
       $vars['theme_hook_suggestions'][] = 'node__edgemakers_set__'.strtolower($type);
     }

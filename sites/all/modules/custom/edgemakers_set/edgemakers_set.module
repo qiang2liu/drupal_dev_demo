@@ -276,13 +276,18 @@ function edgemakers_set_node_validate($node, $form, &$form_state) {
         form_set_error('field_set_document', t('Please Upload a Document'));
       }
     }
-    if($type == 'Idea') {
+    if($type == 'Mural') {
       $murallyTypes = field_get_items('node', $node, 'field_set_murally_type');
       $murallyType = $murallyTypes && count($murallyTypes) > 0 ? $murallyTypes[0]['value'] : '';
       if($murallyType == '') {
         form_set_error('field_set_murally_type', t('Please Select Mural.ly Type'));
-      } else if(($murallyType == 1 || $murallyType == 2) && !edgemakers_set_murally_parser($url)) {
-        form_set_error('field_set_url', t('Please fill in a Mural.ly Link'));
+      } else if($murallyType == 1 || $murallyType == 2) {
+        $urls = field_get_items('node', $node, 'field_set_url');
+        $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
+        require_once drupal_get_path('module', 'themuraly').'/themuraly.module';
+        $info = themuraly_get_mural_info($url);
+        if(!$info)
+          form_set_error('field_set_url', t('Please fill in a Mural.ly Link'));
       }
     }
   }
@@ -368,14 +373,21 @@ function theme_set_item($variables) {
         } else {
           $urls = field_get_items('node', $item, 'field_set_url');
           $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
-          $templateid = edgemakers_set_murally_parser($url);
-          if($murallyType == 1) {
-            $link = 'mural/share/'.$templateid;
-          } else if($murallyType == 2) {
-            $link = 'mural/create/'.$templateid;
+          require_once drupal_get_path('module', 'themuraly').'/themuraly.module';
+          $info = themuraly_get_mural_info($url);//including title, muralid, thumbUrl
+          if($info) {
+            $muralid = $info['muralid'];
+            if($murallyType == 1) {
+              $link = 'mural/share/'.$muralid;
+            } else if($murallyType == 2) {
+              $link = 'mural/create/'.$muralid;
+            }
+            $title = $info['title'];
+            $thumbnail = '<div class="crop"><img src="'. $info['thumbUrl'] .'" /></div>';
+            $output .= l($thumbnail, $info['link'], array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+          } else {
+            $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
           }
-          //need further info to develop
-          $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         } 
         break;
       case 'text':
@@ -515,12 +527,6 @@ function edgemakers_set_rate_templates() {
 function edgemakers_set_theme_registry_alter(&$theme_registry) {
   $theme_registry['webform_results_submissions']['template'] = drupal_get_path('module', 'edgemakers_set').'/templates/webform-results-submissions';
   $theme_registry['pager']['variables']['item_attributes'] = NULL;
-}
-function edgemakers_set_murally_parser($url) {
-	preg_match("#(?<=murally\/)[\d]{13}#", $url, $matches);
-	if(is_array($matches) && count($matches) > 0) 
-		return $matches[0];
-	return false;
 }
 function edgemakers_set_youtube_parser($url) {
 	preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $url, $matches);
