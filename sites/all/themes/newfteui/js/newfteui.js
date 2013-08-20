@@ -22,6 +22,10 @@
 				$('.main-content').css({
 					'left': space + 'px'
 				});	
+				var space2 = ($(window).width() - 600)/2;
+				$('.teacher-notes').css({
+					'left' : space2 + 'px'
+				});
 			},
 			makePaneNormal: function(){
 				$('.pane-handler').removeClass('active');
