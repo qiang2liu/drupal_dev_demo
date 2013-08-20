@@ -39,7 +39,6 @@ function edgemakers_set_menu() {
     'page arguments' => array(4),
     'access arguments' => array('administer edgemakers'),
     'file' => 'edgemakers_set.pages.inc',
-    'type' => MENU_LOCAL_ACTION,
   );
   $items['admin/edgemakers/set/submissions/%webform_menu'] = array(
     'title' => 'Submissions',
@@ -49,7 +48,6 @@ function edgemakers_set_menu() {
     'access arguments' => array(4),
     'file path' => drupal_get_path('module', 'webform'),
     'file' => 'includes/webform.report.inc',
-    'type' => MENU_LOCAL_ACTION,
   );
   $items['edgemakers/set/ajaxlike'] = array(
     'title' => 'Delete Set',
@@ -358,7 +356,7 @@ function theme_set_item($variables) {
         }
         break;
       case 'mural':
-        $murallyTypes = field_get_items('node', $node, 'field_set_murally_type');
+        $murallyTypes = field_get_items('node', $item, 'field_set_murally_type');
         $murallyType = $murallyTypes && count($murallyTypes) > 0 ? $murallyTypes[0]['value'] : '';
         if($murallyType == 0) {
           $link = 'mural/create';
