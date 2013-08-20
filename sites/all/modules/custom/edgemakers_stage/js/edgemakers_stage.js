@@ -154,13 +154,18 @@
     });*/
   }
   function teacherNotes(notes) {
-  	
-    if(notes) {
+  	jQuery('.teacher-notes').removeClass('active');
+  	jQuery('.teacher-notes').css('top','710px');
+  	jQuery(".teacher-notes .indicator").unbind('click');
+  	console.log('notes=' + notes);
+    if(notes!='') {
       jQuery('.teacher-notes').show();
       jQuery('.teacher-notes-cont').html(notes);
       jQuery(".teacher-notes .indicator").bind('click', function() {
-      	jQuery(this).parent().toggleClass('active');
+      	
+      	jQuery('.teacher-notes').toggleClass('active');
       	var h = jQuery('.teacher-notes-cont').height();
+      	
       	//jQuery('.teacher-notes-cont').css('height', h + 'px');
       	var t= 710 -h;
         jQuery('.teacher-notes').css('top', t + 'px');
