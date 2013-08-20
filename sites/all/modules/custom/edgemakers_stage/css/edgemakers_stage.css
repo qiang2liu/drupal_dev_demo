@@ -187,3 +187,14 @@ div.set-video-content {
 .toolbar-item.test2 {
   display: none;
 }
+
+/* Destination nav style */
+#set-nav {
+  padding: 18px 50px;
+  float: left;
+}
+#set-nav span {
+  cursor: pointer;
+  color: white;
+  line-hgit: 45px;
+}
