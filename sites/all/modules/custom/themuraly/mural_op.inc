@@ -119,7 +119,7 @@ function muralshow_share($owerid = '', $mid = '') {
   $entities = $nodeQuery->entityCondition('entity_type', 'node')
   ->entityCondition('bundle', 'murals')
   ->fieldCondition('field_muralid','value', $mid, '=')
-  ->fieldCondition('field_muraluser','value', $owerid, '=')
+//   ->fieldCondition('field_muraluser','value', $owerid, '=')
   ->execute();
 
 //   print('<pre>' . print_r($entities, TRUE) . '</pre>');
@@ -242,12 +242,12 @@ function muralshow($nid, $mid = 0, $uid = 0) {
                   )));
 }
 
-function muralcreate($template_id = 0, $nid = 0) {
+function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
   global $user;
 
   //drupal_set_message('Template id: ' . $template_id);
   //drupal_set_message('Node id: ' . $nid);
-  $title = 'my mural';
+  $title = 'Untitled';
 
   $ret = "mural create page";
   if ($template_id != 0) {
@@ -303,12 +303,24 @@ function muralcreate($template_id = 0, $nid = 0) {
       return '';
     }
   } else {
+
+    if ($owner_id) {
+      $mural_api = new Muralapi;
+      $mural_info = $mural_api->retrieve_a_mural($owner_id, $template_id);
+
+      $data = $mural_info->data;
+      $r = drupal_json_decode($data);
+//       dpm($data);
+      dpm('<pre>' . print_r($r, TRUE) . '</pre>');
+
+      $title = 'Copy of ' . $r['title'];
+    }
+
   	if ($nid) {
   		$node = node_load($nid);
+  		// duplicate the mural
+      $title = isset($node->title)?'Copy of ' . $node->title:'my mural';
   	}
-
-    // duplicate the mural
-    $title = isset($node->title)?'Copy of ' . $node->title:'my mural';
 
     $the_m_id = create_mural($mural_api, $muralusername, $muralroomid, $title, $template_id);
     if ($the_m_id == '') {
@@ -385,9 +397,9 @@ function _mural_usersearch_autocomplete($string = '') {
  *
  * @param int $template_id
  */
-function themuraly_mural_page($template_id = 0, $nid = 0) {
+function themuraly_mural_page($template_id = 0, $nid = 0, $owner_id = '') {
 
-	$node = muralcreate($template_id, $nid);
+	$node = muralcreate($template_id, $nid, $owner_id);
 	if ($node->nid) {
 		drupal_goto('mural/' . $node->nid);
 	}
