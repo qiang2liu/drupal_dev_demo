@@ -191,7 +191,7 @@ function viewallusers() {
 }
 
 
-function showSetOnDestion(nid) {
+function showSetOnDestion(nid, stage_id) {
 
   //var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid;
   var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid + '/' + stage_id;
@@ -220,7 +220,7 @@ function showSetOnDestion(nid) {
       jQuery("#set-view-region").show();
       jQuery("#stage-set-list").hide();
       jQuery("#back-set-list").show();
-      
+      jQuery("#set-nav").show();
       //make small image bigger to reach the edge of the content!
       /*if(jQuery('#stage-set-view .field-name-field-set-image .field-items img')){
         

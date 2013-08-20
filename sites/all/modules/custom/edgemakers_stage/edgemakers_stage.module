@@ -314,7 +314,7 @@ function edgemakers_stage_block_view($delta = '') {
       $block['content'] = '<div id="set-view-region" class="hidden">
           <div id="stage-set-view"></div>
           <div id="back-set-list" style="display: none;"> ' . t('Back to Stage') . '</div>
-          <div id="set-nav">
+          <div id="set-nav" class="hidden">
               <span id="node-1010" class="prev">Previous</span> |
               <span id="node-2020" class="next">Next</span>
           </div>
