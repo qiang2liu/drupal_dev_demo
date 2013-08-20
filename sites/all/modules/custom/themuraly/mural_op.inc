@@ -214,29 +214,29 @@ function muralshow($nid, $mid = 0, $uid = 0) {
 
   dpm($nid);
 
-  ctools_include('modal');
-  ctools_include('ajax');
-  ctools_modal_add_js();
+//   ctools_include('modal');
+//   ctools_include('ajax');
+//   ctools_modal_add_js();
 
-  $img_gear = '<img title="set" alt="set" src="' . $GLOBALS['base_path'] . path_to_theme() . '/images/mock-gear.png"/>';
-  $img_settings = array(
-  	'path' => drupal_get_path('theme', 'newfteui') . '/images/iconMuralSettings.png',
-  );
-  $img_gear = theme('image', $img_settings);
-  if ($user->uid == $the_node_uid) {
-    $edit_url = l($img_gear, 'modal/node/' . $nid . '/edit/nojs/0', array(
-      'query' => array(
-        'destination' => $GLOBALS['base_path'] . 'mural/' . $nid,
-      ),
-      'html' => true,
-      'attributes' => array(
-        'class' => array('ctools-use-modal'),
-      ),
-            )
-    );
-  } else {
-    $edit_url = '';
-  }
+//   $img_gear = '<img title="set" alt="set" src="' . $GLOBALS['base_path'] . path_to_theme() . '/images/mock-gear.png"/>';
+//   $img_settings = array(
+//   	'path' => drupal_get_path('theme', 'newfteui') . '/images/iconMuralSettings.png',
+//   );
+//   $img_gear = theme('image', $img_settings);
+//   if ($user->uid == $the_node_uid) {
+//     $edit_url = l($img_gear, 'modal/node/' . $nid . '/edit/nojs/0', array(
+//       'query' => array(
+//         'destination' => $GLOBALS['base_path'] . 'mural/' . $nid,
+//       ),
+//       'html' => true,
+//       'attributes' => array(
+//         'class' => array('ctools-use-modal'),
+//       ),
+//             )
+//     );
+//   } else {
+//     $edit_url = '';
+//   }
 
 dpm($the_node);
 
