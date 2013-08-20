@@ -373,7 +373,7 @@ function theme_set_item($variables) {
           $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
           require_once drupal_get_path('module', 'themuraly').'/themuraly.module';
           $info = themuraly_get_mural_info($url);//including title, muralid, thumbUrl
-          echo "<pre>".print_r($info, true)."</pre>";
+          //echo "<pre>".print_r($info, true)."</pre>";
           if($info) {
             $muralid = $info['muralid'];
             if($murallyType == 1) {
