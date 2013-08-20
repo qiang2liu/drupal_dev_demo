@@ -318,7 +318,7 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
       $data = $mural_info->data;
       $r = drupal_json_decode($data);
 //       dpm($data);
-      dpm('<pre>' . print_r($r, TRUE) . '</pre>');
+//       dpm('<pre>' . print_r($r, TRUE) . '</pre>');
 
       $title = 'Copy of ' . $r['title'];
     }
