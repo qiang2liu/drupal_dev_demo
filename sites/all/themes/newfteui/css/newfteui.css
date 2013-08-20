@@ -1169,6 +1169,9 @@ div.ctools-modal-content .form-item .description{
 	margin: 0 -22px;
     max-width: none;
 }
+#stage-set-list li a.mural .crop img{
+	width:200px;
+}
 /* stage title and set title */
 .s-s-title{
 	position:absolute;
