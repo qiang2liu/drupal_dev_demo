@@ -321,12 +321,12 @@ function edgemakers_stage_block_view($delta = '') {
       </div>';
       $block['content'] .= '<div id="ajaxload"></div><div id="stage-set-list">';
 
-      foreach ($stages AS $stage) {
+      /*foreach ($stages AS $stage) {
         $block['content'] .= '<div id="stage-set-list-' . $stage->nid . '" style="display: none;">';
         $block['content'] .= '<h2>' . $stage->title . "</h2>";
         $block['content'] .= edgemakers_stage_api_set_list_html($stage->nid);
         $block['content'] .= '</div>';
-      }
+      }*/
 
       $block['content'] .= '</div>';
 
