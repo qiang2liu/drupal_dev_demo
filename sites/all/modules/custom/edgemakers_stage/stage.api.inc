@@ -40,7 +40,7 @@ function edgemakers_stage_api_set_list_html($stage_id) {
   if ($stage_id) {
     $stage = node_load($stage_id);
     $html .= '<div id="stage-title" style="display: none;"><h2>' . $stage->title . '</h2></div>';
-    if(user_access('view teacher notes')) {
+    if(user_access('view teacher notes') && isset($stage->field_teacher_notes[LANGUAGE_NONE])) {
       $notes = $stage->field_teacher_notes[LANGUAGE_NONE];
       $note = $notes && count($notes>0) ? $notes[0]['value'] : '';
     } else {
