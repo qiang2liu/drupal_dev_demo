@@ -155,7 +155,7 @@
   }
   function teacherNotes(notes) {
   	jQuery('.teacher-notes').removeClass('active');
-  	jQuery('.teacher-notes').css('top','710px');
+  	jQuery('.teacher-notes').css('top','770px');
   	jQuery(".teacher-notes .indicator").unbind('click');
   	console.log('notes=' + notes);
     if(notes!='') {
@@ -167,7 +167,7 @@
       	var h = jQuery('.teacher-notes-cont').height();
       	
       	//jQuery('.teacher-notes-cont').css('height', h + 'px');
-      	var t= 710 -h;
+      	var t= 770 -h;
         jQuery('.teacher-notes').css('top', t + 'px');
       });
     } else {
