@@ -127,9 +127,9 @@
         var ajaxUrl = jQuery(this).siblings('a').attr('href');
         
         jQuery(this).bind('click', function(){
-          
+          jQuery('.stage-selector').removeClass('active');
           var setType = jQuery(this).siblings('a').attr("class");
-          console.log(setType);
+          
           
           
           var nid = jQuery(this).siblings('a').attr('id').substring(5);
@@ -155,7 +155,7 @@
   }
   function teacherNotes(notes) {
   	jQuery('.teacher-notes').removeClass('active');
-  	jQuery('.teacher-notes').css('top','770px');
+  	jQuery('.teacher-notes').css('top','835px');
   	jQuery(".teacher-notes .indicator").unbind('click');
   	console.log('notes=' + notes);
     if(notes!='') {
@@ -167,7 +167,7 @@
       	var h = jQuery('.teacher-notes-cont').height();
       	
       	//jQuery('.teacher-notes-cont').css('height', h + 'px');
-      	var t= 770 -h;
+      	var t= 835 -h;
         jQuery('.teacher-notes').css('top', t + 'px');
       });
     } else {
