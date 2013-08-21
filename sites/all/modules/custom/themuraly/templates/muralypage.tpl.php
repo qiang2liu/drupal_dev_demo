@@ -17,7 +17,6 @@ body {
 </style>
 <div id="mural-top-bar">
 
-  <span class="close-mural-dialog" onclick='window.parent.closeFromIframe();'> X </span>
   <span id="mural-title">
 		<?php echo $data['node']->title; ?>
   </span>
