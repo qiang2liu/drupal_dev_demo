@@ -122,6 +122,7 @@ div.set-video-content {
   display: block;
   position: absolute;
   left: 0px;
+  z-index:1;
 }
 
 #stage-set-view {
@@ -191,11 +192,24 @@ div.set-video-content {
 
 /* Destination nav style */
 .set-nav {
-  padding: 18px 50px;
-  float: left;
+  padding: 18px 20px;
 }
+
 .set-nav span {
   cursor: pointer;
   color: white;
-  line-hgit: 45px;
+  display:inline-block;
+  height:30px;
+  line-height: 30px;
+}
+.set-nav span.prev,
+.set-nav span#back-set-list,
+.set-nav span.back-to-dashboard{
+	padding: 0 14px 0 30px;
+	background:url(../images/ico_left.png) 10px center no-repeat;
+}
+.set-nav span.next{
+	float:right;
+	padding: 0 30px 0 14px;
+	background:url(../images/ico_right.png) right center no-repeat;
 }
