@@ -315,9 +315,13 @@ function edgemakers_stage_managebox_form_submit($form, &$form_state) {
   if (isset($node->box_index_data[LANGUAGE_NONE])) {
     $node_box_index_data = unserialize($node->box_index_data[LANGUAGE_NONE][0]['value']);
 
+    _aasort($node_box_index_data, 'location_index');
+
     if (empty($form_state['values']['set_location_index'])) {
       $max_index = $node_box_index_data[count($node_box_index_data) - 1]['location_index'];
       $set_location_index = $max_index + 1;
+
+      drupal_set_message('Get max index.' . $max_index . ', set the index to new ' . $set_location_index);
     }
     else {
       $set_location_index = $form_state['values']['set_location_index'];
@@ -675,4 +679,29 @@ function theme_edgemakers_stage_set_list_form($variables) {
 
   return $output;
 
+}
+
+
+/**
+ * Sort array by value key.
+ *
+ * @link http://stackoverflow.com/questions/2699086/sort-multidimensional-array-by-value-2
+ *
+ * @param array $array
+ * @param array $key
+ */
+function _aasort (&$array, $key) {
+  $sorter=array();
+  $ret=array();
+  reset($array);
+  foreach ($array as $ii => $va) {
+    $sorter[$ii]=$va[$key];
+  }
+  asort($sorter);
+  $i = 0;
+  foreach ($sorter as $ii => $va) {
+    $ret[$i]=$array[$ii];
+    $i++;
+  }
+  $array=$ret;
 }
