@@ -165,7 +165,6 @@
   	jQuery('.teacher-notes').removeClass('active');
   	jQuery('.teacher-notes').css('top','835px');
   	jQuery(".teacher-notes .indicator").unbind('click');
-  	console.log('notes=' + notes);
     if(notes!='') {
       jQuery('.teacher-notes').show();
       jQuery('.teacher-notes-cont').html(notes);
