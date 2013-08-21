@@ -35,6 +35,14 @@
       }
     });
     
+    jQuery("#back-to-dashboard").bind("click", function(){
+      var stageNotes = jQuery("#stage-notes").html();
+      teacherNotes(stageNotes);
+      jQuery("#set-view-region").slideToggle();
+      jQuery("#stage-set-list").show();
+      jQuery(".s-s-title h3").empty();
+    });
+
     jQuery("#back-set-list").bind("click", function(){
       var stageNotes = jQuery("#stage-notes").html();
       teacherNotes(stageNotes);
@@ -201,9 +209,10 @@
   }
   if (jQuery("a.set-to-destination").length !== 0) {
     jQuery("a.set-to-destination").bind('click', function() {
-      jQuery("#stage-set-view").html('<div class="set-type-icon set-video-type-icon">Tour Guide</div><div class="set-video-content"><div id="yt">You need Flash player 8+ and JavaScript enabled to view this video.</div></div><div id="back-dashboard">Back to Dashboard</div>');
+      jQuery("#stage-set-view").html('<div class="set-type-icon set-video-type-icon">Tour Guide</div><div class="set-video-content"><div id="yt">You need Flash player 8+ and JavaScript enabled to view this video.</div></div>');
       videoid = this.getAttribute('videoid');
       setTimeout(function() {loadVideo(videoid);}, 100);
+      
       jQuery("#back-dashboard").bind("click", function(){
         var stageNotes = jQuery("#stage-notes").html();
         teacherNotes(stageNotes);
@@ -211,8 +220,14 @@
         jQuery(".s-s-title h2").html(stageTitle);
         jQuery("#set-view-region").hide();
         jQuery("#stage-set-list").show();
+//        jQuery("#back-to-dashboard").hide();
         jQuery("#back-set-list").hide();
+//        jQuery("#set-nav").hide();
       });
+      
+      jQuery("#set-nav").hide();
+      jQuery("#back-to-dashboard").show();
+      
       teacherNotes('');
       jQuery(".s-s-title h2").html('Tour Guide');
       jQuery(".s-s-title h3").empty();
@@ -309,8 +324,13 @@ function showSetOnDestion(nid, stage_id, setType) {
         jQuery("#set-view-region").show();
         jQuery("#stage-set-list").hide();
         
-        //jQuery("#back-set-list").show();
+        jQuery("#back-to-dashboard").hide();
         jQuery("#set-nav").show();
+        jQuery("#back-set-list").show();
+        jQuery(".set-nav .prev").show();
+        jQuery(".set-nav .next").show();
+        
+        jQuery("#back-to-dashboard").hide();
         //make small image bigger to reach the edge of the content!
         /*if(jQuery('#stage-set-view .field-name-field-set-image .field-items img')){
           

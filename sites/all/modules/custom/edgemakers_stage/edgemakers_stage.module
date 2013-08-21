@@ -278,55 +278,58 @@ function edgemakers_stage_block_view($delta = '') {
 
       $block['subject'] = t('Stage list block title');
 
-      $type = variable_get('edgemakers_stage_content_type', 'stage');
-      $stages = node_load_multiple(array(), array('type' => $type));
+//       $type = variable_get('edgemakers_stage_content_type', 'stage');
+//       $stages = node_load_multiple(array(), array('type' => $type));
 
       //Load the javascript and the css:
       drupal_add_library('system', 'ui.dialog');
 
       //Add the code that triggers the effect:
       //Replace XXXXXXXXXX with a unique name
-      drupal_add_js('
-      (function ($) {
-              Drupal.behaviors.StageSetInfoView = {
-                attach: function(context, settings) {
+//       drupal_add_js('
+//       (function ($) {
+//               Drupal.behaviors.StageSetInfoView = {
+//                 attach: function(context, settings) {
 
-                  //Enter the jQuery-Code here
-                  //********************************************
+//                   //Enter the jQuery-Code here
+//                   //********************************************
 
-                  /*    $( "#stage-set-view" ).dialog({
-                          dialogClass: "no-close",
-                          modal: true,
-                          buttons: {
-                              Ok: function() {
-                                  $( this ).dialog( "close" );
-                              }
-                          }
-                      });
-                  */
-                  //********************************************
+//                   /*    $( "#stage-set-view" ).dialog({
+//                           dialogClass: "no-close",
+//                           modal: true,
+//                           buttons: {
+//                               Ok: function() {
+//                                   $( this ).dialog( "close" );
+//                               }
+//                           }
+//                       });
+//                   */
+//                   //********************************************
 
-                  }
-              };
-      })(jQuery);
-      ', 'inline');
+//                   }
+//               };
+//       })(jQuery);
+//       ', 'inline');
 
       $block['content'] = '<div id="set-view-region" class="hidden">
           <div id="stage-set-view"></div>
-          <div id="back-set-list" style="display: none;"> ' . t('Back to Stage') . '</div>
+          <div id="back-to-dashboard" class="hidden back-to-dashboard">
+            <span>Back to dashboard</span>
+          </div>
           <div id="set-nav" class="set-nav hidden">
               <span id="node-1010" class="prev">Previous</span>
+              <span id="back-set-list" style="display: none;"> ' . t('Back to Stage') . '</span>
               <span id="node-2020" class="next">Next</span>
           </div>
       </div>';
       $block['content'] .= '<div id="ajaxload"></div><div id="stage-set-list">';
 
-      foreach ($stages AS $stage) {
-        $block['content'] .= '<div id="stage-set-list-' . $stage->nid . '" style="display: none;">';
-        $block['content'] .= '<h2>' . $stage->title . "</h2>";
-        $block['content'] .= edgemakers_stage_api_set_list_html($stage->nid);
-        $block['content'] .= '</div>';
-      }
+//       foreach ($stages AS $stage) {
+//         $block['content'] .= '<div id="stage-set-list-' . $stage->nid . '" style="display: none;">';
+//         $block['content'] .= '<h2>' . $stage->title . "</h2>";
+//         $block['content'] .= edgemakers_stage_api_set_list_html($stage->nid);
+//         $block['content'] .= '</div>';
+//       }
 
       $block['content'] .= '</div>';
 
