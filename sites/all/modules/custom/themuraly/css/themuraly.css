@@ -90,3 +90,8 @@ ul#mural-region-nav li.mural-nav-link-delete {
 ul#mural-region-nav li.mural-nav-link-duplicate {
   padding: 4px 8px 3px 8px;
 }
+
+.back-to-dashboard span {
+  cursor: pointer;
+  color: white;
+}
