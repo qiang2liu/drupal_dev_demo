@@ -78,15 +78,25 @@ function edgemakers_media_upload_form_alter(&$form, $form_state, $form_id) {
 
 //     $form['title']['#type'] = 'hidden';
 
+    $form['title']['#attributes'] = array(
+      'placeholder' => 'Media Title',
+    );
+
     unset($form['actions']['preview']);
     unset($form['actions']['delete']);
     //unset($form['actions']['submit']);
 
-    $form['field_s3_test_audoi']['#weight'] = 1;
-    $form['field_youtube_url']['#weight'] = 2;
-    $form['field_tags']['#weight'] = 3;
-    $form['field_media_type']['#weight'] = 4;
-    $form['field_share']['#weight'] = 5;
+//     $form['field_s3_test_audoi']['#weight'] = 1;
+//     $form['field_youtube_url']['#weight'] = 2;
+//     $form['field_tags']['#weight'] = 3;
+//     $form['field_media_type']['#weight'] = 4;
+//     $form['field_share']['#weight'] = 5;
+
+//     drupal_set_message('<pre>' . print_r($form['field_youtube_url']['#attributes'], TRUE) . '</pre>');
+
+//     $form['field_youtube_url'][LANGUAGE_NONE][0][url]['#attributes']['placeholder'] = T('Media URL');
+
+        $form['field_media_url'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = T('Media URL');
 
 
     $form['actions']['submit']['#ajax'] = array(
@@ -121,11 +131,16 @@ function edgemakers_media_upload_ajax_validate($form, &$form_state) {
 
   $vals = $form_state['values'];
 
+//   drupal_set_message('Form item: <pre>' . print_r($vals, TRUE) . '</pre>');
+
 //   drupal_set_message('URL:' . $vals['field_youtube_url'][LANGUAGE_NONE][0]['url']);
 
-  if (empty($vals['field_youtube_url'][LANGUAGE_NONE][0]['url'])) {
-    form_set_error('field_youtube_url', 'Invalid url.');
-  }
+//   if (empty($vals['field_media_url'])) {
+//     form_set_error('field_youtube_url', 'Invalid url.');
+//   }
+//   if (empty($vals['field_youtube_url'][LANGUAGE_NONE][0]['value'])) {
+//     form_set_error('field_youtube_url', 'Invalid url.');
+//   }
 //   else {
 //     $url_parse = _youtube_parser($vals['field_youtube_url'][LANGUAGE_NONE][0]['url']);
 //   }

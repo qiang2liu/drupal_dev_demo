@@ -1,7 +1,7 @@
 <?php
 //title: $title
 //url:
-$urls = field_get_items('node', $node, 'field_youtube_url');
+$urls = field_get_items('node', $node, 'field_media_url');
 $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
 //$ytid = youtube_parser($url);
 
@@ -181,15 +181,15 @@ else :
 
 			print theme('image', $media_image);
 
-      //print render($content['field_youtube_url']);
+      //print render($content['field_media_url']);
       //print render($content);
 
     ?>
     <span id="image-download-it">
     <?php
 
-      $image_uri = file_create_url($node->field_youtube_url[$node->language][0]['url']);
-      $download_uri = 'download/file/fid/' . $node->field_youtube_url[$node->language][0]['url'];
+      $image_uri = file_create_url($node->field_media_url[$node->language][0]['url']);
+      $download_uri = 'download/file/fid/' . $node->field_media_url[$node->language][0]['url'];
 
       $download_uri = $image_uri;
 
