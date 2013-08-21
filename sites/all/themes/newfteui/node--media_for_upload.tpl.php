@@ -1,16 +1,28 @@
 <?php
 //title: $title
 //url:
-$urls = field_get_items('node', $node, 'field_youtube_url');
-$url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
+$urls = field_get_items('node', $node, 'field_media_url');
+$url = $urls && count($urls) > 0 ? $urls[0]['value'] : '';
+
+// print("Url: <pre>" . print_r($urls, TRUE) . '</pre>');
+
 //$ytid = youtube_parser($url);
 
-$yt_url = _youtube_url_parse($url);
-// print("get youtube url: <pre>" . print_r($yt_url, TRUE) . '</pre>');
+// $yt_url = _youtube_url_parse($url);
 
-if ($yt_url[1]) {
-  $ytid = $yt_url[1];
+$ytid = youtube_parser($url);
+function youtube_parser($url) {
+	preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $url, $matches);
+	if(is_array($matches) && count($matches) > 0)
+		return $matches[0];
+	return false;
 }
+
+// print("get youtube url: <pre>" . print_r($ytid, TRUE) . '</pre>');
+
+// if ($ytid) {
+//   $ytid = $yt_url[1];
+// }
 
 /*$php_parse_url = parse_url($url);
 print("get youtube url: <pre>" . print_r($php_parse_url, TRUE) . '</pre>');
@@ -181,15 +193,15 @@ else :
 
 			print theme('image', $media_image);
 
-      //print render($content['field_youtube_url']);
+      //print render($content['field_media_url']);
       //print render($content);
 
     ?>
-    <span id="image-download-it">
+    <span id="image-download-it" class="media-list">
     <?php
 
-      $image_uri = file_create_url($node->field_youtube_url[$node->language][0]['url']);
-      $download_uri = 'download/file/fid/' . $node->field_youtube_url[$node->language][0]['url'];
+      $image_uri = file_create_url($node->field_media_url[$node->language][0]['value']);
+      $download_uri = 'download/file/fid/' . $node->field_media_url[$node->language][0]['value'];
 
       $download_uri = $image_uri;
 
