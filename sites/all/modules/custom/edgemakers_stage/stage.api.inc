@@ -55,10 +55,13 @@ function edgemakers_stage_api_set_list_html($stage_id) {
 //       print('Indexes: <pre>' . print_r($stage_index, TRUE) . '</pre>');
 
       // Remove lost data, @TODO on stage's set manage.
+      $sets = array();
       foreach ($stage_index AS $key => $set_index) {
-        if (!node_load($set_index['set_id'])) {
-//           print('Key ' . $key . ' node data lost.');
+        $set = node_load($set_index['set_id']);
+        if (!$set) {
           unset($stage_index[$key]);
+        } else {
+          $sets[$set_index['set_id']] = $set;
         }
         //edgemakers_set_index_delete_action
       }
@@ -75,7 +78,7 @@ function edgemakers_stage_api_set_list_html($stage_id) {
 
           if($set['set_id']) {
 
-            $node = node_load($set['set_id']);
+            $node = $sets[$set['set_id']];
 
             if ($node->nid) {
 
