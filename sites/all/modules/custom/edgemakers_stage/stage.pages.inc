@@ -317,6 +317,14 @@ function edgemakers_stage_managebox_form_submit($form, &$form_state) {
 
     _aasort($node_box_index_data, 'location_index');
 
+    // Clean up while set node was deleted
+    foreach ($node_box_index_data AS $key=>$set_node) {
+      if (!node_load($set_node['set_id'])) {
+        drupal_set_message('Set list id: ' . $key . ', Node ' . $set_node['set_id'] . ' has remove by other, remove it from list.');
+        unset($node_box_index_data[$key]);
+      }
+    }
+
     if (empty($form_state['values']['set_location_index'])) {
       $max_index = $node_box_index_data[count($node_box_index_data) - 1]['location_index'];
       $set_location_index = $max_index + 1;
@@ -681,7 +689,6 @@ function theme_edgemakers_stage_set_list_form($variables) {
 
 }
 
-
 /**
  * Sort array by value key.
  *
@@ -705,3 +712,4 @@ function _aasort (&$array, $key) {
   }
   $array=$ret;
 }
+
