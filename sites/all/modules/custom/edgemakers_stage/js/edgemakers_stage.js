@@ -42,15 +42,24 @@
       jQuery("#stage-set-list").show();
       jQuery(".s-s-title h3").empty();
     });
-
-    jQuery("#back-set-list").bind("click", function(){
-      var stageNotes = jQuery("#stage-notes").html();
-      teacherNotes(stageNotes);
-      jQuery("#set-view-region").slideToggle();
-      jQuery("#stage-set-list").show();
-      jQuery(".s-s-title h3").empty();
+    
+    jQuery("#mural-back-set-list").bind("click", function(){
+      closeFromIframe();
+      backToStage();
     });
 
+    jQuery("#back-set-list").bind("click", function(){
+      backToStage();
+    });
+
+  }
+  
+  function backToStage() {
+    var stageNotes = jQuery("#stage-notes").html();
+    teacherNotes(stageNotes);
+    jQuery("#set-view-region").hide();
+    jQuery("#stage-set-list").show();
+    jQuery(".s-s-title h3").empty();
   }
   
   function openAjaxLoad(id) {
