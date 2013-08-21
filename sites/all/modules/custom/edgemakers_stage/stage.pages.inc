@@ -321,7 +321,7 @@ function edgemakers_stage_managebox_form_submit($form, &$form_state) {
       $max_index = $node_box_index_data[count($node_box_index_data) - 1]['location_index'];
       $set_location_index = $max_index + 1;
 
-      drupal_set_message('Get max index.' . $max_index . ', set the index to new ' . $set_location_index);
+//       drupal_set_message('Get max index.' . $max_index . ', set the index to new ' . $set_location_index);
     }
     else {
       $set_location_index = $form_state['values']['set_location_index'];
