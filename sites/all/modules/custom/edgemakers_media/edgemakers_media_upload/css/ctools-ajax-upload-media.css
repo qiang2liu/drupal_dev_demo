@@ -73,7 +73,7 @@ div.ctools-sample-modal-content td.popups-cr {
 div.ctools-sample-modal-content td.popups-cl,
 div.ctools-sample-modal-content td.popups-cr,
 div.ctools-sample-modal-content td.popups-c { padding:0; border: none; }
-div.ctools-sample-modal-content td.popups-c { background:#fff; }
+div.ctools-sample-modal-content td.popups-c { }
 div.ctools-sample-modal-content td.popups-bl { background-position: 0px -20px; }
 div.ctools-sample-modal-content td.popups-br { background-position: 0px -30px; width: 10px; }
 
@@ -88,7 +88,7 @@ div.ctools-sample-modal-content #popups-loading {
 div.ctools-sample-modal-content .popups-container {
   overflow:hidden;
   height:100%;
-  background-color:#fff;
+ 
 }
 div.ctools-sample-modal-content div.popups-title {
   -moz-border-radius-topleft: 0px;
@@ -100,6 +100,7 @@ div.ctools-sample-modal-content div.popups-title {
   color:white;
   font-size:1em;
   font-weight:bold;
+  display:none;
 }
 div.ctools-sample-modal-content .popups-body {
   background-color:#fff;
@@ -131,4 +132,40 @@ div.ctools-sample-modal-content tbody{
 
 div.ctools-sample-modal-content .modal-content .modal-throbber-wrapper img {
   margin-top: 100px;
+}
+
+/* added by guotao */
+div.ctools-sample-modal-content .modal-scroll{
+	background:#fff;
+	position:relative;
+}
+.media-upload-header{
+	display:inline-block;
+	padding:10px 15px;
+	font-size:17px;
+	font-style:italic;
+	background:#fff;
+	color:#3f4b56;
+}
+.media-upload-close{
+	position:absolute;
+	top:10px;
+	right:20px;
+	width:21px;
+	height:21px;
+	background:url(../images/ico_upload_close.png) no-repeat;
+	z-index:1;
+	cursor:pointer;
+}
+.media-upload-close a{
+	display:block;
+	width:21px;
+	height:21px;
+	
+}
+.media-upload-close:hover{
+	background:url(../images/ico_upload_close_normal.png) no-repeat;
+}
+#media-for-upload-node-form label{
+	display:none;
 }
