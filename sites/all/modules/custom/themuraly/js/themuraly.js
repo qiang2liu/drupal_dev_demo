@@ -28,6 +28,12 @@ function closeFromIframe()
 function showMuralDialog(source) {
   
   jQuery("#mural-set-nav").hide();
+  jQuery("#mural-back-to-dashboard").show();
+  
+  jQuery("#mural-back-to-dashboard").bind("click", function(){
+    jQuery("#mural-back-to-dashboard").hide();
+    closeFromIframe();
+  });
   
   var iframeHtml = "<iframe id=\"mural-iframe\" width=\"100%\" height=\"90%\" src=\"?q=" + source + "\"></iframe>";
   

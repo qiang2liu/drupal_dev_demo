@@ -76,9 +76,17 @@ function edgemakers_media_upload_form_alter(&$form, $form_state, $form_id) {
     $form['#prefix'] = '<div id="upload-media-ajax-wrapper">';
     $form['#suffix'] = '</div>';
 
+//     $form['title']['#type'] = 'hidden';
+
     unset($form['actions']['preview']);
     unset($form['actions']['delete']);
     //unset($form['actions']['submit']);
+
+    $form['field_s3_test_audoi']['#weight'] = 1;
+    $form['field_youtube_url']['#weight'] = 2;
+    $form['field_tags']['#weight'] = 3;
+    $form['field_media_type']['#weight'] = 4;
+    $form['field_share']['#weight'] = 5;
 
 
     $form['actions']['submit']['#ajax'] = array(
@@ -113,20 +121,27 @@ function edgemakers_media_upload_ajax_validate($form, &$form_state) {
 
   $vals = $form_state['values'];
 
-  //drupal_set_message('URL:' . $vals['field_youtube_url'][LANGUAGE_NONE][0]['url']);
+//   drupal_set_message('URL:' . $vals['field_youtube_url'][LANGUAGE_NONE][0]['url']);
 
-  if (isset($vals['field_youtube_url'][LANGUAGE_NONE][0]['url'])) {
-    $url_parse = _youtube_url_parse($vals['field_youtube_url'][LANGUAGE_NONE][0]['url']);
-    //drupal_set_message('<pre>' . print_r($url_parse, TRUE) . '</pre>');
-    if (isset($url_parse[1])) {
-      //drupal_set_message('<pre>' . print_r($url_parse[1], TRUE) . '</pre>');
-      $vaildYid = _youtube_validId($url_parse[1]);
-      if ($vaildYid !== TRUE) {
-        //drupal_set_message('<pre>' . print_r($vaildYid, TRUE) . '</pre>');
-        form_set_error('field_youtube_url', 'Invalid youtube url.');
-      }
-    }
+  if (empty($vals['field_youtube_url'][LANGUAGE_NONE][0]['url'])) {
+    form_set_error('field_youtube_url', 'Invalid url.');
   }
+//   else {
+//     $url_parse = _youtube_parser($vals['field_youtube_url'][LANGUAGE_NONE][0]['url']);
+//   }
+
+//   if (isset($vals['field_youtube_url'][LANGUAGE_NONE][0]['url'])) {
+//     $url_parse = _youtube_url_parse($vals['field_youtube_url'][LANGUAGE_NONE][0]['url']);
+//     //drupal_set_message('<pre>' . print_r($url_parse, TRUE) . '</pre>');
+//     if (isset($url_parse[1])) {
+//       //drupal_set_message('<pre>' . print_r($url_parse[1], TRUE) . '</pre>');
+//       $vaildYid = _youtube_validId($url_parse[1]);
+//       if ($vaildYid !== TRUE) {
+//         //drupal_set_message('<pre>' . print_r($vaildYid, TRUE) . '</pre>');
+//         form_set_error('field_youtube_url', 'Invalid youtube url.');
+//       }
+//     }
+//   }
 
 }
 
@@ -210,7 +225,7 @@ function edgemakers_media_upload_ajax_submit($form, &$form_state) {
   $commands[] = ctools_modal_command_dismiss();
 
   ctools_add_js('mediaListAjaxload', 'edgemakers_media_upload');
-  $commands[] = _customReloadMediaList();
+//   $commands[] = _customReloadMediaList();
   //$commands[] = ajax_command_html("#my-media-list", $items . '<script>media_list_reload()</script>');
   //$commands[] = ajax_render('media_list_reload()');
 
@@ -738,36 +753,36 @@ function edgemakers_media_ajax_callback($page_callback_result) {
 /**
  * Implements hook_theme().
  */
-function edgemakers_media_upload_theme($existing, $type, $theme, $path) {
+// function edgemakers_media_upload_theme($existing, $type, $theme, $path) {
 
 
-  return array(
-    'media_for_upload_node_form' => array(
-      'render element' => 'form',
-      'template' => 'media-upload-node-form',
-      // this will set to module/theme path by default:
-      'path' => drupal_get_path('module', 'edgemakers_media_upload') . '/templates',
-    ),
-  );
+//   return array(
+//     'media_for_upload_node_form' => array(
+//       'render element' => 'form',
+//       'template' => 'media-upload-node-form',
+//       // this will set to module/theme path by default:
+//       'path' => drupal_get_path('module', 'edgemakers_media_upload') . '/templates',
+//     ),
+//   );
 
-}
+// }
 
 /**
  * Preprocessor for theme('article_node_form').
  */
-function template_preprocess_media_for_upload_node_form(&$variables) {
+// function template_preprocess_media_for_upload_node_form(&$variables) {
 
-  // nodeformcols is an alternative for this solution.
-  if (!module_exists('nodeformcols')) {
+//   // nodeformcols is an alternative for this solution.
+//   if (!module_exists('nodeformcols')) {
 
-    $variables['sidebar'] = array();   // Put taxonomy fields in sidebar.
+//     $variables['sidebar'] = array();   // Put taxonomy fields in sidebar.
 
-    $variables['sidebar'][] = $variables['form']['field_tags'];
-    hide($variables['form']['field_tags']);
+//     $variables['sidebar'][] = $variables['form']['field_tags'];
+//     hide($variables['form']['field_tags']);
 
-    // Extract the form buttons, and put them in independent variable.
-    $variables['buttons'] = $variables['form']['actions'];
-    hide($variables['form']['actions']);
-  }
+//     // Extract the form buttons, and put them in independent variable.
+//     $variables['buttons'] = $variables['form']['actions'];
+//     hide($variables['form']['actions']);
+//   }
 
-}
+// }

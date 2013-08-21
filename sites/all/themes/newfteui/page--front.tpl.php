@@ -11,6 +11,9 @@
       <span id="node-1010" class="prev">Previous</span>
       <span id="node-2020" class="next">Next</span>
     </div>
+    <div id="mural-back-to-dashboard" class="back-to-dashboard">
+      <span>Back to dashboard</span>
+    </div>
   </div>
 </div>
 

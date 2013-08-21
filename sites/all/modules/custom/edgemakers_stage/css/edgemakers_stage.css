@@ -43,15 +43,16 @@
 
 #back-set-list {
   /* margin-top: 10px; */
-  cursor: pointer;
+/*  cursor: pointer;
   background: url(../images/arrowBackToStage.png) no-repeat;
   background-color: transparent;
   background-position: 20px 50%;
-  padding: 20px 20px 20px 50px;
+  padding:18px 0 18px 50px;
+  float: left;
   color: white;
   display: block;
-  float: left;
   min-height: 20px;
+  */
 }
 
 #set-user-info .user-picture img {
