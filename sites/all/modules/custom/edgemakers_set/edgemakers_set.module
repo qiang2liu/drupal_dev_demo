@@ -393,6 +393,7 @@ function theme_set_item($variables) {
         }
         break;
       case 'text':
+      case 'document':
         $thumbnail = edgemakers_set_get_set_thumbnail($item);
         if(!$thumbnail) {
           if(!isset($defaultThumbs[$type])) {
