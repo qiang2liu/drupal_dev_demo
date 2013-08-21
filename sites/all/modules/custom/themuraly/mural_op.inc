@@ -411,8 +411,8 @@ function themuraly_mural_page($template_id = 0, $nid = 0, $owner_id = '') {
 		drupal_goto('mural/' . $node->nid);
 	}
 	else {
-	  drupal_set_message(t('Can\'t create mural on create page.'));
-	  echo '<span class="close-mural-dialog" onclick=\'window.parent.closeFromIframe();\'> X </span>';
+// 	  drupal_set_message(t('Can\'t create mural on create page.'));
+// 	  echo '<span class="close-mural-dialog" onclick=\'window.parent.closeFromIframe();\'> X </span>';
 	}
 
 }
