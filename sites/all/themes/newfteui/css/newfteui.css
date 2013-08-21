@@ -1202,9 +1202,23 @@ div.ctools-modal-content .form-item .description{
   width: 88px;
   height: 45px;
   position: absolute;
-  right: 20px;
+  right: 110px;
 }
-
+#image-download-it.media-list a{
+	right:30px;
+}
+/*#mural-back-to-dashboard{
+	padding: 18px 20px;
+}*/
+#mural-back-to-dashboard span{
+  cursor: pointer;
+  color: white;
+  display:inline-block;
+  height:30px;
+  line-height: 30px;
+  padding: 0 14px 0 30px;
+  background:url(../images/ico_left.png) 10px center no-repeat;
+}
 .set-type-icon {
   display: block;
   height: 51px;

@@ -197,7 +197,7 @@ else :
       //print render($content);
 
     ?>
-    <span id="image-download-it">
+    <span id="image-download-it" class="media-list">
     <?php
 
       $image_uri = file_create_url($node->field_media_url[$node->language][0]['value']);
