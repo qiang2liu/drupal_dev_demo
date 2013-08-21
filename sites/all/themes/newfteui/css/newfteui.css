@@ -92,12 +92,12 @@ ul:after,
 	width:580px;
 	margin:0 auto;
 	position:absolute;
-	top:710px;
+	top:835px;
 	z-index:1;
 	padding:10px;
 	display:none;
 	transition-property: top;
-	transition-duration: .2s;
+	transition-duration: .1s;
 	transition-timing-function: linear;
 	transition-delay: 0;
 }
@@ -109,7 +109,7 @@ ul:after,
 	transition-property: height;
 	transition-duration: .2s;
 	transition-timing-function: linear;
-	transition-delay: 0;
+	transition-delay: .1s;
 }
 .teacher-notes.active .teacher-notes-cont{
 	height:auto;
@@ -426,7 +426,7 @@ ul:after,
 
 /* rewrite the login/register/request new password */
 div.ctools-modal-content .modal-content{
-	padding:12px 0 0 0;
+	padding:32px 0 0 0;
 	overflow-x:hidden;
 }
 
@@ -479,7 +479,7 @@ div.modal-forms-modal-content .modal-header{
 }
 
 #modal-content .form-item{
-	padding:6px 2em;
+	padding:8px 3em;
 }
 #modal-content .form-item .form-item{
 	padding:6px 0;
@@ -510,8 +510,8 @@ div.modal-forms-modal-content .modal-header{
 	text-align:right;
 }
 #modal-content .form-actions input.form-submit{
-	background: url(../images/newui_ico_actionarrow.png) right center no-repeat #60cd9b;
-	padding:6px 30px 6px 15px;
+	background: url(../images/upload_ico_actionarrow.png) right center no-repeat #3bbec0;
+	padding:10px 40px 10px 15px;
 	font-weight:normal;
 }
 #modal-content  #user-pass .form-item-name{

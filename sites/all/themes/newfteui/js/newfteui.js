@@ -36,6 +36,8 @@
 			},
 			removeAllActive : function(){
 				$('div').not('.toolbar-handler').not('.toolbar-box').not(this).removeClass('active');
+				
+				$('.teacher-notes').css('top','835px');
 				$(this).toggleClass('active');
 			},
 			numbering : function(){

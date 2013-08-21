@@ -11,8 +11,8 @@ function media_ajax_load_list() {
 
   jQuery('#my-media-list').load("?q=edgemarkers/media/get/list/ajax", function(){
     
-    console.log("media_ajax_load_list loaded.");
-    
+   
+   
   	jQuery('.toolbar-item').each(function(){
   		var self = jQuery(this);
   		
@@ -67,5 +67,7 @@ function media_ajax_load_list() {
 
       });
     });
+    
+    
   });
 }
