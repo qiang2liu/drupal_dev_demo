@@ -27,30 +27,25 @@
         jQuery('.stage-item').bind('click', function(){
           jQuery('.stage-selector').removeClass('active');
         });
+        
         set_ajax_load_by_stage(initStage);
+        
+        initNav();
         
       },
       error :function(){
         alert('An error occurs when getting the stage sets!')
       }
     });
-    
-    jQuery("#back-to-dashboard").bind("click", function(){
-      var stageNotes = jQuery("#stage-notes").html();
-      teacherNotes(stageNotes);
-      jQuery("#set-view-region").slideToggle();
-      jQuery("#stage-set-list").show();
-      jQuery(".s-s-title h3").empty();
-    });
 
-    jQuery("#back-set-list").bind("click", function(){
-      var stageNotes = jQuery("#stage-notes").html();
-      teacherNotes(stageNotes);
-      jQuery("#set-view-region").slideToggle();
-      jQuery("#stage-set-list").show();
-      jQuery(".s-s-title h3").empty();
-    });
-
+  }
+  
+  function backToStage() {
+    var stageNotes = jQuery("#stage-notes").html();
+    teacherNotes(stageNotes);
+    jQuery("#set-view-region").hide();
+    jQuery("#stage-set-list").show();
+    jQuery(".s-s-title h3").empty();
   }
   
   function openAjaxLoad(id) {
@@ -63,11 +58,24 @@
     jQuery("#" + id).dialog("close");
   }
   
-  function set_ajax_load_by_stage(stage_id) {
-    //jQuery("#ajax-target").load("?q=edgemarkers/stage/get/set/ajax/" + stage_id);
-    jQuery("#set-view-region").hide();
-    jQuery('#stage-set-list').show();
-    //jQuery('#stage-set-list').html("Loading......");
+  function initNav() {
+    
+    jQuery("#back-to-dashboard").bind("click", function(){
+      var stageNotes = jQuery("#stage-notes").html();
+      teacherNotes(stageNotes);
+      jQuery("#set-view-region").slideToggle();
+      jQuery("#stage-set-list").show();
+      jQuery(".s-s-title h3").empty();
+    });
+    
+    jQuery("#mural-back-set-list").bind("click", function(){
+      closeFromIframe();
+      backToStage();
+    });
+
+    jQuery("#back-set-list").bind("click", function(){
+      backToStage();
+    });
     
     //Set destination nav.
     jQuery(".set-nav .next").bind("click", function(){
@@ -76,17 +84,17 @@
       
       if (setType == "mural") {
         var source = jQuery('[current="'+nid+'"] a').attr("href");
-//        alert("Mural opeaation on nav." + source);
-//      var source = jQuery(this).attr("href");
+  //      alert("Mural opeaation on nav." + source);
+  //    var source = jQuery(this).attr("href");
         showMuralDialog(source);
         jQuery("#mural-set-nav").show();
         resetDestinationNav(nid);
-
+  
         jQuery("#set-view-region").hide();
         jQuery("#stage-set-list").show();
       }
       else {
-        showSetOnDestion(nid, stage_id);
+        showSetOnDestion(nid);
       }
       return false;
     });
@@ -97,20 +105,27 @@
       
       if (setType == "mural") {
         var source = jQuery('[current="'+nid+'"] a').attr("href");
-//        alert("Mural opeaation on nav." + source);
+  //      alert("Mural opeaation on nav." + source);
         showMuralDialog(source);
         jQuery("#mural-set-nav").show();
         resetDestinationNav(nid);
-
+  
         jQuery("#set-view-region").hide();
         jQuery("#stage-set-list").show();
       }
       else {
-        showSetOnDestion(nid, stage_id);
+        showSetOnDestion(nid);
       }
       return false;
     });
-    
+  }
+  
+  function set_ajax_load_by_stage(stage_id) {
+    //jQuery("#ajax-target").load("?q=edgemarkers/stage/get/set/ajax/" + stage_id);
+    jQuery("#set-view-region").hide();
+    jQuery('#stage-set-list').show();
+    //jQuery('#stage-set-list').html("Loading......");
+
 //    jQuery("#set-nav-prev").attr('href', 'node/' + nid + '/prev');
     
     //openAjaxLoad("ajaxload");
@@ -138,8 +153,6 @@
           jQuery('.stage-selector').removeClass('active');
           var setType = jQuery(this).siblings('a').attr("class");
           
-          
-          
           var nid = jQuery(this).siblings('a').attr('id').substring(5);
           showSetOnDestion(nid, stage_id, setType);
 
@@ -161,6 +174,7 @@
       
     });*/
   }
+  
   function teacherNotes(notes) {
   	jQuery('.teacher-notes').removeClass('active');
   	jQuery('.teacher-notes').css('top','835px');

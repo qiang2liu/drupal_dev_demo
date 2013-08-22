@@ -341,3 +341,39 @@ function edgemakers_stage_block_view($delta = '') {
 
   return $block;
 }
+
+/**
+ * Implements hook_node_delete();
+ */
+function edgemakers_stage_node_delete($node) {
+
+  if ($node->type == 'edgemakers_set') {
+
+//     drupal_set_message('It\'s a big TRB');
+
+    $type = variable_get('edgemakers_stage_content_type', 'stage');
+    $stages = node_load_multiple(array(), array('type' => $type));
+
+    foreach ($stages AS $stage) {
+
+      if (isset($stage->box_index_data[LANGUAGE_NONE])) {
+
+        $stage_index = unserialize($stage->box_index_data[LANGUAGE_NONE][0]['value']);
+
+        foreach ($stage_index AS $key=>$index) {
+          if ($index['set_id'] == $node->nid) {
+            drupal_set_message('Remove set "' . $node->title . '"  from "' . $stage->title . '" stage list.');
+            unset($stage_index[$key]);
+          }
+        }
+
+        $stage->box_index_data[$stage->language][0]['value'] = serialize($stage_index);
+        node_submit($stage);
+        $save_status = node_save($stage);
+
+      }
+
+    }
+  }
+
+}

@@ -697,21 +697,58 @@ function themuraly_get_mural_info($mural_url = '') {
 // //       drupal_set_message("Mural id:" . $mural_id);
 //     }
 
-    if ($mural_username && $mural_id) {
+    if ($mural_id) {
 
-      $mural_api = new Muralapi;
-      $mural_info = $mural_api->retrieve_a_mural($mural_username, $mural_id);
+      $nodeQuery = new EntityFieldQuery;
 
-      $data = $mural_info->data;
-      $r = drupal_json_decode($data);
-//       dpm($data);
-//       dpm($r);
+      $entities = $nodeQuery->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', 'murals')
+      ->fieldCondition('field_muralid','value', $mural_id, '=')
+      ->execute();
 
-//       drupal_set_message('Mural url: <pre>' . print_r($r, TRUE) . '</pre>');
+      if (!empty($entities['node'])) {
+        foreach ($entities['node'] AS $node_en) {
+          $the_node = node_load($node_en->nid);
+        }
+        dpm($the_node);
+      }
 
-// //       dpm($mural_info);
-//      //drupal_set_message('<pre>' . $mural_info . '</pre>');
-     return $r;
+      if ($the_node) {
+
+        $field_mural_username = field_get_items('node', $the_node, 'field_muraluser');
+        $mural_username = $field_mural_username && count($field_mural_username) > 0 ? $field_mural_username[0]['value'] : '';
+
+        $field_mural_thumburl = field_get_items('node', $the_node, 'field_mural_thumburl‎');
+        $mural_mural_thumburl = $field_mural_thumburl && count($field_mural_thumburl) > 0 ? $field_mural_thumburl[0]['value'] : '';
+
+        //@TODO Replace with custom field saved from muraly by API.
+        $mural_info['id'] = 'edgemakers.' . $mural_id;
+        $mural_info['title'] = $the_node->title;
+        $mural_info['lastUpdatedBy'] = $mural_username;
+
+        //@TODO change thumburl from api.
+//         $pics = field_get_items('taxonomy_term', 'mural', 'field_set_type_default_thumbnail');
+//         $pic = $pics && count($pics) > 0 ? $pics[0]['uri'] : '';
+//         drupal_set_message('Thumb url: ' . $pic);
+
+        $mural_info['thumbUrl'] = empty($mural_mural_thumburl)?'':$mural_mural_thumburl;
+
+  //       $r['data'] = $the_node;
+
+  //       $mural_api = new Muralapi;
+  //       $mural_info = $mural_api->retrieve_a_mural($mural_username, $mural_id);
+
+  //       $data = $mural_info->data;
+  //       $r = drupal_json_decode($data);
+  //       dpm($data);
+  //       dpm($r);
+
+  //       drupal_set_message('Mural url: <pre>' . print_r($r, TRUE) . '</pre>');
+
+  // //       dpm($mural_info);
+  //      //drupal_set_message('<pre>' . $mural_info . '</pre>');
+           return $mural_info;
+         }
 
    }
 

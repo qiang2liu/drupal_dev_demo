@@ -315,9 +315,25 @@ function edgemakers_stage_managebox_form_submit($form, &$form_state) {
   if (isset($node->box_index_data[LANGUAGE_NONE])) {
     $node_box_index_data = unserialize($node->box_index_data[LANGUAGE_NONE][0]['value']);
 
+    _aasort($node_box_index_data, 'location_index');
+
+    $i = -10;
+    // Clean up while set node was deleted
+    foreach ($node_box_index_data AS $key=>$set_node) {
+      if (!node_load($set_node['set_id'])) {
+        drupal_set_message('Set list id: ' . $key . ', Node ' . $set_node['set_id'] . ' has remove by other, remove it from list.');
+        unset($node_box_index_data[$key]);
+      }
+      $node_box_index_data[$key][location_index] = $i;
+      $i++;
+    }
+
     if (empty($form_state['values']['set_location_index'])) {
       $max_index = $node_box_index_data[count($node_box_index_data) - 1]['location_index'];
-      $set_location_index = $max_index + 1;
+//       $set_location_index = $max_index + 1;
+      $set_location_index = 10;
+
+//       drupal_set_message('Get max index.' . $max_index . ', set the index to new ' . $set_location_index);
     }
     else {
       $set_location_index = $form_state['values']['set_location_index'];
@@ -326,7 +342,7 @@ function edgemakers_stage_managebox_form_submit($form, &$form_state) {
   }
   else {
     $node_box_index_data = array();
-    $set_location_index = 0;
+    $set_location_index = 10;
   }
 
   $node_box_index_data[] = array(
@@ -676,3 +692,28 @@ function theme_edgemakers_stage_set_list_form($variables) {
   return $output;
 
 }
+
+/**
+ * Sort array by value key.
+ *
+ * @link http://stackoverflow.com/questions/2699086/sort-multidimensional-array-by-value-2
+ *
+ * @param array $array
+ * @param array $key
+ */
+function _aasort (&$array, $key) {
+  $sorter=array();
+  $ret=array();
+  reset($array);
+  foreach ($array as $ii => $va) {
+    $sorter[$ii]=$va[$key];
+  }
+  asort($sorter);
+  $i = 0;
+  foreach ($sorter as $ii => $va) {
+    $ret[$i]=$array[$ii];
+    $i++;
+  }
+  $array=$ret;
+}
+

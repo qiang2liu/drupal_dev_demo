@@ -200,8 +200,8 @@ else :
     <span id="image-download-it" class="media-list">
     <?php
 
-      $image_uri = file_create_url($node->field_media_url[$node->language][0]['url']);
-      $download_uri = 'download/file/fid/' . $node->field_media_url[$node->language][0]['url'];
+      $image_uri = file_create_url($node->field_media_url[$node->language][0]['value']);
+      $download_uri = 'download/file/fid/' . $node->field_media_url[$node->language][0]['value'];
 
       $download_uri = $image_uri;
 

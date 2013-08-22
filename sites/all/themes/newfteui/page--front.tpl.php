@@ -9,6 +9,7 @@
   <div id="mural-region-bottom">
     <div id="mural-set-nav" class="set-nav hidden">
       <span id="node-1010" class="prev">Previous</span>
+      <span id="mural-back-set-list">Back to Stage</span>
       <span id="node-2020" class="next">Next</span>
     </div>
     <div id="mural-back-to-dashboard" class="back-to-dashboard">

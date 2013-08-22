@@ -140,7 +140,7 @@ function edgemakers_content_types_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_carousel_item_topic',
     'label' => 'Carousel Item Topic',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'mediafront' => array(
         'custom' => '',
@@ -625,18 +625,18 @@ function edgemakers_content_types_field_default_field_instances() {
           'slideshow_colorbox_slideshow_speed' => 4000,
           'slideshow_colorbox_speed' => 350,
           'slideshow_colorbox_transition' => 'elastic',
-          'slideshow_controls' => 0,
+          'slideshow_controls' => 1,
           'slideshow_controls_pause' => 0,
           'slideshow_controls_position' => 'after',
           'slideshow_field_collection_image' => '',
           'slideshow_fx' => 'fade',
-          'slideshow_image_style' => '',
+          'slideshow_image_style' => 'edgemakers_topic_image',
           'slideshow_link' => '',
           'slideshow_order' => '',
           'slideshow_pager' => '',
           'slideshow_pager_image_style' => '',
           'slideshow_pager_position' => 'after',
-          'slideshow_pause' => 0,
+          'slideshow_pause' => 1,
           'slideshow_speed' => 1000,
           'slideshow_start_on_hover' => 0,
           'slideshow_timeout' => 4000,
@@ -839,16 +839,15 @@ function edgemakers_content_types_field_default_field_instances() {
   // Exported field_instance: 'node-edgemakers_topic-field_topic_videos'
   $field_instances['node-edgemakers_topic-field_topic_videos'] = array(
     'bundle' => 'edgemakers_topic',
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'file_entity',
-        'settings' => array(
-          'file_view_mode' => 'default',
-        ),
-        'type' => 'file_rendered',
+        'module' => 'link',
+        'settings' => array(),
+        'type' => 'link_default',
         'weight' => 6,
       ),
       'teaser' => array(
@@ -863,38 +862,85 @@ function edgemakers_content_types_field_default_field_instances() {
     'label' => 'Videos',
     'required' => 0,
     'settings' => array(
-      'description_field' => 0,
-      'file_directory' => 'topic_videos',
-      'file_extensions' => 'txt',
-      'max_filesize' => '',
+      'attributes' => array(
+        'class' => '',
+        'configurable_title' => 0,
+        'rel' => '',
+        'target' => 'default',
+        'title' => '',
+      ),
+      'display' => array(
+        'url_cutoff' => 80,
+      ),
+      'enable_tokens' => 0,
       'mediafront' => array(
         'custom' => '',
-        'field_type' => 'stream',
+        'field_type' => 0,
         'media_type' => 'media',
         'preview' => 0,
         'thumbnail' => 0,
       ),
+      'rel_remove' => 'default',
+      'title' => 'none',
+      'title_maxlength' => 128,
+      'title_value' => '',
+      'url' => 0,
+      'user_register_form' => FALSE,
+      'validate_url' => 1,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'link',
+      'settings' => array(),
+      'type' => 'link_field',
+      'weight' => 7,
+    ),
+  );
+
+  // Exported field_instance: 'node-media_for_upload-field_media_url'
+  $field_instances['node-media_for_upload-field_media_url'] = array(
+    'bundle' => 'media_for_upload',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 3,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_media_url',
+    'label' => 'Media URL',
+    'required' => 1,
+    'settings' => array(
+      'mediafront' => array(
+        'custom' => '',
+        'field_type' => 0,
+        'media_type' => 'media',
+        'preview' => 0,
+        'thumbnail' => 0,
+      ),
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'media',
+      'module' => 'text',
       'settings' => array(
-        'allowed_schemes' => array(
-          'private' => 0,
-          'public' => 0,
-          'youtube' => 'youtube',
-        ),
-        'allowed_types' => array(
-          'audio' => 0,
-          'default' => 0,
-          'image' => 0,
-          'video' => 'video',
-        ),
-        'progress_indicator' => 'throbber',
+        'size' => 60,
       ),
-      'type' => 'media_generic',
-      'weight' => 7,
+      'type' => 'text_textfield',
+      'weight' => 1,
     ),
   );
 
@@ -945,67 +991,6 @@ function edgemakers_content_types_field_default_field_instances() {
       ),
       'type' => 'options_onoff',
       'weight' => 2,
-    ),
-  );
-
-  // Exported field_instance: 'node-media_for_upload-field_youtube_url'
-  $field_instances['node-media_for_upload-field_youtube_url'] = array(
-    'bundle' => 'media_for_upload',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'Input the media url, for example : http://youtu.be/6rSHgAcL0cQ',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'link',
-        'settings' => array(),
-        'type' => 'link_default',
-        'weight' => 3,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_youtube_url',
-    'label' => 'Media URL',
-    'required' => 1,
-    'settings' => array(
-      'attributes' => array(
-        'class' => '',
-        'configurable_title' => 0,
-        'rel' => '',
-        'target' => 'default',
-        'title' => '',
-      ),
-      'display' => array(
-        'url_cutoff' => 80,
-      ),
-      'enable_tokens' => 0,
-      'mediafront' => array(
-        'custom' => '',
-        'field_type' => 0,
-        'media_type' => 'media',
-        'preview' => 0,
-        'thumbnail' => 0,
-      ),
-      'rel_remove' => 'default',
-      'title' => 'none',
-      'title_maxlength' => 128,
-      'title_value' => '',
-      'url' => 'optional',
-      'user_register_form' => FALSE,
-      'validate_url' => 1,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'link',
-      'settings' => array(),
-      'type' => 'link_field',
-      'weight' => 1,
     ),
   );
 
@@ -1102,6 +1087,53 @@ function edgemakers_content_types_field_default_field_instances() {
       'settings' => array(),
       'type' => 'options_select',
       'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'node-murals-field_mural_thumburl'
+  $field_instances['node-murals-field_mural_thumburl'] = array(
+    'bundle' => 'murals',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 7,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_mural_thumburl',
+    'label' => 'Mural Thumburl',
+    'required' => 0,
+    'settings' => array(
+      'mediafront' => array(
+        'custom' => '',
+        'field_type' => 0,
+        'media_type' => 'media',
+        'preview' => 0,
+        'thumbnail' => 0,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 4,
     ),
   );
 
@@ -1725,8 +1757,8 @@ function edgemakers_content_types_field_default_field_instances() {
   t('How can you help');
   t('Image');
   t('Images');
-  t('Input the media url, for example : http://youtu.be/6rSHgAcL0cQ');
   t('Media URL');
+  t('Mural Thumburl');
   t('Murally Type');
   t('Organizations + Resources');
   t('Privacy');

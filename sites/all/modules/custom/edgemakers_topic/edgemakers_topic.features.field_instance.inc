@@ -10,79 +10,48 @@
 function edgemakers_topic_field_default_field_instances_topic() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-edgemakers_topic-field_topic_articles'
-  $field_instances['node-edgemakers_topic-field_topic_articles'] = array(
+  // Exported field_instance: 'node-edgemakers_topic-field_topic_images'
+  $field_instances['node-edgemakers_topic-field_topic_images'] = array(
     'bundle' => 'edgemakers_topic',
-    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'link',
-        'settings' => array(),
-        'type' => 'link_default',
-        'weight' => 4,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_topic_articles',
-    'label' => 'Articles',
-    'required' => 0,
-    'settings' => array(
-      'attributes' => array(
-        'class' => '',
-        'configurable_title' => 0,
-        'rel' => '',
-        'target' => 'default',
-        'title' => '',
-      ),
-      'display' => array(
-        'url_cutoff' => 80,
-      ),
-      'enable_tokens' => 1,
-      'mediafront' => array(
-        'custom' => '',
-        'field_type' => 0,
-        'media_type' => 'media',
-        'preview' => 0,
-        'thumbnail' => 0,
-      ),
-      'rel_remove' => 'default',
-      'title' => 'required',
-      'title_maxlength' => 128,
-      'title_value' => '',
-      'url' => 0,
-      'user_register_form' => FALSE,
-      'validate_url' => 1,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'link',
-      'settings' => array(),
-      'type' => 'link_field',
-      'weight' => 7,
-    ),
-  );
-
-  // Exported field_instance: 'node-edgemakers_topic-field_topic_experts'
-  $field_instances['node-edgemakers_topic-field_topic_experts'] = array(
-    'bundle' => 'edgemakers_topic',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'link',
-        'settings' => array(),
-        'type' => 'link_default',
+        'module' => 'field_slideshow',
+        'settings' => array(
+          'slideshow_caption' => '',
+          'slideshow_caption_link' => '',
+          'slideshow_carousel_circular' => 0,
+          'slideshow_carousel_follow' => 0,
+          'slideshow_carousel_image_style' => '',
+          'slideshow_carousel_scroll' => 1,
+          'slideshow_carousel_skin' => '',
+          'slideshow_carousel_speed' => 500,
+          'slideshow_carousel_vertical' => 0,
+          'slideshow_carousel_visible' => 3,
+          'slideshow_colorbox_image_style' => '',
+          'slideshow_colorbox_slideshow' => '',
+          'slideshow_colorbox_slideshow_speed' => 4000,
+          'slideshow_colorbox_speed' => 350,
+          'slideshow_colorbox_transition' => 'elastic',
+          'slideshow_controls' => 1,
+          'slideshow_controls_pause' => 0,
+          'slideshow_controls_position' => 'after',
+          'slideshow_field_collection_image' => '',
+          'slideshow_fx' => 'fade',
+          'slideshow_image_style' => 'edgemakers_topic_image',
+          'slideshow_link' => '',
+          'slideshow_order' => '',
+          'slideshow_pager' => '',
+          'slideshow_pager_image_style' => '',
+          'slideshow_pager_position' => 'after',
+          'slideshow_pause' => 1,
+          'slideshow_speed' => 1000,
+          'slideshow_start_on_hover' => 0,
+          'slideshow_timeout' => 4000,
+        ),
+        'type' => 'slideshow',
         'weight' => 5,
       ),
       'teaser' => array(
@@ -93,169 +62,51 @@ function edgemakers_topic_field_default_field_instances_topic() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_topic_experts',
-    'label' => 'Experts',
+    'field_name' => 'field_topic_images',
+    'label' => 'Images',
     'required' => 0,
     'settings' => array(
-      'attributes' => array(
-        'class' => '',
-        'configurable_title' => 0,
-        'rel' => '',
-        'target' => 'default',
-        'title' => '',
-      ),
-      'display' => array(
-        'url_cutoff' => 80,
-      ),
-      'enable_tokens' => 1,
+      'alt_field' => 0,
+      'default_image' => 0,
+      'file_directory' => 'topic_images',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '480x320',
       'mediafront' => array(
         'custom' => '',
-        'field_type' => 0,
+        'field_type' => 'image',
         'media_type' => 'media',
-        'preview' => 0,
-        'thumbnail' => 0,
+        'preview' => 'thumbnail',
+        'thumbnail' => 'mediafront_original',
       ),
-      'rel_remove' => 'default',
-      'title' => 'required',
-      'title_maxlength' => 128,
-      'title_value' => '',
-      'url' => 0,
+      'min_resolution' => '',
+      'title_field' => 0,
       'user_register_form' => FALSE,
-      'validate_url' => 1,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'link',
-      'settings' => array(),
-      'type' => 'link_field',
-      'weight' => 8,
-    ),
-  );
-
-  // Exported field_instance: 'node-edgemakers_topic-field_topic_media'
-  $field_instances['node-edgemakers_topic-field_topic_media'] = array(
-    'bundle' => 'edgemakers_topic',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'link',
-        'settings' => array(),
-        'type' => 'link_default',
-        'weight' => 6,
+      'active' => 1,
+      'module' => 'media',
+      'settings' => array(
+        'allowed_schemes' => array(
+          'private' => 'private',
+          'public' => 'public',
+          'youtube' => 0,
+        ),
+        'allowed_types' => array(
+          'audio' => 0,
+          'default' => 0,
+          'image' => 'image',
+          'video' => 0,
+        ),
+        'progress_indicator' => 'throbber',
       ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_topic_media',
-    'label' => 'Media',
-    'required' => 0,
-    'settings' => array(
-      'attributes' => array(
-        'class' => '',
-        'configurable_title' => 0,
-        'rel' => '',
-        'target' => 'default',
-        'title' => '',
-      ),
-      'display' => array(
-        'url_cutoff' => 80,
-      ),
-      'enable_tokens' => 1,
-      'mediafront' => array(
-        'custom' => '',
-        'field_type' => 0,
-        'media_type' => 'media',
-        'preview' => 0,
-        'thumbnail' => 0,
-      ),
-      'rel_remove' => 'default',
-      'title' => 'none',
-      'title_maxlength' => 128,
-      'title_value' => '',
-      'url' => 0,
-      'user_register_form' => FALSE,
-      'validate_url' => 1,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'link',
-      'settings' => array(),
-      'type' => 'link_field',
-      'weight' => 3,
-    ),
-  );
-
-  // Exported field_instance: 'node-edgemakers_topic-field_topic_organizations'
-  $field_instances['node-edgemakers_topic-field_topic_organizations'] = array(
-    'bundle' => 'edgemakers_topic',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'link',
-        'settings' => array(),
-        'type' => 'link_default',
-        'weight' => 3,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_topic_organizations',
-    'label' => 'Organizations',
-    'required' => 0,
-    'settings' => array(
-      'attributes' => array(
-        'class' => '',
-        'configurable_title' => 0,
-        'rel' => '',
-        'target' => 'default',
-        'title' => '',
-      ),
-      'display' => array(
-        'url_cutoff' => 80,
-      ),
-      'enable_tokens' => 1,
-      'mediafront' => array(
-        'custom' => '',
-        'field_type' => 0,
-        'media_type' => 'media',
-        'preview' => 0,
-        'thumbnail' => 0,
-      ),
-      'rel_remove' => 'default',
-      'title' => 'required',
-      'title_maxlength' => 128,
-      'title_value' => '',
-      'url' => 0,
-      'user_register_form' => FALSE,
-      'validate_url' => 1,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'link',
-      'settings' => array(),
-      'type' => 'link_field',
+      'type' => 'media_generic',
       'weight' => 6,
     ),
   );
 
-  // Exported field_instance: 'node-edgemakers_topic-field_topic_references'
-  $field_instances['node-edgemakers_topic-field_topic_references'] = array(
+  // Exported field_instance: 'node-edgemakers_topic-field_topic_org_resources'
+  $field_instances['node-edgemakers_topic-field_topic_org_resources'] = array(
     'bundle' => 'edgemakers_topic',
     'default_value' => NULL,
     'deleted' => 0,
@@ -263,9 +114,9 @@ function edgemakers_topic_field_default_field_instances_topic() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'link',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'link_default',
+        'type' => 'text_default',
         'weight' => 2,
       ),
       'teaser' => array(
@@ -276,21 +127,10 @@ function edgemakers_topic_field_default_field_instances_topic() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_topic_references',
-    'label' => 'References',
+    'field_name' => 'field_topic_org_resources',
+    'label' => 'Organizations + Resources',
     'required' => 0,
     'settings' => array(
-      'attributes' => array(
-        'class' => '',
-        'configurable_title' => 0,
-        'rel' => '',
-        'target' => 'default',
-        'title' => '',
-      ),
-      'display' => array(
-        'url_cutoff' => 80,
-      ),
-      'enable_tokens' => 1,
       'mediafront' => array(
         'custom' => '',
         'field_type' => 0,
@@ -298,25 +138,69 @@ function edgemakers_topic_field_default_field_instances_topic() {
         'preview' => 0,
         'thumbnail' => 0,
       ),
-      'rel_remove' => 'default',
-      'title' => 'required',
-      'title_maxlength' => 128,
-      'title_value' => '',
-      'url' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
-      'validate_url' => 1,
     ),
     'widget' => array(
-      'active' => 0,
-      'module' => 'link',
-      'settings' => array(),
-      'type' => 'link_field',
-      'weight' => 5,
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 3,
     ),
   );
 
-  // Exported field_instance: 'node-edgemakers_topic-field_topic_subtitle'
-  $field_instances['node-edgemakers_topic-field_topic_subtitle'] = array(
+  // Exported field_instance: 'node-edgemakers_topic-field_topic_problem'
+  $field_instances['node-edgemakers_topic-field_topic_problem'] = array(
+    'bundle' => 'edgemakers_topic',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_topic_problem',
+    'label' => 'Did you know',
+    'required' => 0,
+    'settings' => array(
+      'mediafront' => array(
+        'custom' => '',
+        'field_type' => 0,
+        'media_type' => 'media',
+        'preview' => 0,
+        'thumbnail' => 0,
+      ),
+      'text_processing' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'node-edgemakers_topic-field_topic_suggestion'
+  $field_instances['node-edgemakers_topic-field_topic_suggestion'] = array(
     'bundle' => 'edgemakers_topic',
     'default_value' => NULL,
     'deleted' => 0,
@@ -337,8 +221,8 @@ function edgemakers_topic_field_default_field_instances_topic() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_topic_subtitle',
-    'label' => 'Sub Title',
+    'field_name' => 'field_topic_suggestion',
+    'label' => 'How can you help',
     'required' => 0,
     'settings' => array(
       'mediafront' => array(
@@ -348,57 +232,57 @@ function edgemakers_topic_field_default_field_instances_topic() {
         'preview' => 0,
         'thumbnail' => 0,
       ),
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
       'module' => 'text',
       'settings' => array(
-        'size' => 60,
+        'rows' => 5,
       ),
-      'type' => 'text_textfield',
-      'weight' => 1,
+      'type' => 'text_textarea',
+      'weight' => 2,
     ),
   );
-  
-  // Translatables
-  // Included for use with string extractors like potx.
-  t('Articles');
-  t('Experts');
-  t('Media');
-  t('Organizations');
-  t('References');
-  t('Sub Title');
-  t('The Problem');
 
-  return $field_instances;
-}
-function edgemakers_topic_field_default_field_instances_challenges() {
-  $field_instances = array();
-
-  // Exported field_instance: 'taxonomy_term-challenges_vocabulary-field_challenge_topic'
-  $field_instances['taxonomy_term-challenges_vocabulary-field_challenge_topic'] = array(
-    'bundle' => 'challenges_vocabulary',
+  // Exported field_instance: 'node-edgemakers_topic-field_topic_videos'
+  $field_instances['node-edgemakers_topic-field_topic_videos'] = array(
+    'bundle' => 'edgemakers_topic',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
+        'module' => 'link',
+        'settings' => array(),
+        'type' => 'link_default',
+        'weight' => 6,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
     ),
-    'entity_type' => 'taxonomy_term',
-    'field_name' => 'field_challenge_topic',
-    'label' => 'Topic',
-    'required' => 1,
+    'entity_type' => 'node',
+    'field_name' => 'field_topic_videos',
+    'label' => 'Videos',
+    'required' => 0,
     'settings' => array(
+      'attributes' => array(
+        'class' => '',
+        'configurable_title' => 0,
+        'rel' => '',
+        'target' => 'default',
+        'title' => '',
+      ),
+      'display' => array(
+        'url_cutoff' => 80,
+      ),
+      'enable_tokens' => 0,
       'mediafront' => array(
         'custom' => '',
         'field_type' => 0,
@@ -406,20 +290,30 @@ function edgemakers_topic_field_default_field_instances_challenges() {
         'preview' => 0,
         'thumbnail' => 0,
       ),
+      'rel_remove' => 'default',
+      'title' => 'none',
+      'title_maxlength' => 128,
+      'title_value' => '',
+      'url' => 0,
       'user_register_form' => FALSE,
+      'validate_url' => 1,
     ),
     'widget' => array(
-      'active' => 1,
-      'module' => 'options',
+      'active' => 0,
+      'module' => 'link',
       'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 1,
+      'type' => 'link_field',
+      'weight' => 7,
     ),
   );
   
   // Translatables
   // Included for use with string extractors like potx.
-  t('Topic');
+  t('Did you know');
+  t('How can you help');
+  t('Images');
+  t('Organizations + Resources');
+  t('Videos');
 
   return $field_instances;
 }
