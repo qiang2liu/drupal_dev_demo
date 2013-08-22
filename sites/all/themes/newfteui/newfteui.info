@@ -12,6 +12,7 @@ regions[tool_bar] = Tool bar
 regions[content] = Content
 regions[sliding_panes] = Sliding panes
 regions[community] = Community
+regions[challenge] = Challenge
 
 ; Information added by drupal.org packaging script on 2013-04-03
 version = "1.0"
