@@ -1223,9 +1223,9 @@ div.ctools-modal-content .form-item .description{
   cursor: pointer;
   color: white;
   display:inline-block;
-  height:30px;
-  line-height: 30px;
-  padding: 0 14px 0 30px;
+  height:20px;
+  line-height: 20px;
+  padding: 18px 14px 18px 30px;
   background:url(../images/ico_left.png) 10px center no-repeat;
 }
 .set-type-icon {
