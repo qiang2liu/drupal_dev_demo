@@ -217,15 +217,11 @@ function muralshow($nid, $mid = 0, $uid = 0) {
     $the_node = node_load($nid);
   }
 
-  dpm($mid);
-
   $str_p = preg_match("/[0-9]+$/", $mid, $matches);
   $new_mural_id = '';
   if ($str_p) {
     $mid = $matches[0];
   }
-
-  dpm($mid);
 
   ctools_include('modal');
   ctools_include('ajax');
