@@ -298,7 +298,7 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
     }
   }
   if ($muralusername == '' || $muralroomid == '') {
-    drupal_set_message(t('can\'t get link to the mural account!'), 'error');
+//     drupal_set_message(t('can\'t get link to the mural account!'), 'error');
 
     return '';
   }
@@ -311,7 +311,7 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
     // Create_mural return mural data now.
 //     if ($the_m_id == '') {
     if (!$the_mural) {
-      drupal_set_message(t('can\'t create mural!'), 'error');
+//       drupal_set_message(t('can\'t create mural!'), 'error');
       return '';
     }
   } else {
@@ -338,7 +338,7 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
     // Create_mural return mural data now.
 //     if ($the_m_id == '') {
     if (!$the_mural) {
-      drupal_set_message(t('can\'t create mural!'), 'error');
+//       drupal_set_message(t('can\'t create mural!'), 'error');
       return '';
     }
   }
@@ -467,19 +467,19 @@ function mural_delete($nid = 0) {
 		$delete_status = $mural_api->delete_mural($muralusername, $muralid);
 
 		if ($delete_status->data == 'OK') {
-			drupal_set_message('Mural ' . $node->title . ' have deleted.');
+// 			drupal_set_message('Mural ' . $node->title . ' have deleted.');
 			//drupal_set_message('<pre>' . print_r($delete_status, TRUE) . '</pre>');
 			$html .= 'Mural ' . $node->title . ' have deleted.';
 		}
 		else {
-			drupal_set_message(t('Delete fail'), 'error');
+// 			drupal_set_message(t('Delete fail'), 'error');
 			$html .= 'Mural ' . $node->title . ' fail.';
 		}
 
 
 	}
 	else {
-		drupal_set_message(t('Delete fail'), 'error');
+// 		drupal_set_message(t('Delete fail'), 'error');
 		$html .= 'Mural ' . $node->title . ' fail.';
 	}
 
