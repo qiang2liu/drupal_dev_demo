@@ -63,6 +63,7 @@
     jQuery("#back-to-dashboard").bind("click", function(){
       var stageNotes = jQuery("#stage-notes").html();
       teacherNotes(stageNotes);
+      
       jQuery("#set-view-region").slideToggle();
       jQuery("#stage-set-list").show();
       jQuery(".s-s-title h3").empty();
@@ -71,6 +72,7 @@
     jQuery("#mural-back-set-list").bind("click", function(){
       closeFromIframe();
       backToStage();
+       
     });
 
     jQuery("#back-set-list").bind("click", function(){
@@ -89,7 +91,7 @@
         showMuralDialog(source);
         jQuery("#mural-set-nav").show();
         resetDestinationNav(nid);
-  
+  		
         jQuery("#set-view-region").hide();
         jQuery("#stage-set-list").show();
       }
@@ -102,14 +104,14 @@
     jQuery(".set-nav .prev").bind("click", function(){
       var nid = jQuery(this).attr("id").substring(5);
       var setType = jQuery(this).attr("settype");
-      
+     
       if (setType == "mural") {
         var source = jQuery('[current="'+nid+'"] a').attr("href");
   //      alert("Mural opeaation on nav." + source);
         showMuralDialog(source);
         jQuery("#mural-set-nav").show();
         resetDestinationNav(nid);
-  
+  		 
         jQuery("#set-view-region").hide();
         jQuery("#stage-set-list").show();
       }
