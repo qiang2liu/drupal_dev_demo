@@ -12,6 +12,8 @@ regions[tool_bar] = Tool bar
 regions[content] = Content
 regions[sliding_panes] = Sliding panes
 regions[community] = Community
+regions[studio_pane] = Studio Pane
+regions[gallery_pane] = Gallery Pane
 regions[challenge] = Challenge
 
 ; Information added by drupal.org packaging script on 2013-04-03

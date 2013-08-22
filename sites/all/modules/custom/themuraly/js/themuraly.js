@@ -16,6 +16,8 @@ jQuery(document).ready(function(){
   
   mural_ajax_load_list();
   
+  studio_mural_ajax_load_list();
+  
 });
 
 function closeFromIframe()
@@ -114,5 +116,59 @@ function mural_ajax_load_list() {
 
       });
     });
+    
+    
+  });
+}
+
+
+function studio_mural_ajax_load_list() {
+
+  jQuery("#studio-mural-list").load("?q=mural/studio/get/list/ajax", function(){
+
+    jQuery('.toolbar-item').each(function(){
+      var self = jQuery(this);
+      
+      if(self.children().first().hasClass('has-child')){
+        self.find('h4>em').bind('click', function(){
+          if(!self.find('.item-list').hasClass('active')){
+            jQuery('.toolbar-item').find('.item-list').removeClass('active');
+            self.find('.item-list').addClass('active')
+          }
+        })
+      }
+    });
+
+    jQuery('ul#mural-list li a ').each(function( index ) {
+
+      //alert("Hook mural list link.");
+      jQuery(this).bind('click', function(){
+
+        //alert("click mural link.");
+        if (jQuery("#mural-region").length !== 0) {
+          var source = jQuery(this).attr("href");
+          showMuralDialog(source);
+        }
+        
+        return false;
+
+      });
+    });
+    
+    jQuery('ul#mural-list li a.studio-mural-settings').each(function( index ) {
+    
+      jQuery(this).unbind("click");
+  
+      //alert("Hook mural list link.");
+      jQuery(this).bind('click', function(){
+  
+        alert("click mural link.");
+  
+        return false;
+  
+      });
+    });
+
+      
   });
 }

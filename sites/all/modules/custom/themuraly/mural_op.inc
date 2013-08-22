@@ -247,7 +247,7 @@ function muralshow($nid, $mid = 0, $uid = 0) {
     $edit_url = '';
   }
 
-dpm($the_node);
+// dpm($the_node);
 
   return theme("muralypage", array('data' => array('m_id' => $mid,
               'seturl' => $edit_url,

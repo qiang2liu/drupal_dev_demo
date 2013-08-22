@@ -98,3 +98,35 @@ ul#mural-region-nav li.mural-nav-link-duplicate {
   cursor: pointer;
   color: white;
 }
+
+#studio-mural-list ul#mural-list li {
+  display: inline;
+  position: relative;
+}
+
+#studio-mural-list ul#mural-list li.muralsettingicon {
+  display: block;
+  width: 140px;
+  height: 140px;
+}
+
+#studio-mural-list ul#mural-list li span.muralthumb img {
+  width: 140px;
+  height: 140px;
+}
+
+#studio-mural-list ul#mural-list li a.studio-mural-list-item-link {
+  display: block;
+  width: 140px;
+  height: 140px;
+  position: absolute;
+  left: 0;
+  top: -126px;
+}
+
+#studio-mural-list ul#mural-list li a.studio-mural-settings{
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+}
+

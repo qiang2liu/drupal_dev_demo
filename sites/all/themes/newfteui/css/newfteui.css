@@ -955,7 +955,8 @@ div.ctools-modal-content .form-item .description{
 .pane-con.studio{
 	width:760px;
 	height:706px;
-	background:url(../images/example_13.png)
+/*	background:url(../images/example_13.png); */
+  background-color: #BC0335;
 }
 .pane-con.gallery{
 	width:760px;
