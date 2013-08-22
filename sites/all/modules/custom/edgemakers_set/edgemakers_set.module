@@ -309,8 +309,6 @@ function edgemakers_set_node_submit($node, $form, &$form_state) {
           require_once drupal_get_path('module', 'themuraly').'/themuraly.module';
           if(function_exists('themuraly_update_node_by_mural')) 
             themuraly_update_node_by_mural($url);
-          else
-            drupal_set_message($url);
         }
       }
     }
