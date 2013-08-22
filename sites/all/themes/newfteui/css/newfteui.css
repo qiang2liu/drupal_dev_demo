@@ -1112,8 +1112,8 @@ div.ctools-modal-content .form-item .description{
 	opacity:1;
 }
 #stage-set-list li .set-cover h5{
-	padding:10px 0 10px;
-	height:65px;
+	padding:0 0 10px;
+	height:75px;
 }
 #stage-set-list li .set-cover p{
 	text-align:left;
