@@ -634,7 +634,7 @@ function themuraly_studio_mural_list_html($uid = '', $page = 0) {
 
   dpm($start);
 
-  $nodes = themuraly_mural_list($uid, $start, $limit);
+  $nodes = themuraly_mural_list($user->uid, $start, $limit);
 //   $murals_list = themuraly_mural_list($uid, $start, $limit);
 
   dpm($nodes);
@@ -734,9 +734,9 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5) {
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'node')
 //       ->propertyCondition('status', 1)
-      ->propertyCondition('uid', $uid)
+      ->propertyCondition('uid', $user->uid)
       ->propertyCondition('type', array('murals'))
-//       ->propertyOrderBy('created', 'DESC')
+      ->propertyOrderBy('created', 'DESC')
       ->range($start, $limit);
     $result = $query->execute();
     $my_mural_nodes = node_load_multiple(array_keys($result['node']), '' , TRUE);
@@ -770,6 +770,7 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5) {
 function themuraly_mural_list_html($limit = 5) {
 
 	global $user;
+
 	$my_mural_nodes = array();
 
 	$content_type = 'murals';
