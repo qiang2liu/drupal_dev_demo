@@ -217,13 +217,15 @@ function muralshow($nid, $mid = 0, $uid = 0) {
     $the_node = node_load($nid);
   }
 
-  $mural_id_arr = explode('.' , $mid);
+  dpm($mid);
 
-  if ($mural_id_arr[0] == 'edgemakers') {
-    $mid = $mural_id_arr[1];
+  $str_p = preg_match("/[0-9]+$/", $mid, $matches);
+  $new_mural_id = '';
+  if ($str_p) {
+    $mid = $matches[0];
   }
 
-  dpm($nid);
+  dpm($mid);
 
   ctools_include('modal');
   ctools_include('ajax');
@@ -348,7 +350,6 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
       return '';
     }
   }
-
 
   $str_p = preg_match("/[0-9]+$/", $the_mural['id'], $matches);
   $new_mural_id = '';
