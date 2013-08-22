@@ -290,6 +290,32 @@ function edgemakers_set_node_validate($node, $form, &$form_state) {
     }
   }
 }
+/**
+ * Implements hook_node_submit().
+ *
+ */
+function edgemakers_set_node_submit($node, $form, &$form_state) {
+  if($node->type == 'edgemakers_set') {
+    $terms = _edgemakers_set_get_terms();
+    $types = field_get_items('node', $node, 'field_set_type');
+    $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
+    if($type == 'Mural') {
+      $murallyTypes = field_get_items('node', $node, 'field_set_murally_type');
+      $murallyType = $murallyTypes && count($murallyTypes) > 0 ? $murallyTypes[0]['value'] : '';
+      if($murallyType == 1 || $murallyType == 2) {
+        $urls = field_get_items('node', $node, 'field_set_url');
+        $url = $urls && count($urls) > 0 ? $urls[0]['url'] : '';
+        if($url) {
+          require_once drupal_get_path('module', 'themuraly').'/themuraly.module';
+          if(function_exists('themuraly_update_node_by_mural')) 
+            themuraly_update_node_by_mural($url);
+          else
+            drupal_set_message($url);
+        }
+      }
+    }
+  }
+}
 function _edgemakers_set_check_refernid_exist($tid, $referfield, $nid){
   $query = new EntityFieldQuery();
 
