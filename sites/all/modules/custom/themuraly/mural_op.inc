@@ -305,7 +305,10 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
     //create new mural
     $the_m_id = create_mural($mural_api, $muralusername, $muralroomid);
 //     dd($the_m_id, 'create mural');
-    if ($the_m_id == '') {
+
+    // Create_mural return mural data now.
+//     if ($the_m_id == '') {
+    if ($the_m_id) {
       drupal_set_message(t('can\'t create mural!'), 'error');
       return '';
     }
@@ -330,7 +333,9 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
   	}
 
     $the_m_id = create_mural($mural_api, $muralusername, $muralroomid, $title, $template_id);
-    if ($the_m_id == '') {
+    // Create_mural return mural data now.
+//     if ($the_m_id == '') {
+    if ($the_m_id) {
       drupal_set_message(t('can\'t create mural!'), 'error');
       return '';
     }
@@ -379,7 +384,10 @@ function create_mural($mural_api, $muser, $mroomid, $title = 'my mural', $duplic
       if ($str_p) {
         $new_mural_id = $matches[0];
       }
-      return $new_mural_id;
+      dpm($muralapi_response_obj);
+      // Return whole data from mural.
+      return $muralapi_response_obj;
+//       return $new_mural_id;
     }
   }
   return '';
