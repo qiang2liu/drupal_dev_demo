@@ -96,10 +96,11 @@ function themuraly_block_view($delta = '') {
       $the_user_muralusername = $the_field_obj[0]['value'];
       $the_field_obj = field_get_items('user', $account, 'field_muralroomid');
       $the_user_roomid = $the_field_obj[0]['value'];
-      if (1==1 || !empty($the_user_muralusername)) {
-        $block['content'] = get_myideas_shareideas($user->uid, $the_user_muralusername,  $the_user_roomid);
 
-      }
+//       if (1==1 || !empty($the_user_muralusername)) {
+//         $block['content'] = get_myideas_shareideas($user->uid, $the_user_muralusername,  $the_user_roomid);
+
+//       }
 
       break;
     case 'mural_link':
@@ -346,6 +347,16 @@ function _themuralyajax_validate($form, &$form_state) {
               $r = drupal_json_decode($data);
 
               $form_state['values']['field_mural_thumburl'][$lang][0]['value'] = $r['thumbUrl'];
+
+              // Sync memeber data from mural.
+              if (is_object($result) && isset($result->data)) {
+                $muralapi_response_obj = drupal_json_decode($result->data);
+                if (!empty($muralapi_response_obj['members']) && is_array($muralapi_response_obj['members'])) {
+                  $the_muralusers = array_keys($muralapi_response_obj['members']);
+                }
+
+                $form_state['values']['field_mural_members'][$lang][0]['value'] = serialize($the_muralusers);
+              }
 
             }
           }

@@ -13,13 +13,15 @@
  *   the user's own mural lists
  */
 function get_myideas_shareideas($uid, $musername, $mroomid) {
+
+dpm($uid . $musername . $mroomid);
   $myideas_list = array();
   $shareideas_list = array();
   $the_muralid_array = array();
   // call mural api to get list
   $mural_api = new Muralapi;
   $result = $mural_api->get_all_murals($musername);
-
+dpm($result);
   if (is_object($result) && isset($result->data)) {
     $data = drupal_json_decode($result->data);
     if (is_array($data)) {
@@ -303,12 +305,12 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
 
   if ($template_id == 0) {
     //create new mural
-    $the_m_id = create_mural($mural_api, $muralusername, $muralroomid);
+    $the_mural = create_mural($mural_api, $muralusername, $muralroomid);
 //     dd($the_m_id, 'create mural');
 
     // Create_mural return mural data now.
 //     if ($the_m_id == '') {
-    if ($the_m_id) {
+    if (!$the_mural) {
       drupal_set_message(t('can\'t create mural!'), 'error');
       return '';
     }
@@ -332,10 +334,10 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
       $title = isset($node->title)?'Copy of ' . $node->title:'my mural';
   	}
 
-    $the_m_id = create_mural($mural_api, $muralusername, $muralroomid, $title, $template_id);
+    $the_mural = create_mural($mural_api, $muralusername, $muralroomid, $title, $template_id);
     // Create_mural return mural data now.
 //     if ($the_m_id == '') {
-    if ($the_m_id) {
+    if (!$the_mural) {
       drupal_set_message(t('can\'t create mural!'), 'error');
       return '';
     }
@@ -352,8 +354,12 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
   $newNode->moderate = 0;
   $newNode->sticky = 0;
   $newNode->language = 'und';
-  $newNode->field_muralid['und'][0]['value'] = $the_m_id;
+  $newNode->field_muralid['und'][0]['value'] = $the_mural['id'];
   $newNode->field_muraluser['und'][0]['value'] = $muralusername;
+
+  $newNode->field_mural_thumburl['und'][0]['value'] = $the_mural['thumbUrl'];
+  $mural_memebers = array_keys($the_mural['members']);
+  $newNode->field_mural_members['und'][0]['value'] = serialize($mural_memebers);
 
   node_object_prepare($newNode);
   node_save($newNode);
