@@ -2,7 +2,7 @@
     <ul>
 		  <?php foreach($items as $tid=>$term):?>
      	<li>
-        <?php echo l($term['name'], 'node/'.$term['topicid']); ?></a>
+        <a href="<?php echo url('node/'.$term['topicid']); ?>" target="_blank"><?php echo $term['name'];?></a>
       </li>
       <?php endforeach;?>
     </ul>
