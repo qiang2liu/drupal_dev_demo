@@ -174,7 +174,7 @@ function edgemakers_set_comment_form_callback($form, &$form_state) {
   $formSelector = "#comment-form-wrapper";
   if (!$errors) {
     comment_form_submit($form, $form_state);
-    $comment = $form_state['comment'];
+    $comment = comment_load($form_state['comment']->cid);    
     $node = $form['#node'];
     $output = drupal_render(comment_view($comment, $node));
     $commands[] = ajax_command_prepend("#comments-list", $output);
@@ -378,14 +378,27 @@ function theme_set_item($variables) {
             list(, $muralid) = explode('.', $info['id']);
             $ownerId = $info['lastUpdatedBy'];  //Add by lugal
             if($murallyType == 1) {
-//               $ownerId = $info['ownerId'];
-//               $ownerId = $info['lastUpdatedBy'];
               $link = 'mural/share/'.$ownerId.'/'.$muralid;
             } else if($murallyType == 2) {
               $link = 'mural/create/'.$muralid .'/0/'.$ownerId;
             }
-            $title = $info['title'];
-            $thumbnail = '<div class="crop"><img src="'. $info['thumbUrl'] .'" /></div>';
+            if(isset($info['thumbUrl']) && $info['thumbUrl']) {
+              $thumbnail = '<div class="crop"><img src="'. $info['thumbUrl'] .'" /></div>';
+            } else {
+              if(!isset($defaultThumbs[$type])) {
+                $defaultThumbs[$type] = edgemakers_set_get_set_type_default_thumbnail($item->term);
+              }
+              $thumbnail = $defaultThumbs[$type];
+            }
+            if(isset($info['title']) && $info['title']) {
+              $title = $info['title'];
+              $type = $item->term->name;
+              $className = strtolower(str_replace(array(' ', '&'), array('_', ''), $type).'');
+              $cover = '<div class="set-cover">
+                <h5>'.$title.'</h5>
+                <p class="'.$className.'">'.$type.'</p>
+              </div>';
+            }
             $output .= l($thumbnail, $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
           } else {
             $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
