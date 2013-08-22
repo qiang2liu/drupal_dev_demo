@@ -28,10 +28,10 @@ function closeFromIframe()
 function showMuralDialog(source) {
   
   jQuery("#mural-set-nav").hide();
-  jQuery("#mural-back-to-dashbord").show();
+  jQuery("#mural-back-to-dashboard").show();
   
-  jQuery("#mural-back-to-dashbord").bind("click", function(){
-    jQuery("#mural-back-to-dashbord").hide();
+  jQuery("#mural-back-to-dashboard").bind("click", function(){
+    jQuery("#mural-back-to-dashboard").hide();
     closeFromIframe();
   });
   
