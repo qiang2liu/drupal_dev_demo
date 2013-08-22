@@ -349,6 +349,13 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
     }
   }
 
+
+  $str_p = preg_match("/[0-9]+$/", $the_mural['id'], $matches);
+  $new_mural_id = '';
+  if ($str_p) {
+    $new_mural_id = $matches[0];
+  }
+
   $newNode = (object) NULL;
   $newNode->type = 'murals';
   $newNode->title = $title;
@@ -360,7 +367,7 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
   $newNode->moderate = 0;
   $newNode->sticky = 0;
   $newNode->language = 'und';
-  $newNode->field_muralid['und'][0]['value'] = $the_mural['id'];
+  $newNode->field_muralid['und'][0]['value'] = $new_mural_id;
   $newNode->field_muraluser['und'][0]['value'] = $muralusername;
 
   $newNode->field_mural_thumburl['und'][0]['value'] = $the_mural['thumbUrl'];
