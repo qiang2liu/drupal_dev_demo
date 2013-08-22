@@ -22,6 +22,10 @@ function closeFromIframe()
 {
   mural_ajax_load_list();
   jQuery('#mural-region').dialog('close');
+  jQuery('body').css({
+	'height': 'auto',
+	'overflow-y': 'auto'
+  });
   return false;
 }
 
@@ -33,6 +37,7 @@ function showMuralDialog(source) {
   jQuery("#mural-back-to-dashboard").bind("click", function(){
     jQuery("#mural-back-to-dashboard").hide();
     closeFromIframe();
+    
   });
   
   var iframeHtml = "<iframe id=\"mural-iframe\" width=\"100%\" height=\"90%\" src=\"?q=" + source + "\"></iframe>";
@@ -46,6 +51,7 @@ function showMuralDialog(source) {
   	});
   	jQuery("#mural-iframe").attr("width", jQuery(window).width() + 'px');
     jQuery("#mural-iframe").attr("height", jQuery(window).height()-45 + 'px');
+    jQuery("#mural-region").css("height", jQuery(window).height() + 'px');
   }
   setMuralWidth();
   
