@@ -34,3 +34,62 @@ function edgemakers_topic_image_default_styles() {
 
   return $styles;
 }
+/**
+* Implements hook_block_info().
+*/
+function edgemakers_topic_block_info() {
+  $blocks['carousel'] = array(
+    'info' => t('Carousel'),
+    'status' => TRUE,
+    'region' => 'challenge',
+    'weight' => 0,
+    'visibility' => 1,
+  );
+  $blocks['problems'] = array(
+    'info' => t('Problems'),
+    'status' => TRUE,
+    'region' => 'challenge',
+    'weight' => 1,
+    'visibility' => 1,
+  );
+  return $blocks;
+}
+/**
+* Implements hook_block_view().
+*/
+function edgemakers_topic_block_view($delta = '') {
+  require_once drupal_get_path('module', 'edgemakers_topic').'/edgemakers_topic.pages.inc';
+  switch ($delta) {
+    case 'carousel':
+      $items = edgemakers_topic_carousel_items();
+      $block['subject'] = t('Challenges');
+      $block['content'] = array(
+        '#theme' => 'carousel_block',
+        '#items' => $items,
+      );
+      return $block;
+      break;
+    case 'problems':
+      $items = edgemakers_topic_problems_items();
+      $block['subject'] = t('Wicked Problems');
+      $block['content'] = array(
+        '#theme' => 'problems_block',
+        '#items' => $items,
+      );
+      return $block;
+      break;
+  }
+}
+/**
+ * Implements hook_theme().
+ */
+function edgemakers_topic_theme() {
+  return array(
+    'carousel_block' => array(
+      'variables' => array('items' => NULL),
+    ),
+    'problems_block' => array(
+      'variables' => array('items' => NULL),
+    ),
+  );
+}

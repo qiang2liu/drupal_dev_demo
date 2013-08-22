@@ -150,14 +150,8 @@ function edgemakers_topic_list_all_topics() {
   $handler->display->display_options['fields']['field_carousel_item_topic']['field'] = 'field_carousel_item_topic';
   $handler->display->display_options['fields']['field_carousel_item_topic']['label'] = 'Topic';
   $handler->display->display_options['fields']['field_carousel_item_topic']['settings'] = array(
-    'link' => 0,
+    'link' => 1,
   );
-  /* Field: Content: Carousel Item Link */
-  $handler->display->display_options['fields']['field_carousel_item_link']['id'] = 'field_carousel_item_link';
-  $handler->display->display_options['fields']['field_carousel_item_link']['table'] = 'field_data_field_carousel_item_link';
-  $handler->display->display_options['fields']['field_carousel_item_link']['field'] = 'field_carousel_item_link';
-  $handler->display->display_options['fields']['field_carousel_item_link']['label'] = 'Link';
-  $handler->display->display_options['fields']['field_carousel_item_link']['click_sort_column'] = 'url';
   /* Field: Content: Edit link */
   $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
   $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
