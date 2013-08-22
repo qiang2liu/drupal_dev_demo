@@ -869,14 +869,10 @@ function edgemakers_content_types_field_default_field_instances() {
         'target' => 'default',
         'title' => '',
       ),
-      'description_field' => 0,
       'display' => array(
         'url_cutoff' => 80,
       ),
       'enable_tokens' => 0,
-      'file_directory' => '',
-      'file_extensions' => 'txt',
-      'max_filesize' => '',
       'mediafront' => array(
         'custom' => '',
         'field_type' => 0,
