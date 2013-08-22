@@ -217,6 +217,12 @@ function muralshow($nid, $mid = 0, $uid = 0) {
     $the_node = node_load($nid);
   }
 
+  $mural_id_arr = explode('.' , $mid);
+
+  if ($mural_id_arr[0] == 'edgemakers') {
+    $mid = $mural_id_arr[1];
+  }
+
   dpm($nid);
 
   ctools_include('modal');
