@@ -8,7 +8,7 @@
 }
 .set-text-content {
  
-  height:455px;
+  height:460px;
   margin:0 20px ;
   padding: 0;
   border:none;

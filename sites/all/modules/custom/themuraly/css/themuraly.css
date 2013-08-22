@@ -28,7 +28,7 @@
   height: 600px;
 }*/
 ul#mural-region-nav {
-  padding: 5px 0;
+  padding: 5px 22px;
   height: 26px;
   overflow: hidden;
 }
@@ -39,9 +39,10 @@ ul#mural-region-nav li {
   right: 20px;
   margin: 0 1px;
   background-color: #67b0d1;
-  padding: 4px 3px 3px 5px;
+  padding: 3px 3px 2px 5px;
   height: 21px;
   text-align: center;
+  font-size:12px;
 }
 
 .close-mural-dialog {
@@ -77,7 +78,7 @@ ul#mural-region-nav li {
 
 a.mural-nav-link {  
   color: white;
-  padding: 1px 12px;
+  padding: 0px 12px;
   display: block;
   line-height: 26px;
   background-color: #e87352;
@@ -88,7 +89,7 @@ ul#mural-region-nav li.mural-nav-link-delete {
 }
 
 ul#mural-region-nav li.mural-nav-link-duplicate {
-  padding: 4px 8px 3px 8px;
+  padding: 3px 8px 2px 8px;
 }
 
 .back-to-dashboard span {
