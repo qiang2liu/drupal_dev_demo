@@ -13,7 +13,7 @@
     <?php echo isset($node->term->name)?$node->term->name: ''; ?><br/>
   </div>
 
-  <span id="set-title" style="display: none;"><?php print $title; ?></span>
+  <span id="set-title"><?php print $title; ?></span>
   <div class="content set-text-content clearfix"<?php print $content_attributes; ?>>
     <div id="em-webform">
     <?php

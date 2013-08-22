@@ -1112,8 +1112,8 @@ div.ctools-modal-content .form-item .description{
 	opacity:1;
 }
 #stage-set-list li .set-cover h5{
-	padding:10px 0 10px;
-	height:65px;
+	padding:0 0 10px;
+	height:75px;
 }
 #stage-set-list li .set-cover p{
 	text-align:left;
@@ -1194,6 +1194,15 @@ div.ctools-modal-content .form-item .description{
 .s-s-title h3{
 	color:#eee;
 	font-size:1.3em;
+	display:none;
+}
+#set-title{
+	font-size:1.4em;
+	color:#fff;
+	display:block;
+	margin-top:-50px;
+	text-align:center;
+	padding-bottom:15px;
 }
 
 #image-download-it a{

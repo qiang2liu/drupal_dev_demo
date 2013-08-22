@@ -78,7 +78,7 @@ function youtubeFeedCallback(json) {
     Duration: <span id="yotube-duration-time"></span>
   </div>
 
-  <span id="set-title" style="display: none;"><?php print $title;?></span>
+  <span id="set-title"><?php print $title;?></span>
   <div class="content set-video-content clearfix"<?php print $content_attributes; ?>>
     <?php
       // We hide the comments and links now so that we can render them later.

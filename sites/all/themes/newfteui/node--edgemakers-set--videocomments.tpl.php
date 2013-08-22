@@ -39,7 +39,7 @@ $username = $user->name;
     <?php echo isset($node->term->name)?$node->term->name: ''; ?><br/>
   </div>
 
-  <span id="set-title" style="display: none;">Teacher: <?php print $username; ?></span>
+  <span id="set-title">Teacher: <?php print $username; ?></span>
   <div class="content set-video-content clearfix"<?php print $content_attributes; ?>>
     <?php
       // We hide the comments and links now so that we can render them later.

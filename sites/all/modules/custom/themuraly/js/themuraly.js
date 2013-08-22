@@ -28,10 +28,10 @@ function closeFromIframe()
 function showMuralDialog(source) {
   
   jQuery("#mural-set-nav").hide();
-  jQuery("#mural-back-to-dashbord").show();
+  jQuery("#mural-back-to-dashboard").show();
   
-  jQuery("#mural-back-to-dashbord").bind("click", function(){
-    jQuery("#mural-back-to-dashbord").hide();
+  jQuery("#mural-back-to-dashboard").bind("click", function(){
+    jQuery("#mural-back-to-dashboard").hide();
     closeFromIframe();
   });
   
@@ -40,10 +40,14 @@ function showMuralDialog(source) {
   //jQuery("#mural-region").html("Mural display here by iframe " + source);
   jQuery("#mural-iframe").attr("src", source);
   function setMuralWidth(){
-  	jQuery("#mural-iframe").attr("width", jQuery(window).width());
-    jQuery("#mural-iframe").attr("height", jQuery(window).height() + 30);
+  	jQuery("#mural-iframe").attr("width", jQuery(window).width() + 'px');
+    /*jQuery("#mural-iframe").attr("height", jQuery(window).height()-40 + 'px');
+    jQuery( "#mural-region" ).css({
+    	'height' : jQuery(window).height() + 40 + 'px'
+    })*/
   }
   setMuralWidth();
+  jQuery("#mural-iframe").attr("height", jQuery(window).height()-20 + 'px');
   jQuery(window).resize(function(){
   	setMuralWidth();
   })
@@ -53,8 +57,11 @@ function showMuralDialog(source) {
     modal: true,
     position: ["left", "top"],
     width: "100%",
-    height: jQuery(window).height() + 120,
-    zIndex: 1000
+    height: jQuery(window).height() + 60,
+    zIndex: 1000,
+    resize: function(event,ui){
+    	console.log('resize');
+    }
     
     /*buttons: {
       Ok: function() {
