@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * get items for carousel block to display
  */
