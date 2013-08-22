@@ -114,7 +114,7 @@
 </div>
 
 <!-- /main content -->
-<?php //print $messages; ?>
+<?php print $messages; ?>
 <div class="main-content">
   <?php print render($page['content']); ?>
 </div>
