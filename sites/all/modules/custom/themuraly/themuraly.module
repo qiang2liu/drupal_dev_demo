@@ -325,6 +325,9 @@ function _themuralyajax_validate($form, &$form_state) {
 
                 if (is_object($result) && isset($result->data)) {
                   $data = $result->data;
+//                   dpm('Update mural info:');
+//                   dpm($result);
+//                   dpm('End update mural info');
 
                   if (!is_string($data) || strtoupper($data) != 'OK') {
                     $the_form_ele = $k;
@@ -335,6 +338,15 @@ function _themuralyajax_validate($form, &$form_state) {
                   }
                 }
               }
+
+              //Update the thumburl when update the node.
+              $mural_api = new Muralapi;
+              $result = $mural_api->retrieve_a_mural($muralusername, $the_muralid);
+              $data = $result->data;
+              $r = drupal_json_decode($data);
+
+              $form_state['values']['field_mural_thumburl'][$lang][0]['value'] = $r['thumbUrl'];
+
             }
           }
         }
@@ -400,8 +412,11 @@ function muralapi_create_room($mural_api, $muralusername, $title, $account) {
 function muralapi_test() {
   $output_html = '';
 
-  include_once('mural_op.inc');
-  muralshow_share('lwgmural', '1376967210186');
+//   include_once('mural_op.inc');
+//   muralshow_share('lwgmural', '1376967210186');
+
+  themuraly_get_mural_info('http://staging.mural.ly/!/#/lwgmural/1377006043205');
+  _get_node_from_mural_id('1377006043205');
 
 //   _test_mural_list_for_a_user();
   //_test_user_add();
@@ -413,9 +428,9 @@ function muralapi_test() {
   //_test_mural_del();
 //   _test_mural_list_for_a_user();
   // _test_mural_invite_member();
-  _test_retrieve_a_mural();
+//   _test_retrieve_a_mural();
 
-  themuraly_get_mural_info('http://staging.mural.ly/!/#/lwgmural/1376967210186');
+//   themuraly_get_mural_info('http://staging.mural.ly/!/#/lwgmural/1376967210186');
 
   // $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/1374110398829' width=500px height=500px'></iframe>";
 //   $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/1374641493558' width=500px height=500px'></iframe>";
@@ -676,79 +691,35 @@ function themuraly_get_mural_info($mural_url = '') {
   if ($mural_url) {
 
     $mural_url_info = parse_url($mural_url);
-
     $mural_info = explode('/' , $mural_url_info['fragment']);
-
-//     drupal_set_message('Mural url: <pre>' . print_r($mural_info, TRUE) . '</pre>');
-
     $mural_username = $mural_info[1];
     $mural_id = $mural_info[2];
 
-//     $node = node_load(354);
-
-//     if ($node->nid) {
-//       $field_mural_username = field_get_items('node', $node, 'field_muraluser');
-//       $mural_username = $field_mural_username && count($field_mural_username) > 0 ? $field_mural_username[0]['value'] : '';
-//       $field_mural_id = field_get_items('node', $node, 'field_muralid');
-//       $mural_id = $field_mural_id && count($field_mural_id) > 0 ? $field_mural_id[0]['value'] : '';
-
-// //       drupal_set_message("Mural node:" . $node->nid);
-// //       drupal_set_message("Mural username:" . $mural_username);
-// //       drupal_set_message("Mural id:" . $mural_id);
-//     }
 
     if ($mural_id) {
 
-      $nodeQuery = new EntityFieldQuery;
+      $the_nodes = _get_node_from_mural_id($mural_id);
 
-      $entities = $nodeQuery->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', 'murals')
-      ->fieldCondition('field_muralid','value', $mural_id, '=')
-      ->execute();
+      if ($the_nodes) {
 
-      if (!empty($entities['node'])) {
-        foreach ($entities['node'] AS $node_en) {
-          $the_node = node_load($node_en->nid);
+        foreach ($the_nodes AS $the_node) {
+//           dpm('<pre>' . print_r($the_node, TRUE) . '</pre>');
+          $field_mural_username = field_get_items('node', $the_node, 'field_muraluser');
+          $mural_username = $field_mural_username && count($field_mural_username) > 0 ? $field_mural_username[0]['value'] : '';
+
+          $field_mural_thumburl = field_get_items('node', $the_node, 'field_mural_thumburl');
+//           dpm('$field_mural_thumburl: <pre>' . print_r($field_mural_thumburl, TRUE) . '</pre>');
+          $mural_mural_thumburl = $field_mural_thumburl && count($field_mural_thumburl) > 0 ? $field_mural_thumburl[0]['value'] : '';
+//           dpm('$mural_mural_thumburl: <pre>' . print_r($mural_mural_thumburl, TRUE) . '</pre>');
+
+          $mural_info['id'] = 'edgemakers.' . $mural_id;
+          $mural_info['title'] = $the_node->title;
+          $mural_info['lastUpdatedBy'] = $mural_username;
+          $mural_info['thumbUrl'] = empty($mural_mural_thumburl)?'':$mural_mural_thumburl;
+
+          return $mural_info;
         }
-        dpm($the_node);
       }
-
-      if ($the_node) {
-
-        $field_mural_username = field_get_items('node', $the_node, 'field_muraluser');
-        $mural_username = $field_mural_username && count($field_mural_username) > 0 ? $field_mural_username[0]['value'] : '';
-
-        $field_mural_thumburl = field_get_items('node', $the_node, 'field_mural_thumburl‎');
-        $mural_mural_thumburl = $field_mural_thumburl && count($field_mural_thumburl) > 0 ? $field_mural_thumburl[0]['value'] : '';
-
-        //@TODO Replace with custom field saved from muraly by API.
-        $mural_info['id'] = 'edgemakers.' . $mural_id;
-        $mural_info['title'] = $the_node->title;
-        $mural_info['lastUpdatedBy'] = $mural_username;
-
-        //@TODO change thumburl from api.
-//         $pics = field_get_items('taxonomy_term', 'mural', 'field_set_type_default_thumbnail');
-//         $pic = $pics && count($pics) > 0 ? $pics[0]['uri'] : '';
-//         drupal_set_message('Thumb url: ' . $pic);
-
-        $mural_info['thumbUrl'] = empty($mural_mural_thumburl)?'':$mural_mural_thumburl;
-
-  //       $r['data'] = $the_node;
-
-  //       $mural_api = new Muralapi;
-  //       $mural_info = $mural_api->retrieve_a_mural($mural_username, $mural_id);
-
-  //       $data = $mural_info->data;
-  //       $r = drupal_json_decode($data);
-  //       dpm($data);
-  //       dpm($r);
-
-  //       drupal_set_message('Mural url: <pre>' . print_r($r, TRUE) . '</pre>');
-
-  // //       dpm($mural_info);
-  //      //drupal_set_message('<pre>' . $mural_info . '</pre>');
-           return $mural_info;
-         }
 
    }
 
@@ -758,4 +729,26 @@ function themuraly_get_mural_info($mural_url = '') {
 
   return false;
 
+}
+
+
+function _get_node_from_mural_id($mid) {
+
+  if ($mid) {
+    $nodeQuery = new EntityFieldQuery;
+
+    $entities = $nodeQuery->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'murals')
+    ->fieldCondition('field_muralid','value', $mid, '=')
+    ->execute();
+
+    if (!empty($entities['node'])) {
+      $news_items_nids = array_keys($entities['node']);
+      $news_items = entity_load('node', $news_items_nids);
+//       dpm($news_items);
+      return $news_items;
+    }
+
+  }
+  return '';
 }
