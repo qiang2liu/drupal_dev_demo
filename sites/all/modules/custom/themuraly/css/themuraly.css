@@ -61,7 +61,9 @@ ul#mural-region-nav li {
   padding: 0;
   margin: 0;
 }
-
+#mural-back-to-dashboard{
+	height:56px;
+}
 #mural-top-bar #mural-title {
   position: absolute;
   left: 50%;
