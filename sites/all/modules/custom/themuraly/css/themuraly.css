@@ -73,11 +73,11 @@ ul#mural-region-nav li {
   text-align: center;
 }
 
-#mural-region-bottom {
+/* #mural-region-bottom {
   height: 45px;
   overflow: hidden;
-/*  line-height: 45px; */
-}
+ line-height: 45px; 
+}*/
 
 a.mural-nav-link {  
   color: white;
