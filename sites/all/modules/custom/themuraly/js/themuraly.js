@@ -54,6 +54,7 @@ function showMuralDialog(source) {
   	jQuery("#mural-iframe").attr("width", jQuery(window).width() + 'px');
     jQuery("#mural-iframe").attr("height", jQuery(window).height()-56 + 'px');
     jQuery("#mural-region").css("height", jQuery(window).height() + 'px');
+    
   }
   setMuralWidth();
   
@@ -67,7 +68,7 @@ function showMuralDialog(source) {
     position: ["left", "top"],
     width: "100%",
     height: jQuery(window).height()+56,
-    zIndex: 1000
+    zIndex: 1000,
     /*buttons: {
       Ok: function() {
         jQuery(this).dialog( "close" );

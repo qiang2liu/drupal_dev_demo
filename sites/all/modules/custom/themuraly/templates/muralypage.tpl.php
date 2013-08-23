@@ -67,6 +67,13 @@ body {
 </div>
 <script>
   //jQuery("#mural-ly-iframe").attr("src", source);
-  jQuery("#mural-ly-iframe").attr("width", jQuery(window).width());
-  jQuery("#mural-ly-iframe").attr("height", jQuery(window).height() - 40);
+  function lyszie(){
+  	jQuery("#mural-ly-iframe").attr("width", jQuery(window).width());
+  	jQuery("#mural-ly-iframe").attr("height", jQuery(window).height()-36);
+  	
+  }
+  lyszie();
+  jQuery(window).resize(function(){
+  	lyszie();
+  });
 </script>
