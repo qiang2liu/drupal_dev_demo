@@ -1,9 +1,20 @@
-  <div class="topic-selector">
-    <ul>
-		  <?php foreach($items as $tid=>$term):?>
-     	<li>
-        <a href="<?php echo url('node/'.$term['topicid']); ?>" target="_blank"><?php echo $term['name'];?></a>
-      </li>
-      <?php endforeach;?>
-    </ul>
+  <ul class="topic-tab">
+  	<li class="topic-problem">&nbsp;</li><li class="topic-location">&nbsp;</li>
+  </ul>
+  <div class="topic-content-box content-topic actived">
+  	<h2>Wicked Problem</h2>
+  	
+	    <ul>
+			  <?php foreach($items as $tid=>$term):?>
+	     	<li>
+	     		
+	        <a href="<?php echo url('node/'.$term['topicid']); ?>" target="_blank"><?php echo $term['name'];?></a>
+	      </li>
+	      <?php endforeach;?>
+	    </ul>
+	 
+  </div>
+  <div class="topic-content-box content-location">
+   	<h2>Another Title</h2>
+   	<p>another content another content another content another content another content another content another content </p>
   </div>

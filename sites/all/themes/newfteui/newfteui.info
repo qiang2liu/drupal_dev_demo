@@ -4,7 +4,9 @@ package = Core
 version = VERSION
 core = 7.x
 stylesheets[all][] = css/newfteui.css
+stylesheets[all][] = css/newfteui-panes.css
 scripts[] = js/newfteui.js
+scripts[] = js/newfteui-panes.js
 
 
 regions[user_profile] = User profile
