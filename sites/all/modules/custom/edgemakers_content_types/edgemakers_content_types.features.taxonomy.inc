@@ -13,7 +13,7 @@ function edgemakers_content_types_taxonomy_default_vocabularies() {
       'name' => 'Challenges Vocabulary',
       'machine_name' => 'challenges_vocabulary',
       'description' => 'Challenges Vocabulary',
-      'hierarchy' => 1,
+      'hierarchy' => 0,
       'module' => 'taxonomy',
       'weight' => 0,
       'rdf_mapping' => array(

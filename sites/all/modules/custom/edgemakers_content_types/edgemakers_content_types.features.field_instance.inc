@@ -1702,7 +1702,6 @@ function edgemakers_content_types_field_default_field_instances() {
   t('Body');
   t('Box index data');
   t('Carousel Item Image');
-  t('Carousel Item Link');
   t('Carousel Item Topic');
   t('Did you know');
   t('Display Text');
