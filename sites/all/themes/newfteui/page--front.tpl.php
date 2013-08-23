@@ -130,10 +130,10 @@
   <h2 class="pane-tab studio active">Studio</h2>
   <h2 class="pane-tab gallery">Gallery</h2>
   <div class="pane-con studio">
-
+    <?php print render($page['studio_pane']); ?>
   </div>
   <div class="pane-con gallery">
-
+    <?php print render($page['gallery_pane']); ?>
   </div>
 
 </div>

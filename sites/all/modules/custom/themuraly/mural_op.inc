@@ -217,7 +217,11 @@ function muralshow($nid, $mid = 0, $uid = 0) {
     $the_node = node_load($nid);
   }
 
-  dpm($nid);
+  $str_p = preg_match("/[0-9]+$/", $mid, $matches);
+  $new_mural_id = '';
+  if ($str_p) {
+    $mid = $matches[0];
+  }
 
   ctools_include('modal');
   ctools_include('ajax');
@@ -243,7 +247,7 @@ function muralshow($nid, $mid = 0, $uid = 0) {
     $edit_url = '';
   }
 
-dpm($the_node);
+// dpm($the_node);
 
   return theme("muralypage", array('data' => array('m_id' => $mid,
               'seturl' => $edit_url,
@@ -343,6 +347,12 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
     }
   }
 
+  $str_p = preg_match("/[0-9]+$/", $the_mural['id'], $matches);
+  $new_mural_id = '';
+  if ($str_p) {
+    $new_mural_id = $matches[0];
+  }
+
   $newNode = (object) NULL;
   $newNode->type = 'murals';
   $newNode->title = $title;
@@ -354,7 +364,7 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
   $newNode->moderate = 0;
   $newNode->sticky = 0;
   $newNode->language = 'und';
-  $newNode->field_muralid['und'][0]['value'] = $the_mural['id'];
+  $newNode->field_muralid['und'][0]['value'] = $new_mural_id;
   $newNode->field_muraluser['und'][0]['value'] = $muralusername;
 
   $newNode->field_mural_thumburl['und'][0]['value'] = $the_mural['thumbUrl'];
