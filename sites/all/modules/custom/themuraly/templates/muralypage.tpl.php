@@ -17,9 +17,9 @@ body {
 </style>
 <div id="mural-top-bar">
 
-  <span id="mural-title">
+  <div id="mural-title">
 		<?php echo $data['node']->title; ?>
-  </span>
+  </div>
 	<ul id="mural-region-nav">
 		<li class="mural-nav-link-delete">
 			<?php
