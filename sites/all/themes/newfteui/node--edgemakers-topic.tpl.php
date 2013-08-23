@@ -16,7 +16,7 @@ $images = array();
 $oimages = $content['field_topic_images']['#items'];
 if(isset($oimages) && count($oimages)>0) {
   foreach($oimages as $image) {
-    $images[] = theme('image_style', array('style_name' => 'edgemakers_set', 'path' => $image['uri']));
+    $images[] = theme('image_style', array('style_name' => 'edgemakers_topic_image', 'path' => $image['uri']));
   }
 }
 ?>
