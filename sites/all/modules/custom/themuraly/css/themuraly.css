@@ -66,10 +66,11 @@ ul#mural-region-nav li {
 }
 #mural-top-bar #mural-title {
   position: absolute;
-  left: 50%;
   line-height: 36px;
   font-size: 18px;
   color: white;
+  width: 100%;
+  text-align: center;
 }
 
 #mural-region-bottom {
@@ -99,32 +100,33 @@ ul#mural-region-nav li.mural-nav-link-duplicate {
   color: white;
 }
 
-#studio-mural-list ul#mural-list li {
+/* Studio mural style */
+#studio-mural-list ul#studio-mural-list li {
   display: inline;
   position: relative;
 }
 
-#studio-mural-list ul#mural-list li.muralsettingicon {
+#studio-mural-list ul#studio-mural-list li.muralsettingicon {
   display: block;
-  width: 140px;
-  height: 140px;
+  width: 133px;
+  height: 133px;
 }
 
-#studio-mural-list ul#mural-list li span.muralthumb img {
-  width: 140px;
-  height: 140px;
+#studio-mural-list ul#studio-mural-list li span.muralthumb img {
+  width: 133px;
+  height: 133px;
 }
 
-#studio-mural-list ul#mural-list li a.studio-mural-list-item-link {
+#studio-mural-list ul#studio-mural-list li a.studio-mural-list-item-link {
   display: block;
-  width: 140px;
-  height: 140px;
+  width: 133px;
+  height: 133px;
   position: absolute;
   left: 0;
   top: -126px;
 }
 
-#studio-mural-list ul#mural-list li a.studio-mural-settings{
+#studio-mural-list ul#studio-mural-list li a.studio-mural-settings{
   position: absolute;
   left: 0px;
   bottom: 0px;
