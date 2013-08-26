@@ -52,6 +52,16 @@ function edgemakers_media_upload_menu() {
   	'file' => 'stage.api.inc',
   );
 
+  $items['edgemarkers/studio/media/get/list/ajax'] = array(
+  	'page callback' => 'edgemakers_media_list_on_studio', // Render HTML
+  	'type' => MENU_CALLBACK,
+  	'access arguments' => array('access content'),
+  	'delivery callback' => 'edgemakers_stage_ajax_callback',  // Magic goes here
+  	'page arguments' => array(6),
+  	'file path' => drupal_get_path('module', 'edgemakers_stage'),
+  	'file' => 'stage.api.inc',
+  );
+
   return $items;
 }
 
@@ -71,55 +81,60 @@ function edgemakers_media_upload_form_alter(&$form, $form_state, $form_id) {
 
   if ($form_id == 'media_for_upload_node_form') {
 
-  	form_load_include($form_state, 'inc', 'node', 'node.pages');
+    if (arg(0) == 'modal') {
 
-    $form['#prefix'] = '<div id="upload-media-ajax-wrapper">';
-    $form['#suffix'] = '</div>';
+    	form_load_include($form_state, 'inc', 'node', 'node.pages');
 
-//     $form['title']['#type'] = 'hidden';
+      $form['#prefix'] = '<div id="upload-media-ajax-wrapper">';
+      $form['#suffix'] = '</div>';
 
-    $form['title']['#attributes'] = array(
-      'placeholder' => 'Media Title',
-    );
+  //     $form['title']['#type'] = 'hidden';
 
-    unset($form['actions']['preview']);
-    unset($form['actions']['delete']);
-    //unset($form['actions']['submit']);
+      $form['title']['#attributes'] = array(
+        'placeholder' => 'Media Title',
+      );
 
-//     $form['field_s3_test_audoi']['#weight'] = 1;
-//     $form['field_youtube_url']['#weight'] = 2;
-//     $form['field_tags']['#weight'] = 3;
-//     $form['field_media_type']['#weight'] = 4;
-//     $form['field_share']['#weight'] = 5;
+      unset($form['field_media_type']);
 
-//     drupal_set_message('<pre>' . print_r($form['field_youtube_url']['#attributes'], TRUE) . '</pre>');
+      unset($form['actions']['preview']);
+      unset($form['actions']['delete']);
+      //unset($form['actions']['submit']);
 
-//     $form['field_youtube_url'][LANGUAGE_NONE][0][url]['#attributes']['placeholder'] = T('Media URL');
+  //     $form['field_s3_test_audoi']['#weight'] = 1;
+  //     $form['field_youtube_url']['#weight'] = 2;
+  //     $form['field_tags']['#weight'] = 3;
+  //     $form['field_media_type']['#weight'] = 4;
+  //     $form['field_share']['#weight'] = 5;
 
-        $form['field_media_url'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = T('Media URL');
+  //     drupal_set_message('<pre>' . print_r($form['field_youtube_url']['#attributes'], TRUE) . '</pre>');
 
+  //     $form['field_youtube_url'][LANGUAGE_NONE][0][url]['#attributes']['placeholder'] = T('Media URL');
 
-    $form['actions']['submit']['#ajax'] = array(
-      'callback' => 'edgemakers_media_upload_ajax_submit',
-      'wrapper' => 'upload-media-ajax-wrapper',
-    	'method' => 'replace',
-      'effect' => 'fade',
-    );
+          $form['field_media_url'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = T('Media URL');
 
 
-    $form['actions']['submit']['#value'] = t('Upload');
-
-    //$form['actions']['submit']['#submit'] = array('_media_upload_submit');
-
-    array_unshift($form['#validate'], 'edgemakers_media_upload_ajax_validate');
-    //array_unshift($form['#submit'], '_media_upload_submit');
-
-    //$form['actions']['submit']['#validate'] = array('edgemakers_media_upload_ajax_validate');
-    //$form['actions']['submit']['#submit'] = array('_media_upload_submit');
+      $form['actions']['submit']['#ajax'] = array(
+        'callback' => 'edgemakers_media_upload_ajax_submit',
+        'wrapper' => 'upload-media-ajax-wrapper',
+      	'method' => 'replace',
+        'effect' => 'fade',
+      );
 
 
-    require_once(DRUPAL_ROOT . "/modules/node/node.pages.inc");
+      $form['actions']['submit']['#value'] = t('Upload');
 
+  //     $form['actions']['submit']['#submit'] = array('_media_upload_submit');
+
+      array_unshift($form['#validate'], 'edgemakers_media_upload_ajax_validate');
+      array_unshift($form['#submit'], '_media_upload_submit');
+
+      //$form['actions']['submit']['#validate'] = array('edgemakers_media_upload_ajax_validate');
+      //$form['actions']['submit']['#submit'] = array('_media_upload_submit');
+
+
+      require_once(DRUPAL_ROOT . "/modules/node/node.pages.inc");
+
+    }
   }
 }
 
@@ -130,6 +145,36 @@ function edgemakers_media_upload_ajax_validate($form, &$form_state) {
 	form_load_include($form_state, 'inc', 'node', 'node.pages');
 
   $vals = $form_state['values'];
+//   dpm($vals);
+  $media_url = $vals['field_media_url'][LANGUAGE_NONE][0]['value'];
+
+  module_load_include('inc', 'edgemakers_stage', 'stage.api');
+
+  $youtube_url = _youtube_parser($media_url);
+//   dpm($youtube_url);
+
+  if ($youtube_url) {
+    $terms = taxonomy_get_term_by_name('Video');
+//     dpm($terms);
+    foreach ($terms AS $tid) {
+      if ($tid->vocabulary_machine_name == 'media_file_types') {
+        $media_type_tid = $tid->tid;
+      }
+    }
+//     dpm($media_type_tid);
+    $form_state['values']['field_media_type'][LANGUAGE_NONE][0]['tid'] = $media_type_tid;
+  }
+  else {
+    $terms = taxonomy_get_term_by_name('Image');
+//     dpm($terms);
+    foreach ($terms AS $tid) {
+      if ($tid->vocabulary_machine_name == 'media_file_types') {
+        $media_type_tid = $tid->tid;
+      }
+    }
+//     dpm($media_type_tid);
+    $form_state['values']['field_media_type'][LANGUAGE_NONE][0]['tid'] = $media_type_tid;
+  }
 
 //   drupal_set_message('Form item: <pre>' . print_r($vals, TRUE) . '</pre>');
 
@@ -162,9 +207,14 @@ function edgemakers_media_upload_ajax_validate($form, &$form_state) {
 
 function _media_upload_submit($form, &$form_state) {
   //$form_state['complete'] = TRUE;
-  //form_load_include($form_state, 'inc', 'node', 'node.pages');
+//   form_load_include($form_state, 'inc', 'node', 'node.pages');
 
   $vals = $form_state['values'];
+
+//   $node_nid = $form['node']->nid;
+
+//   dpm($form);
+//   dpm($form_state);
 
   /*$content_type = variable_get('edgemakers_media_content_type', 'media_for_upload');
 
@@ -292,8 +342,13 @@ function edgemakers_media_upload_block_info() {
   );
 
   $blocks['media_list'] = array(
-  		'info' => t('Media list'), //The name that will appear in the block list.
-  		'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+		'info' => t('Media list'), //The name that will appear in the block list.
+		'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+  );
+
+  $blocks['studio_media_list'] = array(
+		'info' => t('Media list on studio pane'), //The name that will appear in the block list.
+		'cache' => DRUPAL_CACHE_PER_ROLE, //Default
   );
 
   return $blocks;
@@ -313,178 +368,113 @@ function edgemakers_media_upload_block_view($delta = '') {
   switch($delta){
     case 'media_upload_link':
 
-      global $user;
-
-      $content_type = variable_get('edgemakers_media_content_type', 'media_for_upload');
-      $type = str_replace('_', '-', $content_type);
-
-      $html = '<div class="toolbar-item test1">';
-
-      // Include the CTools tools that we need.
-      ctools_include('ajax');
-      ctools_include('modal');
-
-      // Add CTools' javascript to the page.
-      ctools_modal_add_js();
-
-      /******** Custom style of ctool modal **********/
-      // Create our own javascript that will be used to theme a modal.
-      $sample_style = array(
-        'ctools-sample-style' => array(
-          'modalSize' => array(
-            'type' => 'fixed',
-            'width' => 600,
-            'height' => 420,
-            'addWidth' => 20,
-            'addHeight' => 15,
-          ),
-          'modalOptions' => array(
-            'opacity' => .5,
-            'background-color' => '#000',
-          ),
-          'animation' => 'fadeIn',
-          //'modalTheme' => 'CToolsSampleModal',
-        	'modalTheme' => 'CToolsEdgemakersUploadMediaModal',
-          'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'ctools_ajax_sample'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
-        ),
-      );
-
-      drupal_add_js($sample_style, 'setting');
-
-      // Since we have our js, css and images in well-known named directories,
-      // CTools makes it easy for us to just use them without worrying about
-      // using drupal_get_path() and all that ugliness.
-      //ctools_add_js('ctools-ajax-sample', 'ctools_ajax_sample');
-      ctools_add_js('ctools-ajax-upload-media', 'edgemakers_media_upload');
-      ctools_add_css('ctools-ajax-upload-media', 'edgemakers_media_upload');
-
-      // Create a list of clickable links.
-      $links = array();
-
-      // Four ways to do our animal picking wizard.
-      $link_class = array();
-
-      if ($user->uid) {
-        $upload_link = 'modal/node/add/' . $type . '/nojs/0';
-        //$upload_link = 'ajax/upload/media/ajax/1';
-        //$upload_link = 'ajax/upload/nojs/media/1';
-        $link_class = array('ctools-use-modal', 'ctools-modal-ctools-sample-style');
-        //'attributes' => array('class' => array('ctools-use-modal')
-        //$links[] = ctools_modal_text_button('<h4>' . t('Upload') . '</h4>', $upload_link, t('Upload media'),  $link_class);
-        /*$links[] = l(t('Upload'), $upload_link, array(
-        	'html' => TRUE,
-        	'attributes' => array(
-        		'class' => $link_class,
-        	)
-        ));*/
-      }
-      else {
-        //$links[] = l(t('Upload'), 'user', array('html' => TRUE));
-        $upload_link = 'modal_forms/nojs/login';
-        $link_class = array('ctools-use-modal',  'ctools-modal-modal-popup-small');
-      }
-
-      $links[] = l(t('Upload'), $upload_link, array(
-      	'html' => TRUE,
-      	'attributes' => array(
-      		'class' => $link_class,
-      	)
-      ));
-
-      $output = theme('item_list', array('items' => $links, 'title' => ''));
-
-      /******** End custom style of ctool modal **********/
-
-
-      /*$output = l(t('Upload') , 'ajax/upload/nojs/media/1', array('attributes' =>
-      		array(
-      			'class' => array(
-      				'ctools-use-modal',
-      				//'ctools-use-modal-processed',
-      			)
-      		)
-      	)
-      );*/
-
-
-      /*ctools_include('modal');
-      ctools_include('ajax');
-      ctools_modal_add_js();
-
-
-      if ($user->uid) {
-      	$upload_link = 'modal/node/add/' . $type . '/nojs/0';
-      	$link_class = array('ctools-use-modal');
-      }
-      else {
-      	$upload_link = 'user';
-      	$link_class = array();
-      }
-
-      $output = l(t('Upload'), $upload_link , array(
-      		'query' => array(
-      			'destination' => $_GET['q'],
-      		),
-      		'attributes' => array(
-      			'class' => $link_class,
-      		)
-      	)
-      );
-      */
-
-      $html .= '<h4>' . $output . '</h4>';
-
-      /*
-      $type = variable_get('edgemakers_media_content_type', 'media_for_upload');
-      $type = str_replace('_', '-', $type);
-
-      $block['subject'] = t('Media upload');
-      $html = '<div class="toolbar-item test1">';
-
-      if ($user->uid) {
-        $upload_link = 'modal/node/add/' . $type . '/ajax/1';
-        //$upload_link = 'ajax/upload/media/ajax/1';
-        $upload_link = 'ajax/upload/nojs/media/1';
-        $link_class = array('ctools-use-modal');
-      }
-      else {
-        $upload_link = 'user';
-        $link_class = array();
-      }
-
-      $html .= $output;
-
-      $html .= l('<h4>Upload</h4>',
-          $upload_link,
-            array(
-              'query' => array(
-                'destination' => $_GET["q"],
-              ),
-              'attributes' => array(
-                'class' => $link_class,
-              ),
-              'html' => TRUE,
-            )
-        );
-      */
-      //$html .= '<li><a class="orgbtn ctools-use-modal  ctools-use-modal-processed" id="edit-add-test" href="/ajax/upload/media/nojs"><span>Add New Test</span></a></li>';
-      $html .= '</div>';
-
-      //$html .= '<div id="my-media-list" class="toolbar-item media"></div>';
-
-      $block['content'] = $html;
-
-      //$block['content'] .= '</div>';
+      $link_html = '<div class="toolbar-item test1">';
+      $link_html .= _build_ctool_modal_link();
+      $link_html .= '</div>';
+      $block['content'] = $link_html;
 
       break;
     case 'media_list':
     	$block['subject'] = t('Media List');
     	$block['content'] = '<div id="my-media-list" class="toolbar-item media"></div>';
+    	break;
+    case 'studio_media_list':
+      $block['subject'] = t('Media lit on studio pane');
+      $block['content'] = '<div class="pane-studio-box media item-studio" id="studio-media-list-pane">
+                          	<h4>media</h4>
+                              <div class="scroll-wrapper">
+                              	<div class="arrow-left" pager="0"> < </div>
+                                <div class="arrow-right" pager="1"> > </div>
+                            	  <ul id="studio-media-list"></ul>
+                              </div>
+                          </div>';
+      break;
     default:
       break;
   }
 
   return $block;
+
+}
+
+
+function _build_ctool_modal_link() {
+
+  global $user;
+
+  $content_type = variable_get('edgemakers_media_content_type', 'media_for_upload');
+  $type = str_replace('_', '-', $content_type);
+
+  $html = '';
+
+  // Include the CTools tools that we need.
+  ctools_include('ajax');
+  ctools_include('modal');
+
+  // Add CTools' javascript to the page.
+  ctools_modal_add_js();
+
+  /******** Custom style of ctool modal **********/
+  // Create our own javascript that will be used to theme a modal.
+  $sample_style = array(
+    'ctools-sample-style' => array(
+      'modalSize' => array(
+        'type' => 'fixed',
+        'width' => 600,
+        'height' => 420,
+        'addWidth' => 20,
+        'addHeight' => 15,
+      ),
+      'modalOptions' => array(
+        'opacity' => .5,
+        'background-color' => '#000',
+      ),
+      'animation' => 'fadeIn',
+      //'modalTheme' => 'CToolsSampleModal',
+    	'modalTheme' => 'CToolsEdgemakersUploadMediaModal',
+      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'ctools_ajax_sample'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+    ),
+  );
+
+  drupal_add_js($sample_style, 'setting');
+
+  // Since we have our js, css and images in well-known named directories,
+  // CTools makes it easy for us to just use them without worrying about
+  // using drupal_get_path() and all that ugliness.
+  //ctools_add_js('ctools-ajax-sample', 'ctools_ajax_sample');
+  ctools_add_js('ctools-ajax-upload-media', 'edgemakers_media_upload');
+  ctools_add_css('ctools-ajax-upload-media', 'edgemakers_media_upload');
+
+  // Create a list of clickable links.
+  $links = array();
+
+  // Four ways to do our animal picking wizard.
+  $link_class = array();
+
+  if ($user->uid) {
+    $upload_link = 'modal/node/add/' . $type . '/nojs/0';
+    $link_class = array('ctools-use-modal', 'ctools-modal-ctools-sample-style');
+  }
+  else {
+    $upload_link = 'modal_forms/nojs/login';
+    $link_class = array('ctools-use-modal',  'ctools-modal-modal-popup-small');
+  }
+
+  $links[] = l(t('Upload'), $upload_link, array(
+  	'html' => TRUE,
+  	'attributes' => array(
+  		'class' => $link_class,
+  	)
+  ));
+
+  $output = theme('item_list', array('items' => $links, 'title' => ''));
+
+  /******** End custom style of ctool modal **********/
+
+
+  $html .= '<h4>' . $output . '</h4>';
+
+  return $html;
 }
 
 /**
@@ -676,6 +666,182 @@ function _youtube_url_parse($embedCode) {
   }
 
   return $url;
+}
+
+
+function edgemakers_media_list($uid = '', $media_type = '' , $start = 0, $limit = 5) {
+
+  $content_type = variable_get('edgemakers_media_content_type', 'media_for_upload');
+  $media_nodes = array();
+
+  $query = new EntityFieldQuery();
+
+  $query->entityCondition('entity_type', 'node')
+    ->propertyCondition('status', 1)
+    ->propertyCondition('type', array($content_type))
+    ->propertyOrderBy('created', 'DESC')
+    ->range($start, $limit);
+
+  if ($uid) {
+    $query->propertyCondition('uid', $uid);
+  }
+
+//   print('Query:<pre>'. print_r($query, TRUE) . '</pre>');
+
+  $result = $query->execute();
+
+//   print('Query:<pre>'. print_r($query, TRUE) . '</pre>');
+//   print('Result:<pre>'. print_r($result, TRUE) . '</pre>');
+
+  if (!empty($result['node'])) {
+    $media_nodes = node_load_multiple(array_keys($result['node']), '' , TRUE);
+  }
+
+//   echo count($media_nodes);
+//    print('<pre>' . print_r($media_nodes, TRUE) . '</pre>');
+// dpm($media_nodes);
+
+
+  return $media_nodes;
+
+}
+
+
+function _get_media_thumb($node) {
+  $thumb_url = '';
+
+  $field_media_url = field_get_items('node', $node, 'field_media_url');
+  $media_url = $field_media_url && count($field_media_url) > 0 ? $field_media_url[0]['value'] : '';
+
+  $youtube_id = _youtube_parser($media_url);
+
+  if($youtube_id) {
+    $thumbnail = 'http://img.youtube.com/vi/'.$youtube_id.'/0.jpg';
+//     echo '<li>Youtube thumbnail: ' . $thumbnail . '</li>';
+  }
+  else {
+    $thumb_url = $media_url;
+  }
+
+  return $thumb_url;
+}
+
+/**
+ *
+ * @param unknown_type $limit
+ * @return string
+ */
+function edgemakers_media_list_on_studio($pager = 0) {
+
+  global $user;
+  $limit = 8;
+  $start = $pager * $limit;
+
+  $html = '<div class="pane-studio-box media item-studio">';
+
+  if ($user->uid !== 0) {
+    $my_media_nodes = edgemakers_media_list($user->uid, '', $start, $limit);
+
+    if (count($my_media_nodes) == 0) {
+      return "";
+    }
+//     dd($my_media_nodes);
+		arsort($my_media_nodes);
+		$i = 1;
+
+		foreach ($my_media_nodes as $node) {
+		  $class = '';
+			if ($i == 1) {
+        $class = 'first';
+      }
+
+      if ($i == count($my_media_nodes)) {
+        $class = 'last';
+      }
+
+      $node_thumb = _get_media_thumb($node);
+
+      $html .= '<li class="' . $class . '">
+              <span class="mediathumb ' . $node->title . ' ">
+                <img src="' . $node_thumb . '"/>
+              </span>';
+      $edit_url = l('<span class =""></span>', 'node/' . $node->nid, array(
+          'html' => true,
+          'attributes' => array(
+            'nid' => $node->nid,
+            'class' => array('studio-media-list-item-link'),
+          ),
+                )
+        );
+      $html .= $edit_url;
+
+      $html .= '</li>';
+
+      $i++;
+    }
+
+	}
+
+	$html .= '</div>';
+
+	return $html;
+}
+
+function edgemakers_my_media_list_on_toolbar($limit = 5) {
+
+  global $user;
+
+  $html = '<div class="toolbar-item media">';
+
+  if ($user->uid !== 0) {
+    $my_media_nodes = edgemakers_media_list($user->uid, '', 0, $limit);
+    dpm($my_media_nodes);
+		arsort($my_media_nodes);
+		$i = 0;
+
+		foreach ($my_media_nodes as $node) {
+			if ($i < 5) {
+
+				$media_item['items'][$i]['data'] = l($node->title,
+					'node/' . $node->nid,
+					array(
+						'attributes' => array(
+							'id' => 'media-node-' . $node->nid,
+	      		)
+	      	)
+	      );
+
+	      $media_item['items'][$i]['class'][] = 'media-item';
+
+	      $i++;
+      }
+    }
+
+		if (count($media_item['items']) > 0) {
+
+			$html .= '<h4 class="has-child">Media<em></em></h4>';
+
+			$media_item['title'] = '';
+			$media_item['type'] = 'ul';
+			$media_item['attributes'] = array('id' => 'media-list', 'class' => 'media-video');
+
+			$media_html = theme_item_list($media_item);
+		}
+
+		//dd($media_html, 'media list');
+
+		$html .= $media_html;
+
+	}
+
+	if(count($my_media_nodes) <= 0) {
+		$html .= '<h4 class="has-child">Media</h4>';
+	}
+
+	$html .= '</div>';
+
+	return $html;
+
 }
 
 /**

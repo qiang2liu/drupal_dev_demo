@@ -68,6 +68,22 @@ function themuraly_menu() {
  		'page arguments' => array(5, 6),
   );
 
+  $items['mural/studio/list/page/ajax'] = array(
+  	'page callback' => 'themuraly_studio_mural_list_json', // Render HTML
+  	'type' => MENU_CALLBACK,
+ 		'access arguments' => array('access content'),
+ 		'delivery callback' => 'themuraly_mural_ajax_callback',  // Magic goes here
+//  		'page arguments' => array(5),
+  );
+
+//   $items['mural/studio/list/page/ajax/%'] = array(
+//     'page callback' => 'themuraly_studio_mural_list_json',
+//     'page arguments' => array(5, 6),
+//     'access arguments' => array('access content'),
+//     'type' => MENU_CALLBACK,
+//     'delivery callback' => 'themuraly_mural_ajax_callback',  // Magic goes here
+//   );
+
 
   $items['mural/ajax_link_callback'] = array();
   return $items;
@@ -96,6 +112,7 @@ function themuraly_block_view($delta = '') {
   global $user;
   switch ($delta) {
     case 'studio_list':
+
       module_load_include('inc', 'themuraly', 'mural_op');
       $block['subject'] = t('studio');
 
@@ -106,13 +123,44 @@ function themuraly_block_view($delta = '') {
       $the_field_obj = field_get_items('user', $account, 'field_muralroomid');
       $the_user_roomid = $the_field_obj[0]['value'];
 
-      $block['content'] = '<div id="studio-mural-list"></div>';
+      $block['content'] = '<div id="studio-panes-mural-list">
+                            <h2 class="item-studio">Studio</h2>
+                            <div class="pane-studio-box my-idea item-studio" id="studio-my-idea">
+                            ';
+      if ($user->uid) {
+        $block['content'] .= '<h4>my Ideas</h4>
+                            <div class="scroll-wrapper">
+                              <div class="arrow-left" pager="0"> < </div>
+                              <div class="arrow-right" pager="1"> > </div>
+                              <ul id="studio-mural-list"></ul>
+                            </div>';
+      }
+
+      $block['content'] .= '
+                            </div>';
+
+      $block['content'] .= '
+                            <div class="pane-studio-box ideas-shared-with-me item-studio" id="studio-share-with-me">';
+
+      if ($user->uid) {
+        $block['content'] .= '<h4>Ideas Shared with me</h4>
+                            <div class="scroll-wrapper">
+                              <div class="arrow-left" pager="0"> < </div>
+                              <div class="arrow-right" pager="1"> > </div>
+                              <ul id="studio-mural-share-with-me-list"></ul>
+                            </div>';
+      }
+
+      $block['content'] .= '</div>';
+
+      $block['content'] .= '</div>';
 
 //       if (1==1 || !empty($the_user_muralusername)) {
 //         $block['content'] = get_myideas_shareideas($user->uid, $the_user_muralusername,  $the_user_roomid);
 
 //       }
 
+//         $block['content'] = get_myideas_shareideas($user->uid, $the_user_muralusername, $the_user_roomid);
       break;
     case 'mural_link':
 
@@ -230,6 +278,10 @@ function _mural_member_list($the_nid, $para_muralid = '') {
       $muralid_obj = field_get_items('node', $the_mural, 'field_muralid');
       if (!empty($muralid_obj[0]['value'])) {
         $the_muralid = $muralid_obj[0]['value'];
+        $str_p = preg_match("/[0-9]+$/", $the_muralid, $matches);
+        if ($str_p) {
+          $the_muralid = $matches[0];
+        }
       }
     }
   } else {
@@ -281,6 +333,40 @@ function _mural_member_list($the_nid, $para_muralid = '') {
                         //$userpic = l($userpic, 'user/' . $u->uid, array('html' => TRUE));
                       }
                       $ret[]['data'] = $userpic;
+
+                      //Add share nid for each invite user
+                      if ($u->uid <> $user->uid) {
+                        $field_mural_share_with_me = field_get_items('user', $u, 'field_mural_share_with_me');
+                        if ($field_mural_share_with_me) {
+                          $mural_share_with_me = $field_mural_share_with_me[0]['value'];
+                        }
+                        dpm($mural_share_with_me);
+                        if ($mural_share_with_me) {
+                          $share_with_me = explode(',', $mural_share_with_me);
+                        }
+                        else {
+                          $share_with_me = array();
+                        }
+                        dpm($share_with_me);
+                        $share_with_me[] = $the_nid;
+                        $mural_share_with_me_val = implode(',', array_unique($share_with_me));
+
+
+                        $new_account->uid = $u->uid;
+                        $new_account->field_mural_share_with_me['und'][0]['value'] = $mural_share_with_me_val;
+                        // save existing user
+                        unset($new_account->pass);
+                        $new_account = user_save((object) array('uid'=>$new_account->uid), (array) $new_account);
+                        dpm($new_account);
+                      }
+
+//                       // edit field-data
+//                       $u->field_mural_share_with_me['und'][0]['value'] = $mural_share_with_me_val;
+//                       unset($u->pass);
+//                       // save existing user
+//                       $u = user_save((object) array('uid'=>$u->uid), (array) $u);
+                      // End Add share id.
+
                     }
                   }
                 }
@@ -323,7 +409,12 @@ function _themuralyajax_validate($form, &$form_state) {
       $muralid_obj = field_get_items('node', $the_mural, 'field_muralid');
       if (!empty($muralid_obj[0]['value'])) {
         $the_muralid = $muralid_obj[0]['value'];
+        $str_p = preg_match("/[0-9]+$/", $the_muralid, $matches);
+        if ($str_p) {
+          $the_muralid = $matches[0];
+        }
       }
+
     }
     if (!empty($the_muralid)) {
       if ($user->uid > 0) {
@@ -399,7 +490,12 @@ function mural_addmember_ajax_callback($form, $form_state) {
     $muralid_obj = field_get_items('node', $the_mural, 'field_muralid');
     if (!empty($muralid_obj[0]['value'])) {
       $the_muralid = $muralid_obj[0]['value'];
+      $str_p = preg_match("/[0-9]+$/", $the_muralid, $matches);
+      if ($str_p) {
+        $the_muralid = $matches[0];
+      }
     }
+
   }
   if (!empty($the_muralid)) {
 
@@ -449,7 +545,7 @@ function muralapi_test() {
 //   themuraly_get_mural_info('http://staging.mural.ly/!/#/lwgmural/1377006043205');
 //   _get_node_from_mural_id('1377006043205');
 
-//   themuraly_studio_mural_list_html();
+  themuraly_studio_mural_list_json('my', 0);
 
 //   _test_mural_list_for_a_user();
   //_test_user_add();
@@ -461,7 +557,8 @@ function muralapi_test() {
   //_test_mural_del();
 //   _test_mural_list_for_a_user();
   // _test_mural_invite_member();
-  _test_retrieve_a_mural();
+//   _test_retrieve_a_mural();
+//   themuraly_mural_list_html();
 
 //   themuraly_get_mural_info('http://staging.mural.ly/!/#/lwgmural/1376967210186');
 
@@ -624,47 +721,54 @@ function themuraly_init() {
 }
 
 
-function themuraly_studio_mural_list_html($uid = '', $page = 0) {
+function themuraly_studio_mural_list_json($type = 'ideas', $page = '0') {
 
   global $user;
+  $uid = 0;
+  $clean_node = array();
+  $html = '';
 
-  $pager = 5;
   $limit = 5;
-  $start = $pager * $page;
+  $start = $page * $limit;
 
-  dpm($start);
+  if ($type == 'my') {
+    $uid = $user->uid;
+  }
 
-  $nodes = themuraly_mural_list($user->uid, $start, $limit);
-//   $murals_list = themuraly_mural_list($uid, $start, $limit);
+  $murals_list = themuraly_mural_list($uid, $start, $limit);
 
-  dpm($nodes);
+	$html = '<div class="toolbar-item media">';
 
-  $i = 1;
+// 	if ($user->uid !== 0) {
 
-  if (is_array($nodes)) {
+	  $my_mural_nodes = themuraly_mural_list($uid, $start, $limit);
+	  dpm($my_mural_nodes);
+// 		arsort($my_mural_nodes);
 
-    $img_gear = '<img title="set" alt="set" src="' . $GLOBALS['base_path'] . path_to_theme() . '/images/mock-gear.png"/>';
+		$i = 1;
+		foreach ($my_mural_nodes as $node) {
 
-    foreach ($nodes as $knid => $vnode) {
-      $node_muralfield = field_get_items('node', $vnode, 'field_muralid');
-      $node_muralid = $node_muralfield[0]['value'];
+			if ($i == 1) {
+        $class = 'first';
+      }
 
-      $node_mural_thumburl = field_get_items('node', $vnode, 'field_mural_thumburl');
-      $defula_thumburl = 'https://s3.amazonaws.com/static.mural.ly/NoThumbnail.png';
-      $mural_thumburl = empty($node_mural_thumburl[0]['value'])?$defula_thumburl:$node_mural_thumburl[0]['value'];
+      if ($i == count($murals_list)) {
+        $class = 'last';
+      }
 
-      $myideas_list[$node_muralid]['nid'] = $knid;
-      $myideas_list[$node_muralid]['title'] = $vnode->title;
-      $myideas_list[$node_muralid]['thumburl'] = $mural_thumburl;
+      $html .= '<li class="' . $class . '">
+              <span class="muralthumb ' . $node->title . ' ">
+                <img src="' . $node->field_mural_thumburl[LANGUAGE_NONE][0]['value'] . '"/>
+              </span>';
 
-      if ($user->uid == $vnode->uid) {
-        $edit_url = l($img_gear, 'modal/node/' . $vnode->nid . '/edit/nojs/0', array(
+      if ($user->uid == $node->uid) {
+        $edit_url = l($img_gear, 'modal/node/' . $node->nid . '/edit/nojs/0', array(
           'query' => array(
-            'destination' => $GLOBALS['base_path'] . 'mural/' . $vnode->nid,
+            'destination' => $GLOBALS['base_path'] . 'mural/' . $node->nid,
           ),
           'html' => true,
           'attributes' => array(
-            'class' => array('studio-mural-settings'),
+            'class' => array('studio-mural-settings', 'ctools-use-modal'),
           ),
                 )
         );
@@ -672,90 +776,245 @@ function themuraly_studio_mural_list_html($uid = '', $page = 0) {
         $edit_url = '';
       }
 
-      $myideas_list[$node_muralid]['seturl'] = $edit_url;
+      $html .= $edit_url;
 
-//       $myideas_list[$node_muralid]['node'] = $vnode;
+      $html .= '</li>';
 
-    }
+      $i++;
+
+		}
+
+	return $html;
+
+//   dpm('Type: ' . $type . ' | Page = ' . $page);
+//   return 'Thml;';
+
+  global $user;
+  $uid = 0;
+  $clean_node = array();
+  $html = '';
+
+  $limit = 5;
+  $start = $page * $limit;
+
+
+  if ($type == 'my') {
+    $uid = $user->uid;
   }
 
-  $shareideas_list = array();
+  $murals_list = themuraly_mural_list($uid, $start, $limit);
 
-  if (!empty($myideas_list)) {
-    ctools_include('modal');
-    ctools_include('ajax');
-    ctools_modal_add_js();
-  }
+  $i = 1;
 
-  dpm($myideas_list);
-  dpm($shareideas_list);
-  $content = theme('studio_ideas_list', array('myideas' => $myideas_list, 'myshareideas' => $shareideas_list));
-
-  return  $content;
+  $img_gear = '<img title="set" alt="set" src="' . $GLOBALS['base_path'] . path_to_theme() . '/images/mock-gear.png"/>';
 
   foreach($murals_list AS $node) {
-    //$set_html = edgemakers_stage_api_set_list_html($node->nid);
-//     $node->defualt_image = theme('image', array('path'=>drupal_get_path('module', 'edgemakers_stage') . '/images/stageDefault.png'));
 
-    $clean_node->nid = $node->nid;
-    $clean_node->mural_link = '?q=mural/' . $node->nid;
-    $clean_node->mural_thumburl = $node->field_mural_thumburl[LANGUAGE_NONE][0]['value'];
+    $class = '';
 
     if ($i == 1) {
-      $clean_node->class_first = true;
+      $class = 'first';
     }
 
     if ($i == count($murals_list)) {
-      $clean_node->class_last = true;
+      $class = 'last';
     }
+
+    $html .= '<li class="' . $class . '">
+            <span class="muralthumb ' . $node->title . ' ">
+              <img src="' . $node->field_mural_thumburl[LANGUAGE_NONE][0]['value'] . '"/>
+            </span>';
+
+    if ($user->uid == $node->uid) {
+      $edit_url = l($img_gear, 'modal/node/' . $node->nid . '/edit/nojs/0', array(
+        'query' => array(
+          'destination' => $GLOBALS['base_path'] . 'mural/' . $node->nid,
+        ),
+        'html' => true,
+        'attributes' => array(
+          'class' => array('studio-mural-settings', 'ctools-use-modal'),
+        ),
+              )
+      );
+    } else {
+      $edit_url = '';
+    }
+
+    $html .= $edit_url;
+
+    $html .= '</li>';
 
     $i++;
 
-  	$json[] = $clean_node;
+  }
+
+  return $html;
+}
+
+/**
+ * Build mural list html on studio pans.
+ *
+ * @param int $uid
+ * @param int $page
+ * @return Ambigous <An, string>
+ */
+function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
+
+  global $user;
+  $pager = 5;
+  $start = $page * $pager;
+
+  dpm($start);
+
+  $html = '';
+
+  if ($user->uid) {
+
+    switch ($type) {
+      case 'my':
+        $nodes = themuraly_mural_list($user->uid, $start, $pager);
+        break;
+      case 'share':
+        $account = user_load($user->uid);
+        $the_field_obj = field_get_items('user', $account, 'field_mural_share_with_me');
+        $mural_share_with_me = explode(',' , $the_field_obj[0]['value']);
+//         print('account:<pre>' . print_r($account, TRUE) . '</pre>');
+
+//         dpm('User info: <pre>' . print_r($user, TRUE) . '</pre>');
+//         print($user->uid . ': <pre>' . print_r($mural_share_with_me, TRUE) . '</pre>');
+
+        if ($mural_share_with_me) {
+          $query = new EntityFieldQuery();
+
+          $query->entityCondition('entity_type', 'node')
+            ->propertyCondition('status', 1)
+            ->propertyCondition('type', array('murals'))
+            ->propertyCondition('nid', $mural_share_with_me, 'IN')
+            ->propertyOrderBy('created', 'DESC')
+            ->range($start, $pager);
+
+          $result = $query->execute();
+
+//           print('<pre>' . print_r($query, TRUE) . '</pre>');
+
+          if (!empty($result['node'])) {
+            $nodes = node_load_multiple(array_keys($result['node']), '' , TRUE);
+            dpm($nodes);
+          }
+        }
+
+        break;
+      default:
+        $nodes = themuraly_mural_list('', $start, $pager);
+        break;
+    }
+
+  //   $murals_list = themuraly_mural_list($uid, $start, $limit);
+
+    dpm($nodes);
+
+  //   return $nodes;
+
+    $i = 1;
+
+    if (is_array($nodes)) {
+
+      foreach ($nodes as $knid => $vnode) {
+        $node_muralfield = field_get_items('node', $vnode, 'field_muralid');
+        $node_muralid = $node_muralfield[0]['value'];
+
+        $node_mural_thumburl = field_get_items('node', $vnode, 'field_mural_thumburl');
+        $defula_thumburl = 'https://s3.amazonaws.com/static.mural.ly/NoThumbnail.png';
+        $mural_thumburl = empty($node_mural_thumburl[0]['value'])?$defula_thumburl:$node_mural_thumburl[0]['value'];
+
+        $myideas_list[$node_muralid]['nid'] = $knid;
+        $myideas_list[$node_muralid]['title'] = $vnode->title;
+        $myideas_list[$node_muralid]['thumburl'] = $mural_thumburl;
+
+        if ($user->uid == $vnode->uid) {
+          $img_settings = array(
+          	'path' => drupal_get_path('theme', 'newfteui') . '/images/iconMuralSettings.png',
+          );
+          $img_gear = theme('image', $img_settings);
+          if ($user->uid == $vnode->uid) {
+            $set_url = l($img_gear, 'modal/node/' . $vnode->nid . '/edit/nojs/0', array(
+              'query' => array(
+                'destination' => $GLOBALS['base_path'] . 'mural/' . $vnode->nid,
+              ),
+              'html' => true,
+              'attributes' => array(
+                'class' => array('studio-mural-settings', 'ctools-use-modal'),
+              ),
+                    )
+            );
+          } else {
+            $set_url = '';
+          }
+
+          $myideas_list[$node_muralid]['seturl'] = $set_url;
+        }
+
+        $html .= '<li>
+              <span class="muralthumb ' . $vnode->title . '">';
+        $mural_thumb = array('path' => $mural_thumburl);
+        $html .= theme('image', $mural_thumb);
+        $html .= '</span>';
+
+        $edit_url = l('<span class ="muralsettingicon"></span>', 'mural/' . $vnode->nid, array(
+          'html' => true,
+          'attributes' => array(
+            'class' => array('studio-mural-list-item-link'),
+            'id' => 'media-node-' . $vnode->nid,
+          ),
+                )
+        );
+
+        $html .= $edit_url;
+
+        if ($user->uid == $vnode->uid) {
+          $html .= $set_url;
+        }
+
+        $html .= '</li>';
+
+//       $myideas_list[$node_muralid]['node'] = $vnode;
+
+      }
+    }
 
   }
-//   drupal_json_output($json);
+
+//   $content = theme('studio_ideas_list', array('myideas' => $myideas_list, 'myshareideas' => $shareideas_list));
+
+  return  $html;
+
 }
 
 function themuraly_mural_list($uid = '', $start = 0, $limit = 5) {
 
-  global $user;
   $my_mural_nodes = array();
 
-//   dpm('Before: ' . $uid);
-  if (!$uid) {
-    $uid = $user->uid;
-  }
+  $query = new EntityFieldQuery();
 
-//   dpm('Set default login user: ' . $uid);
+  $query->entityCondition('entity_type', 'node')
+    ->propertyCondition('status', 1)
+    ->propertyCondition('type', array('murals'))
+    ->propertyOrderBy('created', 'DESC')
+    ->range($start, $limit);
 
   if ($uid) {
-
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'node')
-//       ->propertyCondition('status', 1)
-      ->propertyCondition('uid', $user->uid)
-      ->propertyCondition('type', array('murals'))
-      ->propertyOrderBy('created', 'DESC')
-      ->range($start, $limit);
-    $result = $query->execute();
-    $my_mural_nodes = node_load_multiple(array_keys($result['node']), '' , TRUE);
-//     dpm($query);
-
-//     print('EntityFieldQuery result: <pre>'. print_r($result, TRUE) . '</pre>');
-
-//     $my_coditions = array(
-// 			'uid' => $user->uid,
-// 			'type' => 'murals',
-// 		);
-
-//     $my_mural_nodes = node_load_multiple('', $my_coditions);
-
-//     print('node load multiple simple result: <pre>'. print_r($result, TRUE) . '</pre>');
-
-    return $my_mural_nodes;
-
+    $query->propertyCondition('uid', $uid);
   }
+
+//   dpm($query);
+
+  $result = $query->execute();
+
+  if (!empty($result['node'])) {
+    $my_mural_nodes = node_load_multiple(array_keys($result['node']), '' , TRUE);
+  }
+
+//   dpm($my_mural_nodes);
 
   return $my_mural_nodes;
 
@@ -772,36 +1031,20 @@ function themuraly_mural_list_html($limit = 5) {
 	global $user;
 
 	$my_mural_nodes = array();
-
 	$content_type = 'murals';
 
-	//drupal_set_message($content_type);
-
-	//return 'test end';
-
 	$html = '<div class="toolbar-item media">';
-	//<h4 class="has-child">Media<em></em></h4>';
 
 	if ($user->uid !== 0) {
 
-	  $my_mural_nodes = themuraly_mural_list();
-
-// 		$my_coditions = array(
-// 				'uid' => $user->uid,
-// 				'type' => $content_type,
-// 		);
-
-// 		$my_mural_nodes = node_load_multiple('', $my_coditions);
-
-		arsort($my_mural_nodes);
-
-// 		print('$my_mural_nodes: <pre>' . print_r($my_mural_nodes, TRUE) . '</pre>');
+	  $my_mural_nodes = themuraly_mural_list($user->uid);
+	  dpm($my_mural_nodes);
+// 		arsort($my_mural_nodes);
 
 		$i = 0;
-
 		foreach ($my_mural_nodes as $node) {
 
-			if ($i < 5) {
+			if ($i < $limit) {
 				$mural_item['items'][$i]['data'] = l($node->title,
 					'mural/' . $node->nid,
 					array(
@@ -810,9 +1053,7 @@ function themuraly_mural_list_html($limit = 5) {
 						)
 					)
 				);
-
 				$mural_item['items'][$i]['class'][] = 'media-item';
-
 				$i++;
 			}
 
@@ -850,6 +1091,14 @@ function themuraly_mural_list_html($limit = 5) {
  * @param unknown_type $page_callback_result
  */
 function themuraly_mural_ajax_callback($page_callback_result) {
+
+  // Include the CTools tools that we need.
+  ctools_include('ajax');
+  ctools_include('modal');
+
+  // Add CTools' javascript to the page.
+  ctools_modal_add_js();
+
 	// Only render content
 	print $page_callback_result;
 	// Perform end-of-request tasks.
@@ -920,7 +1169,7 @@ function _get_node_from_mural_id($mid) {
     if (!empty($entities['node'])) {
       $news_items_nids = array_keys($entities['node']);
       $news_items = entity_load('node', $news_items_nids);
-      dpm($news_items);
+//       dpm($news_items);
       return $news_items;
     }
 
@@ -956,8 +1205,8 @@ function themuraly_update_node_by_mural($mural_url = ''){
 
         if ($field_muraluser) {
 
-          dpm($field_muraluser);
-          dpm($mural_id);
+//           dpm($field_muraluser);
+//           dpm($mural_id);
 
           $muralusername = $field_muraluser[0]['value'];
           $mural_api = new Muralapi;
@@ -965,7 +1214,7 @@ function themuraly_update_node_by_mural($mural_url = ''){
           $data = $result->data;
           $the_mural = drupal_json_decode($data);
 
-          dpm($the_mural['id']);
+//           dpm($the_mural['id']);
 
           if ($the_mural['id']) {
             $the_node->field_mural_thumburl['und'][0]['value'] = $the_mural['thumbUrl'];

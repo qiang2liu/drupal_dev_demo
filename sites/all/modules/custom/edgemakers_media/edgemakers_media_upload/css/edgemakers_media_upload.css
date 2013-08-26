@@ -5,3 +5,34 @@
     display: none;
 
 }
+
+ul#studio-media-list li {
+  display: inline;
+  position: relative;
+}
+
+ul#studio-media-list li.mediasettingicon {
+  display: block;
+  width: 160px;
+  height: 160px;
+}
+
+ul#studio-media-list li span.mediathumb img {
+  width: 160px;
+  height: 160px;
+}
+
+ul#studio-media-list li a.studio-media-list-item-link {
+  display: block;
+  width: 160px;
+  height: 160px;
+  position: absolute;
+  left: 0;
+  top: -146px;
+}
+
+ul#studio-media-list li a.studio-media-settings{
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+}

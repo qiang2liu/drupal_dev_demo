@@ -62,15 +62,19 @@ body {
 
 </div>
 
-<div>
-  <iframe id="mural-ly-iframe" frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/<?php print $the_m_id;?>' width=100% height=600'></iframe>
+<?php
+//Add md5 hash of url to refresh
+$hash = md5(microtime());
+?>
+<div id="mural-iframe-content">
+  <iframe id="mural-ly-iframe" frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/<?php print $the_m_id . '#' . $hash;?>' width=100% height=600'></iframe>
 </div>
 <script>
   //jQuery("#mural-ly-iframe").attr("src", source);
   function lyszie(){
   	jQuery("#mural-ly-iframe").attr("width", jQuery(window).width());
   	jQuery("#mural-ly-iframe").attr("height", jQuery(window).height()-36);
-  	
+
   }
   lyszie();
   jQuery(window).resize(function(){

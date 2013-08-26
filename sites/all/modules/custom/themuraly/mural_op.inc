@@ -49,6 +49,8 @@ dpm($result);
     }
   }
 
+  dpm($shareideas_list);
+
 
   if (!empty($myideas_list) || !empty($shareideas_list)) {
     $query = new EntityFieldQuery();
@@ -71,6 +73,27 @@ dpm($result);
               $shareideas_list[$node_muralid]['nid'] = $knid;
             }
           }
+
+        $img_settings = array(
+        	'path' => drupal_get_path('theme', 'newfteui') . '/images/iconMuralSettings.png',
+        );
+        $img_gear = theme('image', $img_settings);
+
+        $img_gear = '<img title="set" alt="set" src="' . $GLOBALS['base_path'] . path_to_theme() . '/images/mock-gear.png"/>';
+
+          $edit_url = l($img_gear, 'modal/node/' . $nid . '/edit/nojs/0', array(
+            'query' => array(
+              'destination' => $GLOBALS['base_path'] . 'mural/' . $nid,
+            ),
+            'html' => true,
+            'attributes' => array(
+              'class' => array('ctools-use-modal'),
+            ),
+                  )
+          );
+
+          $shareideas_list[$node_muralid]['set_url'] = $edit_url;
+
         }
       }
     }
@@ -106,17 +129,6 @@ function muralshow_share($owerid = '', $mid = '') {
   // Get node info by mid and owerid
 
   $nodeQuery = new EntityFieldQuery;
-// $result = $query
-//   ->entityCondition('entity_type', 'node')
-//   ->propertyCondition('type', $node_type)
-//   ->propertyCondition('title', $title)
-//   ->execute();
-
-// // $result['node'] contains a list of nids where the title matches
-// if (!empty($result['node']) {
-//   // You could use node_load_multiple() instead of entity_load() for nodes
-//   $nodes = entity_load('node', $result['node']);
-// }
 
   $entities = $nodeQuery->entityCondition('entity_type', 'node')
   ->entityCondition('bundle', 'murals')
@@ -124,40 +136,15 @@ function muralshow_share($owerid = '', $mid = '') {
 //   ->fieldCondition('field_muraluser','value', $owerid, '=')
   ->execute();
 
-//   print('<pre>' . print_r($entities, TRUE) . '</pre>');
-//   print("owerid = $owerid, mural id: $mid");
-
-
   if (!empty($entities['node'])) {
     foreach ($entities['node'] AS $node_en) {
       $the_node = node_load($node_en->nid);
     }
-//     $the_node = entity_load('node', $entities['node']);
-    dpm($the_node);
+//     dpm($the_node);
   }
-
 
   $username = $owerid;
   $muralid = $mid;
-
-//   $the_node = node_load($nid);
-//   $muralid_obj = field_get_items('node', $the_node, 'field_muralid');
-//   $muralowner_obj = field_get_items('node', $the_node, 'field_muraluser');
-//   $mid = 0;
-//   $node_uid = 0;
-
-//   if (isset($the_node->uid)) {
-//     $node_uid = $the_node->uid;
-//   }
-
-//   if (!empty($muralid_obj[0]['value'])) {
-//     $the_muralid = $muralid_obj[0]['value'];
-//     $mid = $the_muralid;
-//   }
-//   if (!empty($muralowner_obj[0]['value'])) {
-//     $the_muralowner = $muralowner_obj[0]['value'];
-//   }
-//   if (!empty($the_muralid) && !empty($the_muralowner)) {
 
     $account = user_load($user->uid);
     if (!empty($account->field_muralusername)) {
@@ -165,6 +152,33 @@ function muralshow_share($owerid = '', $mid = '') {
       if ($fieldinfo) {
         $muraluser_invite = $fieldinfo[0]['value'];
       }
+
+      //Add share nid into user profile.
+      if ($the_node->uid <> $user->uid) {
+        $field_mural_share_with_me = field_get_items('user', $account, 'field_mural_share_with_me');
+        if ($field_mural_share_with_me) {
+          $mural_share_with_me = $field_mural_share_with_me[0]['value'];
+        }
+        if (empty($mural_share_with_me)) {
+          $share_with_me = array();
+        }
+        else {
+          $share_with_me = explode(',', $mural_share_with_me);
+        }
+        $share_with_me[] = $the_node->nid;
+  //       dpm($share_with_me);
+        $mural_share_with_me_val = implode(',', array_unique($share_with_me));
+  //       dpm($mural_share_with_me_val);
+        // edit field-data
+        $new_account->uid = $account->uid;
+        $new_account->field_mural_share_with_me['und'][0]['value'] = $mural_share_with_me_val;
+        // save existing user
+        unset($new_account->pass);
+        $new_account = user_save((object) array('uid'=>$new_account->uid), (array) $new_account);
+        dpm($new_account);
+      }
+      // End add share nid into user profile
+
     }
 
 
@@ -172,26 +186,15 @@ function muralshow_share($owerid = '', $mid = '') {
 
       $mural_api = new Muralapi;
 
+      //Ensure share mural is share property is TRUE.
       $property_name = "shared";
       $property_value = (bool) 1;
       $result_share = $mural_api->update_mural_properties($username, $muralid, $property_name, $property_value);
       $data = $result_share->data;
 
       $result_invite = $mural_api->invite_user_mural($owerid, $mid, array($muraluser_invite));
-      dpm($result_invite);
-
-//       $property_name = "shared";
-//       $property_value = (bool) 1;
-//       $result = $mural_api->update_mural_properties($username, $muralid, $property_name, $property_value);
-//       $data = $result->data;
-
-//       dpm($result);
-
-//       $result = $mural_api->invite_user_mural($the_muralowner, $the_muralid, array($muraluser_invite));
+//       dpm($result_invite);
     }
-//   }
-
-//   return muralshow($nid, $mid, $node_uid);
 
   dpm($the_node);
 
@@ -232,7 +235,9 @@ function muralshow($nid, $mid = 0, $uid = 0) {
   	'path' => drupal_get_path('theme', 'newfteui') . '/images/iconMuralSettings.png',
   );
   $img_gear = theme('image', $img_settings);
+  dpm($the_node_uid);
   if ($user->uid == $the_node_uid) {
+    dpm($nid);
     $edit_url = l($img_gear, 'modal/node/' . $nid . '/edit/nojs/0', array(
       'query' => array(
         'destination' => $GLOBALS['base_path'] . 'mural/' . $nid,

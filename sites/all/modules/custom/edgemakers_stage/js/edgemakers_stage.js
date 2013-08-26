@@ -88,7 +88,9 @@
         var source = jQuery('[current="'+nid+'"] a').attr("href");
   //      alert("Mural opeaation on nav." + source);
   //    var source = jQuery(this).attr("href");
+        
         showMuralDialog(source);
+        jQuery("#mural-back-to-dashboard").hide();
         jQuery("#mural-set-nav").show();
         resetDestinationNav(nid);
   		
@@ -109,6 +111,7 @@
         var source = jQuery('[current="'+nid+'"] a').attr("href");
   //      alert("Mural opeaation on nav." + source);
         showMuralDialog(source);
+        jQuery("#mural-back-to-dashboard").hide();
         jQuery("#mural-set-nav").show();
         resetDestinationNav(nid);
   		 
@@ -312,6 +315,7 @@ function showSetOnDestion(nid, stage_id, setType) {
 //    alert('Mural operation.' + source);
 //    var source = jQuery(this).attr("href");
     showMuralDialog(source);
+    jQuery("#mural-back-to-dashboard").hide();
     jQuery("#mural-set-nav").show();
 
     jQuery("#set-view-region").hide();
@@ -339,13 +343,14 @@ function showSetOnDestion(nid, stage_id, setType) {
         jQuery("#set-view-region").show();
         jQuery("#stage-set-list").hide();
         
+        jQuery("#mural-back-to-dashboard").hide();
         jQuery("#back-to-dashboard").hide();
         jQuery("#set-nav").show();
         jQuery("#back-set-list").show();
         jQuery(".set-nav .prev").show();
         jQuery(".set-nav .next").show();
         
-        jQuery("#back-to-dashboard").hide();
+//        jQuery("#back-to-dashboard").hide();
         //make small image bigger to reach the edge of the content!
         /*if(jQuery('#stage-set-view .field-name-field-set-image .field-items img')){
           
