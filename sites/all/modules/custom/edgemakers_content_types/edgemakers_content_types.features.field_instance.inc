@@ -10,6 +10,55 @@
 function edgemakers_content_types_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'node-carousel_item-body'
+  $field_instances['node-carousel_item-body'] = array(
+    'bundle' => 'carousel_item',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 3,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'body',
+    'label' => 'Description',
+    'required' => 0,
+    'settings' => array(
+      'display_summary' => 0,
+      'mediafront' => array(
+        'custom' => '',
+        'field_type' => 0,
+        'media_type' => 'media',
+        'preview' => 0,
+        'thumbnail' => 0,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 20,
+        'summary_rows' => 5,
+      ),
+      'type' => 'text_textarea_with_summary',
+      'weight' => 1,
+    ),
+  );
+
   // Exported field_instance: 'node-carousel_item-field_carousel_item_image'
   $field_instances['node-carousel_item-field_carousel_item_image'] = array(
     'bundle' => 'carousel_item',
@@ -63,7 +112,7 @@ function edgemakers_content_types_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
@@ -109,7 +158,7 @@ function edgemakers_content_types_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 
@@ -1703,6 +1752,7 @@ function edgemakers_content_types_field_default_field_instances() {
   t('Box index data');
   t('Carousel Item Image');
   t('Carousel Item Topic');
+  t('Description');
   t('Did you know');
   t('Display Text');
   t('Document');
