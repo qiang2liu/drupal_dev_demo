@@ -1,4 +1,5 @@
 <?php
+global $user;
 $the_m_id = $data['m_id'];
 ?>
 
@@ -21,22 +22,27 @@ body {
 		<?php echo $data['node']->title; ?>
   </div>
 	<ul id="mural-region-nav">
+	  <?php if ($user->uid == $data['node']->uid) : ?>
 		<li class="mural-nav-link-delete">
 			<?php
-			$delete_link = l(t('Delete'),
-				'mural/delete/' . $data['node']->nid,
-				array(
-					'attributes' => array(
-            'class' => array('mural-nav-link'),
-						'onclick' => 'return confirm("Are you sure?")',
-					),
-				)
-			);
-			echo $delete_link; ?>
+
+        $delete_link = l(t('Delete'),
+  				'mural/delete/' . $data['node']->nid,
+  				array(
+  					'attributes' => array(
+              'class' => array('mural-nav-link'),
+  						'onclick' => 'return confirm("Are you sure?")',
+  					),
+  				)
+  			);
+			  echo $delete_link;
+
+      ?>
 		</li>
 		<li>
 			<?php print_r($data['seturl'])?>
 		</li>
+
 		<li class="mural-nav-link-duplicate">
 		<?php
 		  $img_duplicate = array(
@@ -58,6 +64,7 @@ body {
 			echo $duplicate_link;
 		?>
 		</li>
+		<?php endif; ?>
 	</ul>
 
 </div>
