@@ -1,5 +1,5 @@
   <ul class="topic-tab">
-  	<li class="topic-problem">&nbsp;</li><li class="topic-location">&nbsp;</li>
+  	<li class="topic-problem actived">&nbsp;</li><li class="topic-location">&nbsp;</li>
   </ul>
   <div class="topic-content-box content-topic actived">
   	<h2>Wicked Problem</h2>

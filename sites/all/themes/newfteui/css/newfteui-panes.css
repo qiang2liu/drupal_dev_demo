@@ -123,7 +123,8 @@
 	opacity:.5;
 	transition: all 0.5s linear;
 }
-.topic-tab li:hover{
+.topic-tab li:hover,
+.topic-tab li.actived{
 	opacity:1;
 }
 .topic-tab li.topic-problem{
@@ -138,6 +139,12 @@
 	width:160px;
 	display:none;
 }
+.topic-content-box a{
+	color:#fff;
+}
+.topic-content-box a:hover{
+	text-decoration: none;
+}
 .topic-content-box.actived{
 	display:block;
 }
@@ -145,11 +152,35 @@
 .topic-content-box ul,
 .topic-content-box p{
 	background:#4cc0d9;
+	color:#fff;
+}
+.topic-content-box h2{
+	padding:8px 0 5px 15px;
+	font-weight:bold;
+	border-bottom:3px solid #fbfbfb;
+	font-size:14px;
+}
+.topic-content-box li{
+	padding:2px 0 0 15px;
+	border-bottom:1px solid #b6b4a8;
+}
+.topic-content-box li:last-child{
+	border-bottom: 0;
+}
+.topic-content-box li:hover{
+	background:#a9a491;
+}
+.topic-content-box p{
+	padding:5px 15px;
 }
 .content-topic{
 	background:url(../images/challenge_ico_arrow_up.png) left top no-repeat;
 }
 .content-location{
 	background:url(../images/challenge_ico_arrow_up.png) 34px top no-repeat;
-	
+}
+/* fake */
+#block-edgemakers-topic-problems{
+	background:url(../images/example_16.png) 253px top no-repeat;
+	height:320px;
 }

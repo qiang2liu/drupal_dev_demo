@@ -118,6 +118,8 @@
 	
 	//topic swithcer
 	$('.topic-tab li').bind('click', function(){
+		$('.topic-tab li.actived').removeClass('actived');
+		$(this).addClass('actived');
 		var idx=$(this).index('.topic-tab li');
 		if(!$('.topic-content-box').eq(idx).hasClass('actived')){
 			$('.topic-content-box.actived').removeClass('actived');
