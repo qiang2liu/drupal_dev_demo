@@ -485,9 +485,11 @@ function mural_delete($nid = 0) {
 // 			drupal_set_message('Mural ' . $node->title . ' have deleted.');
 			//drupal_set_message('<pre>' . print_r($delete_status, TRUE) . '</pre>');
 			$html .= 'Mural ' . $node->title . ' have deleted.';
+			$node_delete = node_delete($nid);
+			watchdog('Mural node delete', $user->username . ' delete mural[' . $muralid . ']');
 		}
 		else {
-// 			drupal_set_message(t('Delete fail'), 'error');
+			drupal_set_message(t('Delete fail'), 'error');
 			$html .= 'Mural ' . $node->title . ' fail.';
 		}
 
