@@ -899,6 +899,50 @@ function edgemakers_content_types_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-media_for_upload-field_media_type'
+  $field_instances['node-media_for_upload-field_media_type'] = array(
+    'bundle' => 'media_for_upload',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 4,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_media_type',
+    'label' => 'Media Type',
+    'required' => 0,
+    'settings' => array(
+      'mediafront' => array(
+        'custom' => '',
+        'field_type' => 0,
+        'media_type' => 'media',
+        'preview' => 0,
+        'thumbnail' => 0,
+      ),
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 3,
+    ),
+  );
+
   // Exported field_instance: 'node-media_for_upload-field_media_url'
   $field_instances['node-media_for_upload-field_media_url'] = array(
     'bundle' => 'media_for_upload',
@@ -1759,6 +1803,7 @@ function edgemakers_content_types_field_default_field_instances() {
   t('How can you help');
   t('Image');
   t('Images');
+  t('Media Type');
   t('Media URL');
   t('Mural Thumburl');
   t('Murally Type');

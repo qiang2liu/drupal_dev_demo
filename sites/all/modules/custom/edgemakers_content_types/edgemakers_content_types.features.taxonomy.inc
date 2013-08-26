@@ -32,6 +32,29 @@ function edgemakers_content_types_taxonomy_default_vocabularies() {
         ),
       ),
     ),
+    'media_file_types' => array(
+      'name' => 'Media file types',
+      'machine_name' => 'media_file_types',
+      'description' => '',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
+    ),
     'mural_type' => array(
       'name' => 'mural type',
       'machine_name' => 'mural_type',
