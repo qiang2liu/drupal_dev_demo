@@ -133,7 +133,7 @@ function edgemakers_topic_list_all_topics() {
   $handler->display->display_options['header']['area_text_custom']['table'] = 'views';
   $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
-  $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/node/add/carousel-item?destination=admin/carousel-admin">Create Carousel Item</a>';
+  $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/node/add/carousel-item?destination=admin/edgemakers/carousel">Create Carousel Item</a>';
   /* Field: Content: Carousel Item Image */
   $handler->display->display_options['fields']['field_carousel_item_image']['id'] = 'field_carousel_item_image';
   $handler->display->display_options['fields']['field_carousel_item_image']['table'] = 'field_data_field_carousel_item_image';
