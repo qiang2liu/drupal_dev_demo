@@ -161,7 +161,7 @@ function studio_mural_ajax_page_load(type, pager) {
         alert("data is empty");
       }
       else {
-        alert(data.length);
+//        alert(data.length);
         jQuery("#" + replaceElement).html(data);
         
         studio_mural_item_bind_link();
