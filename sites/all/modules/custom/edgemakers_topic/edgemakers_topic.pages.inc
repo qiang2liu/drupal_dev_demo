@@ -10,6 +10,8 @@ function edgemakers_topic_carousel_items() {
 		$image = field_get_items('node', $node, 'field_carousel_item_image');
 		$renderable_array[] = array(
 			'nid'=>$row->nid,
+      'title'=>$row->title,
+      'description'=>$row->description,
 			'topicid'=>$topic[0]['target_id'],
 			'imageurl'=>file_create_url($image[0]['uri']),
 		);
