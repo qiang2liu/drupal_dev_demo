@@ -340,14 +340,14 @@ function _mural_member_list($the_nid, $para_muralid = '') {
                         if ($field_mural_share_with_me) {
                           $mural_share_with_me = $field_mural_share_with_me[0]['value'];
                         }
-                        dpm($mural_share_with_me);
+//                         dpm($mural_share_with_me);
                         if ($mural_share_with_me) {
                           $share_with_me = explode(',', $mural_share_with_me);
                         }
                         else {
                           $share_with_me = array();
                         }
-                        dpm($share_with_me);
+//                         dpm($share_with_me);
                         $share_with_me[] = $the_nid;
                         $mural_share_with_me_val = implode(',', array_unique($share_with_me));
 
@@ -357,7 +357,7 @@ function _mural_member_list($the_nid, $para_muralid = '') {
                         // save existing user
                         unset($new_account->pass);
                         $new_account = user_save((object) array('uid'=>$new_account->uid), (array) $new_account);
-                        dpm($new_account);
+//                         dpm($new_account);
                       }
 
 //                       // edit field-data
@@ -433,7 +433,7 @@ function _themuralyajax_validate($form, &$form_state) {
                 $property_value = $v;
                 $result = $mural_api->update_mural_properties($muralusername, $the_muralid, $property_name, $property_value);
 
-                dpm($result);
+//                 dpm($result);
 
                 if (is_object($result) && isset($result->data)) {
                   $data = $result->data;
@@ -742,7 +742,7 @@ function themuraly_studio_mural_list_json($type = 'ideas', $page = '0') {
 // 	if ($user->uid !== 0) {
 
 	  $my_mural_nodes = themuraly_mural_list($uid, $start, $limit);
-	  dpm($my_mural_nodes);
+// 	  dpm($my_mural_nodes);
 // 		arsort($my_mural_nodes);
 
 		$i = 1;
@@ -864,7 +864,7 @@ function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
   $pager = 5;
   $start = $page * $pager;
 
-  dpm($start);
+//   dpm($start);
 
   $html = '';
 
@@ -899,7 +899,7 @@ function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
 
           if (!empty($result['node'])) {
             $nodes = node_load_multiple(array_keys($result['node']), '' , TRUE);
-            dpm($nodes);
+//             dpm($nodes);
           }
         }
 
@@ -911,7 +911,7 @@ function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
 
   //   $murals_list = themuraly_mural_list($uid, $start, $limit);
 
-    dpm($nodes);
+//     dpm($nodes);
 
   //   return $nodes;
 
@@ -1038,7 +1038,7 @@ function themuraly_mural_list_html($limit = 5) {
 	if ($user->uid !== 0) {
 
 	  $my_mural_nodes = themuraly_mural_list($user->uid);
-	  dpm($my_mural_nodes);
+// 	  dpm($my_mural_nodes);
 // 		arsort($my_mural_nodes);
 
 		$i = 0;

@@ -14,14 +14,14 @@
  */
 function get_myideas_shareideas($uid, $musername, $mroomid) {
 
-dpm($uid . $musername . $mroomid);
+// dpm($uid . $musername . $mroomid);
   $myideas_list = array();
   $shareideas_list = array();
   $the_muralid_array = array();
   // call mural api to get list
   $mural_api = new Muralapi;
   $result = $mural_api->get_all_murals($musername);
-dpm($result);
+// dpm($result);
   if (is_object($result) && isset($result->data)) {
     $data = drupal_json_decode($result->data);
     if (is_array($data)) {
@@ -49,7 +49,7 @@ dpm($result);
     }
   }
 
-  dpm($shareideas_list);
+//   dpm($shareideas_list);
 
 
   if (!empty($myideas_list) || !empty($shareideas_list)) {
@@ -175,7 +175,7 @@ function muralshow_share($owerid = '', $mid = '') {
         // save existing user
         unset($new_account->pass);
         $new_account = user_save((object) array('uid'=>$new_account->uid), (array) $new_account);
-        dpm($new_account);
+//         dpm($new_account);
       }
       // End add share nid into user profile
 
@@ -196,7 +196,7 @@ function muralshow_share($owerid = '', $mid = '') {
 //       dpm($result_invite);
     }
 
-  dpm($the_node);
+//   dpm($the_node);
 
   return muralshow($the_node->nid, $mid, $the_node->uid);
 
@@ -235,9 +235,9 @@ function muralshow($nid, $mid = 0, $uid = 0) {
   	'path' => drupal_get_path('theme', 'newfteui') . '/images/iconMuralSettings.png',
   );
   $img_gear = theme('image', $img_settings);
-  dpm($the_node_uid);
+//   dpm($the_node_uid);
   if ($user->uid == $the_node_uid) {
-    dpm($nid);
+//     dpm($nid);
     $edit_url = l($img_gear, 'modal/node/' . $nid . '/edit/nojs/0', array(
       'query' => array(
         'destination' => $GLOBALS['base_path'] . 'mural/' . $nid,
@@ -405,7 +405,7 @@ function create_mural($mural_api, $muser, $mroomid, $title = 'my mural', $duplic
       if ($str_p) {
         $new_mural_id = $matches[0];
       }
-      dpm($muralapi_response_obj);
+//       dpm($muralapi_response_obj);
       // Return whole data from mural.
       return $muralapi_response_obj;
 //       return $new_mural_id;
