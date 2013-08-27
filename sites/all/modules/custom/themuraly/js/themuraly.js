@@ -19,6 +19,10 @@ jQuery(document).ready(function(){
   
   studio_mural_ajax_load_list();
   
+  gallery_mural_ajax_load_list();
+  
+  jQuery("#gallery-search").bind("click", function(){search_gallery();});
+  
 });
 
 function closeFromIframe()
@@ -110,19 +114,13 @@ function mural_ajax_load_list() {
     });
 
     jQuery('ul#mural-list li a').each(function( index ) {
-
-      //alert("Hook mural list link.");
       jQuery(this).bind('click', function(){
-
-        //alert("click mural link.");
         if (jQuery("#mural-region").length !== 0) {
           var source = jQuery(this).attr("href");
           jQuery("#mural-back-to-dashboard").show();
           showMuralDialog(source);
         }
-        
         return false;
-
       });
     });
     
@@ -158,7 +156,7 @@ function studio_mural_ajax_page_load(type, pager) {
     type : 'GET',
     success : function(data){
       if (data.length === 0) {
-        alert("data is empty");
+        console.log("data is empty");
       }
       else {
 //        alert(data.length);
@@ -202,74 +200,39 @@ function setLeftRightPager(type, pager) {
     case "share":
       jQuery("#studio-panes-mural-list #studio-share-with-me .scroll-wrapper .arrow-left").attr("pager", prevPager);
       jQuery("#studio-panes-mural-list #studio-share-with-me .scroll-wrapper .arrow-right").attr("pager", nextPager);
+      break;
+    case "gallery":
+      jQuery("#gallery-ideas .arrow-left").attr("pager", prevPager);
+      jQuery("#gallery-ideas .arrow-right").attr("pager", nextPager);
+      break;
   }
 }
 
 function studio_mural_item_bind_link() {
   
-  jQuery('ul#studio-mural-list li a ').each(function( index ) {
-
-    //alert("Hook mural list link.");
+  // View mural link bind click.
+  jQuery('ul li a.studio-mural-list-item-link').each(function( index ) {
     jQuery(this).unbind('click');
     jQuery(this).bind('click', function(){
-
-      //alert("click mural link.");
       if (jQuery("#mural-region").length !== 0) {
         var source = jQuery(this).attr("href");
         jQuery("#mural-back-to-dashboard").show();
         showMuralDialog(source);
       }
-      
       return false;
-
     });
   });
-  
-  jQuery('ul#studio-mural-list li a.studio-mural-settings').each(function( index ) {
-  
+    
+  // Mural setting link bind click.
+  jQuery('ul li a.studio-mural-settings').each(function( index ) {
     jQuery(this).unbind("click");
-
-    //alert("Hook mural list link.");
     jQuery(this).bind('click', function(){
-
-      alert("click mural link.");
-
+      var nid = jQuery(this).attr("nid");
+      mural_setting(nid);
       return false;
-
     });
   });
   
-  jQuery('ul#studio-mural-share-with-me-list li a ').each(function( index ) {
-
-    //alert("Hook mural list link.");
-    jQuery(this).unbind('click');
-    jQuery(this).bind('click', function(){
-
-      //alert("click mural link.");
-      if (jQuery("#mural-region").length !== 0) {
-        var source = jQuery(this).attr("href");
-        jQuery("#mural-back-to-dashboard").show();
-        showMuralDialog(source);
-      }
-      
-      return false;
-
-    });
-  });
-  
-  jQuery('ul#studio-mural-share-with-me-list li a.studio-mural-settings').each(function( index ) {
-  
-    jQuery(this).unbind("click");
-
-    //alert("Hook mural list link.");
-    jQuery(this).bind('click', function(){
-
-      alert("click mural link.");
-
-      return false;
-
-    });
-  });
 }
 
 function studio_mural_ajax_load_list() {
@@ -316,4 +279,59 @@ function studio_mural_ajax_load_list() {
           
   });
   
+}
+
+function gallery_mural_ajax_load_list(pager) {
+  
+  var keyword = jQuery("#gallery-keyword").val();
+  //var sortby = jQuery("#gallery-sort-by").val();
+  
+  if (pager == null) {
+    pager = 0;
+  }
+  
+  jQuery.ajax({
+    url: "?q=mural/studio/list/page/ajax/gallery/" + pager + "/" + keyword,
+    dataType: 'html',
+    type : 'GET',
+    success : function(data){
+      if (data.length === 0) {
+        console.log("data is empty");
+      }
+      else {
+        jQuery("#gallery-mural-list").html(data);
+        studio_mural_item_bind_link();
+        setLeftRightPager('gallery', pager);
+      }
+    }
+  });
+  
+  // Bind left/right arrow operation.
+  jQuery("#gallery-ideas .arrow-left").unbind("click");
+  jQuery("#gallery-ideas .arrow-left").bind("click", function(){
+    var pager = jQuery(this).attr("pager");
+    gallery_mural_ajax_load_list(pager);
+    return false;
+  });
+  
+  jQuery("#gallery-ideas .arrow-right").unbind("click");
+  jQuery("#gallery-ideas .arrow-right").bind("click", function(){
+    var pager = jQuery(this).attr("pager");
+    gallery_mural_ajax_load_list(pager);
+    return false;
+  });
+  // End bind.
+  
+}
+
+// @TODO
+function mural_setting(nid) {
+  alert("Mural " + nid + " setting popup change to dialog!?");
+}
+
+function search_gallery() {
+  var mural_list_refresh = gallery_mural_ajax_load_list();
+  // @TODO on media upload module.
+//  var gallery_video_list_refresh = gallery_video_ajax_load_list();
+//  var gallery_image_list_refresh = gallery_image_ajax_load_list();
 }

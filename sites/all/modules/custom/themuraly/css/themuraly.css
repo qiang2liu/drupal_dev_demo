@@ -104,12 +104,14 @@ ul#mural-region-nav li.mural-nav-link-duplicate {
 }
 
 /* Studio mural style */
+ul#gallery-mural-list li,
 ul#studio-mural-share-with-me-list li,
 ul#studio-mural-list li {
   display: inline;
   position: relative;
 }
 
+ul#gallery-mural-list li.muralsettingicon,
 ul#studio-mural-share-with-me-list li.muralsettingicon,
 ul#studio-mural-list li.muralsettingicon {
   display: block;
@@ -117,12 +119,14 @@ ul#studio-mural-list li.muralsettingicon {
   height: 133px;
 }
 
+ul#gallery-mural-list li span.muralthumb img,
 ul#studio-mural-share-with-me-list li span.muralthumb img,
 ul#studio-mural-list li span.muralthumb img {
   width: 133px;
   height: 133px;
 }
 
+ul#gallery-mural-list li a.studio-mural-list-item-link,
 ul#studio-mural-share-with-me-list li a.studio-mural-list-item-link,
 ul#studio-mural-list li a.studio-mural-list-item-link {
   display: block;
@@ -133,6 +137,7 @@ ul#studio-mural-list li a.studio-mural-list-item-link {
   top: -126px;
 }
 
+ul#gallery-mural-list li a.studio-mural-settings,
 ul#studio-mural-share-with-me-list li a.studio-mural-settings,
 ul#studio-mural-list li a.studio-mural-settings{
   position: absolute;
