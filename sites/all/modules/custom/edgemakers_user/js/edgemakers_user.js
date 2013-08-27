@@ -10,6 +10,11 @@ function profileBackground() {
     if(firstname && lastname)
       jQuery('.user-profile .user-box h4').text(firstname +' '+ lastname);
   });
+  jQuery('.form-item-field-profile-background-und-0 img').bind('click', function(){
+    jQuery('.form-item-preset-background label.option').removeClass('active');
+    jQuery('.form-item-preset-background input[type=radio]').attr('checked', false);
+    changeBgImage(this.src);
+  });
 }
 Drupal.behaviors.fileUpload = {
   attach: function(context, settings) {
@@ -34,6 +39,7 @@ Drupal.behaviors.fileUpload = {
 };
 function changeBgImage(src) {
   if(src) {
+    src = src.replace(/styles\/[^\/]*\/public\//, '');
     jQuery('html').css('background-image', 'url("'+src+'")', 'important');
   } else {
     jQuery('html').css('background-image', '');

@@ -74,6 +74,7 @@ function user_profile_callback($ajax) {
  */
 function edgemakers_user_profile_settings_form($form, &$form_state) {
   global $user;
+  $user = user_load($user->uid);
   $category = 'account';
   $account = $user;
   if (!isset($form_state['user'])) {
