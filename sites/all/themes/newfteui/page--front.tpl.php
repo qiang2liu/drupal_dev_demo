@@ -121,7 +121,27 @@
 
 <!-- /sliding panes -->
 <div class="sliding-panes">
+  <?php
+  global $user;
+  if ($user->uid) :
+  ?>
   <div class="studio-handler pane-handler" data-aim="studio"></div>
+  <?php
+  else :
+    $mural_link = 'modal_forms/nojs/login';
+  	$link_class = array('ctools-use-modal',  'ctools-modal-modal-popup-small');
+  	$login_link = l('<div class="studio-handler pane-handler"></div>', $mural_link , array(
+    		'attributes' => array(
+    			'class' => $link_class,
+    		),
+        'html' => TRUE,
+      )
+    );
+
+    echo $login_link;
+
+  endif;
+  ?>
   <div class="chanllenge-handler pane-handler" data-aim="challenge"></div>
   <div class="competitions-handler pane-handler"  data-aim="competitions"></div>
   <?php print render($page['sliding_panes']); ?>
