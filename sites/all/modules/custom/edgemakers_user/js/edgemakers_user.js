@@ -30,10 +30,33 @@ Drupal.behaviors.fileUpload = {
               jQuery('.form-item-preset-background input[type=radio]').attr('checked', false);
               changeBgImage(this.src);
             });
+            jQuery('[value="'+form_build_id[1]+'"]').closest('form').find('[id$=remove-button]').bind('click', function(){
+              if(jQuery('.form-item-preset-background label.option.active').length > 0) {
+                changeBgImage(jQuery('.form-item-preset-background label.option.active span.image img')[0].src);
+              } else {
+                changeBgImage();
+              }
+            });
             jQuery('.form-item-field-profile-background-und-0 img')[0].click();
           }
         }
       //}  
+    });
+  }
+};
+Drupal.behaviors.autoUpload = {
+  attach: function(context, settings) {
+    jQuery('.form-item input.form-submit[value=Upload]').hide();
+    jQuery('.form-item input.form-file').change(function() {
+      var parent = jQuery(this).closest('.form-item');
+
+      //setTimeout to allow for validation
+      //would prefer an event, but there isn't one
+      setTimeout(function() {
+        if(!jQuery('.error', parent).length) {
+          jQuery('input.form-submit[value=Upload]', parent).mousedown();
+        }
+      }, 100);
     });
   }
 };
