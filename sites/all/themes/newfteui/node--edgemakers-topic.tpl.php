@@ -174,6 +174,7 @@ h1{
 	});
 	$(document).ready(function(){
 		$('.images-controller-dots').mediaSlide();
+		$('.videos-controller-dots').mediaSlide();
 	});
 })(jQuery);
 
@@ -202,13 +203,14 @@ h1{
       <div id="videos" class="media-box">
         <div id="videos_container">
         You need Flash player 8+ and JavaScript enabled to view this video.
+        <?php foreach($videoIds as $i=>$videoId): ?>
+            <span class="content-item" id="video-item-<?php echo $i?>"><?php echo $videoId; ?></span>
+          <?php endforeach; ?>
         </div>
         <div class="videos-controller controller">
           <a href="#" class="prev" <?php if(count($videoIds) == 1) echo 'disabled="disabled"';?>>Prev</a>
           <div class="videos-controller-dots controller-dots">
-          <?php foreach($videoIds as $i=>$videoId): ?>
-            <span class="content-item" id="video-item-<?php echo $i?>"><?php echo $videoId; ?></span>
-          <?php endforeach; ?>
+          
           </div>
           <a href="#" class="next" <?php if(count($videoIds) == 1) echo 'disabled="disabled"';?>>Next</a>
         </div>
