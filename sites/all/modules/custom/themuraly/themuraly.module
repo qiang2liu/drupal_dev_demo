@@ -597,7 +597,7 @@ function muralapi_test() {
 //   themuraly_get_mural_info('http://staging.mural.ly/!/#/lwgmural/1377006043205');
 //   _get_node_from_mural_id('1377006043205');
 
-  themuraly_studio_mural_list_json('gallery', 0);
+  themuraly_studio_mural_list_json('gallery', 0, 'mural');
 
 //   _test_mural_list_for_a_user();
   //_test_user_add();
@@ -610,7 +610,7 @@ function muralapi_test() {
 //   _test_mural_list_for_a_user();
   // _test_mural_invite_member();
 //   _test_retrieve_a_mural();
-  themuraly_mural_list_html();
+//   themuraly_mural_list_html();
 
 //   themuraly_get_mural_info('http://staging.mural.ly/!/#/lwgmural/1376967210186');
 
@@ -792,46 +792,9 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
 
   $conditions = array();
 
-  if ($keyword) {
-    // Search range.
-    $search_fields = array(
-      'title'
-    );
-
-    $i = 0;
-    foreach ($search_fields AS $column) {
-      $conditions[$i]['column'] = $column;
-      $conditions[$i]['value'] = '%' . $keyword . '%';
-      $conditions[$i]['operator'] = 'like';
-      $i++;
-    }
-  }
-
   $orderby = array();
 
   if ($type == 'gallery') {
-
-//     switch (strtolower($sortby)) {
-//       case 'alphabetical':
-//         $orderby[0]['name'] = 'title';
-//         $orderby[0]['direction'] = 'ASC';
-//         break;
-//       case 'date':
-//         $orderby[0]['name'] = 'created';
-//         $orderby[0]['direction'] = 'DESC';
-//   //       $query->propertyOrderBy('created', 'DESC');
-//         break;
-//       case 'location':
-//         $orderby[0]['name'] = 'field_city';
-//         $orderby[0]['direction'] = 'ASC';
-//   //       $query->propertyOrderBy('field_city', 'DESC');
-//         break;
-//       default:
-//         $orderby[0]['name'] = 'created';
-//         $orderby[0]['direction'] = 'DESC';
-//         break;
-//     }
-
     // Current sort by Alphabetical, Date, Tags
     // Sort by Alphabetical on title.
     $orderby[0]['name'] = 'title';
@@ -842,7 +805,17 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
     $orderby[1]['direction'] = 'DESC';
   }
 
-  $murals_list = themuraly_mural_list($uid, $start, $limit, $conditions, $orderby);
+  if ($keyword) {
+    $murals_list = _themuraly_search_execute($keyword, $page);
+//     return 'Test results';
+  }
+  else {
+    $murals_list = themuraly_mural_list($uid, $start, $limit, $conditions, $orderby);
+  }
+
+  if (count($murals_list) <= 0) {
+    return '';
+  }
 // 	dpm($murals_list);
 // 		arsort($murals_list);
 
@@ -1066,7 +1039,33 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
     $sortby[$i]['direction'] = 'DESC';
   }
 
-  $query = new EntityFieldQuery();
+
+  if ($conditions) {
+    $query = new EnergyEntityFieldQuery;
+
+//     foreach ($conditions AS $con_key => $con_arry) {
+//       $query_condition_field = $con_key . 'Condition';
+//       dpm($query_condition_field);
+//       if ($con_key == 'field') {
+//         foreach ($con_arry AS $con) {
+//           dpm($con);
+//           $query->{$query_condition_field}($con['field'], $con['column'], $con['value'], $con['operator']);
+//     //       $query->propertyCondition($condition['column'], $condition['value'], $condition['operator']);
+//         }
+//       }
+//       else {
+//         foreach ($con_arry AS $con) {
+//           dpm($con);
+//           $query->{$query_condition_field}($con['column'], $con['value'], $con['operator']);
+//     //       $query->propertyCondition($condition['column'], $condition['value'], $condition['operator']);
+//         }
+//       }
+//     }
+
+  }
+  else {
+    $query = new EntityFieldQuery();
+  }
 
   $query->entityCondition('entity_type', 'node')
     ->propertyCondition('status', 1)
@@ -1075,10 +1074,6 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
 
   if ($uid) {
     $query->propertyCondition('uid', $uid);
-  }
-
-  foreach ($conditions AS $condition) {
-    $query->propertyCondition($condition['column'], $condition['value'], $condition['operator']);
   }
 
   foreach ($sortby AS $sort) {
@@ -1121,12 +1116,14 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
 
   $result = $query->execute();
 
+  dpm($result);
+
   if (!empty($result['node'])) {
     $my_mural_nodes = node_load_multiple(array_keys($result['node']), '' , TRUE);
   }
 
 //   print("Nodes list:");
-//   dpm($my_mural_nodes);
+  dpm($my_mural_nodes);
 
   return $my_mural_nodes;
 
@@ -1347,3 +1344,73 @@ function themuraly_update_node_by_mural($mural_url = ''){
 
 }
 
+/**
+ * Custome search by search module, but not hook_search_execute().
+ * Configuration the search weight for it.
+ */
+function _themuraly_search_execute($keys = '', $page = 0) {
+
+  $pager = 5;
+  $start = $page * $pager;
+
+//   dpm('Start: ' . $start . ' | Pager: ' . $pager);
+
+  if ($keys) {
+    // Build matching conditions
+    $query = db_select('search_index', 'i', array('target' => 'slave'))->extend('SearchQuery')->extend('PagerDefault');
+    $query->join('node', 'n', 'n.nid = i.sid');
+    $query->condition('n.type', 'murals');
+    $query->orderBy('nid', 'DESC');//ORDER BY created
+    $query->condition('n.status', 1)->addTag('node_access')->searchExpression($keys, 'node');
+    $query->range($start, $pager);
+
+
+    // Insert special keywords.
+    $query->setOption('type', 'n.type');
+    $query->setOption('language', 'n.language');
+    if ($query->setOption('term', 'ti.tid')) {
+      $query->join('taxonomy_index', 'ti', 'n.nid = ti.nid');
+    }
+
+
+    // Only continue if the first pass query matches.
+    if (!$query->executeFirstPass()) {
+      return array();
+    }
+
+    // Add the ranking expressions.
+    _node_rankings($query);
+
+    // Load results.
+    $find = $query->limit(1000)->execute();
+
+    dpm($find);
+
+    $results = array();
+
+    $i = 0;
+    $j = 0;
+    foreach ($find as $item) {
+
+      if ($j >= $pager) {
+        break;
+      }
+
+      if ($i >= $start) {
+        // Render the node.
+        $node = node_load($item->sid);
+        $results[] = $node;
+        $j++;
+      }
+
+      $i++;
+
+    }
+
+    dpm($results);
+    return $results;
+  }
+
+  return false;
+
+}
