@@ -97,8 +97,10 @@
 	left:0;
 	opacity:1;
 }
-.carousel-des a{
+.d3-item  .carousel-des a{
 	color:#fff;
+	display:inline;
+	height:auto;
 }
 .carousel-des h5{
 	font-weight:bold;
