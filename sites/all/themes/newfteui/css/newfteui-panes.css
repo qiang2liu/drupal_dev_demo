@@ -184,3 +184,20 @@
 	background:url(../images/example_16.png) 253px top no-repeat;
 	height:320px;
 }
+/* some topic css must be here */
+.node-type-edgemakers-topic h1{
+	background:url(../images/newui_topic_h1.png) left top no-repeat #3dbec0;
+}
+.controller .prev{
+	background:url(../images/ico_left.png) left top no-repeat;
+}
+.controller .next{
+	background:url(../images/ico_right.png) left top no-repeat;
+}
+.controller-dots span{
+	background:url(../images/newui_ico_topic_media_indicator_normal.png) left top no-repeat;
+}
+.controller-dots span:hover,
+.controller-dots span.actived{
+	background:url(../images/newui_ico_topic_media_indicator.png) left top no-repeat;
+}
