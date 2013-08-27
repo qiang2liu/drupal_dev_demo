@@ -84,7 +84,6 @@
 	color:#fff;
 	left:0;
 	top:15px;
-	
 	opacity:0;
 }
 .d3-item.show .carousel-des{
@@ -104,6 +103,7 @@
 }
 .carousel-des p{
 	padding:10px 0;
+	height:125px;
 }
 .carousel-viewmore{
 	text-align:right;
@@ -260,3 +260,16 @@
 	right:-22px;
 	top:-22px;
 }
+
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {  
+/* CSS Statements that only apply on webkit-based browsers (Chrome, Safari, etc.) */  
+   .d3-item.show-left img,
+	.d3-item.show-right img,
+	.d3-item.show-left-fisrt img,
+	.d3-item.show-add-1 img{
+		height:120px;
+	}
+}
+
+
