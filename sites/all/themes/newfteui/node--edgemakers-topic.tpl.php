@@ -130,7 +130,7 @@ h1{
 	height:85px;
 	padding:20px 0 0 10px;
 }
-.field-name-field-topic-problem .field-item p{
+.field-name-field-topic-problem .field-item{
 	background:#fff;
 	padding:10px 22px 10px 10px;
 	position: relative;
@@ -143,23 +143,24 @@ h1{
 	height:88px;
 	width:222px;
 }
-.field-name-field-topic-suggestion .field-item p{
-	width:320px;
-	height:102px;
+.field-name-field-topic-suggestion .field-item{
+	width:300px;
+	height:131px;
 	padding:20px;
 	float:left;
 	background:#fff;
 }
+
 .field-name-field-topic-org-resources .field-label{
 	width:147px;
 	height:73px;
 	padding:5px 5px 0;
 	line-height: 1.2;
 }
-.field-name-field-topic-org-resources .field-item p{
+.field-name-field-topic-org-resources .field-item{
 	padding:10px 30px;
 	width:352px;
-	height:160px;
+	height:200px;
 	float:left;
 	background:#fff;
 }
