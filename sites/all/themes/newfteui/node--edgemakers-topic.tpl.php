@@ -21,7 +21,8 @@ if(isset($oimages) && count($oimages)>0) {
 }
 ?>
 <style>
-.topic_medias:after{
+.topic_medias:after,
+.topic_infos .field:after{
 	clear:both;
 	display:block;
 	content:'';
@@ -59,7 +60,6 @@ h1{
 .topic_infos{
 	width:770px;
 	float: right;
-	background:blue;
 }
 #images{
 	margin-bottom:30px;
@@ -113,6 +113,55 @@ h1{
 }
 #content div.tabs {
   display: none;
+}
+.topic_infos .field{
+	margin-bottom:50px;
+}
+.topic_infos .field-label{
+	float:left;
+	color:#fff;
+	font-size:22px;
+	font-style:italic;
+	text-align:center;
+	font-weight:normal;
+}
+.field-name-field-topic-problem .field-label{
+	width:181px;
+	height:85px;
+	padding:20px 0 0 10px;
+}
+.field-name-field-topic-problem .field-item p{
+	background:#fff;
+	padding:10px 22px 10px 10px;
+	position: relative;
+	float:left;
+	width:540px;
+	height:120px;
+}
+.field-name-field-topic-suggestion .field-label{
+	padding:20px 0 0 17px;
+	height:88px;
+	width:222px;
+}
+.field-name-field-topic-suggestion .field-item p{
+	width:320px;
+	height:102px;
+	padding:20px;
+	float:left;
+	background:#fff;
+}
+.field-name-field-topic-org-resources .field-label{
+	width:147px;
+	height:73px;
+	padding:5px 5px 0;
+	line-height: 1.2;
+}
+.field-name-field-topic-org-resources .field-item p{
+	padding:10px 30px;
+	width:352px;
+	height:160px;
+	float:left;
+	background:#fff;
 }
 </style>
 <script>
@@ -175,6 +224,9 @@ h1{
 	$(document).ready(function(){
 		$('.images-controller-dots').mediaSlide();
 		$('.videos-controller-dots').mediaSlide();
+		
+		//some UI
+		$('.field-name-field-topic-problem .field-item p').append('<div class="right-quote"></div>');
 	});
 })(jQuery);
 
@@ -208,11 +260,11 @@ h1{
           <?php endforeach; ?>
         </div>
         <div class="videos-controller controller">
-          <a href="#" class="prev" <?php if(count($videoIds) == 1) echo 'disabled="disabled"';?>>Prev</a>
+          <a href="#x" class="prev" <?php if(count($videoIds) == 1) echo 'disabled="disabled"';?>>Prev</a>
           <div class="videos-controller-dots controller-dots">
           
           </div>
-          <a href="#" class="next" <?php if(count($videoIds) == 1) echo 'disabled="disabled"';?>>Next</a>
+          <a href="#x" class="next" <?php if(count($videoIds) == 1) echo 'disabled="disabled"';?>>Next</a>
         </div>
       </div>
       <?php endif;?>
