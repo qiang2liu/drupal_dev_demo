@@ -165,8 +165,15 @@
 <!-- / user profile-->
 <div class="user-profile">
   <div class="user-box">
-    <?php if (user_is_logged_in()): ?>
-      <h4><?php echo $user->firstname && $user->lastname ? ($user->firstname.' '.$user->lastname) : $user->name; ?></h4>
+    <?php if (user_is_logged_in()): 
+      global $user;
+      $user = user_load($user->uid);
+      $firstnames = field_get_items('user', $user, 'field_firstname');
+      $firstname = $firstnames && count($firstnames) ? $firstnames[0]['value'] : '';
+      $lastnames = field_get_items('user', $user, 'field_lastname');
+      $lastname = $lastnames && count($lastnames) ? $lastnames[0]['value'] : '';
+    ?>
+      <h4><?php echo $firstname && $lastname ? ($firstname.' '.$lastname) : $user->name; ?></h4>
       <?php if ($secondary_menu): ?>
         <nav id="secondary-menu" role="navigation">
         <ul class="link inline clearfix">
@@ -180,9 +187,6 @@
   <?php if (user_is_logged_in()): ?>
     <div class="user-profile-inner">
       <?php
-      global $user;
-
-      $user = user_load($user->uid);
       $login_div = theme('image_style', array('path' => $user->picture->uri, 'style_name' => 'thumbnail', 'width' => '150', 'height' => '162'));
       print $login_div;
       ?>
