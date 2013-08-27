@@ -21,74 +21,196 @@ if(isset($oimages) && count($oimages)>0) {
 }
 ?>
 <style>
+.topic_medias:after{
+	clear:both;
+	display:block;
+	content:'';
+	height:0;
+	visibility:hidden;
+}
+html{
+  background:#dde1e0;
+}
+body{
+	width:1170px;
+	margin:30px auto 0;
+}
+#wrapper{
+	width:100%;
+}
+.breadcrumb{
+	display:none;
+}
+h1{
+	font-size:48px;
+	font-style:italic;
+	text-align:center;
+	height:95px;
+	line-height:95px;
+	color:#fff;
+}
+.node-edgemakers-topic{
+	margin:50px auto;
+}
+.topic_medias{
+	width:360px;
+	float:left;
+}
+.topic_infos{
+	width:770px;
+	float: right;
+	background:blue;
+}
+#images{
+	margin-bottom:30px;
+}
+#images_container img{
+	width:360px;
+	height:300px;
+	display:block;
+}
+#images_container span.content-item{
+	display:none;
+}
+#images_container span.content-item.actived{
+	display:block;
+}
+.controller{
+	height:54px;
+	background:#3dbec0;
+	padding:0 30px;
+}
+.controller .prev,
+.controller .next{
+	width:26px;
+	height:17px;
+	float:left;
+	display: inline-block;
+	text-indent:-9999em;
+}
+.controller .prev{
+	margin:17px 0 0 0;
+}
+.controller .next{
+	margin:17px 0 0 10px;
+}
+.controller-dots{
+	width:195px;
+	float:left;
+	border-left:1px solid #62cacc;
+	border-right:1px solid #62cacc;
+	padding:23px 20px 0;
+	height:31px;
+}
+.controller-dots span{
+	width:16px;
+	height:8px;
+	display:inline-block;
+	text-indent:-9999em;
+	cursor:pointer;
+	line-height:8px;
+	float:left;
+}
 #content div.tabs {
   display: none;
 }
-.controller {
-  width: 200px;
-}
-.controller a{
-  cursor:pointer;
-}
-.controller a.prev{
-  float:left;
-  width:10px;
-}
-.controller a.next{
-  float:right;
-  width:10px;
-}
-.controller-dots{
-  margin:0 auto;
-  width: 160px;
-}
-.controller-dots span{
-  text-indent:-9999px;
-  display: block;
-  float: left;
-  width: 10px;
-  height: 20px;
-  margin: 1px;
-  background: #ccc;
-  cursor:pointer;
-}
-.controller-dots span.active{
-  cursor:auto;
-}
-.controller-dots img{
-  display: none;
-}
 </style>
+<script>
+(function($){
+	$.fn.extend({
+		mediaSlide: function(options){
+			var defaults = {
+				contentContainer : '.content-container',
+				contentItem      : '.content-item',
+				parent           : '.media-box',
+				siblingsNext     : '.next',
+				siblingsPre      : '.prev'
+			}
+			var options=$.extend(defaults, options);
+			return this.each(function(){
+				var self = $(this);
+				var item = self.parents(options.parent).find(options.contentContainer).find(options.contentItem);
+				var len = self.parents(options.parent).find(options.contentContainer).find(options.contentItem).length;
+				for(var i=0; i<len; i++){
+					self.append('<span class="media-indicator"></span>');
+				}
+				self.find('.media-indicator').eq(0).addClass('actived');
+				
+				//next button
+				self.siblings(options.siblingsNext).bind('click', function(){
+					var idx = self.find('.media-indicator.actived').index();
+					if(idx<self.find('.media-indicator').length-1){
+						self.find('.media-indicator.actived').removeClass('actived');
+						self.find('.media-indicator').eq(idx+1).addClass('actived');
+						item.eq(idx).hide();
+						item.eq(idx+1).fadeIn(300);
+					}
+					
+				});
+				
+				//pre button
+				self.siblings(options.siblingsPre).bind('click', function(){
+					var idx = self.find('.media-indicator.actived').index();
+					if(idx>0){
+						self.find('.media-indicator.actived').removeClass('actived');
+						self.find('.media-indicator').eq(idx-1).addClass('actived');
+						item.eq(idx).hide();
+						item.eq(idx-1).fadeIn(300);
+					}
+				});
+				
+				//indicator click
+				self.find('.media-indicator').bind('click', function(){
+					var idx = self.find('.media-indicator.actived').index();
+					var crt = $(this).index();
+					self.find('.media-indicator.actived').removeClass('actived');
+					$(this).addClass('actived');
+					item.eq(idx).hide();
+					item.eq(crt).fadeIn(300);
+				})
+				
+			});
+		}
+	});
+	$(document).ready(function(){
+		$('.images-controller-dots').mediaSlide();
+		$('.videos-controller-dots').mediaSlide();
+	});
+})(jQuery);
+
+</script>
+
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
   <div class="content clearfix"<?php print $content_attributes; ?>>
       <div class="topic_medias">
       <?php if(count($images) > 0): ?>
-      <div id="images">
-        <div id="images_container">
-          <?php print_r($images[0]); ?>
+      <div id="images" class="media-box">
+        <div id="images_container" class="content-container">
+          <?php foreach($images as $i=>$image): ?>
+            <span class="content-item<?php if($i == 0) echo ' actived';?>" id="image-item-<?php echo $i?>"><?php echo $image; ?></span>
+          <?php endforeach; ?>
         </div>
         <div class="images-controller controller">
-          <a href="#" class="prev" <?php if(count($images) == 1) echo 'disabled="disabled"';?>>Prev</a>
+          <a href="#x" class="prev" <?php if(count($images) == 1) echo 'disabled="disabled"';?>>Prev</a>
           <div class="images-controller-dots controller-dots">
-          <?php foreach($images as $i=>$image): ?>
-            <span class="image-item<?php if($i == 0) echo ' active';?>" id="image-item-<?php echo $i?>"><?php echo $image; ?></span>
-          <?php endforeach; ?>
+          
           </div>
-          <a href="#" class="next" <?php if(count($imageUrls) == 1) echo 'disabled="disabled"';?>>Next</a>
+          <a href="#x" class="next" <?php if(count($imageUrls) == 1) echo 'disabled="disabled"';?>>Next</a>
         </div>
       </div>
       <?php endif;?>
       <?php if(count($videoIds) > 0): ?>
-      <div id="videos">
+      <div id="videos" class="media-box">
         <div id="videos_container">
         You need Flash player 8+ and JavaScript enabled to view this video.
+        <?php foreach($videoIds as $i=>$videoId): ?>
+            <span class="content-item" id="video-item-<?php echo $i?>"><?php echo $videoId; ?></span>
+          <?php endforeach; ?>
         </div>
         <div class="videos-controller controller">
           <a href="#" class="prev" <?php if(count($videoIds) == 1) echo 'disabled="disabled"';?>>Prev</a>
           <div class="videos-controller-dots controller-dots">
-          <?php foreach($videoIds as $i=>$videoId): ?>
-            <span class="video-item" id="video-item-<?php echo $i?>"><?php echo $videoId; ?></span>
-          <?php endforeach; ?>
+          
           </div>
           <a href="#" class="next" <?php if(count($videoIds) == 1) echo 'disabled="disabled"';?>>Next</a>
         </div>
@@ -124,23 +246,7 @@ if(isset($oimages) && count($oimages)>0) {
     if(!jQuery(this).hasClass('active')) changeVideo(this.id);
   });
   <?php endif;?>  
-  <?php if(count($images) > 1):?>
-  jQuery(".images-controller .prev").bind('click', function() {
-    var prevel = jQuery('.image-item.active').prev();
-    if(prevel.length == 0)
-      var prevel = jQuery('.image-item:last');
-    changeImage(prevel[0].id);
-  });
-  jQuery(".images-controller .next").bind('click', function() {
-    var nextel = jQuery('.image-item.active').next();
-    if(nextel.length == 0)
-      nextel = jQuery('#image-item-0');
-    changeImage(nextel[0].id);
-  });
-  jQuery('.image-item').bind('click', function() {
-    if(!jQuery(this).hasClass('active')) changeImage(this.id);
-  });
-  <?php endif;?>
+  
 <?php endif;?>
 function loadVideo(videoid) {
 	var params = { allowScriptAccess: "always", wmode : 'opaque' };
