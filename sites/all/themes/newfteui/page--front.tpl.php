@@ -165,18 +165,21 @@
 <!-- / user profile-->
 <div class="user-profile">
   <div class="user-box">
-    <?php if (user_is_logged_in()): ?>
-      <h4><?php echo $user->name; ?></h4>
+    <?php if (user_is_logged_in()): 
+      global $user;
+      $user = user_load($user->uid);
+      $firstnames = field_get_items('user', $user, 'field_firstname');
+      $firstname = $firstnames && count($firstnames) ? $firstnames[0]['value'] : '';
+      $lastnames = field_get_items('user', $user, 'field_lastname');
+      $lastname = $lastnames && count($lastnames) ? $lastnames[0]['value'] : '';
+    ?>
+      <h4><?php echo $firstname && $lastname ? ($firstname.' '.$lastname) : $user->name; ?></h4>
       <?php if ($secondary_menu): ?>
         <nav id="secondary-menu" role="navigation">
-          <?php
-          print theme('links__system_secondary_menu', array(
-                    'links' => $secondary_menu,
-                    'attributes' => array(
-                      'class' => array('links', 'inline', 'clearfix'),
-                    ),
-                  ));
-          ?>
+        <ul class="link inline clearfix">
+          <li class="menu-item first"><a href="<?php echo $base_url.'/edgemakers/user/profile/settings/nojs'?>" class="ctools-use-modal ctools-modal-modal-popup-small">Settings</a></li>
+          <li class="menu-item last"><a href="<?php echo $base_url.'/user/logout?destination=home'?>">Log out</a></li>
+        </ul>
         </nav>
       <?php endif; ?>
     <?php endif; ?>
@@ -184,33 +187,16 @@
   <?php if (user_is_logged_in()): ?>
     <div class="user-profile-inner">
       <?php
-      global $user;
-
-      $login_div = '';
-      $user = user_load($user->uid);
-      //$login_div .= theme('image_style', array( 'path' =>  $user->picture->uri, 'style_name' => 'thumbnail', 'width' => '150', 'height' => '162'));
-      //print theme_user_picture();
-      //$login_div = '<div class="user-profile-inner-url">';
-      //$login_div .= '<img src="sites/all/themes/newfteui/images/example_08.png" />';
       $login_div = theme('image_style', array('path' => $user->picture->uri, 'style_name' => 'thumbnail', 'width' => '150', 'height' => '162'));
-      //$login_div .= theme('user_picture', array('account' =>$user));
-      //$login_div .= '</div>';
       print $login_div;
       ?>
-      <!-- <img src="sites/all/themes/newfteui/images/example_08.png" /> -->
     </div>
   <?php else: ?>
     <?php
     global $user;
 
-    $login_div = '';
-    $user = user_load($user->uid);
-    //$login_div .= theme('image_style', array( 'path' =>  $user->picture->uri, 'style_name' => 'thumbnail', 'width' => '150', 'height' => '162'));
-    //print theme_user_picture();
     $login_div = '<div class="user-profile-inner-url">';
     $login_div .= '<img src="sites/all/themes/newfteui/images/example_08.png" />';
-    //$login_div .= theme('image_style', array( 'path' =>  $user->picture->uri, 'style_name' => 'thumbnail', 'width' => '150', 'height' => '162'));
-    //$login_div .= theme('user_picture', array('account' =>$user));
     $login_div .= '</div>';
 
     echo l($login_div, 'user/login', array(

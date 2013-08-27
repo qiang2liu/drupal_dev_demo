@@ -59,6 +59,9 @@
 	transition: all 0.5s linear;
 }
 /* for Firefox */
+#block-edgemakers-topic-problems h2{
+	display:none;
+}
 .d3-item a{
 	-moz-perspective: 190px;
 	perspective: 190px;
@@ -94,8 +97,10 @@
 	left:0;
 	opacity:1;
 }
-.carousel-des a{
+.d3-item  .carousel-des a{
 	color:#fff;
+	display:inline;
+	height:auto;
 }
 .carousel-des h5{
 	font-weight:bold;
@@ -260,12 +265,22 @@
 	right:-22px;
 	top:-22px;
 }
-
-
+.field-name-field-topic-suggestion .su-right{
+	width:190px;
+	height:172px;
+	float:left;
+	background:url(../images/newui_ico_topic_info_6.png) no-repeat;
+}
+.field-name-field-topic-org-resources .su-right{
+	width:191px;
+	height:205px;
+	float:left;
+	background:url(../images/newui_ico_topic_info_7.png) no-repeat;
+}
 @media screen and (-webkit-min-device-pixel-ratio:0) {  
 /* CSS Statements that only apply on webkit-based browsers (Chrome, Safari, etc.) */  
    #d3{
-   	padding-top:20px;
+   	padding:20px 10px;
    }
 }
 

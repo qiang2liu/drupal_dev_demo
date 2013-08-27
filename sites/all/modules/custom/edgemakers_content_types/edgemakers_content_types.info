@@ -54,7 +54,6 @@ features[field_base][] = field_topic_org_resources
 features[field_base][] = field_topic_problem
 features[field_base][] = field_topic_suggestion
 features[field_base][] = field_topic_videos
-features[field_instance][] = node-carousel_item-body
 features[field_instance][] = node-carousel_item-field_carousel_item_image
 features[field_instance][] = node-carousel_item-field_carousel_item_topic
 features[field_instance][] = node-edgemakers_set-body
