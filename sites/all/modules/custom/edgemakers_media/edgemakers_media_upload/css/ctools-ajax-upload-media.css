@@ -166,9 +166,20 @@ div.ctools-sample-modal-content .modal-scroll{
 .media-upload-close:hover{
 	background:url(../images/ico_upload_close_normal.png) no-repeat;
 }
+
 #media-for-upload-node-form label{
 	display:none;
 }
+
 #media-for-upload-node-form{
 	margin-top:30px;
 }
+
+#media-for-upload-node-form .form-item-field-share-und label,
+#media-for-upload-node-form .form-item-field-share-und input {
+  display: inline;
+}
+
+/* #media-for-upload-node-form .form-item-field-share-und label {
+  display: block;
+} */
