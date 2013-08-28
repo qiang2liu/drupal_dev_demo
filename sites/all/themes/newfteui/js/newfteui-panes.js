@@ -6,7 +6,9 @@
 			count      : 9,
 			item       : '.d3-item',
 			leftController: '.d3-left-arrow',
-			rightController: '.d3-right-arrow'
+			rightController: '.d3-right-arrow',
+			desBox : '.carousel-des',
+			linkNode : '.carousel-viewmore'
 		};
 		var options = $.extend(defaults, options);
 		return this.each(function(){
@@ -106,7 +108,12 @@
 					addAnimate();
 				}	
 			});
-		
+			
+		    //clcik anywhere to link to the topic page
+		    self.find(options.desBox).bind('click', function(){
+		    	var link = $(this).find('a',options.linkNode).attr('href');
+		    	window.open(link);
+		    })
 		});
 	}
  });
