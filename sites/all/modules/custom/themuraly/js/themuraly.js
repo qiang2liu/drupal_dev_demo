@@ -23,6 +23,8 @@ jQuery(document).ready(function(){
   
   jQuery("#gallery-search").bind("click", function(){search_gallery();});
   
+//  Drupal.CTools.AJAX.refreshElements();
+  
 });
 
 function closeFromIframe()
@@ -161,6 +163,7 @@ function studio_mural_ajax_page_load(type, pager) {
       else {
 //        alert(data.length);
         jQuery("#" + replaceElement).html(data);
+//        Drupal.CTools.AJAX.refreshElements();
         
         studio_mural_item_bind_link();
         setLeftRightPager(type, pager);
@@ -223,15 +226,45 @@ function studio_mural_item_bind_link() {
     });
   });
     
+//  Drupal.behaviors.ZZCToolsModal;
+  
+//  jQuery('area.ctools-use-modal, a.ctools-use-modal', context).once('ctools-use-modal', function() {
+//    var $this = jQuery(this);
+//    $this.click(Drupal.CTools.Modal.clickAjaxLink);
+//    // Create a drupal ajax object
+//    var element_settings = {};
+//    if ($this.attr('href')) {
+//      element_settings.url = $this.attr('href');
+//      element_settings.event = 'click';
+//      element_settings.progress = { type: 'throbber' };
+//    }
+//    var base = $this.attr('href');
+//    Drupal.ajax[base] = new Drupal.ajax(base, this, element_settings);
+//  });
+  
   // Mural setting link bind click.
   jQuery('ul li a.studio-mural-settings').each(function( index ) {
+    
     jQuery(this).unbind("click");
-    jQuery(this).bind('click', function(){
-      var nid = jQuery(this).attr("nid");
-      mural_setting(nid);
-      return false;
-    });
+
+
+    // @link https://drupal.org/node/1744818
+    // Bind modal link.
+    jQuery(this).click(Drupal.CTools.Modal.clickAjaxLink);
+
+    // Create a drupal ajax object
+    var element_settings = {};
+    if (jQuery(this).attr('href')) {
+      element_settings.url = jQuery(this).attr('href');
+      element_settings.event = 'click';
+      element_settings.progress = { type: 'throbber' };
+    }
+    var base = jQuery(this).attr('href');
+    Drupal.ajax[base] = new Drupal.ajax(base, this, element_settings);
+    
   });
+  
+//  Drupal.CTools.AJAX.refreshElements();
   
 }
 
@@ -326,6 +359,8 @@ function gallery_mural_ajax_load_list(pager) {
 
 // @TODO
 function mural_setting(nid) {
+  jQuery("#studio-mural-list li a.studio-mural-settings").addClass('ctools-use-modal-processed').click(Drupal.CTools.Modal.clickAjaxLink).click();
+//  $("<a></a>").attr('href',"/select2/ajax/add/place").addClass('ctools-use-modal-processed').click(Drupal.CTools.Modal.clickAjaxLink).click();
   alert("Mural " + nid + " setting popup change to dialog!?");
 }
 
