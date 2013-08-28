@@ -29,6 +29,7 @@ function _edgemakers_notification_mural_updated($data) {
   $node = array_pop($result['node']);
   $tmp = entity_load('node', array($node->nid));
   $node = $tmp[$node->nid];
+  node_save($node->nid);
   $author = user_load($node->uid);
 
   $recipients = array($user);
