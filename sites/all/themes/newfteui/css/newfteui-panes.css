@@ -229,8 +229,8 @@ h2.item-studio{
 }
 /* fake */
 #block-edgemakers-topic-problems{
-	background:url(../images/example_16.png) 253px top no-repeat;
-	height:320px;
+	background:url(../images/example_16.png) 253px 48px no-repeat;
+	height:370px;
 }
 /* some topic css must be here */
 .node-type-edgemakers-topic h1{
