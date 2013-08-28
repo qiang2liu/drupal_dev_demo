@@ -141,7 +141,7 @@ h1{
 	position: relative;
 	float:left;
 	width:540px;
-	height:120px;
+	
 }
 .field-name-field-topic-suggestion .field-label{
 	padding:20px 0 0 17px;
@@ -150,7 +150,7 @@ h1{
 }
 .field-name-field-topic-suggestion .field-item{
 	width:300px;
-	height:131px;
+	
 	padding:20px;
 	float:left;
 	background:#fff;
@@ -165,7 +165,7 @@ h1{
 .field-name-field-topic-org-resources .field-item{
 	padding:10px 30px;
 	width:352px;
-	height:200px;
+
 	float:left;
 	background:#fff;
 }

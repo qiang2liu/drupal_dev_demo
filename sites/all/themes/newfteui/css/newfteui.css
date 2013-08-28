@@ -954,7 +954,8 @@ div.ctools-modal-content .form-item .description{
 }
 .pane-con.studio{
 	width:760px;
-	height:706px;
+	
+	padding:10px 0;
 /*	background:url(../images/example_13.png); */
   background-color: #BC0335;
 }
@@ -970,7 +971,7 @@ div.ctools-modal-content .form-item .description{
 #studio{
 	/*background-image: url(../images/example_03.png);
 	background-color:rgba(189,21,54,1.0);*/
-	text-align:center;
+	
 	top:64px;
 	
 }

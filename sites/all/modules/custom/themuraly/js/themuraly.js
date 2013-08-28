@@ -163,11 +163,12 @@ function studio_mural_ajax_page_load(type, pager) {
     type : 'GET',
     success : function(data){
       if (data.length === 0) {
-        console.log("data is empty");
+        alert("not enough content to turning page");
       }
       else {
-//        alert(data.length);
-        jQuery("#" + replaceElement).html(data);
+        //alert(data);
+        //jQuery("#" + replaceElement).find('li').fadeOut(300);
+        jQuery("#" + replaceElement).html(data).find('li').hide().fadeIn(300);
 //        Drupal.CTools.AJAX.refreshElements();
         
         studio_mural_item_bind_link();

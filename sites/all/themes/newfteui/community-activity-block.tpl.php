@@ -21,28 +21,44 @@ if($realnum>0) {
       'account' => $content, 
     );
     $username = theme('username', $variables);
-    $date = format_interval(time()-$content->created) . ' ago';
+    $date = format_interval(time()-$content->changed) . ' ago';
     $item .= $userpic.'<div class="cont">';
     $item .= '<div class="usertime">'.$username.'<div class="time">'.$date.'</div></div>';
-    if($content->cid) {
+    if ($content->cid) {
       //comment
       //$title = l($content->title, 'node/'.$content->nid, array('fragment' => 'comment-'.$content->cid));
       $title = $content->node_title;
       $item .= '<div class="activity">Left a comment on '.$title.'</div>';
-    } else {
-      //node
-      //$title = l($content->title, 'node/'.$content->nid);
-      $title = $content->title;
-      $type = $content->type;
-      if($type == 'edgemakers_set') {
-        $types = field_get_items('node', $content, 'field_set_type');
-        $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
-      } else if($type == 'murals') {
-        $type = 'Mural';
-      } else if($type == 'media_for_upload') {
-        $type = 'Media';
+    }
+    else {
+      // If this is a new node.
+      if ($content->created == $content->changed) {
+        //$title = l($content->title, 'node/'.$content->nid);
+        $title = $content->title;
+        $type = $content->type;
+        if($type == 'edgemakers_set') {
+          $types = field_get_items('node', $content, 'field_set_type');
+          $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
+        } else if($type == 'murals') {
+          $type = 'Mural';
+        } else if($type == 'media_for_upload') {
+          $type = 'Media';
+        }
+        $item .= '<div class="activity">Created a '.$type.' named "'.$title.'"</div>';
       }
-      $item .= '<div class="activity">Created a '.$type.' named "'.$title.'"</div>';
+      else {
+        $title = $content->title;
+        $type = $content->type;
+        if($type == 'edgemakers_set') {
+          $types = field_get_items('node', $content, 'field_set_type');
+          $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
+        } else if($type == 'murals') {
+          $type = 'Mural';
+        } else if($type == 'media_for_upload') {
+          $type = 'Media';
+        }
+        $item .= '<div class="activity">Edited '.$type.' "'.$title.'"</div>';
+      }
     }
     $item .= '</div>';
     $items[] = $item;

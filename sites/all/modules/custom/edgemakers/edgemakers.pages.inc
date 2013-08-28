@@ -24,7 +24,7 @@ function edgemakers_node_get_recent($types, $number = 5) {
   $query = db_select('node', 'n');
 
   $nodes = array();
-  $nids = $query->condition('n.type', $types, 'IN')->condition('n.status', NODE_PUBLISHED)->fields('n', array('nid'))->orderBy('n.created', 'DESC')->addTag('node_access')->execute()->fetchCol();
+  $nids = $query->condition('n.type', $types, 'IN')->condition('n.status', NODE_PUBLISHED)->fields('n', array('nid'))->orderBy('n.changed', 'DESC')->addTag('node_access')->execute()->fetchCol();
 
   if($nids) {
     foreach($nids as $nid) {

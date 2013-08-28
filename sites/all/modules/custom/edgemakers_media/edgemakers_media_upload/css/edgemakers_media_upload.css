@@ -1,42 +1,44 @@
 @CHARSET "UTF-8";
 
 #modal-content div.location-wrapper {
-  
-    display: none;
-
+  display: none;
 }
 
 ul#gallery-video-list li,
 ul#studio-media-list li
 {
   display: inline;
+  width:156px;
+  height:106px;
   position: relative;
+  float: left;
+  margin:4px;
 }
 
 ul#gallery-video-list li.mediasettingicon,
 ul#studio-media-list li.mediasettingicon
 {
   display: block;
-  width: 160px;
-  height: 160px;
+   width:156px;
+  height:106px;
 }
 
 ul#gallery-video-list li span.mediathumb img,
 ul#studio-media-list li span.mediathumb img
 {
-  width: 160px;
-  height: 160px;
+  width:156px;
+  height:106px;
 }
 
 ul#gallery-video-list li a.studio-media-list-item-link,
 ul#studio-media-list li a.studio-media-list-item-link
 {
   display: block;
-  width: 160px;
-  height: 160px;
+   width:156px;
+  height:106px;
   position: absolute;
   left: 0;
-  top: -146px;
+  top: 0;
 }
 
 ul#gallery-video-list li a.studio-media-settings,
