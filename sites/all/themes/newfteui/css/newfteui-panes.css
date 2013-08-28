@@ -9,7 +9,8 @@
 #challenge #block-edgemakers-topic-carousel{
 	margin-bottom:40px;
 }
-#challenge #block-edgemakers-topic-carousel h2{
+#challenge #block-edgemakers-topic-carousel h2,
+h2.item-studio{
 	display:inline-block;
 	font-size:24px;
 	padding:0 20px 5px;
@@ -277,6 +278,26 @@
 	float:left;
 	background:url(../images/newui_ico_topic_info_7.png) no-repeat;
 }
+
+/******************************************************* Studio ***************************************/
+.pane-studio-box{
+	margin:0 0 10px 15px;
+}
+.region-studio-pane h2{
+	margin-bottom:10px;
+}
+.pane-studio-box h4{
+	padding-left:50px;
+	font-size:20px;
+	color:#fff;
+}
+.pane-studio-box .scroll-wrapper{
+	position:relative;
+}
+#studio-my-idea{
+	background:url(../images/newui_ico_pane_studio_1.png) left top no-repeat;
+}
+
 @media screen and (-webkit-min-device-pixel-ratio:0) {  
 /* CSS Statements that only apply on webkit-based browsers (Chrome, Safari, etc.) */  
    #d3{
