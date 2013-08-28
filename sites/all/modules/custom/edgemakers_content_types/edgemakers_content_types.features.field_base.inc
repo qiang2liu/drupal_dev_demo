@@ -941,6 +941,37 @@ function edgemakers_content_types_field_default_field_bases() {
     'type' => 'text_long',
   );
 
+  // Exported field_base: 'field_topic_color'
+  $field_bases['field_topic_color'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_topic_color',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'foreign keys' => array(),
+    'indexes' => array(
+      'rgb' => array(
+        0 => 'rgb',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'color_field',
+    'settings' => array(
+      'box_height' => 20,
+      'box_width' => 115,
+      'cell_height' => 10,
+      'cell_margin' => 1,
+      'cell_width' => 10,
+      'columns' => 16,
+      'profile2_private' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'color_field_rgb',
+  );
+
   // Exported field_base: 'field_topic_images'
   $field_bases['field_topic_images'] = array(
     'active' => 1,
