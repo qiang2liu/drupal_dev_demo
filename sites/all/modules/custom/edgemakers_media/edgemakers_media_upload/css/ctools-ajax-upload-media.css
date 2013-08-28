@@ -45,7 +45,7 @@ div.ctools-sample-modal-content .popups-box tr {
 	background-color:transparent;
 }
 div.ctools-sample-modal-content td.popups-border {
-  background: url(../images/popups-border.png);
+  /* background: url(../images/popups-border.png); */
   background-color:transparent;
   border: none;
 }
