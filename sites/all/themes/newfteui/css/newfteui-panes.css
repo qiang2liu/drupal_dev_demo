@@ -107,8 +107,8 @@
 	text-align:center;
 }
 .carousel-des p{
-	padding:10px 0;
-	height:125px;
+	padding:1px 0;
+	word-wrap: break-word;
 }
 .carousel-viewmore{
 	text-align:right;

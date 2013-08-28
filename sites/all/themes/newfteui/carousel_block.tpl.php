@@ -1,12 +1,12 @@
 <div id="d3">
 	<div class="d3-left-arrow"><img  src="<?php print drupal_get_path('theme', 'newfteui');?>/images/ico_da_slider_left.png"  /></div>
-    
 		<?php foreach($items as $item):
       if($item['topicid']) {
         $topic = node_load($item['topicid']);
         $title = $topic->title;
         $descriptions = field_get_items('node', $topic, 'field_topic_problem');
         $description = $descriptions && count($descriptions) ? $descriptions[0]['value'] : '';
+        $description = text_summary($description, NULL, 185);
       } else {
         $title = '';
         $description = '';
