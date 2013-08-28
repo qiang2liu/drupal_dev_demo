@@ -45,11 +45,23 @@ function fteuserlogon() {
   echo $ret;
   exit(0);
 }
+function fte_get_bg_image() {
+  if(user_is_logged_in()) {
+    global $user;
+    $user = user_load($user->uid);    
+    $images = field_get_items('user', $user, 'field_profile_background');
+    $imageUri = $images && count($images) > 0 ? $images[0]['uri'] : '';
+    if($imageUri) {
+      return file_create_url($imageUri);
+    }
+  }
+  return false;
+}
 function show_landingpage() {
-  global $user;
-  if ($user->uid > 0) { //user logon
-    //drupal_goto('node/1');
-    
+  $image_path = fte_get_bg_image();
+  if ($image_path !== false) {
+    require_once drupal_get_path('module', 'bg_image').'/bg_image.module';
+    bg_image_add_background_image($image_path);
   }
   return theme('fte_landing_page');
 }

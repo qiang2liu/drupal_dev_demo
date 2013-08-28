@@ -1,5 +1,13 @@
 <?php
 /**
+ * Implements hook_views_api().
+ */
+function edgemakers_user_views_api() {
+  return array(
+    'api' => 3,
+  );
+}
+/**
  * Implements hook_menu().
  */
 function edgemakers_user_menu() {
@@ -9,6 +17,13 @@ function edgemakers_user_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
     'file' => 'edgemakers_user.pages.inc',
+  );
+  $items['edgemakers/user/profile/settings/%ctools_js'] = array(
+    'page callback' => 'user_profile_callback',
+    'page arguments' => array(4),
+    'access callback' => 'user_is_logged_in',
+    'file' => 'edgemakers_user.pages.inc',
+    'type' => MENU_CALLBACK,
   );
   return $items;
 }
@@ -33,8 +48,7 @@ function edgemakers_user_form_alter(&$form, &$form_state, $form_id) {
       break;
     case 'user_register_form':
       if (arg(0) == 'modal_forms') {
-        //print_r($form);
-        unset($form['account']['name']['#title'], $form['account']['name']['#description'], $form['account']['mail']['#title'], $form['account']['mail']['#description'], $form['account']['pass']['#description'], $form['picture']['#title'], $form['picture']['picture_upload']['#description'], $form['field_firstname'][LANGUAGE_NONE][0]['value']['#title'], $form['field_firstname'][LANGUAGE_NONE][0]['value']['#description'], $form['field_lastname'][LANGUAGE_NONE][0]['value']['#title'], $form['field_lastname'][LANGUAGE_NONE][0]['value']['#description']);
+        unset($form['account']['name']['#title'], $form['account']['name']['#description'], $form['account']['mail']['#title'], $form['account']['mail']['#description'], $form['account']['pass']['#description'], $form['field_profile_picture'][LANGUAGE_NONE][0]['#description'], $form['field_firstname'][LANGUAGE_NONE][0]['value']['#title'], $form['field_firstname'][LANGUAGE_NONE][0]['value']['#description'], $form['field_lastname'][LANGUAGE_NONE][0]['value']['#title'], $form['field_lastname'][LANGUAGE_NONE][0]['value']['#description']);
         $form['account']['name']['#attributes']['placeholder'] = t('USER NAME');
         $form['account']['mail']['#attributes']['placeholder'] = t('EMAIL');
         $form['account']['mail']['#weight'] = -11;
@@ -71,12 +85,37 @@ function edgemakers_user_process_password_confirm($element) {
   $element['pass2']['#attributes']['placeholder'] = t('CONFIRM PASSWORD');
   return $element;
 }
-/*function edgemakers_user_module_implements_alter(&$implementations, $hook) {
-  print_r($hook);
-  if ($hook == 'form_user_register_form_alter') {
-  print_r($implementations);
-    $implementation = $implementations['avatar_selection'];
-    unset($implementations['avatar_selection']);
-    array_unshift($implementations['avatar_selection'], $implementation);
+/**
+ * Implements hook_entity_presave().
+ */
+function edgemakers_user_entity_presave($account, $type) {
+  // Only handle new users that have an uploaded picture.
+  // user_save() will handle old users.
+  if(!isset($account->field_profile_picture)) return;
+  $fid = $account->field_profile_picture[LANGUAGE_NONE][0]['fid'];
+  if (!$type == 'user' || !$account->is_new || !$fid)  return;
+  $picture = file_load($fid);
+  $info = image_get_info($picture->uri);
+  $picture_directory =  file_default_scheme() . '://' . variable_get('user_picture_path', 'pictures');
+
+  // Set the new uid since it is typically not set at this point. user_save()
+  // will use this uid if set so no problems setting it early here.
+  if (empty($account->uid)) {
+    $account->uid = db_next_id(db_query('SELECT MAX(uid) FROM {users}')->fetchField());
   }
-}*/
+
+  // Prepare the pictures directory.
+  file_prepare_directory($picture_directory, FILE_CREATE_DIRECTORY);
+  $destination = file_stream_wrapper_uri_normalize($picture_directory . '/picture-' . $account->uid . '-' . REQUEST_TIME . '.' . $info['extension']);
+
+  // Move the temporary file into the final location.
+  if ($picture = file_move($picture, $destination, FILE_EXISTS_RENAME)) {
+    $picture->status = FILE_STATUS_PERMANENT;
+    $account->picture = file_save($picture);
+    file_usage_add($picture, 'user', 'user', $account->uid);
+  }
+  // Update user record with picture fid.
+  if (isset($account->picture->fid)) {
+    $account->picture = $account->picture->fid;
+  }
+}
