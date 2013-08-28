@@ -75,6 +75,10 @@ function showMuralDialog(source) {
   	setMuralWidth();
   })
   
+//  var windowHeight = jQuery(window).height();
+//  var windowScrollTop = jQuery(window).scrollTop();
+//  alert("Windows height: " + windowHeight + " | ScrollTop: " + windowScrollTop);
+  
   jQuery( "#mural-region" ).dialog({
     resizable: false,
     modal: true,
@@ -95,6 +99,7 @@ function showMuralDialog(source) {
   jQuery('.ui-dialog.ui-widget.ui-widget-content').css("margin", "0px");
   
   jQuery('.ui-dialog.ui-widget.ui-widget-content').css("left", "1px");
+  jQuery('.ui-dialog.ui-widget.ui-widget-content').css("top", jQuery(window).scrollTop() + "px");
 
 }
 
