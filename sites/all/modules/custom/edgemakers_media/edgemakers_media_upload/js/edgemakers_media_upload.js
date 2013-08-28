@@ -12,7 +12,7 @@ function media_ajax_load_list() {
 
   jQuery('#my-media-list').load("?q=edgemarkers/media/get/list/ajax", function(data){
     
-    console.log(data);
+//    console.log(data);
    
   	jQuery('.toolbar-item').each(function(){
   		var self = jQuery(this);

@@ -962,7 +962,8 @@ div.ctools-modal-content .form-item .description{
 .pane-con.gallery{
 	width:760px;
 	height:706px;
-	background:url(../images/example_14.png)
+	background-color: #BC0335;
+/* 	background:url(../images/example_14.png) */
 }
 .pane-con.gallery{
 	display:none;

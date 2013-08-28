@@ -1,4 +1,9 @@
 <?php
+$topicColor = '#3dbec0';
+$topicColors = $content['field_topic_color']['#items'];
+if(isset($topicColors) && count($topicColors)>0) {
+  $topicColor = $topicColors[0]['rgb'];
+}
 function youtube_parser($url) {
 	preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $url, $matches);
 	if(is_array($matches) && count($matches) > 0) 
@@ -225,7 +230,7 @@ h1{
 	$(document).ready(function(){
 		$('.images-controller-dots').mediaSlide();
 		$('.videos-controller-dots').mediaSlide();
-		
+    
 		//some UI
 		$('.field-name-field-topic-problem .field-item p').append('<div class="right-quote"></div>');
 	});
@@ -243,7 +248,7 @@ h1{
             <span class="content-item<?php if($i == 0) echo ' actived';?>" id="image-item-<?php echo $i?>"><?php echo $image; ?></span>
           <?php endforeach; ?>
         </div>
-        <div class="images-controller controller">
+        <div class="images-controller controller" style="background:<?php echo $topicColor;?>;">
           <a href="#x" class="prev" <?php if(count($images) == 1) echo 'disabled="disabled"';?>>Prev</a>
           <div class="images-controller-dots controller-dots">
           
@@ -260,7 +265,7 @@ h1{
             <span class="content-item" id="video-item-<?php echo $i?>"><?php echo $videoId; ?></span>
           <?php endforeach; ?>
         </div>
-        <div class="videos-controller controller">
+        <div class="videos-controller controller" style="background:<?php echo $topicColor;?>;">
           <a href="#x" class="prev" <?php if(count($videoIds) == 1) echo 'disabled="disabled"';?>>Prev</a>
           <div class="videos-controller-dots controller-dots">
           
@@ -280,6 +285,7 @@ h1{
   </div>
 </div>
 <script>
+jQuery('.node-type-edgemakers-topic h1').css('background-color', "<?php echo $topicColor;?>");
 <?php if(count($videoIds) > 0):?>
   loadVideo('<?php echo $videoIds[0];?>');
   <?php if(count($videoIds) > 1):?>
