@@ -127,6 +127,7 @@ ul#studio-mural-list li span.muralthumb img {
   height: 133px;
 }
 
+#gallery-mural-list .set-cover,
 #studio-panes-mural-list .set-cover,
 ul#gallery-mural-list li a.studio-mural-list-item-link,
 ul#studio-mural-share-with-me-list li a.studio-mural-list-item-link,
@@ -139,11 +140,12 @@ ul#studio-mural-list li a.studio-mural-list-item-link {
   top: -112px;
 }
 
+#gallery-mural-list .set-cover,
 #studio-panes-mural-list .set-cover {
   display: none;
-  top: 
 }
 
+#gallery-mural-list li:hover .set-cover,
 #studio-panes-mural-list li:hover .set-cover {
   display: block;
 }

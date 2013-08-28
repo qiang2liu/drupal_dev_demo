@@ -6,23 +6,31 @@
 
 }
 
-ul#studio-media-list li {
+ul#gallery-video-list li,
+ul#studio-media-list li
+{
   display: inline;
   position: relative;
 }
 
-ul#studio-media-list li.mediasettingicon {
+ul#gallery-video-list li.mediasettingicon,
+ul#studio-media-list li.mediasettingicon
+{
   display: block;
   width: 160px;
   height: 160px;
 }
 
-ul#studio-media-list li span.mediathumb img {
+ul#gallery-video-list li span.mediathumb img,
+ul#studio-media-list li span.mediathumb img
+{
   width: 160px;
   height: 160px;
 }
 
-ul#studio-media-list li a.studio-media-list-item-link {
+ul#gallery-video-list li a.studio-media-list-item-link,
+ul#studio-media-list li a.studio-media-list-item-link
+{
   display: block;
   width: 160px;
   height: 160px;
@@ -31,7 +39,9 @@ ul#studio-media-list li a.studio-media-list-item-link {
   top: -146px;
 }
 
-ul#studio-media-list li a.studio-media-settings{
+ul#gallery-video-list li a.studio-media-settings,
+ul#studio-media-list li a.studio-media-settings
+{
   position: absolute;
   left: 0px;
   bottom: 0px;
