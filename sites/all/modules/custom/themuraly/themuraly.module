@@ -130,7 +130,7 @@ function themuraly_block_info() {
   );
 
   $blocks['gallery_mural_list'] = array(
-    'info' => t('Studio list on gallery'), //The name that will appear in the block list.
+    'info' => t('Mural list on gallery'), //The name that will appear in the block list.
     'cache' => DRUPAL_NO_CACHE,
   );
 
@@ -832,10 +832,25 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
     // Sort by Alphabetical on Date[nid].
     $orderby[1]['name'] = 'nid';
     $orderby[1]['direction'] = 'DESC';
+
+    // Order by tags, @TODO
+    $vocab_info = field_info_field('field_tags');
+    $vocab_keys = array();
+    foreach ($vocab_info['settings']['allowed_values'] as $vocab_item) {
+      $vocab_keys[] = $vocab_item['vocabulary'];
+    }
+    if (($vocab_keys[0])) {
+      $vocab_name = $vocab_keys[0];
+//       dpm($vocab_name);
+    }
+
+//     $query->join('node', 'n', 'n.nid = i.sid');
+
   }
 
   if ($keyword) {
-    $murals_list = _themuraly_search_execute($keyword, $page);
+    $murals_list = _themuraly_search_execute_result($keyword, $page);
+//     dpm($murals_list);
 //     return 'Test results';
   }
   else {
@@ -859,22 +874,28 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
       $class = 'last';
     }
 
-    $node_mural_thumburl = field_get_items('node', $node, 'field_mural_thumburl');
-    $defula_thumburl = 'https://s3.amazonaws.com/static.mural.ly/NoThumbnail.png';
-    $mural_thumburl = empty($node_mural_thumburl[0]['value'])?$defula_thumburl:$node_mural_thumburl[0]['value'];
-
-    $html .= '<li><span class="muralthumb ' . $node->title . '">';
-    $mural_thumb = array('path' => $mural_thumburl);
-    $html .= theme('image', $mural_thumb);
-    $html .= '</span>';
-
     $node_user = user_load($node->uid);
     $node_field_first_name = field_get_items('user', $node_user, 'field_firstname');
     $node_first_name = $node_field_first_name && count($node_field_first_name) > 0 ? $node_field_first_name[0]['value'] : '';
     $node_field_last_name = field_get_items('user', $node_user, 'field_lastname');
     $node_last_name = $node_field_last_name && count($node_field_last_name) > 0 ? $node_field_last_name[0]['value'] : '';
-    $html .= '<span class="my-idea-mural-title">' . $node->title . '</span>';
-    $html .= '<span class="owner">' . $node_first_name . ' ' . $node_last_name . '</span>';
+    $node_username = $node_first_name . ' ' . $node_last_name;
+
+    $html .= '<li>';
+
+    $html .= '<div class="set-cover">
+                    <h5>' . $node->title .'</h5>
+                    <p class="inspiration">' . $node_username .'</p>
+                  </div>';
+
+    $node_mural_thumburl = field_get_items('node', $node, 'field_mural_thumburl');
+    $defula_thumburl = 'https://s3.amazonaws.com/static.mural.ly/NoThumbnail.png';
+    $mural_thumburl = empty($node_mural_thumburl[0]['value'])?$defula_thumburl:$node_mural_thumburl[0]['value'];
+
+    $html .= '<span class="muralthumb ' . $node->title . '">';
+    $mural_thumb = array('path' => $mural_thumburl);
+    $html .= theme('image', $mural_thumb);
+    $html .= '</span>';
 
     $view_url = l('<span class ="muralsettingicon"></span>', 'mural/' . $node->nid, array(
       'html' => true,
@@ -887,7 +908,7 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
 
     $html .= $view_url;
 
-    if ($user->uid == $vnode->uid) {
+    if ($user->uid == $node->uid) {
       $html .= $set_url;
     }
 
@@ -955,34 +976,34 @@ function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
 
     if (is_array($nodes)) {
 
-      foreach ($nodes as $knid => $vnode) {
+      foreach ($nodes as $knid => $node) {
 
         $node_first_name = '';
         $node_last_name = '';
 
-        $node_muralfield = field_get_items('node', $vnode, 'field_muralid');
+        $node_muralfield = field_get_items('node', $node, 'field_muralid');
         $node_muralid = $node_muralfield[0]['value'];
 
-        $node_mural_thumburl = field_get_items('node', $vnode, 'field_mural_thumburl');
+        $node_mural_thumburl = field_get_items('node', $node, 'field_mural_thumburl');
         $defula_thumburl = 'https://s3.amazonaws.com/static.mural.ly/NoThumbnail.png';
         $mural_thumburl = empty($node_mural_thumburl[0]['value'])?$defula_thumburl:$node_mural_thumburl[0]['value'];
 
         $myideas_list[$node_muralid]['nid'] = $knid;
-        $myideas_list[$node_muralid]['title'] = $vnode->title;
+        $myideas_list[$node_muralid]['title'] = $node->title;
         $myideas_list[$node_muralid]['thumburl'] = $mural_thumburl;
 
-        if ($user->uid == $vnode->uid) {
+        if ($user->uid == $node->uid) {
           $img_settings = array(
           	'path' => drupal_get_path('theme', 'newfteui') . '/images/iconMuralSettings.png',
           );
           $img_gear = theme('image', $img_settings);
-          if ($user->uid == $vnode->uid) {
-            $set_link = 'modal/node/' . $vnode->nid . '/edit/ajax/0';
+          if ($user->uid == $node->uid) {
+            $set_link = 'modal/node/' . $node->nid . '/edit/ajax/0';
             $set_url = l($img_gear, $set_link, array(
               'html' => true,
               'attributes' => array(
                 'class' => array('ctools-use-modal',  'ctools-modal-modal-popup-small', 'studio-mural-settings'),
-                'nid' => $vnode->nid,
+                'nid' => $node->nid,
 //                 'class' => array('studio-mural-settings', 'ctools-use-modal'),
               ),
                     )
@@ -995,46 +1016,45 @@ function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
           $myideas_list[$node_muralid]['seturl'] = $set_url;
         }
 
-        $node_user = user_load($vnode->uid);
+        $node_user = user_load($node->uid);
         $node_field_first_name = field_get_items('user', $node_user, 'field_firstname');
         $node_first_name = $node_field_first_name && count($node_field_first_name) > 0 ? $node_field_first_name[0]['value'] : '';
         $node_field_last_name = field_get_items('user', $node_user, 'field_lastname');
         $node_last_name = $node_field_last_name && count($node_field_last_name) > 0 ? $node_field_last_name[0]['value'] : '';
-
         $node_username = $node_first_name . ' ' . $node_last_name;
 
         $html .= '<li>';
 
         $html .= '<div class="set-cover">
-                    <h5>' . $vnode->title .'</h5>
+                    <h5>' . $node->title .'</h5>
                     <p class="inspiration">' . $node_username .'</p>
                   </div>';
 
-        $html .= '<span class="muralthumb ' . $vnode->title . '">';
+        $html .= '<span class="muralthumb ' . $node->title . '">';
         $mural_thumb = array('path' => $mural_thumburl);
         $html .= theme('image', $mural_thumb);
         $html .= '</span>';
-//         $html .= '<span class="my-idea-mural-title">' . $vnode->title . '</span>';
+//         $html .= '<span class="my-idea-mural-title">' . $node->title . '</span>';
 //         $html .= '<span class="owner">' . $node_first_name . ' ' . $node_last_name . '</span>';
 
-        $view_url = l('<span class ="muralsettingicon"></span>', 'mural/' . $vnode->nid, array(
+        $view_url = l('<span class ="muralsettingicon"></span>', 'mural/' . $node->nid, array(
           'html' => true,
           'attributes' => array(
             'class' => array('studio-mural-list-item-link'),
 //             'class' => array('ctools-use-modal',  'ctools-modal-modal-popup-small'),
-            'id' => 'media-node-' . $vnode->nid,
+            'id' => 'media-node-' . $node->nid,
           ),
         ));
 
         $html .= $view_url;
 
-        if ($user->uid == $vnode->uid) {
+        if ($user->uid == $node->uid) {
           $html .= $set_url;
         }
 
         $html .= '</li>';
 
-//       $myideas_list[$node_muralid]['node'] = $vnode;
+//       $myideas_list[$node_muralid]['node'] = $node;
 
       }
     }
@@ -1098,7 +1118,7 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
     $query->propertyOrderBy($sort['name'], ($sort['direction'])?$sort['direction']:'DESC');
   }
 
-  dpm($query);
+//   dpm($query);
 
 //   if ($sortby) {
 //     switch (strtolower($sortby)) {
@@ -1134,14 +1154,14 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
 
   $result = $query->execute();
 
-  dpm($result);
+//   dpm($result);
 
   if (!empty($result['node'])) {
     $my_mural_nodes = node_load_multiple(array_keys($result['node']), '' , TRUE);
   }
 
 //   print("Nodes list:");
-  dpm($my_mural_nodes);
+//   dpm($my_mural_nodes);
 
   return $my_mural_nodes;
 
@@ -1366,7 +1386,7 @@ function themuraly_update_node_by_mural($mural_url = ''){
  * Custome search by search module, but not hook_search_execute().
  * Configuration the search weight for it.
  */
-function _themuraly_search_execute($keys = '', $page = 0) {
+function _themuraly_search_execute_result($keys = '', $page = 0) {
 
   $pager = 5;
   $start = $page * $pager;
@@ -1378,7 +1398,21 @@ function _themuraly_search_execute($keys = '', $page = 0) {
     $query = db_select('search_index', 'i', array('target' => 'slave'))->extend('SearchQuery')->extend('PagerDefault');
     $query->join('node', 'n', 'n.nid = i.sid');
     $query->condition('n.type', 'murals');
+
+    // Sort by Alphabetical, Date, Tags
+    $query->orderBy('n.title', 'ASC');//ORDER BY title
     $query->orderBy('nid', 'DESC');//ORDER BY created
+
+    // Join  field_tags table and term table.
+    $query->leftJoin('field_data_field_tags','field_tags','n.nid = field_tags.entity_id');
+    $query->leftJoin('taxonomy_term_data','term','field_tags.field_tags_tid = term.tid');
+    // Order by tags by term ASC.
+    $query->orderBy('term.name', 'ASC');//ORDER BY created
+
+    //Debug
+//     $query->isNotNull('field_tags.field_tags_tid');
+
+
     $query->condition('n.status', 1)->addTag('node_access')->searchExpression($keys, 'node');
     $query->range($start, $pager);
 
@@ -1402,7 +1436,7 @@ function _themuraly_search_execute($keys = '', $page = 0) {
     // Load results.
     $find = $query->limit(1000)->execute();
 
-    dpm($find);
+//     dpm($find);
 
     $results = array();
 
