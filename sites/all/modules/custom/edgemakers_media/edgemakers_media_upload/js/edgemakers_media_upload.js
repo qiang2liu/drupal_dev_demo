@@ -87,7 +87,7 @@ function studio_media_list_ajax_load(pager) {
     type : 'GET',
     success : function(data){
       if (data.length === 0) {
-        alert("data is empty");
+        alert("not enough content to turning page");
       }
       else {
 //        alert(data.length);

@@ -107,24 +107,24 @@ ul#mural-region-nav li.mural-nav-link-duplicate {
 ul#gallery-mural-list li,
 ul#studio-mural-share-with-me-list li,
 ul#studio-mural-list li {
-  display: inline;
+  float:left;
   position: relative;
-  padding: 7px;
+  margin: 5px;
 }
 
 ul#gallery-mural-list li.muralsettingicon,
 ul#studio-mural-share-with-me-list li.muralsettingicon,
 ul#studio-mural-list li.muralsettingicon {
   display: block;
-  width: 133px;
-  height: 133px;
+  width: 122px;
+  height: 122px;
 }
 
 ul#gallery-mural-list li span.muralthumb img,
 ul#studio-mural-share-with-me-list li span.muralthumb img,
 ul#studio-mural-list li span.muralthumb img {
-  width: 133px;
-  height: 133px;
+  width: 122px;
+  height: 122px;
 }
 
 #studio-panes-mural-list .set-cover,
@@ -132,28 +132,30 @@ ul#gallery-mural-list li a.studio-mural-list-item-link,
 ul#studio-mural-share-with-me-list li a.studio-mural-list-item-link,
 ul#studio-mural-list li a.studio-mural-list-item-link {
   display: block;
-  width: 133px;
-  height: 133px;
+  width: 102px;
+  height: 102px;
+  padding:10px;
   position: absolute;
-  left: 7px;
-  top: -112px;
+  left: 0;
+  top:0;
 }
-
 #studio-panes-mural-list .set-cover {
-  display: none;
-  top: 
+  opacity:0;
+  background:rgba(0,0,0,0.5);
+  transition: all 0.3s linear;
+  color:#fff;
 }
 
 #studio-panes-mural-list li:hover .set-cover {
-  display: block;
+  opacity:1;
 }
 
 ul#gallery-mural-list li a.studio-mural-settings,
 ul#studio-mural-share-with-me-list li a.studio-mural-settings,
 ul#studio-mural-list li a.studio-mural-settings{
   position: absolute;
-  left: 0px;
-  bottom: 0px;
+  left: 2px;
+  bottom: 2px;
 }
 
 /* #mural-iframe-content {

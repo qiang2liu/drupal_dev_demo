@@ -281,7 +281,14 @@ h2.item-studio{
 
 /******************************************************* Studio ***************************************/
 .pane-studio-box{
-	margin:0 0 10px 15px;
+	margin:0 10px 10px 15px;
+}
+#studio-media-list .pane-studio-box{
+	margin:0 0 10px 0;
+}
+#studio-media-list .pane-studio-box .mediathumb img{
+	width:156px;
+	height:106px;
 }
 .region-studio-pane h2{
 	margin-bottom:10px;
@@ -294,10 +301,48 @@ h2.item-studio{
 .pane-studio-box .scroll-wrapper{
 	position:relative;
 }
+.scroll-wrapper .arrow-left,
+.scroll-wrapper .arrow-right{
+	position:absolute;
+	width:35px;
+	height:42px;
+    top:38px;
+    cursor:pointer;
+    text-indent:-9999em;
+    transition: all 0.3s linear;
+    opacity:.6;
+}
+.scroll-wrapper .arrow-left:hover,
+.scroll-wrapper .arrow-right:hover{
+	opacity:1;
+}
+#studio-media-list-pane .scroll-wrapper .arrow-left,
+#studio-media-list-pane .scroll-wrapper .arrow-right{
+	top:89px;
+}
+.scroll-wrapper .arrow-left{
+	background:url(../images/newui_ico_pane_studio_2.png) no-repeat;
+	left:0;
+}
+.scroll-wrapper .arrow-right{
+	background:url(../images/newui_ico_pane_studio_3.png) no-repeat;
+	right:0;
+}
+.scroll-wrapper ul{
+	margin-left:40px;
+}
 #studio-my-idea{
 	background:url(../images/newui_ico_pane_studio_1.png) left top no-repeat;
 }
-
+#studio-share-with-me{
+	background:url(../images/newui_ico_pane_studio_4.png) left top no-repeat;
+}
+#studio-media-list-pane{
+	background:url(../images/newui_ico_pane_studio_5.png) left top no-repeat;
+}
+#block-edgemakers-media-upload-studio-media-list h2{
+	display:none;
+}
 @media screen and (-webkit-min-device-pixel-ratio:0) {  
 /* CSS Statements that only apply on webkit-based browsers (Chrome, Safari, etc.) */  
    #d3{
