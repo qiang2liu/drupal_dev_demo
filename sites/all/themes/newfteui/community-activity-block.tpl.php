@@ -21,7 +21,7 @@ if($realnum>0) {
       'account' => $content, 
     );
     $username = theme('username', $variables);
-    $date = format_interval(time()-$content->created) . ' ago';
+    $date = format_interval(time()-$content->changed) . ' ago';
     $item .= $userpic.'<div class="cont">';
     $item .= '<div class="usertime">'.$username.'<div class="time">'.$date.'</div></div>';
     if ($content->cid) {
