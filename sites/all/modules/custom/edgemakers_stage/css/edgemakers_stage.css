@@ -217,8 +217,8 @@ div.set-video-content {
 .set-nav span.back-to-dashboard,
 .set-nav span#back-set-list {
   position: absolute;
-  top: -5px;
-  right: -10px;
+  top: 0px;
+  right: 0px;
   background: url(../images/ico_back.png) no-repeat;;
   width: 26px;
   height: 26px;
