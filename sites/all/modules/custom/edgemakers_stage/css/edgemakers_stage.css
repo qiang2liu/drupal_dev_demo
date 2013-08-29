@@ -203,8 +203,8 @@ div.set-video-content {
   line-height: 30px;
 }
 
-.set-nav span.prev,
-.set-nav span.back-to-dashboard{
+.set-nav span.prev
+{
 	padding: 0 14px 0 30px;
 	background:url(../images/ico_left.png) 10px center no-repeat;
 }
@@ -214,6 +214,7 @@ div.set-video-content {
 	background:url(../images/ico_right.png) right center no-repeat;
 }
 
+.set-nav span.back-to-dashboard,
 .set-nav span#back-set-list {
   position: absolute;
   top: -5px;
@@ -223,6 +224,7 @@ div.set-video-content {
   height: 26px;
 }
 
+.set-nav span.back-to-dashboard:hover, 
 .set-nav span#back-set-list:hover {
   background: url(../images/ico_back.png) no-repeat;;
 }
