@@ -48,7 +48,7 @@
           <?php print render($title_suffix); ?>
           <?php if ($tabs): ?><?php print render($tabs); ?></div><?php endif; ?>
           <?php print render($tabs2); ?>
-          <?php print $messages; ?>
+          <?php //print $messages; ?>
           <?php print render($page['help']); ?>
           <?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
           <div class="clearfix">
