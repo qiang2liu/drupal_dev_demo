@@ -89,7 +89,7 @@ function studio_media_list_ajax_load(pager) {
     type : 'GET',
     success : function(data){
       if (data.length === 0) {
-        alert("not enough content to turning page");
+        //alert("not enough content to turning page");
       }
       else {
         jQuery("#studio-media-list").html(data);
@@ -120,18 +120,35 @@ function gallery_media_list_ajax_load(type, pager) {
     pager = 0;
   }
   
+  switch(type) {
+    case "video":
+      var reloadElement = "gallery-video-list";
+      break;
+    case "image":
+      var reloadElement = "gallery-image-list";
+      break;
+  }
+  
+  var keyword = jQuery("#gallery-keyword").val();
+  
   jQuery.ajax({
-    url: "?q=edgemarkers/gallery/media/get/list/ajax/" + type + "/" + pager,
+    url: "?q=edgemarkers/gallery/media/get/list/ajax/" + type + "/" + pager + "/" + keyword,
     dataType: 'html',
     type : 'GET',
     success : function(data){
       if (data.length === 0) {
-        console.log("data is empty");
+        if (keyword.length === 0) {
+          console.log("data is empty");
+        }
+        else {
+          jQuery("#" + reloadElement).html(type + " search result is empty, replace other keyword to search or clean keyword.");
+//          alert("Search result is empty");
+        }
       }
       else {
-        jQuery("#gallery-video-list").html(data);
+        jQuery("#" + reloadElement).html(data);
         
-        jQuery('ul#gallery-video-list li a').each(function( index ) {
+        jQuery("ul#" + reloadElement + " li a").each(function( index ) {
           var nid = jQuery(this).attr('nid');
           var title = jQuery(this).html();
           jQuery(this).unbind("click");

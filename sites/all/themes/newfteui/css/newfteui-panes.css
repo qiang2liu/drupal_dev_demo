@@ -282,6 +282,7 @@ h2.item-studio{
 /******************************************************* Studio ***************************************/
 .pane-studio-box{
 	margin:0 10px 10px 15px;
+	min-height:167px;
 }
 #studio-media-list .pane-studio-box{
 	margin:0 0 10px 0;
@@ -339,6 +340,7 @@ h2.item-studio{
 }
 #studio-media-list-pane{
 	background:url(../images/newui_ico_pane_studio_5.png) left top no-repeat;
+	min-height:258px;
 }
 #block-edgemakers-media-upload-studio-media-list h2{
 	display:none;
