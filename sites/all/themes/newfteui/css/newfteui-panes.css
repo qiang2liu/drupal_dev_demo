@@ -1,3 +1,6 @@
+input:focus{
+	border:none;
+}
 /******************************************************* Challenge ***************************************/
 #d3:after{
   clear:both;
@@ -162,6 +165,9 @@ h2.item-studio{
 
 
 /******************** topic ***********************/
+.topic-tab{
+	display:none;
+}
 .topic-tab li{
 	display:inline-block;
 	width:34px;
@@ -229,7 +235,7 @@ h2.item-studio{
 }
 /* fake */
 #block-edgemakers-topic-problems{
-	background:url(../images/example_16.png) 253px 48px no-repeat;
+	background:url(../images/example_16.png) 253px 12px no-repeat;
 	height:370px;
 }
 /* some topic css must be here */
@@ -280,12 +286,19 @@ h2.item-studio{
 }
 
 /******************************************************* Studio ***************************************/
-.pane-studio-box{
+.pane-studio-box,
+#block-edgemakers-media-upload-gallery-video-list,
+#block-edgemakers-media-upload-gallery-image-list{
 	margin:0 10px 10px 15px;
-	min-height:167px;
+	min-height:177px;
 }
-#studio-media-list .pane-studio-box{
+#studio-media-list .pane-studio-box,
+#block-edgemakers-media-upload-gallery-video-list .pane-studio-box,
+#block-edgemakers-media-upload-gallery-image-list .pane-studio-box{
 	margin:0 0 10px 0;
+}
+#block-edgemakers-media-upload-gallery-image-list h2{
+	display:none;
 }
 #studio-media-list .pane-studio-box .mediathumb img{
 	width:156px;
@@ -294,10 +307,12 @@ h2.item-studio{
 .region-studio-pane h2{
 	margin-bottom:10px;
 }
-.pane-studio-box h4{
+.pane-studio-box h4,
+.pane-gallery-box h4{
 	padding-left:50px;
 	font-size:20px;
 	color:#fff;
+	padding-bottom:10px;
 }
 .pane-studio-box .scroll-wrapper{
 	position:relative;
@@ -317,6 +332,8 @@ h2.item-studio{
 .scroll-wrapper .arrow-right:hover{
 	opacity:1;
 }
+#block-edgemakers-media-upload-gallery-image-list .scroll-wrapper .arrow-left,
+#block-edgemakers-media-upload-gallery-image-list .scroll-wrapper .arrow-right,
 #studio-media-list-pane .scroll-wrapper .arrow-left,
 #studio-media-list-pane .scroll-wrapper .arrow-right{
 	top:89px;
@@ -332,7 +349,8 @@ h2.item-studio{
 .scroll-wrapper ul{
 	margin-left:40px;
 }
-#studio-my-idea{
+#studio-my-idea,
+#gallery-ideas{
 	background:url(../images/newui_ico_pane_studio_1.png) left top no-repeat;
 }
 #studio-share-with-me{
@@ -340,11 +358,56 @@ h2.item-studio{
 }
 #studio-media-list-pane{
 	background:url(../images/newui_ico_pane_studio_5.png) left top no-repeat;
+	min-height:268px;
+}
+#block-edgemakers-media-upload-gallery-image-list{
+	background:url(../images/icon_set_image.png) left top no-repeat;
 	min-height:258px;
+}
+#block-edgemakers-media-upload-gallery-video-list{
+	background:url(../images/newui_ico_pane_studio_7.png) left top no-repeat;
 }
 #block-edgemakers-media-upload-studio-media-list h2{
 	display:none;
 }
+
+/******************************************************* Gallery ***************************************/
+#gallery-search-form,
+.right-align{
+	text-align:right;
+	padding-right:20px;
+	color:#fff;
+}
+#gallery-search-form{
+	font-size:0;
+	margin:-32px 0 5px;
+}
+#gallery-search-form .new{
+	border-radius:4px;
+	display:inline-block;
+	padding-left:12px;
+	height:25px;
+	background:#fff;
+}
+#gallery-search-form input{
+	font-size:12px;
+	border:1px solid #cdcdcd;
+}
+
+#gallery-search-form input[type='text']{
+	height:25px;
+	color:#979181;
+	background:none;
+	border:0;
+}
+#gallery-search-form input[type='button']{
+	height:25px;
+	width:42px;
+	text-indent:-9999em;
+	background:url(../images/newui_ico_pane_studio_6.png) center center no-repeat ;
+	border:0;
+}
+
 @media screen and (-webkit-min-device-pixel-ratio:0) {  
 /* CSS Statements that only apply on webkit-based browsers (Chrome, Safari, etc.) */  
    #d3{
