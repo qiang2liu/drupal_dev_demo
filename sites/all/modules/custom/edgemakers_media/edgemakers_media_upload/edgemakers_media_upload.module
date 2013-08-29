@@ -759,6 +759,7 @@ function edgemakers_media_list($uid = '', $media_type = '' , $start = 0, $limit 
   if ($media_type) {
     $media_type_tid = _get_media_tid($media_type);
     $query->fieldCondition('field_media_type', 'tid', $media_type_tid);
+    $query->fieldCondition('field_share', 'value', '1');
   }
 
   $result = $query->execute();
