@@ -163,7 +163,7 @@ function studio_mural_ajax_page_load(type, pager) {
     type : 'GET',
     success : function(data){
       if (data.length === 0) {
-        alert("not enough content to turning page");
+        //alert("not enough content to turning page");
       }
       else {
         //alert(data);
