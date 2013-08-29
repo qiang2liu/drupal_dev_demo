@@ -133,6 +133,10 @@
 			$('.topic-content-box').eq(idx).addClass('actived')
 		}
 	})
+	
+	//Gallery
+	$('#gallery-search-form').next().addClass('right-align');
+	$('#gallery-search-form').wrapInner('<div class="new" />')
  });
 })(jQuery);
 
