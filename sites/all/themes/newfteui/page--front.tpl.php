@@ -187,7 +187,13 @@
   <?php if (user_is_logged_in()): ?>
     <div class="user-profile-inner">
       <?php
-      $login_div = theme('image_style', array('path' => $user->picture->uri, 'style_name' => 'thumbnail', 'width' => '150', 'height' => '162'));
+      if($user->picture) {
+        $avatarUri = $user->picture->uri;
+      } else {
+        $avatarUris = explode('/', variable_get('user_picture_default', ''));
+        $avatarUri = file_build_uri(array_pop($avatarUris));
+      }
+      $login_div = theme('image_style', array('path' => $avatarUri, 'style_name' => 'thumbnail', 'width' => '150', 'height' => '162'));
       print $login_div;
       ?>
     </div>
