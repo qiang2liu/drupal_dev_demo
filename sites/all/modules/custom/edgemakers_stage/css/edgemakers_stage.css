@@ -120,7 +120,7 @@ div.set-video-content {
 
 #set-view-region {
   display: block;
-  position: absolute;
+  position: relative;
   left: 0px;
   z-index:1;
 }
@@ -203,10 +203,8 @@ div.set-video-content {
   line-height: 30px;
 }
 
-.set-nav span#mural-back-set-list,
-.set-nav span.prev,
-.set-nav span#back-set-list,
-.set-nav span.back-to-dashboard{
+.set-nav span.prev
+{
 	padding: 0 14px 0 30px;
 	background:url(../images/ico_left.png) 10px center no-repeat;
 }
@@ -214,4 +212,19 @@ div.set-video-content {
 	float:right;
 	padding: 0 30px 0 14px;
 	background:url(../images/ico_right.png) right center no-repeat;
+}
+
+.set-nav span.back-to-dashboard,
+.set-nav span#back-set-list {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: url(../images/ico_back.png) no-repeat;;
+  width: 26px;
+  height: 26px;
+}
+
+.set-nav span.back-to-dashboard:hover, 
+.set-nav span#back-set-list:hover {
+  background: url(../images/ico_back.png) no-repeat;;
 }

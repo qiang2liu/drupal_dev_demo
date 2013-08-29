@@ -7,6 +7,7 @@
   background-color: #2d6ca9;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
+  position: relative;
 }
 
 .position-relative {
@@ -31,6 +32,11 @@ ul#mural-region-nav {
   padding: 5px 22px;
   height: 26px;
   overflow: hidden;
+  padding-right: 40px; 
+}
+
+#mural-region-bottom #mural-back-to-dashboard span {
+  background-image: url();
 }
 
 ul#mural-region-nav li {
@@ -63,9 +69,25 @@ ul#mural-region-nav li {
   padding: 0;
   margin: 0;
 }
-#mural-back-to-dashboard{
-	height:56px;
+
+.set-nav span#mural-back-set-list,
+#mural-back-to-dashboard {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 26px;
+	height:26px;
+	color: white;
+  background: url(../images/ico_back.png) no-repeat;
+  z-index: 1;
+  cursor: pointer;
 }
+
+.set-nav span#mural-back-set-list,
+#mural-back-to-dashboard:hover {
+  background:url(../images/ico_back.png) no-repeat;  
+}
+
 #mural-top-bar #mural-title {
   position: absolute;
   line-height: 36px;

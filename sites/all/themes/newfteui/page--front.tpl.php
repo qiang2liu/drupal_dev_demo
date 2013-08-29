@@ -9,7 +9,7 @@
   <div id="mural-region-bottom">
     <div id="mural-set-nav" class="set-nav hidden">
       <span id="node-1010" class="prev">Previous</span>
-      <span id="mural-back-set-list">Back to Stage</span>
+      <span id="mural-back-set-list">&nbsp;</span>
       <span id="node-2020" class="next">Next</span>
     </div>
     <div id="mural-back-to-dashboard" class="back-to-dashboard">
@@ -165,7 +165,7 @@
 <!-- / user profile-->
 <div class="user-profile">
   <div class="user-box">
-    <?php if (user_is_logged_in()): 
+    <?php if (user_is_logged_in()):
       global $user;
       $user = user_load($user->uid);
       $firstnames = field_get_items('user', $user, 'field_firstname');
@@ -187,7 +187,13 @@
   <?php if (user_is_logged_in()): ?>
     <div class="user-profile-inner">
       <?php
-      $login_div = theme('image_style', array('path' => $user->picture->uri, 'style_name' => 'thumbnail', 'width' => '150', 'height' => '162'));
+      if($user->picture) {
+        $avatarUri = $user->picture->uri;
+      } else {
+        $avatarUris = explode('/', variable_get('user_picture_default', ''));
+        $avatarUri = file_build_uri(array_pop($avatarUris));
+      }
+      $login_div = theme('image_style', array('path' => $avatarUri, 'style_name' => 'thumbnail', 'width' => '150', 'height' => '162'));
       print $login_div;
       ?>
     </div>

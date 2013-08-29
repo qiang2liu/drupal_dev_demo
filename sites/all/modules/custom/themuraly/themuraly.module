@@ -182,7 +182,7 @@ function themuraly_block_view($delta = '') {
                               <div class="scroll-wrapper">
                                 <div class="arrow-left" pager="0"> < </div>
                                 <div class="arrow-right" pager="1"> > </div>
-                                <ul id="studio-mural-list"> Load from php:';
+                                <ul id="studio-mural-list">';
           $block['content'] .= themuraly_studio_mural_list_html();
           $block['content'] .= '</ul>
                               </div>';

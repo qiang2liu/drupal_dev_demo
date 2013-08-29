@@ -22,6 +22,9 @@ body {
 		<?php echo $data['node']->title; ?>
   </div>
 	<ul id="mural-region-nav">
+<!-- 	  <li> -->
+<!--  	    <span class="close-mural-dialog" onclick='window.parent.closeFromIframe();'> X </span> -->
+<!-- 	  </li> -->
 	  <?php if ($user->uid == $data['node']->uid) : ?>
 		<li class="mural-nav-link-delete">
 			<?php

@@ -759,6 +759,7 @@ function edgemakers_media_list($uid = '', $media_type = '' , $start = 0, $limit 
   if ($media_type) {
     $media_type_tid = _get_media_tid($media_type);
     $query->fieldCondition('field_media_type', 'tid', $media_type_tid);
+    $query->fieldCondition('field_share', 'value', '1');
   }
 
   $result = $query->execute();
@@ -1090,6 +1091,11 @@ function _edgemakers_media_upload_search_execute($type = '', $keys = '', $page =
       $media_type_tid = _get_media_tid($type);
       $query->innerJoin('field_data_field_media_type','media_type', 'n.nid = media_type.entity_id');
       $query->condition('media_type.field_media_type_tid' , $media_type_tid);
+
+      $query->innerJoin('field_data_field_share','field_share', 'n.nid = field_share.entity_id');
+      $query->condition('field_share.field_share_value', '1');
+//       $query->condition('media_type.field_media_type_tid' , $media_type_tid);
+
 //       $query->innerJoin('taxonomy_term_data', 'media_type', 'media_type.tid = ');
     }
 
