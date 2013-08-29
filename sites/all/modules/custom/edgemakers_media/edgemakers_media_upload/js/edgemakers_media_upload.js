@@ -89,7 +89,7 @@ function studio_media_list_ajax_load(pager) {
     type : 'GET',
     success : function(data){
       if (data.length === 0) {
-        alert("not enough content to turning page");
+        //alert("not enough content to turning page");
       }
       else {
         jQuery("#studio-media-list").html(data);
