@@ -334,8 +334,15 @@ function gallery_mural_ajax_load_list(pager) {
     dataType: 'html',
     type : 'GET',
     success : function(data){
+      
       if (data.length === 0) {
-        console.log("data is empty");
+        if (keyword.length === 0) {
+          console.log("data is empty");
+        }
+        else {
+          jQuery("#gallery-mural-list").html("Search result is empty, replace other keyword to search or clean keyword.");
+//          alert("Search result is empty");
+        }
       }
       else {
         jQuery("#gallery-mural-list").html(data);
@@ -372,7 +379,11 @@ function mural_setting(nid) {
 
 function search_gallery() {
   var mural_list_refresh = gallery_mural_ajax_load_list();
+
   // @TODO on media upload module.
 //  var gallery_video_list_refresh = gallery_video_ajax_load_list();
 //  var gallery_image_list_refresh = gallery_image_ajax_load_list();
+  // gallery_media_list_ajax_load on media upload module.
+  gallery_media_list_ajax_load('video');
+  gallery_media_list_ajax_load('image');
 }
