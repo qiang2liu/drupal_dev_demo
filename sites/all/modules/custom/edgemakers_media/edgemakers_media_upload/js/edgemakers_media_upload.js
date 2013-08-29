@@ -189,7 +189,7 @@ function galleryBindLeftRight(type, pager) {
   
   var arrowElement;
   arrowElement = 'gallery-' + type + '-list-pane';
-  alert("arrowElement load data.");
+//  alert("arrowElement load data.");
     
   jQuery("#" + arrowElement + " .scroll-wrapper .arrow-left").attr("pager", prevPager);
   jQuery("#" + arrowElement + " .scroll-wrapper .arrow-right").attr("pager", nextPager);
