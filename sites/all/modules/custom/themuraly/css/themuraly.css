@@ -141,10 +141,9 @@ ul#studio-mural-list li a.studio-mural-list-item-link {
   top:0;
 }
 
-
 #gallery-mural-list .set-cover,
 #studio-panes-mural-list .set-cover {
-  display: none;
+  /* display: none; */
   opacity:0;
   background:rgba(0,0,0,0.5);
   transition: all 0.3s linear;
