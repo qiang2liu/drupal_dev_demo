@@ -403,7 +403,36 @@ function newfteui_preprocess_rate_template_like(&$variables) {
   }
   $variables['like_button'] = theme('rate_button', array('text' => $results['count'], 'href' => $link, 'class' => 'rate-like-btn use-ajax rate-button-cid-'.$content_id));
 }
+function newfteui_status_messages($variables) {
+  $display = $variables['display'];
+  $output = '';
 
+  $status_heading = array(
+    'status' => t('Status message'),
+    'error' => t('Error message'),
+    'warning' => t('Warning message'),
+  );
+  foreach (drupal_get_messages($display) as $type => $messages) {
+    $output .= "<div class=\"messages-wrapper\">\n";
+    $output .= "<div class=\"messages $type\">\n";
+    if (!empty($status_heading[$type])) {
+      $output .= '<h2 class="element-invisible">' . $status_heading[$type] . "</h2>\n";
+    }
+    if (count($messages) > 1 && $type != 'error') {
+      $output .= " <ul>\n";
+      foreach ($messages as $message) {
+        $output .= '  <li>' . $message . "</li>\n";
+      }
+      $output .= " </ul>\n";
+    }
+    else {
+      $output .= $messages[0];
+    }
+    $output .= "</div>\n";
+    $output .= "</div>\n";
+  }
+  return $output;
+}
 /**
  * Implements hook_theme() in theme.
  */
