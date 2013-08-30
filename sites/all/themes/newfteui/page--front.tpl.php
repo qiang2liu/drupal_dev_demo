@@ -13,7 +13,7 @@
       <span id="node-2020" class="next">Next</span>
     </div>
     <div id="mural-back-to-dashboard" class="back-to-dashboard">
-      <span>Back to dashboard</span>
+      <span>X</span>
     </div>
   </div>
 </div>
@@ -114,7 +114,7 @@
 </div>
 
 <!-- /main content -->
-<?php //print $messages; ?>
+<?php // print $messages; ?>
 <div class="main-content">
   <?php print render($page['content']); ?>
 </div>
