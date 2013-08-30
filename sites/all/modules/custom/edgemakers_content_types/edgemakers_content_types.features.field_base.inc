@@ -269,6 +269,95 @@ function edgemakers_content_types_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
+  // Exported field_base: 'field_city'
+  $field_bases['field_city'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_city',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'foreign keys' => array(),
+    'indexes' => array(
+      'lid' => array(
+        0 => 'lid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'location_cck',
+    'settings' => array(
+      'gmap_macro' => '[gmap ]',
+      'gmap_marker' => 'drupal',
+      'location_settings' => array(
+        'display' => array(
+          'hide' => array(
+            'additional' => 0,
+            'city' => 0,
+            'coords' => 0,
+            'country' => 0,
+            'country_name' => 0,
+            'locpick' => 0,
+            'map_link' => 0,
+            'name' => 0,
+            'postal_code' => 0,
+            'province' => 0,
+            'province_name' => 0,
+            'street' => 0,
+          ),
+        ),
+        'form' => array(
+          'fields' => array(
+            'additional' => array(
+              'collect' => 0,
+              'default' => '',
+              'weight' => -98,
+            ),
+            'city' => array(
+              'collect' => 1,
+              'default' => '',
+              'weight' => -93,
+            ),
+            'country' => array(
+              'collect' => 1,
+              'default' => 'us',
+              'weight' => -94,
+            ),
+            'locpick' => array(
+              'collect' => 0,
+              'weight' => -96,
+            ),
+            'name' => array(
+              'collect' => 0,
+              'default' => '',
+              'weight' => -100,
+            ),
+            'postal_code' => array(
+              'collect' => 0,
+              'default' => '',
+              'weight' => -95,
+            ),
+            'province' => array(
+              'collect' => 0,
+              'default' => '',
+              'weight' => -97,
+              'widget' => 'autocomplete',
+            ),
+            'street' => array(
+              'collect' => 0,
+              'default' => '',
+              'weight' => -99,
+            ),
+          ),
+        ),
+      ),
+      'profile2_private' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'location',
+  );
+
   // Exported field_base: 'field_media_type'
   $field_bases['field_media_type'] = array(
     'active' => 1,

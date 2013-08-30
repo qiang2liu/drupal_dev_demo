@@ -10,6 +10,55 @@
 function edgemakers_content_types_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'node-carousel_item-body'
+  $field_instances['node-carousel_item-body'] = array(
+    'bundle' => 'carousel_item',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 3,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'body',
+    'label' => 'Description',
+    'required' => 0,
+    'settings' => array(
+      'display_summary' => 0,
+      'mediafront' => array(
+        'custom' => '',
+        'field_type' => 0,
+        'media_type' => 'media',
+        'preview' => 0,
+        'thumbnail' => 0,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 20,
+        'summary_rows' => 5,
+      ),
+      'type' => 'text_textarea_with_summary',
+      'weight' => 1,
+    ),
+  );
+
   // Exported field_instance: 'node-carousel_item-field_carousel_item_image'
   $field_instances['node-carousel_item-field_carousel_item_image'] = array(
     'bundle' => 'carousel_item',
@@ -553,54 +602,6 @@ function edgemakers_content_types_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-edgemakers_topic-field_topic_color'
-  $field_instances['node-edgemakers_topic-field_topic_color'] = array(
-    'bundle' => 'edgemakers_topic',
-    'default_value' => array(
-      0 => array(
-        'rgb' => '#3dbec0',
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'color_field',
-        'settings' => array(),
-        'type' => 'color_field_default_formatter',
-        'weight' => 7,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_topic_color',
-    'label' => 'Base Color',
-    'required' => 0,
-    'settings' => array(
-      'mediafront' => array(
-        'custom' => '',
-        'field_type' => 0,
-        'media_type' => 'media',
-        'preview' => 0,
-        'thumbnail' => 0,
-      ),
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'color_field',
-      'settings' => array(),
-      'type' => 'color_field_simple_widget',
-      'weight' => 1,
-    ),
-  );
-
   // Exported field_instance: 'node-edgemakers_topic-field_topic_images'
   $field_instances['node-edgemakers_topic-field_topic_images'] = array(
     'bundle' => 'edgemakers_topic',
@@ -898,6 +899,50 @@ function edgemakers_content_types_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-media_for_upload-field_challenges_category'
+  $field_instances['node-media_for_upload-field_challenges_category'] = array(
+    'bundle' => 'media_for_upload',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 6,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_challenges_category',
+    'label' => 'category',
+    'required' => 0,
+    'settings' => array(
+      'mediafront' => array(
+        'custom' => '',
+        'field_type' => 0,
+        'media_type' => 'media',
+        'preview' => 0,
+        'thumbnail' => 0,
+      ),
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'node-media_for_upload-field_media_type'
   $field_instances['node-media_for_upload-field_media_type'] = array(
     'bundle' => 'media_for_upload',
@@ -922,7 +967,7 @@ function edgemakers_content_types_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_media_type',
     'label' => 'Media Type',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'mediafront' => array(
         'custom' => '',
@@ -937,8 +982,8 @@ function edgemakers_content_types_field_default_field_instances() {
       'active' => 1,
       'module' => 'options',
       'settings' => array(),
-      'type' => 'options_buttons',
-      'weight' => 3,
+      'type' => 'options_select',
+      'weight' => 1,
     ),
   );
 
@@ -985,7 +1030,7 @@ function edgemakers_content_types_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
@@ -1035,7 +1080,54 @@ function edgemakers_content_types_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 2,
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'node-media_for_upload-field_tags'
+  $field_instances['node-media_for_upload-field_tags'] = array(
+    'bundle' => 'media_for_upload',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 5,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_tags',
+    'label' => 'tags',
+    'required' => 0,
+    'settings' => array(
+      'mediafront' => array(
+        'custom' => '',
+        'field_type' => 0,
+        'media_type' => 'media',
+        'preview' => 0,
+        'thumbnail' => 0,
+      ),
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 3,
     ),
   );
 
@@ -1132,6 +1224,50 @@ function edgemakers_content_types_field_default_field_instances() {
       'settings' => array(),
       'type' => 'options_select',
       'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'node-murals-field_city'
+  $field_instances['node-murals-field_city'] = array(
+    'bundle' => 'murals',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'location_cck',
+        'settings' => array(),
+        'type' => 'location_default',
+        'weight' => 8,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_city',
+    'label' => 'City',
+    'required' => 0,
+    'settings' => array(
+      'mediafront' => array(
+        'custom' => '',
+        'field_type' => 0,
+        'media_type' => 'media',
+        'preview' => 0,
+        'thumbnail' => 0,
+      ),
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'location_cck',
+      'settings' => array(),
+      'type' => 'location',
+      'weight' => 5,
     ),
   );
 
@@ -1791,11 +1927,12 @@ function edgemakers_content_types_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Background Image');
-  t('Base Color');
   t('Body');
   t('Box index data');
   t('Carousel Item Image');
   t('Carousel Item Topic');
+  t('City');
+  t('Description');
   t('Did you know');
   t('Display Text');
   t('Document');
