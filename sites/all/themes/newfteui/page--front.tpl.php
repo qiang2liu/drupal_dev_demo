@@ -13,7 +13,7 @@
       <span id="node-2020" class="next">Next</span>
     </div>
     <div id="mural-back-to-dashboard" class="back-to-dashboard">
-      <span>Back to dashboard</span>
+      <span>X</span>
     </div>
   </div>
 </div>
@@ -114,7 +114,7 @@
 </div>
 
 <!-- /main content -->
-<?php //print $messages; ?>
+<?php // print $messages; ?>
 <div class="main-content">
   <?php print render($page['content']); ?>
 </div>
@@ -175,10 +175,38 @@
     ?>
       <h4><?php echo $firstname && $lastname ? ($firstname.' '.$lastname) : $user->name; ?></h4>
       <?php if ($secondary_menu): ?>
+
+      <?php
+      $profile_setting_url = l(t('Settings'),
+        'edgemakers/user/profile/settings/nojs',
+        array(
+          'attributes' => array(
+            'class' => array(
+              'ctools-use-modal',
+              'ctools-modal-modal-popup-small',
+            ),
+          ),
+        )
+      );
+      $logout_url = l(t('Log out'),
+        'user/logout',
+        array(
+          'query' => array(
+            'destination' => 'home'
+          ),
+          'attributes' => array(
+            'class' => array(
+
+            )
+          ),
+        )
+      );
+      ?>
         <nav id="secondary-menu" role="navigation">
         <ul class="link inline clearfix">
-          <li class="menu-item first"><a href="<?php echo $base_url.'/edgemakers/user/profile/settings/nojs'?>" class="ctools-use-modal ctools-modal-modal-popup-small">Settings</a></li>
-          <li class="menu-item last"><a href="<?php echo $base_url.'/user/logout?destination=home'?>">Log out</a></li>
+<!--        <a href="<?php echo $base_url.'?q=edgemakers/user/profile/settings/nojs'?>" class="ctools-use-modal ctools-modal-modal-popup-small">Settings</a> -->
+          <li class="menu-item first"><?php echo $profile_setting_url; ?></li>
+          <li class="menu-item last"><a href="<?php echo $base_url.'?q=user/logout?destination=home'?>">Log out</a></li>
         </ul>
         </nav>
       <?php endif; ?>

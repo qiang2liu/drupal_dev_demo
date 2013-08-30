@@ -219,12 +219,12 @@ div.set-video-content {
   position: absolute;
   top: 0px;
   right: 0px;
-  background: url(../images/ico_back.png) no-repeat;;
-  width: 26px;
-  height: 26px;
+  background: url(../images/ico_close.png) no-repeat;;
+  width: 30px;
+  height: 30px;
 }
 
 .set-nav span.back-to-dashboard:hover, 
 .set-nav span#back-set-list:hover {
-  background: url(../images/ico_back.png) no-repeat;;
+  background: url(../images/ico_close.png) no-repeat;;
 }

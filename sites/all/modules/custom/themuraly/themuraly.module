@@ -623,7 +623,7 @@ function muralapi_test() {
 //   themuraly_get_mural_info('http://staging.mural.ly/!/#/lwgmural/1377006043205');
 //   _get_node_from_mural_id('1377006043205');
 
-  themuraly_studio_mural_list_json('gallery', 0, 'mural');
+  themuraly_studio_mural_list_json('gallery', 1, 'untitle');
 
 //   _test_mural_list_for_a_user();
   //_test_user_add();
@@ -1391,76 +1391,48 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
   $pager = 5;
   $start = $page * $pager;
 
-//   dpm('Start: ' . $start . ' | Pager: ' . $pager);
+//   dpm('Start: ' . $start . ' | Pager: ' . $pager . ' | Keyword: ' . $keys);
 
   if ($keys) {
-    // Build matching conditions
-    $query = db_select('search_index', 'i', array('target' => 'slave'))->extend('SearchQuery')->extend('PagerDefault');
+
+    $query = db_select('search_index', 'i')
+      ->condition('i.type', 'node')                      //Search node.
+      ->condition('i.word', '%' . $keys . '%', 'LIKE');  //Search key
+
+    // distinct sid.
+    $query->AddExpression('distinct sid', 'sid_node');
+
+    $query->range($start, $pager);
+
     $query->join('node', 'n', 'n.nid = i.sid');
     $query->condition('n.type', 'murals');
+    $query->condition('n.status', 1);
 
-    // Sort by Alphabetical, Date, Tags
     $query->orderBy('n.title', 'ASC');//ORDER BY title
-    $query->orderBy('nid', 'DESC');//ORDER BY created
+    $query->orderBy('i.sid', 'DESC');//ORDER BY title
+    $query->orderBy('n.nid', 'DESC');//ORDER BY created
 
     // Join  field_tags table and term table.
     $query->leftJoin('field_data_field_tags','field_tags','n.nid = field_tags.entity_id');
     $query->leftJoin('taxonomy_term_data','term','field_tags.field_tags_tid = term.tid');
     // Order by tags by term ASC.
     $query->orderBy('term.name', 'ASC');//ORDER BY created
+//     dpm($query);
 
-    //Debug
-//     $query->isNotNull('field_tags.field_tags_tid');
-
-
-    $query->condition('n.status', 1)->addTag('node_access')->searchExpression($keys, 'node');
-    $query->range($start, $pager);
-
-
-    // Insert special keywords.
-    $query->setOption('type', 'n.type');
-    $query->setOption('language', 'n.language');
-    if ($query->setOption('term', 'ti.tid')) {
-      $query->join('taxonomy_index', 'ti', 'n.nid = ti.nid');
-    }
-
-
-    // Only continue if the first pass query matches.
-    if (!$query->executeFirstPass()) {
-      return array();
-    }
-
-    // Add the ranking expressions.
-    _node_rankings($query);
-
-    // Load results.
-    $find = $query->limit(1000)->execute();
-
+    $find = $query->execute();
 //     dpm($find);
 
     $results = array();
 
-    $i = 0;
-    $j = 0;
     foreach ($find as $item) {
-
-      if ($j >= $pager) {
-        break;
-      }
-
-      if ($i >= $start) {
-        // Render the node.
-        $node = node_load($item->sid);
-        $results[] = $node;
-        $j++;
-      }
-
-      $i++;
-
+      // Render the node.
+      $node = node_load($item->sid_node);
+      $results[] = $node;
     }
 
-    dpm($results);
+//     dpm($results);
     return $results;
+
   }
 
   return false;

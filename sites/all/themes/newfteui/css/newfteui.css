@@ -1224,12 +1224,12 @@ div.ctools-modal-content .form-item .description{
 }*/
 #mural-back-to-dashboard span{
   cursor: pointer;
-  color: white;
+  color: #666666;
   display:inline-block;
   height:20px;
   line-height: 20px;
-  padding: 18px 14px 18px 30px;
-  background:url(../images/ico_left.png) 10px center no-repeat;
+  /* padding: 18px 14px 18px 30px; */
+  /* background:url(../images/ico_left.png) 10px center no-repeat; */
 }
 .set-type-icon {
   display: block;
