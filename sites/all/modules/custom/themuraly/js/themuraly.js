@@ -34,8 +34,8 @@ function closeFromIframe()
   jQuery("#mural-back-to-dashboard").hide();
   jQuery('#mural-region').dialog('close');
   jQuery('body').css({
-	'height': 'auto',
-	'overflow-y': 'auto'
+  	'height': 'auto',
+  	'overflow-y': 'auto'
   });
   return false;
 }
