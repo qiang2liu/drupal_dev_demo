@@ -62,3 +62,33 @@ ul#studio-media-list li a.studio-media-settings
   left: 0px;
   bottom: 0px;
 }
+
+html.js .form-item-field-tags-und input.form-autocomplete
+{
+  background-position: 100% 14px;
+}
+
+div.form-item-field-tags-und {
+  position: relative;
+}
+
+/* #modalContent .messages {
+  display: none;
+} */
+
+#upload-media-ajax-wrapper .messages {
+  width: 75%;
+  margin: 0px 2em;
+}
+
+#upload-media-ajax-wrapper form#media-for-upload-node-form div.form-item {
+  width: 88%;
+  overflow: hidden;
+}
+
+#modal-content .form-item input[type="text"].error, 
+#modal-content .form-item input[type="password"].error {
+  border: 2px solid red;
+  color: #8c2e0b;
+}
+
