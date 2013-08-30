@@ -425,21 +425,15 @@ ul:after,
 }
 
 /* rewrite the login/register/request new password */
-div.ctools-modal-content .modal-content{
-	padding:12px 0 0 0;
-	overflow-x:hidden;
-}
 
 div.modal-forms-modal-content .popups-container{
 	background:none;
 	border-radius:0;
 }
-div.modal-forms-modal-content .modal-title{
-	display:none;
-}
+
 div.modal-forms-modal-content .item-list ul{
 	margin:0;
-	border-bottom:20px solid #fff;
+	
 }
 div.modal-forms-modal-content .item-list ul li{
 	float:left;
@@ -455,20 +449,21 @@ div.modal-forms-modal-content .item-list ul li a{
 	background:#60cd9b;
 	padding:10px 14px;
 	display:block;
+	margin-top:7px;
 }
 div.modal-forms-modal-content .item-list ul li a.active{
 	padding-top:17px;
 	background:#fff;
 /*	color:#000102; */
 	color:rgb(96, 205, 155);
-	margin-top:-7px;
+	margin-top:0;
 }
 div.modal-forms-modal-content .modal-header{
-	top:52px;
-	float:right;
-	position:relative;
+	
+	
+	
 	z-index:9;
-	right:26px;
+	
 	padding:0
 }
 #modal-content .form-item,
@@ -497,12 +492,12 @@ div.modal-forms-modal-content .modal-header{
 #modal-content  #user-pass .form-item input[type="text"]{
 	width:50%;
 }
-#modal-content  #user-login .form-item{
+#modal-content.login .form-item{
 	width:38.7%;
 	float: left;
 	padding-bottom:30px;
 }
-#modal-content  #user-login .form-item input{
+#modal-content.login .form-item input{
 	width:100%;
 }
 #modal-content .form-actions{
@@ -589,7 +584,7 @@ div.modal-forms-modal-content .modal-header{
 	padding-right:0;
 }
 #modal-content #user-register-form .form-type-password-confirm.form-item .form-item input{
-	width:90%;
+	width:85%;
 }
 #modal-content #user-register-form .password-suggestions {
   position: absolute;
