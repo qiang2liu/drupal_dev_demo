@@ -129,7 +129,7 @@
   <?php
   else :
     $mural_link = 'modal_forms/nojs/login';
-  	$link_class = array('ctools-use-modal',  'ctools-modal-modal-popup-small');
+  	$link_class = array('ctools-use-modal',  'ctools-modal-modal-popup-profilesetting');
   	$login_link = l('<div class="studio-handler pane-handler"></div>', $mural_link , array(
     		'attributes' => array(
     			'class' => $link_class,
