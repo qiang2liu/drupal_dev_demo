@@ -221,7 +221,7 @@ function modal_forms_admin_settings() {
   $form['modal_forms_custom_settings']['modal_forms_popup_login']['modal_forms_popup_login_width'] = array(
     '#type' => 'textfield',
     '#title' => t('Width'),
-    '#default_value' => variable_get('modal_forms_popup_login_width', 300),
+    '#default_value' => variable_get('modal_forms_popup_login_width', 550),
     '#size' => 3,
     '#maxlength' => 5,
     '#required' => TRUE,
@@ -229,7 +229,7 @@ function modal_forms_admin_settings() {
   $form['modal_forms_custom_settings']['modal_forms_popup_login']['modal_forms_popup_login_height'] = array(
     '#type' => 'textfield',
     '#title' => t('Height'),
-    '#default_value' => variable_get('modal_forms_popup_login_height', 300),
+    '#default_value' => variable_get('modal_forms_popup_login_height', 500),
     '#size' => 3,
     '#maxlength' => 5,
     '#required' => TRUE,
@@ -251,7 +251,7 @@ function modal_forms_admin_settings() {
   $form['modal_forms_custom_settings']['modal_forms_popup_register']['modal_forms_popup_register_width'] = array(
     '#type' => 'textfield',
     '#title' => t('Width'),
-    '#default_value' => variable_get('modal_forms_popup_register_width', 300),
+    '#default_value' => variable_get('modal_forms_popup_register_width', 550),
     '#size' => 3,
     '#maxlength' => 5,
     '#required' => TRUE,
@@ -259,7 +259,7 @@ function modal_forms_admin_settings() {
   $form['modal_forms_custom_settings']['modal_forms_popup_register']['modal_forms_popup_register_height'] = array(
     '#type' => 'textfield',
     '#title' => t('Height'),
-    '#default_value' => variable_get('modal_forms_popup_register_height', 300),
+    '#default_value' => variable_get('modal_forms_popup_register_height', 500),
     '#size' => 3,
     '#maxlength' => 5,
     '#required' => TRUE,
@@ -281,7 +281,7 @@ function modal_forms_admin_settings() {
   $form['modal_forms_custom_settings']['modal_forms_popup_password']['modal_forms_popup_password_width'] = array(
     '#type' => 'textfield',
     '#title' => t('Width'),
-    '#default_value' => variable_get('modal_forms_popup_password_width', 300),
+    '#default_value' => variable_get('modal_forms_popup_password_width', 550),
     '#size' => 3,
     '#maxlength' => 5,
     '#required' => TRUE,
@@ -289,7 +289,37 @@ function modal_forms_admin_settings() {
   $form['modal_forms_custom_settings']['modal_forms_popup_password']['modal_forms_popup_password_height'] = array(
     '#type' => 'textfield',
     '#title' => t('Height'),
-    '#default_value' => variable_get('modal_forms_popup_password_height', 300),
+    '#default_value' => variable_get('modal_forms_popup_password_height', 500),
+    '#size' => 3,
+    '#maxlength' => 5,
+    '#required' => TRUE,
+  );
+  // Popup Profile Setting
+  $form['modal_forms_custom_settings']['modal_forms_popup_profilesetting'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Modal popup profilesetting'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['modal_forms_custom_settings']['modal_forms_popup_profilesetting']['modal_forms_popup_profilesetting_type'] = array(
+      '#type' => 'radios',
+      '#title' => t('Type'),
+      '#default_value' => variable_get('modal_forms_popup_profilesetting_type', 'fixed'),
+      '#options' => $modal_types,
+      '#description' => t('Fixed sizes should be entered in pixels. Scaled sizes should be entered as a decimal percentage of the screen region (eg 0.8 = 80% of screen width/height).'),
+  );
+  $form['modal_forms_custom_settings']['modal_forms_popup_profilesetting']['modal_forms_popup_profilesetting_width'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Width'),
+    '#default_value' => variable_get('modal_forms_popup_profilesetting_width', 550),
+    '#size' => 3,
+    '#maxlength' => 5,
+    '#required' => TRUE,
+  );
+  $form['modal_forms_custom_settings']['modal_forms_popup_profilesetting']['modal_forms_popup_profilesetting_height'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Height'),
+    '#default_value' => variable_get('modal_forms_popup_profilesetting_height', 500),
     '#size' => 3,
     '#maxlength' => 5,
     '#required' => TRUE,

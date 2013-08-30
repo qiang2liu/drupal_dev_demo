@@ -238,7 +238,7 @@ function _modal_forms_doheader() {
     ),
     'modal-popup-login' => array(
       'modalSize' => array(
-        'type' => variable_get('modal_forms_popup_small_type', 'fixed'),
+        'type' => variable_get('modal_forms_popup_login_type', 'fixed'),
         'width' => floatval(variable_get('modal_forms_popup_login_width', 550)),
         'height' => floatval(variable_get('modal_forms_popup_login_height', 500)),
       ),
@@ -253,7 +253,7 @@ function _modal_forms_doheader() {
     ),
     'modal-popup-register' => array(
       'modalSize' => array(
-        'type' => variable_get('modal_forms_popup_small_type', 'fixed'),
+        'type' => variable_get('modal_forms_popup_register_type', 'fixed'),
         'width' => floatval(variable_get('modal_forms_popup_register_width', 550)),
         'height' => floatval(variable_get('modal_forms_popup_register_height', 500)),
       ),
@@ -268,7 +268,7 @@ function _modal_forms_doheader() {
     ),
     'modal-popup-password' => array(
       'modalSize' => array(
-        'type' => variable_get('modal_forms_popup_small_type', 'fixed'),
+        'type' => variable_get('modal_forms_popup_password_type', 'fixed'),
         'width' => floatval(variable_get('modal_forms_popup_password_width', 550)),
         'height' => floatval(variable_get('modal_forms_popup_password_height', 500)),
       ),
@@ -278,6 +278,21 @@ function _modal_forms_doheader() {
       ),
       'animation' => 'fadeIn',
       'modalTheme' => 'ModalFormsPassword',
+      'throbber' => $throbber,
+      'closeText' => t('Close'),
+    ),
+    'modal-popup-profilesetting' => array(
+      'modalSize' => array(
+        'type' => variable_get('modal_forms_popup_profilesetting_type', 'fixed'),
+        'width' => floatval(variable_get('modal_forms_popup_profilesetting_width', 550)),
+        'height' => floatval(variable_get('modal_forms_popup_profilesetting_height', 500)),
+      ),
+      'modalOptions' => array(
+        'opacity' => floatval(variable_get('modal_forms_opacity', 0.85)),
+        'background' => variable_get('modal_forms_background_color', '#000'),
+      ),
+      'animation' => 'fadeIn',
+      'modalTheme' => 'ModalFormsProfileSetting',
       'throbber' => $throbber,
       'closeText' => t('Close'),
     ),
