@@ -623,7 +623,7 @@ function muralapi_test() {
 //   themuraly_get_mural_info('http://staging.mural.ly/!/#/lwgmural/1377006043205');
 //   _get_node_from_mural_id('1377006043205');
 
-  themuraly_studio_mural_list_json('gallery', 0, 'untitle');
+  themuraly_studio_mural_list_json('gallery', 1, 'untitle');
 
 //   _test_mural_list_for_a_user();
   //_test_user_add();
