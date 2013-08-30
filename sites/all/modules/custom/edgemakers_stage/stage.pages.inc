@@ -149,43 +149,43 @@ function edgemakers_stage_managebox_form($form, &$form_state) {
   $selected = isset($form_state['values']['set_types']) ? $form_state['values']['set_types'] : key($options_first);
 
   $form['Set_Fields'] = array(
-      '#type' => 'fieldset',
+    '#type' => 'fieldset',
   );
 
   $form['Set_Fields']['set_types'] = array(
-      '#type' => 'select',
-      '#title' => 'Set Type',
-      '#options' => $options_first,
-      '#default_value' => $selected,
+    '#type' => 'select',
+    '#title' => 'Set Type',
+    '#options' => $options_first,
+    '#default_value' => $selected,
 
-      // Bind an ajax callback to the change event (which is the default for the
-      // select form type) of the first dropdown. It will replace the second
-      // dropdown when rebuilt
-      '#ajax' => array(
-          // When 'event' occurs, Drupal will perform an ajax request in the
-          // background. Usually the default value is sufficient (eg. change for
-          // select elements), but valid values include any jQuery event,
-              // most notably 'mousedown', 'blur', and 'submit'.
-              // 'event' => 'change',
-              'callback' => '_ajax_set_types_dropdown_callback',
-              'wrapper' => 'dropdown-title-replace',
-          ),
-      );
+    // Bind an ajax callback to the change event (which is the default for the
+    // select form type) of the first dropdown. It will replace the second
+    // dropdown when rebuilt
+    '#ajax' => array(
+      // When 'event' occurs, Drupal will perform an ajax request in the
+      // background. Usually the default value is sufficient (eg. change for
+      // select elements), but valid values include any jQuery event,
+          // most notably 'mousedown', 'blur', and 'submit'.
+          // 'event' => 'change',
+          'callback' => '_ajax_set_types_dropdown_callback',
+          'wrapper' => 'dropdown-title-replace',
+      ),
+  );
 
-      $form['Set_Fields']['set_title'] = array(
-          '#type' => 'select',
-          '#title' => t('Set Title'),
+  $form['Set_Fields']['set_title'] = array(
+    '#type' => 'select',
+    '#title' => t('Set Title'),
 
-          // The entire enclosing div created here gets replaced when dropdown_first
-          // is changed.
-          '#prefix' => '<div id="dropdown-title-replace">',
-          '#suffix' => '</div>',
+    // The entire enclosing div created here gets replaced when dropdown_first
+    // is changed.
+    '#prefix' => '<div id="dropdown-title-replace">',
+    '#suffix' => '</div>',
 
-          // when the form is rebuilt during ajax processing, the $selected variable
-          // will now have the new value and so the options will change
-          '#options' => _ajax_get_set_title_dropdown_options($selected),
-          '#default_value' => isset($form_state['values']['set_title']) ? $form_state['values']['set_title'] : '',
-      );
+    // when the form is rebuilt during ajax processing, the $selected variable
+    // will now have the new value and so the options will change
+    '#options' => _ajax_get_set_title_dropdown_options($selected),
+    '#default_value' => isset($form_state['values']['set_title']) ? $form_state['values']['set_title'] : '',
+  );
 
       $form['Set_Fields']['set_location_index'] = array(
           '#type' => 'hidden',
