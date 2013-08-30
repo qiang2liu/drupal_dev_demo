@@ -221,7 +221,7 @@ function modal_forms_admin_settings() {
   $form['modal_forms_custom_settings']['modal_forms_popup_login']['modal_forms_popup_login_width'] = array(
     '#type' => 'textfield',
     '#title' => t('Width'),
-    '#default_value' => variable_get('modal_forms_popup_login_width', 300),
+    '#default_value' => variable_get('modal_forms_popup_login_width', 550),
     '#size' => 3,
     '#maxlength' => 5,
     '#required' => TRUE,
@@ -229,7 +229,7 @@ function modal_forms_admin_settings() {
   $form['modal_forms_custom_settings']['modal_forms_popup_login']['modal_forms_popup_login_height'] = array(
     '#type' => 'textfield',
     '#title' => t('Height'),
-    '#default_value' => variable_get('modal_forms_popup_login_height', 300),
+    '#default_value' => variable_get('modal_forms_popup_login_height', 500),
     '#size' => 3,
     '#maxlength' => 5,
     '#required' => TRUE,
@@ -251,7 +251,7 @@ function modal_forms_admin_settings() {
   $form['modal_forms_custom_settings']['modal_forms_popup_register']['modal_forms_popup_register_width'] = array(
     '#type' => 'textfield',
     '#title' => t('Width'),
-    '#default_value' => variable_get('modal_forms_popup_register_width', 300),
+    '#default_value' => variable_get('modal_forms_popup_register_width', 550),
     '#size' => 3,
     '#maxlength' => 5,
     '#required' => TRUE,
@@ -259,7 +259,7 @@ function modal_forms_admin_settings() {
   $form['modal_forms_custom_settings']['modal_forms_popup_register']['modal_forms_popup_register_height'] = array(
     '#type' => 'textfield',
     '#title' => t('Height'),
-    '#default_value' => variable_get('modal_forms_popup_register_height', 300),
+    '#default_value' => variable_get('modal_forms_popup_register_height', 500),
     '#size' => 3,
     '#maxlength' => 5,
     '#required' => TRUE,
@@ -281,7 +281,7 @@ function modal_forms_admin_settings() {
   $form['modal_forms_custom_settings']['modal_forms_popup_password']['modal_forms_popup_password_width'] = array(
     '#type' => 'textfield',
     '#title' => t('Width'),
-    '#default_value' => variable_get('modal_forms_popup_password_width', 300),
+    '#default_value' => variable_get('modal_forms_popup_password_width', 550),
     '#size' => 3,
     '#maxlength' => 5,
     '#required' => TRUE,
@@ -289,7 +289,7 @@ function modal_forms_admin_settings() {
   $form['modal_forms_custom_settings']['modal_forms_popup_password']['modal_forms_popup_password_height'] = array(
     '#type' => 'textfield',
     '#title' => t('Height'),
-    '#default_value' => variable_get('modal_forms_popup_password_height', 300),
+    '#default_value' => variable_get('modal_forms_popup_password_height', 500),
     '#size' => 3,
     '#maxlength' => 5,
     '#required' => TRUE,
