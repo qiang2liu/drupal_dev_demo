@@ -65,7 +65,7 @@ function show_landingpage() {
   }
   $messages = drupal_get_messages('status');
   foreach($messages as $message) {
-    if($message == t('A validation e-mail has been sent to your e-mail address. In order to gain full access to the site, you will need to follow the instructions in that message.') || $message == t('Welcome'))
+    if($message == t('A validation e-mail has been sent to your e-mail address. In order to gain full access to the site, you will need to follow the instructions in that message.') || $message == t('You are now an EdgeMaker!'))
     drupal_set_message($message);
   }
   return theme('fte_landing_page');
