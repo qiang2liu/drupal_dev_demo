@@ -994,7 +994,7 @@ function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
 
         if ($user->uid == $node->uid) {
           $img_settings = array(
-          	'path' => drupal_get_path('theme', 'newfteui') . '/images/iconMuralSettings.png',
+          	'path' => drupal_get_path('theme', 'newfteui') . '/images/iconPaneMuralSettings.png',
           );
           $img_gear = theme('image', $img_settings);
           if ($user->uid == $node->uid) {
