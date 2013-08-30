@@ -56,7 +56,7 @@ function modal_forms_register($js = NULL) {
     'ajax' => TRUE,
   );
   $output = ctools_modal_form_wrapper('user_register_form', $form_state);
-  if (!empty($form_state['executed'])) {
+  if (!empty($form_state['executed']) && empty($form_state['rebuild'])) {
     // We'll just overwrite the form output if it was successful.
     $output = array();
     ctools_add_js('ajax-responder');
@@ -275,4 +275,27 @@ function modal_forms_dismiss($js = NULL) {
   $output = array(ctools_modal_command_dismiss());
 
   print ajax_render($output);
+}
+/**
+  * Page Callback - Modal: Add Node
+  */
+function modal_forms_node_page_add($type, $js, $force_page_reload = FALSE) {
+  // Fall back if $js is not set.
+  if (!$js) {
+    return drupal_goto('node/add/' . str_replace('_', '-', $type));
+  }
+
+  // Get node form defaults.
+  global $user;
+  $types = node_type_get_types();
+  $node = (object) array(
+    'uid' => $user->uid,
+    'name' => (isset($user->name) ? $user->name : ''),
+    'type' => $type,
+    'language' => LANGUAGE_NONE
+  );
+
+  $title = t('Create @name', array('@name' => $types[$type]->name));
+
+  modal_forms_node_form($node, $title, $force_page_reload);
 }

@@ -204,6 +204,96 @@ function modal_forms_admin_settings() {
     '#maxlength' => 5,
     '#required' => TRUE,
   );
+  // Popup Login
+  $form['modal_forms_custom_settings']['modal_forms_popup_login'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Modal popup login'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['modal_forms_custom_settings']['modal_forms_popup_login']['modal_forms_popup_login_type'] = array(
+      '#type' => 'radios',
+      '#title' => t('Type'),
+      '#default_value' => variable_get('modal_forms_popup_login_type', 'fixed'),
+      '#options' => $modal_types,
+      '#description' => t('Fixed sizes should be entered in pixels. Scaled sizes should be entered as a decimal percentage of the screen region (eg 0.8 = 80% of screen width/height).'),
+  );
+  $form['modal_forms_custom_settings']['modal_forms_popup_login']['modal_forms_popup_login_width'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Width'),
+    '#default_value' => variable_get('modal_forms_popup_login_width', 300),
+    '#size' => 3,
+    '#maxlength' => 5,
+    '#required' => TRUE,
+  );
+  $form['modal_forms_custom_settings']['modal_forms_popup_login']['modal_forms_popup_login_height'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Height'),
+    '#default_value' => variable_get('modal_forms_popup_login_height', 300),
+    '#size' => 3,
+    '#maxlength' => 5,
+    '#required' => TRUE,
+  );
+  // Popup Register
+  $form['modal_forms_custom_settings']['modal_forms_popup_register'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Modal popup register'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['modal_forms_custom_settings']['modal_forms_popup_register']['modal_forms_popup_register_type'] = array(
+      '#type' => 'radios',
+      '#title' => t('Type'),
+      '#default_value' => variable_get('modal_forms_popup_register_type', 'fixed'),
+      '#options' => $modal_types,
+      '#description' => t('Fixed sizes should be entered in pixels. Scaled sizes should be entered as a decimal percentage of the screen region (eg 0.8 = 80% of screen width/height).'),
+  );
+  $form['modal_forms_custom_settings']['modal_forms_popup_register']['modal_forms_popup_register_width'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Width'),
+    '#default_value' => variable_get('modal_forms_popup_register_width', 300),
+    '#size' => 3,
+    '#maxlength' => 5,
+    '#required' => TRUE,
+  );
+  $form['modal_forms_custom_settings']['modal_forms_popup_register']['modal_forms_popup_register_height'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Height'),
+    '#default_value' => variable_get('modal_forms_popup_register_height', 300),
+    '#size' => 3,
+    '#maxlength' => 5,
+    '#required' => TRUE,
+  );
+  // Popup Password
+  $form['modal_forms_custom_settings']['modal_forms_popup_password'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Modal popup password'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['modal_forms_custom_settings']['modal_forms_popup_password']['modal_forms_popup_password_type'] = array(
+      '#type' => 'radios',
+      '#title' => t('Type'),
+      '#default_value' => variable_get('modal_forms_popup_password_type', 'fixed'),
+      '#options' => $modal_types,
+      '#description' => t('Fixed sizes should be entered in pixels. Scaled sizes should be entered as a decimal percentage of the screen region (eg 0.8 = 80% of screen width/height).'),
+  );
+  $form['modal_forms_custom_settings']['modal_forms_popup_password']['modal_forms_popup_password_width'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Width'),
+    '#default_value' => variable_get('modal_forms_popup_password_width', 300),
+    '#size' => 3,
+    '#maxlength' => 5,
+    '#required' => TRUE,
+  );
+  $form['modal_forms_custom_settings']['modal_forms_popup_password']['modal_forms_popup_password_height'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Height'),
+    '#default_value' => variable_get('modal_forms_popup_password_height', 300),
+    '#size' => 3,
+    '#maxlength' => 5,
+    '#required' => TRUE,
+  );
 
   // Page activation/deactivation settings.
   $form['modal_forms_advanced_settings'] = array(
