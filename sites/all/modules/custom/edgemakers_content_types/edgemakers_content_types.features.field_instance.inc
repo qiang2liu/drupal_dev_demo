@@ -602,6 +602,54 @@ function edgemakers_content_types_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-edgemakers_topic-field_topic_color'
+  $field_instances['node-edgemakers_topic-field_topic_color'] = array(
+    'bundle' => 'edgemakers_topic',
+    'default_value' => array(
+      0 => array(
+        'rgb' => '#3dbec0',
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'color_field',
+        'settings' => array(),
+        'type' => 'color_field_default_formatter',
+        'weight' => 7,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_topic_color',
+    'label' => 'Base Color',
+    'required' => 0,
+    'settings' => array(
+      'mediafront' => array(
+        'custom' => '',
+        'field_type' => 0,
+        'media_type' => 'media',
+        'preview' => 0,
+        'thumbnail' => 0,
+      ),
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'color_field',
+      'settings' => array(),
+      'type' => 'color_field_simple_widget',
+      'weight' => 1,
+    ),
+  );
+
   // Exported field_instance: 'node-edgemakers_topic-field_topic_images'
   $field_instances['node-edgemakers_topic-field_topic_images'] = array(
     'bundle' => 'edgemakers_topic',
@@ -1268,50 +1316,6 @@ function edgemakers_content_types_field_default_field_instances() {
       'settings' => array(),
       'type' => 'location',
       'weight' => 2,
-    ),
-  );
-
-  // Exported field_instance: 'node-murals-field_mural_privacy'
-  $field_instances['node-murals-field_mural_privacy'] = array(
-    'bundle' => 'murals',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 10,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_mural_privacy',
-    'label' => 'Mural Privacy',
-    'required' => 0,
-    'settings' => array(
-      'mediafront' => array(
-        'custom' => '',
-        'field_type' => 0,
-        'media_type' => 'media',
-        'preview' => 0,
-        'thumbnail' => 0,
-      ),
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 12,
     ),
   );
 
@@ -2021,6 +2025,7 @@ function edgemakers_content_types_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Background Image');
+  t('Base Color');
   t('Body');
   t('Box index data');
   t('Carousel Item Image');
@@ -2035,7 +2040,6 @@ function edgemakers_content_types_field_default_field_instances() {
   t('Images');
   t('Media Type');
   t('Media URL');
-  t('Mural Privacy');
   t('Mural Thumburl');
   t('Murally Type');
   t('Organizations + Resources');
