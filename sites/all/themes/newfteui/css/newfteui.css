@@ -425,21 +425,15 @@ ul:after,
 }
 
 /* rewrite the login/register/request new password */
-div.ctools-modal-content .modal-content{
-	padding:12px 0 0 0;
-	overflow-x:hidden;
-}
 
 div.modal-forms-modal-content .popups-container{
 	background:none;
 	border-radius:0;
 }
-div.modal-forms-modal-content .modal-title{
-	display:none;
-}
+
 div.modal-forms-modal-content .item-list ul{
 	margin:0;
-	border-bottom:20px solid #fff;
+	
 }
 div.modal-forms-modal-content .item-list ul li{
 	float:left;
@@ -455,20 +449,21 @@ div.modal-forms-modal-content .item-list ul li a{
 	background:#60cd9b;
 	padding:10px 14px;
 	display:block;
+	margin-top:7px;
 }
 div.modal-forms-modal-content .item-list ul li a.active{
 	padding-top:17px;
 	background:#fff;
 /*	color:#000102; */
 	color:rgb(96, 205, 155);
-	margin-top:-7px;
+	margin-top:0;
 }
 div.modal-forms-modal-content .modal-header{
-	top:52px;
-	float:right;
-	position:relative;
+	
+	
+	
 	z-index:9;
-	right:26px;
+	
 	padding:0
 }
 #modal-content .form-item,
@@ -492,17 +487,17 @@ div.modal-forms-modal-content .modal-header{
 	border:1px solid #e6e9ea;
 	box-shadow: 0 2px 3px #eee inset; 
 	color:#7b8a97;
-	width:100%;
+	width:95%;
 }
 #modal-content  #user-pass .form-item input[type="text"]{
 	width:50%;
 }
-#modal-content  #user-login .form-item{
+#modal-content.login .form-item{
 	width:38.7%;
 	float: left;
 	padding-bottom:30px;
 }
-#modal-content  #user-login .form-item input{
+#modal-content.login .form-item input{
 	width:100%;
 }
 #modal-content .form-actions{
@@ -589,7 +584,7 @@ div.modal-forms-modal-content .modal-header{
 	padding-right:0;
 }
 #modal-content #user-register-form .form-type-password-confirm.form-item .form-item input{
-	width:90%;
+	width:85%;
 }
 #modal-content #user-register-form .password-suggestions {
   position: absolute;
@@ -1289,7 +1284,7 @@ div.ctools-modal-content .form-item .description{
 #edit-submitted-there-images-should-have-been-used-for-thos-module .option img{
 	vertical-align: middle;
 }
-#edit-actions .form-submit{
+.form-submit{
 	border:1px solid #fff;
 	background-color:rgba(189,21,54,0.7);
 	color:#fff;

@@ -36,9 +36,6 @@ function fteuser_form_alter(&$form, &$form_state, $form_id) {
       // $form['registration_cancellation']['user_email_verification']['#description'] = t('This setting has been locked by the FTEUSER module. ');
       break;
     case 'user_register_form':
-      $form['#attributes'] = array(
-        'class' => array('box-register', 'lrn-box'),
-      );
       //$form['#client_validation'] = TRUE;
 //       $form['account']['email']['#validate'] = array(
 //         'required' => array(true, t('Email address is required.')),

@@ -57,12 +57,12 @@ function modal_nodeform_node_form($node, $title, $force_page_reload = FALSE) {
   ctools_include('ajax');
 
   $form_state = array(
-    'title' => $title,
     'ajax'  => TRUE,
     'build_info' => array(
       'args'  => array($node),
     ),
   );
+  if(!isset($form_state['title'])) $form_state['title'] = $title;
 	drupal_add_library('system', 'ui.dialog');
   $commands = ctools_modal_form_wrapper($node->type . '_node_form', $form_state);
 

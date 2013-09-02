@@ -40,7 +40,7 @@ function edgemakers_user_form_alter(&$form, &$form_state, $form_id) {
     }
     $items[] = array('data'=>ctools_modal_text_button(t('Log in'), 'modal_forms/nojs/login', t('Log in.'), 'ctools-modal-modal-popup-small'.($form_id == 'user_login' ? ' active':'')), 'class'=>array('user_login'));
     $items[] = array('data'=>ctools_modal_text_button(t('Request new password'), 'modal_forms/nojs/password', t('Request new password via e-mail.'), 'ctools-modal-modal-popup-small'.($form_id == 'user_pass' ? ' active':'')), 'class'=>array('user_pass'));
-    $form['tabs'] = array('#markup' => theme('item_list', array('items' => $items)), '#weight' => -100);
+    $form_state['title'] = theme('item_list', array('items' => $items));
   }
   switch ($form_id) {
     case 'modal_forms_admin_settings':
@@ -48,7 +48,7 @@ function edgemakers_user_form_alter(&$form, &$form_state, $form_id) {
       break;
     case 'user_register_form':
       if (arg(0) == 'modal_forms') {
-        unset($form['account']['name']['#title'], $form['account']['name']['#description'], $form['account']['mail']['#title'], $form['account']['mail']['#description'], $form['account']['pass']['#description'], $form['field_profile_picture'][LANGUAGE_NONE][0]['#description'], $form['field_firstname'][LANGUAGE_NONE][0]['value']['#title'], $form['field_firstname'][LANGUAGE_NONE][0]['value']['#description'], $form['field_lastname'][LANGUAGE_NONE][0]['value']['#title'], $form['field_lastname'][LANGUAGE_NONE][0]['value']['#description']);
+        unset($form['account']['name']['#description'], $form['account']['mail']['#description'], $form['account']['pass']['#description'], $form['field_profile_picture'][LANGUAGE_NONE][0]['#description'], $form['field_firstname'][LANGUAGE_NONE][0]['value']['#description'], $form['field_lastname'][LANGUAGE_NONE][0]['value']['#description']);
         $form['account']['name']['#attributes']['placeholder'] = t('USER NAME');
         $form['account']['mail']['#attributes']['placeholder'] = t('EMAIL');
         $form['account']['mail']['#weight'] = -11;
@@ -64,7 +64,7 @@ function edgemakers_user_form_alter(&$form, &$form_state, $form_id) {
       break;
     case 'user_login':
       if (arg(0) == 'modal_forms') {
-        unset($form['name']['#title'], $form['name']['#description'], $form['pass']['#title'], $form['pass']['#description']);
+        unset($form['name']['#description'], $form['pass']['#description']);
         $form['name']['#attributes']['placeholder'] = t('USER NAME');
         $form['pass']['#attributes']['placeholder'] = t('PASSWORD');
         $form['actions']['submit']['#value'] = t('Log in');
@@ -72,7 +72,7 @@ function edgemakers_user_form_alter(&$form, &$form_state, $form_id) {
       break;
     case 'user_pass':
       if (arg(0) == 'modal_forms') {
-        unset($form['name']['#title'], $form['name']['#description']);
+        unset($form['name']['#description']);
         $form['name']['#attributes']['placeholder'] = t('USER NAME OR EMAIL');
         $form['actions']['submit']['#value'] = t('Email New Password');
       }
@@ -80,7 +80,6 @@ function edgemakers_user_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 function edgemakers_user_process_password_confirm($element) {
-  unset($element['pass1']['#title'], $element['pass2']['#title']);
   $element['pass1']['#attributes']['placeholder'] = t('PASSWORD');
   $element['pass2']['#attributes']['placeholder'] = t('CONFIRM PASSWORD');
   return $element;
@@ -93,7 +92,7 @@ function edgemakers_user_entity_presave($account, $type) {
   // user_save() will handle old users.
   if(!isset($account->field_profile_picture)) return;
   $fid = $account->field_profile_picture[LANGUAGE_NONE][0]['fid'];
-  if (!$type == 'user' || !$account->is_new || !$fid)  return;
+  if ($type !== 'user' || !$account->is_new || !$fid)  return;
   $picture = file_load($fid);
   $info = image_get_info($picture->uri);
   $picture_directory =  file_default_scheme() . '://' . variable_get('user_picture_path', 'pictures');
