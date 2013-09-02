@@ -204,9 +204,8 @@
       ?>
         <nav id="secondary-menu" role="navigation">
         <ul class="link inline clearfix">
-<!--        <a href="<?php echo $base_url.'?q=edgemakers/user/profile/settings/nojs'?>" class="ctools-use-modal ctools-modal-modal-popup-small">Settings</a> -->
           <li class="menu-item first"><?php echo $profile_setting_url; ?></li>
-          <li class="menu-item last"><a href="<?php echo $base_url.'?q=user/logout?destination=home'?>">Log out</a></li>
+          <li class="menu-item last"><?php echo $logout_url; ?></li>
         </ul>
         </nav>
       <?php endif; ?>
