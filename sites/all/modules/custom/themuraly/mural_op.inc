@@ -244,7 +244,10 @@ function muralshow($nid, $mid = 0, $uid = 0) {
       ),
       'html' => true,
       'attributes' => array(
-        'class' => array('ctools-use-modal'),
+        'class' => array(
+          'ctools-use-modal',
+          'ctools-modal-modal-popup-small',
+        ),
       ),
             )
     );

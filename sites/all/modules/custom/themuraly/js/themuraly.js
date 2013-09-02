@@ -324,6 +324,9 @@ function gallery_mural_ajax_load_list(pager) {
   
   var keyword = jQuery("#gallery-keyword").val();
   //var sortby = jQuery("#gallery-sort-by").val();
+  if (keyword == null) {
+    keyword = "";
+  }
   
   if (pager == null) {
     pager = 0;
@@ -386,4 +389,18 @@ function search_gallery() {
   // gallery_media_list_ajax_load on media upload module.
   gallery_media_list_ajax_load('video');
   gallery_media_list_ajax_load('image');
+}
+
+function showInviteEmailBox() {
+
+  var v = jQuery('#edit-field-muralshared-und :selected').val();
+  //var v = jQuery('#edit-field-muralshared-und:selected').text();
+  //alert("Select value: " + v);
+  if (v == "1") {
+    jQuery("#invite_email_box").show();
+  }
+  else {
+    jQuery("#invite_email_box").hide();
+  }
+  //alert("Show invite box.");
 }

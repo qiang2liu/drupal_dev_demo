@@ -254,6 +254,10 @@ form#murals-node-form.node-form div.form-item label
   display: none;
 }
 
+#modal-content.modal-content.popups-body {
+  padding: 0;
+  background-color: transparent;
+}
 /* #modal-content .form-item.form-item-body-und-0-value {
   padding-right: 1px;
 } */
@@ -333,4 +337,19 @@ form#murals-node-form.node-form div.form-item.form-item-field-share-und label
 
 .modal-forms-modal-content #modal-content .messages {
   display: none;
+}
+
+#edit-field-mail-to-share {
+  width: 60%;
+  float: left;
+}
+
+#modal-content #edit-field-mail-to-share .form-item input[type="text"] {
+  background-color: white;
+  color: gray;
+}
+
+div.modal-forms-modal-content .popups-close {
+  top: 40px;
+  right: 50px;
 }
