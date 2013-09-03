@@ -331,7 +331,7 @@ function themuraly_location_element_alter(&$element) {
 function themuraly_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == 'murals_node_form') {
 
-    if (arg(0) == 'modal') {
+//     if (arg(0) == 'modal') {
 
       drupal_add_css(drupal_get_path('module', 'themuraly') . '/css/themuraly.css');
 
@@ -361,6 +361,9 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
       $form['field_share_to_gallery'][LANGUAGE_NONE]['#order_by'] = 'text'; // May contain values as "text" or "value".
       $form['field_share_to_gallery'][LANGUAGE_NONE]['#sort_order'] = 'asc'; // May contain values as "asc" or "desc".
 
+//       dpm($form);
+//       dpm($form_state['node']);
+
       $form['field_muralshared'][LANGUAGE_NONE]['#options']['_none'] = t('Privacy');
       $form['field_muralshared'][LANGUAGE_NONE]['#attributes'] = array(
 //         'size' => 2,
@@ -379,10 +382,17 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 //         ),
 //       );
 
-      $form['field_mail_to_share'][LANGUAGE_NONE]['#prefix'] = '<div id="invite_email_box" class="hidden">';
+      if ($form_state['node']->field_muralshared['und']['0']['value'] == 1) {
+        $share_mail_class = '';
+      }
+      else {
+        $share_mail_class = 'hidden';
+      }
+      $form['field_mail_to_share'][LANGUAGE_NONE]['#prefix'] = '<div id="invite_email_box" class="' . $share_mail_class . '">';
       $form['field_mail_to_share'][LANGUAGE_NONE]['#suffix'] = '</div>';
       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#autocomplete_path'] = 'mural/usersearch/autocomplete';
       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#attributes'] = array('autocomplete' => 'on');
+      $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['value'] = '';
 
       if ($the_nid) {  //edit form
         unset($form['actions']['delete']);
@@ -436,7 +446,7 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 //           '#suffix' => '</div>',
 //         );
       }
-    }
+//     }
   }
 }
 
@@ -604,7 +614,7 @@ function _themuralyajax_validate($form, &$form_state) {
                 $mural_api = new Muralapi;
                 $property_name = $k;
                 $property_value = $v;
-                $result = $mural_api->update_mural_properties($muralusername, $the_muralid, $property_name, $property_value);
+//                 $result = $mural_api->update_mural_properties($muralusername, $the_muralid, $property_name, $property_value);
 
 //                 dpm($result);
 
@@ -661,15 +671,12 @@ function _themuralyajax_validate($form, &$form_state) {
 
     // Validate mail.
     $mail_to_share = $form_state['values']['field_mail_to_share'][LANGUAGE_NONE][0]['value'];
+    $form_state['values']['field_mail_to_share'][LANGUAGE_NONE][0]['value'] = '';
 
     if ($mail_to_share) {
       if (_valid_local_user($mail_to_share)) {
 
-//         $account = user_load(array('name' => check_plain($mail_to_share)));
         $account = user_load_by_name($mail_to_share);
-//         dpm($account);
-//         $account = user_load($mail_to_share);
-
         $send_email = $account->mail;
 
         if (_send_share_mail($the_mural, $send_email)) {
@@ -679,10 +686,10 @@ function _themuralyajax_validate($form, &$form_state) {
         else {
           watchdog('Mural Share', $user->name . ' share mural to ' . $mail_to_share . ', send mail fail');
         }
-        form_set_error('field_mail_to_share', t('Invalid email address in our system.'));
+//         form_set_error('field_mail_to_share', t('Invalid account in our system.'));
       }
       else {
-        form_set_error('field_mail_to_share', t('Invalid email address in our system.'));
+        form_set_error('field_mail_to_share', t('Invalid account in our system.'));
       }
     }
 
