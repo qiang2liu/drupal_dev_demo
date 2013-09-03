@@ -336,7 +336,7 @@ form#murals-node-form.node-form div.form-item.form-item-field-share-und label
 }
 
 .modal-forms-modal-content #modal-content .messages {
-  display: none;
+  /*display: none;*/
 }
 
 #edit-field-mail-to-share {
