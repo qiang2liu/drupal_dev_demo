@@ -148,7 +148,7 @@ function fteuser_user_register_submit($form, &$form_state) {
   $mailkey = 'register_no_approval_required';
   _user_mail_notify($mailkey, $account);
   drupal_set_message($message);
-  $form_state['redirect'] = '';
+  $form_state['redirect'] = 'home';
 }
 
 function fteuser_menu_alter(&$items) {
