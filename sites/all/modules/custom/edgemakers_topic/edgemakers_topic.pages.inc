@@ -103,7 +103,7 @@ function edgemakers_get_map_data() {
     $marker_array = array();
     if (is_array($nodes)) {
       foreach ($nodes as $node) {
-        dd($node);
+        
         $city_field = field_get_items('node', $node, 'field_city');
         if (is_array($city_field) && isset($city_field[0]['lid'])) {
           $marker_array[$city_field[0]['lid']]['latitude'] = $city_field[0]['latitude'];
@@ -119,19 +119,19 @@ function edgemakers_get_map_data() {
           }
         }
       }
-      
+
       /*
         foreach ($marker_array AS $the_key => $marker) {
 
         $marker_array[$the_key]['content_output'] = pager_infowindow($marker['content']);
         }
        */
-       foreach ($marker_array AS $the_key => $marker) {
+      foreach ($marker_array AS $the_key => $marker) {
 
-        $marker_array[$the_key]['content'] = '<ul class="infowindowlist">'. $marker['content']. '</ul>';
-        }
+        $marker_array[$the_key]['content'] = '<div class= "cityname"> ' .$marker['cityname']. ' </div><ul class="infowindowlist">' . $marker['content'] . '</ul>';
+      }
       $i = 1;
-    
+
       foreach ($marker_array AS $city => $maker) {
 
         $icon = 'http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/images/m' . $i . '.png';
@@ -243,7 +243,7 @@ function gmap3_tools_add_map($options) {
       $lib_url .= '&key=' . $api_key;
     }
     drupal_add_js($lib_url, 'external', array('scope' => 'footer'));
-
+    drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/themuraly.js', array('scope' => 'footer'));
     drupal_add_js(drupal_get_path('module', 'edgemakers_topic') . '/js/marker_clusterer_demo.js', array('scope' => 'footer'));
     $path = libraries_get_path('jpagnate');
     if (file_exists($path . '/jquery.paginate.js'))
@@ -377,10 +377,10 @@ function make_content_output($node) {
   $ret = '';
   $title = $node->title;
 
-  $x = field_get_items('node',$node,'body');
-  dd($x,'kkkk');
+  $x = field_get_items('node', $node, 'body');
+  
 
-  $desc = render(field_view_value('node', $node, 'body',$x[0]));
+  $desc = render(field_view_value('node', $node, 'body', $x[0]));
 
   $result = field_view_field('node', $node, 'field_tags', array('default'));
 
@@ -396,20 +396,24 @@ function make_content_output($node) {
     $i++;
   }
   /*
-  $uid = $node->uid;
-  $creater = user_load($uid);
-  $fname = $creater->field_firstname['und']['0']['safe_value'];
-  $lname = $creater->field_lastname['und']['0']['safe_value'];
+    $uid = $node->uid;
+    $creater = user_load($uid);
+    $fname = $creater->field_firstname['und']['0']['safe_value'];
+    $lname = $creater->field_lastname['und']['0']['safe_value'];
    * 
    */
   $name = $node->name;
-  $ret .= '<li><p class="title">' .$title . '</p>' . '<p class="desc">' 
+  $source = 'mural/' . $node->nid;
+  $ret .= '<li>';
+  //$ret .= '<p class="title"><a href="javascript:void(0);" onclick="showMuralDialog(\'' . $source . '\');>"' . $title . '</a></p>';
+  $ret .= '<p class="title"><a href="javascript:void(0);" onclick= "showMuralDialog(\'mural/236\')">' . $title . '</a></p>';
+  
+  $ret .= '<p class="desc">'
           . $desc . '</p><p class="tags">' . $tags . '</p><p class="creator">'
           . $name . '</p><li>';
-  
-  
-  
-  
-  return $ret;        
-  
+
+
+
+
+  return $ret;
 }
