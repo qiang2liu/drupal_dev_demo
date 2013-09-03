@@ -1167,7 +1167,7 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
       dpm($query_condition_field);
       if ($con_key == 'field') {
         foreach ($con_arry AS $con) {
-          dpm($con);
+//           dpm($con);
           $query->fieldCondition($con['field'], $con['column'], $con['value'], $con['operator']);
 //           echo $query_condition_field . '|' . $con['field'] . '|' . $con['column'] . '|' . $con['value'] . '|' . $con['operator'];
     //       $query->propertyCondition($condition['column'], $condition['value'], $condition['operator']);
@@ -1175,7 +1175,7 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
       }
       else {
         foreach ($con_arry AS $con) {
-          dpm($con);
+//           dpm($con);
           $query->{$query_condition_field}($con['column'], $con['value'], $con['operator']);
     //       $query->propertyCondition($condition['column'], $condition['value'], $condition['operator']);
         }
