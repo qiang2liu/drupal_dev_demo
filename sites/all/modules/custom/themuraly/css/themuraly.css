@@ -288,6 +288,12 @@ form#murals-node-form.node-form div.form-item label
   color: white;
 }
 
+#modal-content #murals-node-form .form-item input[type="text"].error
+{
+  border: 2px solid red;
+  color: white;
+}
+
 #modal-content #murals-node-form .form-textarea-wrapper textarea {
   width: 100%;
   padding: 10px;
