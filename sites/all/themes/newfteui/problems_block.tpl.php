@@ -5,7 +5,7 @@
   	<h2>Wicked Problem</h2>
   	
 	    <ul>
-			  <?php foreach($items as $tid=>$term):?>
+			  <?php foreach($items['list'] as $tid=>$term):?>
 	     	<li>
 	     		
 	        <a href="<?php echo url('node/'.$term['topicid']); ?>" target="_blank"><?php echo $term['name'];?></a>
@@ -18,3 +18,8 @@
    	<h2>Another Title</h2>
    	<p>another content another content another content another content another content another content another content </p>
   </div>
+  <div class="gmap content-location">
+     <?php print $items['map'];?>
+  </div>
+
+
