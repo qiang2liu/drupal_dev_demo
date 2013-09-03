@@ -786,7 +786,7 @@ EOT;
 //     $text = t($mail_body['value'], array(), array('langcode' => $langcode));
 //     $output = token_replace($input, array('node' => $node), array('language' => $language));
     $m_subject = token_replace($subject, array('node' => $node), array('language' => $language));
-    $m_body = token_replace($mail_body['value'], array('node' => $node), array('language' => $language));
+    $m_body = token_replace($default_body, array('node' => $node), array('language' => $language));
 //     $mbody = token_replace($text, array('node' => $node), array('language' => $language, 'sanitize' => FALSE, 'clear' => TRUE));
 
 //     watchdog('Mural share', 'Body replace token is: ' . $mbody);
