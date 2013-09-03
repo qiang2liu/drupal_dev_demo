@@ -183,7 +183,7 @@
           'attributes' => array(
             'class' => array(
               'ctools-use-modal',
-              'ctools-modal-modal-popup-small',
+              'ctools-modal-modal-popup-profilesetting',
             ),
           ),
         )
