@@ -67,7 +67,7 @@ function show_landingpage() {
   if(isset($messages['status'])) {
     $messages = $messages['status'];
     foreach($messages as $message) {
-      if($message == t('A validation e-mail has been sent to your e-mail address. In order to gain full access to the site, you will need to follow the instructions in that message.') || $message == '<span class="firstlogin">'.t('You are now an EdgeMaker!').'</span>') {
+      if($message == t('A validation e-mail has been sent to your e-mail address. In order to gain full access to the site, you will need to follow the instructions in that message.') || $message == '<span class="firstlogin">'.t('You are now an EdgeMaker!').'</span>' || $message == t('Further instructions have been sent to your e-mail address.')) {
         drupal_set_message($message);
       }
     }
