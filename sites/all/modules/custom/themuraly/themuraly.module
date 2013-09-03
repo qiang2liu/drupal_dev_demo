@@ -2,6 +2,17 @@
 
 function themuraly_menu() {
 
+  // Admin config.
+  $items['admin/config/system/ftesettings/mural-mail'] = array(
+    'title' => t('Confirmation email configuration'),
+    'description' => t('Confirmation email configuration'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('themuraly_mail_form'),
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'themuraly_admin.inc.php',
+  );
+
   $items['mural/create'] = array(
     'page callback' => 'themuraly_mural_page',
     'access callback' => 'user_is_logged_in',
@@ -28,6 +39,12 @@ function themuraly_menu() {
   $items['mural/%'] = array(
     'page callback' => 'muralshow',
     'page arguments' => array(1),
+    'access callback' => 'user_is_logged_in',
+    'type' => MENU_CALLBACK,
+    'file' => 'mural_op.inc',
+  );
+  $items['mural/emailsearch/autocomplete'] = array(
+    'page callback' => '_mural_email_search_autocomplete',
     'access callback' => 'user_is_logged_in',
     'type' => MENU_CALLBACK,
     'file' => 'mural_op.inc',
@@ -335,15 +352,19 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 
       // Dropdown select box style.
       $form['field_challenges_category'][LANGUAGE_NONE]['#options']['_none'] = t('Category');
-      $form['field_share_to_gallery'][LANGUAGE_NONE]['#attributes'] = array(
-        'size' => 3,
-      );
+
       $form['field_share_to_gallery'][LANGUAGE_NONE]['#options']['_none'] = t('Share to Gallery');
+//       $form['field_share_to_gallery'][LANGUAGE_NONE]['#attributes'] = array(
+//         'size' => 2,
+//       );
+      drupal_map_assoc($form['field_share_to_gallery'][LANGUAGE_NONE]['#options']);
+      $form['field_share_to_gallery'][LANGUAGE_NONE]['#order_by'] = 'text'; // May contain values as "text" or "value".
+      $form['field_share_to_gallery'][LANGUAGE_NONE]['#sort_order'] = 'asc'; // May contain values as "asc" or "desc".
 
       $form['field_muralshared'][LANGUAGE_NONE]['#options']['_none'] = t('Privacy');
       $form['field_muralshared'][LANGUAGE_NONE]['#attributes'] = array(
-        'size' => 3,
-        'onClick' => 'showInviteEmailBox()',
+//         'size' => 2,
+        'onChange' => 'showInviteEmailBox()',
       );
 
 //       $form['field_muralshared'][LANGUAGE_NONE] = array(
@@ -360,20 +381,14 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 
       $form['field_mail_to_share'][LANGUAGE_NONE]['#prefix'] = '<div id="invite_email_box" class="hidden">';
       $form['field_mail_to_share'][LANGUAGE_NONE]['#suffix'] = '</div>';
+      $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#autocomplete_path'] = 'mural/emailsearch/autocomplete';
+      $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#attributes'] = array('autocomplete' => 'on');
 
       if ($the_nid) {  //edit form
         unset($form['actions']['delete']);
-//         $form['mural_member_search'] = array(
-//           '#type' => 'textfield',
-//           '#title' => t('user'),
-//           '#maxlength' => 255,
-//           '#required' => FALSE,
-//           '#autocomplete_path' => 'mural/usersearch/autocomplete',
-//         	'#attributes' => array('autocomplete' => 'on'),
-//           /*'#attributes' => array(
-//           	'class' => array('position-relative'),
-//           ),*/
-//         );
+
+//         $form['field_mail_to_share']['#autocomplete_path'] = 'mural/emailsearch/autocomplete';
+//         $form['field_mail_to_share']['#attributes'] = array('autocomplete' => 'on');
 
         $form['field_city']['und']['0']['#title'] = '';
 
@@ -399,11 +414,21 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 //           '#prefix' => '<div class="mural_member_area">',
 //         );
 
+//         $form['field_mail_to_share'] = array(
+//           '#type' => 'textfield',
+//           '#title' => t('user'),
+//           '#maxlength' => 255,
+//           '#required' => FALSE,
+//           '#autocomplete_path' => 'mural/emailsearch/autocomplete',
+//         	'#attributes' => array('autocomplete' => 'on'),
+//         );
+
         array_unshift($form['#validate'], '_themuralyajax_validate');
         array_unshift($form['#submit'], '_themuralyajax_submit');
 
         $form['#attached']['js'] = array(
           drupal_get_path('module', 'themuraly') . '/js/removeTextareaResizea.js',
+//           drupal_get_path('module', 'themuraly') . '/js/populatePopup.js',
         );
 
 //         $form['mural_member_area'] = array(
@@ -623,8 +648,98 @@ function _themuralyajax_validate($form, &$form_state) {
       }
     }
 
-    $form_state['values']['field_mail_to_share'][LANGUAGE_NONE][0]['value'] = 'Clear after send mail.';
+
+    $mail_to_share = $form_state['values']['field_mail_to_share'][LANGUAGE_NONE][0]['value'];
+
+    if ($mail_to_share) {
+      if (_valid_local_email($mail_to_share)) {
+        if (_send_share_mail($the_mural, $mail_to_share)) {
+          watchdog('Mural Share', $user->name . ' share mural to ' . $mail_to_share);
+          $form_state['values']['field_mail_to_share'][LANGUAGE_NONE][0]['value'] = '';
+        }
+        else {
+          watchdog('Mural Share', $user->name . ' share mural to ' . $mail_to_share . ', send mail fail');
+        }
+      }
+      else {
+        form_set_error('field_mail_to_share', t('Invalid email address in our system.'));
+      }
+    }
+
   }
+}
+
+function _valid_local_email($mail) {
+  $ret = array();
+  $query = db_select('users', 'u');
+  $query->leftJoin('field_data_field_muralusername', 'f', '(u.uid = f.entity_id and f.bundle = :p)', array(':p' => 'user'));
+  $query->fields('u', array('uid', 'name'))
+          ->isNotNull(field_muralusername_value)
+          ->condition('u.mail', $mail, '=');
+  $result = $query->execute();
+  foreach ($result as $row) {
+    $ret[] = check_plain($row->uid);
+  }
+  dpm($ret);
+  if (count($ret) >= 1) {
+    return true;
+  }
+
+  return false;
+}
+
+function _send_share_mail($node = array(), $mail_to_share = '') {
+
+
+$default_subject = <<<EOT
+[current-user:field_firstname] [current-user:field-lastname] shared a mural with you
+EOT;
+
+$default_body = <<<EOT
+Hi,<br/>
+<br/>
+[current-user:field_firstname] [current-user:field-lastname] shared a mural with you:<br/>
+<br/>
+If you agree with the invitation, please click <a href="[site:url]home#mural/share/[node:author]/[node:vid]">[site:url]home#mural/[node:vid]</a> to open the mural.<br/>
+<br/>
+<br/>
+--  [site:name] team
+EOT;
+
+  global $language;
+  $status = false;
+
+  if ($mail_to_share) {
+    $subject = variable_get('share_mural_mail_subject', $default_subject);
+    $mail_body = variable_get('share_mural_mail_body', $default_body);
+
+    $subject = $default_subject;
+    $mail_body['value'] = $default_body;
+
+//     _user_mail_text('register_admin_created_body', NULL, array(), FALSE)
+//     $text = t($mail_body['value'], array(), array('langcode' => $langcode));
+//     $output = token_replace($input, array('node' => $node), array('language' => $language));
+    $m_subject = token_replace($subject, array('node' => $node), array('language' => $language));
+    $m_body = token_replace($mail_body['value'], array('node' => $node), array('language' => $language));
+//     $mbody = token_replace($text, array('node' => $node), array('language' => $language, 'sanitize' => FALSE, 'clear' => TRUE));
+
+//     watchdog('Mural share', 'Body replace token is: ' . $mbody);
+
+    $m->from = variable_get('themuraly_mail_sender', 'no-reply@trueresults.com');
+    $m->return = variable_get('themuraly_mail_return', 'no-reply@trueresults.com');
+    $m->to = $mail_to_share;
+    $m->subject = $m_subject;
+    $m->body = $m_body;
+//     $m->attachment = $job->attachment;
+
+    // Drupal_set_message('Mail cattachment:<pre>' . print_r($m->attachment, TRUE) . '</pre>');
+    // Drupal_mail in drupao core.
+    $status = themuraly_drupalsendmail($m);
+
+    //$status = mail($mail_to_share, 'test mail from local', 'Mail body, and it\'s a test mail.');
+  }
+
+  return $status;
 }
 
 function _themuralyajax_submit($form, &$form_state) {
@@ -1164,7 +1279,7 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
 
     foreach ($conditions AS $con_key => $con_arry) {
       $query_condition_field = $con_key . 'Condition';
-      dpm($query_condition_field);
+//       dpm($query_condition_field);
       if ($con_key == 'field') {
         foreach ($con_arry AS $con) {
 //           dpm($con);
@@ -1525,5 +1640,139 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
   }
 
   return false;
+
+}
+
+/**
+ * Implement by hook_token_info();
+ */
+function themuraly_token_info() {
+  $type = array(
+    'name' => t('Nodes'),
+    'description' => t('Tokens related to individual content items, or "nodes".'),
+    'needs-data' => 'node',
+  );
+
+  // Core tokens for nodes.
+  $node['nid'] = array(
+    'name' => t("Content ID"),
+    'description' => t('The unique ID of the content item, or "node".'),
+  );
+  $node['title'] = array(
+    'name' => t("Title"),
+    'description' => t("The title of the node."),
+  );
+  $node['body'] = array(
+    'name' => t("Body"),
+    'description' => t("The main body text of the node."),
+  );
+  $node['summary'] = array(
+    'name' => t("Summary"),
+    'description' => t("The summary of the node's main body text."),
+  );
+
+  // Custom tokens for nodes.
+  $node['field_muralid'] = array(
+    'name' => t("Mural ID"),
+    'description' => t('The unique ID of the mural.'),
+  );
+
+  return array(
+    'types' => array('node' => $type),
+    'tokens' => array('node' => $node),
+  );
+
+}
+
+/**
+ * Implement by hook_tokens();
+ */
+function themuraly_tokens($type, $tokens, array $data = array(), array $options = array()) {
+  $url_options = array('absolute' => TRUE);
+  if (isset($options['language'])) {
+    $url_options['language'] = $options['language'];
+    $language_code = $options['language']->language;
+  }
+  else {
+    $language_code = NULL;
+  }
+  $sanitize = !empty($options['sanitize']);
+
+  $replacements = array();
+
+  if ($type == 'node' && !empty($data['node'])) {
+    $node = $data['node'];
+
+    foreach ($tokens as $name => $original) {
+        switch ($name) {
+          // Simple key values on the node.
+          case 'nid':
+            $replacements[$original] = $node->nid;
+            break;
+          case 'title':
+            $replacements[$original] = $sanitize ? check_plain($node->title) : $node->title;
+            break;
+          case 'body':
+          case 'summary':
+            if ($items = field_get_items('node', $node, 'body', $language_code)) {
+              $column = ($name == 'body') ? 'value' : 'summary';
+              $instance = field_info_instance('node', 'body', $node->type);
+              $field_langcode = field_language('node', $node, 'body', $language_code);
+              $replacements[$original] = $sanitize ? _text_sanitize($instance, $field_langcode, $items[0], $column) : $items[0][$column];
+            }
+            break;
+          case 'field_muralid':
+            $replacements[$original] = $node->field_muralid[LANGUAGE_NONE]['0']['value'];
+            break;
+        }
+      }
+  }
+
+
+  return $replacements;
+
+}
+
+/**
+ * Send mail by drupal_mail core function
+ *
+ * @param array $m
+ * @return boolean
+ */
+function themuraly_drupalsendmail($m) {
+
+  global $base_url;
+
+  $header = array();
+
+//   $header['From'] = $m->from;
+  $header['Sender'] = $m->from;
+//   $header['Return-Path'] = ($m->return)?$m->return:$m->from;
+
+  $header['Sender'] = '1.0';
+  $header['Content-Transfer-Encoding'] = '8Bit';
+  $header['X-Mailer'] = 'Drupal Webform (PHP/'. phpversion() .')';
+  $header['Content-Type'] = 'text/html; charset=UTF-8; format=flowed; delsp=yes';
+
+  //$my_module = 'foo';
+  $my_module = basename(__FILE__, '.module');
+  //$my_mail_token = 'bar';
+  $my_mail_token = 'send share mail';
+
+  $message = array(
+    'id' => $my_module . '_' . $my_mail_token,
+    'to' => $m->to,
+    'subject' => $m->subject,
+    'body' => $m->body,
+    'headers' => $header,
+  );
+
+  $system = drupal_mail_system($my_module, $my_mail_token);
+
+  $system_mail_status = @$system->mail($message);
+  watchdog("mail system", $my_module . '|' . print_r($system_mail_status, TRUE));
+
+  return $system_mail_status;
+
 
 }
