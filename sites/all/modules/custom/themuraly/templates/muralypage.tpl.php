@@ -1,5 +1,24 @@
 <?php
 global $user;
+global $base_url;
+$mural_url = 'http://staging.mural.ly/embed/edgemakers/edgemakers/';
+// echo "Domain: $base_url";
+$path = parse_url($base_url);
+// print('<pre>' . print_r($path, TRUE) . '</pre>');
+switch (strtolower($path['host'])) {
+  case 'edgemakers.com':
+    $mural_url = 'http://staging.mural.ly/embed/edgemakers/edgemakers/';
+    break;
+  case 'dev.edgemakers.com':
+    $mural_url = 'http://staging.mural.ly/embed/dev-edgemakers/dev-edgemakers/';
+    break;
+  case 'staging.edgemakers.com':
+    $mural_url = 'http://staging.mural.ly/embed/staging-edgemakers/staging-edgemakers/';
+    break;
+  case 'test.edgemakers.com':
+    $mural_url = 'http://staging.mural.ly/embed/test-edgemakers/test-edgemakers/';
+    break;
+}
 $the_m_id = $data['m_id'];
 ?>
 
@@ -77,7 +96,7 @@ body {
 $hash = md5(microtime());
 ?>
 <div id="mural-iframe-content">
-  <iframe id="mural-ly-iframe" frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/<?php print $the_m_id . '#' . $hash;?>' width=100% height=600'></iframe>
+  <iframe id="mural-ly-iframe" frameborder='0' src='<?php print $mural_url . $the_m_id . '#' . $hash;?>' width=100% height=600'></iframe>
 </div>
 <script>
   //jQuery("#mural-ly-iframe").attr("src", source);
