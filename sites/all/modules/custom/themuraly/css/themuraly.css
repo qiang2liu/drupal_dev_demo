@@ -256,7 +256,7 @@ form#murals-node-form.node-form div.form-item label
 
 #modal-content.modal-content.popups-body {
   padding: 0;
-  background-color: transparent;
+  background-color: #fff;
 }
 /* #modal-content .form-item.form-item-body-und-0-value {
   padding-right: 1px;
@@ -368,9 +368,15 @@ form#murals-node-form.node-form div.form-item.form-item-field-share-und label
 }
 
 /* .modal-forms-modal-content #modal-content .messages, */
+.modal-forms-modal-content #modal-content .messages-label,
 form#murals-node-form.node-form div.form-item label .form-required
 {
   display: none;
+}
+
+.modal-forms-modal-content #modal-content .messages {
+  /*display: none;*/
+ margin:30px 10px 0;
 }
 
 #edit-field-mail-to-share {

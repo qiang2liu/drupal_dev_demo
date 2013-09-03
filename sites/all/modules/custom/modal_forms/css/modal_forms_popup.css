@@ -1,5 +1,11 @@
 /* Reset some styles from system.css and modal.css */
-
+#edit-preset-background:after{
+	content:'';
+	display:block;
+	clear:both;
+	height:0;
+	visibility:hidden;
+}
 div.modal-forms-modal-content .resizable-textarea {
   margin-left: 0;
   margin-right: 0;
@@ -64,20 +70,81 @@ div.modal-forms-modal-content .popups-close {
   z-index:9;
 }
 
-div.modal-forms-modal-content .popups-close:hover {
+ div.modal-forms-modal-content .popups-close:hover {
   background-position: -25px -25px;
 }
 /********************************************** added by guotao *****************************************************/
 .modal-scroll{
-	psoition:relative;
+	position:relative;
+	top:-3px;
 }
 div.ctools-modal-content .modal-content{
-	background:#fff;
+	
 }
-.modal-content form{
+/*.modal-content form{
 	padding-top:10px;
+}*/
+
+#modalContent div.modal-forms-modal-content .popups-close{
+	right:32px;
+	top:43px;
+}
+#modalContent div.modal-forms-modal-content .container-profileSetting .popups-close{
+	top:30px;
+}
+#edgemakers-user-profile-settings-form .password-strength,
+#edgemakers-user-profile-settings-form div.password-confirm{
+	display:none;
+}
+#modal-content #edgemakers-user-profile-settings-form .form-type-password-confirm{
+	max-height:92px;
+	overflow:hidden;
+}
+
+#modal-content #edgemakers-user-profile-settings-form .form-item .form-item{
+	padding:3px 0;
+}
+
+#modal-content #edgemakers-user-profile-settings-form .form-item input[type="text"], 
+#modal-content #edgemakers-user-profile-settings-form .form-item input[type="password"]{
+	width:435px;
+}
+
+div.ctools-modal-content .modal-content form{
+	padding-top:25px;
+	background:#fff;
 }
 .modal-content form .form-type-textfield label,
 .modal-content form .form-type-password label{
 	display:none;
+}
+
+div.modal-forms-modal-content .setting-title{
+	background: #fff;
+    display: inline-block;
+    text-transform:capitalize;
+    padding: 10px 14px;
+    font-weight:normal;
+    font-style:italic;
+    color:#fff;
+    background:#60cd9b;
+}
+#modal-content #edit-preset-background .form-item-preset-background{
+	float:left;
+	margin:0 12px;
+	width:46px;
+}
+#modal-content #edit-preset-background .form-item-preset-background span.title{
+	display:block;
+	text-overflow:ellipsis; 
+	overflow:hidden; 
+	white-space:nowrap;
+	text-align:center;
+}
+#edit-preset-background .form-item-preset-background img{
+	display:block;
+	clear:both;
+	width:46px;
+	height:46px;
+	cursor:pointer;
 }

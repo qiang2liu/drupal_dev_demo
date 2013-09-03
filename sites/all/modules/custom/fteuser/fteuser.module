@@ -164,7 +164,7 @@ function fteuser_userreset($p, $uid, $timestamp, $hashed_pass) {
   if ($user->uid) {
     // The existing user is already logged in.
     if ($user->uid == $uid) {
-      drupal_set_message('<span class="firstlogin">'.t('You are now an EdgeMaker!').'</span>');
+      drupal_set_message(t('You are logged in as %user. <a href="!user_edit">Change your password.</a>', array('%user' => $user->name, '!user_edit' => url("user/$user->uid/edit"))));
     }
     // A different user is already logged in on the computer.
     else {
@@ -192,7 +192,7 @@ function fteuser_userreset($p, $uid, $timestamp, $hashed_pass) {
           $user = $account;
           user_login_finalize();
           $_SESSION['userreset'] = 1;
-
+          drupal_set_message('<span class="firstlogin">'.t('You are now an EdgeMaker!').'</span>');
           if (empty($account->field_muralusername)) {
             // call the mural api : create user
             $mural_api = new Muralapi;

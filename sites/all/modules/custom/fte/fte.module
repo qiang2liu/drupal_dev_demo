@@ -63,11 +63,11 @@ function show_landingpage() {
     require_once drupal_get_path('module', 'bg_image').'/bg_image.module';
     bg_image_add_background_image($image_path);
   }
-  $messages = drupal_get_messages('status');
+  $messages = drupal_get_messages();
   if(isset($messages['status'])) {
     $messages = $messages['status'];
     foreach($messages as $message) {
-      if($message == t('A validation e-mail has been sent to your e-mail address. In order to gain full access to the site, you will need to follow the instructions in that message.') || $message == '<span class="firstlogin">'.t('You are now an EdgeMaker!').'</span>') {
+      if($message == t('A validation e-mail has been sent to your e-mail address. In order to gain full access to the site, you will need to follow the instructions in that message.') || $message == '<span class="firstlogin">'.t('You are now an EdgeMaker!').'</span>' || $message == t('Further instructions have been sent to your e-mail address.')) {
         drupal_set_message($message);
       }
     }
