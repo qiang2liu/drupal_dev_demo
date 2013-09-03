@@ -119,7 +119,7 @@ div.ctools-modal-content .modal-content form{
 	display:none;
 }
 
-div.modal-forms-modal-content #modal-title{
+div.modal-forms-modal-content .setting-title{
 	background: #fff;
     display: inline-block;
     text-transform:capitalize;

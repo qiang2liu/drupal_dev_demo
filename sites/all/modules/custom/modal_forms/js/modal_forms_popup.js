@@ -84,7 +84,7 @@ Drupal.theme.prototype.ModalFormsProfileSetting = function () {
   html += '  <div class="ctools-modal-content modal-forms-modal-content">';
   html += '    <div class="popups-container">';
   html += '      <div class="modal-header popups-title">';
-  html += '        <span id="modal-title" class="modal-title"></span>';
+  html += '        <span id="modal-title" class="modal-title setting-title"></span>';
   html += '        <span class="popups-close close">' + Drupal.CTools.Modal.currentSettings.closeText + '</span>';
   html += '        <div class="clear-block"></div>';
   html += '      </div>';
