@@ -80,7 +80,7 @@ Drupal.theme.prototype.ModalFormsPassword = function () {
 Drupal.theme.prototype.ModalFormsProfileSetting = function () {
   var html = '';
 
-  html += '<div id="ctools-modal" class="popups-box">';
+  html += '<div id="ctools-modal" class="popups-box ctools-profile-settings">';
   html += '  <div class="ctools-modal-content modal-forms-modal-content">';
   html += '    <div class="popups-container">';
   html += '      <div class="modal-header popups-title">';
