@@ -128,7 +128,7 @@ function edgemakers_get_map_data() {
        */
       foreach ($marker_array AS $the_key => $marker) {
 
-        $marker_array[$the_key]['content'] = '<ul class="infowindowlist">' . $marker['content'] . '</ul>';
+        $marker_array[$the_key]['content'] = '<div class= "cityname"> ' .$marker['cityname']. ' </div><ul class="infowindowlist">' . $marker['content'] . '</ul>';
       }
       $i = 1;
 
