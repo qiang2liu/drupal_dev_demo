@@ -63,7 +63,7 @@ function show_landingpage() {
     require_once drupal_get_path('module', 'bg_image').'/bg_image.module';
     bg_image_add_background_image($image_path);
   }
-  $messages = drupal_get_messages('status');
+  $messages = drupal_get_messages();
   if(isset($messages['status'])) {
     $messages = $messages['status'];
     foreach($messages as $message) {
