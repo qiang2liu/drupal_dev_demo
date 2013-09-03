@@ -431,6 +431,20 @@ function _mural_usersearch_autocomplete($string = '') {
   drupal_json_output($ret);
 }
 
+function _mural_email_search_autocomplete($string = '') {
+  $ret = array();
+  $query = db_select('users', 'u');
+  $query->leftJoin('field_data_field_muralusername', 'f', '(u.uid = f.entity_id and f.bundle = :p)', array(':p' => 'user'));
+  $query->fields('u', array('mail', 'mail'))
+          ->isNotNull(field_muralusername_value)
+          ->condition('u.mail', '%' . db_like($string) . '%', 'LIKE');
+  $result = $query->execute();
+  foreach ($result as $row) {
+    $ret[$row->mail] = check_plain($row->mail);
+  }
+  drupal_json_output($ret);
+}
+
 /**
  * Move muralcreate page here.
  *

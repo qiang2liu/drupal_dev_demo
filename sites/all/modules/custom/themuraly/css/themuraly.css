@@ -212,7 +212,7 @@ input[type='button']#gallery-search {
   border-radius: 10px;
   height: 405px;
   position: relative;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .mural-setting-form-tran-back {
@@ -234,7 +234,7 @@ form#murals-node-form.node-form,
 }
 
 form#murals-node-form.node-form {
-  top: 32px;
+  top: 28px;
   width: 92%;
   margin: 0px auto;
   padding: 20px;
@@ -270,6 +270,14 @@ form#murals-node-form.node-form div.form-item label
   background-color: transparent;
 }
 
+#modal-content form#murals-node-form.node-form div.form-item.form-item-field-city-und-0-country,
+#modal-content form#murals-node-form.node-form div.form-item.form-item-field-city-und-0-city,
+#modal-content form#murals-node-form.node-form div.form-item.form-item-field-city-und-0-delete-location
+{
+   padding: 0;
+   margin: 0;
+}
+
 #modal-content #murals-node-form .form-textarea-wrapper textarea,
 #modal-content #murals-node-form .form-item input[type="text"],
 #modal-content #murals-node-form .form-item input[type="password"]{
@@ -285,12 +293,36 @@ form#murals-node-form.node-form div.form-item label
   padding: 10px;
 }
 
+/* form#murals-node-form.node-form div.form-item.form-item-field-muralshared-und label,
+form#murals-node-form.node-form div.form-item.form-item-field-share-to-gallery-und label, */
 form#murals-node-form.node-form div.form-item.form-item-field-city-und-0-delete-location label.option,
 form#murals-node-form.node-form div.form-item.form-item-field-city-und-0-delete-location div.description
 {
   display: inline;
   color: white;
 }
+
+/* form#murals-node-form.node-form div.form-item.form-item-field-muralshared-und label {  
+  margin: 1px;
+  background-color: white;
+  width: 54px;
+  display: block;
+  color: gray;
+  height: 20px;
+  line-height: 20px;
+  padding: 1px 5px;
+}
+
+form#murals-node-form.node-form div.form-item.form-item-field-share-to-gallery-und label {  
+  display: block;
+  background-color: white;
+  width: 108px;
+  margin-left: 1px;
+  height: 20px;
+  color: gray;
+  padding: 1px 5px;
+  line-height: 20px;
+} */
 
 #edit-field-city-und-0 .form-item-field-city-und-0-country {
   padding: 5px 0px;
@@ -334,9 +366,14 @@ form#murals-node-form.node-form div.form-item.form-item-field-share-und label
   display: block;
   clear: left;
 }
-.modal-forms-modal-content #modal-content .messages-label{
-	display:none;
+
+/* .modal-forms-modal-content #modal-content .messages, */
+.modal-forms-modal-content #modal-content .messages-label,
+form#murals-node-form.node-form div.form-item label .form-required
+{
+  display: none;
 }
+
 .modal-forms-modal-content #modal-content .messages {
   /*display: none;*/
  margin:30px 10px 0;
@@ -345,6 +382,7 @@ form#murals-node-form.node-form div.form-item.form-item-field-share-und label
 #edit-field-mail-to-share {
   width: 60%;
   float: left;
+  clear: left;
 }
 
 #modal-content #edit-field-mail-to-share .form-item input[type="text"] {
@@ -355,4 +393,28 @@ form#murals-node-form.node-form div.form-item.form-item-field-share-und label
 div.modal-forms-modal-content .popups-close {
   top: 40px;
   right: 50px;
+}
+
+#edit-field-share-to-gallery-und {
+  width: 120px;
+  margin-top: 0px;
+  height: 35px;
+}
+
+#edit-field-muralshared-und {
+  margin-top: -1px;
+  float: left;
+  height: 35px;
+  width: 66px;
+}
+
+
+html.js .field-name-field-mail-to-share input.form-autocomplete
+{
+  background-position: 95% 13px;
+}
+
+#autocomplete {
+  z-index: 1002;
+  top: 150px;
 }

@@ -23,9 +23,27 @@ jQuery(document).ready(function(){
   
   jQuery("#gallery-search").bind("click", function(){search_gallery();});
   
+  openDefaultMural();
+  
 //  Drupal.CTools.AJAX.refreshElements();
   
 });
+
+function openDefaultMural() {
+  var url = document.URL;
+  var muralUrl = document.URL.split('#')[1];
+  //if (param.length !== 0) {
+  if (typeof(muralUrl) !== "undefined") {
+    //alert("Mural url: " + muralUrl);
+    jQuery("#mural-back-to-dashboard").show();
+    showMuralDialog(muralUrl);
+    jQuery("#mural-title").focus();
+//    jQuery('body').css({
+//      'height': 'auto',
+//      'overflow-y': 'auto'
+//    });
+  }
+}
 
 function closeFromIframe()
 {
@@ -130,7 +148,6 @@ function mural_ajax_load_list() {
         return false;
       });
     });
-    
     
   });
 }
@@ -393,7 +410,7 @@ function search_gallery() {
 
 function showInviteEmailBox() {
 
-  var v = jQuery('#edit-field-muralshared-und :selected').val();
+  var v = jQuery('.field-name-field-muralshared select :selected').val();
   //var v = jQuery('#edit-field-muralshared-und:selected').text();
   //alert("Select value: " + v);
   if (v == "1") {
