@@ -296,51 +296,121 @@ function themuraly_theme($existing, $type) {
   );
 }
 
+
+/**
+ * @link https://drupal.org/node/381458#comment-6699162
+ * @param array $element
+ */
+function themuraly_location_element_alter(&$element) {
+//   unset($element['delete_location']);
+  $element['city']['#attributes']['placeholder'] = t('City');
+}
+
+
+
+/**
+ * Implments hook_form_alter();
+ */
 function themuraly_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == 'murals_node_form') {
 
-    form_load_include($form_state, 'inc', 'node', 'node.pages');
-    $the_nid = $form['nid']['#value'];
-//     unset($form['field_muralid']);
-//     unset($form['field_muraluser']);
+    if (arg(0) == 'modal') {
 
-    if ($the_nid) {  //edit form
-      unset($form['actions']['delete']);
-      $form['mural_member_search'] = array(
-        '#type' => 'textfield',
-        '#title' => t('user'),
-        '#maxlength' => 255,
-        '#required' => FALSE,
-        '#autocomplete_path' => 'mural/usersearch/autocomplete',
-      	'#attributes' => array('autocomplete' => 'on'),
-        /*'#attributes' => array(
-        	'class' => array('position-relative'),
-        ),*/
+      drupal_add_css(drupal_get_path('module', 'themuraly') . '/css/themuraly.css');
+
+      $form['#prefix'] = '<div class="mural-setting-form">
+                            <div class="mural-setting-form-tran-back">&nbsp;</div>
+                            <div class="mural-setting-title"><h2>Murall Settings</h2>
+                          </div>';
+      $form['#surfix'] = '</div>';
+      form_load_include($form_state, 'inc', 'node', 'node.pages');
+      $the_nid = $form['nid']['#value'];
+      unset($form['field_muralid']);
+      unset($form['field_muraluser']);
+      unset($form['field_mural_thumburl']);
+      unset($form['field_muraltype']);
+
+      $form['body']['und']['0']['value']['#attributes']['placeholder'] = t('Description');
+      $form['body']['und']['0']['value']['#resizable'] = FALSE;
+
+      // Dropdown select box style.
+      $form['field_challenges_category'][LANGUAGE_NONE]['#options']['_none'] = t('Category');
+      $form['field_share_to_gallery'][LANGUAGE_NONE]['#attributes'] = array(
+        'size' => 3,
+      );
+      $form['field_share_to_gallery'][LANGUAGE_NONE]['#options']['_none'] = t('Share to Gallery');
+
+      $form['field_muralshared'][LANGUAGE_NONE]['#options']['_none'] = t('Privacy');
+      $form['field_muralshared'][LANGUAGE_NONE]['#attributes'] = array(
+        'size' => 3,
+        'onClick' => 'showInviteEmailBox()',
       );
 
-      $form['field_city']['und']['0']['#title'] = '';
+//       $form['field_muralshared'][LANGUAGE_NONE] = array(
+//         '#ajax' => array(
+//             // When 'event' occurs, Drupal will perform an ajax request in the
+//             // background. Usually the default value is sufficient (eg. change for
+//             // select elements), but valid values include any jQuery event,
+//             // most notably 'mousedown', 'blur', and 'submit'.
+//             'event' => 'change',
+//             'callback' => 'mymodule_ajax_callback',
+//             'wrapper' => 'invite_email_box',
+//         ),
+//       );
 
-      $form['mural_addmember_ajax_link'] = array(
-        '#type' => 'button',
-        '#value' => t('invite'),
-        // Note the /nojs portion of the href - if javascript is enabled,
-        // this part will be stripped from the path before it is called.
+      $form['field_mail_to_share'][LANGUAGE_NONE]['#prefix'] = '<div id="invite_email_box" class="hidden">';
+      $form['field_mail_to_share'][LANGUAGE_NONE]['#suffix'] = '</div>';
 
-        '#id' => 'ajax_link',
-        '#ajax' => array(
-          'wrapper' => 'mural_member_list',
-          'callback' => 'mural_addmember_ajax_callback',
-          'method' => 'html',
-        ),
-        '#prefix' => '<div class="mural_member_area">',
-      );
-      array_unshift($form['#validate'], '_themuralyajax_validate');
-      array_unshift($form['#submit'], '_themuralyajax_submit');
+      if ($the_nid) {  //edit form
+        unset($form['actions']['delete']);
+//         $form['mural_member_search'] = array(
+//           '#type' => 'textfield',
+//           '#title' => t('user'),
+//           '#maxlength' => 255,
+//           '#required' => FALSE,
+//           '#autocomplete_path' => 'mural/usersearch/autocomplete',
+//         	'#attributes' => array('autocomplete' => 'on'),
+//           /*'#attributes' => array(
+//           	'class' => array('position-relative'),
+//           ),*/
+//         );
 
-      $form['mural_member_area'] = array(
-        '#markup' => '<div id="mural_member_list"> ' . _mural_member_list($the_nid) . ' </div>',
-        '#suffix' => '</div>',
-      );
+        $form['field_city']['und']['0']['#title'] = '';
+
+        $form['field_city']['city']['und']['#title'] = 'I hook city title.';
+//         $form['field_city']['und']['0']['#after_build'] = array('_add_placeholder');
+//         $form['field_city']['city']['#attributes']['placeholder'] = T('City Name');
+
+        $form['field_city'][LANGUAGE_NONE]['0']['#attributes']['placeholder'] = t('City');
+        $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = T('TAGS');
+
+//         $form['mural_addmember_ajax_link'] = array(
+//           '#type' => 'button',
+//           '#value' => t('invite'),
+//           // Note the /nojs portion of the href - if javascript is enabled,
+//           // this part will be stripped from the path before it is called.
+
+//           '#id' => 'ajax_link',
+//           '#ajax' => array(
+//             'wrapper' => 'mural_member_list',
+//             'callback' => 'mural_addmember_ajax_callback',
+//             'method' => 'html',
+//           ),
+//           '#prefix' => '<div class="mural_member_area">',
+//         );
+
+        array_unshift($form['#validate'], '_themuralyajax_validate');
+        array_unshift($form['#submit'], '_themuralyajax_submit');
+
+        $form['#attached']['js'] = array(
+          drupal_get_path('module', 'themuraly') . '/js/removeTextareaResizea.js',
+        );
+
+//         $form['mural_member_area'] = array(
+//           '#markup' => '<div id="mural_member_list"> ' . _mural_member_list($the_nid) . ' </div>',
+//           '#suffix' => '</div>',
+//         );
+      }
     }
   }
 }
@@ -552,11 +622,13 @@ function _themuralyajax_validate($form, &$form_state) {
         }
       }
     }
+
+    $form_state['values']['field_mail_to_share'][LANGUAGE_NONE][0]['value'] = 'Clear after send mail.';
   }
 }
 
 function _themuralyajax_submit($form, &$form_state) {
-  form_load_include($form_state, 'inc', 'node', 'node.pages');
+//   form_load_include($form_state, 'inc', 'node', 'node.pages');
 }
 
 function mural_addmember_ajax_callback($form, $form_state) {
