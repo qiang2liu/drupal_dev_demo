@@ -70,7 +70,9 @@ function edgemakers_topic_block_view($delta = '') {
       return $block;
       break;
     case 'problems':
-      $items = edgemakers_topic_problems_items();
+      $items['list'] = edgemakers_topic_problems_items();
+      
+      $items['map'] = edgemakers_get_map_data();
       $block['subject'] = t('Wicked Problems');
       $block['content'] = array(
         '#theme' => 'problems_block',
