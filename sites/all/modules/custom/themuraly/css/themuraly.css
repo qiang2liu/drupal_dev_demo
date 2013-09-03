@@ -324,40 +324,40 @@ form#murals-node-form.node-form div.form-item.form-item-field-share-to-gallery-u
   line-height: 20px;
 } */
 
-#edit-field-city-und-0 .form-item-field-city-und-0-country {
+.field-name-field-city .form-wrapper .form-item-field-city-und-0-country {
   padding: 5px 0px;
   margin: 0px 15px 0px 0px;
   float: left;
   width: 45%;
 }
 
-#edit-field-city-und-0 div.form-item
+.field-name-field-city .form-wrapper div.form-item
 {  
   padding: 0px;
   float: left;
   width: 48%;
 }
 
-#edit-field-city-und-0 div.form-item.form-type-textfield {
+.field-name-field-city .form-wrapper div.form-item.form-type-textfield {
   float: right;
 }
 
-#edit-field-city-und-0 div.form-item.form-type-checkbox {
+.field-name-field-city .form-wrapper div.form-item.form-type-checkbox {
   width: 100%;
 }
 
-#edit-field-city-und-0 select#edit-field-city-und-0-country
+.field-name-field-city .form-wrapper div.form-item-field-city-und-0-country select
 {
   width: 100%;
 }
 
-#modal-content #edit-field-city-und-0 .form-item input[type="text"]
+#modal-content .field-name-field-city .form-wrapper .form-item input[type="text"]
 {
   height: 18px;
 }
 
-#modal-content #murals-node-form #edit-field-muralshared,
-#modal-content #murals-node-form #edit-field-challenges-category {
+#modal-content #murals-node-form .field-name-field-muralshared,
+#modal-content #murals-node-form .field-name-field-challenges-category {
   float: left;
 }
 
@@ -379,15 +379,18 @@ form#murals-node-form.node-form div.form-item label .form-required
  margin:30px 10px 0;
 }
 
-#edit-field-mail-to-share {
+/* #edit-field-mail-to-share */ 
+div.field-name-field-mail-to-share
+{
   width: 60%;
   float: left;
   clear: left;
 }
 
-#modal-content #edit-field-mail-to-share .form-item input[type="text"] {
+#modal-content #invite_email_box .form-item-field-mail-to-share-und-0-value.form-item input[type="text"] {
   background-color: white;
   color: gray;
+  width: 95%;
 }
 
 div.modal-forms-modal-content .popups-close {
