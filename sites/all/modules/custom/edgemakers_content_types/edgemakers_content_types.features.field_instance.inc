@@ -1319,6 +1319,53 @@ function edgemakers_content_types_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-murals-field_mail_to_share'
+  $field_instances['node-murals-field_mail_to_share'] = array(
+    'bundle' => 'murals',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 10,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_mail_to_share',
+    'label' => 'Invite people by email address',
+    'required' => 0,
+    'settings' => array(
+      'mediafront' => array(
+        'custom' => '',
+        'field_type' => 0,
+        'media_type' => 'media',
+        'preview' => 0,
+        'thumbnail' => 0,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 11,
+    ),
+  );
+
   // Exported field_instance: 'node-murals-field_mural_thumburl'
   $field_instances['node-murals-field_mural_thumburl'] = array(
     'bundle' => 'murals',
@@ -1599,6 +1646,54 @@ function edgemakers_content_types_field_default_field_instances() {
       ),
       'type' => 'options_onoff',
       'weight' => 11,
+    ),
+  );
+
+  // Exported field_instance: 'node-murals-field_share_to_gallery'
+  $field_instances['node-murals-field_share_to_gallery'] = array(
+    'bundle' => 'murals',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 11,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_share_to_gallery',
+    'label' => 'Share to Gallery',
+    'required' => 1,
+    'settings' => array(
+      'mediafront' => array(
+        'custom' => '',
+        'field_type' => 0,
+        'media_type' => 'media',
+        'preview' => 0,
+        'thumbnail' => 0,
+      ),
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 6,
     ),
   );
 
@@ -2038,6 +2133,7 @@ function edgemakers_content_types_field_default_field_instances() {
   t('How can you help');
   t('Image');
   t('Images');
+  t('Invite people by email address');
   t('Media Type');
   t('Media URL');
   t('Mural Thumburl');

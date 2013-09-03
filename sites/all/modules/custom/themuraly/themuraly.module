@@ -926,6 +926,15 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
 //     return 'Test results';
   }
   else {
+    $conditions['field'][] = array(
+      'field' => 'field_share_to_gallery',
+      'column' => 'value',
+      'value' => '1',
+      'operator' => '=',
+    );
+//     $query->{$query_condition_field}($con['field'], $con['column'], $con['value'], $con['operator']);
+//     $conditions[] = array(
+//         'field_archived','value', '1', '=');
     $murals_list = themuraly_mural_list($uid, $start, $limit, $conditions, $orderby);
   }
 
@@ -1151,26 +1160,27 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
 
 
   if ($conditions) {
-    $query = new EnergyEntityFieldQuery;
+    $query = new EntityFieldQuery();
 
-//     foreach ($conditions AS $con_key => $con_arry) {
-//       $query_condition_field = $con_key . 'Condition';
-//       dpm($query_condition_field);
-//       if ($con_key == 'field') {
-//         foreach ($con_arry AS $con) {
+    foreach ($conditions AS $con_key => $con_arry) {
+      $query_condition_field = $con_key . 'Condition';
+      dpm($query_condition_field);
+      if ($con_key == 'field') {
+        foreach ($con_arry AS $con) {
 //           dpm($con);
-//           $query->{$query_condition_field}($con['field'], $con['column'], $con['value'], $con['operator']);
-//     //       $query->propertyCondition($condition['column'], $condition['value'], $condition['operator']);
-//         }
-//       }
-//       else {
-//         foreach ($con_arry AS $con) {
+          $query->fieldCondition($con['field'], $con['column'], $con['value'], $con['operator']);
+//           echo $query_condition_field . '|' . $con['field'] . '|' . $con['column'] . '|' . $con['value'] . '|' . $con['operator'];
+    //       $query->propertyCondition($condition['column'], $condition['value'], $condition['operator']);
+        }
+      }
+      else {
+        foreach ($con_arry AS $con) {
 //           dpm($con);
-//           $query->{$query_condition_field}($con['column'], $con['value'], $con['operator']);
-//     //       $query->propertyCondition($condition['column'], $condition['value'], $condition['operator']);
-//         }
-//       }
-//     }
+          $query->{$query_condition_field}($con['column'], $con['value'], $con['operator']);
+    //       $query->propertyCondition($condition['column'], $condition['value'], $condition['operator']);
+        }
+      }
+    }
 
   }
   else {
