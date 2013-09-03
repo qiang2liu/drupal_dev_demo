@@ -434,13 +434,21 @@ function _mural_usersearch_autocomplete($string = '') {
 function _mural_email_search_autocomplete($string = '') {
   $ret = array();
   $query = db_select('users', 'u');
+
+  $or = db_or();
+  $or->condition('u.name', '%' . db_like($string) . '%', 'LIKE');
+  $or->condition('u.mail', '%' . db_like($string) . '%', 'LIKE');
+  $query->condition($or);
+
   $query->leftJoin('field_data_field_muralusername', 'f', '(u.uid = f.entity_id and f.bundle = :p)', array(':p' => 'user'));
-  $query->fields('u', array('mail', 'mail'))
-          ->isNotNull(field_muralusername_value)
-          ->condition('u.mail', '%' . db_like($string) . '%', 'LIKE');
+  $query->fields('u', array('mail', 'name'))
+          ->isNotNull(field_muralusername_value);
+//           ->condition('u.mail', '%' . db_like($string) . '%', 'LIKE')
+//           ->condition('u.mail', '%' . db_like($string) . '%', 'LIKE');
+  $query->condition($or);
   $result = $query->execute();
   foreach ($result as $row) {
-    $ret[$row->mail] = check_plain($row->mail);
+    $ret[$row->mail] = check_plain($row->name);
   }
   drupal_json_output($ret);
 }

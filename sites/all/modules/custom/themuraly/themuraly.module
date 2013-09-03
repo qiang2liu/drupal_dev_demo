@@ -381,7 +381,7 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 
       $form['field_mail_to_share'][LANGUAGE_NONE]['#prefix'] = '<div id="invite_email_box" class="hidden">';
       $form['field_mail_to_share'][LANGUAGE_NONE]['#suffix'] = '</div>';
-      $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#autocomplete_path'] = 'mural/emailsearch/autocomplete';
+      $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#autocomplete_path'] = 'mural/usersearch/autocomplete';
       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#attributes'] = array('autocomplete' => 'on');
 
       if ($the_nid) {  //edit form
@@ -652,14 +652,23 @@ function _themuralyajax_validate($form, &$form_state) {
     $mail_to_share = $form_state['values']['field_mail_to_share'][LANGUAGE_NONE][0]['value'];
 
     if ($mail_to_share) {
-      if (_valid_local_email($mail_to_share)) {
-        if (_send_share_mail($the_mural, $mail_to_share)) {
+      if (_valid_local_user($mail_to_share)) {
+
+//         $account = user_load(array('name' => check_plain($mail_to_share)));
+        $account = user_load_by_name($mail_to_share);
+//         dpm($account);
+//         $account = user_load($mail_to_share);
+
+        $send_email = $account->mail;
+
+        if (_send_share_mail($the_mural, $send_email)) {
           watchdog('Mural Share', $user->name . ' share mural to ' . $mail_to_share);
           $form_state['values']['field_mail_to_share'][LANGUAGE_NONE][0]['value'] = '';
         }
         else {
           watchdog('Mural Share', $user->name . ' share mural to ' . $mail_to_share . ', send mail fail');
         }
+//         form_set_error('field_mail_to_share', t('Invalid email address in our system.'));
       }
       else {
         form_set_error('field_mail_to_share', t('Invalid email address in our system.'));
@@ -667,6 +676,25 @@ function _themuralyajax_validate($form, &$form_state) {
     }
 
   }
+}
+
+function _valid_local_user($user) {
+  $ret = array();
+  $query = db_select('users', 'u');
+  $query->leftJoin('field_data_field_muralusername', 'f', '(u.uid = f.entity_id and f.bundle = :p)', array(':p' => 'user'));
+  $query->fields('u', array('uid', 'name'))
+          ->isNotNull(field_muralusername_value)
+          ->condition('u.name', $user, '=');
+  $result = $query->execute();
+  foreach ($result as $row) {
+    $ret[] = check_plain($row->uid);
+  }
+  dpm($ret);
+  if (count($ret) >= 1) {
+    return true;
+  }
+
+  return false;
 }
 
 function _valid_local_email($mail) {
@@ -680,7 +708,7 @@ function _valid_local_email($mail) {
   foreach ($result as $row) {
     $ret[] = check_plain($row->uid);
   }
-  dpm($ret);
+//   dpm($ret);
   if (count($ret) >= 1) {
     return true;
   }
