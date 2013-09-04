@@ -392,8 +392,6 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
       $form['field_share_to_gallery'][LANGUAGE_NONE]['#order_by'] = 'text'; // May contain values as "text" or "value".
       $form['field_share_to_gallery'][LANGUAGE_NONE]['#sort_order'] = 'asc'; // May contain values as "asc" or "desc".
 
-//       dpm($form);
-//       dpm($form_state['node']);
 
       $form['field_muralshared'][LANGUAGE_NONE]['#options']['_none'] = t('Privacy');
       $form['field_muralshared'][LANGUAGE_NONE]['#attributes'] = array(
@@ -556,14 +554,14 @@ function _mural_member_list($the_nid, $para_muralid = '') {
                         if ($field_mural_share_with_me) {
                           $mural_share_with_me = $field_mural_share_with_me[0]['value'];
                         }
-//                         dpm($mural_share_with_me);
+
                         if ($mural_share_with_me) {
                           $share_with_me = explode(',', $mural_share_with_me);
                         }
                         else {
                           $share_with_me = array();
                         }
-//                         dpm($share_with_me);
+
                         $share_with_me[] = $the_nid;
                         $mural_share_with_me_val = implode(',', array_unique($share_with_me));
 
@@ -573,7 +571,7 @@ function _mural_member_list($the_nid, $para_muralid = '') {
                         // save existing user
                         unset($new_account->pass);
                         $new_account = user_save((object) array('uid'=>$new_account->uid), (array) $new_account);
-//                         dpm($new_account);
+
                       }
 
 //                       // edit field-data
@@ -605,8 +603,8 @@ function _themuralyajax_validate($form, &$form_state) {
   form_load_include($form_state, 'inc', 'node', 'node.pages');
 
   // Debug
-  dpm($form_state);
-  form_set_error($the_form_ele, t('can\'t update the mural properties.'));
+//   dpm($form_state);
+//   form_set_error($the_form_ele, t('can\'t update the mural properties.'));
   // End Debug;
 
   if ($form_state['triggering_element']['#type'] == 'submit') {
@@ -654,13 +652,8 @@ function _themuralyajax_validate($form, &$form_state) {
                 $property_value = $v;
 //                 $result = $mural_api->update_mural_properties($muralusername, $the_muralid, $property_name, $property_value);
 
-//                 dpm($result);
-
                 if (is_object($result) && isset($result->data)) {
                   $data = $result->data;
-//                   dpm('Update mural info:');
-//                   dpm($result);
-//                   dpm('End update mural info');
 
                   if (!is_string($data) || strtoupper($data) != 'OK') {
                     $the_form_ele = $k;
@@ -738,16 +731,11 @@ function _themuralyajax_validate($form, &$form_state) {
 function _valid_location_address($country = '', $city = '') {
   if ($country && $city) {
 
-    $valite_url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' . $city . ',' . $country . '&sensor=false';
-//     dpm($valite_url);
-  //https://maps.googleapis.com/maps/api/geocode/json?address=1600+Pennsyvania+Avenue+NW,+Washington,+DC&sensor=false
+    $valite_url = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . $city . ',' . $country . '&sensor=false';
     $location_info = drupal_http_request($valite_url);
-//     dpm($location_info);
     $location_val = drupal_json_decode($location_info->data);
-//     dpm($location_val);
 
     if ($location_val['status'] == 'OK') {
-//       dpm($location_val['status']);
       return true;
     }
   }
@@ -765,7 +753,7 @@ function _valid_local_user($user) {
   foreach ($result as $row) {
     $ret[] = check_plain($row->uid);
   }
-//   dpm($ret);
+
   if (count($ret) >= 1) {
     return true;
   }
@@ -784,7 +772,7 @@ function _valid_local_email($mail) {
   foreach ($result as $row) {
     $ret[] = check_plain($row->uid);
   }
-//   dpm($ret);
+
   if (count($ret) >= 1) {
     return true;
   }
@@ -1126,7 +1114,7 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
     $orderby[1]['name'] = 'nid';
     $orderby[1]['direction'] = 'DESC';
 
-    // Order by tags, @TODO
+    // Order by tags
     $vocab_info = field_info_field('field_tags');
     $vocab_keys = array();
     foreach ($vocab_info['settings']['allowed_values'] as $vocab_item) {
@@ -1134,7 +1122,6 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
     }
     if (($vocab_keys[0])) {
       $vocab_name = $vocab_keys[0];
-//       dpm($vocab_name);
     }
 
 //     $query->join('node', 'n', 'n.nid = i.sid');
@@ -1143,8 +1130,6 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
 
   if ($keyword) {
     $murals_list = _themuraly_search_execute_result($keyword, $page);
-//     dpm($murals_list);
-//     return 'Test results';
   }
   else {
     $conditions['field'][] = array(
@@ -1162,8 +1147,6 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
   if (count($murals_list) <= 0) {
     return '';
   }
-// 	dpm($murals_list);
-// 		arsort($murals_list);
 
 	$i = 1;
 	foreach ($murals_list as $node) {
@@ -1381,25 +1364,19 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
 
 
   if ($conditions) {
-    dpm($conditions);
+
     $query = new EntityFieldQuery();
 
     foreach ($conditions AS $con_key => $con_arry) {
       $query_condition_field = $con_key . 'Condition';
-//       dpm($query_condition_field);
       if ($con_key == 'field') {
         foreach ($con_arry AS $con) {
-          dpm($con);
           $query->fieldCondition($con['field'], $con['column'], $con['value'], $con['operator']);
-//           echo $query_condition_field . '|' . $con['field'] . '|' . $con['column'] . '|' . $con['value'] . '|' . $con['operator'];
-    //       $query->propertyCondition($condition['column'], $condition['value'], $condition['operator']);
         }
       }
       else {
         foreach ($con_arry AS $con) {
-          dpm($con);
           $query->{$query_condition_field}($con['column'], $con['value'], $con['operator']);
-    //       $query->propertyCondition($condition['column'], $condition['value'], $condition['operator']);
         }
       }
     }
@@ -1422,10 +1399,13 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
     $query->propertyOrderBy($sort['name'], ($sort['direction'])?$sort['direction']:'DESC');
   }
 
+  // Debug
 //   print('<pre>' . print_r($query, TRUE) . '</pre>');
 //   drupal_set_message("Where the message.");
-  dpm($query);
+//   dpm($query);
+  // End Debug
 
+  // Maybe todo sort by each condition.
 //   if ($sortby) {
 //     switch (strtolower($sortby)) {
 //       case 'alphabetical':
@@ -1453,22 +1433,17 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
 //     $query->propertyOrderBy('created', 'DESC');
 //   }
 
-//   if ($keyword) {
-//     $query->propertyCondition('uid', $uid);
-//   }
-//   dpm($query);
 
   $result = $query->execute();
 
+  // Debug.
 //   print('Result: <pre>' . print_r($result, TRUE) . '</pre>');
-  dpm($result);
+//   dpm($result);
+  // End Debug.
 
   if (!empty($result['node'])) {
     $my_mural_nodes = node_load_multiple(array_keys($result['node']), '' , TRUE);
   }
-
-//   print("Nodes list:");
-//   dpm($my_mural_nodes);
 
   return $my_mural_nodes;
 
@@ -1492,8 +1467,6 @@ function themuraly_mural_list_html($limit = 5) {
 	if ($user->uid !== 0) {
 
 	  $my_mural_nodes = themuraly_mural_list($user->uid);
-// 	  dpm($my_mural_nodes);
-// 		arsort($my_mural_nodes);
 
 		$i = 0;
 		foreach ($my_mural_nodes as $node) {
@@ -1582,14 +1555,11 @@ function themuraly_get_mural_info($mural_url = '') {
       if ($the_nodes) {
 
         foreach ($the_nodes AS $the_node) {
-//           dpm('<pre>' . print_r($the_node, TRUE) . '</pre>');
+
           $field_mural_username = field_get_items('node', $the_node, 'field_muraluser');
           $mural_username = $field_mural_username && count($field_mural_username) > 0 ? $field_mural_username[0]['value'] : '';
-
           $field_mural_thumburl = field_get_items('node', $the_node, 'field_mural_thumburl');
-//           dpm('$field_mural_thumburl: <pre>' . print_r($field_mural_thumburl, TRUE) . '</pre>');
           $mural_mural_thumburl = $field_mural_thumburl && count($field_mural_thumburl) > 0 ? $field_mural_thumburl[0]['value'] : '';
-//           dpm('$mural_mural_thumburl: <pre>' . print_r($mural_mural_thumburl, TRUE) . '</pre>');
 
           $mural_info['id'] = 'edgemakers.' . $mural_id;
           $mural_info['title'] = $the_node->title;
@@ -1623,7 +1593,6 @@ function _get_node_from_mural_id($mid) {
     if (!empty($entities['node'])) {
       $news_items_nids = array_keys($entities['node']);
       $news_items = entity_load('node', $news_items_nids);
-//       dpm($news_items);
       return $news_items;
     }
 
@@ -1651,24 +1620,17 @@ function themuraly_update_node_by_mural($mural_url = ''){
 
     if (is_array($the_nodes)) {
 
-//       dpm($the_nodes);
-
       foreach ($the_nodes AS $the_node) {
 
         $field_muraluser = field_get_items('node', $the_node, 'field_muraluser');
 
         if ($field_muraluser) {
 
-//           dpm($field_muraluser);
-//           dpm($mural_id);
-
           $muralusername = $field_muraluser[0]['value'];
           $mural_api = new Muralapi;
           $result = $mural_api->retrieve_a_mural($muralusername, $mural_id);
           $data = $result->data;
           $the_mural = drupal_json_decode($data);
-
-//           dpm($the_mural['id']);
 
           if ($the_mural['id']) {
             $the_node->field_mural_thumburl['und'][0]['value'] = $the_mural['thumbUrl'];
@@ -1697,8 +1659,6 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
 
   $pager = 5;
   $start = $page * $pager;
-
-//   dpm('Start: ' . $start . ' | Pager: ' . $pager . ' | Keyword: ' . $keys);
 
   if ($keys) {
 
@@ -1729,12 +1689,16 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
     // Order by tags by term ASC.
     $query->orderBy('term.name', 'ASC');//ORDER BY created
 
+    // Debug.
 //     print('Query:<pre>' . print_r($query, TRUE) . '</pre>');
 //     dpm($query);
+    // End Debug.
 
     $find = $query->execute();
+    // Debug.
 //     print('Query execute result:<pre>' . print_r($find, TRUE) . '</pre>');
 //     dpm($find);
+    // End Debug.
 
     $results = array();
 
@@ -1744,7 +1708,6 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
       $results[] = $node;
     }
 
-//     dpm($results);
     return $results;
 
   }
