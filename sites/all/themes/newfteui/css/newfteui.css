@@ -978,6 +978,7 @@ div.ctools-modal-content .form-item .description{
 #challenge{
 	background-color:rgba(19,119,151,1.0);
 	padding:10px 0;
+	height:720px;
 }
 #competitions{
 	background-image: url(../images/example_05.png);
