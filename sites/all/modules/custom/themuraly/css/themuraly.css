@@ -223,7 +223,7 @@ input[type='button']#gallery-search {
   border-radius: 15px
 }
 
-form#murals-node-form.node-form,
+form.node-murals-form.node-form,
 .mural-setting-title 
 {
   text-align: center;
@@ -233,12 +233,13 @@ form#murals-node-form.node-form,
   width: 100%;
 }
 
-form#murals-node-form.node-form {
+div.ctools-modal-content .modal-content form.node-murals-form.node-form {
   top: 28px;
   width: 92%;
   margin: 0px auto;
   padding: 20px;
   text-align: left;
+  background-color: transparent;
 }
 
 .mural-setting-title h2 {
@@ -249,7 +250,7 @@ form#murals-node-form.node-form {
   line-height: 40px;
 }
 
-form#murals-node-form.node-form div.form-item label
+form.node-murals-form.node-form div.form-item label
 {
   display: none;
 }
@@ -262,25 +263,25 @@ form#murals-node-form.node-form div.form-item label
   padding-right: 1px;
 } */
 
-#modal-content #murals-node-form .form-item,
-#modal-content #murals-node-form .form-actions
+#modal-content .node-murals-form .form-item,
+#modal-content .node-murals-form .form-actions
 {
   padding: 6px 1px; 
   overflow: hidden;
   background-color: transparent;
 }
 
-#modal-content form#murals-node-form.node-form div.form-item.form-item-field-city-und-0-country,
-#modal-content form#murals-node-form.node-form div.form-item.form-item-field-city-und-0-city,
-#modal-content form#murals-node-form.node-form div.form-item.form-item-field-city-und-0-delete-location
+#modal-content form.node-murals-form.node-form div.form-item.form-item-field-city-und-0-country,
+#modal-content form.node-murals-form.node-form div.form-item.form-item-field-city-und-0-city,
+#modal-content form.node-murals-form.node-form div.form-item.form-item-field-city-und-0-delete-location
 {
    padding: 0;
    margin: 0;
 }
 
-#modal-content #murals-node-form .form-textarea-wrapper textarea,
-#modal-content #murals-node-form .form-item input[type="text"],
-#modal-content #murals-node-form .form-item input[type="password"]{
+#modal-content .node-murals-form .form-textarea-wrapper textarea,
+#modal-content .node-murals-form .form-item input[type="text"],
+#modal-content .node-murals-form .form-item input[type="password"]{
   width: 95%;
   box-shadow: 0 0;
   background-color: #2D6CA9;
@@ -288,27 +289,27 @@ form#murals-node-form.node-form div.form-item label
   color: white;
 }
 
-#modal-content #murals-node-form .form-item input[type="text"].error
+#modal-content .node-murals-form .form-item input[type="text"].error
 {
   border: 2px solid red;
   color: white;
 }
 
-#modal-content #murals-node-form .form-textarea-wrapper textarea {
+#modal-content .node-murals-form .form-textarea-wrapper textarea {
   width: 100%;
   padding: 10px;
 }
 
-/* form#murals-node-form.node-form div.form-item.form-item-field-muralshared-und label,
-form#murals-node-form.node-form div.form-item.form-item-field-share-to-gallery-und label, */
-form#murals-node-form.node-form div.form-item.form-item-field-city-und-0-delete-location label.option,
-form#murals-node-form.node-form div.form-item.form-item-field-city-und-0-delete-location div.description
+/* form.node-murals-form.node-form div.form-item.form-item-field-muralshared-und label,
+form.node-murals-form.node-form div.form-item.form-item-field-share-to-gallery-und label, */
+form.node-murals-form.node-form div.form-item.form-item-field-city-und-0-delete-location label.option,
+form.node-murals-form.node-form div.form-item.form-item-field-city-und-0-delete-location div.description
 {
   display: inline;
   color: white;
 }
 
-/* form#murals-node-form.node-form div.form-item.form-item-field-muralshared-und label {  
+/* form.node-murals-form.node-form div.form-item.form-item-field-muralshared-und label {  
   margin: 1px;
   background-color: white;
   width: 54px;
@@ -319,7 +320,7 @@ form#murals-node-form.node-form div.form-item.form-item-field-city-und-0-delete-
   padding: 1px 5px;
 }
 
-form#murals-node-form.node-form div.form-item.form-item-field-share-to-gallery-und label {  
+form.node-murals-form.node-form div.form-item.form-item-field-share-to-gallery-und label {  
   display: block;
   background-color: white;
   width: 108px;
@@ -362,12 +363,12 @@ form#murals-node-form.node-form div.form-item.form-item-field-share-to-gallery-u
   height: 18px;
 }
 
-#modal-content #murals-node-form .field-name-field-muralshared,
-#modal-content #murals-node-form .field-name-field-challenges-category {
+#modal-content .node-murals-form .field-name-field-muralshared,
+#modal-content .node-murals-form .field-name-field-challenges-category {
   float: left;
 }
 
-form#murals-node-form.node-form div.form-item.form-item-field-share-und label
+form.node-murals-form.node-form div.form-item.form-item-field-share-und label
 {
   display: block;
   clear: left;
@@ -375,7 +376,7 @@ form#murals-node-form.node-form div.form-item.form-item-field-share-und label
 
 /* .modal-forms-modal-content #modal-content .messages, */
 .modal-forms-modal-content #modal-content .messages-label,
-form#murals-node-form.node-form div.form-item label .form-required
+form.node-murals-form.node-form div.form-item label .form-required
 {
   display: none;
 }

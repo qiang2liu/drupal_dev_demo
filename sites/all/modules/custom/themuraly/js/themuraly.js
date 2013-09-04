@@ -35,9 +35,12 @@ function openDefaultMural() {
   //if (param.length !== 0) {
   if (typeof(muralUrl) !== "undefined") {
     //alert("Mural url: " + muralUrl);
-    jQuery("#mural-back-to-dashboard").show();
-    showMuralDialog(muralUrl);
-    jQuery("#mural-title").focus();
+//    alert("Open default mural length:" + muralUrl.length);
+    if (muralUrl.length > 5) {
+      jQuery("#mural-back-to-dashboard").show();
+      showMuralDialog(muralUrl);
+      jQuery("#mural-title").focus();
+    }
 //    jQuery('body').css({
 //      'height': 'auto',
 //      'overflow-y': 'auto'
