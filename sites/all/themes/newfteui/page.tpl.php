@@ -2,6 +2,22 @@
 ?>
   <?php print render($page['header']); ?>
 
+  <div id="mural-region" class="hidden">
+    <div>
+    	<iframe id="mural-iframe" border="0" scrolling="no" width="500" height="500" src=""></iframe>
+    </div>
+    <div id="mural-region-bottom">
+      <div id="mural-set-nav" class="set-nav hidden">
+        <span id="node-1010" class="prev">Previous</span>
+        <span id="mural-back-set-list">&nbsp;</span>
+        <span id="node-2020" class="next">Next</span>
+      </div>
+      <div id="mural-back-to-dashboard" class="back-to-dashboard">
+        <span>X</span>
+      </div>
+    </div>
+  </div>
+
   <div id="wrapper">
     <div id="container" class="clearfix">
 
@@ -66,3 +82,6 @@
 
     </div> <!-- /#container -->
   </div> <!-- /#wrapper -->
+  <div id="topic-murals">
+    <?php print render($page['topic_murals']); ?>
+  </div>
