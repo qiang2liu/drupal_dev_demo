@@ -1599,56 +1599,6 @@ function edgemakers_content_types_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-murals-field_share'
-  $field_instances['node-murals-field_share'] = array(
-    'bundle' => 'murals',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 9,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_share',
-    'label' => 'Share to Gallery ',
-    'required' => 0,
-    'settings' => array(
-      'mediafront' => array(
-        'custom' => '',
-        'field_type' => 0,
-        'media_type' => 'media',
-        'preview' => 0,
-        'thumbnail' => 0,
-      ),
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 11,
-    ),
-  );
-
   // Exported field_instance: 'node-murals-field_share_to_gallery'
   $field_instances['node-murals-field_share_to_gallery'] = array(
     'bundle' => 'murals',
@@ -2146,7 +2096,6 @@ function edgemakers_content_types_field_default_field_instances() {
   t('Set dimension X');
   t('Set dimension Y');
   t('Share to Gallery');
-  t('Share to Gallery ');
   t('Survey & Assessment');
   t('Teacher\'s Notes');
   t('Topic');

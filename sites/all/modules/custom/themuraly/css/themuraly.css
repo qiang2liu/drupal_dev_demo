@@ -212,7 +212,7 @@ input[type='button']#gallery-search {
   border-radius: 10px;
   height: 405px;
   position: relative;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .mural-setting-form-tran-back {
@@ -234,7 +234,7 @@ form#murals-node-form.node-form,
 }
 
 form#murals-node-form.node-form {
-  top: 32px;
+  top: 28px;
   width: 92%;
   margin: 0px auto;
   padding: 20px;
@@ -270,6 +270,14 @@ form#murals-node-form.node-form div.form-item label
   background-color: transparent;
 }
 
+#modal-content form#murals-node-form.node-form div.form-item.form-item-field-city-und-0-country,
+#modal-content form#murals-node-form.node-form div.form-item.form-item-field-city-und-0-city,
+#modal-content form#murals-node-form.node-form div.form-item.form-item-field-city-und-0-delete-location
+{
+   padding: 0;
+   margin: 0;
+}
+
 #modal-content #murals-node-form .form-textarea-wrapper textarea,
 #modal-content #murals-node-form .form-item input[type="text"],
 #modal-content #murals-node-form .form-item input[type="password"]{
@@ -280,11 +288,19 @@ form#murals-node-form.node-form div.form-item label
   color: white;
 }
 
+#modal-content #murals-node-form .form-item input[type="text"].error
+{
+  border: 2px solid red;
+  color: white;
+}
+
 #modal-content #murals-node-form .form-textarea-wrapper textarea {
   width: 100%;
   padding: 10px;
 }
 
+/* form#murals-node-form.node-form div.form-item.form-item-field-muralshared-und label,
+form#murals-node-form.node-form div.form-item.form-item-field-share-to-gallery-und label, */
 form#murals-node-form.node-form div.form-item.form-item-field-city-und-0-delete-location label.option,
 form#murals-node-form.node-form div.form-item.form-item-field-city-und-0-delete-location div.description
 {
@@ -292,40 +308,62 @@ form#murals-node-form.node-form div.form-item.form-item-field-city-und-0-delete-
   color: white;
 }
 
-#edit-field-city-und-0 .form-item-field-city-und-0-country {
+/* form#murals-node-form.node-form div.form-item.form-item-field-muralshared-und label {  
+  margin: 1px;
+  background-color: white;
+  width: 54px;
+  display: block;
+  color: gray;
+  height: 20px;
+  line-height: 20px;
+  padding: 1px 5px;
+}
+
+form#murals-node-form.node-form div.form-item.form-item-field-share-to-gallery-und label {  
+  display: block;
+  background-color: white;
+  width: 108px;
+  margin-left: 1px;
+  height: 20px;
+  color: gray;
+  padding: 1px 5px;
+  line-height: 20px;
+} */
+
+.field-name-field-city .form-wrapper .form-item-field-city-und-0-country {
   padding: 5px 0px;
   margin: 0px 15px 0px 0px;
   float: left;
   width: 45%;
 }
 
-#edit-field-city-und-0 div.form-item
+.field-name-field-city .form-wrapper div.form-item
 {  
   padding: 0px;
   float: left;
   width: 48%;
 }
 
-#edit-field-city-und-0 div.form-item.form-type-textfield {
+.field-name-field-city .form-wrapper div.form-item.form-type-textfield {
   float: right;
 }
 
-#edit-field-city-und-0 div.form-item.form-type-checkbox {
+.field-name-field-city .form-wrapper div.form-item.form-type-checkbox {
   width: 100%;
 }
 
-#edit-field-city-und-0 select#edit-field-city-und-0-country
+.field-name-field-city .form-wrapper div.form-item-field-city-und-0-country select
 {
   width: 100%;
 }
 
-#modal-content #edit-field-city-und-0 .form-item input[type="text"]
+#modal-content .field-name-field-city .form-wrapper .form-item input[type="text"]
 {
   height: 18px;
 }
 
-#modal-content #murals-node-form #edit-field-muralshared,
-#modal-content #murals-node-form #edit-field-challenges-category {
+#modal-content #murals-node-form .field-name-field-muralshared,
+#modal-content #murals-node-form .field-name-field-challenges-category {
   float: left;
 }
 
@@ -334,25 +372,58 @@ form#murals-node-form.node-form div.form-item.form-item-field-share-und label
   display: block;
   clear: left;
 }
-.modal-forms-modal-content #modal-content .messages-label{
-	display:none;
+
+/* .modal-forms-modal-content #modal-content .messages, */
+.modal-forms-modal-content #modal-content .messages-label,
+form#murals-node-form.node-form div.form-item label .form-required
+{
+  display: none;
 }
+
 .modal-forms-modal-content #modal-content .messages {
   /*display: none;*/
  margin:30px 10px 0;
 }
 
-#edit-field-mail-to-share {
+/* #edit-field-mail-to-share */ 
+div.field-name-field-mail-to-share
+{
   width: 60%;
   float: left;
+  clear: left;
 }
 
-#modal-content #edit-field-mail-to-share .form-item input[type="text"] {
+#modal-content #invite_email_box .form-item-field-mail-to-share-und-0-value.form-item input[type="text"] {
   background-color: white;
   color: gray;
+  width: 95%;
 }
 
 div.modal-forms-modal-content .popups-close {
   top: 40px;
   right: 50px;
+}
+
+#edit-field-share-to-gallery-und {
+  width: 120px;
+  margin-top: 0px;
+  height: 35px;
+}
+
+#edit-field-muralshared-und {
+  margin-top: -1px;
+  float: left;
+  height: 35px;
+  width: 66px;
+}
+
+
+html.js .field-name-field-mail-to-share input.form-autocomplete
+{
+  background-position: 95% 13px;
+}
+
+#autocomplete {
+  z-index: 1002;
+  top: 150px;
 }

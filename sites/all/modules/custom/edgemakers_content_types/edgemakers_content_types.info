@@ -92,7 +92,6 @@ features[field_instance][] = node-murals-field_muralid
 features[field_instance][] = node-murals-field_muralshared
 features[field_instance][] = node-murals-field_muraltype
 features[field_instance][] = node-murals-field_muraluser
-features[field_instance][] = node-murals-field_share
 features[field_instance][] = node-murals-field_share_to_gallery
 features[field_instance][] = node-murals-field_tags
 features[field_instance][] = node-site_bg_image-field_sitebg_image
