@@ -386,14 +386,12 @@ function make_content_output($node) {
 
   $arrItems = $result['#object']->field_tags['und'];
   $tags = "";
-  $i = 0;
-
-  foreach ($arrItems as $new) {
-    if ($i < count($arrItems) && $i > 0) {
-      $tags .= ",";
+  if(isset($arrItems)) {
+    $otags = array();
+    foreach ($arrItems as $item) {
+      $otags[] = $item['taxonomy_term']->name;
     }
-    $tags .= $arrItems[$i]['taxonomy_term']->name;
-    $i++;
+    $tags = implode(',', $otags);
   }
   /*
     $uid = $node->uid;
@@ -405,14 +403,11 @@ function make_content_output($node) {
   $name = $node->name;
   $source = 'mural/' . $node->nid;
   $ret .= '<li>';
-  //$ret .= '<p class="title"><a href="javascript:void(0);" onclick="showMuralDialog(\'' . $source . '\');>"' . $title . '</a></p>';
   $ret .= '<p class="title"><a href="javascript:void(0);" onclick= "showMuralDialog(\'mural/236\')">' . $title . '</a></p>';
   
   $ret .= '<p class="desc">'
           . $desc . '</p><p class="tags">' . $tags . '</p><p class="creator">'
-          . $name . '</p><li>';
-
-
+          . $name . '</p></li>';
 
 
   return $ret;
