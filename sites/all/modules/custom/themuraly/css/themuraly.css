@@ -435,3 +435,10 @@ html.js .field-name-field-mail-to-share input.form-autocomplete
   z-index: 1002;
   top: 150px;
 }
+
+a.create-mural-topic {
+  display: block;
+  width: 190px;
+  height: 172px;
+  opacity: 0; 
+}
