@@ -113,6 +113,12 @@
 		    self.find(options.desBox).bind('click', function(){
 		    	var link = $(this).find('a',options.linkNode).attr('href');
 		    	window.open(link);
+		    	
+		    });
+		    
+		    //disable the click function of the viewmore link
+		    self.find('a',options.linkNode).click(function(event){
+		    	event.preventDefault();
 		    })
 		});
 	}
