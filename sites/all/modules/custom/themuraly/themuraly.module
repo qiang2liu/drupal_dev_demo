@@ -700,11 +700,11 @@ function _themuralyajax_validate($form, &$form_state) {
 function _valid_location_address($country = '', $city = '') {
   if ($country && $city) {
 
-    $valite_url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' . $city . ',' . $country . '&sensor=false';
+    $valite_url = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . $city . ',' . $country . '&sensor=false';
 //     dpm($valite_url);
   //https://maps.googleapis.com/maps/api/geocode/json?address=1600+Pennsyvania+Avenue+NW,+Washington,+DC&sensor=false
     $location_info = drupal_http_request($valite_url);
-//     dpm($location_info);
+     //dpm($location_info);
     $location_val = drupal_json_decode($location_info->data);
 //     dpm($location_val);
 
