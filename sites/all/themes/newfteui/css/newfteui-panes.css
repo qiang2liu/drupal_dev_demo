@@ -2,7 +2,8 @@ input:focus{
 	outline: 0;
 }
 /******************************************************* Challenge ***************************************/
-#d3:after{
+#d3:after,
+.gmap ul.infowindowlist:after{
   clear:both;
   content:'';
   height:0;
@@ -192,6 +193,8 @@ h2.item-studio{
 	padding-top:13px;
 	width:160px;
 	display:none;
+	float:left;
+	margin-right:20px;
 }
 .topic-content-box a{
 	color:#fff;
@@ -231,11 +234,50 @@ h2.item-studio{
 	background:url(../images/challenge_ico_arrow_up.png) left top no-repeat;
 }
 .content-location{
-	background:url(../images/challenge_ico_arrow_up.png) 34px top no-repeat;
+	width:560px;
+	float:left;
+}
+
+/******************** google map ***********************/
+.gmap .cityname{
+	line-height:30px;
+	display:inline-block;
+	background:#48cff7;
+	color:#fff;
+	border-radius:2px;
+	padding:0 15px;
+	margin-bottom:15px;
+}
+.gm-style ul.infowindowlist{
+	width:450px;
+	color:#8b8b8b;
+	font-size:11px;
+}
+.infowindowlist  p.title a{
+	font-weight:bold;
+}
+.gm-style ul.infowindowlist a{
+	color:#8b8b8b;
+	font-size:11px;
+}
+.gm-style ul.infowindowlist li{
+	width:25%;
+	float:left;
+	margin: 0 4% 10px;
+	border-bottom:1px solid #e8e8e8;
+	height:70px;
+}
+.gm-style ul.infowindowlist li p{
+	text-overflow:ellipsis; 
+	overflow:hidden; 
+	white-space:nowrap;
+}
+.gm-style img{
+	max-width:none;
+	max-height:none;
 }
 /* fake */
 #block-edgemakers-topic-problems{
-	background:url(../images/example_16.png) 253px 12px no-repeat;
 	height:370px;
 }
 /* some topic css must be here */
