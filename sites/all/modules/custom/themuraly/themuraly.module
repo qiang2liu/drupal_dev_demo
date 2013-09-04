@@ -313,7 +313,7 @@ function themuraly_block_view($delta = '') {
         $block['content'] .= '</div>';
       }
       else {
-        $block['content'] .= t('empty');
+        $block['content'] .= t('');
       }
       break;
   }
