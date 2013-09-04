@@ -538,12 +538,12 @@ function themuraly_topic_mural_create($topid = '') {
     node_object_prepare($node);
     $status = node_save($node);
 
-    if ($status) {
+//     if ($status) {
       drupal_goto('mural/' . $node->nid);
-    }
-    else {
-      return t('Create mural fail');
-    }
+//     }
+//     else {
+//       return t('Create mural fail');
+//     }
 
   }
 
