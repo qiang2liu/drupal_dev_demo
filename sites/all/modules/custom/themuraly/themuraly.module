@@ -1358,8 +1358,8 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
   $my_mural_nodes = array();
 
   if (empty($sortby)) {
-    $sortby[$i]['name'] = 'nid';
-    $sortby[$i]['direction'] = 'DESC';
+    $sortby[0]['name'] = 'nid';
+    $sortby[0]['direction'] = 'DESC';
   }
 
 
