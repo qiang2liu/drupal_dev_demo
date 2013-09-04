@@ -531,3 +531,21 @@ function mural_delete($nid = 0) {
 
 	return $html;
 }
+
+function themuraly_topic_mural_create($topid = '') {
+
+  if ($topid) {
+    $node = muralcreate();
+    $node->field_topic_mural['und'][0]['target_id'] = $topid;
+    node_object_prepare($node);
+    $status = node_save($node);
+    dpm($status);
+    dpm($node);
+//     if ($status) {
+      drupal_goto('mural/' . $node->nid);
+//     }
+//     $node = $node->nid;
+  }
+
+//   return $status;
+}

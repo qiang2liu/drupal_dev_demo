@@ -16,6 +16,7 @@ regions[sliding_panes] = Sliding panes
 regions[community] = Community
 regions[studio_pane] = Studio Pane
 regions[gallery_pane] = Gallery Pane
+regions[topic_murals] = Topic Murals
 regions[challenge] = Challenge
 
 ; Information added by drupal.org packaging script on 2013-04-03

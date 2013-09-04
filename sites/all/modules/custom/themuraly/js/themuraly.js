@@ -36,7 +36,7 @@ function openDefaultMural() {
   if (typeof(muralUrl) !== "undefined") {
     //alert("Mural url: " + muralUrl);
 //    alert("Open default mural length:" + muralUrl.length);
-    if (muralUrl.length > 5) {
+    if (muralUrl.substring(0, 6) == "mural/") {
       jQuery("#mural-back-to-dashboard").show();
       showMuralDialog(muralUrl);
       jQuery("#mural-title").focus();
