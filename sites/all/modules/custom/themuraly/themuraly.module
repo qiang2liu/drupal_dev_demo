@@ -1066,7 +1066,7 @@ function _test_mural_list_for_a_user() {
 }
 
 function _test_user_add() {
-
+  
   $mural_api = new Muralapi;
   $str = rand(800, 10000);
   $user = array();
