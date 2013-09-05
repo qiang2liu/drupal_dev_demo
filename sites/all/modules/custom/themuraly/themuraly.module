@@ -737,7 +737,14 @@ function _valid_location_address($country = '', $city = '') {
   if ($country && $city) {
 
     $valite_url = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . $city . ',' . $country . '&sensor=false';
+<<<<<<< HEAD
+//     dpm($valite_url);
+  //https://maps.googleapis.com/maps/api/geocode/json?address=1600+Pennsyvania+Avenue+NW,+Washington,+DC&sensor=false
     $location_info = drupal_http_request($valite_url);
+     //dpm($location_info);
+=======
+    $location_info = drupal_http_request($valite_url);
+>>>>>>> a8bab721af3d2f33f72cedde965b70e025daf308
     $location_val = drupal_json_decode($location_info->data);
 
     if ($location_val['status'] == 'OK') {
