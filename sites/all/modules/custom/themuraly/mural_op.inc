@@ -410,13 +410,16 @@ function create_mural($mural_api, $muser, $mroomid, $title = 'my mural', $duplic
   $params = array('title' => $title, 'room' => $mroomid);
   if ($duplicate_id != '') {
     $mural_api_result = $mural_api->duplicate_mural($muser, $duplicate_id, $params);
+    watchdog('Topic Debug', 'mural api info:' . $mural_api_result);
 //     dd($mural_api_result, 'mural api results of duplicate_mural');
   } else {
     $mural_api_result = $mural_api->create_mural($muser, $params);
+    watchdog('Topic Debug', 'mural api info:' . $mural_api_result);
 //     dd($mural_api_result, 'mural api results of create_mural');
   }
   if (is_object($mural_api_result) && isset($mural_api_result->data)) {
     $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
+    watchdog('Topic Debug', 'mural api decode json info:' . print_r($muralapi_response_objm, TRUE));
 
 //     dd($muralapi_response_obj, 'mural api results of $mural_api_result json data.');
 
