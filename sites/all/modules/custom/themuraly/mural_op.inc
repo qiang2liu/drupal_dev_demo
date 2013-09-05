@@ -331,10 +331,10 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
     }
   } else {
 
+    watchdog("Topic Debug", '$owner_id info' . print_r($owner_id, TRUE) . '</pre>');
     if ($owner_id) {
       $mural_api = new Muralapi;
       $mural_info = $mural_api->retrieve_a_mural($owner_id, $template_id);
-
       $data = $mural_info->data;
       $r = drupal_json_decode($data);
       dpm($data);
@@ -344,6 +344,7 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
       $title = 'Copy of ' . $r['title'];
     }
 
+    watchdog("Topic Debug", '$nid info' . print_r($nid, TRUE) . '</pre>');
   	if ($nid) {
   		$node = node_load($nid);
   		// duplicate the mural
@@ -351,6 +352,9 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
   	}
 
     $the_mural = create_mural($mural_api, $muralusername, $muralroomid, $title, $template_id);
+
+    watchdog("Topic Debug", '$the_mural info' . print_r($the_mural, TRUE) . '</pre>');
+
     // Create_mural return mural data now.
 //     if ($the_m_id == '') {
     if (!$the_mural) {
@@ -364,6 +368,8 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
   if ($str_p) {
     $new_mural_id = $matches[0];
   }
+
+  watchdog("Topic Debug", '$new_mural_id info' . print_r($new_mural_id, TRUE) . '</pre>');
 
   $newNode = (object) NULL;
   $newNode->type = 'murals';
