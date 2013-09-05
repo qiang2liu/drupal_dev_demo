@@ -373,9 +373,13 @@ function themuraly_after_build($form, $form_state)
   }
   $form['field_mail_to_share'][LANGUAGE_NONE]['#prefix'] = '<div id="invite_email_box" class="' . $share_mail_class . '">';
   // First I re-attach the original submit handler to the form
-  $form['buttons']['submit']['#submit'] = array('node_form_submit');
+//   $form['buttons']['submit']['#submit'] = array('node_form_submit');
+
+  drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/removeTextareaResizea.js');
+
   // Then I return the form
   return $form;
+
 }
 
 /**
@@ -1066,7 +1070,7 @@ function _test_mural_list_for_a_user() {
 }
 
 function _test_user_add() {
-  
+
   $mural_api = new Muralapi;
   $str = rand(800, 10000);
   $user = array();

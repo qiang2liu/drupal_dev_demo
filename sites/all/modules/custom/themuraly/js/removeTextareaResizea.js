@@ -16,7 +16,11 @@ jQuery(document).ready(function(){
     "right": "72px"
   });
   
+  jQuery("#modalContent").addClass("mural-settings-form-class");
+ 
 //  getLocationElement();
+
+//  showInviteEmailBox();
   
 });
 
@@ -24,4 +28,3 @@ function getLocationElement() {
   jQuery("#edit-field-city").attr("style", "color: red;");
   console.log(jQuery("#edit-field-city").attr("class"));
 }
-
