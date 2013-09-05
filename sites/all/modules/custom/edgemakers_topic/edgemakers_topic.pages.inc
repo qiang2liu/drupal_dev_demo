@@ -103,7 +103,7 @@ function edgemakers_get_map_data() {
     $marker_array = array();
     if (is_array($nodes)) {
       foreach ($nodes as $node) {
-        
+
         $city_field = field_get_items('node', $node, 'field_city');
 		  // dpm($city_field);
         if (is_array($city_field) && isset($city_field[0]['lid'])) {
@@ -130,7 +130,7 @@ function edgemakers_get_map_data() {
 //      dpm($marker_array);
       foreach ($marker_array AS $the_key => $marker) {
 
-        $marker_array[$the_key]['content'] = '<div class= "cityname"> ' .$marker['cityname']. ' </div><ul class="infowindowlist">' . $marker['content'] . '</ul>';
+        $marker_array[$the_key]['content'] = '<div class= "cityname"> ' . $marker['cityname'] . ' </div><ul class="infowindowlist">' . $marker['content'] . '</ul>';
       }
       $i = 1;
 
@@ -380,7 +380,7 @@ function make_content_output($node) {
   $title = $node->title;
 
   $x = field_get_items('node', $node, 'body');
-  
+
 
   $desc = render(field_view_value('node', $node, 'body', $x[0]));
 
@@ -388,13 +388,19 @@ function make_content_output($node) {
 
   $arrItems = $result['#object']->field_tags['und'];
   $tags = "";
-  if(isset($arrItems)) {
-    $otags = array();
-    foreach ($arrItems as $item) {
-      $otags[] = $item['taxonomy_term']->name;
+
+  $i = 0;
+  if (is_array($arrItems)) {
+    foreach ($arrItems as $new) {
+      if ($i < count($arrItems) && $i > 0) {
+        $tags .= ",";
+      }
+      $tags .= $arrItems[$i]['taxonomy_term']->name;
+      $i++;
     }
-    $tags = implode(',', $otags);
   }
+
+
   /*
     $uid = $node->uid;
     $creater = user_load($uid);
@@ -406,7 +412,7 @@ function make_content_output($node) {
   $source = 'mural/' . $node->nid;
   $ret .= '<li>';
   $ret .= '<p class="title"><a href="javascript:void(0);" onclick= "showMuralDialog(\'mural/236\')">' . $title . '</a></p>';
-  
+
   $ret .= '<p class="desc">'
           . $desc . '</p><p class="tags">' . $tags . '</p><p class="creator">'
           . $name . '</p></li>';
