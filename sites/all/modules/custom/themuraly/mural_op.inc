@@ -313,12 +313,14 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
   watchdog("Topic Debug", '$muralusername info' . print_r($muralusername, TRUE) . '</pre>');
   watchdog("Topic Debug", '$$muralroomid info' . print_r($muralroomid, TRUE) . '</pre>');
   if ($muralusername == '' || $muralroomid == '') {
+    watchdog("Topic Debug", '$muralusername and $muralroomid empty' . print_r($muralroomid, TRUE) . '</pre>');
 //     drupal_set_message(t('can\'t get link to the mural account!'), 'error');
 
     return '';
   }
 
   if ($template_id == 0) {
+    watchdog("Topic Debug", '$template_id info: ' . print_r($template_id, TRUE) . '</pre>');
     //create new mural
     $the_mural = create_mural($mural_api, $muralusername, $muralroomid);
 //     dd($the_m_id, 'create mural');
