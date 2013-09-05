@@ -6,7 +6,7 @@ if(isset($topicColors) && count($topicColors)>0) {
 }
 function youtube_parser($url) {
 	preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $url, $matches);
-	if(is_array($matches) && count($matches) > 0) 
+	if(is_array($matches) && count($matches) > 0)
 		return $matches[0];
 	return false;
 }
@@ -141,7 +141,7 @@ h1{
 	position: relative;
 	float:left;
 	width:540px;
-	
+
 }
 .field-name-field-topic-suggestion .field-label{
 	padding:20px 0 0 17px;
@@ -150,7 +150,7 @@ h1{
 }
 .field-name-field-topic-suggestion .field-item{
 	width:300px;
-	
+
 	padding:20px;
 	float:left;
 	background:#fff;
@@ -190,7 +190,7 @@ h1{
 					self.append('<span class="media-indicator"></span>');
 				}
 				self.find('.media-indicator').eq(0).addClass('actived');
-				
+
 				//next button
 				self.siblings(options.siblingsNext).bind('click', function(){
 					var idx = self.find('.media-indicator.actived').index();
@@ -200,9 +200,9 @@ h1{
 						item.eq(idx).hide();
 						item.eq(idx+1).fadeIn(300);
 					}
-					
+
 				});
-				
+
 				//pre button
 				self.siblings(options.siblingsPre).bind('click', function(){
 					var idx = self.find('.media-indicator.actived').index();
@@ -213,7 +213,7 @@ h1{
 						item.eq(idx-1).fadeIn(300);
 					}
 				});
-				
+
 				//indicator click
 				self.find('.media-indicator').bind('click', function(){
 					var idx = self.find('.media-indicator.actived').index();
@@ -223,14 +223,14 @@ h1{
 					item.eq(idx).hide();
 					item.eq(crt).fadeIn(300);
 				})
-				
+
 			});
 		}
 	});
 	$(document).ready(function(){
 		$('.images-controller-dots').mediaSlide();
 		$('.videos-controller-dots').mediaSlide();
-    
+
 		//some UI
 		$('.field-name-field-topic-problem .field-item p').append('<div class="right-quote"></div>');
 	});
@@ -251,7 +251,7 @@ h1{
         <div class="images-controller controller" style="background:<?php echo $topicColor;?>;">
           <a href="#x" class="prev" <?php if(count($images) == 1) echo 'disabled="disabled"';?>>Prev</a>
           <div class="images-controller-dots controller-dots">
-          
+
           </div>
           <a href="#x" class="next" <?php if(count($imageUrls) == 1) echo 'disabled="disabled"';?>>Next</a>
         </div>
@@ -268,7 +268,7 @@ h1{
         <div class="videos-controller controller" style="background:<?php echo $topicColor;?>;">
           <a href="#x" class="prev" <?php if(count($videoIds) == 1) echo 'disabled="disabled"';?>>Prev</a>
           <div class="videos-controller-dots controller-dots">
-          
+
           </div>
           <a href="#x" class="next" <?php if(count($videoIds) == 1) echo 'disabled="disabled"';?>>Next</a>
         </div>
@@ -304,8 +304,8 @@ jQuery('.node-type-edgemakers-topic h1').css('background-color', "<?php echo $to
   jQuery('.video-item').bind('click', function() {
     if(!jQuery(this).hasClass('active')) changeVideo(this.id);
   });
-  <?php endif;?>  
-  
+  <?php endif;?>
+
 <?php endif;?>
 function loadVideo(videoid) {
 	var params = { allowScriptAccess: "always", wmode : 'opaque' };

@@ -314,3 +314,19 @@ if ($ignore_mural_bye != 1 && isset($_SESSION['need_logout_muraleditor']) && $_S
   <?php
 }
 ?>
+
+  
+  
+<?php 
+  if (isset($_SESSION['userchangepass']) && $_SESSION['userchangepass'] == 1) {
+    unset($_SESSION['userchangepass']);
+?>
+  <script>
+    jQuery(document).ready(function(){
+      jQuery("a[href='/edgemakers/user/profile/settings/nojs']").trigger("click");
+    });
+    </script>
+    <?php    
+  }
+
+?>  

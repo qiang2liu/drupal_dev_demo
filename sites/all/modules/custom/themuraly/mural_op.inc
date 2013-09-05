@@ -507,8 +507,6 @@ function mural_delete($nid = 0) {
 		$delete_status = $mural_api->delete_mural($muralusername, $muralid);
 
 		if ($delete_status->data == 'OK') {
-// 			drupal_set_message('Mural ' . $node->title . ' have deleted.');
-			//drupal_set_message('<pre>' . print_r($delete_status, TRUE) . '</pre>');
 			$html .= 'Mural ' . $node->title . ' have deleted.';
 			$node_delete = node_delete($nid);
 			watchdog('Mural node delete', $user->username . ' delete mural[' . $muralid . ']');
@@ -521,7 +519,7 @@ function mural_delete($nid = 0) {
 
 	}
 	else {
-// 		drupal_set_message(t('Delete fail'), 'error');
+
 		$html .= 'Mural ' . $node->title . ' fail.';
 	}
 
@@ -530,4 +528,23 @@ function mural_delete($nid = 0) {
 	drupal_add_js('setInterval(window.parent.closeFromIframe(), 5000);', array('type'=>'inline'));
 
 	return $html;
+}
+
+function themuraly_topic_mural_create($topid = '') {
+
+  if ($topid) {
+    $node = muralcreate();
+    $node->field_topic_mural['und'][0]['target_id'] = $topid;
+    node_object_prepare($node);
+    $status = node_save($node);
+
+//     if ($status) {
+      drupal_goto('mural/' . $node->nid);
+//     }
+//     else {
+//       return t('Create mural fail');
+//     }
+
+  }
+
 }
