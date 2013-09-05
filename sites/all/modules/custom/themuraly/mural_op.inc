@@ -323,6 +323,8 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
     watchdog("Topic Debug", '$template_id info: ' . print_r($template_id, TRUE) . '</pre>');
     //create new mural
     $the_mural = create_mural($mural_api, $muralusername, $muralroomid);
+
+    watchdog("Topic Debug", 'Create mural id: ' . print_r($the_mural, TRUE) . '</pre>');
 //     dd($the_m_id, 'create mural');
 
     // Create_mural return mural data now.
@@ -364,6 +366,8 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
       return '';
     }
   }
+
+  watchdog("Topic Debug", '$the_mural after create info' . print_r($the_mural, TRUE) . '</pre>');
 
   $str_p = preg_match("/[0-9]+$/", $the_mural['id'], $matches);
   $new_mural_id = '';
