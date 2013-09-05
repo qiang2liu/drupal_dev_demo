@@ -335,6 +335,7 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
       $data = $mural_info->data;
       $r = drupal_json_decode($data);
       dpm($data);
+      watchdog("Topic Debug", 'mural info' . $r);
 //       dpm('<pre>' . print_r($r, TRUE) . '</pre>');
 
       $title = 'Copy of ' . $r['title'];
@@ -535,6 +536,7 @@ function mural_delete($nid = 0) {
 function themuraly_topic_mural_create($topid = '') {
 
   if ($topid) {
+    watchdog("Topic Debug", 'topid' . $topid);
     $node = muralcreate();
 
     $node->field_topic_mural['und'][0]['target_id'] = $topid;
