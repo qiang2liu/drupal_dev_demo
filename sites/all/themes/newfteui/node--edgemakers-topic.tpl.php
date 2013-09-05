@@ -282,9 +282,6 @@ h1{
         print render($content['field_topic_org_resources']);
       ?>
       </div>
-      <div id="topic-murals">
-        <?php print render($page['topic_murals']); ?>
-      </div>
   </div>
 </div>
 <script>
