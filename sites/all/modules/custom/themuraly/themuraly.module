@@ -410,7 +410,10 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 //         ),
 //       );
 
-      if ($form_state['node']->field_muralshared['und']['0']['value'] == 1) {
+      dpm($form_state);
+      if (($form_state['node']->field_muralshared['und']['0']['value'] == 1)
+        OR ($form_state['values']['field_muralshared'][LANGUAGE_NONE]['0']['value'] == 1)
+      ) {
         $share_mail_class = '';
       }
       else {
@@ -432,7 +435,7 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 
         $form['field_city']['und']['0']['#title'] = '';
 
-        $form['field_city']['city']['und']['#title'] = 'I hook city title.';
+        $form['field_city']['city']['und']['#title'] = 'Location info city title.';
 //         $form['field_city']['und']['0']['#after_build'] = array('_add_placeholder');
 //         $form['field_city']['city']['#attributes']['placeholder'] = T('City Name');
 
