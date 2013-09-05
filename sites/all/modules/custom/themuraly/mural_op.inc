@@ -281,6 +281,7 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
   $mural_api = new Muralapi;
   $muralusername = '';
   $muralroomid = '';
+  watchdog("Topic Debug", 'account info' . print_r($account, TRUE) . '</pre>');
   if (empty($account->field_muralusername)) {
     // this account hasn't mapped to a  mural account,call mural api to do it
     fteuser_set_mural_user($mural_api, $account);
