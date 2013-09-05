@@ -419,7 +419,7 @@ function create_mural($mural_api, $muser, $mroomid, $title = 'my mural', $duplic
 //     dd($mural_api_result, 'mural api results of duplicate_mural');
   } else {
     $mural_api_result = $mural_api->create_mural($muser, $params);
-    watchdog('Topic Debug', 'mural api info:' . $mural_api_result);
+    watchdog('Topic Debug', 'mural api info:' . print_r($mural_api_result, TRUE));
 //     dd($mural_api_result, 'mural api results of create_mural');
   }
   if (is_object($mural_api_result) && isset($mural_api_result->data)) {
