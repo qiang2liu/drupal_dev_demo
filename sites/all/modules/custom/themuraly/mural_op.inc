@@ -383,7 +383,7 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
   node_save($newNode);
   $the_nid = $newNode->nid;
 
-  dpm($newNode);
+  watchdog('Debug' , $newNode);
 
   return $newNode;
 
