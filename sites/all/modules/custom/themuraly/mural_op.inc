@@ -377,31 +377,36 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
 
   watchdog("Topic Debug", '$new_mural_id info' . print_r($new_mural_id, TRUE) . '</pre>');
 
-  $newNode = (object) NULL;
-  $newNode->type = 'murals';
-  $newNode->title = $title;
-  $newNode->created = strtotime("now");
-  $newNode->changed = strtotime("now");
-  $newNode->status = 1;
-  $newNode->comment = 0;
-  $newNode->promote = 0;
-  $newNode->moderate = 0;
-  $newNode->sticky = 0;
-  $newNode->language = 'und';
-  $newNode->field_muralid['und'][0]['value'] = $new_mural_id;
-  $newNode->field_muraluser['und'][0]['value'] = $muralusername;
+  if ($new_mural_id) {
+    $newNode = (object) NULL;
+    $newNode->type = 'murals';
+    $newNode->title = $title;
+    $newNode->created = strtotime("now");
+    $newNode->changed = strtotime("now");
+    $newNode->status = 1;
+    $newNode->comment = 0;
+    $newNode->promote = 0;
+    $newNode->moderate = 0;
+    $newNode->sticky = 0;
+    $newNode->language = 'und';
+    $newNode->field_muralid['und'][0]['value'] = $new_mural_id;
+    $newNode->field_muraluser['und'][0]['value'] = $muralusername;
 
-  $newNode->field_mural_thumburl['und'][0]['value'] = $the_mural['thumbUrl'];
-  $mural_memebers = array_keys($the_mural['members']);
-  $newNode->field_mural_members['und'][0]['value'] = serialize($mural_memebers);
+    $newNode->field_mural_thumburl['und'][0]['value'] = $the_mural['thumbUrl'];
+    $mural_memebers = array_keys($the_mural['members']);
+    $newNode->field_mural_members['und'][0]['value'] = serialize($mural_memebers);
 
-  node_object_prepare($newNode);
-  node_save($newNode);
-  $the_nid = $newNode->nid;
+    node_object_prepare($newNode);
+    node_save($newNode);
+    $the_nid = $newNode->nid;
 
-  watchdog('Debug' , $newNode);
+    watchdog('Debug' , $newNode);
 
-  return $newNode;
+    return $newNode;
+  }
+  else {
+    return t('Create mural fail');
+  }
 
   //drupal_goto('mural/' . $the_nid);
 }
