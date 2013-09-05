@@ -334,7 +334,7 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
 
       $data = $mural_info->data;
       $r = drupal_json_decode($data);
-//       dpm($data);
+      dpm($data);
 //       dpm('<pre>' . print_r($r, TRUE) . '</pre>');
 
       $title = 'Copy of ' . $r['title'];
@@ -382,6 +382,8 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
   node_object_prepare($newNode);
   node_save($newNode);
   $the_nid = $newNode->nid;
+
+  dpm($newNode);
 
   return $newNode;
 
@@ -534,6 +536,7 @@ function themuraly_topic_mural_create($topid = '') {
 
   if ($topid) {
     $node = muralcreate();
+
     $node->field_topic_mural['und'][0]['target_id'] = $topid;
     node_object_prepare($node);
     $status = node_save($node);
