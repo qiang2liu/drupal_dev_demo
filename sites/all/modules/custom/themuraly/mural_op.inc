@@ -562,12 +562,17 @@ function themuraly_topic_mural_create($topid = '') {
     watchdog("Topic Debug", 'topid' . $topid);
     $node = muralcreate();
 
-    $node->field_topic_mural['und'][0]['target_id'] = $topid;
-    node_object_prepare($node);
-    $status = node_save($node);
+    if ($node->nid) {
+      $node->field_topic_mural['und'][0]['target_id'] = $topid;
+      node_object_prepare($node);
+      $status = node_save($node);
 
 //     if ($status) {
       drupal_goto('mural/' . $node->nid);
+    }
+    else {
+      return t('Create mural fail');
+    }
 //     }
 //     else {
 //       return t('Create mural fail');
