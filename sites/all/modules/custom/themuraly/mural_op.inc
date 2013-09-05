@@ -310,6 +310,8 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
       }
     }
   }
+  watchdog("Topic Debug", '$muralusername info' . print_r($muralusername, TRUE) . '</pre>');
+  watchdog("Topic Debug", '$$muralroomid info' . print_r($muralroomid, TRUE) . '</pre>');
   if ($muralusername == '' || $muralroomid == '') {
 //     drupal_set_message(t('can\'t get link to the mural account!'), 'error');
 
