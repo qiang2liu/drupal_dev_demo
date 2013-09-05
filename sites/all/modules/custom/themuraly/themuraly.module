@@ -313,7 +313,7 @@ function themuraly_block_view($delta = '') {
         $block['content'] .= '</div>';
       }
       else {
-        $block['content'] .= t('empty');
+        $block['content'] .= t('');
       }
       break;
   }
@@ -354,8 +354,6 @@ function themuraly_location_element_alter(&$element) {
   $element['city']['#attributes']['placeholder'] = t('City');
 }
 
-
-
 /**
  * Implments hook_form_alter();
  */
@@ -383,6 +381,7 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 
       // Dropdown select box style.
       $form['field_challenges_category'][LANGUAGE_NONE]['#options']['_none'] = t('Category');
+      $form['field_topic_mural'][LANGUAGE_NONE]['#options']['_none'] = t('Topic');
 
       $form['field_share_to_gallery'][LANGUAGE_NONE]['#options']['_none'] = t('Share to Gallery');
 //       $form['field_share_to_gallery'][LANGUAGE_NONE]['#attributes'] = array(
@@ -411,7 +410,10 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 //         ),
 //       );
 
-      if ($form_state['node']->field_muralshared['und']['0']['value'] == 1) {
+      dpm($form_state);
+      if (($form_state['node']->field_muralshared['und']['0']['value'] == 1)
+        OR ($form_state['values']['field_muralshared'][LANGUAGE_NONE]['0']['value'] == 1)
+      ) {
         $share_mail_class = '';
       }
       else {
@@ -422,7 +424,7 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#autocomplete_path'] = 'mural/usersearch/autocomplete';
       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#attributes'] = array('autocomplete' => 'on');
 //       , 'placeholder' => 'Enter email address');
-      $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#value'] = '';
+//       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#value'] = '';
 //       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#attributes']['placeholder'] = t('Description');
 
       if ($the_nid) {  //edit form
@@ -433,7 +435,7 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 
         $form['field_city']['und']['0']['#title'] = '';
 
-        $form['field_city']['city']['und']['#title'] = 'I hook city title.';
+        $form['field_city']['city']['und']['#title'] = 'Location info city title.';
 //         $form['field_city']['und']['0']['#after_build'] = array('_add_placeholder');
 //         $form['field_city']['city']['#attributes']['placeholder'] = T('City Name');
 
@@ -702,11 +704,11 @@ function _themuralyajax_validate($form, &$form_state) {
 
     // Validate mail.
     $mail_to_share = $form_state['values']['field_mail_to_share'][LANGUAGE_NONE][0]['value'];
-    $form_state['values']['field_mail_to_share'][LANGUAGE_NONE][0]['value'] = '';
-
+// dpm($form_state);
+//     $form_state['values']['field_mail_to_share'][LANGUAGE_NONE][0]['value'] = '';
+// dpm($mail_to_share);
     if ($mail_to_share) {
       if (_valid_local_user($mail_to_share)) {
-
         $account = user_load_by_name($mail_to_share);
         $send_email = $account->mail;
 
@@ -716,13 +718,16 @@ function _themuralyajax_validate($form, &$form_state) {
         }
         else {
           watchdog('Mural Share', $user->name . ' share mural to ' . $mail_to_share . ', send mail fail');
+          $form_state['values']['field_mail_to_share'][LANGUAGE_NONE][0]['value'] = '';
         }
 //         form_set_error('field_mail_to_share', t('Invalid account in our system.'));
       }
       else {
-        form_set_error('field_mail_to_share', t('Invalid account in our system.'));
+        form_set_error('field_mail_to_share', t('Invalid account'));
       }
     }
+
+//     form_set_error('field_mail_to_share', t('Invalid account'));
 
   }
 }
@@ -753,7 +758,7 @@ function _valid_local_user($user) {
   foreach ($result as $row) {
     $ret[] = check_plain($row->uid);
   }
-
+// dpm($ret);
   if (count($ret) >= 1) {
     return true;
   }
