@@ -141,6 +141,7 @@ function formatSecondsAsTime(secs) {
 
 <?php
 else :
+  $typename = $type;
   function getAmazonFile($upload, $type) {
     $output = '';
     switch($type) {
@@ -150,6 +151,7 @@ else :
       case 'Docs':
         $url = file_create_url($upload);
         $output = '<iframe class="pdf" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="no" height="600px" src="'.$url.'">'.$url.'</iframe>';
+        $typename = 'Document';
         break;
     }
     return $output;
@@ -158,8 +160,8 @@ else :
   $upload = $uploads && count($uploads) > 0 ? $uploads[0]['uri'] : '';
   $fid = $uploads && count($uploads) > 0 ? $uploads[0]['fid'] : '';
 ?>
-<div id="Image-image-icon" class="set-type-icon set-image-type-icon">
-  Image<br/>
+<div id="<?php echo $typename;?>-video-icon" class="set-type-icon set-video-type-icon">
+  <?php echo $typename;?><br/>
 </div>
 <span id="set-title" style="display: none;"><?php print $title;?></span>
   <div class="content set-image-content clearfix"<?php print $content_attributes; ?>>
