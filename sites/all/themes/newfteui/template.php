@@ -480,14 +480,14 @@ function newfteui_html5_player($variables) {
   $settings = trim(drupal_json_encode($settings), '{}');
   $swfplayer = url(drupal_get_path('module', 'html5_media') . '/player/flash/minplayer.swf');
     
-  $extra = "<div>jQuery(function() {
+  $extra = "<script>jQuery(function() {
       jQuery('#{$playerId}').minplayer({
         id:'#{$playerId}',
         attributes:{$attributes},
         {$settings},
         swfplayer:'{$swfplayer}'
       });
-    });</div>";
+    });</script>";
 
   // Return the theme for our media player.
   return theme('html5_player_' . $settings['template'], $variables) . $extra;
