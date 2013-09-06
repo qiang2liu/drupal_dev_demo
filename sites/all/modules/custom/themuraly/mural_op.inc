@@ -281,6 +281,7 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
   $mural_api = new Muralapi;
   $muralusername = '';
   $muralroomid = '';
+//   watchdog("Topic Debug", 'account info' . print_r($account, TRUE) . '</pre>');
   if (empty($account->field_muralusername)) {
     // this account hasn't mapped to a  mural account,call mural api to do it
     fteuser_set_mural_user($mural_api, $account);
@@ -309,15 +310,21 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
       }
     }
   }
+//   watchdog("Topic Debug", '$muralusername info' . print_r($muralusername, TRUE) . '</pre>');
+//   watchdog("Topic Debug", '$$muralroomid info' . print_r($muralroomid, TRUE) . '</pre>');
   if ($muralusername == '' || $muralroomid == '') {
+//     watchdog("Topic Debug", '$muralusername and $muralroomid empty' . print_r($muralroomid, TRUE) . '</pre>');
 //     drupal_set_message(t('can\'t get link to the mural account!'), 'error');
 
     return '';
   }
 
   if ($template_id == 0) {
+//     watchdog("Topic Debug", '$template_id info: ' . print_r($template_id, TRUE) . '</pre>');
     //create new mural
     $the_mural = create_mural($mural_api, $muralusername, $muralroomid);
+
+//     watchdog("Topic Debug", 'Create mural id: ' . print_r($the_mural, TRUE) . '</pre>');
 //     dd($the_m_id, 'create mural');
 
     // Create_mural return mural data now.
@@ -328,18 +335,20 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
     }
   } else {
 
+//     watchdog("Topic Debug", '$owner_id info' . print_r($owner_id, TRUE) . '</pre>');
     if ($owner_id) {
       $mural_api = new Muralapi;
       $mural_info = $mural_api->retrieve_a_mural($owner_id, $template_id);
-
       $data = $mural_info->data;
       $r = drupal_json_decode($data);
-//       dpm($data);
+      dpm($data);
+//       watchdog("Topic Debug", 'mural info' . $r);
 //       dpm('<pre>' . print_r($r, TRUE) . '</pre>');
 
       $title = 'Copy of ' . $r['title'];
     }
 
+//     watchdog("Topic Debug", '$nid info' . print_r($nid, TRUE) . '</pre>');
   	if ($nid) {
   		$node = node_load($nid);
   		// duplicate the mural
@@ -347,6 +356,9 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
   	}
 
     $the_mural = create_mural($mural_api, $muralusername, $muralroomid, $title, $template_id);
+
+//     watchdog("Topic Debug", '$the_mural info' . print_r($the_mural, TRUE) . '</pre>');
+
     // Create_mural return mural data now.
 //     if ($the_m_id == '') {
     if (!$the_mural) {
@@ -355,35 +367,46 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
     }
   }
 
+//   watchdog("Topic Debug", '$the_mural after create info' . print_r($the_mural, TRUE) . '</pre>');
+
   $str_p = preg_match("/[0-9]+$/", $the_mural['id'], $matches);
   $new_mural_id = '';
   if ($str_p) {
     $new_mural_id = $matches[0];
   }
 
-  $newNode = (object) NULL;
-  $newNode->type = 'murals';
-  $newNode->title = $title;
-  $newNode->created = strtotime("now");
-  $newNode->changed = strtotime("now");
-  $newNode->status = 1;
-  $newNode->comment = 0;
-  $newNode->promote = 0;
-  $newNode->moderate = 0;
-  $newNode->sticky = 0;
-  $newNode->language = 'und';
-  $newNode->field_muralid['und'][0]['value'] = $new_mural_id;
-  $newNode->field_muraluser['und'][0]['value'] = $muralusername;
+//   watchdog("Topic Debug", '$new_mural_id info' . print_r($new_mural_id, TRUE) . '</pre>');
 
-  $newNode->field_mural_thumburl['und'][0]['value'] = $the_mural['thumbUrl'];
-  $mural_memebers = array_keys($the_mural['members']);
-  $newNode->field_mural_members['und'][0]['value'] = serialize($mural_memebers);
+  if ($new_mural_id) {
+    $newNode = (object) NULL;
+    $newNode->type = 'murals';
+    $newNode->title = $title;
+    $newNode->created = strtotime("now");
+    $newNode->changed = strtotime("now");
+    $newNode->status = 1;
+    $newNode->comment = 0;
+    $newNode->promote = 0;
+    $newNode->moderate = 0;
+    $newNode->sticky = 0;
+    $newNode->language = 'und';
+    $newNode->field_muralid['und'][0]['value'] = $new_mural_id;
+    $newNode->field_muraluser['und'][0]['value'] = $muralusername;
 
-  node_object_prepare($newNode);
-  node_save($newNode);
-  $the_nid = $newNode->nid;
+    $newNode->field_mural_thumburl['und'][0]['value'] = $the_mural['thumbUrl'];
+    $mural_memebers = array_keys($the_mural['members']);
+    $newNode->field_mural_members['und'][0]['value'] = serialize($mural_memebers);
 
-  return $newNode;
+    node_object_prepare($newNode);
+    node_save($newNode);
+    $the_nid = $newNode->nid;
+
+    watchdog('Debug' , $newNode);
+
+    return $newNode;
+  }
+  else {
+    return t('Create mural fail');
+  }
 
   //drupal_goto('mural/' . $the_nid);
 }
@@ -392,13 +415,16 @@ function create_mural($mural_api, $muser, $mroomid, $title = 'my mural', $duplic
   $params = array('title' => $title, 'room' => $mroomid);
   if ($duplicate_id != '') {
     $mural_api_result = $mural_api->duplicate_mural($muser, $duplicate_id, $params);
+    watchdog('Topic Debug', 'mural api info:' . $mural_api_result);
 //     dd($mural_api_result, 'mural api results of duplicate_mural');
   } else {
     $mural_api_result = $mural_api->create_mural($muser, $params);
+    watchdog('Topic Debug', 'mural api info:' . print_r($mural_api_result, TRUE));
 //     dd($mural_api_result, 'mural api results of create_mural');
   }
   if (is_object($mural_api_result) && isset($mural_api_result->data)) {
     $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
+//     watchdog('Topic Debug', 'mural api decode json info:' . print_r($muralapi_response_objm, TRUE));
 
 //     dd($muralapi_response_obj, 'mural api results of $mural_api_result json data.');
 
@@ -533,13 +559,20 @@ function mural_delete($nid = 0) {
 function themuraly_topic_mural_create($topid = '') {
 
   if ($topid) {
+//     watchdog("Topic Debug", 'topid' . $topid);
     $node = muralcreate();
-    $node->field_topic_mural['und'][0]['target_id'] = $topid;
-    node_object_prepare($node);
-    $status = node_save($node);
+
+    if ($node->nid) {
+      $node->field_topic_mural['und'][0]['target_id'] = $topid;
+      node_object_prepare($node);
+      $status = node_save($node);
 
 //     if ($status) {
       drupal_goto('mural/' . $node->nid);
+    }
+    else {
+      return t('Create mural fail');
+    }
 //     }
 //     else {
 //       return t('Create mural fail');

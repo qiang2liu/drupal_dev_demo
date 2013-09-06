@@ -410,8 +410,14 @@ function make_content_output($node) {
    */
   $name = $node->name;
   $source = 'mural/' . $node->nid;
+  if (user_is_logged_in()) {
+    $clickfunction = "showMuralDialog('" . $source . "')";
+  } 
+  else {
+   $clickfunction = 'showLogin()';
+  }
   $ret .= '<li>';
-  $ret .= '<p class="title"><a href="javascript:void(0);" onclick= "showMuralDialog(\'mural/236\')">' . $title . '</a></p>';
+  $ret .= '<p class="title"><a href="javascript:void(0);" onclick= "' . $clickfunction. '">' . $title . '</a></p>';
 
   $ret .= '<p class="desc">'
           . $desc . '</p><p class="tags">' . $tags . '</p><p class="creator">'

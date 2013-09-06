@@ -305,6 +305,7 @@ function themuraly_block_view($delta = '') {
       break;
     case 'topic_mural_list':
       $block['subject'] = 'Mural list on topic';
+      $block['content'] = '<div><h3>Projects</h3><p>' . t('Can you help these EdgeMakers with their projects?') . '</p></div>';
       if ($node = menu_get_object()) {
 //         print('Node get from menu');
         $block['content'] .= '<div id="murals-topic-' . $node->nid . '">';
@@ -355,10 +356,39 @@ function themuraly_location_element_alter(&$element) {
 }
 
 /**
+ * Implement hook_after_build();
+ */
+function themuraly_after_build($form, $form_state)
+{
+//   dpm($form);
+//   dpm($form_state);
+
+  if (($form_state['node']->field_muralshared['und']['0']['value'] == 1)
+    OR ($form_state['values']['field_muralshared'][LANGUAGE_NONE]['0']['value'] == 1)
+  ) {
+    $share_mail_class = '';
+  }
+  else {
+    $share_mail_class = 'hidden';
+  }
+  $form['field_mail_to_share'][LANGUAGE_NONE]['#prefix'] = '<div id="invite_email_box" class="' . $share_mail_class . '">';
+  // First I re-attach the original submit handler to the form
+//   $form['buttons']['submit']['#submit'] = array('node_form_submit');
+
+  drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/removeTextareaResizea.js');
+
+  // Then I return the form
+  return $form;
+
+}
+
+/**
  * Implments hook_form_alter();
  */
 function themuraly_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == 'murals_node_form') {
+
+      $form['#after_build'][] = 'themuraly_after_build';
 
 //     if (arg(0) == 'modal') {
 
@@ -410,16 +440,6 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 //         ),
 //       );
 
-      dpm($form_state);
-      if (($form_state['node']->field_muralshared['und']['0']['value'] == 1)
-        OR ($form_state['values']['field_muralshared'][LANGUAGE_NONE]['0']['value'] == 1)
-      ) {
-        $share_mail_class = '';
-      }
-      else {
-        $share_mail_class = 'hidden';
-      }
-      $form['field_mail_to_share'][LANGUAGE_NONE]['#prefix'] = '<div id="invite_email_box" class="' . $share_mail_class . '">';
       $form['field_mail_to_share'][LANGUAGE_NONE]['#suffix'] = '</div>';
       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#autocomplete_path'] = 'mural/usersearch/autocomplete';
       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#attributes'] = array('autocomplete' => 'on');
@@ -469,10 +489,21 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
         array_unshift($form['#validate'], '_themuralyajax_validate');
         array_unshift($form['#submit'], '_themuralyajax_submit');
 
+        $hash = md5(microtime());
         $form['#attached']['js'] = array(
-          drupal_get_path('module', 'themuraly') . '/js/removeTextareaResizea.js',
+          drupal_get_path('module', 'themuraly') . '/js/removeTextareaResizea.js' => array(
+            'cache' => FALSE,
+            'preprocess' => TRUE,
+          ),
 //           drupal_get_path('module', 'themuraly') . '/js/populatePopup.js',
         );
+
+//         drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/removeTextareaResizea.js');
+
+//         $form['#attached']['js'][] = array(
+//           'data' => array('showInviteEmailBox()'),
+//           'type' => 'inline',
+//         );
 
 //         $form['mural_member_area'] = array(
 //           '#markup' => '<div id="mural_member_list"> ' . _mural_member_list($the_nid) . ' </div>',
@@ -723,6 +754,7 @@ function _themuralyajax_validate($form, &$form_state) {
 //         form_set_error('field_mail_to_share', t('Invalid account in our system.'));
       }
       else {
+        $form['field_mail_to_share'][LANGUAGE_NONE]['#prefix'] = '<div id="invite_email_box" class="">';
         form_set_error('field_mail_to_share', t('Invalid account'));
       }
     }
@@ -909,9 +941,9 @@ function muralapi_test() {
 
 //   themuraly_studio_mural_list_json('gallery', 1, 'untitle');
 
-  themuraly_topic_mural_list(539);
+//  themuraly_topic_mural_list(539);
 //   _test_mural_list_for_a_user();
-  //_test_user_add();
+   _test_user_add();
   //_test_create_room();
   // _test_mural_create_mural();
   //_test_mural_duplicate_mural();

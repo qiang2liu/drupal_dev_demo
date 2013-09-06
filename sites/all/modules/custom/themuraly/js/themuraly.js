@@ -424,3 +424,7 @@ function showInviteEmailBox() {
   }
   //alert("Show invite box.");
 }
+
+function showLogin() {
+  jQuery("a[href$='modal_forms/nojs/login']").trigger("click");
+}
