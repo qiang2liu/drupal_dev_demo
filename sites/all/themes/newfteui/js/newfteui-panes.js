@@ -142,7 +142,25 @@
 	
 	//Gallery
 	$('#gallery-search-form').next().addClass('right-align');
-	$('#gallery-search-form').wrapInner('<div class="new" />')
+	$('#gallery-search-form').wrapInner('<div class="new" />');
+	
+	//different background for #topic-mural-list li
+	$('#topic-mural-list li').each(function(i){
+		switch (i){
+			case 1:
+			   $(this).addClass('topicMuralLsitB');
+			   break;
+			case 2:
+			   $(this).addClass('topicMuralLsitC');
+			   break; 
+			case 3:
+			   $(this).addClass('topicMuralLsitD');
+			   break; 
+			case 4:
+			   $(this).addClass('topicMuralLsitE');
+			   break; 
+		}
+	});
  });
 })(jQuery);
 
