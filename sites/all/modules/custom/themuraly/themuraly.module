@@ -305,10 +305,10 @@ function themuraly_block_view($delta = '') {
       break;
     case 'topic_mural_list':
       $block['subject'] = 'Mural list on topic';
-      $block['content'] = '<div><h3>Projects</h3><p>' . t('Can you help these EdgeMakers with their projects?') . '</p></div>';
+      $block['content'] = '<div class="project-title"><h3>Projects</h3><p>' . t('Can you help these EdgeMakers with their projects?') . '</p></div>';
       if ($node = menu_get_object()) {
 //         print('Node get from menu');
-        $block['content'] .= '<div id="murals-topic-' . $node->nid . '">';
+        $block['content'] .= '<div id="murals-topic-' . $node->nid . '" class="project-con">';
         $murals_html = themuraly_topic_mural_list($node->nid);
         $block['content'] .= $murals_html;
         $block['content'] .= '</div>';
