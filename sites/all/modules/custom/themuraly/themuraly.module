@@ -305,8 +305,8 @@ function themuraly_block_view($delta = '') {
       break;
     case 'topic_mural_list':
       $block['subject'] = 'Mural list on topic';
-      $block['content'] = '<div><h3>Projects</h3><p>' . t('Can you help these EdgeMakers with their projects?') . '</p></div>';
       if ($node = menu_get_object()) {
+        $block['content'] = '<div><h3>Projects</h3><p>' . t('Can you help these EdgeMakers with their projects?') . '</p></div>';
 //         print('Node get from menu');
         $block['content'] .= '<div id="murals-topic-' . $node->nid . '">';
         $murals_html = themuraly_topic_mural_list($node->nid);
@@ -314,7 +314,7 @@ function themuraly_block_view($delta = '') {
         $block['content'] .= '</div>';
       }
       else {
-        $block['content'] .= t('');
+        $block['content'] = t('');
       }
       break;
   }
@@ -1877,8 +1877,6 @@ function theme_mural_item_box($item = array(), $attributes = array()) {
   global $user;
   $html = '';
   $node = $item['node'];
-//   echo "type on mural item box:" . $type;
-//   print('Node info:<pre>' . print_r($node, TRUE) . '</pre>');
 
   foreach ($attributes AS $key => $value) {
     $item_attributes[$key] = $value;
@@ -1896,12 +1894,12 @@ function theme_mural_item_box($item = array(), $attributes = array()) {
 
     $html .= '<div>';
 
-    if ($node->field_topic_mural[LANGUAGE_NONE]['0']['target_id']) {
+    if ($node->field_topic_mural[LANGUAGE_NONE]['0']['target_id']) {    // Topic mural list
       $html .= '<h3 class="author">' . $node_username . '</h3>';
       $html .= '<span class="mural-title">' . $node->title . '</span>';
       $html .= '<span class="user-avatar">' . $node_user_avatar . '</span>';
     }
-    else {
+    else {                                                             // Default mural list
       $html .= '<div class="set-cover">
                       <h5>' . $node->title .'</h5>
                       <p class="inspiration">' . $node_username .'</p>
