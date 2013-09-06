@@ -426,6 +426,51 @@ function newfteui_better_messages_content($display = NULL) {
 	}
 	return $output;
 }
+function newfteui_minplayer($variables) {
+
+  // Get the parameters.
+  $params = $variables['params'];
+  $params['id'] .= '-'.time();
+  // Get the attributes.
+  $attributes = html5_media_get_attributes($params);
+
+  // See if we should show the player.
+  $showPlayer = isset($params['showWhenEmpty']) ? $params['showWhenEmpty'] : TRUE;
+
+  // Always show the player when viewing through the admin interface.
+  $showPlayer |= !empty($params['admin']);
+
+  // Get the media sources and set the source of this media.
+  $mediasrc = array();
+  if ($media = minplayer_get_sources('media', $params)) {
+    $media = isset($media['media']) ? $media['media'] : array_shift($media);
+    $media = !empty($media[0]) ? $media[0] : $media;
+    $mediasrc['value'] = $media->path;
+    if (!empty($media->filemime)) {
+      $mediasrc['filemime'] = $media->filemime;
+    }
+  }
+
+  // Set the poster image.
+  $imgsrc = '';
+  if ($images = minplayer_get_sources('image', $params)) {
+    $imgsrc = isset($images['preview']) ? $images['preview'] : $images['image'];
+    $imgsrc = is_string($imgsrc) ? $imgsrc : $imgsrc->path;
+    $attributes['poster'] = $imgsrc;
+  }
+
+  // Setup the 'element' provided the params.
+  $variables['element'] = array(
+    '#tag' => 'video',
+    '#attributes' => $attributes,
+    '#settings' => $params,
+    '#sources' => array($mediasrc)
+  );
+
+  // Return the theme for our media player.
+  $hide = (!$imgsrc && !$mediasrc && !$showPlayer);
+  return $hide ? '' : theme('html5_player', $variables);
+}
 /**
  * Implements hook_theme() in theme.
  */
