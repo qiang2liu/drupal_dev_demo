@@ -12,6 +12,9 @@ function edgemakers_media_upload_init() {
   drupal_add_js(drupal_get_path('module', 'edgemakers_media_upload') . '/js/edgemakers_media_upload.js');
 }
 
+/**
+ * Implements hook_menu().
+ */
 function edgemakers_media_upload_menu() {
   $items = array();
 
@@ -75,6 +78,12 @@ function edgemakers_media_upload_menu() {
   return $items;
 }
 
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function edgemakers_media_upload_theme_registry_alter(&$theme_registry) {
+  $theme_registry['html5_player_default']['path'] = drupal_get_path('theme', 'newfteui');
+}
 
 function edgemakers_media_view_html($nid) {
 	if ($nid) {
@@ -97,55 +106,29 @@ function edgemakers_media_upload_form_alter(&$form, $form_state, $form_id) {
 
       $form['#prefix'] = '<div id="upload-media-ajax-wrapper">';
       $form['#suffix'] = '</div>';
+      
+      $form['title']['#attributes']['placeholder'] = t('MEDIA TITLE');
+      $form['field_media_type'][LANGUAGE_NONE]['#options']['_none'] = t('MEDIA TYPE');
+      $form['field_media_url'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('MEDIA URL')
+      ;
+      $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('TAGS');
+      $form['field_challenges_category'][LANGUAGE_NONE]['#options']['_none'] = t('CATEGORY');
 
-      // @TODO display first error on form item by ajax.
-//       $form['error_info'] = array(
-//         '#type' => 'textfield',
-//         '#attributes' => array(
-//           'readonly' => 'readonly',
-//         ),
-//         '#value' => t(''),
-//         '#weight' => -50,
-//       );
-
-//       if($form_state['error']) {
-//         $form['error_info']['#attributes']['#class'] = array();
-//       }
-//       else {
-//         $form['error_info']['#attributes']['#class'] = array('hidden');
-//       }
-
-//       $form['title']['#type'] = 'hidden';
-
-      $form['title']['#attributes'] = array(
-        'placeholder' => 'Media Title',
-      );
-
-//       $form['title']['#value'] = 'My media';
-
-//       $form['field_media_type']['#ajax'] = array(
-//         'callback' => '_ajax_media_types_dropdown_callback',
-//         'wrapper' => 'dropdown-title-replace',
-//       );
-
-      unset($form['field_media_type']);
       unset($form['actions']['preview']);
       unset($form['actions']['delete']);
-      //unset($form['actions']['submit']);
 
-  //     $form['field_s3_test_audoi']['#weight'] = 1;
-  //     $form['field_youtube_url']['#weight'] = 2;
-  //     $form['field_tags']['#weight'] = 3;
-  //     $form['field_media_type']['#weight'] = 4;
-  //     $form['field_share']['#weight'] = 5;
-
-  //     drupal_set_message('<pre>' . print_r($form['field_youtube_url']['#attributes'], TRUE) . '</pre>');
-
-  //     $form['field_youtube_url'][LANGUAGE_NONE][0][url]['#attributes']['placeholder'] = T('Media URL');
-
-      $form['field_media_url'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = T('Media URL');
-      $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = T('TAGS');
-
+      $vid = taxonomy_vocabulary_machine_name_load('media_file_types')->vid;
+      $terms = taxonomy_get_tree($vid);
+      $videoTid = 0;
+      foreach($terms as $term) {
+        if($term->name == t('Video')) $videoTid = $term->tid;
+      }
+      $form['field_media_url'][LANGUAGE_NONE][0]['value']['#states'] = array(
+          'visible' => array(':input[name="field_media_type[und]"]' => array('value' => $videoTid))
+      );
+      $form['field_media_upload']['#states'] = array(
+          'invisible' => array(':input[name="field_media_type[und]"]' => array(array('value' => '_none'), array('value' => $videoTid))),
+      );
 
       $form['actions']['submit']['#ajax'] = array(
         'callback' => 'edgemakers_media_upload_ajax_submit',
@@ -154,173 +137,56 @@ function edgemakers_media_upload_form_alter(&$form, $form_state, $form_id) {
         'effect' => 'fade',
       );
 
-
       $form['actions']['submit']['#value'] = t('Upload');
 
-  //     $form['actions']['submit']['#submit'] = array('_media_upload_submit');
-
       array_unshift($form['#validate'], 'edgemakers_media_upload_ajax_validate');
-      array_unshift($form['#submit'], '_media_upload_submit');
-
-      //$form['actions']['submit']['#validate'] = array('edgemakers_media_upload_ajax_validate');
-      //$form['actions']['submit']['#submit'] = array('_media_upload_submit');
-
-
-      require_once(DRUPAL_ROOT . "/modules/node/node.pages.inc");
 
     }
   }
 }
 
 function edgemakers_media_upload_ajax_validate($form, &$form_state) {
-
-	global $user;
-
-	form_load_include($form_state, 'inc', 'node', 'node.pages');
-
+  form_load_include($form_state, 'inc', 'node', 'node.pages');
+  
   $vals = $form_state['values'];
-// //   dpm($vals);
-
-//   $media_type_tid = $vals['field_media_url'][LANGUAGE_NONE][0]['tid'];
-//   $media_type_name = taxonomy_term_load($media_type_tid);
-
-//   if (strtolower($media_type_name) == 'video') {
-//     $media_url = $vals['field_media_url'][LANGUAGE_NONE][0]['value'];
-
-//     module_load_include('inc', 'edgemakers_stage', 'stage.api');
-//     $youtube_url = _youtube_parser($media_url);
-
-//     if (empty($youtube_url)) {
-//       $form_state['error'] = TRUE;
-//       $error_msg = 'Video url invalid, we just support youtube now.';
-//       $form_state['error_info']['#value'] = $error_msg;
-//       $form_state['error_info']['#attributes']['#class'] = array();
-//       form_set_error('field_media_url[und][0][value]', 'Video url invalid, we just support youtube now.');
-//     }
-
-//   }
-//   else {
-
-//     if (!$vals['field_upload'][LANGUAGE_NONE][0]['fid']) {
-//       form_set_error('field_upload', 'Upload a media for ' . $media_type_name . ', please.');
-//     }
-
-//   }
-
 	// Validat url while from youtube.
-  $media_url = $vals['field_media_url'][LANGUAGE_NONE][0]['value'];
-
-  if ($media_url) {
-    module_load_include('inc', 'edgemakers_stage', 'stage.api');
-    $youtube_url = _youtube_parser($media_url);
-  //   dpm($youtube_url);
-
-    // Set media type for search.
-    if ($youtube_url) {
-      $terms = taxonomy_get_term_by_name('Video');
-      foreach ($terms AS $tid) {
-        if ($tid->vocabulary_machine_name == 'media_file_types') {
-          $media_type_tid = $tid->tid;
-        }
+  $types = isset($vals['field_media_type']) ? $vals['field_media_type'][LANGUAGE_NONE] : null;
+  $term = $types && count($types) > 0 ? taxonomy_term_load($types[0]['tid']) : '';
+  if($term) $type = $term->name;
+  if($type == 'Video') {
+    $urls = isset($vals['field_media_url']) ? $vals['field_media_url'][LANGUAGE_NONE] : null;
+    $media_url = $urls && count($urls) > 0 ? $urls[0]['value'] : '';
+    $media_type_tid = 0;
+    $terms = taxonomy_get_term_by_name('Video', 'media_file_types');
+    if(count($terms > 0)) {
+      $media_type_tid = array_shift(array_keys($terms));
+    }
+    if ($media_url && $media_type_tid) {
+      module_load_include('inc', 'edgemakers_stage', 'stage.api');
+      $youtube_url = _youtube_parser($media_url);
+      
+      if (!$youtube_url) {
+        form_set_error('field_media_url[und][0][value]', 'Sorry, it is not a valid YouTube Link');
       }
     }
-    else {
-
-      if (!_checkRemoteFile($media_url)) {
-        form_set_error('field_media_url[und][0][value]', 'Medai can\'t get from ' . $media_url);
-      }
-
-      // Validation url by filter_var.
-//       if(!filter_var($vals['field_media_url'][LANGUAGE_NONE][0]['value'], FILTER_VALIDATE_URL)) {
-//         form_set_error('field_media_url[und][0][value]', 'Medai URL invalid.');
-//       }
-
-      $terms = taxonomy_get_term_by_name('Image');
-      foreach ($terms AS $tid) {
-        if ($tid->vocabulary_machine_name == 'media_file_types') {
-          $media_type_tid = $tid->tid;
-        }
-      }
-
+  } else {
+    $uploads = isset($vals['field_media_upload']) ? $vals['field_media_upload'][LANGUAGE_NONE] : null;
+    $file = $uploads && count($uploads) > 0 ? file_load($uploads[0]['fid']) : '';
+    $upload = $file->uri;
+    $extension = drupal_strtolower(drupal_substr($upload, strrpos($upload, '.') + 1));
+    if($type == 'Image') {
+      $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif');
+    } else if($type == 'Audio') {
+      $allowedExtensions = array('wav', 'aif', 'mp3', 'mid');
+    } else if($type == 'Docs') {
+      $allowedExtensions = array('pdf');
     }
-
-    $form_state['values']['field_media_type'][LANGUAGE_NONE][0]['tid'] = $media_type_tid;
+    if(!in_array($extension, $allowedExtensions)) {
+      form_set_error('field_media_type[und][0][tid]', 'Sorry, only these extensions are available for your selected media type "'.$type.'": '. implode(', ', $allowedExtensions));
+    }
   }
-
-//   drupal_set_message('Form item: <pre>' . print_r($vals, TRUE) . '</pre>');
-
-//   drupal_set_message('URL:' . $vals['field_youtube_url'][LANGUAGE_NONE][0]['url']);
-
-//   if (empty($vals['field_media_url'])) {
-//     form_set_error('field_youtube_url', 'Invalid url.');
-//   }
-//   if (empty($vals['field_youtube_url'][LANGUAGE_NONE][0]['value'])) {
-//     form_set_error('field_youtube_url', 'Invalid url.');
-//   }
-//   else {
-//     $url_parse = _youtube_parser($vals['field_youtube_url'][LANGUAGE_NONE][0]['url']);
-//   }
-
-//   if (isset($vals['field_youtube_url'][LANGUAGE_NONE][0]['url'])) {
-//     $url_parse = _youtube_url_parse($vals['field_youtube_url'][LANGUAGE_NONE][0]['url']);
-//     //drupal_set_message('<pre>' . print_r($url_parse, TRUE) . '</pre>');
-//     if (isset($url_parse[1])) {
-//       //drupal_set_message('<pre>' . print_r($url_parse[1], TRUE) . '</pre>');
-//       $vaildYid = _youtube_validId($url_parse[1]);
-//       if ($vaildYid !== TRUE) {
-//         //drupal_set_message('<pre>' . print_r($vaildYid, TRUE) . '</pre>');
-//         form_set_error('field_youtube_url', 'Invalid youtube url.');
-//       }
-//     }
-//   }
-
 }
 
-function _media_upload_submit($form, &$form_state) {
-  //$form_state['complete'] = TRUE;
-//   form_load_include($form_state, 'inc', 'node', 'node.pages');
-
-  $vals = $form_state['values'];
-
-//   $node_nid = $form['node']->nid;
-
-//   dpm($form);
-//   dpm($form_state);
-
-  /*$content_type = variable_get('edgemakers_media_content_type', 'media_for_upload');
-
-  $newNode = (object) NULL;
-  $newNode->type = $content_type;
-  $newNode->title = $vals['title'];
-  $newNode->created = strtotime("now");
-  $newNode->changed = strtotime("now");
-  $newNode->status = 1;
-  $newNode->comment = 0;
-  $newNode->promote = 0;
-  $newNode->moderate = 0;
-  $newNode->sticky = 0;
-  $newNode->language = 'und';
-  $newNode->field_youtube_url['und'][0]['url'] = $vals['field_youtube_url'];
-
-  node_object_prepare($newNode);
-  node_save($newNode);
-
-  if ($vals['title']) {
-  	$items = edgemakers_media_list_html();
-  	return $items;
-  	//print('Update: ' . $items);
-  }
-  */
-  //drupal_set_message("Upload an media.");
-  //drupal_set_message('Submited: <pre>' . print_r($form_state, TRUE) . '</pre>');
-  //return "Sumbited";
-}
-
-function _customReloadMediaList() {
-	return array(
-    'command' => 'mediaListAjaxload',
-  );
-}
 
 /**
  * Ajax sumbit new media node.
@@ -334,72 +200,20 @@ function edgemakers_media_upload_ajax_submit($form, &$form_state) {
     return $form;
   }
 
-  //form_load_include($form_state, 'inc', 'node', 'node.pages');
-
-  //drupal_add_js("Drupal.CTools.Modal.modal_dismiss", array('type' => 'inline'));
-
-  $items = edgemakers_media_list_html();
-
-  //$content_type = variable_get('edgemakers_media_content_type', 'media_for_upload');
-  //ctools_include('node.pages', 'node', '');
   ctools_include('modal');
   ctools_include('ajax');
 
-  /*$form_state = array(
-    'title' => $title,
-    'ajax'  => TRUE,
-    'build_info' => array(
-      'args'  => array($node),
-    ),
-  );*/
-	//drupal_add_library('system', 'ui.dialog');
-  //$commands = ctools_modal_form_wrapper($content_type . '_node_form', $form_state);
-  // overwrite commands.
   $commands = array();
 
   ctools_add_js('ajax-responder');
   $commands[] = ctools_modal_command_dismiss();
 
   ctools_add_js('mediaListAjaxload', 'edgemakers_media_upload');
-//   $commands[] = _customReloadMediaList();
-  //$commands[] = ajax_command_html("#my-media-list", $items . '<script>media_list_reload()</script>');
-  //$commands[] = ajax_render('media_list_reload()');
 
   ctools_add_js('ctools-ajax-upload-media', 'edgemakers_media_upload');
 
-  //$commands[] = _customReloadMediaList();
-
-  /*$vals = $form_state['values'];
-
-  if ($vals['title']) {
-  	$items = edgemakers_media_list_html();
-  	return $items;
-  }
-  */
   print ajax_render($commands);
   exit;
-
-  //return $form;
-
-  /*$vals = $form_state['values'];
-  if ($vals['field_upload_to_s3_media'][LANGUAGE_NONE][0]['fid']) {
-    $img_info = file_load($vals['field_upload_to_s3_media'][LANGUAGE_NONE][0]['fid']);
-    //drupal_set_message('Image\'s info: <pre>' . print_r($img_info, TRUE) . '</pre>');
-    $form_state['title']['#value'] = $img_info->filename;
-
-    //Update node title by filename.
-    $node = node_load($form_state['node']->nid);
-    $node->title = $img_info->filename;
-    node_save($node);
-  }*/
-
-  # Create a new markup field and return it. It will replace the form output.
-  /*$element = array();
-  $element['#type'] = 'markup';
-  $element['#markup'] = t("You upload " . $vals['field_youtube_url'][LANGUAGE_NONE][0]['value']);
-
-  return $element;*/
-
 }
 
 /**
@@ -693,21 +507,6 @@ function edgemakers_media_upload_settings() {
     '#description' => t('Set the content type to media.'),
     '#options' => $content_type_options,
   );
-
-  /*
-  // Config it in field.
-  $form['Content_Type']['edgemakers_media_type_term'] = array(
-    '#type' => 'select',
-    '#title' => t('Type term of Set.'),
-    '#default_value' => variable_get('edgemakers_media_type_term', 'media_file_types'),
-    '#description' => t('Set the type term to media.'),
-    '#options' => $voca_optins,
-  );
-  */
-
-  //dpm($form);
-
-  //return $form;
 
   return system_settings_form($form);
 
@@ -1055,7 +854,7 @@ function edgemakers_my_media_list_on_toolbar($limit = 5) {
 function edgemakers_media_list_html($limit = 5) {
 
 	global $user;
-	$my_media_nodes = array();
+	$nodes = array();
 
 	$content_type = variable_get('edgemakers_media_content_type', 'media_for_upload');
 
@@ -1064,53 +863,78 @@ function edgemakers_media_list_html($limit = 5) {
 
 	if ($user->uid !== 0) {
 
-		$my_coditions = array(
-    	'uid' => $user->uid,
-      'type' => $content_type,
-    );
-
-		$my_media_nodes = node_load_multiple('', $my_coditions);
-
-		arsort($my_media_nodes);
-
-		$i = 0;
-
-		foreach ($my_media_nodes as $node) {
-			if ($i < 5) {
-
-				$media_item['items'][$i]['data'] = l($node->title,
+    $media_items = array('items'=>array());
+		$nodes = edgemakers_media_get_my_media($user->uid, $content_type);
+		foreach ($nodes as $node) {
+      $cont = '';
+      $types = field_get_items('node', $node, 'field_media_type');
+      $term = $types && count($types) > 0 ? taxonomy_term_load($types[0]['tid']) : '';
+      if($term) $type = $term->name;
+      if($type == 'Video') {
+        module_load_include('inc', 'edgemakers_stage', 'stage.api');
+        $urls = field_get_items('node', $node, 'field_media_url');
+        $url = $urls && count($urls) > 0 ? $urls[0]['value'] : '';
+        $ytid = _youtube_parser($url);
+        $cont = '<div class="crop"><img src="http://img.youtube.com/vi/'.$ytid.'/0.jpg" /></div>';
+      } else {
+        if($type == 'Image') {
+          $uploads = field_get_items('node', $node, 'field_media_upload');
+          $upload = $uploads && count($uploads) > 0 ? $uploads[0]['uri'] : '';
+          $cont = theme('image_style', array('style_name'=>'edgemakers_set', 'path'=>$upload));
+        } else {
+          $img = '';
+          if($type == 'Audio') {
+            if(!isset($defaultAudioImg)) {
+              global $base_path;
+              $defaultAudioImg = '<img src="'.$base_path.drupal_get_path('module', 'media'). '/images/icons/default/audio-mpeg.png" alt="" />';
+            }
+            $cont = $defaultAudioImg;
+          } else if($type == 'Docs') {
+            if(!isset($defaultPdfImg)) {
+              require_once(drupal_get_path('module', 'edgemakers_set'). '/edgemakers_set.module');
+              $terms = taxonomy_get_term_by_name('Document', 'set_types');
+              
+              foreach($terms as $term) {
+                $term = taxonomy_term_load($term->tid);
+                $defaultPdfImg = edgemakers_set_get_set_type_default_thumbnail($term);
+              }
+            }
+            $cont = $defaultPdfImg;
+          }
+          $cont = '<div class="crop">'.$cont.'</div>';
+        }
+      }
+      $media_items['items'][] = array(
+        'data' => l($cont,
 					'node/' . $node->nid,
 					array(
+            'html' => TRUE,
 						'attributes' => array(
 							'id' => 'media-node-' . $node->nid,
+              'title' => $node->title,
 	      		)
 	      	)
-	      );
-
-	      $media_item['items'][$i]['class'][] = 'media-item';
-
-	      $i++;
-      }
+	      ),
+        'class' => array('media-item'),
+      );
     }
 
-		if (count($media_item['items']) > 0) {
+		if (count($media_items['items']) > 0) {
 
 			$html .= '<h4 class="has-child">Media<em></em></h4>';
 
-			$media_item['title'] = '';
-			$media_item['type'] = 'ul';
-			$media_item['attributes'] = array('id' => 'media-list', 'class' => 'media-video');
+			$media_items['title'] = '';
+			$media_items['type'] = 'ul';
+			$media_items['attributes'] = array('id' => 'media-list', 'class' => 'media-video');
 
-			$media_html = theme_item_list($media_item);
+			$media_html = theme('item_list', $media_items);
 		}
 
 		//dd($media_html, 'media list');
 
 		$html .= $media_html;
 
-	}
-
-	if(count($my_media_nodes) <= 0) {
+	} else {
 		$html .= '<h4 class="has-child">Media</h4>';
 	}
 
@@ -1119,7 +943,17 @@ function edgemakers_media_list_html($limit = 5) {
 	return $html;
 
 }
+function edgemakers_media_get_my_media($uid, $content_type, $limit = 5) {
+  $query = db_select('node', 'n');
 
+  $nodes = array();
+  $nids = $query->condition('n.type', $content_type)->condition('n.status', NODE_PUBLISHED)->condition('n.uid', $uid)->fields('n', array('nid'))->orderBy('n.changed', 'DESC')->addTag('node_access')->range(0, $limit)->execute()->fetchCol();
+
+  if($nids) {
+    $nodes = node_load_multiple($nids);
+  }
+  return $nodes;
+}
 /**
  * Ajax link callback;
  * @param unknown_type $page_callback_result
@@ -1195,44 +1029,6 @@ function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', 
   return false;
 
 }
-
-/**
- * Implements hook_theme().
- */
-// function edgemakers_media_upload_theme($existing, $type, $theme, $path) {
-
-
-//   return array(
-//     'media_for_upload_node_form' => array(
-//       'render element' => 'form',
-//       'template' => 'media-upload-node-form',
-//       // this will set to module/theme path by default:
-//       'path' => drupal_get_path('module', 'edgemakers_media_upload') . '/templates',
-//     ),
-//   );
-
-// }
-
-/**
- * Preprocessor for theme('article_node_form').
- */
-// function template_preprocess_media_for_upload_node_form(&$variables) {
-
-//   // nodeformcols is an alternative for this solution.
-//   if (!module_exists('nodeformcols')) {
-
-//     $variables['sidebar'] = array();   // Put taxonomy fields in sidebar.
-
-//     $variables['sidebar'][] = $variables['form']['field_tags'];
-//     hide($variables['form']['field_tags']);
-
-//     // Extract the form buttons, and put them in independent variable.
-//     $variables['buttons'] = $variables['form']['actions'];
-//     hide($variables['form']['actions']);
-//   }
-
-// }
-
 /**
  * Validate image
  * @param string $url
