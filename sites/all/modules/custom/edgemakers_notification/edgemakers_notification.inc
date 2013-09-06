@@ -45,5 +45,29 @@ function _edgemakers_notification_mural_updated($data) {
     }
   }
 
+  // Update local mural info in node.
+  $node = node_load($node->nid);
+  if (isset($node->field_mural_thumburl[LANGUAGE_NONE])) {
+
+    $fieldinfo = field_get_items('user', $author, 'field_muralusername');
+    if ($fieldinfo) {
+      $muralusername = $fieldinfo[0]['value'];
+    }
+
+    include_once(drupal_get_path('module', 'themuraly') . '/class.muralapi.inc');
+
+    // Sync mural data with local.
+    $mural_api = new Muralapi;
+    $result = $mural_api->retrieve_a_mural($muralusername, $data['mural_id']);
+    $data = drupal_json_decode($result->data);
+
+    // Update thumburl.
+    $node->field_mural_thumburl[LANGUAGE_NONE][0]['value'] = $data['thumbUrl'];
+    node_object_prepare($node);
+    $status = node_save($node);
+    watchdog('notification', t('Update murals\' node ') . $node->nid);
+
+  }
+
   return array('status' => 0);
 }
