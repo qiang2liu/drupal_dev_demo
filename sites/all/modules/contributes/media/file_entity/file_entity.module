@@ -364,7 +364,7 @@ function file_entity_file_formatter_file_image_view($file, $display, $langcode) 
     return;
   }
 
-  if (file_entity_file_is_local($file) && $image = image_load($file->uri)) {
+  if (file_entity_file_is_readable($file) && $image = image_load($file->uri)) {
     if (!empty($display['settings']['image_style'])) {
       $element = array(
         '#theme' => 'image_style',
@@ -384,6 +384,22 @@ function file_entity_file_formatter_file_image_view($file, $display, $langcode) 
     }
     return $element;
   }
+}
+ 
+
+/**
+ * Check if a file entity is readable or not.
+ *
+ * @param object $file
+ *   A file entity object from file_load().
+ *
+ * @return boolean
+ *   TRUE if the file is using a readable stream wrapper, or FALSE otherwise.
+ */
+function file_entity_file_is_readable($file) {
+  $scheme = file_uri_scheme($file->uri);
+  $wrappers = file_get_stream_wrappers(STREAM_WRAPPERS_READ);
+  return !empty($wrappers[$scheme]);
 }
 
 /**

@@ -306,9 +306,9 @@ function themuraly_block_view($delta = '') {
     case 'topic_mural_list':
       $block['subject'] = 'Mural list on topic';
       if ($node = menu_get_object()) {
-        $block['content'] = '<div><h3>Projects</h3><p>' . t('Can you help these EdgeMakers with their projects?') . '</p></div>';
+        $block['content'] = '<div class="project-title"><h3>Projects</h3><p>' . t('Can you help these EdgeMakers with their projects?') . '</p></div>';
 //         print('Node get from menu');
-        $block['content'] .= '<div id="murals-topic-' . $node->nid . '">';
+        $block['content'] .= '<div id="murals-topic-' . $node->nid . '" class="project-con">';
         $murals_html = themuraly_topic_mural_list($node->nid);
         $block['content'] .= $murals_html;
         $block['content'] .= '</div>';
@@ -414,9 +414,9 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 
       drupal_add_css(drupal_get_path('module', 'themuraly') . '/css/themuraly.css');
 
-      $form['#prefix'] = '<div class="mural-setting-form">
+      $form['#prefix'] = '<div class="mural-setting-title"><h2>Murall Settings</h2><div class="mural-setting-form">
                             <div class="mural-setting-form-tran-back">&nbsp;</div>
-                            <div class="mural-setting-title"><h2>Murall Settings</h2>
+
                           </div>';
       $form['#surfix'] = '</div>';
       form_load_include($form_state, 'inc', 'node', 'node.pages');
@@ -962,8 +962,8 @@ function muralapi_test() {
 //   themuraly_studio_mural_list_json('gallery', 1, 'untitle');
 
 //  themuraly_topic_mural_list(539);
-//   _test_mural_list_for_a_user();
-   _test_user_add();
+  _test_mural_list_for_a_user();
+//   _test_user_add();
   //_test_create_room();
   // _test_mural_create_mural();
   //_test_mural_duplicate_mural();

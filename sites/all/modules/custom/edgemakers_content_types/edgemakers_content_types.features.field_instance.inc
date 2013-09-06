@@ -1042,13 +1042,13 @@ function edgemakers_content_types_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'mediafront',
         'settings' => array(
           'preset' => '',
         ),
         'type' => 'mediafront_player',
-        'weight' => 7,
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1094,7 +1094,7 @@ function edgemakers_content_types_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'media_generic',
-      'weight' => 3,
+      'weight' => 2,
     ),
   );
 
@@ -1122,7 +1122,7 @@ function edgemakers_content_types_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_media_url',
     'label' => 'Media URL',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'mediafront' => array(
         'custom' => '',
@@ -1148,7 +1148,11 @@ function edgemakers_content_types_field_default_field_instances() {
   // Exported field_instance: 'node-media_for_upload-field_share_to_gallery'
   $field_instances['node-media_for_upload-field_share_to_gallery'] = array(
     'bundle' => 'media_for_upload',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => 1,
+      ),
+    ),
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -1157,7 +1161,7 @@ function edgemakers_content_types_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 8,
+        'weight' => 5,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1169,7 +1173,7 @@ function edgemakers_content_types_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_share_to_gallery',
     'label' => 'Share to Gallery',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'mediafront' => array(
         'custom' => '',
