@@ -81,7 +81,7 @@ Drupal.theme.prototype.ModalFormsProfileSetting = function () {
   var html = '';
 
   html += '<div id="ctools-modal" class="popups-box ctools-profile-settings">';
-  html += '  <div class="ctools-modal-content modal-forms-modal-content">';
+  html += '  <div class="ctools-modal-content modal-forms-modal-content profilesetting">';
   html += '    <div class="popups-container">';
   html += '      <div class="modal-header popups-title">';
   html += '        <span id="modal-title" class="modal-title setting-title"></span>';

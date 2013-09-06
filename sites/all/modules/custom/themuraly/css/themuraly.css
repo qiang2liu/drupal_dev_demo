@@ -249,11 +249,13 @@ div.ctools-modal-content .modal-content form.node-murals-form.node-form {
 }
 
 .mural-setting-title h2 {
-  font-size: 24px;
-  color: white;
-  height: 40px;
-  overflow: hidden;
-  line-height: 40px;
+   background: none repeat scroll 0 0 #60CD9B;
+    color: #FFFFFF;
+    display: inline-block;
+    font-size: 17px;
+    font-style: italic;
+    padding: 10px 15px;
+    float:left;
 }
 
 form.node-murals-form.node-form div.form-item label
@@ -281,18 +283,19 @@ form.node-murals-form.node-form div.form-item label
 #modal-content form.node-murals-form.node-form div.form-item.form-item-field-city-und-0-city,
 #modal-content form.node-murals-form.node-form div.form-item.form-item-field-city-und-0-delete-location
 {
-   padding: 0;
+   padding: 5px 0;
    margin: 0;
 }
 
 #modal-content .node-murals-form .form-textarea-wrapper textarea,
 #modal-content .node-murals-form .form-item input[type="text"],
 #modal-content .node-murals-form .form-item input[type="password"]{
-  width: 95%;
-  box-shadow: 0 0;
-  background-color: #2D6CA9;
-  border-color: #2D6CA9;
-  color: white;
+  border: 1px solid #E6E9EA;
+    box-shadow: 0 2px 3px #EEEEEE inset;
+    color: #7B8A97;
+    height: 34px;
+    padding: 0 10px;
+    width: 95%;
 }
 
 #modal-content .node-murals-form .form-item input[type="text"].error
@@ -364,11 +367,10 @@ form.node-murals-form.node-form div.form-item.form-item-field-share-to-gallery-u
   width: 100%;
 }
 
-#modal-content .field-name-field-city .form-wrapper .form-item input[type="text"]
-{
-  height: 18px;
+#modal-content .node-murals-form .form-item input[type="text"]#edit-field-city-und-0-city{
+	height:27px;
+	width:209px;
 }
-
 #modal-content .node-murals-form .field-name-field-muralshared,
 #modal-content .node-murals-form .field-name-field-challenges-category {
   float: left;
@@ -414,13 +416,11 @@ div.modal-forms-modal-content .popups-close {
 #edit-field-share-to-gallery-und {
   width: 120px;
   margin-top: 0px;
-  height: 35px;
 }
 
 #edit-field-muralshared-und {
   margin-top: -1px;
   float: left;
-  height: 35px;
   width: 66px;
 }
 
@@ -443,4 +443,32 @@ a.create-mural-topic {
 }
 
 
-
+.mural-settings-form-class #modal-content.modal-content.popups-body{
+	background-color:rgba(0,0,0,0);
+}
+.mural-settings-form-class #modal-title{
+	display:none;
+}
+.mural-setting-form{
+	display:none;
+}
+#murals-node-form{
+	background:#fff;
+	margin-top:12px;
+	padding-top:30px;
+}
+#murals-node-form select{
+	border:1px solid #ccc;
+	 border: 1px solid #AAAAAA;
+    color: #555555;
+    display: inline-block;
+    height: 28px;
+    line-height: 28px;
+    padding: 4px;
+}
+#murals-node-form select option{
+	padding:9px 0;
+} 
+#modalContent.mural-settings-form-class div.modal-forms-modal-content .popups-close{
+	top:75px;
+}
