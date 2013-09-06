@@ -53,6 +53,7 @@ function closeFromIframe()
   mural_ajax_load_list();
 //  jQuery("#mural-iframe").empty();
   jQuery("#mural-back-to-dashboard").hide();
+  jQuery("#mural-iframe").attr("src", "");
   jQuery('#mural-region').dialog('close');
   jQuery('body').css({
   	'height': 'auto',

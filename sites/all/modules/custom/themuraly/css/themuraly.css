@@ -214,9 +214,8 @@ input[type='button']#gallery-search {
 /* Setting form style*/
 
 .mural-setting-form {  
-  background-color: transparent;
+  background-color: #fff;
   padding: 0px;
-  border-radius: 10px;
   height: 405px;
   position: relative;
   overflow: auto;
@@ -442,3 +441,6 @@ a.create-mural-topic {
   height: 172px;
   opacity: 0; 
 }
+
+
+

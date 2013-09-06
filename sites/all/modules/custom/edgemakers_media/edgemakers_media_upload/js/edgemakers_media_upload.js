@@ -129,7 +129,9 @@ function gallery_media_list_ajax_load(type, pager) {
       break;
   }
   
-  var keyword = jQuery("#gallery-keyword").val();
+  var keyword = '';
+  if(jQuery("#gallery-keyword").length)
+    keyword = jQuery("#gallery-keyword").val();
   
   jQuery.ajax({
     url: "?q=edgemarkers/gallery/media/get/list/ajax/" + type + "/" + pager + "/" + keyword,

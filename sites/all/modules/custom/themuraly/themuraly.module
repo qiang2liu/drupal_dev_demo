@@ -305,10 +305,10 @@ function themuraly_block_view($delta = '') {
       break;
     case 'topic_mural_list':
       $block['subject'] = 'Mural list on topic';
-      $block['content'] = '<div><h3>Projects</h3><p>' . t('Can you help these EdgeMakers with their projects?') . '</p></div>';
+      $block['content'] = '<div class="project-title"><h3>Projects</h3><p>' . t('Can you help these EdgeMakers with their projects?') . '</p></div>';
       if ($node = menu_get_object()) {
 //         print('Node get from menu');
-        $block['content'] .= '<div id="murals-topic-' . $node->nid . '">';
+        $block['content'] .= '<div id="murals-topic-' . $node->nid . '" class="project-con">';
         $murals_html = themuraly_topic_mural_list($node->nid);
         $block['content'] .= $murals_html;
         $block['content'] .= '</div>';
@@ -373,9 +373,13 @@ function themuraly_after_build($form, $form_state)
   }
   $form['field_mail_to_share'][LANGUAGE_NONE]['#prefix'] = '<div id="invite_email_box" class="' . $share_mail_class . '">';
   // First I re-attach the original submit handler to the form
-  $form['buttons']['submit']['#submit'] = array('node_form_submit');
+//   $form['buttons']['submit']['#submit'] = array('node_form_submit');
+
+  drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/removeTextareaResizea.js');
+
   // Then I return the form
   return $form;
+
 }
 
 /**
@@ -390,9 +394,9 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 
       drupal_add_css(drupal_get_path('module', 'themuraly') . '/css/themuraly.css');
 
-      $form['#prefix'] = '<div class="mural-setting-form">
+      $form['#prefix'] = '<div class="mural-setting-title"><h2>Murall Settings</h2><div class="mural-setting-form">
                             <div class="mural-setting-form-tran-back">&nbsp;</div>
-                            <div class="mural-setting-title"><h2>Murall Settings</h2>
+                            
                           </div>';
       $form['#surfix'] = '</div>';
       form_load_include($form_state, 'inc', 'node', 'node.pages');
@@ -1066,7 +1070,7 @@ function _test_mural_list_for_a_user() {
 }
 
 function _test_user_add() {
-  
+
   $mural_api = new Muralapi;
   $str = rand(800, 10000);
   $user = array();
@@ -1811,7 +1815,8 @@ function themuraly_topic_mural_list($nid = '') {
       'operator' => '=',
     );
     $murals_list = themuraly_mural_list('', 0, 5, $conditions);
-    $murals_list_html .= theme_mural_list_box($murals_list);
+//     print('<pre>' . print_r($murals_list, TRUE) . '</pre>');
+    $murals_list_html .= theme_mural_list_box('topic', $murals_list);
     return $murals_list_html;
   }
   return $murals_list_html;
@@ -1822,10 +1827,11 @@ function themuraly_topic_mural_list($nid = '') {
  * @param array $nodes
  * @return string|Ambigous <string, The, unknown, A, Optional>
  */
-function theme_mural_list_box($nodes) {
+function theme_mural_list_box($type = 'studio', $nodes) {
 
   $mural = array();
   $attributes = array();
+  $attributes['type'] = $type;
   $mural_list = '';
 
   if (is_array($nodes)) {
@@ -1836,6 +1842,8 @@ function theme_mural_list_box($nodes) {
 
   	$i = 1;
   	foreach ($nodes as $node) {
+//   	  echo "topic type: " . $type;
+//   	  $attributes['type'] = $type;
       $item = theme('mural_item_box', array('node' => $node), $attributes);
       $mural['items'][$i]['data'] = $item;
       $i++;
@@ -1869,6 +1877,7 @@ function theme_mural_item_box($item = array(), $attributes = array()) {
   global $user;
   $html = '';
   $node = $item['node'];
+//   echo "type on mural item box:" . $type;
 //   print('Node info:<pre>' . print_r($node, TRUE) . '</pre>');
 
   foreach ($attributes AS $key => $value) {
@@ -1887,37 +1896,45 @@ function theme_mural_item_box($item = array(), $attributes = array()) {
 
     $html .= '<div>';
 
-    $html .= '<div class="set-cover">
-                    <h5>' . $node->title .'</h5>
-                    <p class="inspiration">' . $node_username .'</p>
-                  </div>';
+    if ($node->field_topic_mural[LANGUAGE_NONE]['0']['target_id']) {
+      $html .= '<h3 class="author">' . $node_username . '</h3>';
+      $html .= '<span class="mural-title">' . $node->title . '</span>';
+      $html .= '<span class="user-avatar">' . $node_user_avatar . '</span>';
+    }
+    else {
+      $html .= '<div class="set-cover">
+                      <h5>' . $node->title .'</h5>
+                      <p class="inspiration">' . $node_username .'</p>
+                    </div>';
 
-    $node_mural_thumburl = field_get_items('node', $node, 'field_mural_thumburl');
-    $defula_thumburl = 'https://s3.amazonaws.com/static.mural.ly/NoThumbnail.png';
-    $mural_thumburl = empty($node_mural_thumburl[0]['value'])?$defula_thumburl:$node_mural_thumburl[0]['value'];
-    $mural_thumb = array('path' => $mural_thumburl);
+      $node_mural_thumburl = field_get_items('node', $node, 'field_mural_thumburl');
+      $defula_thumburl = 'https://s3.amazonaws.com/static.mural.ly/NoThumbnail.png';
+      $mural_thumburl = empty($node_mural_thumburl[0]['value'])?$defula_thumburl:$node_mural_thumburl[0]['value'];
+      $mural_thumb = array('path' => $mural_thumburl);
 
-    $html .= '<span class="muralthumb ' . $node->title . '">';
-    $html .= theme('image', $mural_thumb);
-    $html .= '</span>';
+      $html .= '<span class="muralthumb ' . $node->title . '">';
+      $html .= theme('image', $mural_thumb);
+      $html .= '</span>';
 
-    $view_url = l('<span class ="muralsettingicon"></span>', 'mural/' . $node->nid, array(
-      'html' => true,
-      'attributes' => array(
-        'class' => array('mural-list-item-link'),
-        'nid' => $node->nid,
-        'onClick' => 'showMuralDialog("?q=mural/' . $node->nid . '");jQuery("#mural-back-to-dashboard").show();return false;',
-      ),
-            )
-    );
+      $view_url = l('<span class ="muralsettingicon"></span>', 'mural/' . $node->nid, array(
+        'html' => true,
+        'attributes' => array(
+          'class' => array('mural-list-item-link'),
+          'nid' => $node->nid,
+          'onClick' => 'showMuralDialog("?q=mural/' . $node->nid . '");jQuery("#mural-back-to-dashboard").show();return false;',
+        ),
+              )
+      );
 
-    $html .= $view_url;
+      $html .= $view_url;
 
-    if ($user->uid == $node->uid) {
-      $html .= $set_url;
+      if ($user->uid == $node->uid) {
+        $html .= $set_url;
+      }
+
+      $html .= '<span class="user-avatar">' . $node_user_avatar . '</span>';
     }
 
-    $html .= '<span class="user-avatar">' . $node_user_avatar . '</span>';
     $html .= '</div>';
 
 //     print($html);
