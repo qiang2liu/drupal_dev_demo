@@ -1042,13 +1042,13 @@ function edgemakers_content_types_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'mediafront',
         'settings' => array(
           'preset' => '',
         ),
         'type' => 'mediafront_player',
-        'weight' => 7,
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1094,7 +1094,7 @@ function edgemakers_content_types_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'media_generic',
-      'weight' => 3,
+      'weight' => 2,
     ),
   );
 
@@ -1157,7 +1157,7 @@ function edgemakers_content_types_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 8,
+        'weight' => 5,
       ),
       'teaser' => array(
         'label' => 'above',
