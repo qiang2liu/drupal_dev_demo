@@ -31,6 +31,7 @@ function newfteui_preprocess_html() {
   drupal_add_library('system', 'drupal.ajax');
   drupal_add_library('system', 'jquery.form');
   drupal_add_library('system', 'drupal.form');
+  html5_media_add_resources('default', false);
 }
 /**
  * Implements theme_preprocess_comment_wrapper();
@@ -424,6 +425,72 @@ function newfteui_better_messages_content($display = NULL) {
 		$output .= "</div>\n";
 	}
 	return $output;
+}
+function newfteui_html5_player($variables) {
+
+  // Get the element for this player.
+  if (isset($variables['element'])) {
+    $element = &$variables['element'];
+  }
+  else {
+    $element &$variables;
+  }
+
+  // Get the settings.
+  $settings = $element['#settings'];
+  $attributes = $element['#attributes'];
+
+  // Check to make sure there are sources.
+  if (empty($element['#sources'])) {
+    return 'No media sources provided';
+  }
+
+  // Set the value.
+  $element['#value'] = '';
+
+  // Iterate through each of the sources and create a source for that file.
+  foreach ($element['#sources'] as $delta => $file) {
+
+    // Ensure it is an object.
+    $file = (object)$file;
+
+    // Gets the source of this media.
+    if ($source = html5_media_get_source($file)) {
+
+      // Add the sources to the #value of the media tag.
+      $element['#value'] .= theme('html_tag', array(
+        'element' => array(
+          '#tag' => 'source',
+          '#attributes' => array('src' => $source)
+        )
+      ));
+    }
+  }
+
+  // Add some variables that the template needs.
+  $variables['player'] = theme('html_tag', $variables);
+  $variables['settings'] = $settings;
+  $variables['params'] = $settings;
+
+  $playerId = $settings['id'];
+  $attributes = drupal_json_encode($attributes);
+  
+  require_once drupal_get_path('module', 'html5_media').'/html5_media.module';
+  $settings = array_intersect_key($settings, html5_media_player_settings());
+  $settings = trim(drupal_json_encode($settings), '{}');
+  $swfplayer = url(drupal_get_path('module', 'html5_media') . '/player/flash/minplayer.swf');
+    
+  $extra = "<div>jQuery(function() {
+      jQuery('#{$playerId}').minplayer({
+        id:'#{$playerId}',
+        attributes:{$attributes},
+        {$settings},
+        swfplayer:'{$swfplayer}'
+      });
+    });</div>";
+
+  // Return the theme for our media player.
+  return theme('html5_player_' . $settings['template'], $variables) . $extra;
 }
 /**
  * Implements hook_theme() in theme.

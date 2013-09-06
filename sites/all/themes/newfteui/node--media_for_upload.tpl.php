@@ -1,47 +1,34 @@
-<?php
+<?php  //print_r($node);
 //title: $title
-//url:
-$urls = field_get_items('node', $node, 'field_media_url');
-$url = $urls && count($urls) > 0 ? $urls[0]['value'] : '';
+//type: 
+$types = field_get_items('node', $node, 'field_media_type');
+$type = $types && count($types) > 0 ? $types[0]['taxonomy_term']->name : '';
+switch($type) {
+  case 'Video':
+    $media_type = 'video';
+    //url:
+    $urls = field_get_items('node', $node, 'field_media_url');
+    $url = $urls && count($urls) > 0 ? $urls[0]['value'] : '';
 
-// print("Url: <pre>" . print_r($urls, TRUE) . '</pre>');
-
-//$ytid = youtube_parser($url);
-
-// $yt_url = _youtube_url_parse($url);
-
-$ytid = youtube_parser($url);
-function youtube_parser($url) {
-	preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $url, $matches);
-	if(is_array($matches) && count($matches) > 0)
-		return $matches[0];
-	return false;
+    $ytid = youtube_parser($url);
+    break;
+  case 'Image':
+    $media_type = 'image';
+    break;
+  case 'Audio':
+    $media_type = 'audio';
+    break;
+  case 'Docs':
+    $media_type = 'docs';
+    break;
 }
-
-// print("get youtube url: <pre>" . print_r($ytid, TRUE) . '</pre>');
-
-// if ($ytid) {
-//   $ytid = $yt_url[1];
-// }
-
-/*$php_parse_url = parse_url($url);
-print("get youtube url: <pre>" . print_r($php_parse_url, TRUE) . '</pre>');
-
-if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $url, $match)) {
-  print("get youtube url: <pre>" . print_r($match, TRUE) . '</pre>');
-  $video_id = $match[1];
-}*/
-
-// function youtube_parser($url) {
-// 	preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $url, $matches);
-// 	if(is_array($matches) && count($matches) > 0)
-// 		return $matches[0];
-// 	return false;
-// }
-
-if ($ytid) :
-	//print("Video model.");
-	$media_type = 'video';
+function youtube_parser($url) {
+  preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $url, $matches);
+  if(is_array($matches) && count($matches) > 0)
+    return $matches[0];
+  return false;
+}
+if($type == 'Video') :
 ?>
 
 <script>
@@ -80,28 +67,6 @@ function youtubeFeedCallback(json) {
 </style>
 
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
-<!--
-<div id="set-type-text"><h3><?php echo isset($node->term->name)?$node->term->name: ''; ?></h3></div>
-<div id="ytduration"></div>
-<div id="set-user-info">
-  <dl>
-  <dt>
-  <?php print $user_picture; ?>
-  </dt>
-
-  <?php print render($title_prefix); ?>
-  <dd>
-    <h2<?php print $title_attributes; ?>><?php print $title; ?></h2>
-    <div class="shadeDiv" style="">&nbsp;</div>
-  </dd>
-  <?php print render($title_suffix); ?>
-  </dl>
-
-  <?php if ($display_submitted): ?>
-    <span class="submitted"><?php print $submitted ?></span>
-  <?php endif; ?>
-</div>
--->
 
   <div id="<?php echo $media_type; ?>-video-icon" class="set-type-icon set-video-type-icon">
     <?php echo isset($node->term->name)?$node->term->name: ''; ?> video <br/>
@@ -176,6 +141,22 @@ function formatSecondsAsTime(secs) {
 
 <?php
 else :
+  function getAmazonFile($upload, $type) {
+    $output = '';
+    switch($type) {
+      case 'Image':
+        $output = theme('image', array('path' => $upload));
+        break;
+      case 'Docs':
+        $url = file_create_url($upload);
+        $output = '<iframe class="pdf" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="no" height="600px" src="'.$url.'">'.$url.'</iframe>';
+        break;
+    }
+    return $output;
+  }
+  $uploads = field_get_items('node', $node, 'field_media_upload');
+  $upload = $uploads && count($uploads) > 0 ? $uploads[0]['uri'] : '';
+  $fid = $uploads && count($uploads) > 0 ? $uploads[0]['fid'] : '';
 ?>
 <div id="Image-image-icon" class="set-type-icon set-image-type-icon">
   Image<br/>
@@ -187,23 +168,17 @@ else :
       hide($content['comments']);
       hide($content['links']);
 
-      $media_image = array(
-				'path' => $url,
-      );
-
-			print theme('image', $media_image);
-
-      //print render($content['field_media_url']);
-      //print render($content);
+      if($type == 'Audio') {
+        print render($content['field_media_upload']);
+      } else {
+        print getAmazonFile($upload, $type);
+      }
 
     ?>
     <span id="image-download-it" class="media-list">
     <?php
 
-      $image_uri = file_create_url($node->field_media_url[$node->language][0]['value']);
-      $download_uri = 'download/file/fid/' . $node->field_media_url[$node->language][0]['value'];
-
-      $download_uri = $image_uri;
+      $download_uri = 'download/file/fid/' . $fid;
 
       $download_icon = array('path' => drupal_get_path('theme', 'newfteui'). '/images/iconDownload.png');
 

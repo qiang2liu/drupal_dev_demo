@@ -1035,6 +1035,69 @@ function edgemakers_content_types_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-media_for_upload-field_media_upload'
+  $field_instances['node-media_for_upload-field_media_upload'] = array(
+    'bundle' => 'media_for_upload',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'mediafront',
+        'settings' => array(
+          'preset' => '',
+        ),
+        'type' => 'mediafront_player',
+        'weight' => 7,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_media_upload',
+    'label' => 'Upload Media',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 0,
+      'file_directory' => 'media_upload',
+      'file_extensions' => 'wav aif mp3 mid png gif jpg jpeg pdf',
+      'max_filesize' => '',
+      'mediafront' => array(
+        'custom' => '',
+        'field_type' => 0,
+        'media_type' => 'media',
+        'preview' => 'square_thumbnail',
+        'thumbnail' => 0,
+      ),
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'media',
+      'settings' => array(
+        'allowed_schemes' => array(
+          'private' => 'private',
+          'public' => 'public',
+          's3' => 's3',
+          'youtube' => 0,
+        ),
+        'allowed_types' => array(
+          'audio' => 'audio',
+          'default' => 'default',
+          'image' => 'image',
+          'video' => 0,
+        ),
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'media_generic',
+      'weight' => 3,
+    ),
+  );
+
   // Exported field_instance: 'node-media_for_upload-field_media_url'
   $field_instances['node-media_for_upload-field_media_url'] = array(
     'bundle' => 'media_for_upload',
@@ -1082,63 +1145,10 @@ function edgemakers_content_types_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-media_for_upload-field_s3_test_audoi'
-  $field_instances['node-media_for_upload-field_s3_test_audoi'] = array(
+  // Exported field_instance: 'node-media_for_upload-field_share_to_gallery'
+  $field_instances['node-media_for_upload-field_share_to_gallery'] = array(
     'bundle' => 'media_for_upload',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'file',
-        'settings' => array(),
-        'type' => 'file_default',
-        'weight' => 7,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_s3_test_audoi',
-    'label' => 's3-test-audoi',
-    'required' => 0,
-    'settings' => array(
-      'description_field' => 0,
-      'file_directory' => '',
-      'file_extensions' => 'jpg jpeg gif png bmp doc docx pdf mp3 mp4',
-      'max_filesize' => '',
-      'mediafront' => array(
-        'custom' => '',
-        'field_type' => 0,
-        'media_type' => 'media',
-        'preview' => 0,
-        'thumbnail' => 0,
-      ),
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'file',
-      'settings' => array(
-        'progress_indicator' => 'throbber',
-      ),
-      'type' => 'file_generic',
-      'weight' => 7,
-    ),
-  );
-
-  // Exported field_instance: 'node-media_for_upload-field_share'
-  $field_instances['node-media_for_upload-field_share'] = array(
-    'bundle' => 'media_for_upload',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -1147,7 +1157,7 @@ function edgemakers_content_types_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 2,
+        'weight' => 8,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1157,7 +1167,7 @@ function edgemakers_content_types_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_share',
+    'field_name' => 'field_share_to_gallery',
     'label' => 'Share to Gallery',
     'required' => 0,
     'settings' => array(
@@ -1173,11 +1183,9 @@ function edgemakers_content_types_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 5,
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 6,
     ),
   );
 
@@ -2195,12 +2203,12 @@ function edgemakers_content_types_field_default_field_instances() {
   t('Survey & Assessment');
   t('Teacher\'s Notes');
   t('Topic');
+  t('Upload Media');
   t('Videos');
   t('category');
   t('muralid');
   t('muraltype');
   t('muraluser');
-  t('s3-test-audoi');
   t('tags');
 
   return $field_instances;
