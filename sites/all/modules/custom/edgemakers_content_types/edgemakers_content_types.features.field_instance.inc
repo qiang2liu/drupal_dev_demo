@@ -1122,7 +1122,7 @@ function edgemakers_content_types_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_media_url',
     'label' => 'Media URL',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'mediafront' => array(
         'custom' => '',
