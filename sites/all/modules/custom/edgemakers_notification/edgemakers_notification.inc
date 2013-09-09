@@ -5,6 +5,9 @@
  * $data: POST data
  */
 function _edgemakers_notification_mural_updated($data) {
+
+  global $user;
+
   if (user_is_anonymous()) {
     return array('status' => 1, 'error' => 'Invalid user.');
   }
@@ -13,7 +16,7 @@ function _edgemakers_notification_mural_updated($data) {
     return array('status' => 1, 'error' => 'Mural ID is missing.');
   }
 
-  global $user;
+//   global $user;
 
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
@@ -29,7 +32,9 @@ function _edgemakers_notification_mural_updated($data) {
   $node = array_pop($result['node']);
   $tmp = entity_load('node', array($node->nid));
   $node = $tmp[$node->nid];
-  node_save($node->nid);
+//   node_save($node->nid);
+  node_save($node);        // Fix by lugal
+  watchdog('Notification Debug', '<pre>' . print_r($node, TRUE) . '</pre>');
   $author = user_load($node->uid);
 
   $recipients = array($user);
@@ -65,7 +70,8 @@ function _edgemakers_notification_mural_updated($data) {
     $node->field_mural_thumburl[LANGUAGE_NONE][0]['value'] = $data['thumbUrl'];
     node_object_prepare($node);
     $status = node_save($node);
-    watchdog('notification', t('Update murals\' node ') . $node->nid);
+
+    watchdog('notification', 'Murals\' node' . $node->title . '[' . $node->nid. ']' . t(' updated ') . $status);
 
   }
 
