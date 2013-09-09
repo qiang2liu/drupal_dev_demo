@@ -929,6 +929,9 @@ function edgemakers_media_list_html($limit = 5) {
 
 			$media_html = theme('item_list', $media_items);
 		}
+		else {
+		  $html .= '<h4 class="has-child">Media</h4>';
+		}
 
 		//dd($media_html, 'media list');
 
