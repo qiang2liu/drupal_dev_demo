@@ -106,7 +106,7 @@ function edgemakers_media_upload_form_alter(&$form, $form_state, $form_id) {
 
       $form['#prefix'] = '<div id="upload-media-ajax-wrapper">';
       $form['#suffix'] = '</div>';
-      
+
       $form['title']['#attributes']['placeholder'] = t('MEDIA TITLE');
       $form['field_media_type'][LANGUAGE_NONE]['#options']['_none'] = t('MEDIA TYPE');
       $form['field_media_url'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('MEDIA URL')
@@ -147,7 +147,7 @@ function edgemakers_media_upload_form_alter(&$form, $form_state, $form_id) {
 
 function edgemakers_media_upload_ajax_validate($form, &$form_state) {
   form_load_include($form_state, 'inc', 'node', 'node.pages');
-  
+
   $vals = $form_state['values'];
 	// Validat url while from youtube.
   $types = isset($vals['field_media_type']) ? $vals['field_media_type'][LANGUAGE_NONE] : null;
@@ -164,7 +164,7 @@ function edgemakers_media_upload_ajax_validate($form, &$form_state) {
     if ($media_url && $media_type_tid) {
       module_load_include('inc', 'edgemakers_stage', 'stage.api');
       $youtube_url = _youtube_parser($media_url);
-      
+
       if (!$youtube_url) {
         form_set_error('field_media_url[und][0][value]', 'Sorry, it is not a valid YouTube Link');
       }
@@ -436,7 +436,7 @@ function edgemakers_media_upload_new($js = NULL, $step = NULL) {
       $commands[] = ajax_command_html('#ctools-sample', $animal);
       $commands[] = ctools_modal_command_dismiss();
       $commands[] = ctools_ajax_command_redirect();
-      ctools_ajax_render($commands);
+      ajax_render($commands);
     }
     else if (!empty($form_state['cancel'])) {
       // If cancelling, return to the activity.
@@ -893,7 +893,7 @@ function edgemakers_media_list_html($limit = 5) {
             if(!isset($defaultPdfImg)) {
               require_once(drupal_get_path('module', 'edgemakers_set'). '/edgemakers_set.module');
               $terms = taxonomy_get_term_by_name('Document', 'set_types');
-              
+
               foreach($terms as $term) {
                 $term = taxonomy_term_load($term->tid);
                 $defaultPdfImg = edgemakers_set_get_set_type_default_thumbnail($term);
