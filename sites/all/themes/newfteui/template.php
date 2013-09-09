@@ -426,71 +426,50 @@ function newfteui_better_messages_content($display = NULL) {
 	}
 	return $output;
 }
-function newfteui_html5_player($variables) {
+function newfteui_minplayer($variables) {
 
-  // Get the element for this player.
-  if (isset($variables['element'])) {
-    $element = &$variables['element'];
-  }
-  else {
-    $element &$variables;
-  }
+  // Get the parameters.
+  $params = $variables['params'];
+  $params['id'] .= '-'.time();
+  // Get the attributes.
+  $attributes = html5_media_get_attributes($params);
 
-  // Get the settings.
-  $settings = $element['#settings'];
-  $attributes = $element['#attributes'];
+  // See if we should show the player.
+  $showPlayer = isset($params['showWhenEmpty']) ? $params['showWhenEmpty'] : TRUE;
 
-  // Check to make sure there are sources.
-  if (empty($element['#sources'])) {
-    return 'No media sources provided';
-  }
+  // Always show the player when viewing through the admin interface.
+  $showPlayer |= !empty($params['admin']);
 
-  // Set the value.
-  $element['#value'] = '';
-
-  // Iterate through each of the sources and create a source for that file.
-  foreach ($element['#sources'] as $delta => $file) {
-
-    // Ensure it is an object.
-    $file = (object)$file;
-
-    // Gets the source of this media.
-    if ($source = html5_media_get_source($file)) {
-
-      // Add the sources to the #value of the media tag.
-      $element['#value'] .= theme('html_tag', array(
-        'element' => array(
-          '#tag' => 'source',
-          '#attributes' => array('src' => $source)
-        )
-      ));
+  // Get the media sources and set the source of this media.
+  $mediasrc = array();
+  if ($media = minplayer_get_sources('media', $params)) {
+    $media = isset($media['media']) ? $media['media'] : array_shift($media);
+    $media = !empty($media[0]) ? $media[0] : $media;
+    $mediasrc['value'] = $media->path;
+    if (!empty($media->filemime)) {
+      $mediasrc['filemime'] = $media->filemime;
     }
   }
 
-  // Add some variables that the template needs.
-  $variables['player'] = theme('html_tag', $variables);
-  $variables['settings'] = $settings;
-  $variables['params'] = $settings;
+  // Set the poster image.
+  $imgsrc = '';
+  if ($images = minplayer_get_sources('image', $params)) {
+    $imgsrc = isset($images['preview']) ? $images['preview'] : $images['image'];
+    $imgsrc = is_string($imgsrc) ? $imgsrc : $imgsrc->path;
+    $attributes['poster'] = $imgsrc;
+  }
 
-  $playerId = $settings['id'];
-  $attributes = drupal_json_encode($attributes);
-  
-  require_once drupal_get_path('module', 'html5_media').'/html5_media.module';
-  $settings = array_intersect_key($settings, html5_media_player_settings());
-  $settings = trim(drupal_json_encode($settings), '{}');
-  $swfplayer = url(drupal_get_path('module', 'html5_media') . '/player/flash/minplayer.swf');
-    
-  $extra = "<div>jQuery(function() {
-      jQuery('#{$playerId}').minplayer({
-        id:'#{$playerId}',
-        attributes:{$attributes},
-        {$settings},
-        swfplayer:'{$swfplayer}'
-      });
-    });</div>";
+  // Setup the 'element' provided the params.
+  $variables['element'] = array(
+    '#tag' => 'video',
+    '#attributes' => $attributes,
+    '#settings' => $params,
+    '#sources' => array($mediasrc)
+  );
 
   // Return the theme for our media player.
-  return theme('html5_player_' . $settings['template'], $variables) . $extra;
+  $hide = (!$imgsrc && !$mediasrc && !$showPlayer);
+  return $hide ? '' : theme('html5_player', $variables);
 }
 /**
  * Implements hook_theme() in theme.

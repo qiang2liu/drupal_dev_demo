@@ -141,6 +141,12 @@ function formatSecondsAsTime(secs) {
 
 <?php
 else :
+  if($type == 'Image')
+    $divId = 'Image-image-icon';
+  else if($type == 'Audio')
+    $divId = 'Audio-video-icon';
+  else if($type == 'Docs')
+    $divId = 'Document-video-icon';
   function getAmazonFile($upload, $type) {
     $output = '';
     switch($type) {
@@ -158,8 +164,8 @@ else :
   $upload = $uploads && count($uploads) > 0 ? $uploads[0]['uri'] : '';
   $fid = $uploads && count($uploads) > 0 ? $uploads[0]['fid'] : '';
 ?>
-<div id="Image-image-icon" class="set-type-icon set-image-type-icon">
-  Image<br/>
+<div id="<?php echo $divId;?>" class="set-type-icon set-video-type-icon">
+  <?php echo $type;?><br/>
 </div>
 <span id="set-title" style="display: none;"><?php print $title;?></span>
   <div class="content set-image-content clearfix"<?php print $content_attributes; ?>>

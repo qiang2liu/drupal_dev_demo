@@ -87,7 +87,7 @@ div.ctools-modal-content .modal-content{
 
 #modalContent div.modal-forms-modal-content .popups-close{
 	right:32px;
-	top:43px;
+	top:46px;
 }
 #modalContent div.modal-forms-modal-content .container-profileSetting .popups-close{
 	top:30px;
@@ -119,7 +119,7 @@ div.ctools-modal-content .modal-content form{
 	display:none;
 }
 
-div.modal-forms-modal-content .setting-title{
+div.modal-forms-modal-content.profilesetting .setting-title{
 	background: #fff;
     display: inline-block;
     text-transform:capitalize;
