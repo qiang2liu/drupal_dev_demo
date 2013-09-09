@@ -1375,3 +1375,15 @@ div.ctools-modal-content .form-item .description{
     min-height: 20px;
     padding: 18px 0 18px 50px;
 }
+
+/* Admin menu fixes */
+#admin-menu-wrapper ul:after {
+	content: none;
+}
+
+#admin-menu {
+	background: #137797;
+	-moz-box-shadow: 0 -10px 10px 13px #555;
+  -webkit-box-shadow: 0 -10px 10px 13px #555;
+  box-shadow: 0 -10px 10px 13px #555;
+}
