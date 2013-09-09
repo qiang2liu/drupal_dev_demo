@@ -1082,7 +1082,7 @@ function _test_mural_create_mural() {
 
 function _test_mural_list_for_a_user() {
   $mural_api = new Muralapi;
-  $result = $mural_api->get_all_murals('lwgmural');
+  $result = $mural_api->get_all_murals('lugaltest');
   $data = $result->data;
   $r = drupal_json_decode($data);
   dpm($result);

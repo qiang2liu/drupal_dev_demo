@@ -880,7 +880,7 @@ function edgemakers_media_list_html($limit = 5) {
         if($type == 'Image') {
           $uploads = field_get_items('node', $node, 'field_media_upload');
           $upload = $uploads && count($uploads) > 0 ? $uploads[0]['uri'] : '';
-          $cont = theme('image_style', array('style_name'=>'edgemakers_set', 'path'=>$upload));
+          $cont = theme('image_style', array('style_name'=>'square_thumbnail', 'path'=>$upload));
         } else {
           $img = '';
           if($type == 'Audio') {
