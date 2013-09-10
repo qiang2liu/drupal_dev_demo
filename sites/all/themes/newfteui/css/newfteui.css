@@ -1117,6 +1117,7 @@ div.ctools-modal-content .form-item .description{
 	height:75px;
 }
 #studio-media-list li .set-cover p,
+#gallery-media-list li .set-cover p,
 #stage-set-list li .set-cover p{
 	text-align:left;
 	padding-left:30px;
