@@ -183,5 +183,9 @@ function edgemakers_image_default_styles() {
  */
 function edgemakers_admin_menu_output_alter(&$content) {
   $content['icon']['icon']['#href'] = 'home';
-  unset($content['menu']['node/add']);
+  // If content admin
+  global $user;
+  if (in_array('site admin', $user->roles)) {
+    unset($content['menu']['node/add']);
+  }
 }
