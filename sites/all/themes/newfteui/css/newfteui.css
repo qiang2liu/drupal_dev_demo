@@ -1107,13 +1107,16 @@ div.ctools-modal-content .form-item .description{
     transition-property: opacity;
     transition-timing-function: linear;
 }
+
 #stage-set-list li:hover .set-cover{
 	opacity:1;
 }
+
 #stage-set-list li .set-cover h5{
 	padding:0 0 10px;
 	height:75px;
 }
+#studio-media-list li .set-cover p,
 #stage-set-list li .set-cover p{
 	text-align:left;
 	padding-left:30px;
@@ -1121,6 +1124,11 @@ div.ctools-modal-content .form-item .description{
 	background-position:left top;
 	background-repeat:no-repeat;
 }
+
+#studio-media-list li .set-cover p.video,
+#studio-media-list li .set-cover p.audio,
+#gallery-media-list li .set-cover p.video,
+#gallery-media-list li .set-cover p.audio,
 #stage-set-list li .set-cover p.inspiration,
 #stage-set-list li .set-cover p.showcase,
 #stage-set-list li .set-cover p.video_with_comments,
@@ -1128,9 +1136,15 @@ div.ctools-modal-content .form-item .description{
 #stage-set-list li .set-cover p.video_with_qa{
 	background-image:url(../images/icon_set_video_24.png);
 }
+
+#studio-media-list li .set-cover p.image,
+#gallery-media-list li .set-cover p.image,
 #stage-set-list li .set-cover p.image{
 	background-image:url(../images/icon_set_image_24.png);
 }
+
+#studio-media-list li .set-cover p.docs,
+#gallery-media-list li .set-cover p.docs,
 #stage-set-list li .set-cover p.text,
 #stage-set-list li .set-cover p.document{
 	background-image:url(../images/icon_set_doc_24.png);
