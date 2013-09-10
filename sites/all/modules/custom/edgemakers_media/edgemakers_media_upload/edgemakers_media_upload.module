@@ -236,6 +236,11 @@ function edgemakers_media_upload_block_info() {
 		'cache' => DRUPAL_CACHE_PER_ROLE, //Default
   );
 
+  $blocks['gallery_media_list'] = array(
+		'info' => t('All media list on gallery pane'), //The name that will appear in the block list.
+		'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+  );
+
   $blocks['gallery_video_list'] = array(
 		'info' => t('Video media list on gallery pane'), //The name that will appear in the block list.
 		'cache' => DRUPAL_CACHE_PER_ROLE, //Default
@@ -274,7 +279,7 @@ function edgemakers_media_upload_block_view($delta = '') {
     	$block['content'] = '<div id="my-media-list" class="toolbar-item media"></div>';
     	break;
     case 'studio_media_list':
-      $block['subject'] = t('Media lit on studio pane');
+      $block['subject'] = t('Media list on studio pane');
       $block['content'] = '<div class="pane-studio-box media item-studio" id="studio-media-list-pane">
                           	<h4>media</h4>
                               <div class="scroll-wrapper">
@@ -284,8 +289,19 @@ function edgemakers_media_upload_block_view($delta = '') {
                               </div>
                           </div>';
       break;
+    case 'gallery_media_list':
+      $block['subject'] = t('All media list on gallery pane');
+      $block['content'] = '<div class="pane-gallery-box media item-studio" id="gallery-media-list-pane">
+                          	<h4>Media</h4>
+                            <div class="scroll-wrapper">
+                            	<div class="arrow-left" pager="0"> < </div>
+                              <div class="arrow-right" pager="1"> > </div>
+                          	  <ul id="gallery-media-list"></ul>
+                            </div>
+                          </div>';
+      break;
     case 'gallery_video_list':
-      $block['subject'] = t('Video media lit on gallery pane');
+      $block['subject'] = t('Video media list on gallery pane');
       $block['content'] = '<div class="pane-gallery-box media item-studio" id="gallery-video-list-pane">
                           	<h4>Video</h4>
                             <div class="scroll-wrapper">
@@ -296,7 +312,7 @@ function edgemakers_media_upload_block_view($delta = '') {
                           </div>';
       break;
     case 'gallery_image_list':
-      $block['subject'] = t('Image media lit on gallery pane');
+      $block['subject'] = t('Image media list on gallery pane');
       $block['content'] = '<div class="pane-gallery-box media item-studio" id="gallery-image-list-pane">
                           	<h4>Image</h4>
                             <div class="scroll-wrapper">
@@ -653,7 +669,28 @@ function _get_media_thumb($node) {
 //     echo '<li>Youtube thumbnail: ' . $thumbnail . '</li>';
   }
   else {
-    $thumb_url = $media_url;
+
+    $media_type_field = field_get_items('node', $node, 'field_media_type');
+    $media_type_tid = $media_type_field && count($media_type_field) > 0 ? $media_type_field[0]['tid'] : '';
+    $media_type_term = taxonomy_term_load($media_type_tid);
+    $media_type_name = $media_type_term->name;
+
+    switch (strtolower($media_type_name)) {
+      case 'image':
+        $thumb_url = $media_url;
+        break;
+      case 'audio':
+        $thumb_url = drupal_get_path('module', 'edgemakers_media_upload') . '/images/iconAudioDefault.png';
+        break;
+      case 'docs':
+        $thumb_url = drupal_get_path('module', 'edgemakers_media_upload') . '/images/iconDocsDefault.png';
+        break;
+      default:
+        $thumb_url = $media_url;
+        break;
+    }
+
+//     $thumb_url = $media_url;
   }
 
   return $thumb_url;
@@ -667,14 +704,20 @@ function _get_media_thumb($node) {
  * @param int $pager
  *   - Current pager.
  */
-function edgemakers_media_list_on_gallery($type = '', $pager = 0, $keyword = '') {
+function edgemakers_media_list_on_gallery($type = '', $page = 0, $keyword = '') {
 
   global $user;
   $limit = 4;
-  $start = $pager * $limit;
+
+  if (strtolower($type) == 'media') {    // Get all data.
+    $type = '';
+    $limit = 12;
+  }
+
+  $start = $page * $limit;
 
   if ($keyword) {
-    $media_list = _edgemakers_media_upload_search_execute_result($type, $keyword, $pager);
+    $media_list = _edgemakers_media_upload_search_execute_result($type, $keyword, $page, $limit);
   }
   else {
     $media_list = edgemakers_media_list('', $type, $start, $limit);
@@ -701,8 +744,33 @@ function edgemakers_media_list_on_gallery($type = '', $pager = 0, $keyword = '')
 
     $node_thumb = _get_media_thumb($node);
 
-    $html .= '<li class="' . $class . '">
-            <span class="mediathumb ' . $node->title . ' ">
+
+    $html .= '<li class="' . $class . '">';
+
+    // Cover.
+    $node_user = user_load($node->uid);
+    $node_field_first_name = field_get_items('user', $node_user, 'field_firstname');
+    $node_first_name = $node_field_first_name && count($node_field_first_name) > 0 ? $node_field_first_name[0]['value'] : '';
+    $node_field_last_name = field_get_items('user', $node_user, 'field_lastname');
+    $node_last_name = $node_field_last_name && count($node_field_last_name) > 0 ? $node_field_last_name[0]['value'] : '';
+    $node_username = $node_first_name . ' ' . $node_last_name;
+
+    // Media type.
+    $media_type_field = field_get_items('node', $node, 'field_media_type');
+    $media_type_tid = $media_type_field && count($media_type_field) > 0 ? $media_type_field[0]['tid'] : '';
+    $media_type_term = taxonomy_term_load($media_type_tid);
+    $media_type_name = $media_type_term->name;
+    if (!$media_type_name) {
+      $media_type_name = 'Media';
+    }
+
+    $html .= '<div class="set-cover">
+                <h5>' . $node->title .'</h5>
+                <p class="inspiration">' . $node_username .'</p>
+                <p class="' . strtolower($media_type_name) . '">' . $media_type_name . '</p>
+              </div>';
+
+    $html .= '<span class="mediathumb ' . $node->title . ' ">
               <img src="' . $node_thumb . '"/>
             </span>';
     $edit_url = l('<span class =""></span>', 'node/' . $node->nid, array(
@@ -762,8 +830,32 @@ function edgemakers_media_list_on_studio($pager = 0) {
 
       $node_thumb = _get_media_thumb($node);
 
-      $html .= '<li class="' . $class . '">
-              <span class="mediathumb ' . $node->title . ' ">
+      $html .= '<li class="' . $class . '">';
+
+      // Cover.
+      $node_user = user_load($node->uid);
+      $node_field_first_name = field_get_items('user', $node_user, 'field_firstname');
+      $node_first_name = $node_field_first_name && count($node_field_first_name) > 0 ? $node_field_first_name[0]['value'] : '';
+      $node_field_last_name = field_get_items('user', $node_user, 'field_lastname');
+      $node_last_name = $node_field_last_name && count($node_field_last_name) > 0 ? $node_field_last_name[0]['value'] : '';
+      $node_username = $node_first_name . ' ' . $node_last_name;
+
+      // Media type.
+      $media_type_field = field_get_items('node', $node, 'field_media_type');
+      $media_type_tid = $media_type_field && count($media_type_field) > 0 ? $media_type_field[0]['tid'] : '';
+      $media_type_term = taxonomy_term_load($media_type_tid);
+      $media_type_name = $media_type_term->name;
+      if (!$media_type_name) {
+        $media_type_name = 'Media';
+      }
+
+      $html .= '<div class="set-cover">
+                  <h5>' . $node->title .'</h5>
+                  <p class="inspiration">' . $node_username .'</p>
+                  <p class="' . strtolower($media_type_name) . '">' . $media_type_name . '</p>
+                </div>';
+
+      $html .= '<span class="mediathumb ' . $node->title . ' ">
                 <img src="' . $node_thumb . '"/>
               </span>';
       $edit_url = l('<span class =""></span>', 'node/' . $node->nid, array(
@@ -934,9 +1026,9 @@ function edgemakers_media_ajax_callback($page_callback_result) {
  * Custome search by search module, but not hook_search_execute().
  * Configuration the search weight for it.
  */
-function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', $page = 0) {
+function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', $page = 0, $pager = 5) {
 
-  $pager = 5;
+//   $pager = 5;
   $start = $page * $pager;
 
 //   dpm('Start: ' . $start . ' | Pager: ' . $pager);
