@@ -242,10 +242,11 @@ function fteuser_set_mural_user($mural_api, $account) {
   $mural_user['username'] = $account->name;
   $mural_user['email'] = $account->mail;
   // $mural_user['email'] = "x16c3458@mail.com"; //test
-  $mural_user['source'] = "edgemakers";
+  $the_org_str = variable_get('muralapi_org', 'edgemakers');
+  $mural_user['source'] = $the_org_str;
   $mural_user['nameIdentifier'] = $account->uid;
 
-  $mural_api_result = $mural_api->create_user($mural_user, '/api/organizations/edgemakers/users', 'POST');
+  $mural_api_result = $mural_api->create_user($mural_user, '/api/organizations/' . $the_org_str . '/users', 'POST');
 
   if (is_object($mural_api_result) && isset($mural_api_result->data)) {
     $muralapi_response_obj = drupal_json_decode($mural_api_result->data);

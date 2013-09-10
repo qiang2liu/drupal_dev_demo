@@ -964,7 +964,7 @@ function muralapi_test() {
 
 //  themuraly_topic_mural_list(539);
   _test_mural_list_for_a_user();
-//   _test_user_add();
+  _test_user_add();
   //_test_create_room();
   // _test_mural_create_mural();
   //_test_mural_duplicate_mural();
@@ -1096,12 +1096,12 @@ function _test_user_add() {
   $str = rand(800, 10000);
   $user = array();
   $user['username'] = "cldf" . $str;
-  // $user['username'] = "ppt777";
-  $user['email'] = "cldf" . $str . "@symbio.com";
-  $user['source'] = "edgemakers";
+  $user['username'] = "dev-edgemakers";
+  $user['email'] = "edgemakers" . $str . "@symbio.com";
+  $user['source'] = "dev-edgemakers";
   $user['nameIdentifier'] = 3;
 
-  $mural_api_result = $mural_api->create_user($user, '/api/organizations/edgemakers/users', 'POST');
+  $mural_api_result = $mural_api->create_user($user, '/api/organizations/dev-edgemakers/users', 'POST');
   dpm($mural_api_result);
   //dd($mural_api_result);
   $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
