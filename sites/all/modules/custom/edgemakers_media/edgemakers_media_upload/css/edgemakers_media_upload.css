@@ -13,7 +13,19 @@
   overflow: hidden;
 }
 
+#gallery-media-list-pane .scroll-wrapper {
+  height: auto;
+  position: relative;
+}
+
+#gallery-media-list-pane .scroll-wrapper .arrow-left,
+#gallery-media-list-pane .scroll-wrapper .arrow-right
+{
+  top: 150px;
+}
+
 ul#gallery-image-list li,
+ul#gallery-media-list li,
 ul#gallery-video-list li,
 ul#studio-media-list li
 {
@@ -26,6 +38,7 @@ ul#studio-media-list li
 }
 
 ul#gallery-image-list li.mediasettingicon,
+ul#gallery-media-list li.mediasettingicon,
 ul#gallery-video-list li.mediasettingicon,
 ul#studio-media-list li.mediasettingicon
 {
@@ -35,6 +48,7 @@ ul#studio-media-list li.mediasettingicon
 }
 
 ul#gallery-image-list li span.mediathumb img,
+ul#gallery-media-list li span.mediathumb img,
 ul#gallery-video-list li span.mediathumb img,
 ul#studio-media-list li span.mediathumb img
 {
@@ -43,6 +57,7 @@ ul#studio-media-list li span.mediathumb img
 }
 
 ul#gallery-image-list li a.studio-media-list-item-link,
+ul#gallery-media-list li a.studio-media-list-item-link,
 ul#gallery-video-list li a.studio-media-list-item-link,
 ul#studio-media-list li a.studio-media-list-item-link
 {
@@ -55,6 +70,7 @@ ul#studio-media-list li a.studio-media-list-item-link
 }
 
 ul#gallery-image-list li a.studio-media-settings,
+ul#gallery-media-list li a.studio-media-settings,
 ul#gallery-video-list li a.studio-media-settings,
 ul#studio-media-list li a.studio-media-settings
 {
@@ -92,3 +108,32 @@ div.form-item-field-tags-und {
   color: #8c2e0b;
 }
 
+/* Cover style */
+#gallery-media-list .set-cover,
+#studio-media-list .set-cover
+{
+  display: block;
+  width: 136px;
+  height: 86px;
+  padding:10px;
+  position: absolute;
+  left: 0;
+  top:0;
+  overflow: hidden;
+}
+
+#gallery-media-list .set-cover,
+#studio-media-list .set-cover
+{
+  /* display: none; */
+  opacity:0;
+  background:rgba(0,0,0,0.5);
+  transition: all 0.3s linear;
+  color:#fff;
+}
+
+#gallery-media-list li:hover .set-cover,
+#studio-media-list li:hover .set-cover
+{
+  opacity:1;
+}
