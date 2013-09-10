@@ -1,10 +1,11 @@
 <?php
 global $user;
+global $base_url;
 
 if ($node = menu_get_object()) {
 //   print("Get nid from url" . $node->nid);
   if ($user->uid) {
-    $mural_link = 'mural/topic/create/' . $node->nid;
+    $mural_link = $base_url . '/mural/topic/create/' . $node->nid;
     $link_class = array('create-mural', 'create-mural-topic');
     $create_mural_url = l(t('Create Mural'), $mural_link , array(
     		'attributes' => array(

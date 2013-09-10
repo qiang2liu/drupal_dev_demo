@@ -394,10 +394,11 @@ function themuraly_after_build($form, $form_state)
   $tmp_js = _create_tmp_js($script);
   drupal_add_js($tmp_js);
 
-//   unlink($tmp_js);
+
+  // Change mural title on mural windows;
+//   $form['#attributes']['onSubmit'] = 'changeTitleAfterSetting()';
 
 
-  // Then I return the form
   return $form;
 
 }
@@ -466,6 +467,10 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 //       , 'placeholder' => 'Enter email address');
 //       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#value'] = '';
 //       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#attributes']['placeholder'] = t('Description');
+
+//       $form['actions']['submit']['#attributes'] = array(
+//         'onClick' => 'changeTitleAfterSetting(this.val);return false;'
+//       );
 
       if ($the_nid) {  //edit form
         unset($form['actions']['delete']);
@@ -893,7 +898,28 @@ EOT;
 }
 
 function _themuralyajax_submit($form, &$form_state) {
+
+//   global $base_url;
+
 //   form_load_include($form_state, 'inc', 'node', 'node.pages');
+
+//   ctools_include('modal');
+//   ctools_include('ajax');
+
+//   $commands = array();
+
+//   $commands[] = ajax_command_replace('#mural-title', 'test title');
+
+//   ajax_command_replace('#mural-title', 'Title changed.');
+
+
+//   ctools_add_js('refreshElements', 'themuraly');
+
+//   drupal_add_js($base_url . '/' . drupal_get_path('module', 'themuraly') . '/js/refreshElements.js');
+
+//   print ajax_render($commands);
+
+
 }
 
 function mural_addmember_ajax_callback($form, $form_state) {
@@ -964,7 +990,7 @@ function muralapi_test() {
 
 //  themuraly_topic_mural_list(539);
   _test_mural_list_for_a_user();
-//   _test_user_add();
+  _test_user_add();
   //_test_create_room();
   // _test_mural_create_mural();
   //_test_mural_duplicate_mural();
@@ -1096,12 +1122,12 @@ function _test_user_add() {
   $str = rand(800, 10000);
   $user = array();
   $user['username'] = "cldf" . $str;
-  // $user['username'] = "ppt777";
-  $user['email'] = "cldf" . $str . "@symbio.com";
-  $user['source'] = "edgemakers";
+  $user['username'] = "dev-edgemakers";
+  $user['email'] = "edgemakers" . $str . "@symbio.com";
+  $user['source'] = "dev-edgemakers";
   $user['nameIdentifier'] = 3;
 
-  $mural_api_result = $mural_api->create_user($user, '/api/organizations/edgemakers/users', 'POST');
+  $mural_api_result = $mural_api->create_user($user, '/api/organizations/dev-edgemakers/users', 'POST');
   dpm($mural_api_result);
   //dd($mural_api_result);
   $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
