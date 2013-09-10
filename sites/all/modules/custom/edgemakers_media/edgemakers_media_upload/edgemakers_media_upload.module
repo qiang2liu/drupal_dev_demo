@@ -1057,7 +1057,7 @@ function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', 
 
     // Just return "share to gallery" media.
     $query->innerJoin('field_data_field_share_to_gallery','field_share', 'n.nid = field_share.entity_id');
-    $query->condition('field_share.field_share_value', '1');
+    $query->condition('field_share.field_share_to_gallery_value', '1');
 
     $query->orderBy('n.title', 'ASC');//ORDER BY title
     $query->orderBy('i.sid', 'DESC');//ORDER BY title
