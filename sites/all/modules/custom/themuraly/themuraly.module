@@ -723,6 +723,7 @@ function _themuralyajax_validate($form, &$form_state) {
               $result = $mural_api->retrieve_a_mural($muralusername, $the_muralid);
               $data = $result->data;
               $r = drupal_json_decode($data);
+//               watchdog("Debug Mural API", '<pre>' . print_r($data, TRUE) . '</pre>');
 
               $form_state['values']['field_mural_thumburl'][$lang][0]['value'] = $r['thumbUrl'];
 
@@ -1537,7 +1538,7 @@ function themuraly_mural_list_html($limit = 5) {
 						)
 					)
 				);
-				$mural_item['items'][$i]['class'][] = 'media-item';
+				$mural_item['items'][$i]['class'][] = 'mural-item';
 				$i++;
 			}
 

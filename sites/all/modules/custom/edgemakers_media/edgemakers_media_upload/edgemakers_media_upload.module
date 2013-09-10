@@ -812,7 +812,7 @@ function edgemakers_my_media_list_on_toolbar($limit = 5) {
 	      	)
 	      );
 
-	      $media_item['items'][$i]['class'][] = 'media-item';
+	      $media_item['items'][$i]['class'][] = 'edgemakers-media-item';
 
 	      $i++;
       }
@@ -915,7 +915,7 @@ function edgemakers_media_list_html($limit = 5) {
 	      		)
 	      	)
 	      ),
-        'class' => array('media-item'),
+        'class' => array('edgemakers-media-item'),
       );
     }
 
