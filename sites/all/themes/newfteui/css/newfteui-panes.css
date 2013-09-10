@@ -398,6 +398,7 @@ h2.item-studio{
 #studio-share-with-me{
 	background:url(../images/newui_ico_pane_studio_4.png) left top no-repeat;
 }
+#gallery-media-list-pane,
 #studio-media-list-pane{
 	background:url(../images/newui_ico_pane_studio_5.png) left top no-repeat;
 	min-height:268px;

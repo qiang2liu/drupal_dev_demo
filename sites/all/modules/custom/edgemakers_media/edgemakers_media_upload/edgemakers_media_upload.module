@@ -291,7 +291,7 @@ function edgemakers_media_upload_block_view($delta = '') {
       break;
     case 'gallery_media_list':
       $block['subject'] = t('All media list on gallery pane');
-      $block['content'] = '<div class="pane-gallery-box media item-studio" id="gallery-media-list-pane">
+      $block['content'] = '<div class="pane-gallery-box pane-studio-box media item-studio" id="gallery-media-list-pane">
                           	<h4>Media</h4>
                             <div class="scroll-wrapper">
                             	<div class="arrow-left" pager="0"> < </div>
@@ -302,7 +302,7 @@ function edgemakers_media_upload_block_view($delta = '') {
       break;
     case 'gallery_video_list':
       $block['subject'] = t('Video media list on gallery pane');
-      $block['content'] = '<div class="pane-gallery-box media item-studio" id="gallery-video-list-pane">
+      $block['content'] = '<div class="pane-gallery-box pane-studio-box media item-studio" id="gallery-video-list-pane">
                           	<h4>Video</h4>
                             <div class="scroll-wrapper">
                             	<div class="arrow-left" pager="0"> < </div>
@@ -313,7 +313,7 @@ function edgemakers_media_upload_block_view($delta = '') {
       break;
     case 'gallery_image_list':
       $block['subject'] = t('Image media list on gallery pane');
-      $block['content'] = '<div class="pane-gallery-box media item-studio" id="gallery-image-list-pane">
+      $block['content'] = '<div class="pane-gallery-box pane-studio-box media item-studio" id="gallery-image-list-pane">
                           	<h4>Image</h4>
                             <div class="scroll-wrapper">
                             	<div class="arrow-left" pager="0"> < </div>
@@ -729,7 +729,7 @@ function edgemakers_media_list_on_gallery($type = '', $page = 0, $keyword = '') 
 
 	arsort($media_list);
 
-	$html = '<div class="pane-studio-box media item-studio">';
+	$html = '<div class="media item-studio">';
 
 	$i = 1;
 	foreach ($media_list as $node) {
@@ -806,7 +806,7 @@ function edgemakers_media_list_on_studio($pager = 0) {
   $limit = 8;
   $start = $pager * $limit;
 
-  $html = '<div class="pane-studio-box media item-studio">';
+  $html = '<div class="media item-studio">';
 
   if ($user->uid !== 0) {
     $my_media_nodes = edgemakers_media_list($user->uid, '', $start, $limit);
