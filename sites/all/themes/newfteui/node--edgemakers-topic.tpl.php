@@ -143,6 +143,10 @@ h1{
 	width:540px;
 
 }
+.field-name-field-topic-problem .field-item p{
+	word-wrap: break-word;
+	
+}
 .field-name-field-topic-suggestion .field-label{
 	padding:20px 0 0 17px;
 	height:88px;

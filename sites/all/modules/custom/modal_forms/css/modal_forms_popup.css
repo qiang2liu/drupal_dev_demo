@@ -89,6 +89,10 @@ div.ctools-modal-content .modal-content{
 	right:32px;
 	top:46px;
 }
+#modalContent div.modal-forms-modal-content.profilesetting .popups-close{
+	right:42px;
+	top:46px;
+}
 #modalContent div.modal-forms-modal-content .container-profileSetting .popups-close{
 	top:30px;
 }
