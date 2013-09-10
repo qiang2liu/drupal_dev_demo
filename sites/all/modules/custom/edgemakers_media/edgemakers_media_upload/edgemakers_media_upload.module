@@ -866,46 +866,8 @@ function edgemakers_media_list_html($limit = 5) {
     $media_items = array('items'=>array());
 		$nodes = edgemakers_media_get_my_media($user->uid, $content_type);
 		foreach ($nodes as $node) {
-      $cont = '';
-      $types = field_get_items('node', $node, 'field_media_type');
-      $term = $types && count($types) > 0 ? taxonomy_term_load($types[0]['tid']) : '';
-      if($term) $type = $term->name;
-      if($type == 'Video') {
-        module_load_include('inc', 'edgemakers_stage', 'stage.api');
-        $urls = field_get_items('node', $node, 'field_media_url');
-        $url = $urls && count($urls) > 0 ? $urls[0]['value'] : '';
-        $ytid = _youtube_parser($url);
-        $cont = '<div class="crop"><img src="http://img.youtube.com/vi/'.$ytid.'/0.jpg" /></div>';
-      } else {
-        if($type == 'Image') {
-          $uploads = field_get_items('node', $node, 'field_media_upload');
-          $upload = $uploads && count($uploads) > 0 ? $uploads[0]['uri'] : '';
-          $cont = theme('image_style', array('style_name'=>'square_thumbnail', 'path'=>$upload));
-        } else {
-          $img = '';
-          if($type == 'Audio') {
-            if(!isset($defaultAudioImg)) {
-              global $base_path;
-              $defaultAudioImg = '<img src="'.$base_path.drupal_get_path('module', 'media'). '/images/icons/default/audio-mpeg.png" alt="" />';
-            }
-            $cont = $defaultAudioImg;
-          } else if($type == 'Docs') {
-            if(!isset($defaultPdfImg)) {
-              require_once(drupal_get_path('module', 'edgemakers_set'). '/edgemakers_set.module');
-              $terms = taxonomy_get_term_by_name('Document', 'set_types');
-
-              foreach($terms as $term) {
-                $term = taxonomy_term_load($term->tid);
-                $defaultPdfImg = edgemakers_set_get_set_type_default_thumbnail($term);
-              }
-            }
-            $cont = $defaultPdfImg;
-          }
-          $cont = '<div class="crop">'.$cont.'</div>';
-        }
-      }
       $media_items['items'][] = array(
-        'data' => l($cont,
+        'data' => l($node->title,
 					'node/' . $node->nid,
 					array(
             'html' => TRUE,
