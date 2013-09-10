@@ -170,6 +170,12 @@ div.ctools-sample-modal-content .modal-scroll{
 #media-for-upload-node-form label{
 	display:none;
 }
+#media-for-upload-node-form .field-name-field-share-to-gallery label{
+	display:block;
+}
+#media-for-upload-node-form label span.form-required{
+	display:none;
+}
 #upload-media-ajax-wrapper{
 	padding-top:20px;
 	width:95%;
