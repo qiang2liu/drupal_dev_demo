@@ -1049,6 +1049,7 @@ function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', 
 
 //   $pager = 5;
   $start = $page * $pager;
+  $keys = trim($keys);
 
 //   dpm('Start: ' . $start . ' | Pager: ' . $pager);
 
@@ -1057,6 +1058,10 @@ function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', 
     $query = db_select('search_index', 'i')
       ->condition('i.type', 'node');                  //Search node.
 //       ->condition('i.word', '%' . $keys . '%', 'LIKE');  //Search key
+
+    // Full text search, copy from search.extender.inc.
+    $query->innerJoin('search_dataset','d','i.sid = d.sid  AND i.type = d.type');
+    $query->condition('d.data', '%' . strtolower($key) . '%', 'LIKE');
 
     // Keys is multi and split by "space".
     $keys_array = explode(' ', $keys);
@@ -1067,7 +1072,7 @@ function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', 
     $query->condition($orkeys);
 
     // distinct sid.
-    $query->AddExpression('distinct sid', 'sid_node');
+    $query->AddExpression('distinct i.sid', 'sid_node');
 
     $query->range($start, $pager);
 
