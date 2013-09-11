@@ -374,8 +374,19 @@ function themuraly_after_build($form, $form_state)
 //   dpm($form);
 //   dpm($form_state);
 
+//   watchdog('Debug Lugal', '<pre>' . print_r($form_state, TRUE) . '</pre>');
+
+  if (isset($form_state['values']['field_muralshared'][LANGUAGE_NONE])) {
+    if ($form_state['values']['field_muralshared'][LANGUAGE_NONE]['0']['value'] == 1) {
+      $is_shared = 1;
+    }
+    else {
+      $is_shared = 0;
+    }
+  }
+
   if (($form_state['node']->field_muralshared['und']['0']['value'] == 1)
-    OR ($form_state['values']['field_muralshared'][LANGUAGE_NONE]['0']['value'] == 1)
+    OR (isset($is_shared) && $is_shared == 1)
   ) {
     $share_mail_class = '';
   }
