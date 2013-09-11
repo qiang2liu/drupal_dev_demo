@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Edgemakers Views Blocks feature.
+ */
+
+include_once 'edgemakers_views_blocks.features.inc';
