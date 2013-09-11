@@ -415,11 +415,11 @@ function create_mural($mural_api, $muser, $mroomid, $title = 'my mural', $duplic
   $params = array('title' => $title, 'room' => $mroomid);
   if ($duplicate_id != '') {
     $mural_api_result = $mural_api->duplicate_mural($muser, $duplicate_id, $params);
-    watchdog('Topic Debug', 'mural api info:' . $mural_api_result);
+    watchdog('Muraly', 'mural api info:' . $mural_api_result);
 //     dd($mural_api_result, 'mural api results of duplicate_mural');
   } else {
     $mural_api_result = $mural_api->create_mural($muser, $params);
-    watchdog('Topic Debug', 'mural api info:' . print_r($mural_api_result, TRUE));
+    watchdog('Muraly', 'mural api info:' . print_r($mural_api_result, TRUE));
 //     dd($mural_api_result, 'mural api results of create_mural');
   }
   if (is_object($mural_api_result) && isset($mural_api_result->data)) {
@@ -492,8 +492,9 @@ function themuraly_mural_page($template_id = 0, $nid = 0, $owner_id = '') {
 	}
 	else {
 	  watchdog('Muraly', 'Create mural fial.');
-	  drupal_set_message(t('Can\'t create mural on create page.'));
-	  echo '<span class="close-mural-dialog" onclick=\'window.parent.closeFromIframe();\'> X </span>';
+// 	  drupal_set_message(t('Can\'t create mural on create page.'));
+	  return t('Can\'t create mural');
+// 	  echo '<span class="close-mural-dialog" onclick=\'window.parent.closeFromIframe();\'> X </span>';
 	}
 
 }
