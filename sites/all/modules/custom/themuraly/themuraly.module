@@ -1096,8 +1096,8 @@ function _test_user_add() {
   $str = rand(800, 10000);
   $user = array();
   $user['username'] = "cldf" . $str;
-  $user['username'] = "dev-edgemakers";
-  $user['email'] = "edgemakers" . $str . "@symbio.com";
+  //$user['username'] = "dev-edgemakers";
+  $user['email'] = "dev_devedgemakers" . $str . "@symbio.com";
   $user['source'] = "dev-edgemakers";
   $user['nameIdentifier'] = 3;
 
