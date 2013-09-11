@@ -426,6 +426,7 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
       unset($form['field_muraluser']);
       unset($form['field_mural_thumburl']);
       unset($form['field_muraltype']);
+      unset($form['field_topic_mural']);
 
       $form['body']['und']['0']['value']['#attributes']['placeholder'] = t('Description');
       $form['body']['und']['0']['value']['#resizable'] = FALSE;
