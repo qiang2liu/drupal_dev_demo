@@ -475,6 +475,7 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
       $form['field_mail_to_share'][LANGUAGE_NONE]['#suffix'] = '</div>';
       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#autocomplete_path'] = 'mural/usersearch/autocomplete';
       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#attributes'] = array('autocomplete' => 'on');
+      $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#attributes']['placeholder'] = t('Enter user name');
 //       , 'placeholder' => 'Enter email address');
 //       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#value'] = '';
 //       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#attributes']['placeholder'] = t('Description');
