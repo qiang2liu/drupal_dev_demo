@@ -426,6 +426,7 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
       unset($form['field_muraluser']);
       unset($form['field_mural_thumburl']);
       unset($form['field_muraltype']);
+      unset($form['field_topic_mural']);
 
       $form['body']['und']['0']['value']['#attributes']['placeholder'] = t('Description');
       $form['body']['und']['0']['value']['#resizable'] = FALSE;
@@ -434,7 +435,20 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
       $form['field_challenges_category'][LANGUAGE_NONE]['#options']['_none'] = t('Category');
       $form['field_topic_mural'][LANGUAGE_NONE]['#options']['_none'] = t('Topic');
 
-      $form['field_share_to_gallery'][LANGUAGE_NONE]['#options']['_none'] = t('Share to Gallery');
+      $share_to_gallery_default_options = $form['field_share_to_gallery'][LANGUAGE_NONE]['#options'];
+
+      $share_to_gallery_options['_none'] = t('Share to Gallery');
+
+      foreach ($share_to_gallery_default_options AS $k => $v) {
+        if ($k !== '_none') {
+          $share_to_gallery_options[$k] = $v;
+        }
+      }
+
+      $form['field_share_to_gallery'][LANGUAGE_NONE]['#options'] = $share_to_gallery_options;
+//       drupal_set_message('Share to Gallery options: <pre>' . print_r(($share_to_gallery_options), TRUE) . '</pre>');
+
+//       $form['field_share_to_gallery'][LANGUAGE_NONE]['#options']['_none'] = t('Share to Gallery');
 //       $form['field_share_to_gallery'][LANGUAGE_NONE]['#attributes'] = array(
 //         'size' => 2,
 //       );
@@ -464,6 +478,7 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
       $form['field_mail_to_share'][LANGUAGE_NONE]['#suffix'] = '</div>';
       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#autocomplete_path'] = 'mural/usersearch/autocomplete';
       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#attributes'] = array('autocomplete' => 'on');
+      $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#attributes']['placeholder'] = t('Enter user name');
 //       , 'placeholder' => 'Enter email address');
 //       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#value'] = '';
 //       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#attributes']['placeholder'] = t('Description');
