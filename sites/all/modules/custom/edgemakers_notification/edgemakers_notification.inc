@@ -6,17 +6,17 @@
  */
 function _edgemakers_notification_mural_updated($data) {
 
-  global $user;
+//   global $user;
 
-  if (user_is_anonymous()) {
-    return array('status' => 1, 'error' => 'Invalid user.');
-  }
+//   if (user_is_anonymous()) {
+//     return array('status' => 1, 'error' => 'Invalid user.');
+//   }
 
   if (!isset($data['mural_id'])) {
     return array('status' => 1, 'error' => 'Mural ID is missing.');
   }
 
-//   global $user;
+  global $user;
 
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
