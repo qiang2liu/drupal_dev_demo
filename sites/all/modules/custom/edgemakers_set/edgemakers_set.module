@@ -61,7 +61,7 @@ function edgemakers_set_menu() {
 /**
  * Implements hook_form_alter().
  *
-}*/
+ */
 function edgemakers_set_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == 'edgemakers_set_node_form') {
     if(arg(0) == 'admin' && arg(1) == 'edgemakers' || arg(0) == 'modal') {
