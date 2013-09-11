@@ -369,8 +369,7 @@ function _create_tmp_js($content) {
 /**
  * Implement hook_after_build();
  */
-function themuraly_after_build($form, $form_state)
-{
+function themuraly_after_build($form, $form_state) {
 //   dpm($form);
 //   dpm($form_state);
 
@@ -1774,8 +1773,16 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
   if ($keys) {
 
     $query = db_select('search_index', 'i')
-      ->condition('i.type', 'node')                      //Search node.
-      ->condition('i.word', '%' . $keys . '%', 'LIKE');  //Search key
+      ->condition('i.type', 'node');                      //Search node.
+//       ->condition('i.word', '%' . $keys . '%', 'LIKE');  //Search key
+
+    // Keys is multi and split by "space".
+    $keys_array = explode(' ', $keys);
+    $orkeys = db_or();
+    foreach ($keys_array AS $key) {
+      $orkeys->condition('i.word', '%' . strtolower($key) . '%', 'LIKE');
+    }
+    $query->condition($orkeys);
 
     // distinct sid.
     $query->AddExpression('distinct sid', 'sid_node');
@@ -1785,6 +1792,10 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
     $query->join('node', 'n', 'n.nid = i.sid');
     $query->condition('n.type', 'murals');
     $query->condition('n.status', 1);
+
+
+    // The numeric score of the word, higher being more important.
+    $query->orderBy('i.score', 'ASC');//ORDER BY title
 
     $query->orderBy('n.title', 'ASC');//ORDER BY title
     $query->orderBy('i.sid', 'DESC');//ORDER BY title

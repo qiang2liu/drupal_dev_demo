@@ -1055,8 +1055,16 @@ function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', 
   if ($keys) {
 
     $query = db_select('search_index', 'i')
-      ->condition('i.type', 'node')                      //Search node.
-      ->condition('i.word', '%' . $keys . '%', 'LIKE');  //Search key
+      ->condition('i.type', 'node');                  //Search node.
+//       ->condition('i.word', '%' . $keys . '%', 'LIKE');  //Search key
+
+    // Keys is multi and split by "space".
+    $keys_array = explode(' ', $keys);
+    $orkeys = db_or();
+    foreach ($keys_array AS $key) {
+      $orkeys->condition('i.word', '%' . strtolower($key) . '%', 'LIKE');
+    }
+    $query->condition($orkeys);
 
     // distinct sid.
     $query->AddExpression('distinct sid', 'sid_node');
@@ -1078,6 +1086,9 @@ function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', 
     $query->innerJoin('field_data_field_share_to_gallery','field_share', 'n.nid = field_share.entity_id');
     $query->condition('field_share.field_share_to_gallery_value', '1');
 
+    // The numeric score of the word, higher being more important.
+    $query->orderBy('i.score', 'ASC');//ORDER BY title
+
     $query->orderBy('n.title', 'ASC');//ORDER BY title
     $query->orderBy('i.sid', 'DESC');//ORDER BY title
     $query->orderBy('n.nid', 'DESC');//ORDER BY created
@@ -1091,6 +1102,9 @@ function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', 
     $find = $query->execute();
 
     $results = array();
+
+//     dpm($results);
+//     print('Search result: <pre>' . print_r($find, TRUE) . '</pre>');
 
     foreach ($find as $item) {
       // Render the node.
