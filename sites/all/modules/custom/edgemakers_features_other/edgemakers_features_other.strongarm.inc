@@ -182,13 +182,6 @@ function edgemakers_features_other_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'backup_migrate_schedule_last_run_a9346c780a4c0601cf39bca3975733be';
-  $strongarm->value = 1378864872;
-  $export['backup_migrate_schedule_last_run_a9346c780a4c0601cf39bca3975733be'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'backup_migrate_source_id';
   $strongarm->value = 'db';
   $export['backup_migrate_source_id'] = $strongarm;
@@ -538,27 +531,6 @@ function edgemakers_features_other_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'cron_last';
-  $strongarm->value = 1378882828;
-  $export['cron_last'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'css_js_query_string';
-  $strongarm->value = 'msyaro';
-  $export['css_js_query_string'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'ctools_last_cron';
-  $strongarm->value = 1378864876;
-  $export['ctools_last_cron'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'date_api_use_iso8601';
   $strongarm->value = 0;
   $export['date_api_use_iso8601'] = $strongarm;
@@ -597,13 +569,6 @@ function edgemakers_features_other_strongarm() {
   $strongarm->name = 'db_maintenance_cron_frequency';
   $strongarm->value = '86400';
   $export['db_maintenance_cron_frequency'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'db_maintenance_cron_last';
-  $strongarm->value = 1378864870;
-  $export['db_maintenance_cron_last'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -3390,7 +3355,7 @@ function edgemakers_features_other_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'maintenance_mode';
-  $strongarm->value = 0;
+  $strongarm->value = FALSE;
   $export['maintenance_mode'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -3838,50 +3803,6 @@ function edgemakers_features_other_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'memcache_storage_wildcards';
-  $strongarm->value = array(
-    'cache' => array(
-      'theme_registry' => 1378880515,
-      'entity_info:' => 1378880243,
-      'node_types:' => 1378880515,
-      'entity_property_info:' => 1378880243,
-      'ctools_plugin_files:' => 1378880243,
-      'schema:' => 1378879892,
-      'image_effects:' => 1376385262,
-      'services:api:' => 1376498493,
-      'context' => 1378880243,
-      'plugins:context' => 1378880243,
-    ),
-    'cache_menu' => array(
-      'links:management:' => 1378880243,
-      'links:navigation:' => 1378880243,
-      'links:shortcut-set-1:' => 1378192363,
-      'admin_menu:' => 1378880515,
-      'admin_menu:61:' => 1378781455,
-      'admin_menu:128:' => 1378799143,
-      'links:menu-fte-admin:' => 1378877126,
-      'links:user-menu:' => 1378877322,
-    ),
-    'cache_field' => array(
-      'field_info_types:' => 1378880007,
-      'field_info:' => 1378880007,
-    ),
-    'cache_views_data' => array(
-      'community_users:' => 1377060199,
-    ),
-    'cache_rules' => array(
-      'event_' => 1377856514,
-    ),
-    'cache_admin_menu' => array(
-      'admin_menu:61:' => 1378781455,
-      'admin_menu:128:' => 1378799143,
-    ),
-  );
-  $export['memcache_storage_wildcards'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'menu_default_active_menus';
   $strongarm->value = array(
     0 => 'devel',
@@ -4248,15 +4169,6 @@ system/ajax/*';
   $strongarm->name = 'overlap_cjk';
   $strongarm->value = 1;
   $export['overlap_cjk'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'path_alias_whitelist';
-  $strongarm->value = array(
-    'node' => TRUE,
-  );
-  $export['path_alias_whitelist'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -4821,20 +4733,6 @@ system/ajax/*';
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'update_last_check';
-  $strongarm->value = 1378882921;
-  $export['update_last_check'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'update_last_email_notification';
-  $strongarm->value = 1378876428;
-  $export['update_last_email_notification'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'update_notify_emails';
   $strongarm->value = array(
     0 => 'admin@symbio.com',
@@ -5125,13 +5023,6 @@ Your account on [site:name] has been canceled.
   $strongarm->name = 'user_register';
   $strongarm->value = '2';
   $export['user_register'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'user_relationships_last_expire';
-  $strongarm->value = 1378864870;
-  $export['user_relationships_last_expire'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
