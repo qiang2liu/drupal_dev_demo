@@ -1012,7 +1012,7 @@ function muralapi_test() {
 //   themuraly_get_mural_info('http://staging.mural.ly/!/#/lwgmural/1377006043205');
 //   _get_node_from_mural_id('1377006043205');
 
-//   themuraly_studio_mural_list_json('gallery', 1, 'untitle');
+  themuraly_studio_mural_list_json('gallery', 1, 'Copy of');
 
 //  themuraly_topic_mural_list(539);
   _test_mural_list_for_a_user();
@@ -1767,14 +1767,105 @@ function themuraly_update_node_by_mural($mural_url = ''){
  */
 function _themuraly_search_execute_result($keys = '', $page = 0) {
 
+
   $pager = 5;
   $start = $page * $pager;
+  $keys = trim($keys);
+
+//   print("Page: " . $page);
+
+//   // Build matching conditions
+//   $query = db_select('search_index', 'i', array('target' => 'slave'))->extend('SearchQuery')->extend('PagerDefault');
+//   $query->join('node', 'n', 'n.nid = i.sid');
+//   $query->condition('n.status', 1)->addTag('node_access')->searchExpression($keys, 'node');
+
+//   // Insert special keywords.
+//   $query->setOption('type', 'n.type');
+//   $query->setOption('language', 'n.language');
+//   if ($query->setOption('term', 'ti.tid')) {
+//     $query->join('taxonomy_index', 'ti', 'n.nid = ti.nid');
+//   }
+
+//   // Custom field condition.
+//   $query->condition('n.type', 'murals');
+//   // Join "Share to gallery" field.
+//   $query->innerJoin('field_data_field_share_to_gallery','field_gallery','n.nid = field_gallery.entity_id');
+//   $query->condition('field_gallery.field_share_to_gallery_value', 1);
+
+//   $query->orderBy('n.title', 'ASC');//ORDER BY title
+//   $query->orderBy('n.nid', 'DESC');//ORDER BY created
+
+//   // Join  field_tags table and term table.
+//   $query->leftJoin('field_data_field_tags','field_tags','n.nid = field_tags.entity_id');
+//   $query->leftJoin('taxonomy_term_data','term','field_tags.field_tags_tid = term.tid');
+//   // Order by tags by term ASC.
+//   $query->orderBy('term.name', 'ASC');//ORDER BY created
+
+//   $query->range($start, $pager);
+
+//   // END Custome field condition.
+
+//   // Only continue if the first pass query matches.
+//   if (!$query->executeFirstPass()) {
+//     return array();
+//   }
+
+//   // Add the ranking expressions.
+//   _node_rankings($query);
+
+// //   $query->limit($pager);
+// //   $query->offset($start);
+
+//   $query->range($start, $pager);
+
+//   // Load results.
+//   $find = $query->execute();
+//   print('Query execute result:<pre>' . print_r($find, TRUE) . '</pre>');
+//   $results = array();
+//   foreach ($find as $item) {
+//     // Build the node body.
+//     $node = node_load($item->sid);
+//     node_build_content($node, 'search_result');
+//     $node->body = drupal_render($node->content);
+
+//     // Fetch comments for snippet.
+//     $node->rendered .= ' ' . module_invoke('comment', 'node_update_index', $node);
+//     // Fetch terms for snippet.
+//     $node->rendered .= ' ' . module_invoke('taxonomy', 'node_update_index', $node);
+
+//     $extra = module_invoke_all('node_search_result', $node);
+
+//     $results[] = $node;
+
+// //     $results[] = array(
+// //       'link' => url('node/' . $item->sid, array('absolute' => TRUE)),
+// //       'type' => check_plain(node_type_get_name($node)),
+// //       'title' => $node->title,
+// //       'user' => theme('username', array('account' => $node)),
+// //       'date' => $node->changed,
+// //       'node' => $node,
+// //       'extra' => $extra,
+// //       'score' => $item->calculated_score,
+// //       'snippet' => search_excerpt($keys, $node->body),
+// //     );
+//   }
+
+//   return $results;
+
+
+//   ( (d.data LIKE :db_condition_placeholder_6 ESCAPE '\\') AND (d.data LIKE :db_condition_placeholder_7 ESCAPE '\\') )
+
 
   if ($keys) {
 
     $query = db_select('search_index', 'i')
       ->condition('i.type', 'node');                      //Search node.
 //       ->condition('i.word', '%' . $keys . '%', 'LIKE');  //Search key
+
+
+    // Full text search, copy from search.extender.inc.
+    $query->innerJoin('search_dataset','d','i.sid = d.sid  AND i.type = d.type');
+    $query->condition('d.data', '%' . strtolower($key) . '%', 'LIKE');
 
     // Keys is multi and split by "space".
     $keys_array = explode(' ', $keys);
@@ -1785,7 +1876,7 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
     $query->condition($orkeys);
 
     // distinct sid.
-    $query->AddExpression('distinct sid', 'sid_node');
+    $query->AddExpression('distinct i.sid', 'sid_node');
 
     $query->range($start, $pager);
 
@@ -1819,6 +1910,9 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
     $find = $query->execute();
     // Debug.
 //     print('Query execute result:<pre>' . print_r($find, TRUE) . '</pre>');
+
+//     WHERE  (i.type = "node") AND (d.data LIKE "%copy of%" ESCAPE '\\') AND( (i.word LIKE :db_condition_placeholder_2 ESCAPE '\\') OR (i.word LIKE :db_condition_placeholder_3 ESCAPE '\\') )AND (n.type = :db_condition_placeholder_4) AND (n.status = :db_condition_placeholder_5) AND (field_gallery.field_share_to_gallery_value = :db_condition_placeholder_6)
+
 //     dpm($find);
     // End Debug.
 
