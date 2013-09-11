@@ -365,9 +365,8 @@ function newfteui_breadcrumb($variables) {
     $show_home = theme_get_setting('show_home');
 
     if (isset($breadcrumb[0])) {
-      //drupal_set_message('reset home now.<pre>' . print_r($breadcrumb, TRUE) . '</pre>');
-      //drupal_set_message('show home:<pre>' . print_r($show_home, TRUE) . '</pre>');
       $breadcrumb[0] = l(t('Home'), 'home');
+      $variables['breadcrumb'][0] = $breadcrumb[0];
     }
 
     $arr_crumbs = array();

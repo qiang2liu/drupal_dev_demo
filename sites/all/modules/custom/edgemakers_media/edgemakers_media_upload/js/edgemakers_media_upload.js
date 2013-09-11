@@ -1,6 +1,7 @@
 jQuery(document).ready(function(){
   media_ajax_load_list();
   studio_media_list_ajax_load();
+  gallery_media_list_ajax_load('media', 0);
   gallery_media_list_ajax_load('video', 0);
   gallery_media_list_ajax_load('image', 0);
   //Drupal.behaviors.mediaListAjaxload();
@@ -120,14 +121,19 @@ function gallery_media_list_ajax_load(type, pager) {
     pager = 0;
   }
   
-  switch(type) {
-    case "video":
-      var reloadElement = "gallery-video-list";
-      break;
-    case "image":
-      var reloadElement = "gallery-image-list";
-      break;
-  }
+  var reloadElement = "gallery-" + type +"-list";
+  
+//  switch(type) {
+//    case "media":
+//      var reloadElement = "gallery-media-list";
+//      break;
+//    case "video":
+//      var reloadElement = "gallery-video-list";
+//      break;
+//    case "image":
+//      var reloadElement = "gallery-image-list";
+//      break;
+//  }
   
   var keyword = '';
   if(jQuery("#gallery-keyword").length)

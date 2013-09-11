@@ -408,6 +408,7 @@ function search_gallery() {
 //  var gallery_video_list_refresh = gallery_video_ajax_load_list();
 //  var gallery_image_list_refresh = gallery_image_ajax_load_list();
   // gallery_media_list_ajax_load on media upload module.
+  gallery_media_list_ajax_load('media');
   gallery_media_list_ajax_load('video');
   gallery_media_list_ajax_load('image');
 }
@@ -428,4 +429,9 @@ function showInviteEmailBox() {
 
 function showLogin() {
   jQuery("a[href$='modal_forms/nojs/login']").trigger("click");
+}
+
+function changeTitleAfterSetting() {
+  var title = jQuery(".form-item-title input").val();
+  jQuery("#mural-top-bar #mural-title").html(title);
 }
