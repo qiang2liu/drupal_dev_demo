@@ -313,7 +313,7 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
 //   watchdog("Topic Debug", '$muralusername info' . print_r($muralusername, TRUE) . '</pre>');
 //   watchdog("Topic Debug", '$$muralroomid info' . print_r($muralroomid, TRUE) . '</pre>');
   if ($muralusername == '' || $muralroomid == '') {
-//     watchdog("Topic Debug", '$muralusername and $muralroomid empty' . print_r($muralroomid, TRUE) . '</pre>');
+    watchdog("Muraly", '$muralusername and $muralroomid empty' . print_r($muralroomid, TRUE) . '</pre>');
 //     drupal_set_message(t('can\'t get link to the mural account!'), 'error');
 
     return '';
@@ -324,7 +324,7 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
     //create new mural
     $the_mural = create_mural($mural_api, $muralusername, $muralroomid);
 
-//     watchdog("Topic Debug", 'Create mural id: ' . print_r($the_mural, TRUE) . '</pre>');
+    watchdog("Muraly", 'Create mural id from api: ' . print_r($the_mural, TRUE) . '</pre>');
 //     dd($the_m_id, 'create mural');
 
     // Create_mural return mural data now.
@@ -341,7 +341,7 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
       $mural_info = $mural_api->retrieve_a_mural($owner_id, $template_id);
       $data = $mural_info->data;
       $r = drupal_json_decode($data);
-      dpm($data);
+//       dpm($data);
 //       watchdog("Topic Debug", 'mural info' . $r);
 //       dpm('<pre>' . print_r($r, TRUE) . '</pre>');
 
@@ -375,7 +375,7 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
     $new_mural_id = $matches[0];
   }
 
-//   watchdog("Topic Debug", '$new_mural_id info' . print_r($new_mural_id, TRUE) . '</pre>');
+  watchdog("Muraly", 'Get mural from api: ' . print_r($the_mural, TRUE) . '</pre>');
 
   if ($new_mural_id) {
     $newNode = (object) NULL;
@@ -400,7 +400,7 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
     node_save($newNode);
     $the_nid = $newNode->nid;
 
-    watchdog('Debug' , $newNode);
+    watchdog('Muraly' , 'New node<pre>' . print_r($newNode, TRUE) . '</pre>');
 
     return $newNode;
   }
@@ -491,8 +491,9 @@ function themuraly_mural_page($template_id = 0, $nid = 0, $owner_id = '') {
 		drupal_goto('mural/' . $node->nid);
 	}
 	else {
-// 	  drupal_set_message(t('Can\'t create mural on create page.'));
-// 	  echo '<span class="close-mural-dialog" onclick=\'window.parent.closeFromIframe();\'> X </span>';
+	  watchdog('Muraly', 'Create mural fial.');
+	  drupal_set_message(t('Can\'t create mural on create page.'));
+	  echo '<span class="close-mural-dialog" onclick=\'window.parent.closeFromIframe();\'> X </span>';
 	}
 
 }
