@@ -275,7 +275,7 @@ form.node-murals-form.node-form div.form-item label
 #modal-content .node-murals-form .form-actions
 {
   padding: 6px 1px; 
-  overflow: hidden;
+  
   background-color: transparent;
 }
 
@@ -287,7 +287,14 @@ form.node-murals-form.node-form div.form-item label
    margin: 0;
 }
 
-#modal-content .node-murals-form .form-textarea-wrapper textarea,
+#modal-content .node-murals-form .form-textarea-wrapper textarea{
+	border: 1px solid #E6E9EA;
+    box-shadow: 0 2px 3px #EEEEEE inset;
+    color: #7B8A97;
+   
+    padding: 0 10px;
+    width: 95%;
+}
 #modal-content .node-murals-form .form-item input[type="text"],
 #modal-content .node-murals-form .form-item input[type="password"]{
   border: 1px solid #E6E9EA;
