@@ -100,7 +100,7 @@ function edgemakers_media_upload_form_alter(&$form, $form_state, $form_id) {
 
   if ($form_id == 'media_for_upload_node_form') {
 
-    if (arg(0) == 'modal') {
+//     if (arg(0) == 'modal') {
 
     	form_load_include($form_state, 'inc', 'node', 'node.pages');
 
@@ -139,10 +139,17 @@ function edgemakers_media_upload_form_alter(&$form, $form_state, $form_id) {
 
       $form['actions']['submit']['#value'] = t('Upload');
 
+//       $form['#after_build'][] = '_media_upload_form_after_build';
+
       array_unshift($form['#validate'], 'edgemakers_media_upload_ajax_validate');
 
-    }
+//     }
   }
+}
+
+function _media_upload_form_after_build($form, $form_state) {
+  array_unshift($form['#validate'], 'edgemakers_media_upload_ajax_validate');
+  return $form;
 }
 
 function edgemakers_media_upload_ajax_validate($form, &$form_state) {
@@ -195,6 +202,8 @@ function edgemakers_media_upload_ajax_validate($form, &$form_state) {
  * @param array $form_state
  */
 function edgemakers_media_upload_ajax_submit($form, &$form_state) {
+
+  form_load_include($form_state, 'inc', 'node', 'node.pages');
 
   if (form_get_errors()) {
     return $form;
@@ -1046,8 +1055,16 @@ function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', 
   if ($keys) {
 
     $query = db_select('search_index', 'i')
-      ->condition('i.type', 'node')                      //Search node.
-      ->condition('i.word', '%' . $keys . '%', 'LIKE');  //Search key
+      ->condition('i.type', 'node');                  //Search node.
+//       ->condition('i.word', '%' . $keys . '%', 'LIKE');  //Search key
+
+    // Keys is multi and split by "space".
+    $keys_array = explode(' ', $keys);
+    $orkeys = db_or();
+    foreach ($keys_array AS $key) {
+      $orkeys->condition('i.word', '%' . strtolower($key) . '%', 'LIKE');
+    }
+    $query->condition($orkeys);
 
     // distinct sid.
     $query->AddExpression('distinct sid', 'sid_node');
@@ -1069,6 +1086,9 @@ function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', 
     $query->innerJoin('field_data_field_share_to_gallery','field_share', 'n.nid = field_share.entity_id');
     $query->condition('field_share.field_share_to_gallery_value', '1');
 
+    // The numeric score of the word, higher being more important.
+    $query->orderBy('i.score', 'ASC');//ORDER BY title
+
     $query->orderBy('n.title', 'ASC');//ORDER BY title
     $query->orderBy('i.sid', 'DESC');//ORDER BY title
     $query->orderBy('n.nid', 'DESC');//ORDER BY created
@@ -1082,6 +1102,9 @@ function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', 
     $find = $query->execute();
 
     $results = array();
+
+//     dpm($results);
+//     print('Search result: <pre>' . print_r($find, TRUE) . '</pre>');
 
     foreach ($find as $item) {
       // Render the node.

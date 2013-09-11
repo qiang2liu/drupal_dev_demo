@@ -369,13 +369,24 @@ function _create_tmp_js($content) {
 /**
  * Implement hook_after_build();
  */
-function themuraly_after_build($form, $form_state)
-{
+function themuraly_after_build($form, $form_state) {
 //   dpm($form);
 //   dpm($form_state);
 
+//   watchdog('Debug Lugal', '<pre>' . print_r($form_state, TRUE) . '</pre>');
+
+  if (isset($form_state['values']['field_muralshared'][LANGUAGE_NONE])) {
+//     drupal_set_message('<pre>' . print_r($form_state['values']['field_muralshared'], TRUE) . '</pre>');
+    if ($form_state['values']['field_muralshared'][LANGUAGE_NONE] == 1) {
+      $is_shared = 1;
+    }
+    else {
+      $is_shared = 0;
+    }
+  }
+
   if (($form_state['node']->field_muralshared['und']['0']['value'] == 1)
-    OR ($form_state['values']['field_muralshared'][LANGUAGE_NONE]['0']['value'] == 1)
+    OR (isset($is_shared) && $is_shared == 1)
   ) {
     $share_mail_class = '';
   }
@@ -779,7 +790,7 @@ function _themuralyajax_validate($form, &$form_state) {
 // dpm($form_state);
 //     $form_state['values']['field_mail_to_share'][LANGUAGE_NONE][0]['value'] = '';
 // dpm($mail_to_share);
-    if ($mail_to_share) {
+    if ($mail_to_share && $muralshared) {
       if (_valid_local_user($mail_to_share)) {
         $account = user_load_by_name($mail_to_share);
         $send_email = $account->mail;
@@ -1762,8 +1773,16 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
   if ($keys) {
 
     $query = db_select('search_index', 'i')
-      ->condition('i.type', 'node')                      //Search node.
-      ->condition('i.word', '%' . $keys . '%', 'LIKE');  //Search key
+      ->condition('i.type', 'node');                      //Search node.
+//       ->condition('i.word', '%' . $keys . '%', 'LIKE');  //Search key
+
+    // Keys is multi and split by "space".
+    $keys_array = explode(' ', $keys);
+    $orkeys = db_or();
+    foreach ($keys_array AS $key) {
+      $orkeys->condition('i.word', '%' . strtolower($key) . '%', 'LIKE');
+    }
+    $query->condition($orkeys);
 
     // distinct sid.
     $query->AddExpression('distinct sid', 'sid_node');
@@ -1773,6 +1792,10 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
     $query->join('node', 'n', 'n.nid = i.sid');
     $query->condition('n.type', 'murals');
     $query->condition('n.status', 1);
+
+
+    // The numeric score of the word, higher being more important.
+    $query->orderBy('i.score', 'ASC');//ORDER BY title
 
     $query->orderBy('n.title', 'ASC');//ORDER BY title
     $query->orderBy('i.sid', 'DESC');//ORDER BY title
