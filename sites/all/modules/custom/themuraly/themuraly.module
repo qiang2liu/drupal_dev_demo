@@ -377,7 +377,8 @@ function themuraly_after_build($form, $form_state)
 //   watchdog('Debug Lugal', '<pre>' . print_r($form_state, TRUE) . '</pre>');
 
   if (isset($form_state['values']['field_muralshared'][LANGUAGE_NONE])) {
-    if ($form_state['values']['field_muralshared'][LANGUAGE_NONE]['0']['value'] == 1) {
+//     drupal_set_message('<pre>' . print_r($form_state['values']['field_muralshared'], TRUE) . '</pre>');
+    if ($form_state['values']['field_muralshared'][LANGUAGE_NONE] == 1) {
       $is_shared = 1;
     }
     else {
@@ -790,7 +791,7 @@ function _themuralyajax_validate($form, &$form_state) {
 // dpm($form_state);
 //     $form_state['values']['field_mail_to_share'][LANGUAGE_NONE][0]['value'] = '';
 // dpm($mail_to_share);
-    if ($mail_to_share) {
+    if ($mail_to_share && $muralshared) {
       if (_valid_local_user($mail_to_share)) {
         $account = user_load_by_name($mail_to_share);
         $send_email = $account->mail;
