@@ -435,7 +435,17 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
       $form['field_challenges_category'][LANGUAGE_NONE]['#options']['_none'] = t('Category');
       $form['field_topic_mural'][LANGUAGE_NONE]['#options']['_none'] = t('Topic');
 
-      $form['field_share_to_gallery'][LANGUAGE_NONE]['#options']['_none'] = t('Share to Gallery');
+      $share_to_gallery_options['_none'] = t('Share to Gallery');
+
+      $share_to_gallery_default_options = $form['field_share_to_gallery'][LANGUAGE_NONE]['#options'];
+
+      foreach ($share_to_gallery_default_options AS $k => $v) {
+        $share_to_gallery_options[$k] = $v;
+      }
+
+//       drupal_set_message('Share to Gallery options: <pre>' . print_r(($share_to_gallery_options), TRUE) . '</pre>');
+
+//       $form['field_share_to_gallery'][LANGUAGE_NONE]['#options']['_none'] = t('Share to Gallery');
 //       $form['field_share_to_gallery'][LANGUAGE_NONE]['#attributes'] = array(
 //         'size' => 2,
 //       );
