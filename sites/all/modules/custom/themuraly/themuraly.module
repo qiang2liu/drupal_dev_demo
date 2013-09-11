@@ -1793,6 +1793,10 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
     $query->condition('n.type', 'murals');
     $query->condition('n.status', 1);
 
+
+    // The numeric score of the word, higher being more important.
+    $query->orderBy('i.score', 'ASC');//ORDER BY title
+
     $query->orderBy('n.title', 'ASC');//ORDER BY title
     $query->orderBy('i.sid', 'DESC');//ORDER BY title
     $query->orderBy('n.nid', 'DESC');//ORDER BY created
