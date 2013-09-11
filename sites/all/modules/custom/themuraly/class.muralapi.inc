@@ -162,13 +162,13 @@ class Muralapi {
     $user_data = drupal_json_encode($user);
     $theuser = $this->the_org;
     
-    $the_auth_string = $this->get_auth_string($user['username'], $theurl, $themethod);
+    $the_auth_string = $this->get_auth_string($theuser, $theurl, $themethod);
 
     $apiurl = $this->muralapi_base_url . $theurl;
     $options = array();
-    $options['headers'] = array('x-mural-ly-user' => $user['username'],
+    $options['headers'] = array('x-mural-ly-user' => $theuser,
       'x-mural-ly-context' => $this->the_org,
-      'Authorization' => "MURALLY " . $user['username'] . ":" . $the_auth_string,
+      'Authorization' => "MURALLY " . $this->the_org . ":" . $the_auth_string,
       'User-Agent' => $this->user_agent,
       'Content-Type' => "application/json",
     );

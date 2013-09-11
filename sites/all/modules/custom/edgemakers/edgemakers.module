@@ -179,7 +179,7 @@ function edgemakers_image_default_styles() {
 
 
 /**
- * Implements hook_admin_menu_output_alter()
+ * Implements hook_admin_menu_output_alter().
  */
 function edgemakers_admin_menu_output_alter(&$content) {
   $content['icon']['icon']['#href'] = 'home';
