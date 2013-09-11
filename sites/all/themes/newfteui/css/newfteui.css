@@ -1039,8 +1039,13 @@ div.ctools-modal-content .form-item .description{
 	transition-delay: 0;
 }
 .user-profile.active .user-box{
-	width:100px;
+	width:250px;
 	height:100px;
+}
+
+
+.user-profile ul.inline li {
+	display:block;
 }
 .user-box h4{
 	font-weight:bold;
