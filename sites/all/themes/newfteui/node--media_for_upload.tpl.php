@@ -1,6 +1,6 @@
 <?php  //print_r($node);
 //title: $title
-//type: 
+//type:
 $types = field_get_items('node', $node, 'field_media_type');
 $type = $types && count($types) > 0 ? $types[0]['taxonomy_term']->name : '';
 switch($type) {
@@ -184,7 +184,10 @@ else :
     <span id="image-download-it" class="media-list">
     <?php
 
+
       $download_uri = 'download/file/fid/' . $fid;
+      // Send the amazon S3 url to client.
+      $download_uri = file_create_url($upload);
 
       $download_icon = array('path' => drupal_get_path('theme', 'newfteui'). '/images/iconDownload.png');
 
