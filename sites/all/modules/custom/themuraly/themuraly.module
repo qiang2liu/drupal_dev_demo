@@ -3,7 +3,7 @@
 function themuraly_menu() {
   // mural webhook
   $items['muralwebhook'] =  array(
-    'title' => t('muralwebhook'),
+    'title' => t('callback/muralwebhook'),
     'type' => MENU_CALLBACK,
     'description' => t('mural webhook'),
     'page callback' => 'muralwebhook',
