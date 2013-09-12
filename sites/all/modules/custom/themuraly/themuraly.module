@@ -933,26 +933,34 @@ EOT;
 
 function _themuralyajax_submit($form, &$form_state) {
 
-//   global $base_url;
+  form_load_include($form_state, 'inc', 'node', 'node.pages');
 
-//   form_load_include($form_state, 'inc', 'node', 'node.pages');
+  if (form_get_errors()) {
+    return $form;
+  }
 
-//   ctools_include('modal');
-//   ctools_include('ajax');
+  drupal_set_message('Node info:<pre>' . print_r($form_state['node'], TRUE) . '</pre>');
 
-//   $commands = array();
+  // Save node.
+  $save_node = $form_state['node'];
+  entity_form_submit_build_entity('node', $save_node, $form, $form_state);
+  node_submit($save_node);
+  node_save($save_node);
 
-//   $commands[] = ajax_command_replace('#mural-title', 'test title');
+  ctools_include('modal');
+  ctools_include('ajax');
 
-//   ajax_command_replace('#mural-title', 'Title changed.');
+  $commands = array();
 
+  ctools_add_js('ajax-responder');
+  $commands[] = ctools_modal_command_dismiss();
 
-//   ctools_add_js('refreshElements', 'themuraly');
+  ctools_add_js('refreshElements', 'themuraly');
 
-//   drupal_add_js($base_url . '/' . drupal_get_path('module', 'themuraly') . '/js/refreshElements.js');
+//   ctools_add_js('ctools-ajax-upload-media', 'edgemakers_media_upload');
 
-//   print ajax_render($commands);
-
+  print ajax_render($commands);
+  exit;
 
 }
 

@@ -40,14 +40,24 @@ function edgemakers_stage_menu() {
     'file path' => drupal_get_path('module', 'edgemakers_stage') ,
   );
 
-  // Remove set from stage.
+  // Remove set from stage by ajax.
   $items['admin/edgemakers/stage/setindex/ajaxdelete/%'] = array(
     'title' => 'Delete Set',
     'page callback' => 'edgemakers_set_index_delete_action',
     'page arguments' => array(5, 6, 7),
     'access arguments' => array('administer edgemakers'),
-    'file path' => drupal_get_path('module', 'node'),
-    'file' => 'node.pages.inc',
+//     'file path' => drupal_get_path('module', 'node'),
+//     'file' => 'node.pages.inc',
+  );
+
+  // Remove set from stage.
+  $items['admin/edgemakers/stage/setindex/delete/%'] = array(
+    'title' => 'Delete Set',
+    'page callback' => 'edgemakers_set_index_delete_action',
+    'page arguments' => array(5, 6, 7),
+    'access arguments' => array('administer edgemakers'),
+//     'file path' => drupal_get_path('module', 'node'),
+//     'file' => 'node.pages.inc',
   );
 
   // Page tab menu
@@ -155,7 +165,9 @@ function edgemakers_stage_help($path, $arg) {
  * @param int $stage_id
  * @param int $set_id
  */
-function edgemakers_set_index_delete_action($stage_id = '', $set_id) {
+function edgemakers_set_index_delete_action($stage_id = '', $set_id, $ajax = 0) {
+
+  print('Stage id: ' . $stage_id . ' | Set id: ' . $set_id . ' | Use ajax: ' . $ajax);
 
   $callbak_url = $_GET[q];
 
@@ -182,7 +194,14 @@ function edgemakers_set_index_delete_action($stage_id = '', $set_id) {
     node_submit($stage);
     $save_status = node_save($stage);
 
-    _edgemakers_stage_box_index_list_update($stage_id, $destination[1]);
+    if ($ajax) {
+      _edgemakers_stage_box_index_list_update($stage_id, $destination[1]);
+    }
+    else {
+      $set = node_load($set_id);
+      drupal_set_message(t('Set [' . $set->title . '] deleted.'));
+      drupal_goto('admin/edgemakers/stage/managebox/' . $stage_id);
+    }
 
   }
 

@@ -57,6 +57,10 @@ function edgemakers_stage_page() {
       array(
         'query' => array(
           'destination' => 'admin/edgemakers/stage',
+        ),
+        'attributes' => array(
+          'onClick' => 'disp_confirm(this.id);return false;',
+          'id' => 'edgemakers-delete-' . $node->nid
         )
       )
     );
@@ -76,6 +80,9 @@ function edgemakers_stage_page() {
   $form['pager'] = array('#markup' => theme('pager'));
   $form['#prefix'] = '<div id="setesListDiv">';
   $form['#suffix'] = '</div>';
+
+  drupal_add_js(drupal_get_path('module', 'edgemakers_stage') . '/js/edgemakers_stage_admin.js');
+
   return $form;
 }
 
@@ -476,10 +483,17 @@ function edgemakers_stage_set_list_form($form, &$form_state, $stage_id = '') {
             'operations' => array(
               '#type' => 'link',
               '#title' => t('delete'),
-              '#href' => 'admin/edgemakers/stage/setindex/ajaxdelete/'
-                . $stage_id . '/' . $item->nid . '/nojs/1/&destination=' . $_GET["q"],
+              '#href' => 'admin/edgemakers/stage/setindex/delete/'
+                . $stage_id . '/' . $item->nid . '/0/0/&destination=' . $_GET["q"],
               //'admin/edgemakers/stage/setindex/ajaxdelete/' . $stage_id . '/' . $item->nid . '/nojs/1',
-              '#attributes' => array('class' => array('use-ajax')),
+              '#attributes' => array(
+                'class' => array(
+//                   'use-ajax',
+                  'delete-action'
+                ),
+                'onClick' => 'disp_confirm(this.id);return false;',
+                'id' => 'edgemakers-delete-set-' . $item->nid,
+              ),
               //'#options' => array('query'=>'query=queryvalue'),
               /*'#options' => array(
                 'query' => 'destination=destinationcallback',
@@ -513,6 +527,15 @@ function edgemakers_stage_set_list_form($form, &$form_state, $stage_id = '') {
       '#type' => 'submit',
       '#value' => t('Save Changes'),
   );
+
+//   $form['#attached']['js'] = array(
+//     drupal_get_path('module', 'edgemakers_stage') . '/js/edgemakers_stage_admin.js' => array(
+//       'cache' => FALSE,
+//       'preprocess' => TRUE,
+//     ),
+//   );
+
+  drupal_add_js(drupal_get_path('module', 'edgemakers_stage') . '/js/edgemakers_stage_admin.js');
 
   return $form;
 
@@ -676,6 +699,7 @@ function theme_edgemakers_stage_set_list_form($variables) {
       'attributes' => array('id' => $table_id),
   ));
 
+
   // And then render any remaining form elements (such as our submit button).
   $output .= drupal_render_children($form);
 
@@ -688,6 +712,7 @@ function theme_edgemakers_stage_set_list_form($variables) {
   // - a string describing where $action should be applied ('siblings'),
   // - and the class of the element containing our 'weight' element.
   drupal_add_tabledrag($table_id, 'order', 'sibling', 'example-item-weight');
+
 
   return $output;
 

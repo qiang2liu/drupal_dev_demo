@@ -433,5 +433,7 @@ function showLogin() {
 
 function changeTitleAfterSetting() {
   var title = jQuery(".form-item-title input").val();
+  var mural_title = jQuery("#mural-top-bar #mural-title").val();
+//  alert("Mural default title is: " + mural_title);
   jQuery("#mural-top-bar #mural-title").html(title);
 }
