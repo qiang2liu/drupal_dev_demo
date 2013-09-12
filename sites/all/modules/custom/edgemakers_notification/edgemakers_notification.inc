@@ -8,6 +8,8 @@ function _edgemakers_notification_mural_updated($data) {
 
   watchdog('Notification Debug', 'Call api start here:');
 
+  return array('status' => 0);
+
 //   global $user;
 
 //   if (user_is_anonymous()) {
