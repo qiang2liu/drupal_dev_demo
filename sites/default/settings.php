@@ -552,6 +552,12 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
  * Remove the leading hash signs to disable.
  */
 # $conf['allow_authorize_operations'] = FALSE;
+   
+$conf['aws_key'] = 'AKIAIXZT5GHGIMD4UVKQ';
+$conf['aws_secret'] = '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';
+$conf['aws_account_id'] = '5570-6783-7547';
+$conf['aws_canonical_id'] = 'f16806a0f76459f58043045bb5c95bd988903ce80c5ee72fd60b40bdc8105376';
+$conf['aws_certificate_authority'] = true;
 
 if (file_exists('sites/default/local.settings.php')) {
     include_once('sites/default/local.settings.php');
