@@ -198,6 +198,7 @@ function edgemakers_set_index_delete_action($stage_id = '', $set_id, $ajax = 0) 
       _edgemakers_stage_box_index_list_update($stage_id, $destination[1]);
     }
     else {
+      drupal_set_message(t('Set ' . $set_id . ' deleted.'));
       drupal_goto('admin/edgemakers/stage/managebox/' . $stage_id);
     }
 
