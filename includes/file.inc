@@ -1924,8 +1924,10 @@ function file_transfer($uri, $headers) {
   }
   drupal_send_headers();
   $scheme = file_uri_scheme($uri);
+  watchdog('Debug Downloadfile', '$scheme in file_transfer<pre>' . print_r($scheme, TRUE) . '</pre>');
   // Transfer file in 1024 byte chunks to save memory usage.
   if ($scheme && file_stream_wrapper_valid_scheme($scheme) && $fd = fopen($uri, 'rb')) {
+    watchdog('Debug Downloadfile', '$uri in file_transfer<pre>' . print_r($uri, TRUE) . '</pre>');
     while (!feof($fd)) {
       print fread($fd, 1024);
     }

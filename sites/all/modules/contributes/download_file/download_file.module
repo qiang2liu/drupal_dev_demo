@@ -21,7 +21,7 @@ function download_file_help($path, $arg) {
       $output .= '<p>' . t('The download file module to direct download files or images.') . '</p>';
       $output .= '<p>' . t('The download file module <a href="@setting">setting page</a> allows you to modify the format of the link accessible.', array('@setting' => url('admin/settings/download-file'))) . '</p>';
       return $output;
-    
+
     case 'admin/settings/download-file':
       return '<p>'. t('The fownload file module to direct download files or images. Use the setting below to customize the format of the link accessible.') .'</p>';
   }
@@ -131,7 +131,7 @@ function download_file_direct_download($fid) {
   if (empty($fid) || empty($file) || !$file->status) {
     return drupal_access_denied();
   }
-  
+
   $headers = array(
     'Content-Type'              => 'force-download',
     'Content-Disposition'       => 'attachment; filename="' . $file->filename . '"',
@@ -149,6 +149,7 @@ function download_file_direct_download($fid) {
   }
 
   if (count($headers)) {
+    watchdog('Debug Downloadfile', '$headers in download_file_direct_download<pre>' . print_r($headers, TRUE) . '</pre>');
     file_transfer($file->uri, $headers);
   }
 }
@@ -180,7 +181,7 @@ function download_file_path($fid) {
 /**
  * Implementation of hook_field_formatter_info().
  */
-function download_file_field_formatter_info() {  
+function download_file_field_formatter_info() {
   $formatters = array(
     'direct_download' => array(
       'label'         => t('Direct download file'),
@@ -295,7 +296,7 @@ function download_file_format_extension($file) {
     case 'application/vnd.oasis.opendocument.text-web':
     case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
     case 'application/vnd.wordperfect':
-      return array('definition' => 'DOCument', 
+      return array('definition' => 'DOCument',
                   'name' => 'DOC');
 
     // Spreadsheet document types.
@@ -306,7 +307,7 @@ function download_file_format_extension($file) {
     case 'application/vnd.oasis.opendocument.spreadsheet':
     case 'application/vnd.oasis.opendocument.spreadsheet-template':
     case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-      return array('definition' => 'eXceL Spreadsheet', 
+      return array('definition' => 'eXceL Spreadsheet',
                   'name' => 'XLS');
 
     // Presentation document types.
@@ -318,7 +319,7 @@ function download_file_format_extension($file) {
     case 'application/vnd.oasis.opendocument.presentation':
     case 'application/vnd.oasis.opendocument.presentation-template':
     case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
-      return array('definition' => 'PowerPoinT', 
+      return array('definition' => 'PowerPoinT',
                   'name' => 'PPT');
 
     // Portable document types.
@@ -329,7 +330,7 @@ function download_file_format_extension($file) {
     case 'applications/vnd.pdf':
     case 'text/pdf':
     case 'text/x-pdf':
-      return array('definition' => 'Portable Document Format', 
+      return array('definition' => 'Portable Document Format',
                   'name' => 'PDF');
 
     // ZIP compressed archive types.
@@ -343,7 +344,7 @@ function download_file_format_extension($file) {
     case 'application/x-compressed':
     case 'application/x-gzip':
     case 'application/x-tgz':
-      return array('definition' => 'Archive', 
+      return array('definition' => 'Archive',
                   'name' => 'ZIP');
 
     // RAR compressed archive types.
@@ -353,59 +354,59 @@ function download_file_format_extension($file) {
     case 'application/x-tar':
     case 'application/x-gtar':
     case 'application/x-tarz':
-      return array('definition' => 'Roshal ARchive', 
+      return array('definition' => 'Roshal ARchive',
                   'name' => 'RAR');
 
     // 7z compressed archive types.
     case 'application/x-7z-compressed':
-      return array('definition' => '7-Zip Archive', 
+      return array('definition' => '7-Zip Archive',
                   'name' => '7Z');
 
     // Text file types.
     case 'application/txt':
     case 'text/plain':
-      return array('definition' => 'TeXTe', 
+      return array('definition' => 'TeXTe',
                   'name' => 'TXT');
 
     // CSV aliases.
     case 'application/csv':
     case 'text/csv':
     case 'text/comma-separated-values':
-      return array('definition' => 'Comma-Separated Values', 
+      return array('definition' => 'Comma-Separated Values',
                   'name' => 'CSV');
 
     // HTML aliases.
     case 'application/xhtml+xml':
     case 'text/html':
-      return array('definition' => 'HyperText Markup Language', 
+      return array('definition' => 'HyperText Markup Language',
                   'name' => 'HTML');
 
     // XML aliases.
     case 'application/xml':
     case 'text/xml':
-      return array('definition' => 'eXtensible Markup Language', 
+      return array('definition' => 'eXtensible Markup Language',
                   'name' => 'XML');
 
     // RSS aliases.
     case 'application/rss+xml':
-      return array('definition' => 'Really Simple Syndication', 
+      return array('definition' => 'Really Simple Syndication',
                   'name' => 'RSS');
 
     // JPEG images.
     case 'image/jpeg':
     case 'image/jpg':
-      return array('definition' => 'Joint Photographic Experts Group', 
+      return array('definition' => 'Joint Photographic Experts Group',
                   'name' => 'JPEG');
 
     // PNG images.
     case 'application/png':
     case 'image/png':
-      return array('definition' => 'Portable Network Graphics', 
+      return array('definition' => 'Portable Network Graphics',
                   'name' => 'PNG');
 
     // GIF images.
     case 'image/gif':
-      return array('definition' => 'Graphics Interchange Format', 
+      return array('definition' => 'Graphics Interchange Format',
                   'name' => 'GIF');
 
     // Executable types.
@@ -414,7 +415,7 @@ function download_file_format_extension($file) {
     case 'application/x-macbinary':
     case 'application/x-ms-dos-executable':
     case 'application/x-pef-executable':
-      return array('definition' => 'Executable', 
+      return array('definition' => 'Executable',
                   'name' => 'EXE');
 
     // Audio Video Interleave types.
@@ -422,20 +423,20 @@ function download_file_format_extension($file) {
     case 'video/avi':
     case 'video/msvideo':
     case 'video/x-msvideo':
-      return array('definition' => 'Audio Video Interleave', 
+      return array('definition' => 'Audio Video Interleave',
                   'name' => 'AVI');
-      
+
     // FLash Video types.
     case 'video/x-flv':
     case 'video/mp4':
     case 'video/x-m4v':
-      return array('definition' => 'FLash Video', 
+      return array('definition' => 'FLash Video',
                   'name' => 'FLV');
 
     // QuickTime movie types.
     case 'video/quicktime':
     case 'video/x-quicktime':
-      return array('definition' => 'QuickTime MOVie', 
+      return array('definition' => 'QuickTime MOVie',
                   'name' => 'MOV');
 
     // Windows audio types.
@@ -443,7 +444,7 @@ function download_file_format_extension($file) {
     case 'audio/wav':
     case 'audio/wave':
     case 'audio/x-wav':
-      return array('definition' => 'WAVeform Audio File Format', 
+      return array('definition' => 'WAVeform Audio File Format',
                   'name' => 'WAV');
 
     // MPEG audio types.
@@ -455,7 +456,7 @@ function download_file_format_extension($file) {
     case 'audio/x-mpeg3':
     case 'audio/MPA':
     case 'audio/mpa-robust':
-      return array('definition' => 'MPEG-1 Audio Layer 3', 
+      return array('definition' => 'MPEG-1 Audio Layer 3',
                   'name' => 'MP3');
 
     default:
