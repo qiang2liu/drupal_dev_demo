@@ -59,7 +59,7 @@ function fteadmin_admin_settings() {
   );
   $form['mural_api']['muralapi_baseurl'] = array(
       '#type' => 'textfield',
-      '#title' => t('secretkey'),
+      '#title' => t('mural api baseurl'),
       '#default_value' => variable_get('muralapi_baseurl', 'http://staging.mural.ly'),
       '#description' => t('input the base url for mural api'),
       '#required' => true,

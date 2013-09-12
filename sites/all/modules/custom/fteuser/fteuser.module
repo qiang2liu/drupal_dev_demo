@@ -86,9 +86,11 @@ function fteuser_form_user_register_form_alter(&$form, &$form_state, $form_id) {
   $r_list = user_roles(TRUE);
   $roles_array = array();
   $del_roles = array('authenticated user', 'site administrator', 'site admin', 'parent');
+  $default_role = 0;
   foreach ($r_list as $k => $v) {
     if (!in_array($v, $del_roles)) {
       $roles_array[$k] = $v;
+      if($v == 'student') $default_role = $k;
     }
   }
   unset($r_list);
@@ -97,6 +99,7 @@ function fteuser_form_user_register_form_alter(&$form, &$form_state, $form_id) {
       '#type' => 'radios',
       '#options' => $roles_array,
       '#title' => t('What is your role ?'),
+      '#default_value' => $default_role,
       '#weight' => 15,
     );
   }

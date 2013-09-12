@@ -1,7 +1,15 @@
 <?php
 
 function themuraly_menu() {
-
+  // mural webhook
+  $items['callback/muralwebhook'] =  array(
+    'title' => t('muralwebhook'),
+    'type' => MENU_CALLBACK,
+    'description' => t('mural webhook'),
+    'page callback' => 'muralwebhook',
+    'access callback' => TRUE,
+    'file' => 'mural_op.inc',
+  );
   // Admin config.
   $items['admin/config/system/ftesettings/mural-mail'] = array(
     'title' => t('Confirmation email configuration'),
@@ -1024,9 +1032,9 @@ function muralapi_test() {
 
 //  themuraly_topic_mural_list(539);
   _test_mural_list_for_a_user();
-  _test_user_add();
+ // _test_user_add();
   //_test_create_room();
-  // _test_mural_create_mural();
+  _test_mural_create_mural();
   //_test_mural_duplicate_mural();
   //_test_mural_update_property_mural();
   //_test_mural_archive();
@@ -1133,8 +1141,8 @@ function _test_mural_duplicate_mural() {
 function _test_mural_create_mural() {
   $mural_api = new Muralapi;
   $str = rand(800, 10000);
-  $params = array('title' => $str . ' this is a mural', 'room' => 1373060830214,);
-  $result = $mural_api->create_mural('testuser', $params);
+  $params = array('title' => $str . ' this is a mural', 'room' => 1378864394167,);
+  $result = $mural_api->create_mural('cldf5418', $params);
   $data = $result->data;
   $r = drupal_json_decode($data);
   dpm($result);
@@ -1143,7 +1151,7 @@ function _test_mural_create_mural() {
 
 function _test_mural_list_for_a_user() {
   $mural_api = new Muralapi;
-  $result = $mural_api->get_all_murals('lugaltest');
+  $result = $mural_api->get_all_murals('cldf5418');
   $data = $result->data;
   $r = drupal_json_decode($data);
   dpm($result);
