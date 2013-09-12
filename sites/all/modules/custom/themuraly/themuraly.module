@@ -2127,3 +2127,17 @@ function theme_mural_item_box($item = array(), $attributes = array()) {
 
   return $html;
 }
+// hook_mail
+function themuraly_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'mural_updated':
+      // send notification when a mural is updated
+      $message['subject'] = t('Mural updated');
+      $message['body'][] = t('Your mural @mural_name is updated.', array('@mural_name' => $params['node']->title));
+      $message['body'][] = url('node/' . $params['node']->nid, array('absolute' => TRUE));
+      break;
+
+    default:
+      // nothing
+  }
+}
