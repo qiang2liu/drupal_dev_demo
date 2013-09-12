@@ -583,3 +583,9 @@ function themuraly_topic_mural_create($topid = '') {
   }
 
 }
+// mural web hook function , see https://mural.ly/help/api/webhooks
+function muralwebhook() {
+  echo t("give me some json data!!!!!!!!!!!");
+  exit;
+  
+}
