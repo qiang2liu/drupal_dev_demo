@@ -1,7 +1,15 @@
 <?php
 
 function themuraly_menu() {
-
+  // mural webhook
+  $items['muralwebhook'] =  array(
+    'title' => t('muralwebhook'),
+    'type' => MENU_CALLBACK,
+    'description' => t('mural webhook'),
+    'page callback' => 'muralwebhook',
+    'access callback' => TRUE,
+    'file' => 'mural_op.inc',
+  );
   // Admin config.
   $items['admin/config/system/ftesettings/mural-mail'] = array(
     'title' => t('Confirmation email configuration'),
