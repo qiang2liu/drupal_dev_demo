@@ -74,12 +74,12 @@ function get_myideas_shareideas($uid, $musername, $mroomid) {
             }
           }
 
-        $img_settings = array(
-        	'path' => drupal_get_path('theme', 'newfteui') . '/images/iconMuralSettings.png',
-        );
-        $img_gear = theme('image', $img_settings);
+          $img_settings = array(
+            'path' => drupal_get_path('theme', 'newfteui') . '/images/iconMuralSettings.png',
+          );
+          $img_gear = theme('image', $img_settings);
 
-        $img_gear = '<img title="set" alt="set" src="' . $GLOBALS['base_path'] . path_to_theme() . '/images/mock-gear.png"/>';
+          $img_gear = '<img title="set" alt="set" src="' . $GLOBALS['base_path'] . path_to_theme() . '/images/mock-gear.png"/>';
 
           $edit_url = l($img_gear, 'modal/node/' . $nid . '/edit/nojs/0', array(
             'query' => array(
@@ -93,7 +93,6 @@ function get_myideas_shareideas($uid, $musername, $mroomid) {
           );
 
           $shareideas_list[$node_muralid]['set_url'] = $edit_url;
-
         }
       }
     }
@@ -131,10 +130,10 @@ function muralshow_share($owerid = '', $mid = '') {
   $nodeQuery = new EntityFieldQuery;
 
   $entities = $nodeQuery->entityCondition('entity_type', 'node')
-  ->entityCondition('bundle', 'murals')
-  ->fieldCondition('field_muralid','value', $mid, '=')
+          ->entityCondition('bundle', 'murals')
+          ->fieldCondition('field_muralid', 'value', $mid, '=')
 //   ->fieldCondition('field_muraluser','value', $owerid, '=')
-  ->execute();
+          ->execute();
 
   if (!empty($entities['node'])) {
     foreach ($entities['node'] AS $node_en) {
@@ -146,62 +145,58 @@ function muralshow_share($owerid = '', $mid = '') {
   $username = $owerid;
   $muralid = $mid;
 
-    $account = user_load($user->uid);
-    if (!empty($account->field_muralusername)) {
-      $fieldinfo = field_get_items('user', $account, 'field_muralusername');
-      if ($fieldinfo) {
-        $muraluser_invite = $fieldinfo[0]['value'];
-      }
+  $account = user_load($user->uid);
+  if (!empty($account->field_muralusername)) {
+    $fieldinfo = field_get_items('user', $account, 'field_muralusername');
+    if ($fieldinfo) {
+      $muraluser_invite = $fieldinfo[0]['value'];
+    }
 
-      //Add share nid into user profile.
-      if ($the_node->uid <> $user->uid) {
-        $field_mural_share_with_me = field_get_items('user', $account, 'field_mural_share_with_me');
-        if ($field_mural_share_with_me) {
-          $mural_share_with_me = $field_mural_share_with_me[0]['value'];
-        }
-        if (empty($mural_share_with_me)) {
-          $share_with_me = array();
-        }
-        else {
-          $share_with_me = explode(',', $mural_share_with_me);
-        }
-        $share_with_me[] = $the_node->nid;
-  //       dpm($share_with_me);
-        $mural_share_with_me_val = implode(',', array_unique($share_with_me));
-  //       dpm($mural_share_with_me_val);
-        // edit field-data
-        $new_account->uid = $account->uid;
-        $new_account->field_mural_share_with_me['und'][0]['value'] = $mural_share_with_me_val;
-        // save existing user
-        unset($new_account->pass);
-        $new_account = user_save((object) array('uid'=>$new_account->uid), (array) $new_account);
+    //Add share nid into user profile.
+    if ($the_node->uid <> $user->uid) {
+      $field_mural_share_with_me = field_get_items('user', $account, 'field_mural_share_with_me');
+      if ($field_mural_share_with_me) {
+        $mural_share_with_me = $field_mural_share_with_me[0]['value'];
+      }
+      if (empty($mural_share_with_me)) {
+        $share_with_me = array();
+      } else {
+        $share_with_me = explode(',', $mural_share_with_me);
+      }
+      $share_with_me[] = $the_node->nid;
+      //       dpm($share_with_me);
+      $mural_share_with_me_val = implode(',', array_unique($share_with_me));
+      //       dpm($mural_share_with_me_val);
+      // edit field-data
+      $new_account->uid = $account->uid;
+      $new_account->field_mural_share_with_me['und'][0]['value'] = $mural_share_with_me_val;
+      // save existing user
+      unset($new_account->pass);
+      $new_account = user_save((object) array('uid' => $new_account->uid), (array) $new_account);
 //         dpm($new_account);
-      }
-      // End add share nid into user profile
-
     }
+    // End add share nid into user profile
+  }
 
 
-    if ($user->uid > 0 && !empty($muraluser_invite)) {
+  if ($user->uid > 0 && !empty($muraluser_invite)) {
 
-      $mural_api = new Muralapi;
+    $mural_api = new Muralapi;
 
-      //Ensure share mural is share property is TRUE.
-      $property_name = "shared";
-      $property_value = (bool) 1;
-      $result_share = $mural_api->update_mural_properties($username, $muralid, $property_name, $property_value);
-      $data = $result_share->data;
+    //Ensure share mural is share property is TRUE.
+    $property_name = "shared";
+    $property_value = (bool) 1;
+    $result_share = $mural_api->update_mural_properties($username, $muralid, $property_name, $property_value);
+    $data = $result_share->data;
 
-      $result_invite = $mural_api->invite_user_mural($owerid, $mid, array($muraluser_invite));
+    $result_invite = $mural_api->invite_user_mural($owerid, $mid, array($muraluser_invite));
 //       dpm($result_invite);
-    }
+  }
 
 //   dpm($the_node);
 
   return muralshow($the_node->nid, $mid, $the_node->uid);
-
 }
-
 
 function muralshow($nid, $mid = 0, $uid = 0) {
 
@@ -215,8 +210,7 @@ function muralshow($nid, $mid = 0, $uid = 0) {
     $muralid_array = field_get_items('node', $the_node, 'field_muralid');
     $mid = $muralid_array[0]['value'];
     $the_node_uid = $the_node->uid;
-  }
-  else {
+  } else {
     $the_node = node_load($nid);
   }
 
@@ -232,7 +226,7 @@ function muralshow($nid, $mid = 0, $uid = 0) {
 
   $img_gear = '<img title="set" alt="set" src="' . $GLOBALS['base_path'] . path_to_theme() . '/images/mock-gear.png"/>';
   $img_settings = array(
-  	'path' => drupal_get_path('theme', 'newfteui') . '/images/iconMuralSettings.png',
+    'path' => drupal_get_path('theme', 'newfteui') . '/images/iconMuralSettings.png',
   );
   $img_gear = theme('image', $img_settings);
 //   dpm($the_node_uid);
@@ -259,7 +253,7 @@ function muralshow($nid, $mid = 0, $uid = 0) {
 
   return theme("muralypage", array('data' => array('m_id' => $mid,
               'seturl' => $edit_url,
-  		'node' => $the_node,
+              'node' => $the_node,
                   )));
 }
 
@@ -326,7 +320,6 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
 
     watchdog("Muraly", 'Create mural id from api: ' . print_r($the_mural, TRUE) . '</pre>');
 //     dd($the_m_id, 'create mural');
-
     // Create_mural return mural data now.
 //     if ($the_m_id == '') {
     if (!$the_mural) {
@@ -349,16 +342,15 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
     }
 
 //     watchdog("Topic Debug", '$nid info' . print_r($nid, TRUE) . '</pre>');
-  	if ($nid) {
-  		$node = node_load($nid);
-  		// duplicate the mural
-      $title = isset($node->title)?'Copy of ' . $node->title:'my mural';
-  	}
+    if ($nid) {
+      $node = node_load($nid);
+      // duplicate the mural
+      $title = isset($node->title) ? 'Copy of ' . $node->title : 'my mural';
+    }
 
     $the_mural = create_mural($mural_api, $muralusername, $muralroomid, $title, $template_id);
 
 //     watchdog("Topic Debug", '$the_mural info' . print_r($the_mural, TRUE) . '</pre>');
-
     // Create_mural return mural data now.
 //     if ($the_m_id == '') {
     if (!$the_mural) {
@@ -400,11 +392,10 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
     node_save($newNode);
     $the_nid = $newNode->nid;
 
-    watchdog('Muraly' , 'New node<pre>' . print_r($newNode, TRUE) . '</pre>');
+    watchdog('Muraly', 'New node<pre>' . print_r($newNode, TRUE) . '</pre>');
 
     return $newNode;
-  }
-  else {
+  } else {
     return t('Create mural fail');
   }
 
@@ -425,7 +416,6 @@ function create_mural($mural_api, $muser, $mroomid, $title = 'my mural', $duplic
   if (is_object($mural_api_result) && isset($mural_api_result->data)) {
     $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
 //     watchdog('Topic Debug', 'mural api decode json info:' . print_r($muralapi_response_objm, TRUE));
-
 //     dd($muralapi_response_obj, 'mural api results of $mural_api_result json data.');
 
     if (!empty($muralapi_response_obj['id'])) {
@@ -486,76 +476,70 @@ function _mural_email_search_autocomplete($string = '') {
  */
 function themuraly_mural_page($template_id = 0, $nid = 0, $owner_id = '') {
 
-	$node = muralcreate($template_id, $nid, $owner_id);
-	if ($node->nid) {
-		drupal_goto('mural/' . $node->nid);
-	}
-	else {
-	  watchdog('Muraly', 'Create mural fial.');
+  $node = muralcreate($template_id, $nid, $owner_id);
+  if ($node->nid) {
+    drupal_goto('mural/' . $node->nid);
+  } else {
+    watchdog('Muraly', 'Create mural fial.');
 // 	  drupal_set_message(t('Can\'t create mural on create page.'));
-	  return t('Can\'t create mural');
+    return t('Can\'t create mural');
 // 	  echo '<span class="close-mural-dialog" onclick=\'window.parent.closeFromIframe();\'> X </span>';
-	}
-
+  }
 }
 
 /**
  * Create mural AJAX.
  */
 function themuraly_mural_create_ajax() {
-	$node = muralcreate($template_id);
-	print(drupal_json_output($node));
-	exit;
+  $node = muralcreate($template_id);
+  print(drupal_json_output($node));
+  exit;
 }
 
 function mural_delete($nid = 0) {
 
-	$html = '';
+  $html = '';
 
-	global $user;
+  global $user;
 
-	if ($nid) {
+  if ($nid) {
 
-		$node = node_load($nid);
+    $node = node_load($nid);
 
-		$field_muraluser = field_get_items('node', $node, 'field_muraluser');
+    $field_muraluser = field_get_items('node', $node, 'field_muraluser');
 
-		if ($field_muraluser) {
-			$muralusername = $field_muraluser[0]['value'];
-		}
+    if ($field_muraluser) {
+      $muralusername = $field_muraluser[0]['value'];
+    }
 
-		$field_muralid = field_get_items('node', $node, 'field_muralid');
+    $field_muralid = field_get_items('node', $node, 'field_muralid');
 
-		if ($field_muralid) {
-			$muralid = $field_muralid[0]['value'];
-		}
+    if ($field_muralid) {
+      $muralid = $field_muralid[0]['value'];
+    }
 
-		$mural_api = new Muralapi;
+    $mural_api = new Muralapi;
 
-		$delete_status = $mural_api->delete_mural($muralusername, $muralid);
+    $delete_status = $mural_api->delete_mural($muralusername, $muralid);
 
-		if ($delete_status->data == 'OK') {
-			$html .= 'Mural ' . $node->title . ' have deleted.';
-			$node_delete = node_delete($nid);
-			watchdog('Mural node delete', $user->username . ' delete mural[' . $muralid . ']');
-		}
-		else {
-			drupal_set_message(t('Delete fail'), 'error');
-			$html .= 'Mural ' . $node->title . ' fail.';
-		}
+    if ($delete_status->data == 'OK') {
+      $html .= 'Mural ' . $node->title . ' have deleted.';
+      $node_delete = node_delete($nid);
+      watchdog('Mural node delete', $user->username . ' delete mural[' . $muralid . ']');
+    } else {
+      drupal_set_message(t('Delete fail'), 'error');
+      $html .= 'Mural ' . $node->title . ' fail.';
+    }
+  } else {
 
+    $html .= 'Mural ' . $node->title . ' fail.';
+  }
 
-	}
-	else {
+  $html .= 'Close it after 5 seconds';
 
-		$html .= 'Mural ' . $node->title . ' fail.';
-	}
+  drupal_add_js('setInterval(window.parent.closeFromIframe(), 5000);', array('type' => 'inline'));
 
-	$html .= 'Close it after 5 seconds';
-
-	drupal_add_js('setInterval(window.parent.closeFromIframe(), 5000);', array('type'=>'inline'));
-
-	return $html;
+  return $html;
 }
 
 function themuraly_topic_mural_create($topid = '') {
@@ -571,21 +555,103 @@ function themuraly_topic_mural_create($topid = '') {
 
 //     if ($status) {
       drupal_goto('mural/' . $node->nid);
-    }
-    else {
+    } else {
       return t('Create mural fail');
     }
 //     }
 //     else {
 //       return t('Create mural fail');
 //     }
-
   }
-
 }
+
 // mural web hook function , see https://mural.ly/help/api/webhooks
 function muralwebhook() {
-  echo t("give me some json data!!!!!!!!!!!");
+  watchdog('notification', 'call webhook');
   exit;
+  $the_json_data =(file_get_contents("php://input"));
+  $the_data = drupal_json_decode($the_json_data);
+  $the_cmd = array('update', 'delete', 'create');
+  $theaction = '';
+  if (isset($the_data['operation']['action'])) {
+    $theaction = strtolower($the_data['operation']['action']);
+    if (!in_array($theaction, $the_cmd )) {
+      exit;
+    }
+  }
   
+  
+
+  $the_mural_id = $the_data['boardId'];        // mural which the user is accessing
+  //$the_mural_id = '1378180214695'; //mock data
+
+  $the_visitor_muraluser_name = $the_data['userId']; ;  //who accessing the mural, mural username
+  //$the_visitor_muraluser_name = 'lwgmuralppp';  // mock data
+  //get the drupal node according the mural id
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+          ->entityCondition('bundle', 'murals')
+          ->fieldCondition('field_muralid', 'value', $the_mural_id, '=');
+  $results = $query->execute();
+  //dpm($results);
+  if (is_array($results['node']) && !empty($results['node'])) {
+    $the_nids = array_keys($results['node']);
+    $nodes = node_load_multiple($the_nids);
+    //dpm($nodes);
+    if (is_array($nodes) && count($nodes) >= 1) {
+      $node = current($nodes);
+      //dpm($node);
+      $the_node_author_id = $node->uid;
+
+      // get the author's mural username
+      $author_account = user_load($the_node_author_id);
+     // dpm($author_account);
+      if (isset($author_account->name)) {
+        $field_owner_muraluser = field_get_items('user', $author_account, 'field_muralusername');
+        if ($field_owner_muraluser) {
+          $owner_muraluser = $field_owner_muraluser[0]['value'];
+          $owner_mail = $author_account->mail;
+          dpm($owner_muraluser);
+          // If the modifier is not the mural owner, then send an notification email to the owner
+          if ($owner_muraluser != $the_visitor_muraluser_name) {
+            $params = array('node' => $node);
+           
+            $result = drupal_mail('themuraly', 'mural_updated', $owner_mail, language_default(), $params);
+            if ($result['result'] != TRUE) {
+              watchdog('notification', t('There was a problem sending notification message to @mail.', array('@mail' => $owner_mail)), NULL, WATCHDOG_WARNING);
+            }
+          }
+
+
+          // Update local mural info in node.
+
+          if (isset($node->field_mural_thumburl)) {
+
+
+
+            include_once(drupal_get_path('module', 'themuraly') . '/class.muralapi.inc');
+
+            // Sync mural data with local.
+            $mural_api = new Muralapi;
+            $result = $mural_api->retrieve_a_mural($owner_muraluser, $the_mural_id);
+         //  dpm($result);
+            $data = drupal_json_decode($result->data);
+            //  dpm($data);
+            // Update thumburl.
+            $node->field_mural_thumburl[LANGUAGE_NONE][0]['value'] = $data['thumbUrl'];
+            node_object_prepare($node);
+            $status = node_save($node);
+            $the_str = 'Murals\' node' . $node->title . '[' . $node->nid . ']' . t(' updated ') . $status;
+          //  dpm($the_str);
+            watchdog('notification', 'Murals\' node' . $node->title . '[' . $node->nid . ']' . t(' updated ') . $status);
+          }
+        }
+      }
+    }
+  }
+
+
+  
+  exit;
+  //return
 }

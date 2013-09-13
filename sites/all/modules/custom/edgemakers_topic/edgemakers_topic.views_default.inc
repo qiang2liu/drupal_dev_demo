@@ -134,6 +134,10 @@ function edgemakers_topic_list_all_topics() {
   $handler->display->display_options['header']['area_text_custom']['field'] = 'area_text_custom';
   $handler->display->display_options['header']['area_text_custom']['empty'] = TRUE;
   $handler->display->display_options['header']['area_text_custom']['content'] = '<a href="/node/add/carousel-item?destination=admin/edgemakers/carousel">Create Carousel Item</a>';
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
   /* Field: Content: Carousel Item Image */
   $handler->display->display_options['fields']['field_carousel_item_image']['id'] = 'field_carousel_item_image';
   $handler->display->display_options['fields']['field_carousel_item_image']['table'] = 'field_data_field_carousel_item_image';
@@ -173,10 +177,6 @@ function edgemakers_topic_list_all_topics() {
   $handler->display->display_options['fields']['nothing']['label'] = 'Operations';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = '[edit_node] &nbsp;&nbsp;[delete_node]&nbsp;&nbsp;';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
-  /* Sort criterion: Content: Sequence order (field_sequence_order) */
-  $handler->display->display_options['sorts']['field_sequence_order_value']['id'] = 'field_sequence_order_value';
-  $handler->display->display_options['sorts']['field_sequence_order_value']['table'] = 'field_data_field_sequence_order';
-  $handler->display->display_options['sorts']['field_sequence_order_value']['field'] = 'field_sequence_order_value';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';

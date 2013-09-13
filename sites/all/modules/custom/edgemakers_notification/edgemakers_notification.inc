@@ -56,7 +56,7 @@ function _edgemakers_notification_mural_updated($data) {
 
   // Update local mural info in node.
   $node = node_load($node->nid);
-  if (isset($node->field_mural_thumburl[LANGUAGE_NONE])) {
+  if (isset($node->field_mural_thumburl)) {
 
     $fieldinfo = field_get_items('user', $author, 'field_muralusername');
     if ($fieldinfo) {

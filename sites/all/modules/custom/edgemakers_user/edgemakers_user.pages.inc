@@ -61,9 +61,6 @@ function user_profile_callback($ajax) {
     ctools_add_js('ajax-responder');
     $commands[] = ctools_modal_command_dismiss();
   }
-  if (!empty($form_state['ajax_commands'])) {
-    $output = $form_state['ajax_commands'];
-  }
   // Return the ajax instructions to the browser via ajax_render().
   print ajax_render($commands);
   drupal_exit();
@@ -101,9 +98,10 @@ function edgemakers_user_profile_settings_form($form, &$form_state) {
     '#size' => 25,
     '#description' => t('To change the current user password, enter the new password in both fields.'),
   );
-  $element_info = element_info('password_confirm');
-  $process = $element_info['#process'];
-  $process[] = 'edgemakers_user_process_password_confirm';
+  $options = array(
+    'field_name'=>'field_profile_picture'
+  );
+  field_attach_form('user', $account, $form, $form_state, $langcode, $options);
   $options = array(
     'field_name'=>'field_profile_background'
   );
@@ -117,6 +115,9 @@ function edgemakers_user_profile_settings_form($form, &$form_state) {
     '#after_build' => array('_edgemakers_user_load_my_javascript'),
   );
   unset($form['field_firstname'][LANGUAGE_NONE][0]['value']['#title'], $form['field_lastname'][LANGUAGE_NONE][0]['value']['#title'], $form['account']['pass']['#description'], $form['field_profile_background'][LANGUAGE_NONE][0]['#description']);
+  $element_info = element_info('password_confirm');
+  $process = $element_info['#process'];
+  $process[] = 'edgemakers_user_process_password_confirm';
   $form['account']['pass']['#process'] = $process;
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
@@ -132,11 +133,39 @@ function edgemakers_user_profile_settings_form_validate($form, &$form_state) {
 function edgemakers_user_profile_settings_form_submit($form, &$form_state) {
   $account = $form_state['user'];
   $category = $form['#user_category'];
+  // Remove unneeded values.
+  form_state_values_clean($form_state);
 
-  if ($category == 'account' && !empty($edit['pass'])) {
-    // Remove the password reset tag since a new password was saved.
-    unset($_SESSION['pass_reset_'. $account->uid]);
+  // Before updating the account entity, keep an unchanged copy for use with
+  // user_save() later. This is necessary for modules implementing the user
+  // hooks to be able to react on changes by comparing the values of $account
+  // and $edit.
+  $account_unchanged = clone $account;
+
+  //user picture
+  $old_file = $account->picture;
+  if($old_file) {
+    file_usage_delete($old_file, 'user', 'user', $account->uid);
+    file_delete($old_file);
+    $account->picture = 0;
   }
+  if(isset($form_state['values']['field_profile_picture'][LANGUAGE_NONE])) {
+    $fid = $form_state['values']['field_profile_picture'][LANGUAGE_NONE][0]['fid'];
+    if ($fid) {
+      $picture = file_load($fid);
+      $info = image_get_info($picture->uri);
+      $picture_directory =  file_default_scheme() . '://' . variable_get('user_picture_path', 'pictures');
+      file_prepare_directory($picture_directory, FILE_CREATE_DIRECTORY);
+      $destination = file_stream_wrapper_uri_normalize($picture_directory . '/picture-' . $account->uid . '-' . REQUEST_TIME . '.' . $info['extension']);
+      // Move the temporary file into the final location.
+      if ($picture = file_copy($picture, $destination, FILE_EXISTS_RENAME)) {
+        $picture->status = FILE_STATUS_PERMANENT;
+        $account->picture = file_save($picture);
+        file_usage_add($picture, 'user', 'user', $account->uid);
+      }
+    }
+  }
+  //background image
   $imageNid = $form_state['values']['preset_background'];
   if($imageNid) {
     $bgimage_directory =  file_default_scheme() . '://user_background';
@@ -155,29 +184,29 @@ function edgemakers_user_profile_settings_form_submit($form, &$form_state) {
       $old_fid = $form_state['values']['field_profile_background'][LANGUAGE_NONE][0]['fid'];
       if($old_fid) {
         $old_file = file_load($old_fid);
-        file_usage_delete($old_file, 'file', 'user', $account->uid);
-        file_delete($old_file);
+        if($old_file) {
+          file_usage_delete($old_file, 'file', 'user', $account->uid);
+          file_delete($old_file);
+        }
       }
       $form_state['values']['field_profile_background'][LANGUAGE_NONE][0] = (array)$file;
     }
   }
-  // Remove unneeded values.
-  form_state_values_clean($form_state);
-
-  // Before updating the account entity, keep an unchanged copy for use with
-  // user_save() later. This is necessary for modules implementing the user
-  // hooks to be able to react on changes by comparing the values of $account
-  // and $edit.
-  $account_unchanged = clone $account;
 
   entity_form_submit_build_entity('user', $account, $form, $form_state);
 
   // Populate $edit with the properties of $account, which have been edited on
   // this form by taking over all values, which appear in the form values too.
   $edit = array_intersect_key((array) $account, $form_state['values']);
-
+  //picture isn't in the form, so we deal with it separately
+  $edit['picture'] = $account->picture;
+  
   user_save($account_unchanged, $edit, $category);
   $form_state['values']['uid'] = $account->uid;
+  if ($category == 'account' && !empty($edit['pass'])) {
+    // Remove the password reset tag since a new password was saved.
+    unset($_SESSION['pass_reset_'. $account->uid]);
+  }
   // Clear the page cache because pages can contain usernames and/or profile information:
   cache_clear_all();
 }
