@@ -802,6 +802,16 @@ function _themuralyajax_validate($form, &$form_state) {
       if (_valid_local_user($mail_to_share)) {
         $account = user_load_by_name($mail_to_share);
         $send_email = $account->mail;
+        
+        // Invite user.
+        $fieldinfo = field_get_items('user', $account, 'field_muralusername');
+        if ($fieldinfo) {
+          $muraluser_invite = $fieldinfo[0]['value'];
+        }
+        $mural_api = new Muralapi;
+        $result = $mural_api->invite_user_mural($muralusername, $the_muralid, array($muraluser_invite));
+        watchdog('Mural share' , $result);
+        // End invite.
 
         if (_send_share_mail($the_mural, $send_email)) {
           watchdog('Mural Share', $user->name . ' share mural to ' . $mail_to_share);
