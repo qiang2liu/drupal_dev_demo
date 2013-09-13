@@ -567,15 +567,25 @@ function themuraly_topic_mural_create($topid = '') {
 
 // mural web hook function , see https://mural.ly/help/api/webhooks
 function muralwebhook() {
-  print_r($_POST);
+  
+  $the_json_data =(file_get_contents("php://input"));
+  $the_data = drupal_json_decode($the_json_data);
   $the_cmd = array('update', 'delete', 'create');
-  $theaction = 'update';
+  $theaction = '';
+  if (isset($the_data['operation']['action'])) {
+    $theaction = strtolower($the_data['operation']['action']);
+    if (!in_array($theaction, $the_cmd )) {
+      exit;
+    }
+  }
+  
+  
 
-  $the_mural_id = $boardId;        // mural which the user is accessing
-  $the_mural_id = '1378180214695'; //mock data
+  $the_mural_id = $the_data['boardId'];        // mural which the user is accessing
+  //$the_mural_id = '1378180214695'; //mock data
 
-  $the_visitor_muraluser_name = $user_id;  //who accessing the mural, mural username
-  $the_visitor_muraluser_name = 'lwgmuralppp';  // mock data
+  $the_visitor_muraluser_name = $the_data['userId']; ;  //who accessing the mural, mural username
+  //$the_visitor_muraluser_name = 'lwgmuralppp';  // mock data
   //get the drupal node according the mural id
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
@@ -589,12 +599,12 @@ function muralwebhook() {
     //dpm($nodes);
     if (is_array($nodes) && count($nodes) >= 1) {
       $node = current($nodes);
-      dpm($node);
+      //dpm($node);
       $the_node_author_id = $node->uid;
 
       // get the author's mural username
       $author_account = user_load($the_node_author_id);
-      dpm($author_account);
+     // dpm($author_account);
       if (isset($author_account->name)) {
         $field_owner_muraluser = field_get_items('user', $author_account, 'field_muralusername');
         if ($field_owner_muraluser) {
@@ -604,7 +614,7 @@ function muralwebhook() {
           // If the modifier is not the mural owner, then send an notification email to the owner
           if ($owner_muraluser != $the_visitor_muraluser_name) {
             $params = array('node' => $node);
-            $owner_mail = 'qiang2.liu@symbio.com';  //mock
+           
             $result = drupal_mail('themuraly', 'mural_updated', $owner_mail, language_default(), $params);
             if ($result['result'] != TRUE) {
               watchdog('notification', t('There was a problem sending notification message to @mail.', array('@mail' => $owner_mail)), NULL, WATCHDOG_WARNING);
@@ -640,7 +650,7 @@ function muralwebhook() {
   }
 
 
-  return t("give me some111 json data!!!!!!!!!!!");
-  //exit;
+  
+  exit;
   //return
 }
