@@ -810,7 +810,7 @@ function _themuralyajax_validate($form, &$form_state) {
         }
         $mural_api = new Muralapi;
         $result = $mural_api->invite_user_mural($muralusername, $the_muralid, array($muraluser_invite));
-        watchdog('Mural share' , $result);
+        //watchdog('Mural share' , $result);
         // End invite.
 
         if (_send_share_mail($the_mural, $send_email)) {
