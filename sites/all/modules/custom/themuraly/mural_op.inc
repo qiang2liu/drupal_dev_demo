@@ -567,10 +567,11 @@ function themuraly_topic_mural_create($topid = '') {
 
 // mural web hook function , see https://mural.ly/help/api/webhooks
 function muralwebhook() {
-  watchdog('notification', 'call webhook');
-  exit;
+  
   $the_json_data =(file_get_contents("php://input"));
   $the_data = drupal_json_decode($the_json_data);
+  watchdog('notification', $the_data);
+  exit;
   $the_cmd = array('update', 'delete', 'create');
   $theaction = '';
   if (isset($the_data['operation']['action'])) {
