@@ -16,8 +16,8 @@ jQuery(document).ready(function(){
     "right": "72px"
   });
   
-  jQuery("#modalContent").addClass("mural-settings-form-class");
- 
+//  jQuery("#modalContent").addClass("mural-settings-form-class");
+//  alert("load.");
 //  getLocationElement();
 
 //  showInviteEmailBox();
@@ -28,3 +28,22 @@ function getLocationElement() {
   jQuery("#edit-field-city").attr("style", "color: red;");
   console.log(jQuery("#edit-field-city").attr("class"));
 }
+
+jQuery(function() {
+  jQuery('#modalContent').ajaxComplete(function() {
+    jQuery("#modalContent").addClass("mural-settings-form-class");
+  });
+});
+
+
+jQuery(function () {
+  if (!Drupal.Ajax) return;
+  Drupal.Ajax.plugins.yourAction = function (hook, args) {
+    console.log(hook);
+    console.log(args);
+    if (hook == 'message' && args.data.form_id == 'your_form' && args.data.status == true) {
+      // args.data.status is true only after validation clears
+      // Your js here
+    }
+  };
+});

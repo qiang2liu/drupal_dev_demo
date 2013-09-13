@@ -233,3 +233,22 @@ function galleryBindLeftRight(type, pager) {
     return false;
   });
 }
+
+function _refreshStudioGallery() {
+  // Refresh media list on toolbar.
+  media_ajax_load_list();
+  
+  // Refresh media on studio.
+  var studio_media_next_page = jQuery("#studio-media-list-pane .scroll-wrapper .arrow-right").attr("pager");
+  var studio_media_current_page = parseInt(studio_media_next_page) - 1;
+  console.log("Studio media current page: " + studio_media_current_page);
+  studio_media_list_ajax_load(studio_media_current_page);
+  
+
+  // Refresh media on gallery.
+  var gallery_media_next_page = jQuery("#gallery-media-list-pane .scroll-wrapper .arrow-right").attr("pager");
+  var gallery_media_current_page = parseInt(gallery_media_next_page) - 1;
+  console.log("Studio media current page: " + gallery_media_current_page);
+  gallery_media_list_ajax_load('media', gallery_media_current_page);
+  
+}

@@ -4,6 +4,8 @@ Drupal.behaviors.muralRefreshAjax = {
   attach: function (context){
 
     changeTitleAfterSetting();
+    
+    _refreshStudioGalleryMural();
   
   }
 }

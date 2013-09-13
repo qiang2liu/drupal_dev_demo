@@ -50,7 +50,12 @@ function openDefaultMural() {
 
 function closeFromIframe()
 {
+  // Refresh murals list on toolbar.
   mural_ajax_load_list();
+  
+  // Refresh murals list on studio/gallery.
+  _refreshStudioGalleryMural();
+
 //  jQuery("#mural-iframe").empty();
   jQuery("#mural-back-to-dashboard").hide();
   jQuery("#mural-iframe").attr("src", "");
@@ -323,6 +328,7 @@ function studio_mural_ajax_load_list() {
     
     studio_mural_item_bind_link();
     
+    jQuery("#studio-share-with-me .arrow-left").unbind("click");
     jQuery("#studio-share-with-me .arrow-left").bind("click", function(){
       var pager = jQuery(this).attr("pager");
 //      alert("Prev page: " + pager);
@@ -330,6 +336,7 @@ function studio_mural_ajax_load_list() {
       return false;
     });
     
+    jQuery("#studio-share-with-me .arrow-right").unbind("click");
     jQuery("#studio-share-with-me .arrow-right").bind("click", function(){
       var pager = jQuery(this).attr("pager");
 //      alert("Next page: " + pager);
@@ -436,4 +443,25 @@ function changeTitleAfterSetting() {
   var mural_title = jQuery("#mural-top-bar #mural-title").val();
 //  alert("Mural default title is: " + mural_title);
   jQuery("#mural-top-bar #mural-title").html(title);
+}
+
+
+function _refreshStudioGalleryMural() {
+  // Refresh studio murals.
+  var studio_me_next_page = jQuery("#studio-my-idea .scroll-wrapper .arrow-right").attr("pager");
+  var studio_me_current_page = parseInt(studio_me_next_page) - 1;
+  console.log("Studio me current page: " + studio_me_current_page);
+  studio_mural_ajax_page_load('my', studio_me_current_page);
+  
+  var studio_share_next_page = jQuery("#studio-share-with-me .scroll-wrapper .arrow-right").attr("pager");
+  var studio_share_current_page = parseInt(studio_share_next_page) - 1;
+  console.log("Studio share with me current page: " + studio_share_current_page);
+  studio_mural_ajax_page_load('share', studio_share_current_page);
+  
+  // Refresh gallery murals.
+  var gallery_next_page = jQuery("#gallery-ideas .scroll-wrapper .arrow-right").attr("pager");
+  var gallery_current_page = parseInt(gallery_next_page) - 1;
+  console.log("Gallery current page: " + gallery_current_page);
+  gallery_mural_ajax_load_list(gallery_current_page);
+
 }
