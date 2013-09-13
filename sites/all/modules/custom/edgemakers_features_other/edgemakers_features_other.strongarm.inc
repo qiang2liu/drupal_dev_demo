@@ -4111,7 +4111,7 @@ system/ajax/*';
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'muralapi_baseurl';
-  $strongarm->value = 'http://staging.mural.ly';
+  $strongarm->value = 'https://mural.ly';
   $export['muralapi_baseurl'] = $strongarm;
 
   $strongarm = new stdClass();
