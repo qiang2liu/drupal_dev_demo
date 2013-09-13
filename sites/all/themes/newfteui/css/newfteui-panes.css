@@ -442,7 +442,14 @@ h2.item-studio{
 	color:#979181;
 	background:none;
 	border:0;
+	background-repeat: no-repeat;
+	background-position: right -13px;
 }
+
+#gallery-search-form input[type='text'].searching {
+  background-image: url(/misc/throbber.gif);  
+}
+
 #gallery-search-form input[type='button']{
 	height:25px;
 	width:42px;

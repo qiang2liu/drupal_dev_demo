@@ -23,6 +23,12 @@ jQuery(document).ready(function(){
   
   jQuery("#gallery-search").bind("click", function(){search_gallery();});
   
+  jQuery("#gallery-keyword").keyup(function(event){
+    if(event.keyCode == 13){
+      search_gallery();
+    }
+  });
+  
   openDefaultMural();
   
 //  Drupal.CTools.AJAX.refreshElements();
@@ -409,6 +415,9 @@ function mural_setting(nid) {
 }
 
 function search_gallery() {
+  
+  jQuery("#gallery-keyword").addClass("searching");
+  
   var mural_list_refresh = gallery_mural_ajax_load_list();
 
   // @TODO on media upload module.
@@ -418,6 +427,14 @@ function search_gallery() {
   gallery_media_list_ajax_load('media');
   gallery_media_list_ajax_load('video');
   gallery_media_list_ajax_load('image');
+  
+  jQuery( document ).ajaxComplete(function( event,request, settings) {
+    console.log(event);
+    console.log(request);
+    console.log(settings);
+    jQuery("#gallery-keyword").removeClass("searching");
+//    alert("Ajax completed.");
+  });
 }
 
 function showInviteEmailBox() {
