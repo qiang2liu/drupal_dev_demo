@@ -481,3 +481,26 @@ a.create-mural-topic {
 #modalContent.mural-settings-form-class div.modal-forms-modal-content .popups-close{
 	top:75px;
 }
+
+/* Mural share url popup style*/
+.ui-dialog {
+  box-shadow: 0 2px 15px rgba(0,0,0,.5);
+}
+
+#ui-dialog-title-mural-share-url {
+  padding-left: 30px;
+  background-image: url(../images/iconMuralShareUrl.png);
+  background-repeat: no-repeat;
+}
+#mural-share-url {
+  line-height: 40px;
+}
+
+.ui-dialog .ui-widget-header 
+{
+  background-image: url();
+  background-color: transparent;
+  border: none;
+  border-radius: 0px;
+  border-bottom: 1px solid;
+}

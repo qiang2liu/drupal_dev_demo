@@ -19,8 +19,41 @@ switch (strtolower($path['host'])) {
     $mural_url = 'http://staging.mural.ly/embed/test-edgemakers/test-edgemakers/';
     break;
 }
+
 $the_m_id = $data['m_id'];
+
+// Add mural share link, it's edgemakers admin url, not muraly.ly share url.
+// Share url.
+$share_url = 'http://staging.mural.ly/!/#/' . $data['node']->field_muraluser['und'][0]['value'] . '/' . $the_m_id;
+
+//     http://staging.mural.ly/!/#/lwgmural/1377178465904
+
+// Popup dialog.
+drupal_add_library('system', 'ui.dialog');
 ?>
+
+<script>
+  function showShareUrl() {
+    jQuery( "#mural-share-url" ).dialog({
+/*      dialogClass: "no-close", */
+      dialogClass: 'noTitleStuff',
+      width: "480px",
+      resizable: false,
+      modal: true,
+      buttons: {
+        Close: function() {
+          jQuery( this ).dialog( "close" );
+        }
+      }
+    });
+    jQuery(".ui-dialog-buttonpane").attr("style", "border-top-width: 0px;");
+
+  }
+</script>
+<div id="mural-share-url" class="hidden" title="Mural URL">
+  <h3>&nbsp;</h3>
+  <input size="52" name="mural-share-url" id="mural-share-url" value="<?php echo $share_url; ?>" readonly="readonly" />
+</div>
 
 <style>
 div.breadcrumb {
@@ -87,6 +120,9 @@ body {
 		?>
 		</li>
 		<?php endif; ?>
+		<li class="mural-nav-link-delete">
+		  <a href="#" class="mural-nav-link" onClick="showShareUrl();return false;"/>Mural Url</a>
+		</li>
 	</ul>
 
 </div>
