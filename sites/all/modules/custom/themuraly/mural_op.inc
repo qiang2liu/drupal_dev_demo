@@ -567,7 +567,7 @@ function themuraly_topic_mural_create($topid = '') {
 
 // mural web hook function , see https://mural.ly/help/api/webhooks
 function muralwebhook() {
-  
+  watchdog('notification', 'call webhook');
   $the_json_data =(file_get_contents("php://input"));
   $the_data = drupal_json_decode($the_json_data);
   $the_cmd = array('update', 'delete', 'create');
@@ -633,15 +633,15 @@ function muralwebhook() {
             // Sync mural data with local.
             $mural_api = new Muralapi;
             $result = $mural_api->retrieve_a_mural($owner_muraluser, $the_mural_id);
-           dpm($result);
+         //  dpm($result);
             $data = drupal_json_decode($result->data);
-              dpm($data);
+            //  dpm($data);
             // Update thumburl.
             $node->field_mural_thumburl[LANGUAGE_NONE][0]['value'] = $data['thumbUrl'];
             node_object_prepare($node);
             $status = node_save($node);
             $the_str = 'Murals\' node' . $node->title . '[' . $node->nid . ']' . t(' updated ') . $status;
-            dpm($the_str);
+          //  dpm($the_str);
             watchdog('notification', 'Murals\' node' . $node->title . '[' . $node->nid . ']' . t(' updated ') . $status);
           }
         }
