@@ -939,7 +939,7 @@ function _themuralyajax_submit($form, &$form_state) {
     return $form;
   }
 
-  drupal_set_message('Node info:<pre>' . print_r($form_state['node'], TRUE) . '</pre>');
+//   drupal_set_message('Node info:<pre>' . print_r($form_state['node'], TRUE) . '</pre>');
 
   // Save node.
   $save_node = $form_state['node'];
