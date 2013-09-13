@@ -690,6 +690,42 @@ function _mural_member_list($the_nid, $para_muralid = '') {
   return $ret;
 }
 
+//Add share nid for each invite user
+function _update_user_share_with_me($account = array(), $nid = '') {
+  global $user;
+
+  if ($nid && $account) {
+
+    if ($account->uid <> $user->uid) {
+
+      $field_mural_share_with_me = field_get_items('user', $account, 'field_mural_share_with_me');
+
+      if ($field_mural_share_with_me) {
+        $mural_share_with_me = $field_mural_share_with_me[0]['value'];
+      }
+
+      if ($mural_share_with_me) {
+        $share_with_me = explode(',', $mural_share_with_me);
+      }
+      else {
+        $share_with_me = array();
+      }
+
+      $share_with_me[] = $nid;
+      $mural_share_with_me_val = implode(',', array_unique($share_with_me));
+
+      $new_account->uid = $account->uid;
+      $new_account->field_mural_share_with_me['und'][0]['value'] = $mural_share_with_me_val;
+      // save existing user
+      unset($new_account->pass);
+      $new_account = user_save((object) array('uid'=>$new_account->uid), (array) $new_account);
+
+//       watchdog('Mural Share', 'Share to me update: <pre>' . print_r($new_account, TRUE) . '</pre> | node id: ' . $nid);
+
+    }
+  }
+}
+
 function _themuralyajax_validate($form, &$form_state) {
   global $user;
   form_load_include($form_state, 'inc', 'node', 'node.pages');
@@ -802,7 +838,7 @@ function _themuralyajax_validate($form, &$form_state) {
       if (_valid_local_user($mail_to_share)) {
         $account = user_load_by_name($mail_to_share);
         $send_email = $account->mail;
-        
+
         // Invite user.
         $fieldinfo = field_get_items('user', $account, 'field_muralusername');
         if ($fieldinfo) {
@@ -810,8 +846,11 @@ function _themuralyajax_validate($form, &$form_state) {
         }
         $mural_api = new Muralapi;
         $result = $mural_api->invite_user_mural($muralusername, $the_muralid, array($muraluser_invite));
-        //watchdog('Mural share' , $result);
+        watchdog('Mural share' , 'Invite API result:<pre>' . print_r($result, TRUE) . '</pre>');
         // End invite.
+
+        // Update account share with me.
+        _update_user_share_with_me($account, $the_nid);
 
         if (_send_share_mail($the_mural, $send_email)) {
           watchdog('Mural Share', $user->name . ' share mural to ' . $mail_to_share);
