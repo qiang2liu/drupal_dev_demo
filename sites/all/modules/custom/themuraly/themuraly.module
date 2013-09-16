@@ -211,11 +211,11 @@ function themuraly_invite_share_form($form, &$form_state, $uid, $timestamp, $has
     }
   }
 
-  // drupal_goto($base_url . "/welcome");
-  drupal_goto('home', array(
-    'fragment' => 'mural/' . $mid,
-//     'query' => array('pass-reset-token' => $token),
-  ));
+  drupal_goto($base_url . "/welcome");
+//   drupal_goto('home', array(
+//     'fragment' => 'mural/' . $mid,
+// //     'query' => array('pass-reset-token' => $token),
+//   ));
 
 }
 
