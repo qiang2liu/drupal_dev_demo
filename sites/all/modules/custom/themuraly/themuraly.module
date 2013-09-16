@@ -1029,12 +1029,9 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
 
             watchdog('Invite Share' , 'URL auto login sucess . <pre>' . print_r($user, TRUE) . '</pre>');
 
-            drupal_goto('home', array(
-              'fragment' => 'mural/' . $mid . '/0/0/' .$token,
-          //     'query' => array('pass-reset-token' => $token),
-            ));
+            return "HOME";
 
-//             _user_update_invite($uid, $nid, $mid, $token);
+            _user_update_invite($uid, $nid, $mid, $token);
 
 //             drupal_goto('user/' . $user->uid, array('query' => array('pass-reset-token' => $token)));
           }
