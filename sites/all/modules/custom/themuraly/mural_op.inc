@@ -586,6 +586,14 @@ function muralwebhook() {
   $the_mural_id = $the_data['boardId'];        // mural which the user is accessing
   //$the_mural_id = '1378180214695'; //mock data
 
+  $str_p = preg_match("/[0-9]+$/", $the_mural_id, $matches);
+  $new_mural_id = '';
+  if ($str_p) {
+    $new_mural_id = $matches[0];
+  }
+
+  $the_mural_id = $new_mural_id;
+
   $the_visitor_muraluser_name = $the_data['userId']; ;  //who accessing the mural, mural username
   //$the_visitor_muraluser_name = 'lwgmuralppp';  // mock data
   //get the drupal node according the mural id
