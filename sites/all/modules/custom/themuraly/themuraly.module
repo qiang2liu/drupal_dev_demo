@@ -56,7 +56,8 @@ function themuraly_menu() {
   $items['mural/%'] = array(
     'page callback' => 'muralshow',
     'page arguments' => array(1),
-    'access callback' => 'user_is_logged_in',
+//     'access callback' => 'user_is_logged_in',
+    'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
     'file' => 'mural_op.inc',
   );
@@ -1117,11 +1118,11 @@ function _user_update_invite($uid, $nid, $mid, $token) {
 //   $account = user_load($uid);
 //   _update_user_share_with_me($account, $mid);
 
-  watchdog('Invite Share' , 'Current user: <pre>' . print_r($share_node, TRUE) . '</pre>');
+  watchdog('Invite Share' , 'Share node info: <pre>' . print_r($share_node, TRUE) . '</pre>');
 
   drupal_goto('home', array(
-    'fragment' => 'mural/' . $mid,
-    'query' => array('pass-reset-token' => $token),
+    'fragment' => 'mural/' . $mid . '/0/0/' .$token,
+//     'query' => array('pass-reset-token' => $token),
   ));
 }
 
