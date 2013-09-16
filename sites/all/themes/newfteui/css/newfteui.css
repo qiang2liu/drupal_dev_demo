@@ -509,6 +509,10 @@ div.modal-forms-modal-content .modal-header{
 	padding:6px 30px 6px 15px;
 	font-weight:normal;
 }
+
+#modal-content .form-actions input#edit-preview-changes{
+	display:none;
+}
 #modal-content .node-media_for_upload-form .form-actions input.form-submit{
 	background: url(../images/upload_ico_actionarrow.png) right center no-repeat #3bbec0;
 	padding:10px 40px 10px 15px;
@@ -802,6 +806,10 @@ div.ctools-modal-content .form-item .description{
 }
 .toolbar-item .item-list li{
 	padding:3px 5px;
+	color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* stage-selector */

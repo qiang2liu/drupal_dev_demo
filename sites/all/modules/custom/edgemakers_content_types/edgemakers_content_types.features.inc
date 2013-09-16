@@ -50,6 +50,14 @@ function edgemakers_content_types_node_info() {
       'title_label' => t('Title'),
       'help' => '',
     ),
+    'mural_invite_info' => array(
+      'name' => t('mural invite info'),
+      'base' => 'node_content',
+      'description' => t('Mural invite information.'),
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
     'murals' => array(
       'name' => t('murals'),
       'base' => 'node_content',

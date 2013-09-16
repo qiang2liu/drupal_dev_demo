@@ -99,7 +99,7 @@ div.form-item-field-tags-und {
 
 #upload-media-ajax-wrapper form#media-for-upload-node-form div.form-item {
   width: 88%;
-  overflow: hidden;
+  
 }
 
 #modal-content .form-item input[type="text"].error, 
