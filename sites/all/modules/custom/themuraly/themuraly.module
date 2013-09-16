@@ -128,13 +128,13 @@ function themuraly_menu() {
     'type' => MENU_CALLBACK,
   );
 
-  $items['mural/invite/share'] = array(
-    'title' => 'Invite share mural',
-    'page callback' => 'themuraly_invite_share',
-    'page arguments' => array(3, 4, 5, 6, 7),
-    'access arguments' => array('access content'),
-    'type' => MENU_CALLBACK,
-  );
+//   $items['mural/invite/share'] = array(
+//     'title' => 'Invite share mural',
+//     'page callback' => 'themuraly_invite_share',
+//     'page arguments' => array(3, 4, 5, 6, 7),
+//     'access arguments' => array('access content'),
+//     'type' => MENU_CALLBACK,
+//   );
 
 //   $items['mural/invite/%/%/%'] = array(
 //     'title' => 'Reset password',
@@ -160,8 +160,7 @@ function themuraly_menu() {
 // function themuraly_invite_share_form($form, &$form_state, $uid, $timestamp, $hashed_pass, $action = NULL, $nid = '', $mid = '') {
 function themuraly_invite_share_form($p, $uid, $timestamp, $hashed_pass) {
 
-
-  watchdog('Invitie Share', '$p = ' . $p);
+  watchdog('Invitie Share', '$p in themuraly_invite_share_form = ' . $p);
 
   global $user;
   global $base_url;
@@ -170,15 +169,18 @@ function themuraly_invite_share_form($p, $uid, $timestamp, $hashed_pass) {
     // The existing user is already logged in.
     if ($user->uid == $uid) {
       drupal_set_message(t('You are logged in as %user. <a href="!user_edit">Change your password.</a>', array('%user' => $user->name, '!user_edit' => url("user/$user->uid/edit"))));
+      print(t('You are logged in as %user. <a href="!user_edit">Change your password.</a>', array('%user' => $user->name, '!user_edit' => url("user/$user->uid/edit"))));
     }
     // A different user is already logged in on the computer.
     else {
       $reset_link_account = user_load($uid);
       if (!empty($reset_link_account)) {
-        drupal_set_message(t('Another user (%other_user) is already logged into the site on this computer, but you tried to use a one-time link for user %resetting_user. Please <a href="!logout">logout</a> and try using the link again.', array('%other_user' => $user->name, '%resetting_user' => $reset_link_account->name, '!logout' => url('user/logout'))));
+//         drupal_set_message(t('Another user (%other_user) is already logged into the site on this computer, but you tried to use a one-time link for user %resetting_user. Please <a href="!logout">logout</a> and try using the link again.', array('%other_user' => $user->name, '%resetting_user' => $reset_link_account->name, '!logout' => url('user/logout'))));
+        print(t('Another user (%other_user) is already logged into the site on this computer, but you tried to use a one-time link for user %resetting_user. Please <a href="!logout">logout</a> and try using the link again.', array('%other_user' => $user->name, '%resetting_user' => $reset_link_account->name, '!logout' => url('user/logout'))));
       } else {
         // Invalid one-time link specifies an unknown user.
-        drupal_set_message(t('The one-time login link you clicked is invalid.'));
+//         drupal_set_message(t('The one-time login link you clicked is invalid.'));
+        print(t('The one-time login link you clicked is invalid.'));
       }
     }
     drupal_goto();
@@ -193,9 +195,9 @@ function themuraly_invite_share_form($p, $uid, $timestamp, $hashed_pass) {
       $status = $account->status;
       if ($status == 1) {
         if ($account->uid && $timestamp >= $account->login && $timestamp <= $current && $hashed_pass == user_pass_rehash($account->pass, $timestamp, $account->login)) {
-           $user = $account;
+          $user = $account;
           user_login_finalize();
-          $_SESSION['userchangepass'] = 1;
+          $_SESSION['userautologin'] = 1;
         }
       }
       else {
@@ -206,13 +208,8 @@ function themuraly_invite_share_form($p, $uid, $timestamp, $hashed_pass) {
         if ($account) {
           $user = $account;
           user_login_finalize();
-          $_SESSION['userreset'] = 1;
+          $_SESSION['userautologinreset'] = 1;
           drupal_set_message('<span class="firstlogin">'.t('You are now an EdgeMaker!').'</span>');
-          if (empty($account->field_muralusername)) {
-            // call the mural api : create user
-            $mural_api = new Muralapi;
-            fteuser_set_mural_user($mural_api, $account);
-          }
         }
       }
 

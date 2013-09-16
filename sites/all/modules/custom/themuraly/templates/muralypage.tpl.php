@@ -1,22 +1,22 @@
 <?php
 global $user;
 global $base_url;
-$mural_url = 'http://mural.ly/embed/edgemakers/edgemakers/';
+$mural_url = 'https://mural.ly/embed/edgemakers/edgemakers/';
 // echo "Domain: $base_url";
 $path = parse_url($base_url);
 // print('<pre>' . print_r($path, TRUE) . '</pre>');
 switch (strtolower($path['host'])) {
   case 'edgemakers.com':
-    $mural_url = 'http://mural.ly/embed/edgemakers/edgemakers/';
+    $mural_url = 'https://mural.ly/embed/edgemakers/edgemakers/';
     break;
   case 'dev.edgemakers.com':
-    $mural_url = 'http://mural.ly/embed/dev-edgemakers/dev-edgemakers/';
+    $mural_url = 'https://mural.ly/embed/dev-edgemakers/dev-edgemakers/';
     break;
   case 'staging.edgemakers.com':
-    $mural_url = 'http://mural.ly/embed/staging-edgemakers/staging-edgemakers/';
+    $mural_url = 'https://mural.ly/embed/staging-edgemakers/staging-edgemakers/';
     break;
   case 'test.edgemakers.com':
-    $mural_url = 'http://mural.ly/embed/test-edgemakers/test-edgemakers/';
+    $mural_url = 'https://mural.ly/embed/test-edgemakers/test-edgemakers/';
     break;
 }
 
