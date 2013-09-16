@@ -1025,11 +1025,16 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
 
             // Let the user's password be changed without the current password check.
             $token = drupal_hash_base64(drupal_random_bytes(55));
-            $_SESSION['pass_reset_' . $user->uid] = $token;
+            $_SESSION['pass_invite_' . $user->uid] = $token;
 
             watchdog('Invite Share' , 'URL auto login sucess . <pre>' . print_r($user, TRUE) . '</pre>');
 
-            _user_update_invite($uid, $nid, $mid, $token);
+            drupal_goto('home', array(
+              'fragment' => 'mural/' . $mid . '/0/0/' .$token,
+          //     'query' => array('pass-reset-token' => $token),
+            ));
+
+//             _user_update_invite($uid, $nid, $mid, $token);
 
 //             drupal_goto('user/' . $user->uid, array('query' => array('pass-reset-token' => $token)));
           }
@@ -1107,9 +1112,11 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
 }
 
 function _user_update_invite($uid, $nid, $mid, $token) {
-  global $user;
 
-  watchdog('Invite Share' , 'Current user: <pre>' . print_r($user, TRUE) . '</pre>');
+  $users = user_load_multiple(array($uid), array('status' => '1'));
+  $account = reset($users);
+
+  watchdog('Invite Share' , 'Current user: <pre>' . print_r($account, TRUE) . '</pre>');
 
   $share_node = node_load($nid);
   $share_node->field_invite_flag['und'][0]['value'] = 1;
