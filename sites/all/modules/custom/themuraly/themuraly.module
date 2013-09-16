@@ -1220,7 +1220,7 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
 
 }
 
-function _user_update_invite($uid, $nid, $mid, $token) {
+function _user_update_invite($uid, $nid, $mid) {
 
   $users = user_load_multiple(array($uid), array('status' => '1'));
   $account = reset($users);
@@ -1229,15 +1229,15 @@ function _user_update_invite($uid, $nid, $mid, $token) {
 
   $share_node = node_load($nid);
   $share_node->field_invite_flag['und'][0]['value'] = 1;
-  node_save($share_node);
+//   node_save($share_node);
 //     print($nid . 'Invite node: <pre>' . print_r($share_node, TRUE) . '</pre>');
-//   $account = user_load($uid);
-//   _update_user_share_with_me($account, $mid);
+  $account = user_load($uid);
+  _update_user_share_with_me($account, $mid);
 
   watchdog('Invite Share' , 'Share node info: <pre>' . print_r($share_node, TRUE) . '</pre>');
 
   drupal_goto('home', array(
-    'fragment' => 'mural/' . $mid . '/0/0/' .$token,
+    'fragment' => 'mural/' . $mid,
 //     'query' => array('pass-reset-token' => $token),
   ));
 }
