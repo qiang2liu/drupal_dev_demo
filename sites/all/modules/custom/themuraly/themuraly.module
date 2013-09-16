@@ -128,16 +128,126 @@ function themuraly_menu() {
     'type' => MENU_CALLBACK,
   );
 
-  $items['mural/invite/share'] = array(
-    'title' => 'Invite share mural',
-    'page callback' => 'themuraly_invite_share',
-    'page arguments' => array(3, 4, 5, 6, 7),
-    'access arguments' => array('access content'),
+//   $items['mural/invite/share'] = array(
+//     'title' => 'Invite share mural',
+//     'page callback' => 'themuraly_invite_share',
+//     'page arguments' => array(3, 4, 5, 6, 7),
+//     'access arguments' => array('access content'),
+//     'type' => MENU_CALLBACK,
+//   );
+
+  $items['mural/invite/share/%/%/%/%/%/%'] = array(
+    'title' => 'Reset password',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('themuraly_invite_share_form', 3, 4, 5, 'login', 6, 7, 8),
+    'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
 
   $items['mural/ajax_link_callback'] = array();
   return $items;
+}
+
+
+function themuraly_invite_share_form($form, &$form_state, $uid, $timestamp, $hashed_pass, $action = NULL, $nid = '', $mid = '') {
+
+  global $user;
+
+  // When processing the one-time login link, we have to make sure that a user
+  // isn't already logged in.
+  if ($user->uid) {
+    // The existing user is already logged in.
+    if ($user->uid == $uid) {
+      _user_update_invite($uid, $nid, $mid);
+    }
+    // A different user is already logged in on the computer.
+    else {
+      // Logout current user.
+      module_invoke_all('user_logout', $user);
+      // Destroy the current session, and reset $user to the anonymous user.
+      session_destroy();
+
+      // Time out, in seconds, until login URL expires. Defaults to 24 hours =
+      // 86400 seconds.
+      $timeout = variable_get('user_password_reset_timeout', 86400);
+      $current = REQUEST_TIME;
+      // Some redundant checks for extra security ?
+      $users = user_load_multiple(array($uid), array('status' => '1'));
+      if ($timestamp <= $current && $account = reset($users)) {
+        // No time out for first time login.
+        if ($account->login && $current - $timestamp > $timeout) {
+          drupal_set_message(t('You have tried to use a one-time login link that has expired. Please request a new one using the form below.'));
+          drupal_goto('user/password');
+        }
+        elseif ($account->uid && $timestamp <= $current && $hashed_pass == user_pass_rehash($account->pass, $timestamp, $account->login)) {
+          // First stage is a confirmation form, then login
+          if ($action == 'login') {
+            // Set the new user.
+            $user = $account;
+            // user_login_finalize() also updates the login timestamp of the
+            // user, which invalidates further use of the one-time login link.
+            user_login_finalize();
+            watchdog('Invite share', 'User %name used one-time login link at time %timestamp.', array('%name' => $account->name, '%timestamp' => $timestamp));
+//             drupal_set_message(t('You have just used your one-time login link. It is no longer necessary to use this link to log in. Please change your password.'));
+            // Let the user's password be changed without the current password check.
+            $token = drupal_hash_base64(drupal_random_bytes(55));
+            $_SESSION['pass_invite_' . $user->uid] = $token;
+            _user_update_invite($uid, $nid, $mid);
+          }
+        }
+        else {
+          drupal_set_message(t('You have tried to use a one-time login link that has either been used or is no longer valid. Please request a new one using the form below.'));
+          drupal_goto('user/password');
+        }
+      }
+      else {
+        // Deny access, no more clues.
+        // Everything will be in the watchdog's URL for the administrator to check.
+        drupal_access_denied();
+      }
+    }
+//     drupal_goto();
+  }
+  else {
+    // Time out, in seconds, until login URL expires. Defaults to 24 hours =
+    // 86400 seconds.
+    $timeout = variable_get('user_password_reset_timeout', 86400);
+    $current = REQUEST_TIME;
+    // Some redundant checks for extra security ?
+    $users = user_load_multiple(array($uid), array('status' => '1'));
+    if ($timestamp <= $current && $account = reset($users)) {
+      // No time out for first time login.
+      if ($account->login && $current - $timestamp > $timeout) {
+        drupal_set_message(t('You have tried to use a one-time login link that has expired. Please request a new one using the form below.'));
+        drupal_goto('user/password');
+      }
+      elseif ($account->uid && $timestamp <= $current && $hashed_pass == user_pass_rehash($account->pass, $timestamp, $account->login)) {
+        // First stage is a confirmation form, then login
+        if ($action == 'login') {
+          // Set the new user.
+          $user = $account;
+          // user_login_finalize() also updates the login timestamp of the
+          // user, which invalidates further use of the one-time login link.
+          user_login_finalize();
+          watchdog('Invite share', 'User %name used one-time login link at time %timestamp.', array('%name' => $account->name, '%timestamp' => $timestamp));
+//             drupal_set_message(t('You have just used your one-time login link. It is no longer necessary to use this link to log in. Please change your password.'));
+          // Let the user's password be changed without the current password check.
+          $token = drupal_hash_base64(drupal_random_bytes(55));
+          $_SESSION['pass_invite_' . $user->uid] = $token;
+          _user_update_invite($uid, $nid, $mid);
+        }
+      }
+      else {
+        drupal_set_message(t('You have tried to use a one-time login link that has either been used or is no longer valid. Please request a new one using the form below.'));
+        drupal_goto('user/password');
+      }
+    }
+    else {
+      // Deny access, no more clues.
+      // Everything will be in the watchdog's URL for the administrator to check.
+      drupal_access_denied();
+    }
+  }
 }
 
 function themuraly_refresh($js = FALSE) {
@@ -1224,7 +1334,7 @@ Hi,<br/>
 <br/>
 [current-user:field_firstname] [current-user:field-lastname] shared a mural with you:<br/>
 <br/>
-If you agree with the invitation, please click <a href="[site:url]mural/invite/share/{$node->invite_uid}/{$node->invite_nid}/{$node->nid}/$timestamp/$haspasswd">[site:url]mural/invite/share/{$node->invite_uid}/{$node->invite_nid}/{$node->nid}/$timestamp/$haspasswd</a> to open the mural.<br/>
+If you agree with the invitation, please click <a href="[site:url]mural/invite/share/{$node->invite_uid}/$timestamp/$haspasswd/{$node->invite_nid}/{$node->nid}">[site:url]mural/invite/share/{$node->invite_uid}/$timestamp/$haspasswd/{$node->invite_nid}/{$node->nid}</a> to open the mural.<br/>
 <br/>
 <br/>
 --  [site:name] team
