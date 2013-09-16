@@ -188,6 +188,12 @@ ul#studio-mural-list li a.studio-mural-list-item-link {
   transition: all 0.3s linear;
   color:#fff;
 }
+.set-cover h5{
+	color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
 #topic-mural-list li:hover .set-cover,
 #gallery-mural-list li:hover .set-cover,
