@@ -967,7 +967,7 @@ function _user_relogin($uid) {
   }
 }
 
-function themuraly_invite_share($uid = '', $nid = '', $mid ='') {
+function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '', $hashed_pass = '') {
 
   global $user;
 
@@ -976,26 +976,46 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='') {
   if ($user->uid) {
     // The existing user is already logged in.
     if ($user->uid !== $uid) {
-
       // Logout current user.
       module_load_include('pages.inc', 'user');
       user_logout();
-
-      // Login invite url user.
-      $user = user_load($uid); //183 a sample uid
-      drupal_session_regenerate();
-
     }
-
-    _user_update_invite($uid, $nid, $mid);
-
+    else {
+      _user_update_invite($uid, $nid, $mid);
+    }
   }
   else {
+    $current = REQUEST_TIME;
+    $users = user_load_multiple(array($uid), array('status' => '0'));
 
-    $user = user_load($uid); //183 a sample uid
-    drupal_session_regenerate();
-    _user_update_invite($uid, $nid, $mid);
+    $account = reset($users);
+    $account =  user_load($uid) ;
+
+    if ($account) {
+      $status = $account->status;
+      if ($status == 1) {
+        if ($account->uid && $timestamp >= $account->login && $timestamp <= $current && $hashed_pass == user_pass_rehash($account->pass, $timestamp, $account->login)) {
+          $user = $account;
+          user_login_finalize();
+          _user_update_invite($uid, $nid, $mid);
+        }
+      }
+      else {
+        if ($account->uid && $timestamp >= $account->login && $timestamp <= $current && $hashed_pass == user_pass_rehash($account->pass, $timestamp, $account->login)) {
+
+          $account = user_save($account, array('status' => 1));
+          if ($account) {
+            $user = $account;
+            user_login_finalize();
+            _user_update_invite($uid, $nid, $mid);
+          }
+        }
+
+      }
+    }
   }
+
+  _user_update_invite($uid, $nid, $mid);
 
 }
 
