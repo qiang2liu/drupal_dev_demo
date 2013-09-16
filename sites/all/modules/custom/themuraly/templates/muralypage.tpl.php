@@ -123,25 +123,23 @@ body {
 		<?php
 
 		function _isShowMuralUrl() {
-      $allow_roles = array('site administrator' , 'site admin' , 'teacher');
+      global $user;
+      $allow_roles = array('site administrator' , 'site admin');
       foreach ($user->roles AS $key => $val) {
         if (in_array($val, $allow_roles)) {
-//           print('return TRUE;');
           return 1;
         }
       }
       return 0;
     }
-    $true_show = _isShowMuralUrl();
-//     print('$true_show = ' . $true_show);
 
-// 		if (_isShowMuralUrl()) :
+		if (_isShowMuralUrl()) :
 		?>
 		<li class="mural-nav-link-delete">
 		  <a href="#" class="mural-nav-link" onClick="showShareUrl();return false;"/>Mural Url</a>
 		</li>
 		<?php
-// 		endif;
+		endif;
 		?>
 	</ul>
 
