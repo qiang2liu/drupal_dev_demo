@@ -56,8 +56,8 @@ function themuraly_menu() {
   $items['mural/%'] = array(
     'page callback' => 'muralshow',
     'page arguments' => array(1),
-//     'access callback' => 'user_is_logged_in',
-    'access arguments' => array('access content'),
+    'access callback' => 'user_is_logged_in',
+//     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
     'file' => 'mural_op.inc',
   );
