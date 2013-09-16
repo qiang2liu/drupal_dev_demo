@@ -1010,7 +1010,7 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
 //           drupal_goto('user/password');
         }
 //         elseif ($account->uid && $timestamp <= $current && $hashed_pass) {
-        elseif ($account->uid && $timestamp >= $account->login && $timestamp <= $current && $hashed_pass) {
+        elseif ($account->uid && $timestamp <= $current && $hashed_pass) {
 
           watchdog('Invite Share' , "URL auto login hashed_pass: <pre>" . print_r($hashed_pass, TRUE) . '</pre>');
 
@@ -1106,6 +1106,10 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
 }
 
 function _user_update_invite($uid, $nid, $mid) {
+  global $user;
+
+  watchdog('Invite Share' , 'Current user: <pre>' . print_r($user, TRUE) . '</pre>');
+
   $share_node = node_load($nid);
   $share_node->field_invite_flag['und'][0]['value'] = 1;
   node_save($share_node);
