@@ -201,7 +201,7 @@ function muralshow_share($owerid = '', $mid = '') {
 function muralshow($nid, $mid = 0, $uid = 0) {
 
   global $user;
-  watchdog('Invite Share' , 'User info in muralshow(): <pre>' . print_r($user, TRUE) . '</pre>');
+//   watchdog('Invite Share' , 'User info in muralshow(): <pre>' . print_r($user, TRUE) . '</pre>');
   $the_node_uid = 0;
   if ($uid > 0) {
     $the_node_uid = $uid;
