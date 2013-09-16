@@ -1034,8 +1034,6 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
 
         watchdog('Invite Share' , "URL user auto login info: <pre>" . print_r($user, TRUE) . '</pre>');
 
-      }
-
     }
 
     _user_update_invite($uid, $nid, $mid);
