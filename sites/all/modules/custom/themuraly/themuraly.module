@@ -1114,8 +1114,10 @@ function _user_update_invite($uid, $nid, $mid) {
   $share_node->field_invite_flag['und'][0]['value'] = 1;
   node_save($share_node);
 //     print($nid . 'Invite node: <pre>' . print_r($share_node, TRUE) . '</pre>');
-  $account = user_load($uid);
-  _update_user_share_with_me($account, $mid);
+//   $account = user_load($uid);
+//   _update_user_share_with_me($account, $mid);
+
+  watchdog('Invite Share' , 'Current user: <pre>' . print_r($share_node, TRUE) . '</pre>');
 
   drupal_goto('home', array(
     'fragment' => 'mural/' . $mid,
