@@ -1401,7 +1401,7 @@ function muralapi_test() {
   global $user;
 
   print('Test: <pre>' . print_r($user, TRUE) . '</pre>');
-  dpm($user);
+//   dpm($user);
 
   $output_html = '';
 
@@ -1411,20 +1411,20 @@ function muralapi_test() {
 //   themuraly_get_mural_info('http://staging.mural.ly/!/#/lwgmural/1377006043205');
 //   _get_node_from_mural_id('1377006043205');
 
-  themuraly_studio_mural_list_json('gallery', 1, 'Copy of');
+//   themuraly_studio_mural_list_json('gallery', 1, 'Copy of');
 
 //  themuraly_topic_mural_list(539);
-  _test_mural_list_for_a_user();
+//   _test_mural_list_for_a_user();
  // _test_user_add();
   //_test_create_room();
-  _test_mural_create_mural();
+//   _test_mural_create_mural();
   //_test_mural_duplicate_mural();
   //_test_mural_update_property_mural();
   //_test_mural_archive();
   //_test_mural_del();
 //   _test_mural_list_for_a_user();
   // _test_mural_invite_member();
-//   _test_retrieve_a_mural();
+  _test_retrieve_a_mural();
 //   themuraly_mural_list_html();
 
 //   themuraly_get_mural_info('http://staging.mural.ly/!/#/lwgmural/1376967210186');
@@ -1477,12 +1477,18 @@ function _test_retrieve_a_mural() {
   $muralid = '1375063051875';
   $muralid = '1375252040839';
   $muralid = '1375252809540';
+
+  $username = 'dev_student1';
+  $muralid = '1379327802962';
+
   $mural_api = new Muralapi;
   $result = $mural_api->retrieve_a_mural($username, $muralid);
   $data = $result->data;
   $r = drupal_json_decode($data);
   dpm($result);
   dpm($r);
+  print('Mural API $result info: <pre>' . print_r($result, TRUE) . '</pre>');
+  print('Mural info: <pre>' . print_r($r, TRUE) . '</pre>');
 }
 
 function _test_mural_archive() {
