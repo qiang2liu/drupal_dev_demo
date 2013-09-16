@@ -1179,6 +1179,15 @@ function _user_update_invite($uid, $nid, $mid) {
     $muralusername = $field_muralid_user[0]['value'];
   }
 
+  //Ensure share mural is share property is TRUE.
+  include_once('mural_op.inc');
+  $mural_api = new Muralapi;
+  $property_name = "shared";
+  $property_value = (bool) 1;
+  $result_share = $mural_api->update_mural_properties($muralusername, $mural_id, $property_name, $property_value);
+  $data = $result_share->data;
+  watchdog('Mural Share', 'Ensure share. <pre>' . print_r($data, TRUE) . '</pre>');
+
 //   $fieldinfo = field_get_items('user', $account, 'field_muralusername');
 //   if ($mural_info) {
 //     $muralusername = $fieldinfo[0]['value'];
@@ -1188,7 +1197,8 @@ function _user_update_invite($uid, $nid, $mid) {
 
 //   /mural/share/dev_student1/1379300425095#1379336277.381
   drupal_goto('home', array(
-    'fragment' => 'mural/share/'. $muralusername . '/' . $mural_id,
+//     'fragment' => 'mural/share/'. $muralusername . '/' . $mural_id,
+    'fragment' => 'mural/' . $mid,
 //     'query' => array('pass-reset-token' => $token),
   ));
 }
