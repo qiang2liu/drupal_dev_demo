@@ -1172,11 +1172,18 @@ function _user_update_invite($uid, $nid, $mid) {
     $mural_share_with_me = $field_mural_share_with_me[0]['value'];
   }
 
+  // get mural info.
+  $mural_info = node_load($mid);
+  $field_muralid_info = field_get_items('node', $mural_info, 'field_muralid');
+  if ($field_muralid_info) {
+    $mural_id = $field_muralid_info[0]['value'];
+  }
+
   watchdog('Invite Share' , 'Share node info: <pre>' . print_r($share_node, TRUE) . '</pre>');
 
 //   /mural/share/dev_student1/1379300425095#1379336277.381
   drupal_goto('home', array(
-    'fragment' => 'mural/share/'. $muralusername . '/' . $mid,
+    'fragment' => 'mural/share/'. $muralusername . '/' . $mural_id,
 //     'query' => array('pass-reset-token' => $token),
   ));
 }
