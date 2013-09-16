@@ -975,17 +975,22 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
   // isn't already logged in.
   if ($user->uid) {
     // The existing user is already logged in.
+    watchdog('Invite Share' , "User already login");
     if ($user->uid !== $uid) {
       // Logout current user.
       module_invoke_all('user_logout', $user);
       // Destroy the current session, and reset $user to the anonymous user.
       session_destroy();
 
+      watchdog('Invite Share' , "session_destroy()");
+
       $current = REQUEST_TIME;
       $users = user_load_multiple(array($uid), array('status' => '0'));
 
       $account = reset($users);
       $account =  user_load($uid) ;
+
+      watchdog('Invite Share' , "URL user account<pre>" . print_r($account, TRUE) . '</pre>');
 
       if ($account) {
         $status = $account->status;
@@ -1008,6 +1013,9 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
           }
 
         }
+
+        watchdog('Invite Share' , "URL user auto login info: <pre>" . print_r($user, TRUE) . '</pre>');
+
       }
 
     }
