@@ -1525,6 +1525,7 @@ function _test_retrieve_a_mural() {
   $username = 'dev_student1';
   $muralid = '1379327802962';
   $muralid = '1379337407854';
+  $muralid = '1379338377473';
 
   $mural_api = new Muralapi;
   $result = $mural_api->retrieve_a_mural($username, $muralid);
