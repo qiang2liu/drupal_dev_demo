@@ -1025,7 +1025,7 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
             $token = drupal_hash_base64(drupal_random_bytes(55));
             $_SESSION['pass_reset_' . $user->uid] = $token;
 
-            watchdog('Invite Share' , 'URL auto login sucess');
+            watchdog('Invite Share' , 'URL auto login sucess . <pre>' . print_r($user, TRUE) . '</pre>');
 
             _user_update_invite($uid, $nid, $mid);
 
