@@ -1029,7 +1029,7 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
 
             watchdog('Invite Share' , 'URL auto login sucess . <pre>' . print_r($user, TRUE) . '</pre>');
 
-            return "HOME";
+            return "HOME<pre>" . print_r($user, TRUE) . '</pre>';
 
             _user_update_invite($uid, $nid, $mid, $token);
 
