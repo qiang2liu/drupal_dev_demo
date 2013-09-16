@@ -48,6 +48,13 @@ function edgemakers_content_types_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'comment_anonymous_mural_invite_info';
+  $strongarm->value = '0';
+  $export['comment_anonymous_mural_invite_info'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'comment_anonymous_site_bg_image';
   $strongarm->value = 0;
   $export['comment_anonymous_site_bg_image'] = $strongarm;
@@ -97,6 +104,13 @@ function edgemakers_content_types_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'comment_default_mode_mural_invite_info';
+  $strongarm->value = 1;
+  $export['comment_default_mode_mural_invite_info'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'comment_default_mode_site_bg_image';
   $strongarm->value = 1;
   $export['comment_default_mode_site_bg_image'] = $strongarm;
@@ -135,6 +149,13 @@ function edgemakers_content_types_strongarm() {
   $strongarm->name = 'comment_default_per_page_murals';
   $strongarm->value = '50';
   $export['comment_default_per_page_murals'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'comment_default_per_page_mural_invite_info';
+  $strongarm->value = '50';
+  $export['comment_default_per_page_mural_invite_info'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -195,6 +216,13 @@ function edgemakers_content_types_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'comment_form_location_mural_invite_info';
+  $strongarm->value = 1;
+  $export['comment_form_location_mural_invite_info'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'comment_form_location_site_bg_image';
   $strongarm->value = 1;
   $export['comment_form_location_site_bg_image'] = $strongarm;
@@ -212,6 +240,13 @@ function edgemakers_content_types_strongarm() {
   $strongarm->name = 'comment_murals';
   $strongarm->value = '1';
   $export['comment_murals'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'comment_mural_invite_info';
+  $strongarm->value = '2';
+  $export['comment_mural_invite_info'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -247,6 +282,13 @@ function edgemakers_content_types_strongarm() {
   $strongarm->name = 'comment_preview_murals';
   $strongarm->value = '1';
   $export['comment_preview_murals'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'comment_preview_mural_invite_info';
+  $strongarm->value = '1';
+  $export['comment_preview_mural_invite_info'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -296,6 +338,13 @@ function edgemakers_content_types_strongarm() {
   $strongarm->name = 'comment_subject_field_murals';
   $strongarm->value = 1;
   $export['comment_subject_field_murals'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'comment_subject_field_mural_invite_info';
+  $strongarm->value = 1;
+  $export['comment_subject_field_mural_invite_info'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -475,6 +524,26 @@ function edgemakers_content_types_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'field_bundle_settings_node__mural_invite_info';
+  $strongarm->value = array(
+    'view_modes' => array(),
+    'extra_fields' => array(
+      'form' => array(
+        'title' => array(
+          'weight' => '-5',
+        ),
+        'path' => array(
+          'weight' => '30',
+        ),
+      ),
+      'display' => array(),
+    ),
+  );
+  $export['field_bundle_settings_node__mural_invite_info'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'field_bundle_settings_node__site_bg_image';
   $strongarm->value = array(
     'view_modes' => array(),
@@ -569,6 +638,15 @@ function edgemakers_content_types_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'menu_options_mural_invite_info';
+  $strongarm->value = array(
+    0 => 'main-menu',
+  );
+  $export['menu_options_mural_invite_info'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'menu_options_site_bg_image';
   $strongarm->value = array(
     0 => 'main-menu',
@@ -609,6 +687,13 @@ function edgemakers_content_types_strongarm() {
   $strongarm->name = 'menu_parent_murals';
   $strongarm->value = 'main-menu:0';
   $export['menu_parent_murals'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'menu_parent_mural_invite_info';
+  $strongarm->value = 'main-menu:0';
+  $export['menu_parent_mural_invite_info'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -668,6 +753,16 @@ function edgemakers_content_types_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'node_options_mural_invite_info';
+  $strongarm->value = array(
+    0 => 'status',
+    1 => 'promote',
+  );
+  $export['node_options_mural_invite_info'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'node_options_site_bg_image';
   $strongarm->value = array(
     0 => 'status',
@@ -712,6 +807,13 @@ function edgemakers_content_types_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'node_preview_mural_invite_info';
+  $strongarm->value = '1';
+  $export['node_preview_mural_invite_info'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'node_preview_site_bg_image';
   $strongarm->value = '1';
   $export['node_preview_site_bg_image'] = $strongarm;
@@ -750,6 +852,13 @@ function edgemakers_content_types_strongarm() {
   $strongarm->name = 'node_submitted_murals';
   $strongarm->value = 1;
   $export['node_submitted_murals'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'node_submitted_mural_invite_info';
+  $strongarm->value = 1;
+  $export['node_submitted_mural_invite_info'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
