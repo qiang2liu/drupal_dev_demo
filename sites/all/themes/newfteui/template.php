@@ -351,47 +351,6 @@ function newfteui_preprocess_comment(&$vars) {
   $vars['title'] = '';
 }
 
-/**
- * Implements theme_breadcrumb();
- */
-function newfteui_breadcrumb($variables) {
-
-  //drupal_set_message("edgemakers_stage_breadcrumb include home link");
-
-  $breadcrumb = $variables['breadcrumb'];
-  $crumb_arrow = '<span class="crumbs-arrow"> &raquo </span>';
-  if (!empty($breadcrumb)) {
-
-    $show_home = theme_get_setting('show_home');
-
-    if (isset($breadcrumb[0])) {
-      $breadcrumb[0] = l(t('Home'), 'home');
-      $variables['breadcrumb'][0] = $breadcrumb[0];
-    }
-
-    $arr_crumbs = array();
-    array_push($arr_crumbs, '<span class="crumbs">' . implode($crumb_arrow, $breadcrumb) . '</span>');
-
-    $output = '<h2 class="element-invisible">' . t('You are here') . '</h2>';
-    $array_size = count($arr_crumbs);
-    for ($i=0; $i < $array_size; $i++) {
-      if ( $i == $array_size - 1 ) {
-      // Menu link title may override the content title
-        (menu_get_active_title()) ? $current_crumb = menu_get_active_title() : $current_crumb = drupal_get_title();
-      // If current page is 'Edit Page'
-      if (substr(drupal_get_title(), 0, 18) == '<em>Edit Page</em>') {
-          $current_crumb = 'Edit';
-        }
-
-        $output .= $arr_crumbs[$i] . '<span class="crumbs-current">' . $crumb_arrow . $current_crumb . '</span>';
-        break;
-      }
-      $output .= $arr_crumbs[$i];
-    }
-
-    return '<div class="breadcrumb">' . $output . '</div>';
-  }
-}
 
 function newfteui_preprocess_rate_template_like(&$variables) {
   extract($variables);
