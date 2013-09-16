@@ -979,10 +979,40 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
       // Logout current user.
       module_load_include('pages.inc', 'user');
       user_logout();
+
+      $current = REQUEST_TIME;
+      $users = user_load_multiple(array($uid), array('status' => '0'));
+
+      $account = reset($users);
+      $account =  user_load($uid) ;
+
+      if ($account) {
+        $status = $account->status;
+        if ($status == 1) {
+          if ($account->uid && $timestamp >= $account->login && $timestamp <= $current && $hashed_pass == user_pass_rehash($account->pass, $timestamp, $account->login)) {
+            $user = $account;
+            user_login_finalize();
+            _user_update_invite($uid, $nid, $mid);
+          }
+        }
+        else {
+          if ($account->uid && $timestamp >= $account->login && $timestamp <= $current && $hashed_pass == user_pass_rehash($account->pass, $timestamp, $account->login)) {
+
+            $account = user_save($account, array('status' => 1));
+            if ($account) {
+              $user = $account;
+              user_login_finalize();
+              _user_update_invite($uid, $nid, $mid);
+            }
+          }
+
+        }
+      }
+
     }
-    else {
-      _user_update_invite($uid, $nid, $mid);
-    }
+
+    _user_update_invite($uid, $nid, $mid);
+
   }
   else {
     $current = REQUEST_TIME;
