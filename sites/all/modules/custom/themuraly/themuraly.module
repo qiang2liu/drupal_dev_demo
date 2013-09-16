@@ -221,7 +221,7 @@ function themuraly_invite_share_form($p, $uid, $timestamp, $hashed_pass) {
     }
   }
 
-  drupal_goto($base_url . "/welcome");
+  drupal_goto($base_url . "/home");
 //   drupal_goto('home', array(
 //     'fragment' => 'mural/' . $mid,
 // //     'query' => array('pass-reset-token' => $token),
