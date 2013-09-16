@@ -151,6 +151,8 @@ function themuraly_menu() {
 
 function themuraly_invite_share_form($form, &$form_state, $uid, $timestamp, $hashed_pass, $action = NULL, $nid = '', $mid = '') {
 
+  watchdog('Invite Share' , 'User uid 154: ' . $uid . '| Node nid: ' . $nid . ' | Timestamp: ' . $timestamp . ' | Hash password: ' . $hashed_pass);
+
   global $user;
 
   // When processing the one-time login link, we have to make sure that a user
@@ -158,6 +160,7 @@ function themuraly_invite_share_form($form, &$form_state, $uid, $timestamp, $has
   if ($user->uid) {
     // The existing user is already logged in.
     if ($user->uid == $uid) {
+      watchdog('Invite Share', 'Current login: <pre>' . print_r($user, TRUE) . '</pre>');
       _user_update_invite($uid, $nid, $mid);
     }
     // A different user is already logged in on the computer.
@@ -166,6 +169,8 @@ function themuraly_invite_share_form($form, &$form_state, $uid, $timestamp, $has
       module_invoke_all('user_logout', $user);
       // Destroy the current session, and reset $user to the anonymous user.
       session_destroy();
+
+      watchdog('Invite Share', 'session_destroy()');
 
       // Time out, in seconds, until login URL expires. Defaults to 24 hours =
       // 86400 seconds.
@@ -192,6 +197,9 @@ function themuraly_invite_share_form($form, &$form_state, $uid, $timestamp, $has
             // Let the user's password be changed without the current password check.
             $token = drupal_hash_base64(drupal_random_bytes(55));
             $_SESSION['pass_invite_' . $user->uid] = $token;
+
+            watchdog('Invite Share', 'One time login sucess.');
+
             _user_update_invite($uid, $nid, $mid);
           }
         }
