@@ -1,22 +1,22 @@
 <?php
 global $user;
 global $base_url;
-$mural_url = 'http://staging.mural.ly/embed/edgemakers/edgemakers/';
+$mural_url = 'http://mural.ly/embed/edgemakers/edgemakers/';
 // echo "Domain: $base_url";
 $path = parse_url($base_url);
 // print('<pre>' . print_r($path, TRUE) . '</pre>');
 switch (strtolower($path['host'])) {
   case 'edgemakers.com':
-    $mural_url = 'http://staging.mural.ly/embed/edgemakers/edgemakers/';
+    $mural_url = 'http://mural.ly/embed/edgemakers/edgemakers/';
     break;
   case 'dev.edgemakers.com':
-    $mural_url = 'http://staging.mural.ly/embed/dev-edgemakers/dev-edgemakers/';
+    $mural_url = 'http://mural.ly/embed/dev-edgemakers/dev-edgemakers/';
     break;
   case 'staging.edgemakers.com':
-    $mural_url = 'http://staging.mural.ly/embed/staging-edgemakers/staging-edgemakers/';
+    $mural_url = 'http://mural.ly/embed/staging-edgemakers/staging-edgemakers/';
     break;
   case 'test.edgemakers.com':
-    $mural_url = 'http://staging.mural.ly/embed/test-edgemakers/test-edgemakers/';
+    $mural_url = 'http://mural.ly/embed/test-edgemakers/test-edgemakers/';
     break;
 }
 
@@ -24,9 +24,9 @@ $the_m_id = $data['m_id'];
 
 // Add mural share link, it's edgemakers admin url, not muraly.ly share url.
 // Share url.
-$share_url = 'http://staging.mural.ly/!/#/' . $data['node']->field_muraluser['und'][0]['value'] . '/' . $the_m_id;
+$share_url = 'http://mural.ly/!/#/' . $data['node']->field_muraluser['und'][0]['value'] . '/' . $the_m_id;
 
-//     http://staging.mural.ly/!/#/lwgmural/1377178465904
+//     http://mural.ly/!/#/lwgmural/1377178465904
 
 // Popup dialog.
 drupal_add_library('system', 'ui.dialog');
@@ -120,9 +120,29 @@ body {
 		?>
 		</li>
 		<?php endif; ?>
+		<?php
+
+		function _isShowMuralUrl() {
+      $allow_roles = array('site administrator' , 'site admin' , 'teacher');
+      foreach ($user->roles AS $key => $val) {
+        if (in_array($val, $allow_roles)) {
+//           print('return TRUE;');
+          return 1;
+        }
+      }
+      return 0;
+    }
+    $true_show = _isShowMuralUrl();
+//     print('$true_show = ' . $true_show);
+
+// 		if (_isShowMuralUrl()) :
+		?>
 		<li class="mural-nav-link-delete">
 		  <a href="#" class="mural-nav-link" onClick="showShareUrl();return false;"/>Mural Url</a>
 		</li>
+		<?php
+// 		endif;
+		?>
 	</ul>
 
 </div>
