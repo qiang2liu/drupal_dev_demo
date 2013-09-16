@@ -1297,6 +1297,10 @@ function _send_share_mail($node = array(), $mail_to_share = '') {
   $account = user_load($node->invite_uid);
   $haspasswd = user_pass_rehash($account->pass, $timestamp, $account->login);
 
+//   user_pass_reset_url($account);
+
+  $reset_url = url("user/reset/$account->uid/$timestamp/" . user_pass_rehash($account->pass, $timestamp, $account->login), array('absolute' => TRUE));
+
 $default_subject = <<<EOT
 [current-user:field_firstname] [current-user:field-lastname] shared a mural with you
 EOT;
@@ -1307,6 +1311,9 @@ Hi,<br/>
 [current-user:field_firstname] [current-user:field-lastname] shared a mural with you:<br/>
 <br/>
 If you agree with the invitation, please click <a href="[site:url]user/reset/{$node->invite_uid}/$timestamp/$haspasswd/{$node->invite_nid}/{$node->nid}">[site:url]user/reset/{$node->invite_uid}/$timestamp/$haspasswd/{$node->invite_nid}/{$node->nid}</a> to open the mural.<br/>
+
+    $reset_url
+
 <br/>
 <br/>
 --  [site:name] team
