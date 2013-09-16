@@ -602,6 +602,9 @@ function muralwebhook() {
           ->entityCondition('bundle', 'murals')
           ->fieldCondition('field_muralid', 'value', $the_mural_id, '=');
   $results = $query->execute();
+
+  watchdog('notification', 'Mural node info 606: <pre>' . print_r($results, TRUE) . '</pre>');
+
   //dpm($results);
   if (is_array($results['node']) && !empty($results['node'])) {
     $the_nids = array_keys($results['node']);
