@@ -977,8 +977,9 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
     // The existing user is already logged in.
     if ($user->uid !== $uid) {
       // Logout current user.
-      module_load_include('pages.inc', 'user');
-      user_logout();
+      module_invoke_all('user_logout', $user);
+      // Destroy the current session, and reset $user to the anonymous user.
+      session_destroy();
 
       $current = REQUEST_TIME;
       $users = user_load_multiple(array($uid), array('status' => '0'));
