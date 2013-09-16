@@ -406,7 +406,7 @@ function create_mural($mural_api, $muser, $mroomid, $title = 'my mural', $duplic
   $params = array('title' => $title, 'room' => $mroomid);
   if ($duplicate_id != '') {
     $mural_api_result = $mural_api->duplicate_mural($muser, $duplicate_id, $params);
-    watchdog('Muraly', 'mural api info:' . $mural_api_result);
+    watchdog('Muraly', 'mural api info:' . '<pre' . print_r($mural_api_result, TRUE) . '</pre>');
 //     dd($mural_api_result, 'mural api results of duplicate_mural');
   } else {
     $mural_api_result = $mural_api->create_mural($muser, $params);
@@ -580,8 +580,8 @@ function muralwebhook() {
       exit;
     }
   }
-  
-  
+
+
 
   $the_mural_id = $the_data['boardId'];        // mural which the user is accessing
   //$the_mural_id = '1378180214695'; //mock data
@@ -616,7 +616,7 @@ function muralwebhook() {
           // If the modifier is not the mural owner, then send an notification email to the owner
           if ($owner_muraluser != $the_visitor_muraluser_name) {
             $params = array('node' => $node);
-           
+
             $result = drupal_mail('themuraly', 'mural_updated', $owner_mail, language_default(), $params);
             if ($result['result'] != TRUE) {
               watchdog('notification', t('There was a problem sending notification message to @mail.', array('@mail' => $owner_mail)), NULL, WATCHDOG_WARNING);
@@ -652,7 +652,7 @@ function muralwebhook() {
   }
 
 
-  
+
   exit;
   //return
 }
