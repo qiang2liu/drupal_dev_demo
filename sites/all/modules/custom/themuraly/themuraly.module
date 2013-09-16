@@ -1028,7 +1028,7 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
 
             watchdog('Invite Share' , 'URL auto login sucess . <pre>' . print_r($user, TRUE) . '</pre>');
 
-            _user_update_invite($uid, $nid, $mid);
+            _user_update_invite($uid, $nid, $mid, $token);
 
 //             drupal_goto('user/' . $user->uid, array('query' => array('pass-reset-token' => $token)));
           }
@@ -1084,7 +1084,7 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
 
             watchdog('Invite Share' , 'URL auto login sucess');
 
-            _user_update_invite($uid, $nid, $mid);
+            _user_update_invite($uid, $nid, $mid, $token);
 
 //             drupal_goto('user/' . $user->uid . '/edit', array('query' => array('pass-reset-token' => $token)));
           }
@@ -1105,7 +1105,7 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
 
 }
 
-function _user_update_invite($uid, $nid, $mid) {
+function _user_update_invite($uid, $nid, $mid, $token) {
   global $user;
 
   watchdog('Invite Share' , 'Current user: <pre>' . print_r($user, TRUE) . '</pre>');
@@ -1121,6 +1121,7 @@ function _user_update_invite($uid, $nid, $mid) {
 
   drupal_goto('home', array(
     'fragment' => 'mural/' . $mid,
+    'query' => array('pass-reset-token' => $token),
   ));
 }
 
