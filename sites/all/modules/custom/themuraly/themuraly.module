@@ -150,7 +150,6 @@ function themuraly_menu() {
     'page arguments' => array('user_pass_reset', 2, 3, 4),
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
-    'file' => 'user.pages.inc',
   );
 
   $items['mural/ajax_link_callback'] = array();
