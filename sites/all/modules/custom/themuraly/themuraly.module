@@ -1009,7 +1009,8 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
           drupal_set_message(t('You have tried to use a one-time login link that has expired. Please request a new one using the form below.'));
 //           drupal_goto('user/password');
         }
-        elseif ($account->uid && $timestamp <= $current && $hashed_pass) {
+//         elseif ($account->uid && $timestamp <= $current && $hashed_pass) {
+        elseif ($account->uid && $timestamp >= $account->login && $timestamp <= $current && $hashed_pass) {
 
           watchdog('Invite Share' , "URL auto login hashed_pass: <pre>" . print_r($hashed_pass, TRUE) . '</pre>');
 
