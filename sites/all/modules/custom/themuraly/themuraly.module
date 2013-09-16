@@ -147,7 +147,7 @@ function themuraly_menu() {
   $items['mural/invite/%/%/%'] = array(
     'title' => 'Reset password',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('user_pass_reset', 2, 3, 4),
+    'page arguments' => array('themuraly_invite_share_form', 2, 3, 4),
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
   );
@@ -160,7 +160,8 @@ function themuraly_menu() {
 // function themuraly_invite_share_form($form, &$form_state, $uid, $timestamp, $hashed_pass, $action = NULL, $nid = '', $mid = '') {
 function themuraly_invite_share_form($p, $uid, $timestamp, $hashed_pass) {
 
-  watchdog('Invitie Share', '$mid = ' . $mid);
+
+  watchdog('Invitie Share', '$p = ' . $p);
 
   global $user;
   global $base_url;
