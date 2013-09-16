@@ -598,24 +598,30 @@ function muralwebhook() {
   if (is_array($results['node']) && !empty($results['node'])) {
     $the_nids = array_keys($results['node']);
     $nodes = node_load_multiple($the_nids);
+    watchdog('notification', 'Mural node info 601: <pre>' . print_r($nodes, TRUE) . '</pre>');
     //dpm($nodes);
     if (is_array($nodes) && count($nodes) >= 1) {
       $node = current($nodes);
       //dpm($node);
+      watchdog('notification', 'Mural node info 606: <pre>' . print_r($node, TRUE) . '</pre>');
       $the_node_author_id = $node->uid;
 
       // get the author's mural username
       $author_account = user_load($the_node_author_id);
      // dpm($author_account);
       if (isset($author_account->name)) {
+        watchdog('notification', 'Mural account info 613: <pre>' . print_r($author_account, TRUE) . '</pre>');
         $field_owner_muraluser = field_get_items('user', $author_account, 'field_muralusername');
         if ($field_owner_muraluser) {
           $owner_muraluser = $field_owner_muraluser[0]['value'];
           $owner_mail = $author_account->mail;
-          dpm($owner_muraluser);
+          watchdog('notification', 'Mural owner info 618: <pre>' . print_r($owner_muraluser, TRUE) . '</pre>');
+//           dpm($owner_muraluser);
           // If the modifier is not the mural owner, then send an notification email to the owner
           if ($owner_muraluser != $the_visitor_muraluser_name) {
             $params = array('node' => $node);
+
+            watchdog('notification', 'Mural visitor info 624: <pre>' . print_r($the_visitor_muraluser_name, TRUE) . '</pre>');
 
             $result = drupal_mail('themuraly', 'mural_updated', $owner_mail, language_default(), $params);
             if ($result['result'] != TRUE) {
