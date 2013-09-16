@@ -132,7 +132,7 @@ function themuraly_menu() {
     'page callback' => 'themuraly_invite_share',
     'page arguments' => array(3, 4, 5),
     'access arguments' => array('access content'),
-    'type' => MENU_NORMAL_ITEM,
+    'type' => MENU_CALLBACK,
   );
 
   $items['mural/ajax_link_callback'] = array();
