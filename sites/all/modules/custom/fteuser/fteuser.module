@@ -156,11 +156,12 @@ function fteuser_user_register_submit($form, &$form_state) {
 
 function fteuser_menu_alter(&$items) {
   $items['user/reset/%/%/%']['page callback'] = 'fteuser_userreset';
-  
+
 }
 
 function fteuser_userreset($p, $uid, $timestamp, $hashed_pass) {
 
+  watchdog('Invite Share', 'User reset in fteuser.');
 
   global $user;
   global $base_url;
@@ -184,10 +185,10 @@ function fteuser_userreset($p, $uid, $timestamp, $hashed_pass) {
   } else {
     $current = REQUEST_TIME;
     $users = user_load_multiple(array($uid), array('status' => '0'));
-    
+
     $account = reset($users);
     $account =  user_load($uid) ;
-    
+
     if ($account) {
       $status = $account->status;
       if ($status == 1) {
@@ -214,9 +215,9 @@ function fteuser_userreset($p, $uid, $timestamp, $hashed_pass) {
           }
         }
       }
-      
-    } 
-      
+
+    }
+
     }
   }
 
