@@ -1161,10 +1161,22 @@ function _user_update_invite($uid, $nid, $mid) {
   $account = user_load($uid);
   _update_user_share_with_me($account, $mid);
 
+  $fieldinfo = field_get_items('user', $account, 'field_muralusername');
+  if ($fieldinfo) {
+    $muralusername = $fieldinfo[0]['value'];
+  }
+
+  $field_mural_share_with_me = field_get_items('user', $account, 'field_mural_share_with_me');
+
+  if ($field_mural_share_with_me) {
+    $mural_share_with_me = $field_mural_share_with_me[0]['value'];
+  }
+
   watchdog('Invite Share' , 'Share node info: <pre>' . print_r($share_node, TRUE) . '</pre>');
 
+//   /mural/share/dev_student1/1379300425095#1379336277.381
   drupal_goto('home', array(
-    'fragment' => 'mural/' . $mid,
+    'fragment' => 'mural/share/'. $muralusername . '/' . $mid,
 //     'query' => array('pass-reset-token' => $token),
   ));
 }
