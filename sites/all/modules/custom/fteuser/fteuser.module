@@ -161,7 +161,7 @@ function fteuser_menu_alter(&$items) {
 
 function fteuser_userreset($p, $uid, $timestamp, $hashed_pass) {
 
-  watchdog('Invite Share', 'User reset in fteuser.');
+  watchdog('Invite Share', 'User reset in fteuser. and $p = ' . $p);
 
   global $user;
   global $base_url;
