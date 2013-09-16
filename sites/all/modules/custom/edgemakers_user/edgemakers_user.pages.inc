@@ -174,22 +174,24 @@ function edgemakers_user_profile_settings_form_submit($form, &$form_state) {
     $images = field_get_items('node', $node, 'field_sitebg_image');
     $imageUri = $images && count($images) > 0 ? $images[0]['uri'] : '';
     $fid = $images && count($images) > 0 ? $images[0]['fid'] : '';
-    $file = file_load($fid);
-    $file->uid = $account->uid;
-    $image_info = image_get_info($imageUri);
-    $filename = 'bgimage-' . $account->uid . '.' . $image_info['extension'];
-    $destination = file_stream_wrapper_uri_normalize($bgimage_directory . '/' . $filename);
-    if($file = file_copy($file, $destination, FILE_EXISTS_REPLACE)) {
-      $file->status = FILE_STATUS_PERMANENT;
-      $old_fid = $form_state['values']['field_profile_background'][LANGUAGE_NONE][0]['fid'];
-      if($old_fid) {
-        $old_file = file_load($old_fid);
-        if($old_file) {
-          file_usage_delete($old_file, 'file', 'user', $account->uid);
-          file_delete($old_file);
+    if ($fid) {
+      $file = file_load($fid);
+      $file->uid = $account->uid;
+      $image_info = image_get_info($imageUri);
+      $filename = 'bgimage-' . $account->uid . '-' . REQUEST_TIME . '.' . $image_info['extension'];
+      $destination = file_stream_wrapper_uri_normalize($bgimage_directory . '/' . $filename);
+      if($file = file_copy($file, $destination, FILE_EXISTS_REPLACE)) {
+        $file->status = FILE_STATUS_PERMANENT;
+        $old_fid = $form_state['values']['field_profile_background'][LANGUAGE_NONE][0]['fid'];
+        if($old_fid) {
+          $old_file = file_load($old_fid);
+          if($old_file) {
+            file_usage_delete($old_file, 'file', 'user', $account->uid);
+            file_delete($old_file);
+          }
         }
+        $form_state['values']['field_profile_background'][LANGUAGE_NONE][0] = (array)$file;
       }
-      $form_state['values']['field_profile_background'][LANGUAGE_NONE][0] = (array)$file;
     }
   }
 

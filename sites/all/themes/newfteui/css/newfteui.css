@@ -806,6 +806,10 @@ div.ctools-modal-content .form-item .description{
 }
 .toolbar-item .item-list li{
 	padding:3px 5px;
+	color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* stage-selector */

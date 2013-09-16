@@ -188,6 +188,12 @@ ul#studio-mural-list li a.studio-mural-list-item-link {
   transition: all 0.3s linear;
   color:#fff;
 }
+.set-cover h5{
+	color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
 #topic-mural-list li:hover .set-cover,
 #gallery-mural-list li:hover .set-cover,
@@ -286,7 +292,9 @@ form.node-murals-form.node-form div.form-item label
    padding: 5px 0;
    margin: 0;
 }
-
+#modal-content form.node-murals-form.node-form div.form-item.form-item-field-city-und-0-delete-location{
+	display:none;
+}
 #modal-content .node-murals-form .form-textarea-wrapper textarea{
 	border: 1px solid #E6E9EA;
     box-shadow: 0 2px 3px #EEEEEE inset;
