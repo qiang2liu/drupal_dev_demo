@@ -1188,6 +1188,16 @@ function _user_update_invite($uid, $nid, $mid) {
   $data = $result_share->data;
   watchdog('Mural Share', 'Ensure share. <pre>' . print_r($data, TRUE) . '</pre>');
 
+  //Ensure share mural is share property is TRUE.
+  $fieldinfo = field_get_items('user', $account, 'field_muralusername');
+  if ($fieldinfo) {
+    $muraluser_invite = $fieldinfo[0]['value'];
+  }
+  $mural_api = new Muralapi;
+  $result = $mural_api->invite_user_mural($muralusername, $mural_id, array($muraluser_invite));
+  $data = $result_share->data;
+  watchdog('Mural Share', 'Ensure member: <pre>' . print_r($data, TRUE) . '</pre>');
+
 //   $fieldinfo = field_get_items('user', $account, 'field_muralusername');
 //   if ($mural_info) {
 //     $muralusername = $fieldinfo[0]['value'];
