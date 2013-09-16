@@ -1161,11 +1161,6 @@ function _user_update_invite($uid, $nid, $mid) {
   $account = user_load($uid);
   _update_user_share_with_me($account, $mid);
 
-  $fieldinfo = field_get_items('user', $account, 'field_muralusername');
-  if ($fieldinfo) {
-    $muralusername = $fieldinfo[0]['value'];
-  }
-
   $field_mural_share_with_me = field_get_items('user', $account, 'field_mural_share_with_me');
 
   if ($field_mural_share_with_me) {
@@ -1178,6 +1173,16 @@ function _user_update_invite($uid, $nid, $mid) {
   if ($field_muralid_info) {
     $mural_id = $field_muralid_info[0]['value'];
   }
+
+  $field_muralid_user = field_get_items('node', $mural_info, 'field_muraluser');
+  if ($field_muralid_user) {
+    $muralusername = $field_muralid_user[0]['value'];
+  }
+
+//   $fieldinfo = field_get_items('user', $account, 'field_muralusername');
+//   if ($mural_info) {
+//     $muralusername = $fieldinfo[0]['value'];
+//   }
 
   watchdog('Invite Share' , 'Share node info: <pre>' . print_r($share_node, TRUE) . '</pre>');
 
