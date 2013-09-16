@@ -969,6 +969,8 @@ function _user_relogin($uid) {
 
 function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '', $hashed_pass = '') {
 
+  watchdog('Invite Share' , 'User uid: ' . $uid . '| Node nid: ' . $nid . ' | Timestamp: ' . $timestamp . ' | Hash password: ' . $hashed_pass);
+
   if ($uid == 1) {
     return FALSE;
   }
