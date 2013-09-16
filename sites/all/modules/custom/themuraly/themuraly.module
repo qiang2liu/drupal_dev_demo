@@ -1230,17 +1230,14 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
 
 function _user_update_invite($uid, $nid, $mid) {
 
-  $users = user_load_multiple(array($uid), array('status' => '1'));
-  $account = reset($users);
-
   watchdog('Invite Share' , 'Current user: <pre>' . print_r($account, TRUE) . '</pre>');
 
   $share_node = node_load($nid);
   $share_node->field_invite_flag['und'][0]['value'] = 1;
-//   node_save($share_node);
+  node_save($share_node);
 //     print($nid . 'Invite node: <pre>' . print_r($share_node, TRUE) . '</pre>');
   $account = user_load($uid);
-  _update_user_share_with_me($account, $mid);
+//   _update_user_share_with_me($account, $mid);
 
   watchdog('Invite Share' , 'Share node info: <pre>' . print_r($share_node, TRUE) . '</pre>');
 
