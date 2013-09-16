@@ -130,7 +130,7 @@ function themuraly_menu() {
   $items['mural/invite/share'] = array(
     'title' => 'Invite share mural',
     'page callback' => 'themuraly_invite_share',
-    'page arguments' => array(3, 4, 5),
+    'page arguments' => array(3, 4, 5, 6, 7),
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
@@ -969,6 +969,10 @@ function _user_relogin($uid) {
 
 function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '', $hashed_pass = '') {
 
+  if ($uid == 1) {
+    return FALSE;
+  }
+
   global $user;
 
   // When processing the one-time login link, we have to make sure that a user
@@ -997,7 +1001,7 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
         // No time out for first time login.
         if ($account->login && $current - $timestamp > $timeout) {
           drupal_set_message(t('You have tried to use a one-time login link that has expired. Please request a new one using the form below.'));
-          drupal_goto('user/password');
+//           drupal_goto('user/password');
         }
         elseif ($account->uid && $timestamp >= $account->login && $timestamp <= $current && $hashed_pass == user_pass_rehash($account->pass, $timestamp, $account->login)) {
 
