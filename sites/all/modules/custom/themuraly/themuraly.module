@@ -1306,7 +1306,7 @@ Hi,<br/>
 <br/>
 [current-user:field_firstname] [current-user:field-lastname] shared a mural with you:<br/>
 <br/>
-If you agree with the invitation, please click <a href="[site:url]mural/invite/share/{$node->invite_uid}/$timestamp/$haspasswd/{$node->invite_nid}/{$node->nid}">[site:url]mural/invite/share/{$node->invite_uid}/$timestamp/$haspasswd/{$node->invite_nid}/{$node->nid}</a> to open the mural.<br/>
+If you agree with the invitation, please click <a href="[site:url]user/reset/{$node->invite_uid}/$timestamp/$haspasswd/{$node->invite_nid}/{$node->nid}">[site:url]user/reset/{$node->invite_uid}/$timestamp/$haspasswd/{$node->invite_nid}/{$node->nid}</a> to open the mural.<br/>
 <br/>
 <br/>
 --  [site:name] team
