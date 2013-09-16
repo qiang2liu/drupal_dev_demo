@@ -145,7 +145,7 @@ function themuraly_menu() {
 //   );
 
   $items['mural/invite/%/%/%'] = array(
-    'title' => 'Reset password',
+    'title' => 'Reset password in themuraly.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('themuraly_invite_share_form', 2, 3, 4),
     'access callback' => TRUE,
