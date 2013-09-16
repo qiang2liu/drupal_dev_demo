@@ -984,35 +984,53 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
 
       watchdog('Invite Share' , "session_destroy()");
 
+      // Relogin by url uid, copy from function user_pass_reset() in user.pages.inc.
+      $action = 'login';
+
+      // Time out, in seconds, until login URL expires. Defaults to 24 hours =
+      // 86400 seconds.
+      $timeout = variable_get('user_password_reset_timeout', 86400);
       $current = REQUEST_TIME;
-      $users = user_load_multiple(array($uid), array('status' => '0'));
+      // Some redundant checks for extra security ?
+      $users = user_load_multiple(array($uid), array('status' => '1'));
+      if ($timestamp <= $current && $account = reset($users)) {
+        // No time out for first time login.
+        if ($account->login && $current - $timestamp > $timeout) {
+          drupal_set_message(t('You have tried to use a one-time login link that has expired. Please request a new one using the form below.'));
+          drupal_goto('user/password');
+        }
+        elseif ($account->uid && $timestamp >= $account->login && $timestamp <= $current && $hashed_pass == user_pass_rehash($account->pass, $timestamp, $account->login)) {
 
-      $account = reset($users);
-      $account =  user_load($uid) ;
+          watchdog('Invite Share' , "URL auto login hashed_pass: <pre>" . print_r($hashed_pass, TRUE) . '</pre>');
 
-      watchdog('Invite Share' , "URL user account<pre>" . print_r($account, TRUE) . '</pre>');
-
-      if ($account) {
-        $status = $account->status;
-        if ($status == 1) {
-          if ($account->uid && $timestamp >= $account->login && $timestamp <= $current && $hashed_pass == user_pass_rehash($account->pass, $timestamp, $account->login)) {
+          // First stage is a confirmation form, then login
+          if ($action == 'login') {
+            // Set the new user.
             $user = $account;
+            // user_login_finalize() also updates the login timestamp of the
+            // user, which invalidates further use of the one-time login link.
             user_login_finalize();
+
+            // Let the user's password be changed without the current password check.
+            $token = drupal_hash_base64(drupal_random_bytes(55));
+            $_SESSION['pass_reset_' . $user->uid] = $token;
+
+            watchdog('Invite Share' , 'URL auto login sucess');
+
             _user_update_invite($uid, $nid, $mid);
+
+//             drupal_goto('user/' . $user->uid . '/edit', array('query' => array('pass-reset-token' => $token)));
+          }
+          else {
+            $form['message'] = array('#markup' => t('<p>This is a one-time login for %user_name and will expire on %expiration_date.</p><p>Click on this button to log in to the site and change your password.</p>', array('%user_name' => $account->name, '%expiration_date' => format_date($timestamp + $timeout))));
+            $form['help'] = array('#markup' => '<p>' . t('This login can be used only once.') . '</p>');
+            $form['actions'] = array('#type' => 'actions');
+            $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Log in'));
+            $form['#action'] = url("user/reset/$uid/$timestamp/$hashed_pass/login");
+            return $form;
           }
         }
-        else {
-          if ($account->uid && $timestamp >= $account->login && $timestamp <= $current && $hashed_pass == user_pass_rehash($account->pass, $timestamp, $account->login)) {
-
-            $account = user_save($account, array('status' => 1));
-            if ($account) {
-              $user = $account;
-              user_login_finalize();
-              _user_update_invite($uid, $nid, $mid);
-            }
-          }
-
-        }
+      }
 
         watchdog('Invite Share' , "URL user auto login info: <pre>" . print_r($user, TRUE) . '</pre>');
 
@@ -1163,7 +1181,7 @@ Hi,<br/>
 <br/>
 [current-user:field_firstname] [current-user:field-lastname] shared a mural with you:<br/>
 <br/>
-If you agree with the invitation, please click <a href="[site:url]?q=mural/invite/share/{$node->invite_uid}/{$node->invite_nid}/{$node->nid}/$timestamp/$haspasswd">[site:url]?q=mural/invite/share/{$node->invite_uid}/{$node->invite_nid}/{$node->nid}/$timestamp/$haspasswd</a> to open the mural.<br/>
+If you agree with the invitation, please click <a href="[site:url]mural/invite/share/{$node->invite_uid}/{$node->invite_nid}/{$node->nid}/$timestamp/$haspasswd">[site:url]mural/invite/share/{$node->invite_uid}/{$node->invite_nid}/{$node->nid}/$timestamp/$haspasswd</a> to open the mural.<br/>
 <br/>
 <br/>
 --  [site:name] team
