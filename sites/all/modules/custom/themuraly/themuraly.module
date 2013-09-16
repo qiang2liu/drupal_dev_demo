@@ -1300,6 +1300,7 @@ function _send_share_mail($node = array(), $mail_to_share = '') {
 //   user_pass_reset_url($account);
 
   $reset_url = url("user/reset/$account->uid/$timestamp/" . user_pass_rehash($account->pass, $timestamp, $account->login), array('absolute' => TRUE));
+  $mural_url = url("mural/invite/share/$account->uid/$timestamp/" . user_pass_rehash($account->pass, $timestamp, $account->login), array('absolute' => TRUE). '/' . $node->invite_nid . '/' . $node->nid);
 
 $default_subject = <<<EOT
 [current-user:field_firstname] [current-user:field-lastname] shared a mural with you
@@ -1310,9 +1311,10 @@ Hi,<br/>
 <br/>
 [current-user:field_firstname] [current-user:field-lastname] shared a mural with you:<br/>
 <br/>
-If you agree with the invitation, please click <a href="[site:url]user/reset/{$node->invite_uid}/$timestamp/$haspasswd/{$node->invite_nid}/{$node->nid}">[site:url]user/reset/{$node->invite_uid}/$timestamp/$haspasswd/{$node->invite_nid}/{$node->nid}</a> to open the mural.<br/>
+If you agree with the invitation, please click <a href="[site:url]mural/invite/share/{$node->invite_uid}/$timestamp/$haspasswd/{$node->invite_nid}/{$node->nid}">[site:url]mural/invite/share/{$node->invite_uid}/$timestamp/$haspasswd/{$node->invite_nid}/{$node->nid}</a> to open the mural.<br/>
 
     $reset_url
+    $mural_url
 
 <br/>
 <br/>
