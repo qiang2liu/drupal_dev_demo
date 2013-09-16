@@ -136,12 +136,21 @@ function themuraly_menu() {
 //     'type' => MENU_CALLBACK,
 //   );
 
-  $items['mural/invite/share/%/%/%/%/%/%'] = array(
+//   $items['mural/invite/%/%/%'] = array(
+//     'title' => 'Reset password',
+//     'page callback' => 'drupal_get_form',
+//     'page arguments' => array('themuraly_invite_share_form', 3, 4, 5, 'login', 6, 7, 8),
+//     'access callback' => TRUE,
+//     'type' => MENU_CALLBACK,
+//   );
+
+  $items['mural/invite/%/%/%'] = array(
     'title' => 'Reset password',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('themuraly_invite_share_form', 3, 4, 5, 'login', 6, 7, 8),
+    'page arguments' => array('user_pass_reset', 2, 3, 4),
     'access callback' => TRUE,
     'type' => MENU_CALLBACK,
+    'file' => 'user.pages.inc',
   );
 
   $items['mural/ajax_link_callback'] = array();
@@ -149,7 +158,8 @@ function themuraly_menu() {
 }
 
 
-function themuraly_invite_share_form($form, &$form_state, $uid, $timestamp, $hashed_pass, $action = NULL, $nid = '', $mid = '') {
+// function themuraly_invite_share_form($form, &$form_state, $uid, $timestamp, $hashed_pass, $action = NULL, $nid = '', $mid = '') {
+function themuraly_invite_share_form($p, $uid, $timestamp, $hashed_pass) {
 
   watchdog('Invitie Share', '$mid = ' . $mid);
 
@@ -1294,7 +1304,7 @@ function _send_share_mail($node = array(), $mail_to_share = '') {
 //   user_pass_reset_url($account);
 
   $reset_url = url("user/reset/$account->uid/$timestamp/" . user_pass_rehash($account->pass, $timestamp, $account->login), array('absolute' => TRUE));
-  $mural_url = url("mural/invite/share/$account->uid/$timestamp/" . user_pass_rehash($account->pass, $timestamp, $account->login) . '/' . $node->invite_nid . '/' . $node->nid, array('absolute' => TRUE));
+  $mural_url = url("mural/invite/$account->uid/$timestamp/" . user_pass_rehash($account->pass, $timestamp, $account->login) . '/' . $node->invite_nid . '/' . $node->nid, array('absolute' => TRUE));
 
 $default_subject = <<<EOT
 [current-user:field_firstname] [current-user:field-lastname] shared a mural with you
@@ -1305,7 +1315,7 @@ Hi,<br/>
 <br/>
 [current-user:field_firstname] [current-user:field-lastname] shared a mural with you:<br/>
 <br/>
-If you agree with the invitation, please click <a href="[site:url]mural/invite/share/{$node->invite_uid}/$timestamp/$haspasswd/{$node->invite_nid}/{$node->nid}">[site:url]mural/invite/share/{$node->invite_uid}/$timestamp/$haspasswd/{$node->invite_nid}/{$node->nid}</a> to open the mural.<br/>
+If you agree with the invitation, please click <a href="[site:url]mural/invite/{$node->invite_uid}/$timestamp/$haspasswd/{$node->invite_nid}/{$node->nid}">[site:url]mural/invite/{$node->invite_uid}/$timestamp/$haspasswd/{$node->invite_nid}/{$node->nid}</a> to open the mural.<br/>
 
     $reset_url
     $mural_url
