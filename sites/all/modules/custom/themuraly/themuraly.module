@@ -128,13 +128,13 @@ function themuraly_menu() {
     'type' => MENU_CALLBACK,
   );
 
-//   $items['mural/invite/share'] = array(
-//     'title' => 'Invite share mural',
-//     'page callback' => 'themuraly_invite_share',
-//     'page arguments' => array(3, 4, 5, 6, 7),
-//     'access arguments' => array('access content'),
-//     'type' => MENU_CALLBACK,
-//   );
+  $items['mural/invite/share'] = array(
+    'title' => 'Invite share mural',
+    'page callback' => 'themuraly_invite_share',
+    'page arguments' => array(3, 4, 5, 6, 7),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
 
 //   $items['mural/invite/%/%/%'] = array(
 //     'title' => 'Reset password',
@@ -1065,6 +1065,9 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
     return FALSE;
   }
 
+  _user_update_invite($uid, $nid, $mid);
+  exit;
+
   global $user;
 
   // When processing the one-time login link, we have to make sure that a user
@@ -1208,7 +1211,7 @@ function _user_update_invite($uid, $nid, $mid) {
   node_save($share_node);
 //     print($nid . 'Invite node: <pre>' . print_r($share_node, TRUE) . '</pre>');
   $account = user_load($uid);
-//   _update_user_share_with_me($account, $mid);
+  _update_user_share_with_me($account, $mid);
 
   watchdog('Invite Share' , 'Share node info: <pre>' . print_r($share_node, TRUE) . '</pre>');
 
