@@ -127,6 +127,14 @@ function themuraly_menu() {
     'type' => MENU_CALLBACK,
   );
 
+  $items['mural/invite/share'] = array(
+    'title' => 'Invite share mural',
+    'page callback' => 'themuraly_invite_share',
+    'page arguments' => array(3, 4, 5),
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
   $items['mural/ajax_link_callback'] = array();
   return $items;
 }
@@ -818,7 +826,6 @@ function _themuralyajax_validate($form, &$form_state) {
       }
     }
 
-
     // Validation location info.
     $validate_city = $form_state['values']['field_city'][LANGUAGE_NONE][0]['city'];
     $validate_county = $form_state['values']['field_city'][LANGUAGE_NONE][0]['country'];
@@ -839,18 +846,30 @@ function _themuralyajax_validate($form, &$form_state) {
         $account = user_load_by_name($mail_to_share);
         $send_email = $account->mail;
 
-        // Invite user.
-        $fieldinfo = field_get_items('user', $account, 'field_muralusername');
-        if ($fieldinfo) {
-          $muraluser_invite = $fieldinfo[0]['value'];
-        }
-        $mural_api = new Muralapi;
-        $result = $mural_api->invite_user_mural($muralusername, $the_muralid, array($muraluser_invite));
-        watchdog('Mural share' , 'Invite API result:<pre>' . print_r($result, TRUE) . '</pre>');
+        // Invite user by log in node;
+        $invite = array();
+        $invite['ower']['uid'] = $user->uid;
+        $invite['ower']['username'] = $user->name;
+        $invite['invite_user']['uid'] = $account->uid;
+        $invite['invite_user']['username'] = $account->name;
+        $invite['nid'] = $the_nid;
+        $invite_node = _create_new_invite($invite);
+
+        $the_mural->invite_uid = $account->uid;
+        $the_mural->invite_nid = $invite_node->nid;
+
+        // Invite user by Mural API.
+//         $fieldinfo = field_get_items('user', $account, 'field_muralusername');
+//         if ($fieldinfo) {
+//           $muraluser_invite = $fieldinfo[0]['value'];
+//         }
+//         $mural_api = new Muralapi;
+//         $result = $mural_api->invite_user_mural($muralusername, $the_muralid, array($muraluser_invite));
+        watchdog('Mural share' , 'Invite API result:<pre>' . print_r($the_mural, TRUE) . '</pre>');
         // End invite.
 
         // Update account share with me.
-        _update_user_share_with_me($account, $the_nid);
+//         _update_user_share_with_me($account, $the_nid);
 
         if (_send_share_mail($the_mural, $send_email)) {
           watchdog('Mural Share', $user->name . ' share mural to ' . $mail_to_share);
@@ -873,6 +892,46 @@ function _themuralyajax_validate($form, &$form_state) {
   }
 }
 
+function themuraly_invite_share($uid = '', $nid = '', $mid ='') {
+  if ($nid) {
+    $share_node = node_load($nid);
+    $share_node->field_invite_flag['und'][0]['value'] = 1;
+    node_save($share_node);
+//     print($nid . 'Invite node: <pre>' . print_r($share_node, TRUE) . '</pre>');
+    $account = user_load($uid);
+    _update_user_share_with_me($account, $mid);
+    drupal_goto('home', array(
+      'fragment' => 'mural/' . $mid,
+//       'query' => array(
+//         'mural' => $mid,
+//       ),
+    ));
+  }
+}
+
+function _create_new_invite($invite = array()) {
+  $newNode = (object) NULL;
+  $newNode->type = 'mural_invite_info';
+  $newNode->title = $invite['ower']['username'] . ' invite ' . $invite['invite_user']['username'];
+  $newNode->created = strtotime("now");
+  $newNode->changed = strtotime("now");
+  $newNode->status = 1;
+  $newNode->comment = 0;
+  $newNode->promote = 0;
+  $newNode->moderate = 0;
+  $newNode->sticky = 0;
+  $newNode->language = 'und';
+
+  // Custom field.
+  $newNode->field_mural_ower['und'][0]['value'] = $invite['ower']['uid'];
+  $newNode->field_invite_user['und'][0]['value'] = $invite['invite_user']['uid'];
+  $newNode->field_mural_nid['und'][0]['value'] = $invite['nid'];
+
+  node_object_prepare($newNode);
+  node_save($newNode);
+
+  return $newNode;
+}
 
 function _valid_location_address($country = '', $city = '') {
   if ($country && $city) {
@@ -938,7 +997,7 @@ Hi,<br/>
 <br/>
 [current-user:field_firstname] [current-user:field-lastname] shared a mural with you:<br/>
 <br/>
-If you agree with the invitation, please click <a href="[site:url]home#mural/share/[node:author]/[node:vid]">[site:url]home#mural/[node:vid]</a> to open the mural.<br/>
+If you agree with the invitation, please click <a href="[site:url]?q=mural/invite/share/{$node->invite_uid}/{$node->invite_nid}/{$node->nid}">[site:url]?q=mural/invite/share/{$node->invite_uid}/{$node->invite_nid}/{$node->nid}</a> to open the mural.<br/>
 <br/>
 <br/>
 --  [site:name] team
@@ -961,7 +1020,7 @@ EOT;
     $m_body = token_replace($default_body, array('node' => $node), array('language' => $language));
 //     $mbody = token_replace($text, array('node' => $node), array('language' => $language, 'sanitize' => FALSE, 'clear' => TRUE));
 
-//     watchdog('Mural share', 'Body replace token is: ' . $mbody);
+    watchdog('Mural share', 'Body replace token is: ' . $default_body);
 
     $m->from = variable_get('themuraly_mail_sender', 'no-reply@trueresults.com');
     $m->return = variable_get('themuraly_mail_return', 'no-reply@trueresults.com');
@@ -1069,6 +1128,12 @@ function muralapi_create_room($mural_api, $muralusername, $title, $account) {
 }
 
 function muralapi_test() {
+
+  global $user;
+
+  print('Test: <pre>' . print_r($user, TRUE) . '</pre>');
+  dpm($user);
+
   $output_html = '';
 
 //   include_once('mural_op.inc');
