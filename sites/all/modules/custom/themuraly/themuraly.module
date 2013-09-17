@@ -846,9 +846,11 @@ function _update_user_share_with_me($account = array(), $nid = '') {
 }
 
 function _themuralyajax_validate($form, &$form_state) {
+
   global $user;
   form_load_include($form_state, 'inc', 'node', 'node.pages');
 
+//   watchdog('Mural Settings', 'Formstate data: <pre>' . print_r($form_state, TRUE) . '</pre>');
   // Debug
 //   dpm($form_state);
 //   form_set_error($the_form_ele, t('can\'t update the mural properties.'));
@@ -865,6 +867,16 @@ function _themuralyajax_validate($form, &$form_state) {
     $lang = $form_state['values']['language'];
     $muralshared = $form_state['values']['field_muralshared'][$lang][0]['value'];
     $property_array['shared'] = (bool) $muralshared;
+
+    $share_to_gallery = $form_state['values']['field_share_to_gallery'][$lang][0]['value'];
+
+    if (!$muralshared) {
+      if ($share_to_gallery) {
+        form_set_error('field_muralshared', t('Must set public in privacy when you choice "Share to gallery"'));
+      }
+    }
+
+//     form_set_error('field_muralshared', t('Must set public in privacy when you choice "Share to gallery"'));
 
     // invoked by submit button, not ajax button :'invite'
     $the_nid = $form_state['values']['nid'];
@@ -897,7 +909,7 @@ function _themuralyajax_validate($form, &$form_state) {
                 $mural_api = new Muralapi;
                 $property_name = $k;
                 $property_value = $v;
-//                 $result = $mural_api->update_mural_properties($muralusername, $the_muralid, $property_name, $property_value);
+                $result = $mural_api->update_mural_properties($muralusername, $the_muralid, $property_name, $property_value);
 
                 if (is_object($result) && isset($result->data)) {
                   $data = $result->data;
@@ -912,7 +924,7 @@ function _themuralyajax_validate($form, &$form_state) {
                 }
               }
 
-              //Update the thumburl when update the node.
+              // Update the thumburl when update the node.
               $mural_api = new Muralapi;
               $result = $mural_api->retrieve_a_mural($muralusername, $the_muralid);
               $data = $result->data;
@@ -1523,10 +1535,12 @@ function _test_retrieve_a_mural() {
   $muralid = '1375252809540';
 
   $username = 'dev_student1';
+  $username = 'lugaltest';
   $muralid = '1379327802962';
   $muralid = '1379337407854';
   $muralid = '1379338377473';
   $muralid = '1379338517428';
+  $muralid = '1379040192281';
 
   $mural_api = new Muralapi;
   $result = $mural_api->retrieve_a_mural($username, $muralid);
@@ -1696,6 +1710,13 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
   else {
     $conditions['field'][] = array(
       'field' => 'field_share_to_gallery',
+      'column' => 'value',
+      'value' => '1',
+      'operator' => '=',
+    );
+    // Mural share property.
+    $conditions['field'][] = array(
+      'field' => 'field_muralshared',
       'column' => 'value',
       'value' => '1',
       'operator' => '=',
@@ -2347,6 +2368,10 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
     // Join "Share to gallery" field.
     $query->innerJoin('field_data_field_share_to_gallery','field_gallery','n.nid = field_gallery.entity_id');
     $query->condition('field_gallery.field_share_to_gallery_value', 1);
+
+    // Join "Mural share propty".
+    $query->innerJoin('field_data_field_muralshared','field_muralshared','n.nid = field_muralshared.entity_id');
+    $query->condition('field_muralshared.field_muralshared_value', 1);
 
     // Join  field_tags table and term table.
     $query->leftJoin('field_data_field_tags','field_tags','n.nid = field_tags.entity_id');
