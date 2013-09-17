@@ -1,3 +1,8 @@
+/**
+ * @file 
+ * edgemakers module js file.
+ */
+
 jQuery(document).ready(function(){
   media_ajax_load_list();
   studio_media_list_ajax_load();
