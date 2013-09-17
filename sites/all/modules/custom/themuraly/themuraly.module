@@ -872,7 +872,7 @@ function _themuralyajax_validate($form, &$form_state) {
 
     if (!$muralshared) {
       if ($share_to_gallery) {
-        form_set_error('field_muralshared', t('Must set public in privacy when you choice "Share to gallery"'));
+        form_set_error('field_muralshared', t('Privacy must public while "Share to gallery"'));
       }
     }
 
@@ -1172,6 +1172,7 @@ function _user_update_invite($uid, $nid, $mid) {
 //     print($nid . 'Invite node: <pre>' . print_r($share_node, TRUE) . '</pre>');
   $account = user_load($uid);
   _update_user_share_with_me($account, $mid);
+  watchdog('Mural Share', $mid . ': _update_user_share_with_me result: <pre>' . print_r($account, TRUE) . '</pre>');
 
   $field_mural_share_with_me = field_get_items('user', $account, 'field_mural_share_with_me');
 
