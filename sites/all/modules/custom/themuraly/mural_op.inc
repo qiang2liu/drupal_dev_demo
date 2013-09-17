@@ -595,6 +595,8 @@ function muralwebhook() {
 
   $the_mural_id = $new_mural_id;
 
+  watchdog('notification', 'Mural node info 598 get mural id: <pre>' . print_r($the_mural_id, TRUE) . '</pre>');
+
   $the_visitor_muraluser_name = $the_data['userId']; ;  //who accessing the mural, mural username
   //$the_visitor_muraluser_name = 'lwgmuralppp';  // mock data
   //get the drupal node according the mural id
@@ -604,7 +606,7 @@ function muralwebhook() {
           ->fieldCondition('field_muralid', 'value', $the_mural_id, '=');
   $results = $query->execute();
 
-  watchdog('notification', 'Mural node info 606: <pre>' . print_r($results, TRUE) . '</pre>');
+  watchdog('notification', 'Mural node info 609: <pre>' . print_r($results, TRUE) . '</pre>');
 
   //dpm($results);
   if (is_array($results['node']) && !empty($results['node'])) {
