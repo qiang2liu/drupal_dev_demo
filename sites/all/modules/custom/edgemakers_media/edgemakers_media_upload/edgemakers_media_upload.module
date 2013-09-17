@@ -1,6 +1,8 @@
 <?php
+
 /**
- * @file edgemarkes media upload
+ * @file
+ * Edgemarkes media upload
  */
 
 
@@ -28,51 +30,42 @@ function edgemakers_media_upload_menu() {
     'access arguments' => array('administer site configuration'),
   );
 
-  //ajax callback add new organization
-  $items['ajax/upload/%ctools_js/media'] = array(
-    'title' => 'Upload media',
-    'page callback' => 'edgemakers_media_upload_new',
-    'page arguments' => array(2),
-    'access callback' => TRUE,
-    'type' => MENU_CALLBACK,
-  );
-
   $items['edgemarkers/media/get/list/ajax'] = array(
-    'page callback' => 'edgemakers_media_list_html', // Render HTML
+    'page callback' => 'edgemakers_media_list_html',
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
-    'delivery callback' => 'edgemakers_media_ajax_callback',  // Magic goes here
+    'delivery callback' => 'edgemakers_media_ajax_callback',
     'page arguments' => array(5),
   );
 
   $items['edgemakers/media/info/ajax'] = array(
-  	'page callback' => 'edgemakers_media_view_html', // Render HTML
-  	'type' => MENU_CALLBACK,
-  	'access arguments' => array('access content'),
-  	'delivery callback' => 'edgemakers_stage_ajax_callback',  // Magic goes here
-  	'page arguments' => array(4),
-  	'file path' => drupal_get_path('module', 'edgemakers_stage'),
-  	'file' => 'stage.api.inc',
+    'page callback' => 'edgemakers_media_view_html',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+    'delivery callback' => 'edgemakers_stage_ajax_callback',
+    'page arguments' => array(4),
+    'file path' => drupal_get_path('module', 'edgemakers_stage'),
+    'file' => 'stage.api.inc',
   );
 
   $items['edgemarkers/studio/media/get/list/ajax'] = array(
-  	'page callback' => 'edgemakers_media_list_on_studio', // Render HTML
-  	'type' => MENU_CALLBACK,
-  	'access arguments' => array('access content'),
-  	'delivery callback' => 'edgemakers_stage_ajax_callback',  // Magic goes here
-  	'page arguments' => array(6),
-  	'file path' => drupal_get_path('module', 'edgemakers_stage'),
-  	'file' => 'stage.api.inc',
+    'page callback' => 'edgemakers_media_list_on_studio',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+    'delivery callback' => 'edgemakers_stage_ajax_callback',
+    'page arguments' => array(6),
+    'file path' => drupal_get_path('module', 'edgemakers_stage'),
+    'file' => 'stage.api.inc',
   );
 
   $items['edgemarkers/gallery/media/get/list/ajax'] = array(
-  	'page callback' => 'edgemakers_media_list_on_gallery', // Render HTML
-  	'type' => MENU_CALLBACK,
-  	'access arguments' => array('access content'),
-  	'delivery callback' => 'edgemakers_stage_ajax_callback',  // Magic goes here
-  	'page arguments' => array(6, 7, 8),
-  	'file path' => drupal_get_path('module', 'edgemakers_stage'),
-  	'file' => 'stage.api.inc',
+    'page callback' => 'edgemakers_media_list_on_gallery',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+    'delivery callback' => 'edgemakers_stage_ajax_callback',
+    'page arguments' => array(6, 7, 8),
+    'file path' => drupal_get_path('module', 'edgemakers_stage'),
+    'file' => 'stage.api.inc',
   );
 
   return $items;
@@ -85,12 +78,21 @@ function edgemakers_media_upload_theme_registry_alter(&$theme_registry) {
   $theme_registry['html5_player_default']['path'] = drupal_get_path('theme', 'newfteui');
 }
 
+/**
+ * Media view html function.
+ *
+ * @param int $nid
+ *   - Node id;
+ *
+ * @return Ambigous
+ *   - <The, void, string, A, boolean>|string.
+ */
 function edgemakers_media_view_html($nid) {
-	if ($nid) {
-		$node = node_load($nid);
-		return drupal_render(node_view($node, 'full'));
-	}
-	return 'Media page building.';
+  if ($nid) {
+    $node = node_load($nid);
+    return drupal_render(node_view($node, 'full'));
+  }
+  return 'Media page building.';
 }
 
 /**
@@ -100,72 +102,89 @@ function edgemakers_media_upload_form_alter(&$form, $form_state, $form_id) {
 
   if ($form_id == 'media_for_upload_node_form') {
 
-//     if (arg(0) == 'modal') {
+    form_load_include($form_state, 'inc', 'node', 'node.pages');
 
-    	form_load_include($form_state, 'inc', 'node', 'node.pages');
+    $form['#prefix'] = '<div id="upload-media-ajax-wrapper">';
+    $form['#suffix'] = '</div>';
 
-      $form['#prefix'] = '<div id="upload-media-ajax-wrapper">';
-      $form['#suffix'] = '</div>';
+    $form['title']['#attributes']['placeholder'] = t('MEDIA TITLE');
+    $form['field_media_type'][LANGUAGE_NONE]['#options']['_none'] = t('MEDIA TYPE');
+    $form['field_media_url'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('MEDIA URL');
+    $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('TAGS');
+    $form['field_challenges_category'][LANGUAGE_NONE]['#options']['_none'] = t('CATEGORY');
 
-      $form['title']['#attributes']['placeholder'] = t('MEDIA TITLE');
-      $form['field_media_type'][LANGUAGE_NONE]['#options']['_none'] = t('MEDIA TYPE');
-      $form['field_media_url'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('MEDIA URL')
-      ;
-      $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('TAGS');
-      $form['field_challenges_category'][LANGUAGE_NONE]['#options']['_none'] = t('CATEGORY');
+    unset($form['actions']['preview']);
+    unset($form['actions']['delete']);
 
-      unset($form['actions']['preview']);
-      unset($form['actions']['delete']);
-
-      $vid = taxonomy_vocabulary_machine_name_load('media_file_types')->vid;
-      $terms = taxonomy_get_tree($vid);
-      $videoTid = 0;
-      foreach($terms as $term) {
-        if($term->name == t('Video')) $videoTid = $term->tid;
+    $vid = taxonomy_vocabulary_machine_name_load('media_file_types')->vid;
+    $terms = taxonomy_get_tree($vid);
+    $video_tid = 0;
+    foreach ($terms as $term) {
+      if ($term->name == t('Video')) {
+        $video_tid = $term->tid;
       }
-      $form['field_media_url'][LANGUAGE_NONE][0]['value']['#states'] = array(
-          'visible' => array(':input[name="field_media_type[und]"]' => array('value' => $videoTid))
-      );
-      $form['field_media_upload']['#states'] = array(
-          'invisible' => array(':input[name="field_media_type[und]"]' => array(array('value' => '_none'), array('value' => $videoTid))),
-      );
+    }
+    $form['field_media_url'][LANGUAGE_NONE][0]['value']['#states'] = array(
+      'visible' => array(
+        ':input[name="field_media_type[und]"]' => array(
+          'value' => $video_tid,
+        ),
+      ),
+    );
+    $form['field_media_upload']['#states'] = array(
+      'invisible' => array(
+        ':input[name="field_media_type[und]"]' => array(
+          array(
+            'value' => '_none',
+          ),
+          array(
+            'value' => $video_tid,
+          ),
+        ),
+      ),
+    );
 
-      $form['actions']['submit']['#ajax'] = array(
-        'callback' => 'edgemakers_media_upload_ajax_submit',
-        'wrapper' => 'upload-media-ajax-wrapper',
-      	'method' => 'replace',
-        'effect' => 'fade',
-      );
+    $form['actions']['submit']['#ajax'] = array(
+      'callback' => 'edgemakers_media_upload_ajax_submit',
+      'wrapper' => 'upload-media-ajax-wrapper',
+      'method' => 'replace',
+      'effect' => 'fade',
+    );
 
-      $form['actions']['submit']['#value'] = t('Upload');
+    $form['actions']['submit']['#value'] = t('Upload');
 
-//       $form['#after_build'][] = '_media_upload_form_after_build';
+    array_unshift($form['#validate'], 'edgemakers_media_upload_ajax_validate');
 
-      array_unshift($form['#validate'], 'edgemakers_media_upload_ajax_validate');
-
-//     }
   }
 }
 
+/**
+ * Implements hook_form_after_build() for edgemakers_media_upload_form().
+ */
 function _media_upload_form_after_build($form, $form_state) {
   array_unshift($form['#validate'], 'edgemakers_media_upload_ajax_validate');
   return $form;
 }
 
+/**
+ * Implements hook_form_validate() for edgemakers_media_upload_form_validate().
+ */
 function edgemakers_media_upload_ajax_validate($form, &$form_state) {
   form_load_include($form_state, 'inc', 'node', 'node.pages');
 
   $vals = $form_state['values'];
-	// Validat url while from youtube.
-  $types = isset($vals['field_media_type']) ? $vals['field_media_type'][LANGUAGE_NONE] : null;
+  // Validat url while from youtube.
+  $types = isset($vals['field_media_type']) ? $vals['field_media_type'][LANGUAGE_NONE] : NULL;
   $term = $types && count($types) > 0 ? taxonomy_term_load($types[0]['tid']) : '';
-  if($term) $type = $term->name;
-  if($type == 'Video') {
-    $urls = isset($vals['field_media_url']) ? $vals['field_media_url'][LANGUAGE_NONE] : null;
+  if ($term) {
+    $type = $term->name;
+  }
+  if ($type == 'Video') {
+    $urls = isset($vals['field_media_url']) ? $vals['field_media_url'][LANGUAGE_NONE] : NULL;
     $media_url = $urls && count($urls) > 0 ? $urls[0]['value'] : '';
     $media_type_tid = 0;
     $terms = taxonomy_get_term_by_name('Video', 'media_file_types');
-    if(count($terms > 0)) {
+    if (count($terms > 0)) {
       $media_type_tid = array_shift(array_keys($terms));
     }
     if ($media_url && $media_type_tid) {
@@ -176,30 +195,33 @@ function edgemakers_media_upload_ajax_validate($form, &$form_state) {
         form_set_error('field_media_url[und][0][value]', 'Sorry, it is not a valid YouTube Link');
       }
     }
-  } else {
-    $uploads = isset($vals['field_media_upload']) ? $vals['field_media_upload'][LANGUAGE_NONE] : null;
+  }
+  else {
+    $uploads = isset($vals['field_media_upload']) ? $vals['field_media_upload'][LANGUAGE_NONE] : NULL;
     $file = $uploads && count($uploads) > 0 ? file_load($uploads[0]['fid']) : '';
     $upload = $file->uri;
     $extension = drupal_strtolower(drupal_substr($upload, strrpos($upload, '.') + 1));
-    if($type == 'Image') {
-      $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif');
-    } else if($type == 'Audio') {
-      $allowedExtensions = array('wav', 'aif', 'mp3', 'mid');
-    } else if($type == 'Docs') {
-      $allowedExtensions = array('pdf');
+    if ($type == 'Image') {
+      $allowed_extensions = array('jpg', 'jpeg', 'png', 'gif');
     }
-    if(!in_array($extension, $allowedExtensions)) {
-      form_set_error('field_media_type[und][0][tid]', 'Sorry, only these extensions are available for your selected media type "'.$type.'": '. implode(', ', $allowedExtensions));
+    elseif ($type == 'Audio') {
+      $allowed_extensions = array('wav', 'aif', 'mp3', 'mid');
+    }
+    elseif ($type == 'Docs') {
+      $allowed_extensions = array('pdf');
+    }
+    if (!in_array($extension, $allowed_extensions)) {
+      form_set_error('field_media_type[und][0][tid]',
+        'Sorry, only these extensions are available for your selected media type "'
+        . $type . '": ' . implode(', ', $allowed_extensions)
+      );
     }
   }
 }
 
 
 /**
- * Ajax sumbit new media node.
- *
- * @param object $form
- * @param array $form_state
+ * Implements hook_form_submit() for edgemakers_media_upload_form().
  */
 function edgemakers_media_upload_ajax_submit($form, &$form_state) {
 
@@ -226,46 +248,45 @@ function edgemakers_media_upload_ajax_submit($form, &$form_state) {
 }
 
 /**
- * Implements hook_book_info();
+ * Implements hook_book_info().
  */
 function edgemakers_media_upload_block_info() {
 
   $blocks['media_upload_link'] = array(
-    'info' => t('Media upload link'), //The name that will appear in the block list.
-    'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+    'info' => t('Media upload link'),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
   );
 
   $blocks['media_list'] = array(
-		'info' => t('Media list'), //The name that will appear in the block list.
-		'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+    'info' => t('Media list'),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
   );
 
   $blocks['studio_media_list'] = array(
-		'info' => t('Media list on studio pane'), //The name that will appear in the block list.
-		'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+    'info' => t('Media list on studio pane'),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
   );
 
   $blocks['gallery_media_list'] = array(
-		'info' => t('All media list on gallery pane'), //The name that will appear in the block list.
-		'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+    'info' => t('All media list on gallery pane'),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
   );
 
   $blocks['gallery_video_list'] = array(
-		'info' => t('Video media list on gallery pane'), //The name that will appear in the block list.
-		'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+    'info' => t('Video media list on gallery pane'),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
   );
 
   $blocks['gallery_image_list'] = array(
-		'info' => t('Image media list on gallery pane'), //The name that will appear in the block list.
-		'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+    'info' => t('Image media list on gallery pane'),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
   );
 
   return $blocks;
 }
 
 /**
- * Implements hook_book_view()
- * @param unknown_type $delta
+ * Implements hook_book_view().
  */
 function edgemakers_media_upload_block_view($delta = '') {
 
@@ -274,72 +295,79 @@ function edgemakers_media_upload_block_view($delta = '') {
 
   global $user;
 
-  switch($delta){
+  switch ($delta) {
     case 'media_upload_link':
-
       $link_html = '<div class="toolbar-item test1">';
       $link_html .= _build_ctool_modal_link();
       $link_html .= '</div>';
       $block['content'] = $link_html;
-
       break;
+
     case 'media_list':
-    	$block['subject'] = t('Media List');
-    	$block['content'] = '<div id="my-media-list" class="toolbar-item media"></div>';
-    	break;
+      $block['subject'] = t('Media List');
+      $block['content'] = '<div id="my-media-list" class="toolbar-item media"></div>';
+      break;
+
     case 'studio_media_list':
       $block['subject'] = t('Media list on studio pane');
       $block['content'] = '<div class="pane-studio-box media item-studio" id="studio-media-list-pane">
-                          	<h4>media</h4>
+                            <h4>media</h4>
                               <div class="scroll-wrapper">
-                              	<div class="arrow-left" pager="0"> < </div>
+                                <div class="arrow-left" pager="0"> < </div>
                                 <div class="arrow-right" pager="1"> > </div>
-                            	  <ul id="studio-media-list"></ul>
+                                <ul id="studio-media-list"></ul>
                               </div>
                           </div>';
       break;
+
     case 'gallery_media_list':
       $block['subject'] = t('All media list on gallery pane');
       $block['content'] = '<div class="pane-gallery-box pane-studio-box media item-studio" id="gallery-media-list-pane">
-                          	<h4>Media</h4>
+                            <h4>Media</h4>
                             <div class="scroll-wrapper">
-                            	<div class="arrow-left" pager="0"> < </div>
+                              <div class="arrow-left" pager="0"> < </div>
                               <div class="arrow-right" pager="1"> > </div>
-                          	  <ul id="gallery-media-list"></ul>
+                              <ul id="gallery-media-list"></ul>
                             </div>
                           </div>';
       break;
+
     case 'gallery_video_list':
       $block['subject'] = t('Video media list on gallery pane');
       $block['content'] = '<div class="pane-gallery-box pane-studio-box media item-studio" id="gallery-video-list-pane">
-                          	<h4>Video</h4>
+                            <h4>Video</h4>
                             <div class="scroll-wrapper">
-                            	<div class="arrow-left" pager="0"> < </div>
+                              <div class="arrow-left" pager="0"> < </div>
                               <div class="arrow-right" pager="1"> > </div>
-                          	  <ul id="gallery-video-list"></ul>
+                              <ul id="gallery-video-list"></ul>
                             </div>
                           </div>';
       break;
+
     case 'gallery_image_list':
       $block['subject'] = t('Image media list on gallery pane');
       $block['content'] = '<div class="pane-gallery-box pane-studio-box media item-studio" id="gallery-image-list-pane">
-                          	<h4>Image</h4>
+                            <h4>Image</h4>
                             <div class="scroll-wrapper">
-                            	<div class="arrow-left" pager="0"> < </div>
+                              <div class="arrow-left" pager="0"> < </div>
                               <div class="arrow-right" pager="1"> > </div>
-                          	  <ul id="gallery-image-list"></ul>
+                              <ul id="gallery-image-list"></ul>
                             </div>
                           </div>';
       break;
-    default:
-      break;
+
   }
 
   return $block;
 
 }
 
-
+/**
+ * Build link by ctool modal, and popup modal window.
+ *
+ * @return string
+ *   - Model processed html code.
+ */
 function _build_ctool_modal_link() {
 
   global $user;
@@ -372,9 +400,15 @@ function _build_ctool_modal_link() {
         'background-color' => '#000',
       ),
       'animation' => 'fadeIn',
-      //'modalTheme' => 'CToolsSampleModal',
-    	'modalTheme' => 'CToolsEdgemakersUploadMediaModal',
-      'throbber' => theme('image', array('path' => ctools_image_path('ajax-loader.gif', 'ctools_ajax_sample'), 'alt' => t('Loading...'), 'title' => t('Loading'))),
+      // 'modalTheme' => 'CToolsSampleModal',
+      'modalTheme' => 'CToolsEdgemakersUploadMediaModal',
+      'throbber' => theme('image',
+        array(
+          'path' => ctools_image_path('ajax-loader.gif', 'ctools_ajax_sample'),
+          'alt' => t('Loading...'),
+          'title' => t('Loading'),
+        )
+      ),
     ),
   );
 
@@ -383,7 +417,7 @@ function _build_ctool_modal_link() {
   // Since we have our js, css and images in well-known named directories,
   // CTools makes it easy for us to just use them without worrying about
   // using drupal_get_path() and all that ugliness.
-  //ctools_add_js('ctools-ajax-sample', 'ctools_ajax_sample');
+  // Ctools_add_js('ctools-ajax-sample', 'ctools_ajax_sample');
   ctools_add_js('ctools-ajax-upload-media', 'edgemakers_media_upload');
   ctools_add_css('ctools-ajax-upload-media', 'edgemakers_media_upload');
 
@@ -403,16 +437,15 @@ function _build_ctool_modal_link() {
   }
 
   $links[] = l(t('Upload'), $upload_link, array(
-  	'html' => TRUE,
-  	'attributes' => array(
-  		'class' => $link_class,
-  	)
+    'html' => TRUE,
+    'attributes' => array(
+      'class' => $link_class,
+    ),
   ));
 
-  $output = theme('item_list', array('items' => $links, 'title' => ''));
+  $output = theme('item_list', array('items' => $links, 'title' => t('')));
 
   /******** End custom style of ctool modal **********/
-
 
   $html .= '<h4>' . $output . '</h4>';
 
@@ -420,77 +453,10 @@ function _build_ctool_modal_link() {
 }
 
 /**
- * Copy from ctools_example.
- *
- * @param unknown_type $js
- * @param unknown_type $step
- * @return Ambigous <multitype:string The , multitype:string The Ambigous <The, unknown, string, A, Optional> >|Ambigous <The, void, string, A, boolean>
- */
-function edgemakers_media_upload_new($js = NULL, $step = NULL) {
-
-  global $user;
-  $type = variable_get('edgemakers_media_content_type', 'media_for_upload');
-  $args = arg();
-
-  //drupal_set_message("Load js is $js <pre>" . print_r($args, TRUE) . '</pre>');
-
-  if ($js) {
-    ctools_include('modal');
-    ctools_include('ajax');
-  }
-
-  module_load_include('inc', 'node', 'node.pages');
-  $form = node_add($type);
-  $form['#states'] = array(
-    'ajax' => $js,
-  );
-
-  //$output = '<h2>Call from my define menu.</h2>';
-  $output .= drupal_render($form);
-
-  if ($output === FALSE || !empty($form_state['complete'])) {
-    drupal_set_message("Output is FALSE");
-  }
-
-  // If $output is FALSE, there was no actual form.
-  if ($js) {
-    // If javascript is active, we have to use a render array.
-    $commands = array();
-    if ($output === FALSE || !empty($form_state['complete'])) {
-      // Dismiss the modal.
-      $commands[] = ajax_command_html('#ctools-sample', $animal);
-      $commands[] = ctools_modal_command_dismiss();
-      $commands[] = ctools_ajax_command_redirect();
-      ajax_render($commands);
-    }
-    else if (!empty($form_state['cancel'])) {
-      // If cancelling, return to the activity.
-      $commands[] = ctools_modal_command_dismiss();
-    }
-    else {
-      $commands = ctools_modal_form_render($form_state, $output);
-    }
-    print ajax_render($commands);
-    exit;
-  }
-  else {
-    if ($output === FALSE || !empty($form_state['complete'])) {
-      return $animal;
-    }
-    else if (!empty($form_state['cancel'])) {
-      drupal_goto('ctools_ajax_sample');
-    }
-    else {
-      return $output;
-    }
-  }
-
-  //return drupal_render($form);
-
-}
-
-/**
  * Form builder function for module settings.
+ *
+ * @return array
+ *   - System settings form elements.
  */
 function edgemakers_media_upload_settings() {
 
@@ -500,7 +466,7 @@ function edgemakers_media_upload_settings() {
 
   $vocabularies = taxonomy_get_vocabularies();
 
-  foreach ($vocabularies AS $voca) {
+  foreach ($vocabularies as $voca) {
     $voca_optins[$voca->vid] = $voca->name;
   }
 
@@ -519,7 +485,6 @@ function edgemakers_media_upload_settings() {
     }
 
   }
-
 
   foreach ($types as $type) {
     $content_type_options[$type->type] = $type->name;
@@ -541,36 +506,42 @@ function edgemakers_media_upload_settings() {
 /**
  * Valida youtube id.
  *
- * @param unknown_type $id
- * @return boolean
+ * @param int $id
+ *   - Youtube video id.
+ *
+ * @return bool
+ *   - boolean value.
  */
 function _youtube_validId($id) {
-  $url = 'http://www.youtube.com/oembed?url=http%3A//youtube.com/watch%3Fv%3D'. $id;
-  //$response = drupal_http_request($url, array('method' => 'HEAD'));
+
+  $url = 'http://www.youtube.com/oembed?url=http%3A//youtube.com/watch%3Fv%3D' . $id;
   $response = curl_http_request($url, array('method' => 'HEAD'));
-  //drupal_set_message('<pre>' . print_r($response, TRUE) . '</pre>');
+
   if ($response->code == 401) {
     return FALSE;
-//     return "Embedding has been disabled for this video.";
   }
   elseif ($response->code != 200) {
     return TRUE;
-    //return "The YouTube video ID is invalid or the video was deleted.";
   }
+
   return TRUE;
+
 }
 
 /**
  * Parse youtube url.
- * @param unknown_type $embedCode
- * @return Ambigous <The, String, string>
+ *
+ * @param string $embed_code
+ *   - Youtube embedcode or url.
+ *
+ * @return Ambigous
+ *   - <The, String, string>
  */
-function _youtube_url_parse($embedCode) {
+function _youtube_url_parse($embed_code) {
 
   $url = array();
 
   $patterns = array(
-    //http://www.youtube.com/watch?v=Hh3M9kiz_EQ
     '@www\.youtube\.com/watch[#\?].*?v=([^"\& ]+)@i',
     '@youtube\.com/watch[#\?].*?v=([^"\& ]+)@i',
     '@youtube\.com/embed/([^"\&\? ]+)@i',
@@ -581,12 +552,9 @@ function _youtube_url_parse($embedCode) {
   );
 
   foreach ($patterns as $pattern) {
-    preg_match($pattern, $embedCode, $matches);
-    //print('matches: <pre>' . print_r($matches, TRUE) . '</pre>');
+    preg_match($pattern, $embed_code, $matches);
 
     if (isset($matches[1])) {
-      //drupal_set_message('<pre>' . print_r($matches, TRUE) . '</pre>');
-      //print('matches: <pre>' . print_r($matches, TRUE) . '</pre>');
       return $matches;
     }
 
@@ -596,6 +564,15 @@ function _youtube_url_parse($embedCode) {
 }
 
 
+/**
+ * Get media term tid by type name.
+ *
+ * @param string $type
+ *   - Media type name.
+ *
+ * @return string
+ *   - Term tid.
+ */
 function _get_media_tid($type) {
   $media_type_tid = '';
 
@@ -611,12 +588,14 @@ function _get_media_tid($type) {
     case 'video':
       $terms = taxonomy_get_term_by_name('Video', $vocab_machine_name);
       break;
+
     case 'image':
       $terms = taxonomy_get_term_by_name('Image', $vocab_machine_name);
       break;
+
   }
 
-  foreach ($terms AS $term) {
+  foreach ($terms as $term) {
     $media_type_tid = $term->tid;
   }
 
@@ -624,7 +603,25 @@ function _get_media_tid($type) {
 
 }
 
-function edgemakers_media_list($uid = '', $media_type = '' , $start = 0, $limit = 5) {
+/**
+ * Get media list function as same get node_load_multiple.
+ *
+ * @param string $uid
+ *   - Account uid.
+ *
+ * @param string $media_type
+ *   - Media type.
+ *
+ * @param int $start
+ *   - List start.
+ *
+ * @param int $limit
+ *   - List limit.
+ *
+ * @return Ambigous
+ *   - <multitype:, An>
+ */
+function edgemakers_media_list($uid = '', $media_type = '', $start = 0, $limit = 5) {
 
   $content_type = variable_get('edgemakers_media_content_type', 'media_for_upload');
   $media_nodes = array();
@@ -651,30 +648,29 @@ function edgemakers_media_list($uid = '', $media_type = '' , $start = 0, $limit 
 
     // Query condition is share to gallery.
     $query->fieldCondition('field_share_to_gallery', 'value', '1');
-
-//     watchdog('Debug Lugal', $media_type . ': $query: <pre>' . print_r($query, TRUE) . '</pre>');
   }
 
   $result = $query->execute();
 
-//   print('Query:<pre>'. print_r($query, TRUE) . '</pre>');
-//   print('Result:<pre>'. print_r($result, TRUE) . '</pre>');
-
-
   if (!empty($result['node'])) {
-    $media_nodes = node_load_multiple(array_keys($result['node']), '' , TRUE);
+    $media_nodes = node_load_multiple(array_keys($result['node']), '', TRUE);
   }
-
-//    print('<pre>' . print_r($media_nodes, TRUE) . '</pre>');
-// dpm($media_nodes);
-
 
   return $media_nodes;
 
 }
 
-
+/**
+ * Get the media thumb by node.
+ *
+ * @param array $node
+ *   - Node data.
+ *
+ * @return string
+ *   - HTML code.
+ */
 function _get_media_thumb($node) {
+
   $thumb_url = '';
 
   $field_media_url = field_get_items('node', $node, 'field_media_url');
@@ -682,34 +678,40 @@ function _get_media_thumb($node) {
 
   $youtube_id = _youtube_parser($media_url);
 
-  if($youtube_id) {
-    $thumb_url = 'http://img.youtube.com/vi/'.$youtube_id.'/0.jpg';
-//     echo '<li>Youtube thumbnail: ' . $thumbnail . '</li>';
+  if ($youtube_id) {
+    $thumb_url = 'http://img.youtube.com/vi/' . $youtube_id . '/0.jpg';
   }
   else {
 
     $media_type_field = field_get_items('node', $node, 'field_media_type');
     $media_type_tid = $media_type_field && count($media_type_field) > 0 ? $media_type_field[0]['tid'] : '';
     $media_type_term = taxonomy_term_load($media_type_tid);
-    $media_type_name = $media_type_term->name;
+    $media_type_name = isset($media_type_term->name)?$media_type_term->name : '';
 
     switch (strtolower($media_type_name)) {
       case 'image':
-        $thumb_url = file_create_url($node->field_media_upload['und'][0]['uri']);
-//         $thumb_url = $media_url;
+        if (isset($node->field_media_upload['und'])) {
+          $thumb_url = file_create_url($node->field_media_upload['und'][0]['uri']);
+        }
+        else {
+          $thumb_url = drupal_get_path('module', 'edgemakers_media_upload') . '/images/iconImageDefault.png';
+        }
         break;
+
       case 'audio':
         $thumb_url = drupal_get_path('module', 'edgemakers_media_upload') . '/images/iconAudioDefault.png';
         break;
+
       case 'docs':
         $thumb_url = drupal_get_path('module', 'edgemakers_media_upload') . '/images/iconDocsDefault.png';
         break;
+
       default:
         $thumb_url = $media_url;
         break;
+
     }
 
-//     $thumb_url = $media_url;
   }
 
   return $thumb_url;
@@ -718,18 +720,25 @@ function _get_media_thumb($node) {
 /**
  * Return media list on gallry pane.
  *
+ * @param string $type
+ *   - Search keyword.
+ *
+ * @param int $page
+ *   - Current page.
+ *
  * @param string $keyword
  *   - Search keyword.
- * @param int $pager
- *   - Current pager.
+ *
+ * @return string
+ *   - HTML code.
  */
 function edgemakers_media_list_on_gallery($type = '', $page = 0, $keyword = '') {
 
   global $user;
   $limit = 4;
 
-  if (strtolower($type) == 'media') {    // Get all data.
-//     $type = '';
+  // Get all data.
+  if (strtolower($type) == 'media') {
     $limit = 12;
   }
 
@@ -746,14 +755,14 @@ function edgemakers_media_list_on_gallery($type = '', $page = 0, $keyword = '') 
     return "";
   }
 
-	arsort($media_list);
+  arsort($media_list);
 
-	$html = '<div class="media item-studio">';
+  $html = '<div class="media item-studio">';
 
-	$i = 1;
-	foreach ($media_list as $node) {
-	  $class = '';
-		if ($i == 1) {
+  $i = 1;
+  foreach ($media_list as $node) {
+    $class = '';
+    if ($i == 1) {
       $class = 'first';
     }
 
@@ -762,7 +771,6 @@ function edgemakers_media_list_on_gallery($type = '', $page = 0, $keyword = '') 
     }
 
     $node_thumb = _get_media_thumb($node);
-
 
     $html .= '<li class="' . $class . '">';
 
@@ -783,33 +791,37 @@ function edgemakers_media_list_on_gallery($type = '', $page = 0, $keyword = '') 
       $media_type_name = 'Media';
     }
 
-    $html .= '<div class="set-cover">
-                <h5>' . $node->title .'</h5>
-                <p class="inspiration">' . $node_username .'</p>
+    $html .= '<div class="set-cover">';
+    $html .= '<h5>' . $node->title . '</h5>
+                <p class="inspiration">' . $node_username . '</p>
                 <p class="' . strtolower($media_type_name) . '">' . $media_type_name . '</p>
               </div>';
 
     $html .= '<span class="mediathumb ' . $node->title . ' ">
               <img src="' . $node_thumb . '"/>
             </span>';
-    $edit_url = l('<span class =""></span>', 'node/' . $node->nid, array(
-        'html' => true,
+
+    $edit_url = l(t('<span class =""></span>'), 'node/' . $node->nid,
+      array(
+        'html' => TRUE,
         'attributes' => array(
           'nid' => $node->nid,
           'class' => array('studio-media-list-item-link'),
         ),
-              )
-      );
+      )
+    );
+
     $html .= $edit_url;
 
     $html .= '</li>';
 
     $i++;
+
   }
 
-	$html .= '</div>';
+  $html .= '</div>';
 
-	return $html;
+  return $html;
 
 }
 
@@ -817,7 +829,10 @@ function edgemakers_media_list_on_gallery($type = '', $page = 0, $keyword = '') 
  * Return media list on studiao pane.
  *
  * @param int $pager
+ *   - Current page.
+ *
  * @return string
+ *   - HTML code.
  */
 function edgemakers_media_list_on_studio($pager = 0) {
 
@@ -833,13 +848,13 @@ function edgemakers_media_list_on_studio($pager = 0) {
     if (count($my_media_nodes) == 0) {
       return "";
     }
-//     dd($my_media_nodes);
-		arsort($my_media_nodes);
-		$i = 1;
 
-		foreach ($my_media_nodes as $node) {
-		  $class = '';
-			if ($i == 1) {
+    arsort($my_media_nodes);
+    $i = 1;
+
+    foreach ($my_media_nodes as $node) {
+      $class = '';
+      if ($i == 1) {
         $class = 'first';
       }
 
@@ -863,28 +878,31 @@ function edgemakers_media_list_on_studio($pager = 0) {
       $media_type_field = field_get_items('node', $node, 'field_media_type');
       $media_type_tid = $media_type_field && count($media_type_field) > 0 ? $media_type_field[0]['tid'] : '';
       $media_type_term = taxonomy_term_load($media_type_tid);
-      $media_type_name = $media_type_term->name;
+      $media_type_name = isset($media_type_term->name)?$media_type_term->name : '';
       if (!$media_type_name) {
         $media_type_name = 'Media';
       }
 
       $html .= '<div class="set-cover">
-                  <h5>' . $node->title .'</h5>
-                  <p class="inspiration">' . $node_username .'</p>
+                  <h5>' . $node->title . '</h5>
+                  <p class="inspiration">' . $node_username . '</p>
                   <p class="' . strtolower($media_type_name) . '">' . $media_type_name . '</p>
                 </div>';
 
       $html .= '<span class="mediathumb ' . $node->title . ' ">
                 <img src="' . $node_thumb . '"/>
               </span>';
-      $edit_url = l('<span class =""></span>', 'node/' . $node->nid, array(
-          'html' => true,
+
+      $edit_url = l(t('<span class =""></span>'), 'node/' . $node->nid,
+        array(
+          'html' => TRUE,
           'attributes' => array(
             'nid' => $node->nid,
             'class' => array('studio-media-list-item-link'),
           ),
-                )
-        );
+        )
+      );
+
       $html .= $edit_url;
 
       $html .= '</li>';
@@ -892,13 +910,22 @@ function edgemakers_media_list_on_studio($pager = 0) {
       $i++;
     }
 
-	}
+  }
 
-	$html .= '</div>';
+  $html .= '</div>';
 
-	return $html;
+  return $html;
 }
 
+/**
+ * Show media list on toolbar.
+ *
+ * @param int $limit
+ *   - Limit in list.
+ *
+ * @return string
+ *   - HTML code.
+ */
 function edgemakers_my_media_list_on_toolbar($limit = 5) {
 
   global $user;
@@ -907,52 +934,49 @@ function edgemakers_my_media_list_on_toolbar($limit = 5) {
 
   if ($user->uid !== 0) {
     $my_media_nodes = edgemakers_media_list($user->uid, '', 0, $limit);
-//     dpm($my_media_nodes);
-		arsort($my_media_nodes);
-		$i = 0;
+    arsort($my_media_nodes);
+    $i = 0;
 
-		foreach ($my_media_nodes as $node) {
-			if ($i < 5) {
+    foreach ($my_media_nodes as $node) {
+      if ($i < 5) {
 
-				$media_item['items'][$i]['data'] = l($node->title,
-					'node/' . $node->nid,
-					array(
-						'attributes' => array(
-							'id' => 'media-node-' . $node->nid,
-	      		)
-	      	)
-	      );
+        $media_item['items'][$i]['data'] = l($node->title,
+          'node/' . $node->nid,
+          array(
+            'attributes' => array(
+              'id' => 'media-node-' . $node->nid,
+            ),
+          )
+        );
 
-	      $media_item['items'][$i]['class'][] = 'edgemakers-media-item';
+        $media_item['items'][$i]['class'][] = 'edgemakers-media-item';
 
-	      $i++;
+        $i++;
       }
     }
 
-		if (count($media_item['items']) > 0) {
+    if (count($media_item['items']) > 0) {
 
-			$html .= '<h4 class="has-child">Media<em></em></h4>';
+      $html .= '<h4 class="has-child">Media<em></em></h4>';
 
-			$media_item['title'] = '';
-			$media_item['type'] = 'ul';
-			$media_item['attributes'] = array('id' => 'media-list', 'class' => 'media-video');
+      $media_item['title'] = '';
+      $media_item['type'] = 'ul';
+      $media_item['attributes'] = array('id' => 'media-list', 'class' => 'media-video');
 
-			$media_html = theme_item_list($media_item);
-		}
+      $media_html = theme_item_list($media_item);
+    }
 
-		//dd($media_html, 'media list');
+    $html .= $media_html;
 
-		$html .= $media_html;
+  }
 
-	}
+  if (count($my_media_nodes) <= 0) {
+    $html .= '<h4 class="has-child">Media</h4>';
+  }
 
-	if(count($my_media_nodes) <= 0) {
-		$html .= '<h4 class="has-child">Media</h4>';
-	}
+  $html .= '</div>';
 
-	$html .= '</div>';
-
-	return $html;
+  return $html;
 
 }
 
@@ -960,156 +984,188 @@ function edgemakers_my_media_list_on_toolbar($limit = 5) {
  * Return media list data by uid.
  *
  * @param int $limit
- * @return string html
+ *   - Limit in list.
+ *
+ * @return string
+ *   - HTML code.
  */
 function edgemakers_media_list_html($limit = 5) {
 
-	global $user;
-	$nodes = array();
+  global $user;
+  $nodes = array();
 
-	$content_type = variable_get('edgemakers_media_content_type', 'media_for_upload');
+  $content_type = variable_get('edgemakers_media_content_type', 'media_for_upload');
 
-	$html = '<div class="toolbar-item media">';
-	//<h4 class="has-child">Media<em></em></h4>';
+  $html = '<div class="toolbar-item media">';
 
-	if ($user->uid !== 0) {
+  if ($user->uid !== 0) {
 
-    $media_items = array('items'=>array());
-		$nodes = edgemakers_media_get_my_media($user->uid, $content_type);
-		foreach ($nodes as $node) {
+    $media_items = array('items' => array());
+    $nodes = edgemakers_media_get_my_media($user->uid, $content_type);
+    foreach ($nodes as $node) {
       $media_items['items'][] = array(
         'data' => l($node->title,
-					'node/' . $node->nid,
-					array(
+          'node/' . $node->nid,
+          array(
             'html' => TRUE,
-						'attributes' => array(
-							'id' => 'media-node-' . $node->nid,
+            'attributes' => array(
+              'id' => 'media-node-' . $node->nid,
               'title' => $node->title,
-	      		)
-	      	)
-	      ),
+            ),
+          )
+        ),
         'class' => array('edgemakers-media-item'),
       );
     }
 
-		if (count($media_items['items']) > 0) {
+    if (count($media_items['items']) > 0) {
 
-			$html .= '<h4 class="has-child">Media<em></em></h4>';
+      $html .= '<h4 class="has-child">Media<em></em></h4>';
 
-			$media_items['title'] = '';
-			$media_items['type'] = 'ul';
-			$media_items['attributes'] = array('id' => 'media-list', 'class' => 'media-video');
+      $media_items['title'] = '';
+      $media_items['type'] = 'ul';
+      $media_items['attributes'] = array('id' => 'media-list', 'class' => 'media-video');
 
-			$media_html = theme('item_list', $media_items);
-		}
-		else {
-		  $html .= '<h4 class="has-child">Media</h4>';
-		}
+      $media_html = theme('item_list', $media_items);
+    }
+    else {
+      $html .= '<h4 class="has-child">Media</h4>';
+    }
 
-		//dd($media_html, 'media list');
+    $html .= $media_html;
 
-		$html .= $media_html;
+  }
+  else {
+    $html .= '<h4 class="has-child">Media</h4>';
+  }
 
-	} else {
-		$html .= '<h4 class="has-child">Media</h4>';
-	}
+  $html .= '</div>';
 
-	$html .= '</div>';
-
-	return $html;
+  return $html;
 
 }
+
+/**
+ * Get my media in studio.
+ *
+ * @param int $uid
+ *   - Account uid.
+ *
+ * @param string $content_type
+ *   - Media type name.
+ *
+ * @param int $limit
+ *   - Limit in list.
+ *
+ * @return Ambigous
+ *   - <multitype:, An>
+ */
 function edgemakers_media_get_my_media($uid, $content_type, $limit = 5) {
   $query = db_select('node', 'n');
 
   $nodes = array();
   $nids = $query->condition('n.type', $content_type)->condition('n.status', NODE_PUBLISHED)->condition('n.uid', $uid)->fields('n', array('nid'))->orderBy('n.changed', 'DESC')->addTag('node_access')->range(0, $limit)->execute()->fetchCol();
 
-  if($nids) {
+  if ($nids) {
     $nodes = node_load_multiple($nids);
   }
+
   return $nodes;
+
 }
+
 /**
- * Ajax link callback;
- * @param unknown_type $page_callback_result
+ * Ajax link callback.
+ *
+ * @param array $page_callback_result
+ *   - Ajax return elements.
+ *
+ * @return string
+ *   - Ajax output string, maybe json format.
  */
 function edgemakers_media_ajax_callback($page_callback_result) {
-	// Only render content
-	print $page_callback_result;
-	// Perform end-of-request tasks.
-	drupal_page_footer();
+  // Only render content.
+  print $page_callback_result;
+  // Perform end-of-request tasks.
+  drupal_page_footer();
 }
 
 /**
  * Custome search by search module, but not hook_search_execute().
- * Configuration the search weight for it.
+ *
+ * @param string $type
+ *   - Media type name.
+ *
+ * @param string $keys
+ *   - Search keyword.
+ *
+ * @param int $page
+ *   - Current page.
+ *
+ * @param int $pager
+ *   - Limit in page.
+ *
+ * @return array
+ *   - Search node data.
  */
 function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', $page = 0, $pager = 5) {
 
-//   $pager = 5;
   $start = $page * $pager;
   $keys = trim($keys);
-
-//   dpm('Start: ' . $start . ' | Pager: ' . $pager);
 
   if ($keys) {
 
     $query = db_select('search_index', 'i')
-      ->condition('i.type', 'node');                  //Search node.
-//       ->condition('i.word', '%' . $keys . '%', 'LIKE');  //Search key
+      ->condition('i.type', 'node');
 
     // Full text search, copy from search.extender.inc.
-    $query->innerJoin('search_dataset','d','i.sid = d.sid  AND i.type = d.type');
+    $query->innerJoin('search_dataset', 'd', 'i.sid = d.sid  AND i.type = d.type');
     $query->condition('d.data', '%' . strtolower($key) . '%', 'LIKE');
 
     // Keys is multi and split by "space".
     $keys_array = explode(' ', $keys);
     $orkeys = db_or();
-    foreach ($keys_array AS $key) {
+    foreach ($keys_array as $key) {
       $orkeys->condition('i.word', '%' . strtolower($key) . '%', 'LIKE');
     }
     $query->condition($orkeys);
 
-    // distinct sid.
+    // Unique sid.
     $query->AddExpression('distinct i.sid', 'sid_node');
 
     $query->range($start, $pager);
 
     $query->join('node', 'n', 'n.nid = i.sid');
-    $query->condition('n.type', 'media_for_upload');    //Search media content type
+    $query->condition('n.type', 'media_for_upload');
     $query->condition('n.status', 1);
 
     // Search by media type.
     if ($type && strtolower($type) !== 'media') {
       $media_type_tid = _get_media_tid($type);
-      $query->innerJoin('field_data_field_media_type','media_type', 'n.nid = media_type.entity_id');
-      $query->condition('media_type.field_media_type_tid' , $media_type_tid);
+      $query->innerJoin('field_data_field_media_type', 'media_type', 'n.nid = media_type.entity_id');
+      $query->condition('media_type.field_media_type_tid', $media_type_tid);
     }
 
     // Just return "share to gallery" media.
-    $query->innerJoin('field_data_field_share_to_gallery','field_share', 'n.nid = field_share.entity_id');
+    $query->innerJoin('field_data_field_share_to_gallery', 'field_share', 'n.nid = field_share.entity_id');
     $query->condition('field_share.field_share_to_gallery_value', '1');
 
     // The numeric score of the word, higher being more important.
-    $query->orderBy('i.score', 'ASC');//ORDER BY title
+    $query->orderBy('i.score', 'ASC');
 
-    $query->orderBy('n.title', 'ASC');//ORDER BY title
-    $query->orderBy('i.sid', 'DESC');//ORDER BY title
-    $query->orderBy('n.nid', 'DESC');//ORDER BY created
+    $query->orderBy('n.title', 'ASC');
+    $query->orderBy('i.sid', 'DESC');
+    $query->orderBy('n.nid', 'DESC');
 
     // Join  field_tags table and term table.
-    $query->leftJoin('field_data_field_tags','field_tags','n.nid = field_tags.entity_id');
-    $query->leftJoin('taxonomy_term_data','term','field_tags.field_tags_tid = term.tid');
+    $query->leftJoin('field_data_field_tags', 'field_tags', 'n.nid = field_tags.entity_id');
+    $query->leftJoin('taxonomy_term_data', 'term', 'field_tags.field_tags_tid = term.tid');
     // Order by tags by term ASC.
-    $query->orderBy('term.name', 'ASC');//ORDER BY created
+    $query->orderBy('term.name', 'ASC');
 
     $find = $query->execute();
 
     $results = array();
-
-//     dpm($results);
-//     print('Search result: <pre>' . print_r($find, TRUE) . '</pre>');
 
     foreach ($find as $item) {
       // Render the node.
@@ -1121,28 +1177,30 @@ function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', 
 
   }
 
-  return false;
+  return '';
 
 }
+
 /**
- * Validate image
+ * Validate image.
+ *
  * @param string $url
- * @return boolean
+ *   - Image url.
+ *
+ * @return bool
+ *   - boolean.
  */
-function _checkRemoteFile($url)
-{
+function _checkRemoteFile($url) {
   $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL,$url);
-  // don't download content
+  curl_setopt($ch, CURLOPT_URL, $url);
+  // Don't download content.
   curl_setopt($ch, CURLOPT_NOBODY, 1);
   curl_setopt($ch, CURLOPT_FAILONERROR, 1);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-  if(curl_exec($ch)!==FALSE)
-  {
-    return true;
+  if (curl_exec($ch) !== FALSE) {
+    return TRUE;
   }
-  else
-  {
-    return false;
+  else {
+    return FALSE;
   }
 }
