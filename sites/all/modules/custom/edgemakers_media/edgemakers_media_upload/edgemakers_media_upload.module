@@ -182,39 +182,39 @@ function edgemakers_media_upload_ajax_validate($form, &$form_state) {
   if ($type == 'Video') {
     $urls = isset($vals['field_media_url']) ? $vals['field_media_url'][LANGUAGE_NONE] : NULL;
     $media_url = $urls && count($urls) > 0 ? $urls[0]['value'] : '';
-    $media_type_tid = 0;
-    $terms = taxonomy_get_term_by_name('Video', 'media_file_types');
-    if (count($terms > 0)) {
-      $media_type_tid = array_shift(array_keys($terms));
-    }
-    if ($media_url && $media_type_tid) {
+
+    if ($media_url) {
+
       module_load_include('inc', 'edgemakers_stage', 'stage.api');
       $youtube_url = _youtube_parser($media_url);
 
       if (!$youtube_url) {
         form_set_error('field_media_url[und][0][value]', 'Sorry, it is not a valid YouTube Link');
       }
+    } else {
+      form_set_error('field_media_url[und][0][value]', 'Sorry, please input a YouTube Link');
     }
   }
   else {
     $uploads = isset($vals['field_media_upload']) ? $vals['field_media_upload'][LANGUAGE_NONE] : NULL;
     $file = $uploads && count($uploads) > 0 ? file_load($uploads[0]['fid']) : '';
-    $upload = $file->uri;
-    $extension = drupal_strtolower(drupal_substr($upload, strrpos($upload, '.') + 1));
-    if ($type == 'Image') {
-      $allowed_extensions = array('jpg', 'jpeg', 'png', 'gif');
-    }
-    elseif ($type == 'Audio') {
-      $allowed_extensions = array('wav', 'aif', 'mp3', 'mid');
-    }
-    elseif ($type == 'Docs') {
-      $allowed_extensions = array('pdf');
-    }
-    if (!in_array($extension, $allowed_extensions)) {
-      form_set_error('field_media_type[und][0][tid]',
-        'Sorry, only these extensions are available for your selected media type "'
-        . $type . '": ' . implode(', ', $allowed_extensions)
-      );
+
+    if($file) {
+      $upload = $file->uri;
+      $extension = drupal_strtolower(drupal_substr($upload, strrpos($upload, '.') + 1));
+      if($type == 'Image') {
+        $allowedExtensions = array('jpg', 'jpeg', 'png', 'gif');
+      } else if($type == 'Audio') {
+        $allowedExtensions = array('wav', 'aif', 'mp3', 'mid');
+      } else if($type == 'Docs') {
+        $allowedExtensions = array('pdf');
+      }
+      if(!in_array($extension, $allowedExtensions)) {
+        form_set_error('field_media_type[und][0][tid]', 'Sorry, only these extensions are available for your selected media type "'.$type.'": '. implode(', ', $allowedExtensions));
+      }
+    } else {
+      form_set_error('', 'Sorry, you have to upload a media for your selected media type "'.$type.'"');
+
     }
   }
 }
@@ -591,6 +591,14 @@ function _get_media_tid($type) {
 
     case 'image':
       $terms = taxonomy_get_term_by_name('Image', $vocab_machine_name);
+      break;
+
+    case 'audio':
+      $terms = taxonomy_get_term_by_name('Audio', $vocab_machine_name);
+      break;
+
+    case 'docs':
+      $terms = taxonomy_get_term_by_name('Docs', $vocab_machine_name);
       break;
 
   }
