@@ -831,7 +831,12 @@ function _update_user_share_with_me($account = array(), $nid = '') {
       }
 
       $share_with_me[] = $nid;
+
+      watchdog('Mural Share', 'Share to me update $mural_share_with_me: <pre>' . print_r($mural_share_with_me, TRUE) . '</pre> | node id: ' . $nid);
+
       $mural_share_with_me_val = implode(',', array_unique($share_with_me));
+
+      watchdog('Mural Share', 'Share to me update $$mural_share_with_me_val: <pre>' . print_r($mural_share_with_me_val, TRUE) . '</pre> | node id: ' . $nid);
 
       $new_account->uid = $account->uid;
       $new_account->field_mural_share_with_me['und'][0]['value'] = $mural_share_with_me_val;
