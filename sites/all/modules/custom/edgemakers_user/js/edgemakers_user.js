@@ -52,22 +52,6 @@ Drupal.behaviors.fileUpload = {
     });
   }
 };
-Drupal.behaviors.autoUpload = {
-  attach: function(context, settings) {
-    jQuery('.form-item input.form-submit[value=Upload]').hide();
-    jQuery('.form-item input.form-file').change(function() {
-      var parent = jQuery(this).closest('.form-item');
-
-      //setTimeout to allow for validation
-      //would prefer an event, but there isn't one
-      setTimeout(function() {
-        if(!jQuery('.error', parent).length) {
-          jQuery('input.form-submit[value=Upload]', parent).mousedown();
-        }
-      }, 100);
-    });
-  }
-};
 function changeProfileImage(src) {
   var imgEl = jQuery('.user-profile-inner img');
   if(imgEl.length > 0) {

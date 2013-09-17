@@ -252,3 +252,19 @@ function _refreshStudioGallery() {
   gallery_media_list_ajax_load('media', gallery_media_current_page);
   
 }
+Drupal.behaviors.autoUpload = {
+  attach: function(context, settings) {
+    jQuery('.form-item input.form-submit[value=Upload]').hide();
+    jQuery('.form-item input.form-file').change(function() {
+      var parent = jQuery(this).closest('.form-item');
+
+      //setTimeout to allow for validation
+      //would prefer an event, but there isn't one
+      setTimeout(function() {
+        if(!jQuery('.error', parent).length) {
+          jQuery('input.form-submit[value=Upload]', parent).mousedown();
+        }
+      }, 100);
+    });
+  }
+};
