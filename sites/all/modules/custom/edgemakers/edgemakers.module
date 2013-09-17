@@ -5,11 +5,10 @@
 function edgemakers_menu() {
   $items['admin/edgemakers'] = array(
     'title' => 'Edgemakers',
-//     'page callback' => 'system_admin_menu_block_page',
+    'page callback' => 'system_admin_menu_block_page',
     'access arguments' => array('administer edgemakers'),
-//     'file' => 'system.admin.inc',
-//     'file path' => drupal_get_path('module', 'system'),
-//     'type' => MENU_NORMAL_ITEM,
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
   );
   $items['forbidden'] = array(
     'title' => 'Access Denied',
