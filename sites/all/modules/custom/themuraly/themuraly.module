@@ -839,7 +839,7 @@ function _update_user_share_with_me($account = array(), $nid = '') {
       unset($new_account->pass);
       $new_account = user_save((object) array('uid'=>$new_account->uid), (array) $new_account);
 
-//       watchdog('Mural Share', 'Share to me update: <pre>' . print_r($new_account, TRUE) . '</pre> | node id: ' . $nid);
+      watchdog('Mural Share', 'Share to me update: <pre>' . print_r($new_account, TRUE) . '</pre> | node id: ' . $nid);
 
     }
   }
