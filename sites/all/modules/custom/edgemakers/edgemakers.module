@@ -9,6 +9,7 @@ function edgemakers_menu() {
     'access arguments' => array('administer edgemakers'),
     'file' => 'system.admin.inc',
     'file path' => drupal_get_path('module', 'system'),
+    'type' => MENU_NORMAL_ITEM,
   );
   $items['forbidden'] = array(
     'title' => 'Access Denied',
@@ -58,7 +59,7 @@ function edgemakers_block_configure($delta) {
       foreach ($types as $type) {
         $content_type_options[$type->type] = $type->name;
       }
-      
+
       $form['edgemakers_community_content_type'] = array(
         '#type' => 'checkboxes',
         '#title' => t('Content types that will display for Community Page'),
@@ -74,7 +75,7 @@ function edgemakers_block_configure($delta) {
         '#description' => t('Set comment types for community page.'),
         '#options' => $content_type_options,
       );
-      
+
       $form['edgemakers_community_activity_num'] = array(
         '#type' => 'select',
         '#title' => t('Activity Num that will display for Community Page.'),
