@@ -566,4 +566,4 @@ if (file_exists('sites/default/local.settings.php')) {
 # iFrame "breaks" out within internet explorer.
 # @link https://drupal.org/node/1102878
 
-header('P3P: CP="CAO PSA OUR"');
+header('P3P: CP="CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR"');
