@@ -1870,6 +1870,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'has_children' => 0,
     'expanded' => 0,
     'weight' => -45,
+    'parent_path' => 'admin/edgemakers',
   );
   // Exported menu link: management:admin/reports
   $menu_links['management:admin/reports'] = array(
@@ -2249,6 +2250,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'has_children' => 0,
     'expanded' => 0,
     'weight' => -46,
+    'parent_path' => 'admin/edgemakers',
   );
   // Exported menu link: management:admin/structure/types
   $menu_links['management:admin/structure/types'] = array(
@@ -2324,6 +2326,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'has_children' => 0,
     'expanded' => 0,
     'weight' => -43,
+    'parent_path' => 'admin/edgemakers',
   );
   // Exported menu link: navigation:bookmarks
   $menu_links['navigation:bookmarks'] = array(

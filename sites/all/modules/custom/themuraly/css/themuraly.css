@@ -482,6 +482,9 @@ a.create-mural-topic {
     line-height: 28px;
     padding: 4px;
 }
+#murals-node-form select.error{
+  border: 2px solid red;
+}
 #murals-node-form select option{
 	padding:9px 0;
 } 

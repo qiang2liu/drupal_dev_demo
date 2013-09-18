@@ -595,6 +595,8 @@ function muralwebhook() {
 
   $the_mural_id = $new_mural_id;
 
+  watchdog('notification', 'Mural node info 598 get mural id: <pre>' . print_r($the_mural_id, TRUE) . '</pre>');
+
   $the_visitor_muraluser_name = $the_data['userId']; ;  //who accessing the mural, mural username
   //$the_visitor_muraluser_name = 'lwgmuralppp';  // mock data
   //get the drupal node according the mural id
@@ -604,7 +606,7 @@ function muralwebhook() {
           ->fieldCondition('field_muralid', 'value', $the_mural_id, '=');
   $results = $query->execute();
 
-  watchdog('notification', 'Mural node info 606: <pre>' . print_r($results, TRUE) . '</pre>');
+  watchdog('notification', 'Mural node info 609: <pre>' . print_r($results, TRUE) . '</pre>');
 
   //dpm($results);
   if (is_array($results['node']) && !empty($results['node'])) {
@@ -615,25 +617,25 @@ function muralwebhook() {
     if (is_array($nodes) && count($nodes) >= 1) {
       $node = current($nodes);
       //dpm($node);
-      watchdog('notification', 'Mural node info 606: <pre>' . print_r($node, TRUE) . '</pre>');
+      watchdog('notification', 'Mural node info 620: <pre>' . print_r($node, TRUE) . '</pre>');
       $the_node_author_id = $node->uid;
 
       // get the author's mural username
       $author_account = user_load($the_node_author_id);
      // dpm($author_account);
       if (isset($author_account->name)) {
-        watchdog('notification', 'Mural account info 613: <pre>' . print_r($author_account, TRUE) . '</pre>');
+        watchdog('notification', 'Mural account info 627: <pre>' . print_r($author_account, TRUE) . '</pre>');
         $field_owner_muraluser = field_get_items('user', $author_account, 'field_muralusername');
         if ($field_owner_muraluser) {
           $owner_muraluser = $field_owner_muraluser[0]['value'];
           $owner_mail = $author_account->mail;
-          watchdog('notification', 'Mural owner info 618: <pre>' . print_r($owner_muraluser, TRUE) . '</pre>');
+          watchdog('notification', 'Mural owner info 632: <pre>' . print_r($owner_muraluser, TRUE) . '</pre>');
 //           dpm($owner_muraluser);
           // If the modifier is not the mural owner, then send an notification email to the owner
           if ($owner_muraluser != $the_visitor_muraluser_name) {
             $params = array('node' => $node);
 
-            watchdog('notification', 'Mural visitor info 624: <pre>' . print_r($the_visitor_muraluser_name, TRUE) . '</pre>');
+            watchdog('notification', 'Mural visitor info 638: <pre>' . print_r($the_visitor_muraluser_name, TRUE) . '</pre>');
 
             $result = drupal_mail('themuraly', 'mural_updated', $owner_mail, language_default(), $params);
             if ($result['result'] != TRUE) {
@@ -655,6 +657,7 @@ function muralwebhook() {
             $result = $mural_api->retrieve_a_mural($owner_muraluser, $the_mural_id);
          //  dpm($result);
             $data = drupal_json_decode($result->data);
+            watchdog('notification', 'Get mural info by API: <pre>' . print_r($data, TRUE) . '</pre>');
             //  dpm($data);
             // Update thumburl.
             $node->field_mural_thumburl[LANGUAGE_NONE][0]['value'] = $data['thumbUrl'];

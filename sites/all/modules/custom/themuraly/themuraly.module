@@ -811,11 +811,14 @@ function _mural_member_list($the_nid, $para_muralid = '') {
 
 //Add share nid for each invite user
 function _update_user_share_with_me($account = array(), $nid = '') {
+
   global $user;
+
+//   watchdog('Mural Share', 'Share to me '  . $nid . ' : update $account 817: <pre>' . print_r($account, TRUE) . '</pre> | node id: ' . $nid);
 
   if ($nid && $account) {
 
-    if ($account->uid <> $user->uid) {
+//     if ($account->uid <> $user->uid) {
 
       $field_mural_share_with_me = field_get_items('user', $account, 'field_mural_share_with_me');
 
@@ -831,7 +834,12 @@ function _update_user_share_with_me($account = array(), $nid = '') {
       }
 
       $share_with_me[] = $nid;
+
+//       watchdog('Mural Share', 'Share to me update $mural_share_with_me: <pre>' . print_r($mural_share_with_me, TRUE) . '</pre> | node id: ' . $nid);
+
       $mural_share_with_me_val = implode(',', array_unique($share_with_me));
+
+//       watchdog('Mural Share', 'Share to me update $$mural_share_with_me_val: <pre>' . print_r($mural_share_with_me_val, TRUE) . '</pre> | node id: ' . $nid);
 
       $new_account->uid = $account->uid;
       $new_account->field_mural_share_with_me['und'][0]['value'] = $mural_share_with_me_val;
@@ -839,9 +847,9 @@ function _update_user_share_with_me($account = array(), $nid = '') {
       unset($new_account->pass);
       $new_account = user_save((object) array('uid'=>$new_account->uid), (array) $new_account);
 
-//       watchdog('Mural Share', 'Share to me update: <pre>' . print_r($new_account, TRUE) . '</pre> | node id: ' . $nid);
+      watchdog('Mural Share', 'Share to me update: <pre>' . print_r($new_account, TRUE) . '</pre> | node id: ' . $nid);
 
-    }
+//     }
   }
 }
 
@@ -872,7 +880,7 @@ function _themuralyajax_validate($form, &$form_state) {
 
     if (!$muralshared) {
       if ($share_to_gallery) {
-        form_set_error('field_muralshared', t('Must set public in privacy when you choice "Share to gallery"'));
+        form_set_error('field_muralshared', t('Privacy must public while "Share to gallery"'));
       }
     }
 
@@ -1172,6 +1180,7 @@ function _user_update_invite($uid, $nid, $mid) {
 //     print($nid . 'Invite node: <pre>' . print_r($share_node, TRUE) . '</pre>');
   $account = user_load($uid);
   _update_user_share_with_me($account, $mid);
+  watchdog('Mural Share', $mid . ': _update_user_share_with_me result: <pre>' . print_r($account, TRUE) . '</pre>');
 
   $field_mural_share_with_me = field_get_items('user', $account, 'field_mural_share_with_me');
 
