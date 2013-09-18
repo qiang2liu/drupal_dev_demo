@@ -446,15 +446,6 @@ function edgemakers_features_user_user_default_permissions() {
     'module' => 'mediafront',
   );
 
-  // Exported permission: 'administer memcache storage'.
-  $permissions['administer memcache storage'] = array(
-    'name' => 'administer memcache storage',
-    'roles' => array(
-      'site administrator' => 'site administrator',
-    ),
-    'module' => 'memcache_storage',
-  );
-
   // Exported permission: 'administer menu'.
   $permissions['administer menu'] = array(
     'name' => 'administer menu',
@@ -1867,15 +1858,6 @@ function edgemakers_features_user_user_default_permissions() {
       'site administrator' => 'site administrator',
     ),
     'module' => 'media',
-  );
-
-  // Exported permission: 'view memcache storage debug'.
-  $permissions['view memcache storage debug'] = array(
-    'name' => 'view memcache storage debug',
-    'roles' => array(
-      'site administrator' => 'site administrator',
-    ),
-    'module' => 'memcache_storage',
   );
 
   // Exported permission: 'view node location table'.
