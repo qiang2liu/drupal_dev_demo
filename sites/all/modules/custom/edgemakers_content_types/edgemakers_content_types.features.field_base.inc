@@ -793,41 +793,6 @@ function edgemakers_content_types_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_s3_test_audoi'
-  $field_bases['field_s3_test_audoi'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_s3_test_audoi',
-    'field_permissions' => array(
-      'type' => 0,
-    ),
-    'foreign keys' => array(
-      'fid' => array(
-        'columns' => array(
-          'fid' => 'fid',
-        ),
-        'table' => 'file_managed',
-      ),
-    ),
-    'indexes' => array(
-      'fid' => array(
-        0 => 'fid',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'file',
-    'settings' => array(
-      'display_default' => 0,
-      'display_field' => 0,
-      'profile2_private' => FALSE,
-      'uri_scheme' => 's3',
-    ),
-    'translatable' => 0,
-    'type' => 'file',
-  );
-
   // Exported field_base: 'field_set_document'
   $field_bases['field_set_document'] = array(
     'active' => 1,

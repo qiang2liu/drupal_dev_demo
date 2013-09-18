@@ -1752,7 +1752,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -47,
+    'weight' => 0,
     'parent_path' => 'admin/edgemakers',
   );
   // Exported menu link: management:admin/edgemakers/carousel
@@ -1767,7 +1767,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -46,
+    'weight' => 0,
     'parent_path' => 'admin/edgemakers',
   );
   // Exported menu link: management:admin/edgemakers/set
@@ -1782,7 +1782,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => -45,
+    'weight' => 0,
     'parent_path' => 'admin/edgemakers',
   );
   // Exported menu link: management:admin/edgemakers/stage
@@ -1797,7 +1797,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => -44,
+    'weight' => 0,
     'parent_path' => 'admin/edgemakers',
   );
   // Exported menu link: management:admin/edgemakers/topic
@@ -1812,7 +1812,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -43,
+    'weight' => 0,
     'parent_path' => 'admin/edgemakers',
   );
   // Exported menu link: management:admin/help
@@ -2002,7 +2002,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -50,
+    'weight' => -60,
     'parent_path' => 'admin/reports',
   );
   // Exported menu link: management:admin/reports/updates
@@ -2328,20 +2328,6 @@ function edgemakers_features_other_menu_default_menu_links() {
     'weight' => -43,
     'parent_path' => 'admin/edgemakers',
   );
-  // Exported menu link: navigation:bookmarks
-  $menu_links['navigation:bookmarks'] = array(
-    'menu_name' => 'navigation',
-    'link_path' => 'bookmarks',
-    'router_path' => 'bookmarks',
-    'link_title' => 'My bookmarks',
-    'options' => array(),
-    'module' => 'system',
-    'hidden' => 1,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 0,
-  );
   // Exported menu link: navigation:edgemakers/set/ajaxlike
   $menu_links['navigation:edgemakers/set/ajaxlike'] = array(
     'menu_name' => 'navigation',
@@ -2406,7 +2392,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'link_title' => 'Invite a friend',
     'options' => array(),
     'module' => 'system',
-    'hidden' => 1,
+    'hidden' => 0,
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
@@ -2891,13 +2877,9 @@ function edgemakers_features_other_menu_default_menu_links() {
     'link_path' => 'relationships',
     'router_path' => 'relationships',
     'link_title' => 'My relationships',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
+    'options' => array(),
     'module' => 'system',
-    'hidden' => 1,
+    'hidden' => 0,
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
@@ -3020,7 +3002,6 @@ function edgemakers_features_other_menu_default_menu_links() {
   t('Module filter');
   t('Modules');
   t('My Workbench');
-  t('My bookmarks');
   t('My relationships');
   t('OAuth');
   t('OAuth2 Servers');

@@ -48,7 +48,6 @@ features[field_base][] = field_muralid
 features[field_base][] = field_muralshared
 features[field_base][] = field_muraltype
 features[field_base][] = field_muraluser
-features[field_base][] = field_s3_test_audoi
 features[field_base][] = field_set_document
 features[field_base][] = field_set_image
 features[field_base][] = field_set_murally_type

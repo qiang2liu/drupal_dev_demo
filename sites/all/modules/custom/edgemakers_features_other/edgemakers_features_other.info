@@ -183,7 +183,6 @@ features[menu_links][] = management:admin/structure/types
 features[menu_links][] = management:admin/structure/views
 features[menu_links][] = management:admin/workbench
 features[menu_links][] = management:node/add/webform
-features[menu_links][] = navigation:bookmarks
 features[menu_links][] = navigation:edgemakers/set/ajaxlike
 features[menu_links][] = navigation:edgemakers/stage/api/list
 features[menu_links][] = navigation:filter/tips
