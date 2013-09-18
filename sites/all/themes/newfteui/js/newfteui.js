@@ -131,6 +131,12 @@
 			}
 		})
 		
+		//prevent mouse middle click
+		$(window).bind('scroll', function(event){
+			
+			
+			$(document).scrollLeft(0);
+		})
 		
 	});
 })(jQuery);
