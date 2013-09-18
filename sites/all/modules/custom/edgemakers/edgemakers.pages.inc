@@ -18,7 +18,7 @@ function edgemakers_nodes_comp($a, $b) {
   if ($a == $b) {
     return 0;
   }
-  return ($a->created < $b->created) ? 1 : -1;
+  return ($a->changed < $b->changed) ? 1 : -1;
 }
 function edgemakers_node_get_recent($types, $number = 5) {
   $query = db_select('node', 'n');
