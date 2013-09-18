@@ -552,7 +552,7 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
  * Remove the leading hash signs to disable.
  */
 # $conf['allow_authorize_operations'] = FALSE;
-   
+
 $conf['aws_key'] = 'AKIAIXZT5GHGIMD4UVKQ';
 $conf['aws_secret'] = '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';
 $conf['aws_account_id'] = '5570-6783-7547';
@@ -562,3 +562,8 @@ $conf['aws_certificate_authority'] = true;
 if (file_exists('sites/default/local.settings.php')) {
     include_once('sites/default/local.settings.php');
 }
+
+# iFrame "breaks" out within internet explorer.
+# @link https://drupal.org/node/1102878
+
+header('P3P: CP="CAO PSA OUR"');
