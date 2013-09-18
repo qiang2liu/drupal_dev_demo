@@ -34,7 +34,7 @@
         
       },
       error :function(){
-        alert('An error occurs when getting the stage sets!')
+//        alert('An error occurs when getting the stage sets!');
       }
     });
 
