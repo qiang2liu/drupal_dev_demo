@@ -341,7 +341,7 @@ function themuraly_block_view($delta = '') {
                                 <div class="arrow-left" pager="0"> < </div>
                                 <div class="arrow-right" pager="1"> > </div>
                                 <ul id="studio-mural-list">';
-          $block['content'] .= themuraly_studio_mural_list_html();
+//           $block['content'] .= themuraly_studio_mural_list_html();
           $block['content'] .= '</ul>
                               </div>';
         }
@@ -858,6 +858,8 @@ function _themuralyajax_validate($form, &$form_state) {
   global $user;
   form_load_include($form_state, 'inc', 'node', 'node.pages');
 
+  $lang = $form_state['values']['language'];
+
 //   watchdog('Mural Settings', 'Formstate data: <pre>' . print_r($form_state, TRUE) . '</pre>');
   // Debug
 //   dpm($form_state);
@@ -865,14 +867,14 @@ function _themuralyajax_validate($form, &$form_state) {
   // End Debug;
 
   if ($form_state['triggering_element']['#type'] == 'submit') {
-   $property_array = array();
+    $property_array = array();
 
     $title = check_plain($form_state['values']['title']);
     if (empty($title)) {
       return;
     }
     $property_array['title'] = $title;
-    $lang = $form_state['values']['language'];
+//     $lang = $form_state['values']['language'];
     $muralshared = $form_state['values']['field_muralshared'][$lang][0]['value'];
     $property_array['shared'] = (bool) $muralshared;
 
@@ -927,7 +929,7 @@ function _themuralyajax_validate($form, &$form_state) {
                     if ($k == 'shared') {
                       $the_form_ele = 'field_muralshared';
                     }
-                    form_set_error($the_form_ele, t('can\'t update the mural properties.'));
+//                     form_set_error($the_form_ele, t('can\'t update the mural properties.'));
                   }
                 }
               }
@@ -942,6 +944,7 @@ function _themuralyajax_validate($form, &$form_state) {
               $form_state['values']['field_mural_thumburl'][$lang][0]['value'] = $r['thumbUrl'];
 
               // Sync memeber data from mural.
+              $the_muralusers = '';
               if (is_object($result) && isset($result->data)) {
                 $muralapi_response_obj = drupal_json_decode($result->data);
                 if (!empty($muralapi_response_obj['members']) && is_array($muralapi_response_obj['members'])) {
@@ -970,7 +973,7 @@ function _themuralyajax_validate($form, &$form_state) {
     // Validate mail.
     $mail_to_share = $form_state['values']['field_mail_to_share'][LANGUAGE_NONE][0]['value'];
 // dpm($form_state);
-//     $form_state['values']['field_mail_to_share'][LANGUAGE_NONE][0]['value'] = '';
+    $form_state['values']['field_mail_to_share'][LANGUAGE_NONE][0]['value'] = '';
 // dpm($mail_to_share);
     if ($mail_to_share && $muralshared) {
       if (_valid_local_user($mail_to_share)) {
@@ -1022,8 +1025,6 @@ function _themuralyajax_validate($form, &$form_state) {
 
   }
 }
-
-
 
 function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '', $hashed_pass = '') {
 
@@ -1168,6 +1169,20 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
 
 //   _user_update_invite($uid, $nid, $mid);
 
+}
+
+function _get_topic_nid_by_tid($lang = '', $tid = '') {
+  $topic_nid = '';
+  if ($tid) {
+    $term = taxonomy_term_load($tid);
+
+    if (isset($term->field_challenge_topic[$lang]['0'])) {
+      watchdog('Debug', 'Term info: <pre>' . print_r($term->field_challenge_topic[$lang]['0'], TRUE) . '</pre>');
+      $topic_nid = $term->field_challenge_topic[$lang]['0']['target_id'];
+    }
+//     if ($term->)
+  }
+  return $topic_nid;
 }
 
 function _user_update_invite($uid, $nid, $mid) {
@@ -1375,6 +1390,8 @@ EOT;
 
 function _themuralyajax_submit($form, &$form_state) {
 
+  $lang = $form_state['values']['language'];
+
   form_load_include($form_state, 'inc', 'node', 'node.pages');
 
   if (form_get_errors()) {
@@ -1385,6 +1402,17 @@ function _themuralyajax_submit($form, &$form_state) {
 
   // Save node.
   $save_node = $form_state['node'];
+
+  watchdog('Debug', 'Save node: <pre>' . print_r($save_node, TRUE) . '</pre>');
+
+  // Get topic node nid from category.
+  if (isset($save_node->field_challenges_category)) {
+    $topic_nid = _get_topic_nid_by_tid($lang, $save_node->field_challenges_category[$lang]['0']['tid']);
+    $save_node->field_topic_mural[$lang]['0']['target_id'] = ($topic_nid) ? $topic_nid : '';
+//     watchdog('Debug', $lang . ' | topic nid: ' . $topic_nid .' | Get category: <pre>' . print_r($form_state['values'], TRUE) . '</pre>');
+//     form_set_error('field_challenges_category', t('Update topic by category.'));
+  }
+
   entity_form_submit_build_entity('node', $save_node, $form, $form_state);
   node_submit($save_node);
   node_save($save_node);
