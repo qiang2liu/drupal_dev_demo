@@ -119,10 +119,27 @@ function edgemakers_media_upload_download($fid = '') {
   if ($fid) {
 
     $file = file_load($fid);
-    $download_file = _create_tmp_download_file($file);
+    $download_file = file_directory_temp() .'/'. _create_tmp_download_file($file);
 
 //     $file_url = file_create_url($file->uri);
     watchdog('Debug', 'file info: ' . $download_file . '<pre>' . print_r($file, TRUE) . '</pre>');
+
+    if (file_exists($download_file)) {
+      header('Content-Description: File Transfer');
+      header('Content-Type: application/octet-stream');
+      header('Content-Disposition: attachment; filename='.basename($download_file));
+      header('Content-Transfer-Encoding: binary');
+      header('Expires: 0');
+      header('Cache-Control: must-revalidate');
+      header('Pragma: public');
+      header('Content-Length: ' . filesize($download_file));
+      ob_clean();
+      flush();
+      readfile($download_file);
+      exit;
+    }
+
+    exit;
 
     $tmp_file = pathinfo($file->filename);
 
