@@ -8,7 +8,7 @@
 /**
  * Implements hook_init().
  */
-function edgemakers_stage_init () {
+function edgemakers_stage_init() {
   drupal_add_js(
     drupal_get_path('module', 'edgemakers_stage')
     . '/js/edgemakers_stage.js',
@@ -46,8 +46,6 @@ function edgemakers_stage_menu() {
     'page callback' => 'edgemakers_set_index_delete_action',
     'page arguments' => array(5, 6, 7),
     'access arguments' => array('administer edgemakers'),
-//     'file path' => drupal_get_path('module', 'node'),
-//     'file' => 'node.pages.inc',
   );
 
   // Remove set from stage.
@@ -56,11 +54,9 @@ function edgemakers_stage_menu() {
     'page callback' => 'edgemakers_set_index_delete_action',
     'page arguments' => array(5, 6, 7),
     'access arguments' => array('administer edgemakers'),
-//     'file path' => drupal_get_path('module', 'node'),
-//     'file' => 'node.pages.inc',
   );
 
-  // Page tab menu
+  // Page tab menu.
   $items['admin/edgemakers/stage'] = array(
     'title' => 'Manage Stage',
     'type' => MENU_NORMAL_ITEM,
@@ -83,7 +79,7 @@ function edgemakers_stage_menu() {
     'title' => 'Create Stage',
     'type' => MENU_LOCAL_TASK,
     'page callback' => 'edgemakers_stage_create_page',
-    'access arguments' =>array('administer edgemakers'),
+    'access arguments' => array('administer edgemakers'),
     'file' => 'stage.manage.inc',
     'file path' => drupal_get_path('module', 'edgemakers_stage') ,
   );
@@ -97,9 +93,8 @@ function edgemakers_stage_menu() {
     'file' => 'stage.pages.inc',
     'file path' => drupal_get_path('module', 'edgemakers_stage') ,
   );
-  //End tab menu
 
-  // API URL
+  // API URL.
   // Remove set from stage.
   $items['edgemakers/stage/api/list'] = array(
     'page callback' => 'edgemakers_stage_api_list_json',
@@ -109,20 +104,20 @@ function edgemakers_stage_menu() {
   );
 
   $items['edgemarkers/stage/get/set/ajax'] = array(
-    'page callback' => 'edgemakers_stage_api_set_list_html', // Render HTML
+    'page callback' => 'edgemakers_stage_api_set_list_html',
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
-    'delivery callback' => 'edgemakers_stage_ajax_callback',  // Magic goes here
+    'delivery callback' => 'edgemakers_stage_ajax_callback',
     'page arguments' => array(5),
     'file path' => drupal_get_path('module', 'edgemakers_stage'),
     'file' => 'stage.api.inc',
   );
 
   $items['edgemakers/stage/api/set/info/ajax'] = array(
-    'page callback' => 'edgemakers_stage_api_set_view_html', // Render HTML
+    'page callback' => 'edgemakers_stage_api_set_view_html',
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
-    'delivery callback' => 'edgemakers_stage_ajax_callback',  // Magic goes here
+    'delivery callback' => 'edgemakers_stage_ajax_callback',
     'page arguments' => array(6),
     'file path' => drupal_get_path('module', 'edgemakers_stage'),
     'file' => 'stage.api.inc',
@@ -149,45 +144,45 @@ function edgemakers_stage_theme() {
  * Displays help and module information.
  */
 function edgemakers_stage_help($path, $arg) {
+  $help_test = '';
   switch ($path) {
     case "admin/help#stage":
       $help_test = '<p>' . t("Admin stage of set.") . '</p>';
-
-      return $help_test;
-
       break;
+
   }
+  return $help_test;
 }
 
 /**
  * Remove set from stage.
  *
  * @param int $stage_id
+ *   - Stage id.
+ *
  * @param int $set_id
+ *   - Set id.
+ *
+ * @param int $ajax
+ *   - Is ajax call.
  */
-function edgemakers_set_index_delete_action($stage_id = '', $set_id, $ajax = 0) {
+function edgemakers_set_index_delete_action($stage_id = '', $set_id = '', $ajax = 0) {
 
-  print('Stage id: ' . $stage_id . ' | Set id: ' . $set_id . ' | Use ajax: ' . $ajax);
-
-  $callbak_url = $_GET[q];
+  $callbak_url = $_GET[Q];
 
   $destination = explode("&destination=", $callbak_url);
-
-  watchdog('Debug', 'Destination: ' . $destination[1] . ' AND args: ' . print_r($destination, TRUE));
 
   $stage = node_load($stage_id);
 
   if (isset($stage->box_index_data[LANGUAGE_NONE])) {
     $stage_index = unserialize($stage->box_index_data[LANGUAGE_NONE][0]['value']);
 
-    //drupal_set_message('Before delete: <pre>' . print_r($stage_index, TRUE) . '</pre>');
-    foreach ($stage_index AS $key=>$index) {
+    foreach ($stage_index as $key => $index) {
       if ($index['set_id'] == $set_id) {
         unset($stage_index[$key]);
       }
     }
 
-    //drupal_set_message('After delete: <pre>' . print_r($stage_index, TRUE) . '</pre>');
     // Update index data in stage.
     $stage->box_index_data[$stage->language][0]['value'] = serialize($stage_index);
 
@@ -199,7 +194,7 @@ function edgemakers_set_index_delete_action($stage_id = '', $set_id, $ajax = 0) 
     }
     else {
       $set = node_load($set_id);
-      drupal_set_message(t('Set [' . $set->title . '] deleted.'));
+      drupal_set_message(t('Set [@set_title] deleted.', array('@set_title' => $set->title)));
       drupal_goto('admin/edgemakers/stage/managebox/' . $stage_id);
     }
 
@@ -211,11 +206,8 @@ function edgemakers_set_index_delete_action($stage_id = '', $set_id, $ajax = 0) 
  * Implements hook_form_alter().
  */
 function edgemakers_stage_form_alter(&$form, $form_state, $form_id) {
-  $type = str_replace("-", "_" ,variable_get('edgemakers_stage_content_type', 'stage'));
+  $type = str_replace("-", "_", variable_get('edgemakers_stage_content_type', 'stage'));
   $stage_form_id = $type . '_node_form';
-
-  //drupal_set_message($stage_form_id);
-  //$stage_delete_form_id = $type . 'node_delete_confirm';
 
   if ($form_id == $stage_form_id) {
 
@@ -235,7 +227,7 @@ function edgemakers_stage_form_alter(&$form, $form_state, $form_id) {
 }
 
 /**
- * handler form submit.
+ * Handler form submit.
  */
 function _edgemakers_stage_node_submit_redirect_handler($form, &$form_state) {
   unset($_REQUEST['destination']);
@@ -247,6 +239,7 @@ function _edgemakers_stage_node_submit_redirect_handler($form, &$form_state) {
  * Update setes list in stage.
  *
  * @param int $stage_id
+ *   - Stage id.
  */
 function _edgemakers_stage_box_index_list_update($stage_id = '', $destination = '') {
   $output = _edgemakers_stage_mangebox_index_list_html($stage_id, $destination);
@@ -258,8 +251,12 @@ function _edgemakers_stage_box_index_list_update($stage_id = '', $destination = 
 
 /**
  * Build form html from hook_form().
+ *
  * @param int $stage_id
- * @return Ambigous <The, void, string, A, boolean>
+ *   - Stage id
+ *
+ * @return Ambigous
+ *   - <The, void, string, A, boolean>
  */
 function _edgemakers_stage_mangebox_index_list_html($stage_id, $destination = '') {
   module_load_include('inc', 'edgemakers_stage', 'stage.pages');
@@ -269,21 +266,20 @@ function _edgemakers_stage_mangebox_index_list_html($stage_id, $destination = ''
 }
 
 /**
- * Implements hook_book_info();
+ * Implements hook_book_info().
  */
 function edgemakers_stage_block_info() {
 
   $blocks['stage_list'] = array(
-    'info' => t('Stage list'), //The name that will appear in the block list.
-    'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+    'info' => t('Stage list'),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
   );
 
   return $blocks;
 }
 
 /**
- * Implements hook_book_view()
- * @param unknown_type $delta
+ * Implements hook_book_view().
  */
 function edgemakers_stage_block_view($delta = '') {
 
@@ -292,43 +288,12 @@ function edgemakers_stage_block_view($delta = '') {
   global $base_root;
   global $base_path;
 
-  switch($delta){
+  switch ($delta) {
     case 'stage_list':
-
       $block['subject'] = t('Stage list block title');
 
-//       $type = variable_get('edgemakers_stage_content_type', 'stage');
-//       $stages = node_load_multiple(array(), array('type' => $type));
-
-      //Load the javascript and the css:
+      // Load the javascript and the css.
       drupal_add_library('system', 'ui.dialog');
-
-      //Add the code that triggers the effect:
-      //Replace XXXXXXXXXX with a unique name
-//       drupal_add_js('
-//       (function ($) {
-//               Drupal.behaviors.StageSetInfoView = {
-//                 attach: function(context, settings) {
-
-//                   //Enter the jQuery-Code here
-//                   //********************************************
-
-//                   /*    $( "#stage-set-view" ).dialog({
-//                           dialogClass: "no-close",
-//                           modal: true,
-//                           buttons: {
-//                               Ok: function() {
-//                                   $( this ).dialog( "close" );
-//                               }
-//                           }
-//                       });
-//                   */
-//                   //********************************************
-
-//                   }
-//               };
-//       })(jQuery);
-//       ', 'inline');
 
       $block['content'] = '<div id="set-view-region" class="hidden">
           <div id="stage-set-view"></div>
@@ -342,19 +307,7 @@ function edgemakers_stage_block_view($delta = '') {
           </div>
       </div>';
       $block['content'] .= '<div id="ajaxload"></div><div id="stage-set-list">';
-
-
-      /*foreach ($stages AS $stage) {
-        $block['content'] .= '<div id="stage-set-list-' . $stage->nid . '" style="display: none;">';
-        $block['content'] .= '<h2>' . $stage->title . "</h2>";
-        $block['content'] .= edgemakers_stage_api_set_list_html($stage->nid);
-        $block['content'] .= '</div>';
-      }*/
-
       $block['content'] .= '</div>';
-
-      break;
-    default:
       break;
   }
 
@@ -362,26 +315,29 @@ function edgemakers_stage_block_view($delta = '') {
 }
 
 /**
- * Implements hook_node_delete();
+ * Implements hook_node_delete().
  */
 function edgemakers_stage_node_delete($node) {
 
   if ($node->type == 'edgemakers_set') {
 
-//     drupal_set_message('It\'s a big TRB');
-
     $type = variable_get('edgemakers_stage_content_type', 'stage');
     $stages = node_load_multiple(array(), array('type' => $type));
 
-    foreach ($stages AS $stage) {
+    foreach ($stages as $stage) {
 
       if (isset($stage->box_index_data[LANGUAGE_NONE])) {
 
         $stage_index = unserialize($stage->box_index_data[LANGUAGE_NONE][0]['value']);
 
-        foreach ($stage_index AS $key=>$index) {
+        foreach ($stage_index as $key => $index) {
+
           if ($index['set_id'] == $node->nid) {
-            drupal_set_message('Remove set "' . $node->title . '"  from "' . $stage->title . '" stage list.');
+            $msg = t('Remove set "@set_title"  from "@stage_title" stage list.', array(
+              '@set_title' => $node->title,
+              '@stage_title' => $stage->title,
+            ));
+            drupal_set_message($msg);
             unset($stage_index[$key]);
           }
         }
