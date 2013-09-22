@@ -323,7 +323,7 @@ h1{
       <?php endif;?>
       <?php if(count($videoIds) > 0): ?>
       <div id="videos" class="media-box">
-        <div id="videos_container">
+        <div id="videos_container" class="content-container">
         You need Flash player 8+ and JavaScript enabled to view this video.
         <p><?php echo l(t('Get Flash Player'), 'http://get.adobe.com/flashplayer/', array('attributes' => array('target' => '_blank')));?></p>
         <?php foreach($videoIds as $i=>$videoId): ?>
@@ -377,7 +377,7 @@ function loadVideo(videoid) {
 	var atts = { id: "myytplayer" };
 
   //Get width from video destination element continar
-  var videoWidth = 200;
+  var videoWidth = 360;
   var whratio = 64/39*1.0;
   var vHeight = videoWidth/whratio;
 
