@@ -504,6 +504,7 @@ function edgemakers_features_user_user_default_permissions() {
   $permissions['administer permissions'] = array(
     'name' => 'administer permissions',
     'roles' => array(
+      'site admin' => 'site admin',
       'site administrator' => 'site administrator',
     ),
     'module' => 'user',
@@ -602,6 +603,7 @@ function edgemakers_features_user_user_default_permissions() {
   $permissions['administer users'] = array(
     'name' => 'administer users',
     'roles' => array(
+      'site admin' => 'site admin',
       'site administrator' => 'site administrator',
     ),
     'module' => 'user',
