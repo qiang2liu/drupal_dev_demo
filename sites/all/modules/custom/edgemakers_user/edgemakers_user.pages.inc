@@ -128,7 +128,20 @@ function edgemakers_user_profile_settings_form($form, &$form_state) {
   return $form;
 }
 function edgemakers_user_profile_settings_form_validate($form, &$form_state) {
+  _edgemakers_user_editform_validate($form, $form_state);
   entity_form_field_validate('user', $form, $form_state);
+}
+function _edgemakers_user_editform_validate($form, &$form_state) {
+  if(isset($form_state['values']['field_firstname'][LANGUAGE_NONE])) {
+    if ($error = edgemakers_user_validate_name('firstname', $form_state['values']['field_firstname'][LANGUAGE_NONE][0]['value'])) {
+      form_set_error('field_firstname', $error);
+    }
+  }
+  if(isset($form_state['values']['field_lastname'][LANGUAGE_NONE])) {
+    if ($error = edgemakers_user_validate_name('lastname', $form_state['values']['field_lastname'][LANGUAGE_NONE][0]['value'])) {
+      form_set_error('field_lastname', $error);
+    }
+  }
 }
 function edgemakers_user_profile_settings_form_submit($form, &$form_state) {
   $account = $form_state['user'];
@@ -211,6 +224,35 @@ function edgemakers_user_profile_settings_form_submit($form, &$form_state) {
   }
   // Clear the page cache because pages can contain usernames and/or profile information:
   cache_clear_all();
+}
+function edgemakers_user_validate_name($type, $name) {
+  if (!$name) {
+    return t('You must enter a '.$type.'.');
+  }
+  if (substr($name, 0, 1) == ' ') {
+    return t('The '.$type.' cannot begin with a space.');
+  }
+  if (substr($name, -1) == ' ') {
+    return t('The '.$type.' cannot end with a space.');
+  }
+  if (strpos($name, '  ') !== FALSE) {
+    return t('The '.$type.' cannot contain multiple spaces in a row.');
+  }
+  if (preg_match('/[^\x{80}-\x{F7} a-z0-9@_.\'-]/i', $name)) {
+    return t('The '.$type.' contains an illegal character.');
+  }
+  if (preg_match('/[\x{80}-\x{A0}' . // Non-printable ISO-8859-1 + NBSP
+  '\x{AD}' . // Soft-hyphen
+  '\x{2000}-\x{200F}' . // Various space characters
+  '\x{2028}-\x{202F}' . // Bidirectional text overrides
+  '\x{205F}-\x{206F}' . // Various text hinting characters
+  '\x{FEFF}' . // Byte order mark
+  '\x{FF01}-\x{FF60}' . // Full-width latin
+  '\x{FFF9}-\x{FFFD}' . // Replacement characters
+  '\x{0}-\x{1F}]/u', // NULL byte and control characters
+  $name)) {
+    return t('The '.$type.' contains an illegal character.');
+  }
 }
 function edgemakers_user_get_bgimages_list() {
   $bgimages = array();
