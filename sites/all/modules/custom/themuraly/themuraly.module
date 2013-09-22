@@ -1406,7 +1406,7 @@ function _themuralyajax_submit($form, &$form_state) {
     return $form;
   }
 
-//   drupal_set_message('Node info:<pre>' . print_r($form_state['node'], TRUE) . '</pre>');
+  watchdog('Debug', 'Form state info:<pre>' . print_r($form_state, TRUE) . '</pre>');
 
   // Save node.
   $save_node = $form_state['node'];
@@ -1414,9 +1414,9 @@ function _themuralyajax_submit($form, &$form_state) {
   watchdog('Debug', 'Save node: <pre>' . print_r($save_node, TRUE) . '</pre>');
 
   // Get topic node nid from category.
-  if (isset($save_node->field_challenges_category)) {
-    if ($save_node->field_challenges_category[$lang]['0']['tid']) {
-      $topic_nid = _get_topic_nid_by_tid($lang, $save_node->field_challenges_category[$lang]['0']['tid']);
+  if (isset($form_state['values']['field_challenges_category'])) {
+    if ($form_state['values']['field_challenges_category'][$lang]['0']['tid']) {
+      $topic_nid = _get_topic_nid_by_tid($lang, $form_state['values']['field_challenges_category'][$lang]['0']['tid']);
       $save_node->field_topic_mural[$lang]['0']['target_id'] = ($topic_nid) ? $topic_nid : '';
     }
 //     watchdog('Debug', $lang . ' | topic nid: ' . $topic_nid .' | Get category: <pre>' . print_r($form_state['values'], TRUE) . '</pre>');
@@ -2528,6 +2528,12 @@ function themuraly_topic_mural_list($nid = '') {
       'value' => $nid,
       'operator' => '=',
     );
+    $conditions['field'][] = array(
+      'field' => 'field_muralshared',
+      'column' => 'value',
+      'value' => 1,
+      'operator' => '=',
+    );
     $murals_list = themuraly_mural_list('', 0, 5, $conditions);
 //     print('<pre>' . print_r($murals_list, TRUE) . '</pre>');
     $murals_list_html .= theme_mural_list_box('topic', $murals_list);
@@ -2596,21 +2602,38 @@ function theme_mural_item_box($item = array(), $attributes = array()) {
     $item_attributes[$key] = $value;
   }
 
+//   print('Node: <pre>' . print_r($node, TRUE) . '</pre>');
   if ($node->nid) {
 
     $node_user = user_load($node->uid);
+//     print('User: <pre>' . print_r($node_user, TRUE) . '</pre>');
     $node_field_first_name = field_get_items('user', $node_user, 'field_firstname');
     $node_first_name = $node_field_first_name && count($node_field_first_name) > 0 ? $node_field_first_name[0]['value'] : '';
     $node_field_last_name = field_get_items('user', $node_user, 'field_lastname');
     $node_last_name = $node_field_last_name && count($node_field_last_name) > 0 ? $node_field_last_name[0]['value'] : '';
     $node_username = $node_first_name . ' ' . $node_last_name;
-    $node_user_avatar = theme('user_picture', array('account' =>$node_user));
+    $node_user_avatar = theme('user_picture', array('account' => $node_user));
+
+    $view_url = l('<span class ="muralsettingicon"></span>', 'mural/' . $node->nid, array(
+      'html' => true,
+      'attributes' => array(
+        'class' => array('mural-list-item-link'),
+        'nid' => $node->nid,
+        'onClick' => 'showMuralDialog("?q=mural/' . $node->nid . '");jQuery("#mural-back-to-dashboard").show();return false;',
+      ),
+    ));
 
     $html .= '<div>';
 
     if ($node->field_topic_mural[LANGUAGE_NONE]['0']['target_id']) {    // Topic mural list
+      $view_url = l($node->title, '#', array(
+        'attributes' => array(
+          'nid' => $node->nid,
+          'onClick' => 'showMuralDialog("?q=mural/' . $node->nid . '");jQuery("#mural-back-to-dashboard").show();return false;',
+        ),
+      ));
       $html .= '<h3 class="author">' . $node_username . '</h3>';
-      $html .= '<span class="mural-title">' . $node->title . '</span>';
+      $html .= '<span class="mural-title">' . $view_url . '</span>';
       $html .= '<span class="user-avatar">' . $node_user_avatar . '</span>';
     }
     else {                                                             // Default mural list
