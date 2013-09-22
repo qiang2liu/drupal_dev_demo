@@ -1,11 +1,13 @@
 <?php
 /**
- * @file Stage manage pages.
+ * @file
+ * Stage manage pages.
  */
 
 /**
  * Create new Stage page.
  * @return string
+ *   - HTML code.
  */
 function edgemakers_stage_create_page() {
   module_load_include('inc', 'node', 'node.pages');
@@ -15,9 +17,10 @@ function edgemakers_stage_create_page() {
 }
 
 /**
- * edgemakers_stage_edit()
- *   - Edit Stage page.
+ * Edgemakers stage edit.
+ *
  * @return string
+ *   - HTML code.
  */
 function edgemakers_stage_edit($nid = '') {
   if ($nid) {
