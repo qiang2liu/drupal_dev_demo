@@ -4,12 +4,6 @@ function profileBackground() {
     jQuery(this).addClass('active');
     changeBgImage(jQuery(this).find('span.image img')[0].src);
   });
-  jQuery("#edgemakers-user-profile-settings-form .form-submit[value=SAVE]").bind("click", function(){
-    var firstname = document.getElementById('edit-field-firstname-und-0-value').value;
-    var lastname = document.getElementById('edit-field-lastname-und-0-value').value;
-    if(firstname && lastname)
-      jQuery('.user-profile .user-box h4').text(firstname +' '+ lastname);
-  });
   jQuery('.form-item-field-profile-background-und-0 img').bind('click', function(){
     jQuery('.form-item-preset-background label.option').removeClass('active');
     jQuery('.form-item-preset-background input[type=radio]').attr('checked', false);

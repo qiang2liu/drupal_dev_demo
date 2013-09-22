@@ -60,6 +60,19 @@ function user_profile_callback($ajax) {
     $commands = array();
     ctools_add_js('ajax-responder');
     $commands[] = ctools_modal_command_dismiss();
+    global $user;
+    $user = user_load($user->uid);
+    $firstnames = field_get_items('user', $user, 'field_firstname');
+    $firstname = $firstnames && count($firstnames) > 0 ? $firstnames[0]['value'] : '';
+    $lastnames = field_get_items('user', $user, 'field_lastname');
+    $lastname = $lastnames && count($lastnames) > 0 ? $lastnames[0]['value'] : '';
+    
+    if($firstname) {
+      $username = $firstname .' '. $lastname;
+    } else {
+      $username = $user->name;
+    }
+    $commands[] = ajax_command_html('.user-profile .user-box h4', $username);
   }
   // Return the ajax instructions to the browser via ajax_render().
   print ajax_render($commands);
