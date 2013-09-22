@@ -316,7 +316,7 @@ form.node-murals-form.node-form div.form-item label
 #modal-content .node-murals-form .form-item input[type="text"].error
 {
   border: 2px solid red;
-  color: white;
+/*   color: white; */
 }
 
 #modal-content .node-murals-form .form-textarea-wrapper textarea {
