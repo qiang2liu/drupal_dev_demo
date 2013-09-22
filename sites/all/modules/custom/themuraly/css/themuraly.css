@@ -467,6 +467,10 @@ a.create-mural-topic {
   overflow: hidden;
 }
 
+.mural-settings-form-class #modal-content {
+  overflow: hidden;
+}
+
 .mural-settings-form-class #modal-content.modal-content.popups-body{
 	background-color:rgba(0,0,0,0);
 }
