@@ -57,7 +57,7 @@ function edgemakers_topic_carousel_items() {
     $renderable_array[] = array(
       'nid' => $node->nid,
       'title' => $node->title,
-      'description' => $node->description,
+      'description' => $node->body,
       'topicid' => $topic[0]['target_id'],
       'imageurl' => file_create_url($image[0]['uri']),
     );
