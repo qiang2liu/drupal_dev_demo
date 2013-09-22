@@ -1,6 +1,9 @@
 /**
-* Provide the HTML to create the modal dialog.
-*/
+ * @file 
+ * Ctools modal custom theme code.
+ * 
+ * Provide the HTML to create the modal dialog.
+ */
 Drupal.theme.prototype.CToolsEdgemakersUploadMediaModal = function () {
 
   var html = '';

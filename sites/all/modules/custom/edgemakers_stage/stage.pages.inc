@@ -1,13 +1,12 @@
 <?php
 
 /**
- * @file stage page file.
- *   Page of stage manage.
+ * @file
+ * Page of stage manage.
  */
 
 /**
- * edgemakers_stage_page()
- *   - Stage admin page.
+ * Edgemakers_stage_page().
  */
 function edgemakers_stage_page() {
 
@@ -41,34 +40,34 @@ function edgemakers_stage_page() {
     $dimension = $dimension_x . " X " . $dimension_y;
 
     // Operations.
-    $edit_url = l('Edit',
-        'modal/node/' . $node->nid . '/edit/nojs/1',
-        array(
-            'query' => array(
-                'destination' => $_GET["q"],
-            ),
-            'attributes' => array(
-                'class' => array('ctools-use-modal'),
-            ),
-        )
+    $edit_url = l(t('Edit'),
+      'modal/node/' . $node->nid . '/edit/nojs/1',
+      array(
+        'query' => array(
+          'destination' => $_GET["q"],
+        ),
+        'attributes' => array(
+          'class' => array('ctools-use-modal'),
+        ),
+      )
     );
-    $managebox_url = l('Manage Stage', 'admin/edgemakers/stage/managebox/' . $node->nid);
-    $delete_url = l('Delete', 'node/' . $node->nid . '/delete',
+    $managebox_url = l(t('Manage Stage'), 'admin/edgemakers/stage/managebox/' . $node->nid);
+    $delete_url = l(t('Delete'), 'node/' . $node->nid . '/delete',
       array(
         'query' => array(
           'destination' => 'admin/edgemakers/stage',
         ),
         'attributes' => array(
-          'onClick' => 'disp_confirm(this.id);return false;',
-          'id' => 'edgemakers-delete-' . $node->nid
-        )
+          'onClick' => 'disp_confirm(this.id);return FALSE;',
+          'id' => 'edgemakers-delete-' . $node->nid,
+        ),
       )
     );
 
     $options[$node->nid] = array(
       'title' => check_plain($node->title),
       'dimension' => $dimension,
-      'operations' => $delete_url . ' | ' . $edit_url . ' | ' . $managebox_url
+      'operations' => $delete_url . ' | ' . $edit_url . ' | ' . $managebox_url,
     );
   }
   $form['nodes'] = array(
@@ -84,12 +83,17 @@ function edgemakers_stage_page() {
   drupal_add_js(drupal_get_path('module', 'edgemakers_stage') . '/js/edgemakers_stage_admin.js');
 
   return $form;
-}
 
+}
 
 /**
  * Mangement box index.
+ *
+ * @param int $sid
+ *   - Stage id.
+ *
  * @return string
+ *   - HTML code.
  */
 function edgemakers_stage_managebox_page($sid = '') {
 
@@ -101,13 +105,8 @@ function edgemakers_stage_managebox_page($sid = '') {
 
   if ($sid) {
 
-    module_load_include('inc', 'edgemakers_stage', 'stage_manage_set.form');
-
     $form = drupal_get_form('edgemakers_stage_managebox_form');
     $output .= drupal_render($form);
-
-
-    module_load_include('inc', 'edgemakers_stage', 'stage_set_list.form');
 
     $list_form = drupal_get_form('edgemakers_stage_set_list_form', $sid);
     $output .= '<div id="stage_manage_box_index_list">';
@@ -120,20 +119,20 @@ function edgemakers_stage_managebox_page($sid = '') {
   }
 
   return $output;
+
 }
 
 /**
- * Implements hook_form();
+ * Implements hook_form() for edgemakers_stage_managebox_form().
  */
 function edgemakers_stage_managebox_form($form, &$form_state) {
 
   $form = array();
-
   $sid = arg(4);
 
   $form['stage_id'] = array(
-      '#type' => 'hidden',
-      '#default_value' => $sid,
+    '#type' => 'hidden',
+    '#default_value' => $sid,
   );
 
   $vid = variable_get('edgemakers_set_type_term', 1);
@@ -167,16 +166,16 @@ function edgemakers_stage_managebox_form($form, &$form_state) {
 
     // Bind an ajax callback to the change event (which is the default for the
     // select form type) of the first dropdown. It will replace the second
-    // dropdown when rebuilt
+    // dropdown when rebuilt.
     '#ajax' => array(
       // When 'event' occurs, Drupal will perform an ajax request in the
       // background. Usually the default value is sufficient (eg. change for
       // select elements), but valid values include any jQuery event,
-          // most notably 'mousedown', 'blur', and 'submit'.
-          // 'event' => 'change',
-          'callback' => '_ajax_set_types_dropdown_callback',
-          'wrapper' => 'dropdown-title-replace',
-      ),
+      // most notably 'mousedown', 'blur', and 'submit'.
+      // 'event' => 'change',
+      'callback' => '_ajax_set_types_dropdown_callback',
+      'wrapper' => 'dropdown-title-replace',
+    ),
   );
 
   $form['Set_Fields']['set_title'] = array(
@@ -188,25 +187,24 @@ function edgemakers_stage_managebox_form($form, &$form_state) {
     '#prefix' => '<div id="dropdown-title-replace">',
     '#suffix' => '</div>',
 
-    // when the form is rebuilt during ajax processing, the $selected variable
-    // will now have the new value and so the options will change
+    // When the form is rebuilt during ajax processing, the $selected variable
+    // will now have the new value and so the options will change.
     '#options' => _ajax_get_set_title_dropdown_options($selected),
     '#default_value' => isset($form_state['values']['set_title']) ? $form_state['values']['set_title'] : '',
   );
 
-      $form['Set_Fields']['set_location_index'] = array(
-          '#type' => 'hidden',
-          '#title' => 'Set Location Index',
-          '#required' => false,
-      );
+  $form['Set_Fields']['set_location_index'] = array(
+    '#type' => 'hidden',
+    '#title' => 'Set Location Index',
+    '#required' => FALSE,
+  );
 
-      $form['add_set_to_stage'] = array(
-          '#type' => 'submit',
-          '#value' => t('Add set to stage'),
-      );
+  $form['add_set_to_stage'] = array(
+    '#type' => 'submit',
+    '#value' => t('Add set to stage'),
+  );
 
-
-      return $form;
+  return $form;
 
 }
 
@@ -222,9 +220,16 @@ function edgemakers_stage_managebox_form($form, &$form_state) {
 }*/
 
 /**
- * Get dropdown callback;
- * @param unknown_type $form
- * @param unknown_type $form_state
+ * Get dropdown callback.
+ *
+ * @param array $form
+ *   - $FORM element.
+ *
+ * @param array $form_state
+ *   - $FORM form_state data.
+ *
+ * @return array
+ *   - $form elements.
  */
 function _ajax_set_types_dropdown_callback($form, $form_state) {
   return $form['Set_Fields']['set_title'];
@@ -232,8 +237,12 @@ function _ajax_set_types_dropdown_callback($form, $form_state) {
 
 /**
  * Get title options list by AJAX.
+ *
  * @param int $tid
- * @return Ambigous <An, multitype:>|multitype:
+ *   - Term id.
+ *
+ * @return Ambigous
+ *   - <An, multitype:>|multitype:
  */
 function _ajax_get_set_title_dropdown_options($tid = '') {
 
@@ -241,8 +250,8 @@ function _ajax_get_set_title_dropdown_options($tid = '') {
     if ($nids = taxonomy_select_nodes($tid)) {
       $set_options = array();
       $nodes = node_load_multiple($nids);
-      foreach ($nodes AS $n) {
-        $set_options[$n->nid . ':' . $n->title ] = $n->title;
+      foreach ($nodes as $n) {
+        $set_options[$n->nid . ':' . $n->title] = $n->title;
       }
       return $set_options;
     }
@@ -253,15 +262,15 @@ function _ajax_get_set_title_dropdown_options($tid = '') {
 }
 
 /**
- * Implements hook_form_validate();
+ * Implements hook_form_validate() for edgemakers_stage_managebox_form().
  */
 function edgemakers_stage_managebox_form_validate($form, &$form_state) {
 
   $values = $form_state['values'];
   $set_info = explode(':', $values['set_title']);
 
-  $set_nid = isset($set_info[0])?$set_info[0]:0;
-  $set_title = isset($set_info[1])?$set_info[1]:' ';
+  $set_nid = isset($set_info[0])?$set_info[0] : 0;
+  $set_title = isset($set_info[1])?$set_info[1] : ' ';
 
   if (_has_set_in_stage($values['stage_id'], $set_nid)) {
     form_set_error('set_title', t('Set "@set" has in Stage now.', array('@set' => $set_title)));
@@ -270,9 +279,16 @@ function edgemakers_stage_managebox_form_validate($form, &$form_state) {
 }
 
 /**
+ * Is exists set in stage list.
  *
  * @param int $stage_id
+ *   - Stage id
+ *
  * @param int $set_id
+ *   - Set id
+ *
+ * @return bool
+ *   - boolean.
  */
 function _has_set_in_stage($stage_id = '', $set_id = '') {
 
@@ -281,66 +297,73 @@ function _has_set_in_stage($stage_id = '', $set_id = '') {
 
     if (isset($stage->box_index_data[LANGUAGE_NONE])) {
       $node_box_index_data = unserialize($stage->box_index_data[LANGUAGE_NONE][0]['value']);
-      foreach ($node_box_index_data AS $index) {
+      foreach ($node_box_index_data as $index) {
         if ($index['set_id'] == $set_id) {
-          return true;
+          return TRUE;
         }
       }
-      return false;
+      return FALSE;
     }
     else {
-      return false;
+      return FALSE;
     }
 
   }
 }
 
 /**
- * Implements hook_form_submit();
+ * Implements hook_form_submit() for edgemakers_stage_managebox_form().
  */
 function edgemakers_stage_managebox_form_submit($form, &$form_state) {
 
   global $user;
 
   // Form data.
-
   if (empty($form_state['values']['set_location_index'])) {
     $form_state['values']['set_location_index'] = 0;
   }
 
   $values = $form_state['values'];
-
   $set_info = explode(':', $values['set_title']);
-
-  $set_nid = isset($set_info[0])?$set_info[0]:0;
-
-  $ignore = array('form_build_id','form_token','form_id','op','submit', 'set_types', 'set_title');
+  $set_nid = isset($set_info[0])?$set_info[0] : 0;
+  $ignore = array(
+    'form_build_id',
+    'form_token',
+    'form_id',
+    'op',
+    'submit',
+    'set_types',
+    'set_title',
+  );
 
   // Stage node data.
   $node = node_load($form_state['values']['stage_id']);
 
   if (isset($node->box_index_data[LANGUAGE_NONE])) {
-    $node_box_index_data = unserialize($node->box_index_data[LANGUAGE_NONE][0]['value']);
 
-    _aasort($node_box_index_data, 'location_index');
+    $node_box_index_data = unserialize($node->box_index_data[LANGUAGE_NONE][0]['value']);
+    aasort($node_box_index_data, 'location_index');
 
     $i = -10;
-    // Clean up while set node was deleted
-    foreach ($node_box_index_data AS $key=>$set_node) {
+
+    // Clean up while set node was deleted.
+    foreach ($node_box_index_data as $key => $set_node) {
       if (!node_load($set_node['set_id'])) {
-        drupal_set_message('Set list id: ' . $key . ', Node ' . $set_node['set_id'] . ' has remove by other, remove it from list.');
+        drupal_set_message(t('Set list id: @key, Node @set_id has remove by other, remove it from list.',
+          array(
+            '@key' => $key,
+            '@set_id' => $set_node['set_id'],
+          )
+        ));
         unset($node_box_index_data[$key]);
       }
-      $node_box_index_data[$key][location_index] = $i;
+      $node_box_index_data[$key]['location_index'] = $i;
       $i++;
     }
 
     if (empty($form_state['values']['set_location_index'])) {
       $max_index = $node_box_index_data[count($node_box_index_data) - 1]['location_index'];
-//       $set_location_index = $max_index + 1;
       $set_location_index = 10;
-
-//       drupal_set_message('Get max index.' . $max_index . ', set the index to new ' . $set_location_index);
     }
     else {
       $set_location_index = $form_state['values']['set_location_index'];
@@ -360,51 +383,41 @@ function edgemakers_stage_managebox_form_submit($form, &$form_state) {
 
   $values['box_index_data'] = serialize($node_box_index_data);
 
-  //Loop through the values
-  foreach ($values as $key => $value)
-  {
-    if (in_array($key, $ignore)) continue;
+  // Loop through the values.
+  foreach ($values as $key => $value) {
+    if (in_array($key, $ignore)) {
+      continue;
+    }
     $node->{$key}[$node->language][0]['value'] = $value;
   }
-
 
   $submit_status = node_submit($node);
   $save_status = node_save($node);
 
-  //drupal_set_message('<pre>' . print_r($save_status, TRUE) . '</pre>');
-
 }
 
 /**
- * Implements hook_form().
+ * Implements hook_form() for edgemakers_stage_set_list_form().
  */
 function edgemakers_stage_set_list_form($form, &$form_state, $stage_id = '') {
 
-  $stage = node_load($stage_id);
+  $operation = array();
+  $destination = $_GET["q"];
 
-  //if (empty($stage_id)) {
-  //  $stage_id = $_SESSION['stage_id_in_set_list_form'];
-  //}
+  $stage = node_load($stage_id);
 
   if (isset($stage->box_index_data[LANGUAGE_NONE])) {
     $nodes = array();
     $stage_index = unserialize($stage->box_index_data[LANGUAGE_NONE][0]['value']);
 
-    //drupal_set_message('Stage Index before sort: <pre>' . print_r($stage_index, TRUE) . '</pre>');
-
-    //uasort($stage_index, 'location_index');
-
     $stage_index_sort = array();
-    foreach ($stage_index as $key => $row)
-    {
+    foreach ($stage_index as $key => $row) {
       $stage_index_sort[$key] = $row['location_index'];
     }
     array_multisort($stage_index_sort, SORT_ASC, $stage_index);
 
-    //drupal_set_message('Stage Index after sort: <pre>' . print_r($stage_index, TRUE) . '</pre>');
-
-    foreach ($stage_index AS $index) {
-      $nid = !empty($index['set_id'])?$index['set_id']:0;
+    foreach ($stage_index as $index) {
+      $nid = !empty($index['set_id'])?$index['set_id'] : 0;
       if ($nid) {
         $node = node_load($nid);
 
@@ -414,11 +427,9 @@ function edgemakers_stage_set_list_form($form, &$form_state, $stage_id = '') {
           // Get box type by tid.
           if (isset($node->field_set_type[LANGUAGE_NONE])) {
             $node->tname = taxonomy_term_load($node->field_set_type[LANGUAGE_NONE][0]['tid']);
-            //drupal_set_message('Term name (location_index): <pre>' . print_r($node->tname, TRUE) . '</pre>');
           }
         }
 
-        //drupal_set_message('weight (location_index): ' . $index['location_index']);
         $nodes[] = $node;
       }
     }
@@ -433,10 +444,6 @@ function edgemakers_stage_set_list_form($form, &$form_state, $stage_id = '') {
     'weight' => t('Weight'),
   );
 
-  $options = array();
-
-  $operations = array('delete' => t('Delete'));
-
   $form['#tree'] = TRUE;
   $form['stage_id'] = array(
     '#type' => 'hidden',
@@ -444,11 +451,8 @@ function edgemakers_stage_set_list_form($form, &$form_state, $stage_id = '') {
   );
 
   // Fetch the example data from the database, ordered by weight ascending.
-  //
   // This query excludes the last two tabledrag_example database rows, as
   // they are intended only for the 'parent/child' tabledrag examples.
-  // $result = db_query('SELECT id, name, description, weight FROM {tabledrag_example} WHERE id < 8 ORDER BY weight ASC');
-
   // Iterate through each database result.
   if (isset($results)) {
     foreach ($results as $item) {
@@ -456,61 +460,54 @@ function edgemakers_stage_set_list_form($form, &$form_state, $stage_id = '') {
       if (isset($item->nid)) {
 
         // Create a form entry for this item.
-        //
         // Each entry will be an array using the the unique id for that item as
         // the array key, and an array of table row data as the value.
-
-        $delete_url = url(
-          'admin/edgemakers/stage/setindex/ajaxdelete/'
-            . $stage_id . '/' . $item->nid . '/nojs/1' ,
-          array('query' => array('destination' => $_GET["q"]))
+        $delete_url = url('admin/edgemakers/stage/setindex/ajaxdelete/' . $stage_id . '/' . $item->nid . '/nojs/1',
+          array(
+            'query' => array(
+              'destination' => $_GET["q"],
+            ),
+          )
         );
-        //$delete_url .= '&destination=' . $_GET["q"];
-        //$uri = entity_uri('node', $item);
 
+        $delete_url = 'admin/edgemakers/stage/setindex/delete/'
+          . $stage_id . '/' . $item->nid . '/0/0/&destination=' . $_GET["q"];
 
         $form['set_' . $item->nid] = array(
 
-            // We'll use a form element of type '#markup' to display the item title.
-            'name' => array(
-                '#markup' => check_plain($item->title),
-            ),
+          // We'll use a form element of type '#markup' to display the item
+          // title.
+          'name' => array(
+            '#markup' => check_plain($item->title),
+          ),
 
-            'type' => array(
-              '#markup' => check_plain($item->tname->name),
-            ),
+          'type' => array(
+            '#markup' => check_plain($item->tname->name),
+          ),
 
-            'operations' => array(
-              '#type' => 'link',
-              '#title' => t('delete'),
-              '#href' => 'admin/edgemakers/stage/setindex/delete/'
-                . $stage_id . '/' . $item->nid . '/0/0/&destination=' . $_GET["q"],
-              //'admin/edgemakers/stage/setindex/ajaxdelete/' . $stage_id . '/' . $item->nid . '/nojs/1',
-              '#attributes' => array(
-                'class' => array(
-//                   'use-ajax',
-                  'delete-action'
-                ),
-                'onClick' => 'disp_confirm(this.id);return false;',
-                'id' => 'edgemakers-delete-set-' . $item->nid,
+          'operations' => array(
+            '#type' => 'link',
+            '#title' => t('delete'),
+            '#href' => $delete_url,
+            '#attributes' => array(
+              'class' => array(
+                'delete-action',
               ),
-              //'#options' => array('query'=>'query=queryvalue'),
-              /*'#options' => array(
-                'query' => 'destination=destinationcallback',
-                // . drupal_get_destination()
-              ),*/
+              'onClick' => 'disp_confirm(this.id);return FALSE;',
+              'id' => 'edgemakers-delete-set-' . $item->nid,
             ),
+          ),
 
-            // The 'weight' field will be manipulated as we move the items around in
-            // the table using the tabledrag activity.  We use the 'weight' element
-            // defined in Drupal's Form API.
-            'weight' => array(
-              '#type' => 'weight',
-              '#title' => t('Weight'),
-              '#default_value' => $item->weight,
-              '#delta' => 10,
-              '#title-display' => 'invisible',
-            ),
+          // The 'weight' field will be manipulated as we move the items around
+          // in the table using the tabledrag activity.  We use the 'weight'
+          // element defined in Drupal's Form API.
+          'weight' => array(
+            '#type' => 'weight',
+            '#title' => t('Weight'),
+            '#default_value' => $item->weight,
+            '#delta' => 10,
+            '#title-display' => 'invisible',
+          ),
         );
 
       }
@@ -519,80 +516,33 @@ function edgemakers_stage_set_list_form($form, &$form_state, $stage_id = '') {
   }
 
   // Now we add our submit button, for submitting the form results.
-  //
   // The 'actions' wrapper used here isn't strictly necessary for tabledrag,
   // but is included as a Form API recommended practice.
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
-      '#type' => 'submit',
-      '#value' => t('Save Changes'),
+    '#type' => 'submit',
+    '#value' => t('Save Changes'),
   );
-
-//   $form['#attached']['js'] = array(
-//     drupal_get_path('module', 'edgemakers_stage') . '/js/edgemakers_stage_admin.js' => array(
-//       'cache' => FALSE,
-//       'preprocess' => TRUE,
-//     ),
-//   );
 
   drupal_add_js(drupal_get_path('module', 'edgemakers_stage') . '/js/edgemakers_stage_admin.js');
-
-  return $form;
-
-
-  /*$form['options']['operation'] = array(
-   '#type' => 'select',
-      '#title' => t('Operation'),
-      '#title_display' => 'invisible',
-      '#options' => $operations,
-      '#default_value' => 'approve',
-  );
-
-  foreach ($nodes as $node) {
-  $edit_weight_url = l('edit', '#', array('attributes' => array('id' => 'weight_edit_'.$node->nid)));
-  $options[$node->nid] =array(
-      'title' => $node->title,
-      'type' => $node->tname->name,
-      'weight' => $node->weight . '(' . $edit_weight_url . ')',
-  );
-  }
-
-  $form['table'] = array(
-      '#type' => 'tableselect',
-      '#header' => $header,
-      '#options' => $options,
-      '#empty' => t('No users found'),
-  );
-  */
-
-  $form['submit'] = array(
-      '#type' => 'submit',
-      '#value' => t('Update Stage'),
-      '#validate' => array('edgemakers_stage_set_list_form_validate'),
-      '#submit' => array('edgemakers_stage_set_list_form_submit'),
-  );
 
   return $form;
 
 }
 
 /**
- * Implements hook_form_validate().
+ * Implements hook_form_validate() for edgemakers_stage_set_list_form().
  */
 function edgemakers_stage_set_list_form_validate($form, &$form_state) {
 
 }
 
 /**
- * Implements hook_form_submit().
+ * Implements hook_form_submit() for edgemakers_stage_set_list_form().
  */
 function edgemakers_stage_set_list_form_submit($form, &$form_state) {
 
   $values = $form_state['values'];
-
-  //$_SESSION['stage_id_in_set_list_form'] = $values['stage_id'];
-
-  //drupal_set_message('<pre>' . print_r($values, TRUE) . '</pre>');
 
   $stage = node_load($values['stage_id']);
 
@@ -600,34 +550,27 @@ function edgemakers_stage_set_list_form_submit($form, &$form_state) {
 
     $stage_index = unserialize($stage->box_index_data[LANGUAGE_NONE][0]['value']);
 
-    foreach ($stage_index AS $key=>$index) {
-      if(is_numeric($index['set_id'])) {
+    foreach ($stage_index as $key => $index) {
+      if (is_numeric($index['set_id'])) {
         if (isset($values['set_' . $index['set_id']])) {
           $location_index = $values['set_' . $index['set_id']];
           $stage_index[$key]['location_index'] = $values['set_' . $index['set_id']]['weight'];
         }
       }
-      //drupal_set_message('<pre>' . print_r($location_index, TRUE) . '</pre>');
-      //$stage_index[$key]
     }
 
-    //unset($stage_index[$set_id]);
-
-    //$stage['box_index_data'] = serialize($stage_index);
     // Update index data in stage.
     $stage->box_index_data[$stage->language][0]['value'] = serialize($stage_index);
 
     node_submit($stage);
     $save_status = node_save($stage);
 
-    //_edgemakers_stage_box_index_list_update($stage_id);
-
   }
 
 }
 
 /**
- * Implements hook_form();
+ * Implements hook_theme_form() for edgemakers_stage_set_list_form().
  */
 function theme_edgemakers_stage_set_list_form($variables) {
 
@@ -635,8 +578,6 @@ function theme_edgemakers_stage_set_list_form($variables) {
 
   // Initialize the variable which will store our table rows.
   $rows = array();
-
-  //drupal_set_message('Form: <pre>' . print_r($form, TRUE) . '</pre>');
 
   // Iterate over each element in our $form['example_items'] array.
   foreach (element_children($form) as $id) {
@@ -654,30 +595,27 @@ function theme_edgemakers_stage_set_list_form($variables) {
     // array, so that they end up as individual table cells when rendered
     // in the final table.  We run each element through the drupal_render()
     // function to generate the final html markup for that element.
-
-    //drupal_set_message('Form: <pre>' . print_r($id, TRUE) . '</pre>');
-
     if (isset($form[$id]['name'])) {
       $rows[] = array(
-          'data' => array(
+        'data' => array(
 
-              // Add our 'name' column.
-              drupal_render($form[$id]['name']),
+          // Add our 'name' column.
+          drupal_render($form[$id]['name']),
 
-              // Add our 'description' column.
-              drupal_render($form[$id]['type']),
+          // Add our 'description' column.
+          drupal_render($form[$id]['type']),
 
-              // Add our 'weight' column.
-              drupal_render($form[$id]['weight']),
+          // Add our 'weight' column.
+          drupal_render($form[$id]['weight']),
 
-              drupal_render($form[$id]['operations']),
-          ),
+          drupal_render($form[$id]['operations']),
+        ),
 
-          // To support the tabledrag behaviour, we need to assign each row of the
-          // table a class attribute of 'draggable'. This will add the 'draggable'
-          // class to the <tr> element for that row when the final table is
-          // rendered.
-          'class' => array('draggable'),
+        // To support the tabledrag behaviour, we need to assign each row of the
+        // table a class attribute of 'draggable'. This will add the 'draggable'
+        // class to the <tr> element for that row when the final table is
+        // rendered.
+        'class' => array('draggable'),
       );
     }
   }
@@ -694,11 +632,10 @@ function theme_edgemakers_stage_set_list_form($variables) {
 
   // We can render our tabledrag table for output.
   $output = theme('table', array(
-      'header' => $header,
-      'rows' => $rows,
-      'attributes' => array('id' => $table_id),
+    'header' => $header,
+    'rows' => $rows,
+    'attributes' => array('id' => $table_id),
   ));
-
 
   // And then render any remaining form elements (such as our submit button).
   $output .= drupal_render_children($form);
@@ -713,32 +650,6 @@ function theme_edgemakers_stage_set_list_form($variables) {
   // - and the class of the element containing our 'weight' element.
   drupal_add_tabledrag($table_id, 'order', 'sibling', 'example-item-weight');
 
-
   return $output;
 
 }
-
-/**
- * Sort array by value key.
- *
- * @link http://stackoverflow.com/questions/2699086/sort-multidimensional-array-by-value-2
- *
- * @param array $array
- * @param array $key
- */
-function _aasort (&$array, $key) {
-  $sorter=array();
-  $ret=array();
-  reset($array);
-  foreach ($array as $ii => $va) {
-    $sorter[$ii]=$va[$key];
-  }
-  asort($sorter);
-  $i = 0;
-  foreach ($sorter as $ii => $va) {
-    $ret[$i]=$array[$ii];
-    $i++;
-  }
-  $array=$ret;
-}
-

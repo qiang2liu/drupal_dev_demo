@@ -24,7 +24,7 @@ $username = $user->name;
   color:#fff;
   background-color: rgba(215,152,94, 0.7);
   text-align:left;
- 
+
 }
 }
 #yr-wrapper {
@@ -46,9 +46,10 @@ $username = $user->name;
       hide($content['comments']);
       hide($content['links']);
       print render($content['body']);
-    ?>    
+    ?>
     <div id="yr-wrapper"><div id="yt">
     You need Flash player 8+ and JavaScript enabled to view this video.
+    <p><?php echo l(t('Get Flash Player'), 'http://get.adobe.com/flashplayer/', array('attributes' => array('target' => '_blank')));?></p>
     </div></div>
   </div>
 
@@ -62,9 +63,9 @@ $username = $user->name;
   $(document).ready(function(){
     setTimeout(function() {loadVideo('<?php echo $ytid;?>');}, 100);
     function setH(){
-    	
+
     	var w = ((document.body.clientWidth * 0.70)*0.95)* 0.72;
-    	
+
     	var mh = (w * 39/64) * 1.0 - 20;
     	$('.field-name-body').css('minHeight', mh+ 'px');
     }
@@ -77,7 +78,7 @@ $username = $user->name;
 	  	});
 	  	setH();
 	  }
-    
+
 	});
 })(jQuery);
 function loadVideo(videoid) {

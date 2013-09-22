@@ -33,7 +33,7 @@ $username = $user->name;
   display: none;
 }
 
-   
+
 </style>
 
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"<?php print $attributes; ?>>
@@ -49,9 +49,10 @@ $username = $user->name;
       hide($content['comments']);
       hide($content['links']);
       print render($content['body']);
-    ?>    
+    ?>
     <div id="yr-wrapper"><div id="yt">
     You need Flash player 8+ and JavaScript enabled to view this video.
+    <p><?php echo l(t('Get Flash Player'), 'http://get.adobe.com/flashplayer/', array('attributes' => array('target' => '_blank')));?></p>
     </div></div>
   </div>
 
@@ -78,7 +79,7 @@ $username = $user->name;
 	  	});
 	  	setH();
 	  }
-    
+
 	});
 })(jQuery);
 function loadVideo(videoid) {
@@ -91,8 +92,8 @@ function loadVideo(videoid) {
 	 swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
 		"yt", videoWidth, vHeight, "8", null, null, params, atts);
 
-  
- 
+
+
 }
 function onYouTubePlayerReady(playerId) {
   var ytplayer = document.getElementById('myytplayer');
