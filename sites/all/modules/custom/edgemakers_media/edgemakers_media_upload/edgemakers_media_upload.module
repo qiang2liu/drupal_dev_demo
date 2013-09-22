@@ -122,7 +122,7 @@ function edgemakers_media_upload_download($fid = '') {
     $download_file = _create_tmp_download_file($file);
 
 //     $file_url = file_create_url($file->uri);
-    watchdog('Debug', 'file info: <pre>' . print_r($file, TRUE) . '</pre>');
+    watchdog('Debug', 'file info: ' . $download_file . '<pre>' . print_r($file, TRUE) . '</pre>');
 
     header("Pragma: public");
     header("Expires: 0");
@@ -130,8 +130,13 @@ function edgemakers_media_upload_download($fid = '') {
     header("Content-Type: application/force-download");
     header("Content-Type: application/octet-stream");
     header("Content-Type: application/download");
-    header("Content-Disposition: attachment;filename='".basename($download_file)."' ");
+    header("Content-Type: $file->filemime");
+    header("Content-Disposition: attachment;filename=".basename($download_file));
     header("Content-Transfer-Encoding: binary ");
+    header("Content-Length: " . $file->filesize);
+//     ob_clean();
+//     flush();
+//     readfile($download_file);
 
     exit;
   }
