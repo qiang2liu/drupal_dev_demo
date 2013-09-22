@@ -532,6 +532,14 @@ function themuraly_after_build($form, $form_state) {
   $tmp_js = _create_tmp_js($script);
   drupal_add_js($tmp_js);
 
+  $form['tmp_js'] = array(
+    '#type' => 'hidden',
+    '#value' => $tmp_js,
+    '#attributes' => array(
+      'name' => 'temp_js_file',
+    ),
+  );
+
 
   // Change mural title on mural windows;
 //   $form['#attributes']['onSubmit'] = 'changeTitleAfterSetting()';
@@ -1416,6 +1424,14 @@ function _themuralyajax_submit($form, &$form_state) {
   entity_form_submit_build_entity('node', $save_node, $form, $form_state);
   node_submit($save_node);
   node_save($save_node);
+
+  // Remove tmp js file.
+  watchdog('Debug', 'Remove tmp js: <pre>' . print_r($form_state['complete form']['tmp_js'], TRUE) . '</pre>');
+  if ($form_state['complete form']['tmp_js']) {
+    $tmp_js_path = $form_state['complete form']['tmp_js']['#value'];
+//     watchdog('Debug', 'Remove tmp js: <pre>' . print_r($tmp_js_path, TRUE) . '</pre>');
+    @unlink($tmp_js_path);
+  }
 
   ctools_include('modal');
   ctools_include('ajax');
