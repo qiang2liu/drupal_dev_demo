@@ -323,7 +323,7 @@ h1{
       <?php endif;?>
       <?php if(count($videoIds) > 0): ?>
       <div id="videos" class="media-box">
-        <div id="videos_container">
+        <div id="videos_container" class="content-container">
         You need Flash player 8+ and JavaScript enabled to view this video.
         <?php foreach($videoIds as $i=>$videoId): ?>
             <span class="content-item" id="video-item-<?php echo $i?>"><?php echo $videoId; ?></span>
