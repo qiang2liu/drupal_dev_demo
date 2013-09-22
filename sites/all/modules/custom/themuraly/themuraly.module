@@ -1415,8 +1415,10 @@ function _themuralyajax_submit($form, &$form_state) {
 
   // Get topic node nid from category.
   if (isset($save_node->field_challenges_category)) {
-    $topic_nid = _get_topic_nid_by_tid($lang, $save_node->field_challenges_category[$lang]['0']['tid']);
-    $save_node->field_topic_mural[$lang]['0']['target_id'] = ($topic_nid) ? $topic_nid : '';
+    if ($save_node->field_challenges_category[$lang]['0']['tid']) {
+      $topic_nid = _get_topic_nid_by_tid($lang, $save_node->field_challenges_category[$lang]['0']['tid']);
+      $save_node->field_topic_mural[$lang]['0']['target_id'] = ($topic_nid) ? $topic_nid : '';
+    }
 //     watchdog('Debug', $lang . ' | topic nid: ' . $topic_nid .' | Get category: <pre>' . print_r($form_state['values'], TRUE) . '</pre>');
 //     form_set_error('field_challenges_category', t('Update topic by category.'));
   }
