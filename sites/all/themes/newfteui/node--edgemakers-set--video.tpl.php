@@ -87,6 +87,7 @@ function youtubeFeedCallback(json) {
     ?>
     <div id="yt">
     You need Flash player 8+ and JavaScript enabled to view this video.
+    <p><?php echo l(t('Get Flash Player'), 'http://get.adobe.com/flashplayer/', array('attributes' => array('target' => '_blank')));?></p>
     </div>
   </div>
 
@@ -109,8 +110,12 @@ function loadVideo(videoid) {
   var whratio = 64/39*1.0;
   var vHeight = videoWidth/whratio;
 
-	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
-		"yt", "100%", vHeight, "8", null, null, params, atts);
+  jQuery("#download-flash").attr("style", "width: " + videoWidth + "px; height: " + vHeight + "px;");
+
+//	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
+//		"yt", "100%", vHeight, "8", null, null, params, atts);
+
+
 }
 function onYouTubePlayerReady(playerId) {
   var ytplayer = document.getElementById('myytplayer');
