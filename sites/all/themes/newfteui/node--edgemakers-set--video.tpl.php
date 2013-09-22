@@ -112,8 +112,8 @@ function loadVideo(videoid) {
 
   jQuery("#download-flash").attr("style", "width: " + videoWidth + "px; height: " + vHeight + "px;");
 
-//	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
-//		"yt", "100%", vHeight, "8", null, null, params, atts);
+	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
+		"yt", "100%", vHeight, "8", null, null, params, atts);
 
 
 }
