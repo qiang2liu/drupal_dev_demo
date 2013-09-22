@@ -68,7 +68,140 @@ function edgemakers_media_upload_menu() {
     'file' => 'stage.api.inc',
   );
 
+  $items['edgemakers/media/download'] = array(
+    'page callback' => 'edgemakers_media_upload_download',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+    'page arguments' => array(3),
+  );
+
   return $items;
+}
+
+/* gets the data from a URL */
+function _get_data_curl($url) {
+	$ch = curl_init();
+	$timeout = 5;
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+	$data = curl_exec($ch);
+	curl_close($ch);
+	return $data;
+}
+
+/**
+ * Create temp file from url.
+ *
+ * @param array $file
+ *   - File info.
+ *
+ * @return string
+ *   - Tmpe file name.
+ */
+function _create_tmp_download_file($file) {
+  $tmp_dir = file_directory_temp();
+
+  $tmp_file = pathinfo($file->filename);
+  $tmp_file_name = $tmp_file['filename'] . round(microtime(true)*1000) . '.' . $tmp_file['extension'];
+  $tmp_full_file_name = $tmp_dir . '/' . $tmp_file_name;
+
+  // Get file content from url;
+  $file_url = file_create_url($file->uri);
+  $content =  _get_data_curl($file_url);
+  watchdog('Debug', 'Get content from url: ' . $file_url . '<pre>' . print_r($file_url, TRUE) . '</pre>');
+
+// print($tmp_file_name);
+  $fh = fopen($tmp_full_file_name, 'w') or die("can't open file");
+  fwrite($fh, $content);
+  fclose($fh);
+
+  return $tmp_file_name;
+
+}
+
+/**
+ * Download file by fid.
+ *
+ * @param int $fid
+ *   - File id.
+ */
+function edgemakers_media_upload_download($fid = '') {
+
+  if ($fid) {
+
+    $file = file_load($fid);
+    $download_file = file_directory_temp() .'/'. _create_tmp_download_file($file);
+
+//     $file_url = file_create_url($file->uri);
+    watchdog('Debug', 'file info: ' . $download_file . '<pre>' . print_r($file, TRUE) . '</pre>');
+
+    if (file_exists($download_file)) {
+      header('Content-Description: File Transfer');
+      header('Content-Type: application/octet-stream');
+      header('Content-Disposition: attachment; filename='.basename($file->filename));
+      header('Content-Transfer-Encoding: binary');
+      header('Expires: 0');
+      header('Cache-Control: must-revalidate');
+      header('Pragma: public');
+      header('Content-Length: ' . filesize($download_file));
+      ob_clean();
+      flush();
+      readfile($download_file);
+      exit;
+    }
+
+    exit;
+
+    $tmp_file = pathinfo($file->filename);
+
+    switch($tmp_file['extension']){
+      case 'xls':
+        $mimeType = 'application/vnd.ms-excel';
+        break;
+
+      case 'xlsx':
+        $mimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+        break;
+
+      default:
+        $mimeType = $file->filemime;
+        break;
+
+    }
+//  echo $mimeType;
+    header('Content-Description: File Transfer');
+    header('Content-Type: ' . $mimeType);
+    header('Content-Disposition: attachment; filename='.basename($download_file));
+    header('Content-Transfer-Encoding: binary');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+    header('Pragma: public');
+    header('Content-Length: ' . $file->filesize);
+    ob_clean();
+    flush();
+    readfile(file_directory_temp() . $download_file);
+    exit;
+
+
+    header("Pragma: public");
+    header("Expires: 0");
+    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+    header("Content-Type: application/force-download");
+    header("Content-Type: application/octet-stream");
+    header("Content-Type: application/download");
+    header("Content-Type: $file->filemime");
+    header("Content-Disposition: attachment;filename=".basename($download_file));
+    header("Content-Transfer-Encoding: binary ");
+    header("Content-Length: " . $file->filesize);
+//     ob_clean();
+//     flush();
+//     readfile($download_file);
+
+    exit;
+  }
+
+  exit;
 }
 
 /**

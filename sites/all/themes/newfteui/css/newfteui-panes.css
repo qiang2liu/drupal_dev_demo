@@ -294,7 +294,8 @@ h2.item-studio{
 	background:url(../images/newui_ico_topic_media_indicator_normal.png) left top no-repeat;
 }
 .controller-dots span:hover,
-.controller-dots span.actived{
+.controller-dots span.actived,
+.videos-controller-dots span.active{
 	background:url(../images/newui_ico_topic_media_indicator.png) left top no-repeat;
 }
 .field-name-field-topic-problem .field-label{
