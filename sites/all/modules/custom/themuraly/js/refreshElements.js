@@ -2,10 +2,38 @@
 
 Drupal.behaviors.muralRefreshAjax = {
   attach: function (context){
-
+    
     changeTitleAfterSetting();
     
     _refreshStudioGalleryMural();
+    
+    jQuery('#my-mural-list').load("?q=mural/get/list/ajax", function(){
+
+      jQuery('.toolbar-item').each(function(){
+        var self = jQuery(this);
+        
+        if(self.children().first().hasClass('has-child')){
+          self.find('h4>em').bind('click', function(){
+            if(!self.find('.item-list').hasClass('active')){
+              jQuery('.toolbar-item').find('.item-list').removeClass('active');
+              self.find('.item-list').addClass('active')
+            }
+          })
+        }
+      });
+    
+      jQuery('ul#mural-list li a').each(function( index ) {
+        jQuery(this).bind('click', function(){
+          if (jQuery("#mural-region").length !== 0) {
+            var source = jQuery(this).attr("href");
+            jQuery("#mural-back-to-dashboard").show();
+            showMuralDialog(source);
+          }
+          return false;
+        });
+      });
+      
+    });
   
   }
 }

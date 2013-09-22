@@ -393,7 +393,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => 9,
+    'weight' => -45,
   );
   // Exported menu link: management:admin/appearance
   $menu_links['management:admin/appearance'] = array(
@@ -411,7 +411,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -6,
+    'weight' => -46,
     'parent_path' => 'admin',
   );
   // Exported menu link: management:admin/config
@@ -430,7 +430,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -43,
     'parent_path' => 'admin',
   );
   // Exported menu link: management:admin/config/administration
@@ -716,25 +716,6 @@ function edgemakers_features_other_menu_default_menu_links() {
     'has_children' => 0,
     'expanded' => 0,
     'weight' => -10,
-    'parent_path' => 'admin/config/development',
-  );
-  // Exported menu link: management:admin/config/development/memcache_storage
-  $menu_links['management:admin/config/development/memcache_storage'] = array(
-    'menu_name' => 'management',
-    'link_path' => 'admin/config/development/memcache_storage',
-    'router_path' => 'admin/config/development/memcache_storage',
-    'link_title' => 'Memcache storage',
-    'options' => array(
-      'attributes' => array(
-        'title' => 'Manage Memcache Storage settings',
-      ),
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 0,
     'parent_path' => 'admin/config/development',
   );
   // Exported menu link: management:admin/config/development/modal_forms
@@ -1342,7 +1323,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -48,
     'parent_path' => 'admin/config/system',
   );
   // Exported menu link: management:admin/config/system/backup_migrate
@@ -1361,7 +1342,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -47,
     'parent_path' => 'admin/config/system',
   );
   // Exported menu link: management:admin/config/system/cron
@@ -1380,7 +1361,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => 20,
+    'weight' => -41,
     'parent_path' => 'admin/config/system',
   );
   // Exported menu link: management:admin/config/system/db_maintenance
@@ -1399,7 +1380,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -46,
     'parent_path' => 'admin/config/system',
   );
   // Exported menu link: management:admin/config/system/ftesettings
@@ -1418,7 +1399,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -45,
     'parent_path' => 'admin/config/system',
   );
   // Exported menu link: management:admin/config/system/ftesettings/edgemakers
@@ -1494,7 +1475,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -44,
     'parent_path' => 'admin/config/system',
   );
   // Exported menu link: management:admin/config/system/mimemail
@@ -1513,7 +1494,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -43,
     'parent_path' => 'admin/config/system',
   );
   // Exported menu link: management:admin/config/system/site-information
@@ -1532,7 +1513,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -20,
+    'weight' => -50,
     'parent_path' => 'admin/config/system',
   );
   // Exported menu link: management:admin/config/system/smtp
@@ -1551,7 +1532,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -42,
     'parent_path' => 'admin/config/system',
   );
   // Exported menu link: management:admin/config/user-interface
@@ -1684,7 +1665,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => -10,
+    'weight' => -48,
     'parent_path' => 'admin',
   );
   // Exported menu link: management:admin/content/comment
@@ -1737,8 +1718,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => 0,
-    'parent_path' => 'admin',
+    'weight' => -50,
   );
   // Exported menu link: management:admin/edgemakers/bgimages
   $menu_links['management:admin/edgemakers/bgimages'] = array(
@@ -1831,7 +1811,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => 9,
+    'weight' => -41,
     'parent_path' => 'admin',
   );
   // Exported menu link: management:admin/modules
@@ -1850,7 +1830,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -2,
+    'weight' => -44,
     'parent_path' => 'admin',
   );
   // Exported menu link: management:admin/people
@@ -1888,7 +1868,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => 5,
+    'weight' => -42,
     'parent_path' => 'admin',
   );
   // Exported menu link: management:admin/reports/access-denied
@@ -2002,7 +1982,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -60,
+    'weight' => -50,
     'parent_path' => 'admin/reports',
   );
   // Exported menu link: management:admin/reports/updates
@@ -2059,7 +2039,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => -8,
+    'weight' => -47,
     'parent_path' => 'admin',
   );
   // Exported menu link: management:admin/structure/block
@@ -2078,7 +2058,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -49,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/structure/features
@@ -2097,7 +2077,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -46,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/structure/flags
@@ -2116,7 +2096,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -45,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/structure/mediafront
@@ -2135,7 +2115,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -44,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/structure/menu
@@ -2154,7 +2134,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -43,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/structure/oauth2-servers
@@ -2173,7 +2153,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -42,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/structure/rate
@@ -2192,7 +2172,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -41,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/structure/services
@@ -2211,7 +2191,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -40,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/structure/taxonomy
@@ -2230,7 +2210,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -39,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/structure/taxonomy/challenges_vocabulary
@@ -2268,7 +2248,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -48,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/structure/views
@@ -2287,7 +2267,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -38,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/workbench
@@ -2306,7 +2286,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -20,
+    'weight' => -49,
     'parent_path' => 'admin',
   );
   // Exported menu link: management:node/add/webform
@@ -2994,7 +2974,6 @@ function edgemakers_features_other_menu_default_menu_links() {
   t('Media');
   t('Media browser settings');
   t('MediaFront Presets');
-  t('Memcache storage');
   t('Menu item');
   t('Menus');
   t('Mime Mail');
