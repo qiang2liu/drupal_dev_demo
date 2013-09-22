@@ -152,7 +152,7 @@ function mural_ajax_load_list() {
         })
       }
     });
-
+  
     jQuery('ul#mural-list li a').each(function( index ) {
       jQuery(this).bind('click', function(){
         if (jQuery("#mural-region").length !== 0) {
@@ -433,7 +433,6 @@ function search_gallery() {
     console.log(request);
     console.log(settings);
     jQuery("#gallery-keyword").removeClass("searching");
-//    alert("Ajax completed.");
   });
 }
 
