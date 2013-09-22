@@ -60,6 +60,7 @@ function edgemakers_user_form_alter(&$form, &$form_state, $form_id) {
         // Add our process function to the array:
         $process[] = 'edgemakers_user_process_password_confirm';
         $form['account']['pass']['#process'] = $process;
+        $form['#validate'][] = '_edgemakers_user_register_form_validate';
       }
       break;
     case 'user_login':
@@ -78,6 +79,10 @@ function edgemakers_user_form_alter(&$form, &$form_state, $form_id) {
       }
       break;
   }
+}
+function _edgemakers_user_register_form_validate($form, &$form_state) {
+  require_once drupal_get_path('module', 'edgemakers_user').'/edgemakers_user.pages.inc';
+  _edgemakers_user_editform_validate($form, $form_state);
 }
 function edgemakers_user_process_password_confirm($element) {
   $element['pass1']['#attributes']['placeholder'] = t('PASSWORD');
