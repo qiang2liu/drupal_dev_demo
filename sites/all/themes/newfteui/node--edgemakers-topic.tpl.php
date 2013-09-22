@@ -233,6 +233,14 @@ h1{
 	bottom:-53px;
 	left:38px;
 }
+
+.videos-controller{
+	margin-top:-5px;
+	
+}
+.videos-controller-dots span.active{
+	opacity:1;
+}
 </style>
 <script>
 (function($){
@@ -293,7 +301,7 @@ h1{
 	});
 	$(document).ready(function(){
 		$('.images-controller-dots').mediaSlide();
-		$('.videos-controller-dots').mediaSlide();
+		//$('.videos-controller-dots').mediaSlide();
 
 		//some UI
 		$('.field-name-field-topic-problem .field-item p').append('<div class="right-quote"></div>');
@@ -326,17 +334,18 @@ h1{
         <div id="videos_container" class="content-container">
         You need Flash player 8+ and JavaScript enabled to view this video.
         <p><?php echo l(t('Get Flash Player'), 'http://get.adobe.com/flashplayer/', array('attributes' => array('target' => '_blank')));?></p>
-        <?php foreach($videoIds as $i=>$videoId): ?>
-            <span class="content-item" id="video-item-<?php echo $i?>"><?php echo $videoId; ?></span>
-          <?php endforeach; ?>
         </div>
         <div class="videos-controller controller" style="background:<?php echo $topicColor;?>;">
-          <a href="#x" class="prev" <?php if(count($videoIds) == 1) echo 'disabled="disabled"';?>>Prev</a>
-          <div class="videos-controller-dots controller-dots">
-
+           <a href="#x" class="prev" <?php if(count($videoIds) == 1) echo 'disabled="disabled"';?>>Prev</a>
+           <div class="videos-controller-dots controller-dots">
+				<?php foreach($videoIds as $i=>$videoId): ?>
+		            <span class="content-item" id="video-item-<?php echo $i?>"><?php echo $videoId; ?></span>
+		        <?php endforeach; ?>
+        	</div>
+        	 <a href="#x" class="next" <?php if(count($videoIds) == 1) echo 'disabled="disabled"';?>>Next</a>
           </div>
-          <a href="#x" class="next" <?php if(count($videoIds) == 1) echo 'disabled="disabled"';?>>Next</a>
-        </div>
+         
+        
       </div>
       <?php endif;?>
       </div>
@@ -355,6 +364,7 @@ jQuery('.node-type-edgemakers-topic h1').css('background-color', "<?php echo $to
   loadVideo('<?php echo $videoIds[0];?>');
   <?php if(count($videoIds) > 1):?>
   jQuery(".videos-controller .prev").bind('click', function() {
+  	
     var prevel = jQuery('.video-item.active').prev();
     if(prevel.length == 0)
       var prevel = jQuery('.video-item:last');
