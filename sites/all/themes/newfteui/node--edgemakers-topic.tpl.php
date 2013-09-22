@@ -376,7 +376,7 @@ function loadVideo(videoid) {
 	var atts = { id: "myytplayer" };
 
   //Get width from video destination element continar
-  var videoWidth = 200;
+  var videoWidth = 360;
   var whratio = 64/39*1.0;
   var vHeight = videoWidth/whratio;
 
