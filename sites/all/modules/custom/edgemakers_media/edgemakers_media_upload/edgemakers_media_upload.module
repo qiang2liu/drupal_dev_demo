@@ -92,7 +92,7 @@ function _create_tmp_download_file($file) {
 
   $tmp_file = pathinfo($file->filename);
   $tmp_file_name = $tmp_file['filename'] . round(microtime(true)*1000) . '.' . $tmp_file['extension'];
-  $tmp_file_name = $tmp_dir . '/' . $tmp_file_name;
+  $tmp_full_file_name = $tmp_dir . '/' . $tmp_file_name;
 
   // Get file content from url;
   $file_url = file_create_url($file->uri);
@@ -100,7 +100,7 @@ function _create_tmp_download_file($file) {
   watchdog('Debug', 'Get content from url: ' . $file_url . '<pre>' . print_r($file_url, TRUE) . '</pre>');
 
 // print($tmp_file_name);
-  $fh = fopen($tmp_file_name, 'w') or die("can't open file");
+  $fh = fopen($tmp_full_file_name, 'w') or die("can't open file");
   fwrite($fh, $content);
   fclose($fh);
 
@@ -151,7 +151,7 @@ function edgemakers_media_upload_download($fid = '') {
     header('Content-Length: ' . $file->filesize);
     ob_clean();
     flush();
-    readfile($filename);
+    readfile(file_directory_temp() . $download_file);
     exit;
 
 
