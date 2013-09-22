@@ -361,6 +361,13 @@ jQuery('.node-type-edgemakers-topic h1').css('background-color', "<?php echo $to
 <?php if(count($videoIds) > 0):?>
   loadVideo('<?php echo $videoIds[0];?>');
   <?php if(count($videoIds) > 1):?>
+  jQuery('.videos-controller-dots span').bind('click', function(){
+  	var idx = jQuery(this).index();
+  	var id = jQuery('.videos-controller-dots span').eq(idx).attr('id');
+  	jQuery('.videos-controller-dots span.active').removeClass('active');
+  	jQuery('.videos-controller-dots span').eq(idx).addClass('active');
+  	changeVideo(id);
+  })
   jQuery(".videos-controller .prev").bind('click', function() {
   	
     var prevel = jQuery('.videos-controller-dots span.active').prev();
@@ -370,6 +377,7 @@ jQuery('.node-type-edgemakers-topic h1').css('background-color', "<?php echo $to
     
     jQuery('.videos-controller-dots span.active').removeClass('active');
     prevel.addClass('active');
+    
     changeVideo(prevel[0].id);
   });
   jQuery(".videos-controller .next").bind('click', function() {
