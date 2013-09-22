@@ -97,7 +97,6 @@ features[menu_links][] = management:admin/config/development
 features[menu_links][] = management:admin/config/development/devel
 features[menu_links][] = management:admin/config/development/logging
 features[menu_links][] = management:admin/config/development/maintenance
-features[menu_links][] = management:admin/config/development/memcache_storage
 features[menu_links][] = management:admin/config/development/modal_forms
 features[menu_links][] = management:admin/config/development/performance
 features[menu_links][] = management:admin/config/development/strongarm

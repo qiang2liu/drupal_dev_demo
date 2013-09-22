@@ -82,6 +82,7 @@ function youtubeFeedCallback(json) {
     ?>
     <div id="yt">
     You need Flash player 8+ and JavaScript enabled to view this video.
+    <p><?php echo l(t('Get Flash Player'), 'http://get.adobe.com/flashplayer/', array('attributes' => array('target' => '_blank')));?></p>
     </div>
   </div>
 

@@ -988,13 +988,13 @@ div.ctools-modal-content .form-item .description{
 #challenge{
 	background-color:rgba(19,119,151,1.0);
 	padding:10px 0;
-	height:720px;
+	height:760px;
 }
 #competitions{
 	background-image: url(../images/example_05.png);
 	background-color:rgba(244,126,64,1.0);
     /* test */
-    height:720px;
+    height:760px;
 }
 /*.pane-handler.active:hover{
 	background-image:url(../images/newui_ico_pane_handler_ac.png);

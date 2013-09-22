@@ -10,7 +10,7 @@
 function edgemakers_stage_install() {
 
   $types = node_type_get_types();
-  if(array_key_exists('stage', $types)) {
+  if (array_key_exists('stage', $types)) {
     return;
   }
 
@@ -73,7 +73,7 @@ function _edgemakers_stage_installed_fields() {
  */
 function _edgemakers_stage_installed_instances() {
 
- $t = get_t();
+  $t = get_t();
   return array(
     'dimension_x' => array(
       'field_name'  => 'dimension_x',
@@ -122,10 +122,14 @@ function edgemakers_stage_uninstall() {
     $nids[] = $row->nid;
   }
 
-  // Delete all the nodes at once
+  // Delete all the nodes at once.
   node_delete_multiple($nids);
 
-  $instance = array('field_name' => 'comment_body','bundle' => 'comment_node_stage','entity_type' => 'comment');
+  $instance = array(
+    'field_name' => 'comment_body',
+    'bundle' => 'comment_node_stage',
+    'entity_type' => 'comment',
+  );
   field_delete_instance($instance);
 
   $fields = array_keys(_edgemakers_stage_installed_fields());
@@ -133,53 +137,41 @@ function edgemakers_stage_uninstall() {
     field_delete_field($field);
   }
 
-  // Purge all field infromation
+  // Purge all field infromation.
   field_purge_batch(1000);
 
-  // @link http://drupal.stackexchange.com/questions/44547/unable-to-delete-feature-content-type-after-uninstalling-feature
-  // List custom content types added by this feature
+  // @link
+  // http://drupal.stackexchange.com/questions/44547/
+  // -unable-to-delete-feature-content-type-after-uninstalling-feature
+  // List custom content types added by this feature.
   $custom_ctypes = array(
     'stage',
   );
 
-  // Go through each and unlock the content type
+  // Go through each and unlock the content type.
   foreach ($custom_ctypes as $ctype) {
     db_query("UPDATE {node_type} SET `custom` = 1, `locked` = 0 WHERE `type` = :ctype", array(':ctype' => $ctype));
   }
 
-  //@link http://drupal.stackexchange.com/questions/63329/unable-to-delete-a-custom-content-type
+  // @link
+  // http://drupal.stackexchange.com/questions/63329/
+  // -unable-to-delete-a-custom-content-type
   node_type_delete('stage');
 
-  // Clean Drupal cache; this is necessary for the "Delete" link to appear
+  // Clean Drupal cache; this is necessary for the "Delete" link to appear.
   // next to the content type created by the feature.
   drupal_flush_all_caches();
 }
 
 /**
- * Implements hook_update_N();
- *   - Add picture of stage.
+ * Implements hook_update_N() for edgemakers_stage_update_7200().
  */
 function edgemakers_stage_update_7200() {
 
-  //@TODO add picture of stage
-  $fields = array (
-    /*'field_stage_image' => array(
-      'field_name' => 'field_stage_image',
-      'type'       => 'image',
-      'cardinality' => 1,
-    ),*/
-  );
+  // @TODO add picture of stage.
+  $fields = array();
 
-  $instancess = array(
-    /*'field_stage_image' => array(
-      'field_name'  => 'field_stage_image',
-      'label'       => t('Picture of stage'),
-      'required'    => FALSE,
-      'widget' => array(
-        'type'    => 'image',
-      ),
-    ),*/
-  );
+  $instancess = array();
 
   foreach ($fields as $field) {
     field_create_field($field);

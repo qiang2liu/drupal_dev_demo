@@ -1789,7 +1789,7 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
     $html .= '<li>';
 
     $html .= '<div class="set-cover">
-                    <h5>' . $node->title .'</h5>
+                    <h5 title="'. $node->title .'">' . $node->title .'</h5>
                     <p class="inspiration">' . $node_username .'</p>
                   </div>';
 
@@ -1807,6 +1807,7 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
       'attributes' => array(
         'class' => array('studio-mural-list-item-link'),
         'nid' => $node->nid,
+        'title' => $node->title,
       ),
             )
     );
@@ -1931,7 +1932,7 @@ function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
         $html .= '<li>';
 
         $html .= '<div class="set-cover">
-                    <h5>' . $node->title .'</h5>
+                    <h5 title="' . $node->title .'">' . $node->title .'</h5>
                     <p class="inspiration">' . $node_username .'</p>
                   </div>';
 
@@ -1948,6 +1949,7 @@ function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
             'class' => array('studio-mural-list-item-link'),
 //             'class' => array('ctools-use-modal',  'ctools-modal-modal-popup-small'),
             'id' => 'media-node-' . $node->nid,
+            'title' => $node->title,
           ),
         ));
 
@@ -2097,6 +2099,7 @@ function themuraly_mural_list_html($limit = 5) {
 					array(
 						'attributes' => array(
 							'id' => 'media-node-' . $node->nid,
+							'title' => $node->title,
 						)
 					)
 				);
@@ -2594,7 +2597,7 @@ function theme_mural_item_box($item = array(), $attributes = array()) {
     }
     else {                                                             // Default mural list
       $html .= '<div class="set-cover">
-                      <h5>' . $node->title .'</h5>
+                      <h5 title ="' . $node->title .'">' . $node->title .'</h5>
                       <p class="inspiration">' . $node_username .'</p>
                     </div>';
 

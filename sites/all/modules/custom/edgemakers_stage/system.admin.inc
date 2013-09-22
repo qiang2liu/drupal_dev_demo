@@ -16,7 +16,7 @@ function edgemakers_stage_settings() {
 
   $vocabularies = taxonomy_get_vocabularies();
 
-  foreach ($vocabularies AS $voca) {
+  foreach ($vocabularies as $voca) {
     $voca_optins[$voca->vid] = $voca->name;
   }
 
@@ -35,7 +35,6 @@ function edgemakers_stage_settings() {
     }
 
   }
-
 
   foreach ($types as $type) {
     $content_type_options[$type->type] = $type->name;
@@ -56,10 +55,6 @@ function edgemakers_stage_settings() {
     '#description' => t('Set the type term to stage.'),
     '#options' => $voca_optins,
   );
-
-  //dpm($form);
-
-  //return $form;
 
   return system_settings_form($form);
 
