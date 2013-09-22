@@ -238,9 +238,7 @@ h1{
 	margin-top:-5px;
 	
 }
-.videos-controller-dots span.active{
-	opacity:1;
-}
+
 </style>
 <script>
 (function($){
@@ -365,15 +363,26 @@ jQuery('.node-type-edgemakers-topic h1').css('background-color', "<?php echo $to
   <?php if(count($videoIds) > 1):?>
   jQuery(".videos-controller .prev").bind('click', function() {
   	
-    var prevel = jQuery('.video-item.active').prev();
-    if(prevel.length == 0)
-      var prevel = jQuery('.video-item:last');
+    var prevel = jQuery('.videos-controller-dots span.active').prev();
+    if(prevel.length == 0){
+    	 prevel = jQuery('.videos-controller-dots span:last');
+    }
+    
+    jQuery('.videos-controller-dots span.active').removeClass('active');
+    prevel.addClass('active');
     changeVideo(prevel[0].id);
   });
   jQuery(".videos-controller .next").bind('click', function() {
-    var nextel = jQuery('.video-item.active').next();
-    if(nextel.length == 0)
-      nextel = jQuery('#video-item-0');
+  	
+    var nextel = jQuery('.videos-controller-dots span.active').next();
+    
+    if(nextel.length == 0){
+    	nextel = jQuery('.videos-controller-dots span:first');
+    }
+      
+      
+      jQuery('.videos-controller-dots span.active').removeClass('active');
+      nextel.addClass('active');
     changeVideo(nextel[0].id);
   });
   jQuery('.video-item').bind('click', function() {
