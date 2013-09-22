@@ -133,10 +133,9 @@ function edgemakers_media_upload_download($fid = '') {
     header("Content-Disposition: attachment;filename=".basename($download_file));
     header("Content-Transfer-Encoding: binary ");
     header("Content-Length: " . $file->filesize);
-
-    ob_clean();
-    flush();
-    readfile($download_file);
+//     ob_clean();
+//     flush();
+//     readfile($download_file);
 
     exit;
   }
