@@ -293,7 +293,7 @@ h1{
 	});
 	$(document).ready(function(){
 		$('.images-controller-dots').mediaSlide();
-		$('.videos-controller-dots').mediaSlide();
+		//$('.videos-controller-dots').mediaSlide();
 
 		//some UI
 		$('.field-name-field-topic-problem .field-item p').append('<div class="right-quote"></div>');
@@ -355,6 +355,7 @@ jQuery('.node-type-edgemakers-topic h1').css('background-color', "<?php echo $to
   loadVideo('<?php echo $videoIds[0];?>');
   <?php if(count($videoIds) > 1):?>
   jQuery(".videos-controller .prev").bind('click', function() {
+  	alert('OKOKOK');
     var prevel = jQuery('.video-item.active').prev();
     if(prevel.length == 0)
       var prevel = jQuery('.video-item:last');
