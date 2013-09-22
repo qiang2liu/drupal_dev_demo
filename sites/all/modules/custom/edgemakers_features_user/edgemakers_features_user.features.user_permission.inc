@@ -249,6 +249,7 @@ function edgemakers_features_user_user_default_permissions() {
   $permissions['add media from remote sources'] = array(
     'name' => 'add media from remote sources',
     'roles' => array(
+      'site admin' => 'site admin',
       'site administrator' => 'site administrator',
     ),
     'module' => 'media_internet',
@@ -423,6 +424,7 @@ function edgemakers_features_user_user_default_permissions() {
   $permissions['administer media'] = array(
     'name' => 'administer media',
     'roles' => array(
+      'site admin' => 'site admin',
       'site administrator' => 'site administrator',
     ),
     'module' => 'media',
@@ -1271,6 +1273,7 @@ function edgemakers_features_user_user_default_permissions() {
   $permissions['edit media'] = array(
     'name' => 'edit media',
     'roles' => array(
+      'site admin' => 'site admin',
       'site administrator' => 'site administrator',
     ),
     'module' => 'media',
@@ -1542,6 +1545,7 @@ function edgemakers_features_user_user_default_permissions() {
   $permissions['import media'] = array(
     'name' => 'import media',
     'roles' => array(
+      'site admin' => 'site admin',
       'site administrator' => 'site administrator',
     ),
     'module' => 'media',

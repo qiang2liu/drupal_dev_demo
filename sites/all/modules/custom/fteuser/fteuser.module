@@ -70,9 +70,9 @@ function fteuser_form_user_register_form_alter(&$form, &$form_state, $form_id) {
     return;
   }
 
-  // Ensure a valid submit array.
+  // Ensure a valid submit array and validate array.
   $form['#submit'] = is_array($form['#submit']) ? $form['#submit'] : array();
-
+  $form['#validate'] = is_array($form['#validate']) ? $form['#validate'] : array();
   // Replace core's registration function with FTEUSER registration function.
   // Put the FTEUSER submit handler first, so other submit handlers have a valid
   // user to work with upon registration.
@@ -104,7 +104,18 @@ function fteuser_form_user_register_form_alter(&$form, &$form_state, $form_id) {
     );
   }
   //
+  $form['#validate'][] = 'fteuser_user_register_validate';
   array_unshift($form['#submit'], 'fteuser_user_register_submit');
+}
+/**
+ * custom validation function for the user registration form.
+ */
+function fteuser_user_register_validate($form, &$form_state) {
+  $the_user_name = $form_state['values']['name'];
+  $the_len = strlen($the_user_name); 
+  if ($the_len < 4 || $the_len > 25 || preg_match("/[^A-Z|0-9|-]/i", $the_user_name) || preg_match("/^\d+$/", $the_user_name)) {
+     form_set_error('name', '<br/><br/>User name should be at least 4 characters and 25 the most, cannot be fully numeric, and only allowed characters are Latin (A-Z) and Numbers (0-9), the - (hyphen) is also allowed.');
+  }
 }
 
 function fteuser_user_register_submit($form, &$form_state) {
