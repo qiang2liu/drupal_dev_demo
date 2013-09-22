@@ -8,7 +8,7 @@ function _edgemakers_set_load_my_javascript($element){
   return($element);
 }
 function edgemakers_set_node_submit_redirect_handler($form, &$form_state) {
-  unset($_REQUEST['destination']); 
+  unset($_REQUEST['destination']);
   unset($form['#redirect']);
   //$node = $form_state['node'];
   //if (!isset($node->nid)) {
@@ -41,7 +41,15 @@ function edgemakers_set_admin_create_page() {
 function edgemakers_set_admin_delete_action($nid) {
   module_load_include('inc', 'node', 'node.pages');
   node_delete($nid);
-  _edgemakers_set_admin_list_update();
+
+  if ($ajax) {
+    _edgemakers_set_admin_list_update();
+  }
+  else {
+    $set = node_load($nid);
+    drupal_set_message(t('Set [@set_title] deleted.', array('@set_title' => $set->title)));
+    drupal_goto('admin/edgemakers/set');
+  }
 }
 //update setes list
 function _edgemakers_set_admin_list_update() {
@@ -56,11 +64,12 @@ function _edgemakers_set_admin_list_html() {
 }
 //generate the list setes form for drupal_get_form
 function edgemakers_set_admin_list_form() {
+  drupal_add_js(drupal_get_path('module', 'edgemakers_stage') . '/js/edgemakers_stage_admin.js');
   drupal_add_library('system', 'drupal.ajax');
   ctools_include('modal');
   ctools_modal_add_js();
-  $type = "edgemakers_set"; 
-  $nodes = node_load_multiple(array(), array('type' => $type)); 
+  $type = "edgemakers_set";
+  $nodes = node_load_multiple(array(), array('type' => $type));
   $header = array(
     'title' => array('data' => t('Set Title')),
     'type' => array('data' => t('Set Type')),
@@ -76,8 +85,13 @@ function edgemakers_set_admin_list_form() {
     $operations = array(
       'delete' => array(
         'title' => t('delete'),
-        'href' => 'admin/edgemakers/set/ajaxdelete/' . $node->nid . '/nojs/',
-        'attributes' => array('class' => array('use-ajax')),
+//         'href' => 'admin/edgemakers/set/ajaxdelete/' . $node->nid . '/nojs/',
+        'href' => 'node/' . $node->nid . '/delete',
+        'query' => $destination,
+        'attributes' => array(
+//           'class' => array('use-ajax'),
+          'onClick' => 'disp_confirm(this.id);return false;',
+        ),
       ),
       'edit' => array(
         'title' => t('edit'),
@@ -214,7 +228,7 @@ function edgemakers_set_like($cid) {
   }
   $results = rate_get_results($content_type, $cid, $widget_id);
   // Process options.
-  
+
   $selector = '.rate-button-cid-'.$cid;
   $output = $results['count'];
   $commands = array();

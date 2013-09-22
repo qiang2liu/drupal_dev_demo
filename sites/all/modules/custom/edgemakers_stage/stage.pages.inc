@@ -58,7 +58,7 @@ function edgemakers_stage_page() {
           'destination' => 'admin/edgemakers/stage',
         ),
         'attributes' => array(
-          'onClick' => 'disp_confirm(this.id);return FALSE;',
+          'onClick' => 'disp_confirm(this.id);return false;',
           'id' => 'edgemakers-delete-' . $node->nid,
         ),
       )
@@ -493,7 +493,7 @@ function edgemakers_stage_set_list_form($form, &$form_state, $stage_id = '') {
               'class' => array(
                 'delete-action',
               ),
-              'onClick' => 'disp_confirm(this.id);return FALSE;',
+              'onClick' => 'disp_confirm(this.id);return false;',
               'id' => 'edgemakers-delete-set-' . $item->nid,
             ),
           ),

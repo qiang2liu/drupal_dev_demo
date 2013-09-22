@@ -4,7 +4,8 @@
 
 function disp_confirm(id) {
   var r=confirm("Are you sure?");
-  if (r==true)
+  //alert(r);
+  if (r===true)
   {
     var url = jQuery("#"+id).attr("href");
     window.location = url;
@@ -12,6 +13,7 @@ function disp_confirm(id) {
   }
   else
     {
+    //alert("return false.");
     return false;
   }
 }
