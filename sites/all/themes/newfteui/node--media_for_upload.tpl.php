@@ -188,7 +188,7 @@ else :
 
       $download_uri = 'download/file/fid/' . $fid;
 
-      $download_uri = 'edgemakers/media/download/' . $fid;
+//       $download_uri = 'edgemakers/media/download/' . $fid;
 
       // Send the amazon S3 url to client.
 //       $download_uri = file_create_url($upload);
