@@ -201,6 +201,21 @@ function muralshow_share($owerid = '', $mid = '') {
 function muralshow($nid, $mid = 0, $uid = 0) {
 
   global $user;
+  
+  // for issue fte-419: Need to create mural user/room automatically if not yet when show a mural in iframe
+  $the_account = user_load($user->uid);
+  $the_res = get_muralusername_muralroom($the_account);
+  $error_msg = '';
+  if ($the_res['muralusername'] == '' ) {
+    $error_msg .= t('Failed to load this mural because mural user can\'t be created,');
+  } 
+  if ($the_res['muralroomid'] == '') {
+    $error_msg .= t('Failed to load this mural because mural room can\'t be created,');
+  } 
+  if ($error_msg != '') {
+    $error_msg .= t('please try it later.');
+    return $error_msg;
+  }
 //   watchdog('Invite Share' , 'User info in muralshow(): <pre>' . print_r($user, TRUE) . '</pre>');
   $the_node_uid = 0;
   if ($uid > 0) {
@@ -258,9 +273,60 @@ function muralshow($nid, $mid = 0, $uid = 0) {
                   )));
 }
 
+/**
+ *
+ * get/create the muralusername and muralroomid
+ * 
+ * @param object $account
+ * @return array 
+ */
+function get_muralusername_muralroom($account) {
+  $ret = array();
+  $mural_api = new Muralapi;
+  $muralusername = '';
+  $muralroomid = '';
+  if (empty($account->field_muralusername)) {
+    // this account hasn't mapped to a  mural account,call mural api to do it
+    fteuser_set_mural_user($mural_api, $account);
+    $account = user_load($account->uid);
+    $fieldinfo = field_get_items('user', $account, 'field_muralusername');
+    if ($fieldinfo) {
+      $muralusername = $fieldinfo[0]['value'];
+    }
+  }
+  else {
+    $fieldinfo = field_get_items('user', $account, 'field_muralusername');
+
+    if ($fieldinfo) {
+      $muralusername = $fieldinfo[0]['value'];
+    }
+  }
+  //
+  if (!empty($muralusername)) {
+    if (empty($account->field_muralroomid)) {
+      //create mural room for the muraluser
+      $title = 'mymuralroom';
+      $muralroomid = muralapi_create_room($mural_api, $muralusername, $title, $account);
+    } else {
+      $fieldinfo = field_get_items('user', $account, 'field_muralroomid');
+
+      if ($fieldinfo) {
+        $muralroomid = $fieldinfo[0]['value'];
+      }
+    }
+  }
+  if ($muralusername == '' || $muralroomid == '') {
+    watchdog("Muraly", '$muralusername and $muralroomid empty' . print_r($muralroomid, TRUE) . '</pre>');
+   // drupal_set_message(t('can\'t get link to the mural account!'), 'error');
+
+  }
+  $ret['muralusername'] = $muralusername;
+  $ret['muralroomid'] = $muralroomid;
+  
+  return $ret;
+}
 function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
   global $user;
-
   //drupal_set_message('Template id: ' . $template_id);
   //drupal_set_message('Node id: ' . $nid);
   $title = 'Untitled';
@@ -276,44 +342,23 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
   $mural_api = new Muralapi;
   $muralusername = '';
   $muralroomid = '';
-//   watchdog("Topic Debug", 'account info' . print_r($account, TRUE) . '</pre>');
-  if (empty($account->field_muralusername)) {
-    // this account hasn't mapped to a  mural account,call mural api to do it
-    fteuser_set_mural_user($mural_api, $account);
-    $account = user_load($user->uid);
-    $fieldinfo = field_get_items('user', $account, 'field_muralusername');
-    if ($fieldinfo) {
-      $muralusername = $fieldinfo[0]['value'];
-    }
-  } else {
-    $fieldinfo = field_get_items('user', $account, 'field_muralusername');
 
-    if ($fieldinfo) {
-      $muralusername = $fieldinfo[0]['value'];
-    }
+  $the_res = get_muralusername_muralroom($account);
+  $error_msg = '';
+  if ($the_res['muralusername'] == '') {
+    $error_msg .= t('Failed to create mural because mural user can\'t be created,');
+  } 
+  if ($the_res['muralroomid'] == '') {
+    $error_msg .= t('Failed to create mural because mural room can\'t be created,');
+  } 
+  if ($error_msg != '') {
+    $error_msg .= t('please try it later.');
+    return $error_msg;
   }
-  if (!empty($muralusername)) {
-    if (empty($account->field_muralroomid)) {
-      //create mural room for the muraluser
-      $title = 'mymuralroom';
-      $muralroomid = muralapi_create_room($mural_api, $muralusername, $title, $account);
-    } else {
-      $fieldinfo = field_get_items('user', $account, 'field_muralroomid');
-
-      if ($fieldinfo) {
-        $muralroomid = $fieldinfo[0]['value'];
-      }
-    }
+  else {
+    $muralusername = $the_res['muralusername'];
+    $muralroomid = $the_res['muralroomid'];
   }
-//   watchdog("Topic Debug", '$muralusername info' . print_r($muralusername, TRUE) . '</pre>');
-//   watchdog("Topic Debug", '$$muralroomid info' . print_r($muralroomid, TRUE) . '</pre>');
-  if ($muralusername == '' || $muralroomid == '') {
-    watchdog("Muraly", '$muralusername and $muralroomid empty' . print_r($muralroomid, TRUE) . '</pre>');
-//     drupal_set_message(t('can\'t get link to the mural account!'), 'error');
-
-    return '';
-  }
-
   if ($template_id == 0) {
 //     watchdog("Topic Debug", '$template_id info: ' . print_r($template_id, TRUE) . '</pre>');
     //create new mural
@@ -481,8 +526,11 @@ function themuraly_mural_page($template_id = 0, $nid = 0, $owner_id = '') {
   if ($node->nid) {
     drupal_goto('mural/' . $node->nid);
   } else {
-    watchdog('Muraly', 'Create mural fial.');
+    watchdog('Muraly', 'Create mural fail.');
 // 	  drupal_set_message(t('Can\'t create mural on create page.'));
+    if (is_string($node) && $node != '') {
+      return $node;
+    }
     return t('Can\'t create mural');
 // 	  echo '<span class="close-mural-dialog" onclick=\'window.parent.closeFromIframe();\'> X </span>';
   }

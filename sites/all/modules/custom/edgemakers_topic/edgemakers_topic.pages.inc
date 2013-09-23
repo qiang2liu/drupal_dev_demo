@@ -385,8 +385,11 @@ function make_content_output($node) {
   $desc = render(field_view_value('node', $node, 'body', $x[0]));
 
   $result = field_view_field('node', $node, 'field_tags', array('default'));
-
-  $arrItems = $result['#object']->field_tags['und'];
+  $arrItems = '';
+  if (isset($result['#object']) && isset($result['#object']->field_tags['und'])) {
+    $arrItems = $result['#object']->field_tags['und'];
+  }
+  
   $tags = "";
 
   $i = 0;
