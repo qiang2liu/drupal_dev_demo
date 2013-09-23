@@ -173,7 +173,7 @@
       $lastnames = field_get_items('user', $user, 'field_lastname');
       $lastname = $lastnames && count($lastnames) ? $lastnames[0]['value'] : '';
     ?>
-      <h4><?php echo $firstname && $lastname ? ($firstname.' '.$lastname) : $user->name; ?></h4>
+      <h4 title="<?php echo $firstname && $lastname ? ($firstname.' '.$lastname) : $user->name; ?>"><?php echo $firstname && $lastname ? ($firstname.' '.$lastname) : $user->name; ?></h4>
       <?php if ($secondary_menu): ?>
 
       <?php
