@@ -324,7 +324,6 @@ features[variable][] = edgemakers_stage_content_type
 features[variable][] = email__active_tab
 features[variable][] = empty_timezone_message
 features[variable][] = entityreference:base-tables
-features[variable][] = error_level
 features[variable][] = features_ignored_orphans
 features[variable][] = features_semaphore
 features[variable][] = field_bundle_settings_comment__comment_node_edgemakers_set

@@ -191,6 +191,10 @@ div.ctools-sample-modal-content .modal-scroll{
   display: inline;
 }
 
+.node-media_for_upload-form .form-item-field-challenges-category-und {
+  display:none;
+}
+
 /* #media-for-upload-node-form .form-item-field-share-und label {
   display: block;
 } */
