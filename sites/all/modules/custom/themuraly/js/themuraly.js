@@ -82,10 +82,12 @@ function setMuralWidth(){
   jQuery("#mural-iframe").attr("width", jQuery(window).width() + 'px');
   if(jQuery('#mural-region').attr('data-user') === '1'){
   	jQuery("#mural-iframe").attr("height", jQuery(window).height()-85 + 'px');
+  	jQuery("#mural-region").css("height", jQuery(window).height() + 'px');
   }else{
   	 jQuery("#mural-iframe").attr("height", jQuery(window).height()-56 + 'px');
+  	 jQuery("#mural-region").css("height", jQuery(window).height() + 'px');
   }
-  jQuery("#mural-region").css("height", jQuery(window).height() + 'px');
+  
   
 }
 
