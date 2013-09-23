@@ -1,8 +1,8 @@
-<?php ?>
+<?php global $user ?>
 
 <!-- /community -->
 
-<div id="mural-region" class="hidden">
+<div id="mural-region" data-user=<?php print $user->uid; ?> class="hidden">
   <div>
   	<iframe id="mural-iframe" border="0" scrolling="no" width="500" height="500" src=""></iframe>
   </div>
@@ -173,7 +173,7 @@
       $lastnames = field_get_items('user', $user, 'field_lastname');
       $lastname = $lastnames && count($lastnames) ? $lastnames[0]['value'] : '';
     ?>
-      <h4><?php echo $firstname && $lastname ? ($firstname.' '.$lastname) : $user->name; ?></h4>
+      <h4 title="<?php echo $firstname && $lastname ? ($firstname.' '.$lastname) : $user->name; ?>"><?php echo $firstname && $lastname ? ($firstname.' '.$lastname) : $user->name; ?></h4>
       <?php
       $profile_setting_url = l(t('Settings'),
         'edgemakers/user/profile/settings/nojs',

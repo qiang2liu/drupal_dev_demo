@@ -1060,6 +1060,9 @@ div.ctools-modal-content .form-item .description{
 .user-box h4{
 	font-weight:bold;
 	margin-bottom:.5em;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .user-box a{
 	color:#fff;
