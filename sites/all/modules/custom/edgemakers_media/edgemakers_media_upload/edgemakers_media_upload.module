@@ -1070,7 +1070,8 @@ function edgemakers_media_list_on_studio($pager = 0) {
 function edgemakers_my_media_list_on_toolbar($limit = 5) {
 
   global $user;
-
+  
+  $my_media_nodes = array();
   $html = '<div class="toolbar-item media">';
 
   if ($user->uid !== 0) {
@@ -1095,7 +1096,6 @@ function edgemakers_my_media_list_on_toolbar($limit = 5) {
         $i++;
       }
     }
-
     if (count($media_item['items']) > 0) {
 
       $html .= '<h4 class="has-child">Media<em></em></h4>';
@@ -1104,10 +1104,10 @@ function edgemakers_my_media_list_on_toolbar($limit = 5) {
       $media_item['type'] = 'ul';
       $media_item['attributes'] = array('id' => 'media-list', 'class' => 'media-video');
 
-      $media_html = theme_item_list($media_item);
+      $media_html = theme('item_list', $media_item);
+      $html .= $media_html;
     }
 
-    $html .= $media_html;
 
   }
 
@@ -1168,12 +1168,11 @@ function edgemakers_media_list_html($limit = 5) {
       $media_items['attributes'] = array('id' => 'media-list', 'class' => 'media-video');
 
       $media_html = theme('item_list', $media_items);
+      $html .= $media_html;
     }
     else {
       $html .= '<h4 class="has-child">Media</h4>';
     }
-
-    $html .= $media_html;
 
   }
   else {
