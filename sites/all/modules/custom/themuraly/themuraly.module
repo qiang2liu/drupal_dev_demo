@@ -1712,6 +1712,7 @@ function themuraly_init() {
   drupal_add_library('system', 'ui.dialog');
 	drupal_add_css(drupal_get_path('module', 'themuraly') . '/css/themuraly.css');
 	drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/themuraly.js');
+  
 // 	drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/refreshElements.js');
 }
 
@@ -2689,5 +2690,13 @@ function themuraly_mail($key, &$message, $params) {
 
     default:
       // nothing
+  }
+}
+
+      
+function themuraly_page_alter(&$page) {
+  $the_path = current_path();
+  if (strpos($the_path,'mural') !== false) {
+    drupal_set_breadcrumb(array());
   }
 }
