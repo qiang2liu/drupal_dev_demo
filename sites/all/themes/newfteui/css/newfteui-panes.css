@@ -481,6 +481,13 @@ div.modal-forms-modal-content .setting-title {
 	background-color: rgba(0, 0, 0, 0);
 	padding:0;
 }
+#modal-content .messages-label{
+	display: none;
+}
+#modal-content .messages{
+	margin: 0 2em;
+    width: 75%;
+}
 @media screen and (-webkit-min-device-pixel-ratio:0) {  
 /* CSS Statements that only apply on webkit-based browsers (Chrome, Safari, etc.) */  
    #d3{
