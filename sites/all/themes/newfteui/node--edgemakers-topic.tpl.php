@@ -233,10 +233,11 @@ h1{
 	bottom:-53px;
 	left:38px;
 }
-
+#videos_container {
+  padding:10px;
+}
 .videos-controller{
 	margin-top:-5px;
-	
 }
 
 </style>
@@ -331,7 +332,7 @@ h1{
       <div id="videos" class="media-box">
         <div id="videos_container" class="content-container">
         You need Flash player 8+ and JavaScript enabled to view this video.
-        <p><?php echo l(t('Get Flash Player'), 'http://get.adobe.com/flashplayer/', array('attributes' => array('target' => '_blank')));?></p>
+        <p ><?php echo l(t('Get Flash Player'), 'http://get.adobe.com/flashplayer/', array('attributes' => array('target' => '_blank')));?></p>
         </div>
         <div class="videos-controller controller" style="background:<?php echo $topicColor;?>;">
            <a href="#x" class="prev" <?php if(count($videoIds) == 1) echo 'disabled="disabled"';?>>Prev</a>

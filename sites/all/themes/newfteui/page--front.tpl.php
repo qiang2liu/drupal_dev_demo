@@ -183,8 +183,6 @@ else {
       $lastname = $lastnames && count($lastnames) ? $lastnames[0]['value'] : '';
     ?>
       <h4 title="<?php echo $firstname && $lastname ? ($firstname.' '.$lastname) : $user->name; ?>"><?php echo $firstname && $lastname ? ($firstname.' '.$lastname) : $user->name; ?></h4>
-      <?php if ($secondary_menu): ?>
-
       <?php
       $profile_setting_url = l(t('Settings'),
         'edgemakers/user/profile/settings/nojs',
@@ -211,13 +209,12 @@ else {
         )
       );
       ?>
-        <nav id="secondary-menu" role="navigation">
-        <ul class="link inline clearfix">
-          <li class="menu-item first"><?php echo $profile_setting_url; ?></li>
-          <li class="menu-item last"><?php echo $logout_url; ?></li>
-        </ul>
-        </nav>
-      <?php endif; ?>
+      <nav id="secondary-menu" role="navigation">
+      <ul class="link inline clearfix">
+        <li class="menu-item first"><?php echo $profile_setting_url; ?></li>
+        <li class="menu-item last"><?php echo $logout_url; ?></li>
+      </ul>
+      </nav>
     <?php endif; ?>
   </div>
   <?php if (user_is_logged_in()): ?>
@@ -235,8 +232,6 @@ else {
     </div>
   <?php else: ?>
     <?php
-    global $user;
-
     $login_div = '<div class="user-profile-inner-url">';
     $login_div .= '<img src="sites/all/themes/newfteui/images/example_08.png" />';
     $login_div .= '</div>';
@@ -251,67 +246,6 @@ else {
     ?>
   <?php endif; ?>
 </div>
-<!--this is for profile settings demo-->
-<div class="demo-setting-wrapper"></div>
-<!--{{{the mock up of the login start-->
-<div class="login-regisiter-newpassword-wrapper">
-	<ul class="lrn-tab">
-		<li>Regisiter</li>
-		<li class="active">Log in</li>
-		<li>Request new password</li>
-	</ul>
-	<form class="box-register lrn-box">
-		<table>
-			<tr>
-				<td><input type="text" placeholder="FIRST NAME" /></td>
-				<td><input type="text" placeholder="LAST NAME" /></td>
-			</tr>
-			<tr>
-				<td><input type="text" placeholder="EMAIL" /></td>
-				<td><input type="text" placeholder="USER NAME" /></td>
-			</tr>
-			<tr>
-				<td><input type="password" placeholder="PASSWORD" /></td>
-				<td><input type="password" placeholder="CONFIRM PASSWORD" /></td>
-			</tr>
-			<tr>
-				<td>
-					<dl>
-						<dt>What's your role?</dt>
-						<dd>Teacher <input type="radio" /></dd>
-						<dd>Student <input type="radio" /></dd>
-					</dl>
-				</td>
-				<td>
-					<dl>
-						<dt>Upload Profile Picture</dt>
-						<dd><input type="file" /></dd>
-					</dl>
-                </td>
-			</tr>
-		</table>
-		<div class="submit">
-			<button>Continue</button>
-		</div>
-	</form>
-	<form class="box-login tab-active lrn-box">
-		<div class="items">
-			<input type="text" placeholder="USER NAME OR EMAIL" /><input type="password" placeholder="PASSWORD" />
-		</div>
-		<div class="submit">
-			<button>Login</button>
-		</div>
-	</form>
-	<form class="box-newpassword lrn-box">
-		<div class="items">
-			<input type="text" placeholder="USER NAME OR EMAIL" />
-		</div>
-		<div class="submit">
-			<button>Email New Password</button>
-		</div>
-	</form>
-</div>
-<!--the mock up of the login end--}}}-->
 <?php
 $ignore_mural_bye = getenv('ignore_mural_bye');
 
@@ -327,15 +261,30 @@ if ($ignore_mural_bye != 1 && isset($_SESSION['need_logout_muraleditor']) && $_S
   
   
 <?php 
+if(user_is_logged_in()) {
   if (isset($_SESSION['userchangepass']) && $_SESSION['userchangepass'] == 1) {
     unset($_SESSION['userchangepass']);
 ?>
-  <script>
+    <script>
     jQuery(document).ready(function(){
       jQuery("a[href='/edgemakers/user/profile/settings/nojs']").trigger("click");
     });
     </script>
-    <?php    
+    <?php
   }
-
-?>  
+} else {
+  //if user is not logged in and is linked from other websites, login popup will appear
+  if(isset($_SERVER['HTTP_REFERER']) && isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_REFERER'] != '') {
+    $parts = parse_url($_SERVER['HTTP_REFERER']);
+    if($parts && isset($parts['host']) && $parts['host'] != $_SERVER['HTTP_HOST']) {
+?>
+      <script>
+      jQuery(document).ready(function(){
+        jQuery(".user-profile a.ctools-use-modal").trigger("click");
+      });
+      </script>
+    <?php
+    }
+  }
+}
+?>
