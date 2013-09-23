@@ -78,8 +78,13 @@ function setMuralWidth(){
     'height': jQuery(window).height()+ 'px',
     'overflow': 'hidden'
   });
+  
   jQuery("#mural-iframe").attr("width", jQuery(window).width() + 'px');
-  jQuery("#mural-iframe").attr("height", jQuery(window).height()-56 + 'px');
+  if(jQuery('#mural-region').attr('data-user') === '1'){
+  	jQuery("#mural-iframe").attr("height", jQuery(window).height()-85 + 'px');
+  }else{
+  	 jQuery("#mural-iframe").attr("height", jQuery(window).height()-56 + 'px');
+  }
   jQuery("#mural-region").css("height", jQuery(window).height() + 'px');
   
 }

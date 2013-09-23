@@ -1,8 +1,8 @@
-<?php ?>
+<?php global $user ?>
 
 <!-- /community -->
 
-<div id="mural-region" class="hidden">
+<div id="mural-region" data-user=<?php print $user->uid; ?> class="hidden">
   <div>
   	<iframe id="mural-iframe" border="0" scrolling="no" width="500" height="500" src=""></iframe>
   </div>
