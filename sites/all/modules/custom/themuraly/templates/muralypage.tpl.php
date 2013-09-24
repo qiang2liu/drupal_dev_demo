@@ -95,7 +95,7 @@ body {
 
       ?>
 		</li>
-		<li alt="settings">
+		<li title="settings">
 			<?php print_r($data['seturl'])?>
 		</li>
 
