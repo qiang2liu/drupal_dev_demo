@@ -409,7 +409,7 @@ function loadVideo(videoid) {
   var whratio = 64/39*1.0;
   var vHeight = videoWidth/whratio;
 
-	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
+	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?rel=0&enablejsapi=1&playerapiid=playerapi&version=3",
 		"videos_container", "100%", vHeight, "8", null, null, params, atts);
   jQuery('#video-item-0').addClass('active');
 }

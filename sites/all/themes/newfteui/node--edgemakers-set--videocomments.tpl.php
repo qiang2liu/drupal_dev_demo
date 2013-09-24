@@ -88,7 +88,7 @@ function loadVideo(videoid) {
   	var videoWidth = ((document.body.clientWidth * 0.70)*0.95)* 0.72;
  	 var whratio = 64/39*1.0;
  	 var vHeight = videoWidth/whratio;
-	 swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
+	 swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?rel=0&enablejsapi=1&playerapiid=playerapi&version=3",
 		"yt", videoWidth, vHeight, "8", null, null, params, atts);
 
 }

@@ -56,7 +56,7 @@ function youtube_parser($url) {
 function loadVideo(videoid) {
 	var params = { allowScriptAccess: "always" };
 	var atts = { id: "myytplayer" };
-	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid=playerapi&version=3",
+	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?rel=0&enablejsapi=1&playerapiid=playerapi&version=3",
 		"yt", "640", "390", "8", null, null, params, atts);
 }
 </script>
