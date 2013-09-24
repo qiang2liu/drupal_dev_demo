@@ -1,8 +1,17 @@
-<?php global $user ?>
+<?php global $user;
+//print_r($user);
+$the_role_array = $user->roles;
+if ($user->uid == 1 ||  in_array('site admin', $the_role_array)) {
+	$the_admin = 1;
+}
+else {
+	$the_admin = 0;
+}
+?>
 
 <!-- /community -->
 
-<div id="mural-region" data-user=<?php print $user->uid; ?> class="hidden">
+<div id="mural-region" data-user=<?php print $the_admin; ?> class="hidden">
   <div>
   	<iframe id="mural-iframe" border="0" scrolling="no" width="500" height="500" src=""></iframe>
   </div>
