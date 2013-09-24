@@ -52,15 +52,25 @@ function edgemakers_topic_carousel_items() {
   $renderable_array = array();
   $nodes = node_load_multiple(array(), array('type' => 'carousel_item'));
   foreach ($nodes as $node) {
-    $topic = field_get_items('node', $node, 'field_carousel_item_topic');
-    $image = field_get_items('node', $node, 'field_carousel_item_image');
-    $renderable_array[] = array(
-      'nid' => $node->nid,
-      'title' => $node->title,
-      'description' => $node->body,
-      'topicid' => $topic[0]['target_id'],
-      'imageurl' => file_create_url($image[0]['uri']),
-    );
+    $topics = field_get_items('node', $node, 'field_carousel_item_topic');
+    $topicid = $topics && count($topics) > 0 ? $topics[0]['target_id'] : '';
+    if($topicid) {
+      $topic = node_load($topicid);
+      $title = $topic->title;
+      $descriptions = field_get_items('node', $topic, 'field_topic_problem');
+      $description = $descriptions && count($descriptions) ? $descriptions[0]['value'] : '';
+      $description = text_summary($description, NULL, 185);
+      $imageuris = field_get_items('node', $topic, 'field_topic_images');
+      $imageuri = $imageuris && count($imageuris) ? $imageuris[0]['uri'] : '';
+      if($imageuri) {
+        $renderable_array[] = array(
+          'topicid' => $topicid,
+          'title' => $title,
+          'description' => $description,
+          'imageurl' => file_create_url($imageuri),
+        );
+      }
+    }
   }
   return $renderable_array;
 }
