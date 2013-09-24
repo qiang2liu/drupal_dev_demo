@@ -1285,7 +1285,8 @@ function _create_new_invite($invite = array()) {
 function _valid_location_address($country = '', $city = '') {
   if ($country && $city) {
 
-    $valite_url = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . $city . ',' . $country . '&sensor=false';
+   // $valite_url = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . $city . ',' . $country . '&sensor=false';
+      $valite_url = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . $city .  '&sensor=false';
     $location_info = drupal_http_request($valite_url);
     $location_val = drupal_json_decode($location_info->data);
 
