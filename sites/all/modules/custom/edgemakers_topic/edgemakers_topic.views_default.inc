@@ -138,16 +138,6 @@ function edgemakers_topic_list_all_topics() {
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
   $handler->display->display_options['fields']['title']['field'] = 'title';
-  /* Field: Content: Carousel Item Image */
-  $handler->display->display_options['fields']['field_carousel_item_image']['id'] = 'field_carousel_item_image';
-  $handler->display->display_options['fields']['field_carousel_item_image']['table'] = 'field_data_field_carousel_item_image';
-  $handler->display->display_options['fields']['field_carousel_item_image']['field'] = 'field_carousel_item_image';
-  $handler->display->display_options['fields']['field_carousel_item_image']['label'] = 'Image';
-  $handler->display->display_options['fields']['field_carousel_item_image']['click_sort_column'] = 'fid';
-  $handler->display->display_options['fields']['field_carousel_item_image']['settings'] = array(
-    'image_style' => 'thumbnail',
-    'image_link' => '',
-  );
   /* Field: Content: Carousel Item Topic */
   $handler->display->display_options['fields']['field_carousel_item_topic']['id'] = 'field_carousel_item_topic';
   $handler->display->display_options['fields']['field_carousel_item_topic']['table'] = 'field_data_field_carousel_item_topic';
