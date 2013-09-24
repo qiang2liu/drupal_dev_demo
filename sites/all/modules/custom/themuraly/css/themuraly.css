@@ -462,11 +462,15 @@ a.create-mural-topic {
   position: absolute;
   top: 50px;
   z-index: 2; 
-  padding-left: 25px;
+  padding:0 0 0 25px;
   height: 17px;
   overflow: hidden;
 }
-
+#murals-node-form--2{
+	background:#fff;
+	top:42px;
+	padding:35px 20px 20px;
+}
 .mural-settings-form-class #modal-content {
   overflow: hidden;
 }
