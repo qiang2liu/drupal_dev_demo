@@ -171,7 +171,7 @@ function datasetFallback(el, property) {
 function loadVideo(nid, videoid) {
 	var params = { allowScriptAccess: "always" };
 	var atts = { id: "myytplayer"+nid };
-	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?enablejsapi=1&playerapiid="+nid+"&version=3",
+	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?rel=0&enablejsapi=1&playerapiid="+nid+"&version=3",
 		"myytimg"+nid, "202", "135", "8", null, null, params, atts);
 }
 function onYouTubePlayerReady(playerId) {

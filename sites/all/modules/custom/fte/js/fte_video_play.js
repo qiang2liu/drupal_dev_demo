@@ -11,7 +11,7 @@ function play_videos(vlist) {
       }
     }
     
-    swfobject.embedSWF("http://www.youtube.com/v/"+play_ytid+"?enablejsapi=1&playerapiid=ytplayer&version=3&modestbranding=1",
+    swfobject.embedSWF("http://www.youtube.com/v/"+play_ytid+"?rel=0&enablejsapi=1&playerapiid=ytplayer&version=3&modestbranding=1",
       "ytapiplayer", "780", "439", "8", null, null, params, atts);
   
 
