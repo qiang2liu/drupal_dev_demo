@@ -5,3 +5,10 @@
  */
 
 include_once 'edgemakers_features_other.features.inc';
+
+/**
+ * Implements hook_update_N()
+ */
+function edgemakers_update_7100(&$sandbox) {
+   module_enable(array('honeypot'));
+}
