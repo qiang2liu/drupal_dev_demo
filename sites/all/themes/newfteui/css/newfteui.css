@@ -468,6 +468,9 @@ div.modal-forms-modal-content .modal-header{
 	
 	padding:0
 }
+#modal-content .vertical-tabs {
+  display:none;
+}
 #modal-content .form-item,
 #modal-content .form-actions{
 	background:#fff;
