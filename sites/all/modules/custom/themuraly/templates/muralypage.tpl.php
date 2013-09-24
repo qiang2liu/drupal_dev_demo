@@ -85,7 +85,8 @@ body {
   				'mural/delete/' . $data['node']->nid,
   				array(
   					'attributes' => array(
-              'class' => array('mural-nav-link'),
+                        'class' => array('mural-nav-link'),
+                        'title' => 'delete',
   						'onclick' => 'return confirm("Are you sure?")',
   					),
   				)
@@ -94,7 +95,7 @@ body {
 
       ?>
 		</li>
-		<li>
+		<li title="settings">
 			<?php print_r($data['seturl'])?>
 		</li>
 
@@ -110,6 +111,7 @@ body {
 				'mural/create/' . $the_m_id . '/' . $data['node']->nid,
         array(
           'attributes' => array(
+          		'title' => 'duplicate',
 //             'class' => array('mural-nav-link'),
           ),
 					'html' => TRUE,

@@ -81,6 +81,10 @@ function edgemakers_forbidden_page() {
   if(user_is_logged_in()) {
     return t("Access denied, please !logout and switch to another user", array('!logout'=>l('logout', 'user/logout', array('query' => array('destination' => 'home')))));
   } else {
+    if($_SERVER["REQUEST_URI"] == '/user/logout') {
+      header('Location: '.url('home'));
+      exit;
+    }
     return t("Access denied, please !login first", array('!login'=>l('login', 'user/login')));
   }
 }
