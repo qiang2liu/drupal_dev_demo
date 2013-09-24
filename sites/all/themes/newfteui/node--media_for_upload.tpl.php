@@ -156,7 +156,7 @@ else :
         break;
       case 'Docs':
         $url = file_create_url($upload);
-        $output = '<iframe class="pdf" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="no" width="90%" height="600px" src="'.$url.'">'.$url.'</iframe>';
+        $output = '<iframe class="pdf" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" frameborder="no" width="100%" height="600px" src="'.$url.'">'.$url.'</iframe>';
         break;
     }
     return $output;
