@@ -4,6 +4,7 @@ sites/*/local.settings.php
 # Ignore paths that contain user-generated content.
 sites/*/files
 sites/*/private
+tmp
 /nbproject
 
 ./tags
@@ -11,4 +12,4 @@ sites/*/private
 .DS_Store
 *.*~
 fabfile.pyc
-
+Thumbs.db
