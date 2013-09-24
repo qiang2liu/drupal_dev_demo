@@ -1985,7 +1985,11 @@ function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
 
       }
     }
-
+    else {
+      if ($page == 0) {
+        return t('There are no ideas shared with you.');
+      }
+    }
   }
 
 //   $content = theme('studio_ideas_list', array('myideas' => $myideas_list, 'myshareideas' => $shareideas_list));
@@ -2085,6 +2089,11 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
 
   if (!empty($result['node'])) {
     $my_mural_nodes = node_load_multiple(array_keys($result['node']), '' , TRUE);
+  }
+  else {
+    if ($start == 0) {
+      print_r(t('No ideas added.'));
+    }
   }
 
   return $my_mural_nodes;
