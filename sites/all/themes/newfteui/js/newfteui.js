@@ -36,7 +36,8 @@
 			},
 			removeAllActive : function(){
 				$('div').not('.toolbar-handler').not('.toolbar-box').not(this).removeClass('active');
-				
+				var id = $(this).attr('data-aim');
+				$('.pane').not('#'+ id).css('right','')
 				$('.teacher-notes').css('top','835px');
 				$(this).toggleClass('active');
 			},
@@ -57,6 +58,8 @@
 	
 	//load
 	$(document).ready(function(){
+		
+		
 		
 		//set position
 		$.fn.setPositionofElements();
@@ -86,15 +89,20 @@
 		});
 		
 		//pane
+		
+		
 		$('.pane-handler').bind('click',function(){
 			$.fn.removeAllActive.call(this);
+			var self = $(this);
 			var id = $(this).attr('data-aim');
-			$('.pane').not('#'+ id).removeClass('show');
+			$('.pane').not('#'+ id).css('right','').removeClass('show');
 			
 			if($('#'+ id).hasClass('show')){
-				$('#'+ id).removeClass('show');
+				$('#'+ id).css('right','').removeClass('show');
+				
 			}else{
-				$('#'+ id).css('right','').addClass('show');
+				$('#'+ id).css('right',($(window).width()-760)/2 + 'px').addClass('show');
+				
 			}
 		});
 		//pane switch

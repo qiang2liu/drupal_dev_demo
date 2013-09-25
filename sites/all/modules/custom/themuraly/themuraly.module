@@ -537,7 +537,9 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 
     drupal_add_css(drupal_get_path('module', 'themuraly') . '/css/themuraly.css');
 
-    $form['#prefix'] = '<div class="mural-setting-title"><h2>Murall Settings</h2><div class="mural-setting-form">
+
+      $form['#prefix'] = '<div class="mural-setting-title"><h2>Mural Settings</h2><div class="mural-setting-form">
+
                             <div class="mural-setting-form-tran-back">&nbsp;</div>
 
                           </div>';
@@ -1928,6 +1930,11 @@ function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
 //       $myideas_list[$node_muralid]['node'] = $node;
       }
     }
+else {
+      if ($page == 0) {
+        return t('There are no ideas shared with you.');
+      }
+    }
   }
 
 //   $content = theme('studio_ideas_list', array('myideas' => $myideas_list, 'myshareideas' => $shareideas_list));
@@ -2020,6 +2027,11 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
 
   if (!empty($result['node'])) {
     $my_mural_nodes = node_load_multiple(array_keys($result['node']), '', TRUE);
+  }
+  else {
+    if ($start == 0) {
+      print_r(t('No ideas added.'));
+    }
   }
 
   return $my_mural_nodes;

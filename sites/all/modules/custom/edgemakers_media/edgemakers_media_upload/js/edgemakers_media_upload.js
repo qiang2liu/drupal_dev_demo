@@ -16,6 +16,13 @@ jQuery(document).ready(function(){
 /**
  * Note: Change it should sync to mediaListAjaxLoad.js
  */
+
+//added by Guo Tao
+function bindArrowfuc(){
+	//jQuery('.scroll-wrapper .arrow-left, .scroll-wrapper .arrow-right').css('top',(jQuery(this).parent().height()-42)/2 + 'px');
+}
+
+
 function media_ajax_load_list() {
 
   jQuery('#my-media-list').load("?q=edgemarkers/media/get/list/ajax", function(data){
@@ -45,7 +52,7 @@ function media_ajax_load_list() {
       });
 
     });
-    
+    bindArrowfuc();
     
   });
 }
@@ -66,7 +73,7 @@ function showMediaOnDestination(nid, title) {
       
       //Set title
       jQuery(".s-s-title h3").html(title);
-      
+      bindArrowfuc();
       return false;
 
     },
@@ -110,6 +117,7 @@ function studio_media_list_ajax_load(pager) {
           });
         });
         studioBindLeftRight(pager);
+        bindArrowfuc();
       }
     }
   });
@@ -171,6 +179,7 @@ function gallery_media_list_ajax_load(type, pager) {
           });
         });
         galleryBindLeftRight(type, pager);
+        bindArrowfuc();
       }
     }
   });

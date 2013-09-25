@@ -38,7 +38,7 @@ function edgemakers_set_admin_create_page() {
   return $output;
 }
 //delete set, and update setes list
-function edgemakers_set_admin_delete_action($nid) {
+function edgemakers_set_admin_delete_action($nid, $ajax) {
   module_load_include('inc', 'node', 'node.pages');
   node_delete($nid);
 
@@ -80,17 +80,13 @@ function edgemakers_set_admin_list_form() {
   $destination = drupal_get_destination();
   $options = array();
   foreach ($nodes as $node) {
-    $langcode = entity_language('node', $node);
-    $l_options = $langcode != LANGUAGE_NONE && isset($languages[$langcode]) ? array('language' => $languages[$langcode]) : array();
     $operations = array(
       'delete' => array(
         'title' => t('delete'),
-//         'href' => 'admin/edgemakers/set/ajaxdelete/' . $node->nid . '/nojs/',
-        'href' => 'node/' . $node->nid . '/delete',
-        'query' => $destination,
+        'href' => 'admin/edgemakers/set/ajaxdelete/' . $node->nid . '/nojs/',
         'attributes' => array(
-//           'class' => array('use-ajax'),
-          'onClick' => 'disp_confirm(this.id);return false;',
+          'class' => array('use-ajax', 'set-delete-link'),
+          'nid' => $node->nid,
         ),
       ),
       'edit' => array(

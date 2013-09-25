@@ -56,24 +56,6 @@ function edgemakers_features_user_user_default_permissions() {
     'module' => 'webform',
   );
 
-  // Exported permission: 'access backup and migrate'.
-  $permissions['access backup and migrate'] = array(
-    'name' => 'access backup and migrate',
-    'roles' => array(
-      'site administrator' => 'site administrator',
-    ),
-    'module' => 'backup_migrate',
-  );
-
-  // Exported permission: 'access backup files'.
-  $permissions['access backup files'] = array(
-    'name' => 'access backup files',
-    'roles' => array(
-      'site administrator' => 'site administrator',
-    ),
-    'module' => 'backup_migrate',
-  );
-
   // Exported permission: 'access better messages'.
   $permissions['access better messages'] = array(
     'name' => 'access better messages',
@@ -123,15 +105,6 @@ function edgemakers_features_user_user_default_permissions() {
       'site administrator' => 'site administrator',
     ),
     'module' => 'contextual',
-  );
-
-  // Exported permission: 'access devel information'.
-  $permissions['access devel information'] = array(
-    'name' => 'access devel information',
-    'roles' => array(
-      'site administrator' => 'site administrator',
-    ),
-    'module' => 'devel',
   );
 
   // Exported permission: 'access direct download file'.
@@ -271,15 +244,6 @@ function edgemakers_features_user_user_default_permissions() {
       'site administrator' => 'site administrator',
     ),
     'module' => 'bg_image',
-  );
-
-  // Exported permission: 'administer backup and migrate'.
-  $permissions['administer backup and migrate'] = array(
-    'name' => 'administer backup and migrate',
-    'roles' => array(
-      'site administrator' => 'site administrator',
-    ),
-    'module' => 'backup_migrate',
   );
 
   // Exported permission: 'administer better messages'.
@@ -945,15 +909,6 @@ function edgemakers_features_user_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'delete backup files'.
-  $permissions['delete backup files'] = array(
-    'name' => 'delete backup files',
-    'roles' => array(
-      'site administrator' => 'site administrator',
-    ),
-    'module' => 'backup_migrate',
-  );
-
   // Exported permission: 'delete friend relationships'.
   $permissions['delete friend relationships'] = array(
     'name' => 'delete friend relationships',
@@ -1474,15 +1429,6 @@ function edgemakers_features_user_user_default_permissions() {
     'module' => 'taxonomy',
   );
 
-  // Exported permission: 'execute php code'.
-  $permissions['execute php code'] = array(
-    'name' => 'execute php code',
-    'roles' => array(
-      'site administrator' => 'site administrator',
-    ),
-    'module' => 'devel',
-  );
-
   // Exported permission: 'flush caches'.
   $permissions['flush caches'] = array(
     'name' => 'flush caches',
@@ -1597,15 +1543,6 @@ function edgemakers_features_user_user_default_permissions() {
     'module' => 'oauth_common',
   );
 
-  // Exported permission: 'perform backup'.
-  $permissions['perform backup'] = array(
-    'name' => 'perform backup',
-    'roles' => array(
-      'site administrator' => 'site administrator',
-    ),
-    'module' => 'backup_migrate',
-  );
-
   // Exported permission: 'perform unlimited index queries'.
   $permissions['perform unlimited index queries'] = array(
     'name' => 'perform unlimited index queries',
@@ -1622,15 +1559,6 @@ function edgemakers_features_user_user_default_permissions() {
       'site administrator' => 'site administrator',
     ),
     'module' => 'comment',
-  );
-
-  // Exported permission: 'restore from backup'.
-  $permissions['restore from backup'] = array(
-    'name' => 'restore from backup',
-    'roles' => array(
-      'site administrator' => 'site administrator',
-    ),
-    'module' => 'backup_migrate',
   );
 
   // Exported permission: 'revert revisions'.
@@ -1713,15 +1641,6 @@ function edgemakers_features_user_user_default_permissions() {
       'site administrator' => 'site administrator',
     ),
     'module' => 'location',
-  );
-
-  // Exported permission: 'switch users'.
-  $permissions['switch users'] = array(
-    'name' => 'switch users',
-    'roles' => array(
-      'site administrator' => 'site administrator',
-    ),
-    'module' => 'devel',
   );
 
   // Exported permission: 'track invitations'.

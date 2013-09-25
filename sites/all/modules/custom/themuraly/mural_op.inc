@@ -258,6 +258,7 @@ function muralshow($nid, $mid = 0, $uid = 0) {
           'ctools-use-modal',
           'ctools-modal-modal-popup-small',
         ),
+        'title' => t('Settings'),
       ),
             )
     );

@@ -86,7 +86,7 @@ body {
   				array(
   					'attributes' => array(
                         'class' => array('mural-nav-link'),
-                        'title' => 'delete',
+                        'title' => 'Delete',
   						'onclick' => 'return confirm("Are you sure?")',
   					),
   				)
@@ -111,7 +111,7 @@ body {
 				'mural/create/' . $the_m_id . '/' . $data['node']->nid,
         array(
           'attributes' => array(
-          		'title' => 'duplicate',
+          		'title' => 'Duplicate',
 //             'class' => array('mural-nav-link'),
           ),
 					'html' => TRUE,
