@@ -985,6 +985,7 @@ function edgemakers_media_list_on_gallery($type = '', $page = 0, $keyword = '') 
         'attributes' => array(
           'nid' => $node->nid,
           'class' => array('studio-media-list-item-link'),
+          'title' => $node->title,
         ),
       )
     );
@@ -1077,6 +1078,7 @@ function edgemakers_media_list_on_studio($pager = 0) {
           'attributes' => array(
             'nid' => $node->nid,
             'class' => array('studio-media-list-item-link'),
+            'title' => $node->title,
           ),
         )
       );
