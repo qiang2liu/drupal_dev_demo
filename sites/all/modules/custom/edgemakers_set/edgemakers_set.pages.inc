@@ -86,6 +86,7 @@ function edgemakers_set_admin_list_form() {
         'href' => 'admin/edgemakers/set/ajaxdelete/' . $node->nid . '/nojs/',
         'attributes' => array(
           'class' => array('use-ajax', 'set-delete-link'),
+          'nid' => $node->nid,
         ),
       ),
       'edit' => array(

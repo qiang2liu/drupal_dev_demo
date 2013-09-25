@@ -23,9 +23,9 @@ function disp_confirm(id) {
       var events =  $('.set-delete-link').clone(true).data('events');// Get the jQuery events.
       $('.set-delete-link').unbind('click'); // Remove the click events.
       $('.set-delete-link').click(function () {
-        if (confirm('Are you sure you want to delete that?')) {
+        if (confirm('Are you sure?')) {
           $.each(events.click, function() {
-            this.handler(); // Invoke the click handlers that was removed.
+            //this.handler(); // Invoke the click handlers that was removed.
           });
         }
         // Prevent default action.
