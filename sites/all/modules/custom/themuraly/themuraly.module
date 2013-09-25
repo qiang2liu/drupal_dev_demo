@@ -2,7 +2,7 @@
 
 function themuraly_menu() {
   // mural webhook
-  $items['callback/muralwebhook'] =  array(
+  $items['callback/muralwebhook'] = array(
     'title' => t('muralwebhook'),
     'type' => MENU_CALLBACK,
     'description' => t('mural webhook'),
@@ -25,7 +25,7 @@ function themuraly_menu() {
     'page callback' => 'themuraly_mural_page',
     'access callback' => 'user_is_logged_in',
     'type' => MENU_CALLBACK,
-  	'page arguments' => array(2, 3, 4),
+    'page arguments' => array(2, 3, 4),
     'file' => 'mural_op.inc',
   );
 
@@ -33,7 +33,7 @@ function themuraly_menu() {
     'page callback' => 'themuraly_topic_mural_create',
     'access callback' => 'user_is_logged_in',
     'type' => MENU_CALLBACK,
-  	'page arguments' => array(3),
+    'page arguments' => array(3),
     'file' => 'mural_op.inc',
   );
 
@@ -45,14 +45,14 @@ function themuraly_menu() {
     'file' => 'mural_op.inc',
   );
   /*
-  $items['mural/create/%'] = array(
+    $items['mural/create/%'] = array(
     'page callback' => 'themuraly_mural_page',
     'page arguments' => array(2, 3),
     'access callback' => 'user_is_logged_in',
     'type' => MENU_CALLBACK,
     'file' => 'mural_op.inc',
-  );
-  */
+    );
+   */
   $items['mural/%'] = array(
     'page callback' => 'muralshow',
     'page arguments' => array(1),
@@ -80,35 +80,35 @@ function themuraly_menu() {
   );
 
   $items['mural/delete'] = array(
-  	'page callback' => 'mural_delete',
-  	'access callback' => TRUE,
- 		'type' => MENU_CALLBACK,
- 		'page arguments' => array(2),
-  	'file' => 'mural_op.inc',
+    'page callback' => 'mural_delete',
+    'access callback' => TRUE,
+    'type' => MENU_CALLBACK,
+    'page arguments' => array(2),
+    'file' => 'mural_op.inc',
   );
 
   $items['mural/get/list/ajax'] = array(
-  	'page callback' => 'themuraly_mural_list_html', // Render HTML
-  	'type' => MENU_CALLBACK,
- 		'access arguments' => array('access content'),
- 		'delivery callback' => 'themuraly_mural_ajax_callback',  // Magic goes here
+    'page callback' => 'themuraly_mural_list_html', // Render HTML
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+    'delivery callback' => 'themuraly_mural_ajax_callback', // Magic goes here
 //  		'page arguments' => array(5),
   );
 
   $items['mural/studio/get/list/ajax/%'] = array(
-  	'page callback' => 'themuraly_studio_mural_list_html', // Render HTML
-  	'type' => MENU_CALLBACK,
- 		'access arguments' => array('access content'),
- 		'delivery callback' => 'themuraly_mural_ajax_callback',  // Magic goes here
- 		'page arguments' => array(5, 6),
+    'page callback' => 'themuraly_studio_mural_list_html', // Render HTML
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+    'delivery callback' => 'themuraly_mural_ajax_callback', // Magic goes here
+    'page arguments' => array(5, 6),
   );
 
   $items['mural/studio/list/page/ajax/%'] = array(
-  	'page callback' => 'themuraly_studio_mural_list_json', // Render HTML
-  	'type' => MENU_CALLBACK,
- 		'access arguments' => array('access content'),
- 		'delivery callback' => 'themuraly_mural_ajax_callback',  // Magic goes here
- 		'page arguments' => array(5, 6, 7, 8),
+    'page callback' => 'themuraly_studio_mural_list_json', // Render HTML
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+    'delivery callback' => 'themuraly_mural_ajax_callback', // Magic goes here
+    'page arguments' => array(5, 6, 7, 8),
   );
 
 //   $items['mural/studio/list/page/ajax/%'] = array(
@@ -118,7 +118,6 @@ function themuraly_menu() {
 //     'type' => MENU_CALLBACK,
 //     'delivery callback' => 'themuraly_mural_ajax_callback',  // Magic goes here
 //   );
-
   // @link http://deeson-online.co.uk/labs/advanced-ctools-run-ctools-javascript-call-any-time
   $items['mural/%ctools_js/refresh-elements'] = array(
     'title' => 'AJAX callback - refresh the elements on the page',
@@ -135,7 +134,6 @@ function themuraly_menu() {
 //     'access arguments' => array('access content'),
 //     'type' => MENU_CALLBACK,
 //   );
-
 //   $items['mural/invite/%/%/%'] = array(
 //     'title' => 'Reset password',
 //     'page callback' => 'drupal_get_form',
@@ -156,7 +154,6 @@ function themuraly_menu() {
   return $items;
 }
 
-
 function themuraly_invite_share_form($form, &$form_state, $uid, $timestamp, $hashed_pass, $action = NULL, $nid = '', $mid = '') {
 // function themuraly_invite_share_form($p, $uid, $timestamp, $hashed_pass) {
 
@@ -169,7 +166,7 @@ function themuraly_invite_share_form($form, &$form_state, $uid, $timestamp, $has
   if ($user->uid) {
     // The existing user is already logged in.
     if ($user->uid == $uid) {
-      _user_update_invite($uid, $nid , $mid);
+      _user_update_invite($uid, $nid, $mid);
 //       drupal_set_message(t('You are logged in as %user. <a href="!user_edit">Change your password.</a>', array('%user' => $user->name, '!user_edit' => url("user/$user->uid/edit"))));
     }
     // A different user is already logged in on the computer.
@@ -179,13 +176,12 @@ function themuraly_invite_share_form($form, &$form_state, $uid, $timestamp, $has
       // Destroy the current session, and reset $user to the anonymous user.
       session_destroy();
 
-      $mural_url = url("mural/invite/$uid/$timestamp/" . $hashed_pass. '/' . $nid . '/' . $mid, array('absolute' => TRUE));
-      watchdog('Invite Share' , "session_destroy(), URL: " . $mural_url);
+      $mural_url = url("mural/invite/$uid/$timestamp/" . $hashed_pass . '/' . $nid . '/' . $mid, array('absolute' => TRUE));
+      watchdog('Invite Share', "session_destroy(), URL: " . $mural_url);
 
       drupal_goto($mural_url);
 
 //       print("session_destroy");
-
 //       $reset_link_account = user_load($uid);
 //       if (!empty($reset_link_account)) {
 //         drupal_set_message(t('Another user (%other_user) is already logged into the site on this computer, but you tried to use a one-time link for user %resetting_user. Please <a href="!logout">logout</a> and try using the link again.',
@@ -196,8 +192,7 @@ function themuraly_invite_share_form($form, &$form_state, $uid, $timestamp, $has
 //       }
     }
 //     drupal_goto();
-  }
-  else {
+  } else {
     // Time out, in seconds, until login URL expires. Defaults to 24 hours =
     // 86400 seconds.
     $timeout = variable_get('user_password_reset_timeout', 86400);
@@ -209,8 +204,7 @@ function themuraly_invite_share_form($form, &$form_state, $uid, $timestamp, $has
       if ($account->login && $current - $timestamp > $timeout) {
         drupal_set_message(t('You have tried to use a one-time login link that has expired. Please request a new one using the form below.'));
         drupal_goto('/home');
-      }
-      elseif ($account->uid && $timestamp >= $account->login && $timestamp <= $current && $hashed_pass == user_pass_rehash($account->pass, $timestamp, $account->login)) {
+      } elseif ($account->uid && $timestamp >= $account->login && $timestamp <= $current && $hashed_pass == user_pass_rehash($account->pass, $timestamp, $account->login)) {
 //         $action = 'login';
         // First stage is a confirmation form, then login
         if ($action == 'login') {
@@ -224,10 +218,9 @@ function themuraly_invite_share_form($form, &$form_state, $uid, $timestamp, $has
           // Let the user's password be changed without the current password check.
           $token = drupal_hash_base64(drupal_random_bytes(55));
           $_SESSION['pass_reset_' . $user->uid] = $token;
-          _user_update_invite($uid, $nid , $mid);
+          _user_update_invite($uid, $nid, $mid);
 //           drupal_goto('user/' . $user->uid . '/edit', array('query' => array('pass-reset-token' => $token)));
-        }
-        else {
+        } else {
           $form['message'] = array('#markup' => t('<p>This is a one-time login for %user_name and will expire on %expiration_date.</p><p>Click on this button to log in to the site and change your password.</p>', array('%user_name' => $account->name, '%expiration_date' => format_date($timestamp + $timeout))));
           $form['help'] = array('#markup' => '<p>' . t('This login can be used only once.') . '</p>');
           $form['actions'] = array('#type' => 'actions');
@@ -235,19 +228,16 @@ function themuraly_invite_share_form($form, &$form_state, $uid, $timestamp, $has
           $form['#action'] = url("mural/invite/$uid/$timestamp/$hashed_pass/login");
           return $form;
         }
-      }
-      else {
+      } else {
         drupal_set_message(t('You have tried to use a one-time login link that has either been used or is no longer valid. Please request a new one using the form below.'));
         drupal_goto('/home');
       }
-    }
-    else {
+    } else {
       // Deny access, no more clues.
       // Everything will be in the watchdog's URL for the administrator to check.
       drupal_access_denied();
     }
   }
-
 }
 
 function themuraly_refresh($js = FALSE) {
@@ -263,7 +253,6 @@ function themuraly_refresh($js = FALSE) {
   $commands = array();
   $commands[] = ajax_command_html('.some-class', 'some-value');
   ajax_render($commands);
-
 }
 
 function themuraly_block_info() {
@@ -278,8 +267,8 @@ function themuraly_block_info() {
   );
 
   $blocks['mural_list'] = array(
-  	'info' => t('Mural List'), //The name that will appear in the block list.
-  	'cache' => DRUPAL_NO_CACHE,
+    'info' => t('Mural List'), //The name that will appear in the block list.
+    'cache' => DRUPAL_NO_CACHE,
   );
 
   $blocks['gallery_mural_list'] = array(
@@ -307,18 +296,17 @@ function themuraly_block_view($delta = '') {
 
       if ($user->uid == 0) {
         $mural_link = 'modal_forms/nojs/login';
-      	$link_class = array('ctools-use-modal',  'ctools-modal-modal-popup-small');
-      	$login_link = l(t('My studio'), $mural_link , array(
-        		'attributes' => array(
-        			'class' => $link_class,
-        		)
+        $link_class = array('ctools-use-modal', 'ctools-modal-modal-popup-small');
+        $login_link = l(t('My studio'), $mural_link, array(
+          'attributes' => array(
+            'class' => $link_class,
           )
+                )
         );
 
         $block['subject'] = t('');
         $block['content'] = $login_link . t('Login to your studio.');
-      }
-      else {
+      } else {
 
         $block['subject'] = t('studio');
 
@@ -366,40 +354,37 @@ function themuraly_block_view($delta = '') {
 
 //       if (1==1 || !empty($the_user_muralusername)) {
 //         $block['content'] = get_myideas_shareideas($user->uid, $the_user_muralusername,  $the_user_roomid);
-
 //       }
-
 //         $block['content'] = get_myideas_shareideas($user->uid, $the_user_muralusername, $the_user_roomid);
       break;
     case 'mural_link':
 
-    	$block['subject'] = 'mural link';
-    	$html = '<div class="toolbar-item add-an-idea" class="hidden"><h4>';
+      $block['subject'] = 'mural link';
+      $html = '<div class="toolbar-item add-an-idea" class="hidden"><h4>';
 
       if ($user->uid) {
         $mural_link = 'mural/create';
         $link_class = array('create-mural');
-      }
-      else {
-      	$mural_link = 'modal_forms/nojs/login';
-      	$link_class = array('ctools-use-modal',  'ctools-modal-modal-popup-small');
+      } else {
+        $mural_link = 'modal_forms/nojs/login';
+        $link_class = array('ctools-use-modal', 'ctools-modal-modal-popup-small');
       }
 
-      $links = l(t('Create Mural'), $mural_link , array(
-      		'attributes' => array(
-      			'class' => $link_class,
-      		)
+      $links = l(t('Create Mural'), $mural_link, array(
+        'attributes' => array(
+          'class' => $link_class,
         )
+              )
       );
 
       $html .= '<h4>' . $links . '</h4></div>';
 
-    	$block['content'] = $html;
-    	break;
+      $block['content'] = $html;
+      break;
     case 'mural_list':
-    	$block['subject'] = t('Mural List');
-    	$block['content'] = '<div id="my-mural-list" class="toolbar-item mural"></div>';
-    	break;
+      $block['subject'] = t('Mural List');
+      $block['content'] = '<div id="my-mural-list" class="toolbar-item mural"></div>';
+      break;
 
     case 'gallery_mural_list':
       $block['subject'] = t('Mural list on gallery');
@@ -408,26 +393,26 @@ function themuraly_block_view($delta = '') {
                               <h2 class="item-studio">Gallery</h2>
           <div id="gallery-search-form">
             <input type="text" id="gallery-keyword" name="gallery-keyword" />
-            <input type="button" id="gallery-search" value="' . t('Search') .'" />
+            <input type="button" id="gallery-search" value="' . t('Search') . '" />
           </div>
           <div>
             <span>Sort by: Alphabetical, Date, Tags</span>
           </div>
                               <div class="pane-studio-box ideas item-gallery" id="gallery-ideas">
                               ';
-        if ($user->uid) {
-          $block['content'] .= '<h4>Ideas</h4>
+      if ($user->uid) {
+        $block['content'] .= '<h4>Ideas</h4>
                               <div class="scroll-wrapper">
                                 <div class="arrow-left" pager="0"> < </div>
                                 <div class="arrow-right" pager="1"> > </div>
                                 <ul id="gallery-mural-list"></ul>
                               </div>';
-        }
+      }
 
-        $block['content'] .= '
+      $block['content'] .= '
                               </div>';
 
-        $block['content'] .= '</div>';
+      $block['content'] .= '</div>';
 
       break;
     case 'topic_mural_list':
@@ -439,8 +424,7 @@ function themuraly_block_view($delta = '') {
         $murals_html = themuraly_topic_mural_list($node->nid);
         $block['content'] .= $murals_html;
         $block['content'] .= '</div>';
-      }
-      else {
+      } else {
         $block['content'] = t('');
       }
       break;
@@ -451,7 +435,7 @@ function themuraly_block_view($delta = '') {
 function _get_my_murals() {
   global $user;
   if ($user->uid) {
-
+    
   }
 }
 
@@ -472,7 +456,6 @@ function themuraly_theme($existing, $type) {
   );
 }
 
-
 /**
  * @link https://drupal.org/node/381458#comment-6699162
  * @param array $element
@@ -482,10 +465,9 @@ function themuraly_location_element_alter(&$element) {
   $element['city']['#attributes']['placeholder'] = t('City');
 }
 
-
 function _create_tmp_js($content) {
   $tmp_dir = file_directory_temp();
-  $tmp_file_name = $tmp_dir . '/upclass_ctools_class_' . round(microtime(true)*1000) . '.js';
+  $tmp_file_name = $tmp_dir . '/upclass_ctools_class_' . round(microtime(true) * 1000) . '.js';
 // print($tmp_file_name);
   $fh = fopen($tmp_file_name, 'w') or die("can't open file");
   fwrite($fh, $content);
@@ -499,34 +481,29 @@ function _create_tmp_js($content) {
 function themuraly_after_build($form, $form_state) {
 //   dpm($form);
 //   dpm($form_state);
-
 //   watchdog('Debug Lugal', '<pre>' . print_r($form_state, TRUE) . '</pre>');
 
   if (isset($form_state['values']['field_muralshared'][LANGUAGE_NONE])) {
 //     drupal_set_message('<pre>' . print_r($form_state['values']['field_muralshared'], TRUE) . '</pre>');
     if ($form_state['values']['field_muralshared'][LANGUAGE_NONE] == 1) {
       $is_shared = 1;
-    }
-    else {
+    } else {
       $is_shared = 0;
     }
   }
 
   if (($form_state['node']->field_muralshared['und']['0']['value'] == 1)
-    OR (isset($is_shared) && $is_shared == 1)
+          OR (isset($is_shared) && $is_shared == 1)
   ) {
     $share_mail_class = '';
-  }
-  else {
+  } else {
     $share_mail_class = 'hidden';
   }
   $form['field_mail_to_share'][LANGUAGE_NONE]['#prefix'] = '<div id="invite_email_box" class="' . $share_mail_class . '">';
   // First I re-attach the original submit handler to the form
 //   $form['buttons']['submit']['#submit'] = array('node_form_submit');
-
 //   drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/removeTextareaResizea.js');
 //   drupal_add_js('alert("muralsetting.");jQuery("#modalContent").addClass("mural-settings-form-class");', array('type'=>'inline'));
-
   // Create tmp js file and reload it.
   $script = 'jQuery("#modalContent").addClass("mural-settings-form-class");';
   $tmp_js = _create_tmp_js($script);
@@ -546,7 +523,6 @@ function themuraly_after_build($form, $form_state) {
 
 
   return $form;
-
 }
 
 /**
@@ -555,59 +531,58 @@ function themuraly_after_build($form, $form_state) {
 function themuraly_form_alter(&$form, $form_state, $form_id) {
   if ($form_id == 'murals_node_form') {
 
-      $form['#after_build'][] = 'themuraly_after_build';
+    $form['#after_build'][] = 'themuraly_after_build';
 
 //     if (arg(0) == 'modal') {
 
-      drupal_add_css(drupal_get_path('module', 'themuraly') . '/css/themuraly.css');
+    drupal_add_css(drupal_get_path('module', 'themuraly') . '/css/themuraly.css');
 
-      $form['#prefix'] = '<div class="mural-setting-title"><h2>Murall Settings</h2><div class="mural-setting-form">
+    $form['#prefix'] = '<div class="mural-setting-title"><h2>Murall Settings</h2><div class="mural-setting-form">
                             <div class="mural-setting-form-tran-back">&nbsp;</div>
 
                           </div>';
-      $form['#surfix'] = '</div>';
-      form_load_include($form_state, 'inc', 'node', 'node.pages');
-      $the_nid = $form['nid']['#value'];
-      unset($form['field_muralid']);
-      unset($form['field_muraluser']);
-      unset($form['field_mural_thumburl']);
-      unset($form['field_muraltype']);
-      unset($form['field_topic_mural']);
+    $form['#surfix'] = '</div>';
+    form_load_include($form_state, 'inc', 'node', 'node.pages');
+    $the_nid = $form['nid']['#value'];
+    unset($form['field_muralid']);
+    unset($form['field_muraluser']);
+    unset($form['field_mural_thumburl']);
+    unset($form['field_muraltype']);
+    unset($form['field_topic_mural']);
 
-      $form['body']['und']['0']['value']['#attributes']['placeholder'] = t('Description');
-      $form['body']['und']['0']['value']['#resizable'] = FALSE;
+    $form['body']['und']['0']['value']['#attributes']['placeholder'] = t('Description');
+    $form['body']['und']['0']['value']['#resizable'] = FALSE;
 
-      // Dropdown select box style.
-      $form['field_challenges_category'][LANGUAGE_NONE]['#options']['_none'] = t('Category');
-      $form['field_topic_mural'][LANGUAGE_NONE]['#options']['_none'] = t('Topic');
+    // Dropdown select box style.
+    $form['field_challenges_category'][LANGUAGE_NONE]['#options']['_none'] = t('Category');
+    $form['field_topic_mural'][LANGUAGE_NONE]['#options']['_none'] = t('Topic');
 
-      $share_to_gallery_default_options = $form['field_share_to_gallery'][LANGUAGE_NONE]['#options'];
+    $share_to_gallery_default_options = $form['field_share_to_gallery'][LANGUAGE_NONE]['#options'];
 
-      $share_to_gallery_options['_none'] = t('Share to Gallery');
+    $share_to_gallery_options['_none'] = t('Share to Gallery');
 
-      foreach ($share_to_gallery_default_options AS $k => $v) {
-        if ($k !== '_none') {
-          $share_to_gallery_options[$k] = $v;
-        }
+    foreach ($share_to_gallery_default_options AS $k => $v) {
+      if ($k !== '_none') {
+        $share_to_gallery_options[$k] = $v;
       }
+    }
 
-      $form['field_share_to_gallery'][LANGUAGE_NONE]['#options'] = $share_to_gallery_options;
+    $form['field_share_to_gallery'][LANGUAGE_NONE]['#options'] = $share_to_gallery_options;
 //       drupal_set_message('Share to Gallery options: <pre>' . print_r(($share_to_gallery_options), TRUE) . '</pre>');
-
 //       $form['field_share_to_gallery'][LANGUAGE_NONE]['#options']['_none'] = t('Share to Gallery');
 //       $form['field_share_to_gallery'][LANGUAGE_NONE]['#attributes'] = array(
 //         'size' => 2,
 //       );
-      drupal_map_assoc($form['field_share_to_gallery'][LANGUAGE_NONE]['#options']);
-      $form['field_share_to_gallery'][LANGUAGE_NONE]['#order_by'] = 'text'; // May contain values as "text" or "value".
-      $form['field_share_to_gallery'][LANGUAGE_NONE]['#sort_order'] = 'asc'; // May contain values as "asc" or "desc".
+    drupal_map_assoc($form['field_share_to_gallery'][LANGUAGE_NONE]['#options']);
+    $form['field_share_to_gallery'][LANGUAGE_NONE]['#order_by'] = 'text'; // May contain values as "text" or "value".
+    $form['field_share_to_gallery'][LANGUAGE_NONE]['#sort_order'] = 'asc'; // May contain values as "asc" or "desc".
 
 
-      $form['field_muralshared'][LANGUAGE_NONE]['#options']['_none'] = t('Privacy');
-      $form['field_muralshared'][LANGUAGE_NONE]['#attributes'] = array(
+    $form['field_muralshared'][LANGUAGE_NONE]['#options']['_none'] = t('Privacy');
+    $form['field_muralshared'][LANGUAGE_NONE]['#attributes'] = array(
 //         'size' => 2,
-        'onChange' => 'showInviteEmailBox()',
-      );
+      'onChange' => 'showInviteEmailBox()',
+    );
 
 //       $form['field_muralshared'][LANGUAGE_NONE] = array(
 //         '#ajax' => array(
@@ -621,39 +596,37 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 //         ),
 //       );
 
-      $form['field_mail_to_share'][LANGUAGE_NONE]['#suffix'] = '</div>';
-      $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#autocomplete_path'] = 'mural/usersearch/autocomplete';
-      $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#attributes'] = array('autocomplete' => 'on');
-      $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#attributes']['placeholder'] = t('Enter user name');
+    $form['field_mail_to_share'][LANGUAGE_NONE]['#suffix'] = '</div>';
+    $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#autocomplete_path'] = 'mural/usersearch/autocomplete';
+    $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#attributes'] = array('autocomplete' => 'on');
+    $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#attributes']['placeholder'] = t('Enter user name');
 //       , 'placeholder' => 'Enter email address');
 //       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#value'] = '';
 //       $form['field_mail_to_share'][LANGUAGE_NONE]['0']['value']['#attributes']['placeholder'] = t('Description');
-
 //       $form['actions']['submit']['#attributes'] = array(
 //         'onClick' => 'changeTitleAfterSetting(this.val);return false;'
 //       );
 
-      if ($the_nid) {  //edit form
-        unset($form['actions']['delete']);
+    if ($the_nid) {  //edit form
+      unset($form['actions']['delete']);
 
 //         $form['field_mail_to_share']['#autocomplete_path'] = 'mural/emailsearch/autocomplete';
 //         $form['field_mail_to_share']['#attributes'] = array('autocomplete' => 'on');
 
-        $form['field_city']['und']['0']['#title'] = '';
+      $form['field_city']['und']['0']['#title'] = '';
 
-        $form['field_city']['city']['und']['#title'] = 'Location info city title.';
+      $form['field_city']['city']['und']['#title'] = 'Location info city title.';
 //         $form['field_city']['und']['0']['#after_build'] = array('_add_placeholder');
 //         $form['field_city']['city']['#attributes']['placeholder'] = T('City Name');
 
-        $form['field_city'][LANGUAGE_NONE]['0']['#attributes']['placeholder'] = t('City');
-        $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = T('TAGS');
+      $form['field_city'][LANGUAGE_NONE]['0']['#attributes']['placeholder'] = t('City');
+      $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = T('TAGS');
 
 //         $form['mural_addmember_ajax_link'] = array(
 //           '#type' => 'button',
 //           '#value' => t('invite'),
 //           // Note the /nojs portion of the href - if javascript is enabled,
 //           // this part will be stripped from the path before it is called.
-
 //           '#id' => 'ajax_link',
 //           '#ajax' => array(
 //             'wrapper' => 'mural_member_list',
@@ -662,7 +635,6 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 //           ),
 //           '#prefix' => '<div class="mural_member_area">',
 //         );
-
 //         $form['field_mail_to_share'] = array(
 //           '#type' => 'textfield',
 //           '#title' => t('user'),
@@ -672,10 +644,10 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 //         	'#attributes' => array('autocomplete' => 'on'),
 //         );
 
-        array_unshift($form['#validate'], '_themuralyajax_validate');
-        array_unshift($form['#submit'], '_themuralyajax_submit');
+      array_unshift($form['#validate'], '_themuralyajax_validate');
+      array_unshift($form['#submit'], '_themuralyajax_submit');
 
-        $hash = md5(microtime());
+      $hash = md5(microtime());
 //         $form['#attached']['js'] = array(
 //           drupal_get_path('module', 'themuraly') . '/js/removeTextareaResizea.js' => array(
 //             'cache' => FALSE,
@@ -683,19 +655,16 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 //           ),
 // //           drupal_get_path('module', 'themuraly') . '/js/populatePopup.js',
 //         );
-
 //         drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/removeTextareaResizea.js');
-
 //         $form['#attached']['js'][] = array(
 //           'data' => array('showInviteEmailBox()'),
 //           'type' => 'inline',
 //         );
-
 //         $form['mural_member_area'] = array(
 //           '#markup' => '<div id="mural_member_list"> ' . _mural_member_list($the_nid) . ' </div>',
 //           '#suffix' => '</div>',
 //         );
-      }
+    }
 //     }
   }
 }
@@ -776,8 +745,7 @@ function _mural_member_list($the_nid, $para_muralid = '') {
 
                         if ($mural_share_with_me) {
                           $share_with_me = explode(',', $mural_share_with_me);
-                        }
-                        else {
+                        } else {
                           $share_with_me = array();
                         }
 
@@ -789,8 +757,7 @@ function _mural_member_list($the_nid, $para_muralid = '') {
                         $new_account->field_mural_share_with_me['und'][0]['value'] = $mural_share_with_me_val;
                         // save existing user
                         unset($new_account->pass);
-                        $new_account = user_save((object) array('uid'=>$new_account->uid), (array) $new_account);
-
+                        $new_account = user_save((object) array('uid' => $new_account->uid), (array) $new_account);
                       }
 
 //                       // edit field-data
@@ -799,7 +766,6 @@ function _mural_member_list($the_nid, $para_muralid = '') {
 //                       // save existing user
 //                       $u = user_save((object) array('uid'=>$u->uid), (array) $u);
                       // End Add share id.
-
                     }
                   }
                 }
@@ -828,34 +794,33 @@ function _update_user_share_with_me($account = array(), $nid = '') {
 
 //     if ($account->uid <> $user->uid) {
 
-      $field_mural_share_with_me = field_get_items('user', $account, 'field_mural_share_with_me');
+    $field_mural_share_with_me = field_get_items('user', $account, 'field_mural_share_with_me');
 
-      if ($field_mural_share_with_me) {
-        $mural_share_with_me = $field_mural_share_with_me[0]['value'];
-      }
+    if ($field_mural_share_with_me) {
+      $mural_share_with_me = $field_mural_share_with_me[0]['value'];
+    }
 
-      if ($mural_share_with_me) {
-        $share_with_me = explode(',', $mural_share_with_me);
-      }
-      else {
-        $share_with_me = array();
-      }
+    if ($mural_share_with_me) {
+      $share_with_me = explode(',', $mural_share_with_me);
+    } else {
+      $share_with_me = array();
+    }
 
-      $share_with_me[] = $nid;
+    $share_with_me[] = $nid;
 
 //       watchdog('Mural Share', 'Share to me update $mural_share_with_me: <pre>' . print_r($mural_share_with_me, TRUE) . '</pre> | node id: ' . $nid);
 
-      $mural_share_with_me_val = implode(',', array_unique($share_with_me));
+    $mural_share_with_me_val = implode(',', array_unique($share_with_me));
 
 //       watchdog('Mural Share', 'Share to me update $$mural_share_with_me_val: <pre>' . print_r($mural_share_with_me_val, TRUE) . '</pre> | node id: ' . $nid);
 
-      $new_account->uid = $account->uid;
-      $new_account->field_mural_share_with_me['und'][0]['value'] = $mural_share_with_me_val;
-      // save existing user
-      unset($new_account->pass);
-      $new_account = user_save((object) array('uid'=>$new_account->uid), (array) $new_account);
+    $new_account->uid = $account->uid;
+    $new_account->field_mural_share_with_me['und'][0]['value'] = $mural_share_with_me_val;
+    // save existing user
+    unset($new_account->pass);
+    $new_account = user_save((object) array('uid' => $new_account->uid), (array) $new_account);
 
-      watchdog('Mural Share', 'Share to me update: <pre>' . print_r($new_account, TRUE) . '</pre> | node id: ' . $nid);
+    watchdog('Mural Share', 'Share to me update: <pre>' . print_r($new_account, TRUE) . '</pre> | node id: ' . $nid);
 
 //     }
   }
@@ -895,7 +860,6 @@ function _themuralyajax_validate($form, &$form_state) {
     }
 
 //     form_set_error('field_muralshared', t('Must set public in privacy when you choice "Share to gallery"'));
-
     // invoked by submit button, not ajax button :'invite'
     $the_nid = $form_state['values']['nid'];
     // get muralid
@@ -910,7 +874,6 @@ function _themuralyajax_validate($form, &$form_state) {
           $the_muralid = $matches[0];
         }
       }
-
     }
     if (!empty($the_muralid)) {
       if ($user->uid > 0) {
@@ -961,7 +924,6 @@ function _themuralyajax_validate($form, &$form_state) {
 
                 $form_state['values']['field_mural_members'][$lang][0]['value'] = serialize($the_muralusers);
               }
-
             }
           }
         }
@@ -1007,36 +969,32 @@ function _themuralyajax_validate($form, &$form_state) {
 //         }
 //         $mural_api = new Muralapi;
 //         $result = $mural_api->invite_user_mural($muralusername, $the_muralid, array($muraluser_invite));
-        watchdog('Mural share' , 'Invite API result:<pre>' . print_r($the_mural, TRUE) . '</pre>');
+        watchdog('Mural share', 'Invite API result:<pre>' . print_r($the_mural, TRUE) . '</pre>');
         // End invite.
-
         // Update account share with me.
 //         _update_user_share_with_me($account, $the_nid);
 
         if (_send_share_mail($the_mural, $send_email)) {
           watchdog('Mural Share', $user->name . ' share mural to ' . $mail_to_share);
           $form_state['values']['field_mail_to_share'][LANGUAGE_NONE][0]['value'] = '';
-        }
-        else {
+        } else {
           watchdog('Mural Share', $user->name . ' share mural to ' . $mail_to_share . ', send mail fail');
           $form_state['values']['field_mail_to_share'][LANGUAGE_NONE][0]['value'] = '';
         }
 //         form_set_error('field_mail_to_share', t('Invalid account in our system.'));
-      }
-      else {
+      } else {
         $form['field_mail_to_share'][LANGUAGE_NONE]['#prefix'] = '<div id="invite_email_box" class="">';
         form_set_error('field_mail_to_share', t('Invalid account'));
       }
     }
 
 //     form_set_error('field_mail_to_share', t('Invalid account'));
-
   }
 }
 
-function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '', $hashed_pass = '') {
+function themuraly_invite_share($uid = '', $nid = '', $mid = '', $timestamp = '', $hashed_pass = '') {
 
-  watchdog('Invite Share' , 'User uid: ' . $uid . '| Node nid: ' . $nid . ' | Timestamp: ' . $timestamp . ' | Hash password: ' . $hashed_pass);
+  watchdog('Invite Share', 'User uid: ' . $uid . '| Node nid: ' . $nid . ' | Timestamp: ' . $timestamp . ' | Hash password: ' . $hashed_pass);
 
   if ($uid == 1) {
     return FALSE;
@@ -1051,14 +1009,14 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
   // isn't already logged in.
   if ($user->uid) {
     // The existing user is already logged in.
-    watchdog('Invite Share' , "User already login");
+    watchdog('Invite Share', "User already login");
     if ($user->uid !== $uid) {
       // Logout current user.
       module_invoke_all('user_logout', $user);
       // Destroy the current session, and reset $user to the anonymous user.
       session_destroy();
 
-      watchdog('Invite Share' , "session_destroy()");
+      watchdog('Invite Share', "session_destroy()");
 
       // Relogin by url uid, copy from function user_pass_reset() in user.pages.inc.
       $action = 'login';
@@ -1072,7 +1030,7 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
       if ($timestamp <= $current && $account = reset($users)) {
 
         $hashed_pass == user_pass_rehash($account->pass, $timestamp, $account->login);
-        watchdog('Invite Share' , "Reset user info: <pre>" . print_r($account, TRUE) . '</pre>  condition:' . $timestamp <= $current . ' | Hashed pass:' . $hashed_pass);
+        watchdog('Invite Share', "Reset user info: <pre>" . print_r($account, TRUE) . '</pre>  condition:' . $timestamp <= $current . ' | Hashed pass:' . $hashed_pass);
 
         // No time out for first time login.
         if ($account->login && $current - $timestamp > $timeout) {
@@ -1082,7 +1040,7 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
 //         elseif ($account->uid && $timestamp <= $current && $hashed_pass) {
         elseif ($account->uid && $timestamp <= $current && $hashed_pass) {
 
-          watchdog('Invite Share' , "URL auto login hashed_pass: <pre>" . print_r($hashed_pass, TRUE) . '</pre>');
+          watchdog('Invite Share', "URL auto login hashed_pass: <pre>" . print_r($hashed_pass, TRUE) . '</pre>');
 
           // First stage is a confirmation form, then login
           if ($action == 'login') {
@@ -1096,7 +1054,7 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
             $token = drupal_hash_base64(drupal_random_bytes(55));
             $_SESSION['pass_invite_' . $user->uid] = $token;
 
-            watchdog('Invite Share' , 'URL auto login sucess . <pre>' . print_r($user, TRUE) . '</pre>');
+            watchdog('Invite Share', 'URL auto login sucess . <pre>' . print_r($user, TRUE) . '</pre>');
 
             drupal_goto();
 
@@ -1105,8 +1063,7 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
             _user_update_invite($uid, $nid, $mid, $token);
 
 //             drupal_goto('user/' . $user->uid, array('query' => array('pass-reset-token' => $token)));
-          }
-          else {
+          } else {
             $form['message'] = array('#markup' => t('<p>This is a one-time login for %user_name and will expire on %expiration_date.</p><p>Click on this button to log in to the site and change your password.</p>', array('%user_name' => $account->name, '%expiration_date' => format_date($timestamp + $timeout))));
             $form['help'] = array('#markup' => '<p>' . t('This login can be used only once.') . '</p>');
             $form['actions'] = array('#type' => 'actions');
@@ -1117,66 +1074,59 @@ function themuraly_invite_share($uid = '', $nid = '', $mid ='', $timestamp = '',
         }
       }
 
-      watchdog('Invite Share' , "URL user auto login info: <pre>" . print_r($user, TRUE) . '</pre>');
-
+      watchdog('Invite Share', "URL user auto login info: <pre>" . print_r($user, TRUE) . '</pre>');
     }
 
     _user_update_invite($uid, $nid, $mid);
+  } else {
+    // Relogin by url uid, copy from function user_pass_reset() in user.pages.inc.
+    $action = 'login';
 
-  }
-  else {
-  // Relogin by url uid, copy from function user_pass_reset() in user.pages.inc.
-      $action = 'login';
-
-      // Time out, in seconds, until login URL expires. Defaults to 24 hours =
-      // 86400 seconds.
-      $timeout = variable_get('user_password_reset_timeout', 86400);
-      $current = REQUEST_TIME;
-      // Some redundant checks for extra security ?
-      $users = user_load_multiple(array($uid), array('status' => '1'));
-      if ($timestamp <= $current && $account = reset($users)) {
-        // No time out for first time login.
-        if ($account->login && $current - $timestamp > $timeout) {
-          drupal_set_message(t('You have tried to use a one-time login link that has expired. Please request a new one using the form below.'));
+    // Time out, in seconds, until login URL expires. Defaults to 24 hours =
+    // 86400 seconds.
+    $timeout = variable_get('user_password_reset_timeout', 86400);
+    $current = REQUEST_TIME;
+    // Some redundant checks for extra security ?
+    $users = user_load_multiple(array($uid), array('status' => '1'));
+    if ($timestamp <= $current && $account = reset($users)) {
+      // No time out for first time login.
+      if ($account->login && $current - $timestamp > $timeout) {
+        drupal_set_message(t('You have tried to use a one-time login link that has expired. Please request a new one using the form below.'));
 //           drupal_goto('user/password');
-        }
-        elseif ($account->uid && $timestamp >= $account->login && $timestamp <= $current && $hashed_pass == user_pass_rehash($account->pass, $timestamp, $account->login)) {
+      } elseif ($account->uid && $timestamp >= $account->login && $timestamp <= $current && $hashed_pass == user_pass_rehash($account->pass, $timestamp, $account->login)) {
 
-          watchdog('Invite Share' , "URL auto login hashed_pass: <pre>" . print_r($hashed_pass, TRUE) . '</pre>');
+        watchdog('Invite Share', "URL auto login hashed_pass: <pre>" . print_r($hashed_pass, TRUE) . '</pre>');
 
-          // First stage is a confirmation form, then login
-          if ($action == 'login') {
-            // Set the new user.
-            $user = $account;
-            // user_login_finalize() also updates the login timestamp of the
-            // user, which invalidates further use of the one-time login link.
-            user_login_finalize();
+        // First stage is a confirmation form, then login
+        if ($action == 'login') {
+          // Set the new user.
+          $user = $account;
+          // user_login_finalize() also updates the login timestamp of the
+          // user, which invalidates further use of the one-time login link.
+          user_login_finalize();
 
-            // Let the user's password be changed without the current password check.
-            $token = drupal_hash_base64(drupal_random_bytes(55));
-            $_SESSION['pass_reset_' . $user->uid] = $token;
+          // Let the user's password be changed without the current password check.
+          $token = drupal_hash_base64(drupal_random_bytes(55));
+          $_SESSION['pass_reset_' . $user->uid] = $token;
 
-            watchdog('Invite Share' , 'URL auto login sucess');
+          watchdog('Invite Share', 'URL auto login sucess');
 
-            _user_update_invite($uid, $nid, $mid, $token);
+          _user_update_invite($uid, $nid, $mid, $token);
 
 //             drupal_goto('user/' . $user->uid . '/edit', array('query' => array('pass-reset-token' => $token)));
-          }
-          else {
-            $form['message'] = array('#markup' => t('<p>This is a one-time login for %user_name and will expire on %expiration_date.</p><p>Click on this button to log in to the site and change your password.</p>', array('%user_name' => $account->name, '%expiration_date' => format_date($timestamp + $timeout))));
-            $form['help'] = array('#markup' => '<p>' . t('This login can be used only once.') . '</p>');
-            $form['actions'] = array('#type' => 'actions');
-            $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Log in'));
-            $form['#action'] = url("user/reset/$uid/$timestamp/$hashed_pass/login");
-            return $form;
-          }
+        } else {
+          $form['message'] = array('#markup' => t('<p>This is a one-time login for %user_name and will expire on %expiration_date.</p><p>Click on this button to log in to the site and change your password.</p>', array('%user_name' => $account->name, '%expiration_date' => format_date($timestamp + $timeout))));
+          $form['help'] = array('#markup' => '<p>' . t('This login can be used only once.') . '</p>');
+          $form['actions'] = array('#type' => 'actions');
+          $form['actions']['submit'] = array('#type' => 'submit', '#value' => t('Log in'));
+          $form['#action'] = url("user/reset/$uid/$timestamp/$hashed_pass/login");
+          return $form;
         }
       }
-
+    }
   }
 
 //   _user_update_invite($uid, $nid, $mid);
-
 }
 
 function _get_topic_nid_by_tid($lang = '', $tid = '') {
@@ -1195,7 +1145,7 @@ function _get_topic_nid_by_tid($lang = '', $tid = '') {
 
 function _user_update_invite($uid, $nid, $mid) {
 
-  watchdog('Invite Share' , 'Current user: <pre>' . print_r($account, TRUE) . '</pre>');
+  watchdog('Invite Share', 'Current user: <pre>' . print_r($account, TRUE) . '</pre>');
 
   $share_node = node_load($nid);
   $share_node->field_invite_flag['und'][0]['value'] = 1;
@@ -1247,7 +1197,7 @@ function _user_update_invite($uid, $nid, $mid) {
 //     $muralusername = $fieldinfo[0]['value'];
 //   }
 
-  watchdog('Invite Share' , 'Share node info: <pre>' . print_r($share_node, TRUE) . '</pre>');
+  watchdog('Invite Share', 'Share node info: <pre>' . print_r($share_node, TRUE) . '</pre>');
 
 //   /mural/share/dev_student1/1379300425095#1379336277.381
   drupal_goto('home', array(
@@ -1284,9 +1234,8 @@ function _create_new_invite($invite = array()) {
 
 function _valid_location_address($country = '', $city = '') {
   if ($country && $city) {
-
-   // $valite_url = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . $city . ',' . $country . '&sensor=false';
-      $valite_url = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . $city .  '&sensor=false';
+    // $valite_url = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . $city . ',' . $country . '&sensor=false';
+    $valite_url = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . $city . '&sensor=false';
     $location_info = drupal_http_request($valite_url);
     $location_val = drupal_json_decode($location_info->data);
 
@@ -1346,11 +1295,11 @@ function _send_share_mail($node = array(), $mail_to_share = '') {
   $reset_url = url("user/reset/$account->uid/$timestamp/" . user_pass_rehash($account->pass, $timestamp, $account->login), array('absolute' => TRUE));
   $mural_url = url("mural/invite/$account->uid/$timestamp/" . user_pass_rehash($account->pass, $timestamp, $account->login) . '/' . $node->invite_nid . '/' . $node->nid, array('absolute' => TRUE));
 
-$default_subject = <<<EOT
+  $default_subject = <<<EOT
 [current-user:field_firstname] [current-user:field-lastname] shared a mural with you
 EOT;
 
-$default_body = <<<EOT
+  $default_body = <<<EOT
 Hi,<br/>
 <br/>
 [current-user:field_firstname] [current-user:field-lastname] shared a mural with you:<br/>
@@ -1386,7 +1335,6 @@ EOT;
     $m->subject = $m_subject;
     $m->body = $m_body;
 //     $m->attachment = $job->attachment;
-
     // Drupal_set_message('Mail cattachment:<pre>' . print_r($m->attachment, TRUE) . '</pre>');
     // Drupal_mail in drupao core.
     $status = themuraly_drupalsendmail($m);
@@ -1398,6 +1346,7 @@ EOT;
 }
 
 function _themuralyajax_submit($form, &$form_state) {
+
 
   $lang = $form_state['values']['language'];
 
@@ -1411,7 +1360,6 @@ function _themuralyajax_submit($form, &$form_state) {
 
   // Save node.
   $save_node = $form_state['node'];
-
   watchdog('Debug', 'Save node: <pre>' . print_r($save_node, TRUE) . '</pre>');
 
   // Get topic node nid from category.
@@ -1427,7 +1375,6 @@ function _themuralyajax_submit($form, &$form_state) {
   entity_form_submit_build_entity('node', $save_node, $form, $form_state);
   node_submit($save_node);
   node_save($save_node);
-
   // Remove tmp js file.
   watchdog('Debug', 'Remove tmp js: <pre>' . print_r($form_state['complete form']['tmp_js'], TRUE) . '</pre>');
   if ($form_state['complete form']['tmp_js']) {
@@ -1450,7 +1397,6 @@ function _themuralyajax_submit($form, &$form_state) {
 
   print ajax_render($commands);
   exit;
-
 }
 
 function mural_addmember_ajax_callback($form, $form_state) {
@@ -1467,7 +1413,6 @@ function mural_addmember_ajax_callback($form, $form_state) {
         $the_muralid = $matches[0];
       }
     }
-
   }
   if (!empty($the_muralid)) {
 
@@ -1519,15 +1464,13 @@ function muralapi_test() {
 
 //   include_once('mural_op.inc');
 //   muralshow_share('lwgmural', '1376967210186');
-
 //   themuraly_get_mural_info('http://staging.mural.ly/!/#/lwgmural/1377006043205');
 //   _get_node_from_mural_id('1377006043205');
-
 //   themuraly_studio_mural_list_json('gallery', 1, 'Copy of');
-
 //  themuraly_topic_mural_list(539);
 //   _test_mural_list_for_a_user();
- // _test_user_add();
+  //_test_user_add();
+  _test_change_password();
   //_test_create_room();
 //   _test_mural_create_mural();
   //_test_mural_duplicate_mural();
@@ -1536,16 +1479,22 @@ function muralapi_test() {
   //_test_mural_del();
 //   _test_mural_list_for_a_user();
   // _test_mural_invite_member();
-  _test_retrieve_a_mural();
+  // _test_retrieve_a_mural();
 //   themuraly_mural_list_html();
-
 //   themuraly_get_mural_info('http://staging.mural.ly/!/#/lwgmural/1376967210186');
-
   // $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/1374110398829' width=500px height=500px'></iframe>";
 //   $output_html = "<iframe frameborder='0' src='http://staging.mural.ly/embed/edgemakers/edgemakers/1374641493558' width=500px height=500px'></iframe>";
 
 
   return $output_html;
+}
+
+function _test_change_password() {
+  $username = 'cldf6668';
+  $newpass = '12345';
+  $mural_api = new Muralapi;
+  $result = $mural_api->change_password($username, $newpass);
+  dpm($result);
 }
 
 function _test_mural_invite_member() {
@@ -1674,6 +1623,7 @@ function _test_user_add() {
   $user['email'] = "dev_devedgemakers" . $str . "@symbio.com";
   $user['source'] = "dev-edgemakers";
   $user['nameIdentifier'] = 3;
+  $user['password'] = '123';
 
   $mural_api_result = $mural_api->create_user($user, '/api/organizations/dev-edgemakers/users', 'POST');
   dpm($mural_api_result);
@@ -1711,12 +1661,11 @@ function themuraly_init() {
 //   ctools_add_js('ajax-responder');
 //   ctools_add_js('dependent');
   drupal_add_library('system', 'ui.dialog');
-	drupal_add_css(drupal_get_path('module', 'themuraly') . '/css/themuraly.css');
-	drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/themuraly.js');
-  
+  drupal_add_css(drupal_get_path('module', 'themuraly') . '/css/themuraly.css');
+  drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/themuraly.js');
+
 // 	drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/refreshElements.js');
 }
-
 
 function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keyword = '', $sortby = '') {
 
@@ -1758,13 +1707,11 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
     }
 
 //     $query->join('node', 'n', 'n.nid = i.sid');
-
   }
 
   if ($keyword) {
     $murals_list = _themuraly_search_execute_result($keyword, $page);
-  }
-  else {
+  } else {
     $conditions['field'][] = array(
       'field' => 'field_share_to_gallery',
       'column' => 'value',
@@ -1788,10 +1735,10 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
     return '';
   }
 
-	$i = 1;
-	foreach ($murals_list as $node) {
+  $i = 1;
+  foreach ($murals_list as $node) {
 
-		if ($i == 1) {
+    if ($i == 1) {
       $class = 'first';
     }
 
@@ -1809,13 +1756,13 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
     $html .= '<li>';
 
     $html .= '<div class="set-cover">
-                    <h5 title="'. $node->title .'">' . $node->title .'</h5>
-                    <p class="inspiration">' . $node_username .'</p>
+                    <h5 title="' . $node->title . '">' . $node->title . '</h5>
+                    <p class="inspiration">' . $node_username . '</p>
                   </div>';
 
     $node_mural_thumburl = field_get_items('node', $node, 'field_mural_thumburl');
     $defula_thumburl = 'https://s3.amazonaws.com/static.mural.ly/NoThumbnail.png';
-    $mural_thumburl = empty($node_mural_thumburl[0]['value'])?$defula_thumburl:$node_mural_thumburl[0]['value'];
+    $mural_thumburl = empty($node_mural_thumburl[0]['value']) ? $defula_thumburl : $node_mural_thumburl[0]['value'];
 
     $html .= '<span class="muralthumb ' . $node->title . '">';
     $mural_thumb = array('path' => $mural_thumburl);
@@ -1841,12 +1788,10 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
     $html .= '</li>';
 
     $i++;
-
-	}
+  }
 
 //   echo $html;
-	return $html;
-
+  return $html;
 }
 
 /**
@@ -1873,22 +1818,22 @@ function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
       case 'share':
         $account = user_load($user->uid);
         $the_field_obj = field_get_items('user', $account, 'field_mural_share_with_me');
-        $mural_share_with_me = explode(',' , $the_field_obj[0]['value']);
+        $mural_share_with_me = explode(',', $the_field_obj[0]['value']);
 
         if ($mural_share_with_me) {
           $query = new EntityFieldQuery();
 
           $query->entityCondition('entity_type', 'node')
-            ->propertyCondition('status', 1)
-            ->propertyCondition('type', array('murals'))
-            ->propertyCondition('nid', $mural_share_with_me, 'IN')
-            ->propertyOrderBy('created', 'DESC')
-            ->range($start, $limit);
+                  ->propertyCondition('status', 1)
+                  ->propertyCondition('type', array('murals'))
+                  ->propertyCondition('nid', $mural_share_with_me, 'IN')
+                  ->propertyOrderBy('created', 'DESC')
+                  ->range($start, $limit);
 
           $result = $query->execute();
 
           if (!empty($result['node'])) {
-            $nodes = node_load_multiple(array_keys($result['node']), '' , TRUE);
+            $nodes = node_load_multiple(array_keys($result['node']), '', TRUE);
           }
         }
 
@@ -1912,7 +1857,7 @@ function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
 
         $node_mural_thumburl = field_get_items('node', $node, 'field_mural_thumburl');
         $defula_thumburl = 'https://s3.amazonaws.com/static.mural.ly/NoThumbnail.png';
-        $mural_thumburl = empty($node_mural_thumburl[0]['value'])?$defula_thumburl:$node_mural_thumburl[0]['value'];
+        $mural_thumburl = empty($node_mural_thumburl[0]['value']) ? $defula_thumburl : $node_mural_thumburl[0]['value'];
 
         $myideas_list[$node_muralid]['nid'] = $knid;
         $myideas_list[$node_muralid]['title'] = $node->title;
@@ -1920,7 +1865,7 @@ function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
 
         if ($user->uid == $node->uid) {
           $img_settings = array(
-          	'path' => drupal_get_path('theme', 'newfteui') . '/images/iconPaneMuralSettings.png',
+            'path' => drupal_get_path('theme', 'newfteui') . '/images/iconPaneMuralSettings.png',
           );
           $img_gear = theme('image', $img_settings);
           if ($user->uid == $node->uid) {
@@ -1928,13 +1873,12 @@ function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
             $set_url = l($img_gear, $set_link, array(
               'html' => true,
               'attributes' => array(
-                'class' => array('ctools-use-modal',  'ctools-modal-modal-popup-small', 'studio-mural-settings'),
+                'class' => array('ctools-use-modal', 'ctools-modal-modal-popup-small', 'studio-mural-settings'),
                 'nid' => $node->nid,
 //                 'class' => array('studio-mural-settings', 'ctools-use-modal'),
               ),
                     )
             );
-
           } else {
             $set_url = '';
           }
@@ -1952,8 +1896,8 @@ function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
         $html .= '<li>';
 
         $html .= '<div class="set-cover">
-                    <h5 title="' . $node->title .'">' . $node->title .'</h5>
-                    <p class="inspiration">' . $node_username .'</p>
+                    <h5 title="' . $node->title . '">' . $node->title . '</h5>
+                    <p class="inspiration">' . $node_username . '</p>
                   </div>';
 
         $html .= '<span class="muralthumb ' . $node->title . '">';
@@ -1971,7 +1915,7 @@ function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
             'id' => 'media-node-' . $node->nid,
             'title' => $node->title,
           ),
-        ));
+                ));
 
         $html .= $view_url;
 
@@ -1982,18 +1926,14 @@ function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
         $html .= '</li>';
 
 //       $myideas_list[$node_muralid]['node'] = $node;
-
       }
     }
-
   }
 
 //   $content = theme('studio_ideas_list', array('myideas' => $myideas_list, 'myshareideas' => $shareideas_list));
 
-  return  $html;
-
+  return $html;
 }
-
 
 function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = array(), $sortby = array()) {
 
@@ -2015,30 +1955,27 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
         foreach ($con_arry AS $con) {
           $query->fieldCondition($con['field'], $con['column'], $con['value'], $con['operator']);
         }
-      }
-      else {
+      } else {
         foreach ($con_arry AS $con) {
           $query->{$query_condition_field}($con['column'], $con['value'], $con['operator']);
         }
       }
     }
-
-  }
-  else {
+  } else {
     $query = new EntityFieldQuery();
   }
 
   $query->entityCondition('entity_type', 'node')
-    ->propertyCondition('status', 1)
-    ->propertyCondition('type', array('murals'))
-    ->range($start, $limit);
+          ->propertyCondition('status', 1)
+          ->propertyCondition('type', array('murals'))
+          ->range($start, $limit);
 
   if ($uid) {
     $query->propertyCondition('uid', $uid);
   }
 
   foreach ($sortby AS $sort) {
-    $query->propertyOrderBy($sort['name'], ($sort['direction'])?$sort['direction']:'DESC');
+    $query->propertyOrderBy($sort['name'], ($sort['direction']) ? $sort['direction'] : 'DESC');
   }
 
   // Debug
@@ -2046,7 +1983,6 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
 //   drupal_set_message("Where the message.");
 //   dpm($query);
   // End Debug
-
   // Maybe todo sort by each condition.
 //   if ($sortby) {
 //     switch (strtolower($sortby)) {
@@ -2066,7 +2002,6 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
 //         $query->fieldCondition('field_city', 'lid', $subquery, 'IN');
 //         break;
 //       case 'tags':
-
 //         break;
 //     }
 //     $query->propertyOrderBy($sortby, 'DESC');
@@ -2084,11 +2019,10 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
   // End Debug.
 
   if (!empty($result['node'])) {
-    $my_mural_nodes = node_load_multiple(array_keys($result['node']), '' , TRUE);
+    $my_mural_nodes = node_load_multiple(array_keys($result['node']), '', TRUE);
   }
 
   return $my_mural_nodes;
-
 }
 
 /**
@@ -2099,61 +2033,56 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
  */
 function themuraly_mural_list_html($limit = 5) {
 
-	global $user;
+  global $user;
 
-	$my_mural_nodes = array();
-	$content_type = 'murals';
+  $my_mural_nodes = array();
+  $content_type = 'murals';
 
-	$html = '<div class="toolbar-item media">';
+  $html = '<div class="toolbar-item media">';
 
-	if ($user->uid !== 0) {
+  if ($user->uid !== 0) {
 
-	  $my_mural_nodes = themuraly_mural_list($user->uid);
+    $my_mural_nodes = themuraly_mural_list($user->uid);
 
-		$i = 0;
-		foreach ($my_mural_nodes as $node) {
+    $i = 0;
+    foreach ($my_mural_nodes as $node) {
 
-			if ($i < $limit) {
-				$mural_item['items'][$i]['data'] = l($node->title,
-					'mural/' . $node->nid,
-					array(
-						'attributes' => array(
-							'id' => 'media-node-' . $node->nid,
-							'title' => $node->title,
-						)
-					)
-				);
-				$mural_item['items'][$i]['class'][] = 'mural-item';
-				$i++;
-			}
+      if ($i < $limit) {
+        $mural_item['items'][$i]['data'] = l($node->title, 'mural/' . $node->nid, array(
+          'attributes' => array(
+            'id' => 'media-node-' . $node->nid,
+            'title' => $node->title,
+          )
+                )
+        );
+        $mural_item['items'][$i]['class'][] = 'mural-item';
+        $i++;
+      }
+    }
 
-		}
+    if (count($mural_item['items']) > 0) {
 
-		if (count($mural_item['items']) > 0) {
+      $html .= '<h4 class="has-child">Mural<em></em></h4>';
 
-			$html .= '<h4 class="has-child">Mural<em></em></h4>';
+      $mural_item['title'] = '';
+      $mural_item['type'] = 'ul';
+      $mural_item['attributes'] = array('id' => 'mural-list', 'class' => 'media-video');
 
-			$mural_item['title'] = '';
-			$mural_item['type'] = 'ul';
-			$mural_item['attributes'] = array('id' => 'mural-list', 'class' => 'media-video');
+      $media_html = theme_item_list($mural_item);
+    }
 
-			$media_html = theme_item_list($mural_item);
-		}
+    //dd($media_html, 'media list');
 
-		//dd($media_html, 'media list');
+    $html .= $media_html;
+  }
 
-		$html .= $media_html;
+  if (count($my_mural_nodes) <= 0) {
+    $html .= '<h4 class="has-child">Mural</h4>';
+  }
 
-	}
+  $html .= '</div>';
 
-	if(count($my_mural_nodes) <= 0) {
-		$html .= '<h4 class="has-child">Mural</h4>';
-	}
-
-	$html .= '</div>';
-
-	return $html;
-
+  return $html;
 }
 
 /**
@@ -2169,10 +2098,10 @@ function themuraly_mural_ajax_callback($page_callback_result) {
   // Add CTools' javascript to the page.
   ctools_modal_add_js();
 
-	// Only render content
-	print $page_callback_result;
-	// Perform end-of-request tasks.
-	drupal_page_footer();
+  // Only render content
+  print $page_callback_result;
+  // Perform end-of-request tasks.
+  drupal_page_footer();
 }
 
 /**
@@ -2186,7 +2115,7 @@ function themuraly_get_mural_info($mural_url = '') {
   if ($mural_url) {
 
     $mural_url_info = parse_url($mural_url);
-    $mural_info = explode('/' , $mural_url_info['fragment']);
+    $mural_info = explode('/', $mural_url_info['fragment']);
     $mural_username = $mural_info[1];
     $mural_id = $mural_info[2];
 
@@ -2207,20 +2136,17 @@ function themuraly_get_mural_info($mural_url = '') {
           $mural_info['id'] = 'edgemakers.' . $mural_id;
           $mural_info['title'] = $the_node->title;
           $mural_info['lastUpdatedBy'] = $mural_username;
-          $mural_info['thumbUrl'] = empty($mural_mural_thumburl)?'':$mural_mural_thumburl;
+          $mural_info['thumbUrl'] = empty($mural_mural_thumburl) ? '' : $mural_mural_thumburl;
 
           return $mural_info;
         }
       }
+    }
 
-   }
-
-   return false;
-
+    return false;
   }
 
   return false;
-
 }
 
 function _get_node_from_mural_id($mid) {
@@ -2229,16 +2155,15 @@ function _get_node_from_mural_id($mid) {
     $nodeQuery = new EntityFieldQuery;
 
     $entities = $nodeQuery->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'murals')
-    ->fieldCondition('field_muralid','value', $mid, '=')
-    ->execute();
+            ->entityCondition('bundle', 'murals')
+            ->fieldCondition('field_muralid', 'value', $mid, '=')
+            ->execute();
 
     if (!empty($entities['node'])) {
       $news_items_nids = array_keys($entities['node']);
       $news_items = entity_load('node', $news_items_nids);
       return $news_items;
     }
-
   }
   return '';
 }
@@ -2247,14 +2172,14 @@ function _get_node_from_mural_id($mid) {
  * Update murals node when set submit.
  * @param unknown_type $mural_url
  */
-function themuraly_update_node_by_mural($mural_url = ''){
+function themuraly_update_node_by_mural($mural_url = '') {
 
   $mural_info = array();
 
   if ($mural_url) {
 
     $mural_url_info = parse_url($mural_url);
-    $mural_info = explode('/' , $mural_url_info['fragment']);
+    $mural_info = explode('/', $mural_url_info['fragment']);
     $mural_id = $mural_info[2];
 
     if ($mural_id) {
@@ -2283,15 +2208,12 @@ function themuraly_update_node_by_mural($mural_url = ''){
             $submit_status = node_submit($the_node);
             $save_status = node_save($the_node);
           }
-
         }
-
       }
     }
   }
 
   return $mural_info;
-
 }
 
 /**
@@ -2306,51 +2228,39 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
   $keys = trim($keys);
 
 //   print("Page: " . $page);
-
 //   // Build matching conditions
 //   $query = db_select('search_index', 'i', array('target' => 'slave'))->extend('SearchQuery')->extend('PagerDefault');
 //   $query->join('node', 'n', 'n.nid = i.sid');
 //   $query->condition('n.status', 1)->addTag('node_access')->searchExpression($keys, 'node');
-
 //   // Insert special keywords.
 //   $query->setOption('type', 'n.type');
 //   $query->setOption('language', 'n.language');
 //   if ($query->setOption('term', 'ti.tid')) {
 //     $query->join('taxonomy_index', 'ti', 'n.nid = ti.nid');
 //   }
-
 //   // Custom field condition.
 //   $query->condition('n.type', 'murals');
 //   // Join "Share to gallery" field.
 //   $query->innerJoin('field_data_field_share_to_gallery','field_gallery','n.nid = field_gallery.entity_id');
 //   $query->condition('field_gallery.field_share_to_gallery_value', 1);
-
 //   $query->orderBy('n.title', 'ASC');//ORDER BY title
 //   $query->orderBy('n.nid', 'DESC');//ORDER BY created
-
 //   // Join  field_tags table and term table.
 //   $query->leftJoin('field_data_field_tags','field_tags','n.nid = field_tags.entity_id');
 //   $query->leftJoin('taxonomy_term_data','term','field_tags.field_tags_tid = term.tid');
 //   // Order by tags by term ASC.
 //   $query->orderBy('term.name', 'ASC');//ORDER BY created
-
 //   $query->range($start, $pager);
-
 //   // END Custome field condition.
-
 //   // Only continue if the first pass query matches.
 //   if (!$query->executeFirstPass()) {
 //     return array();
 //   }
-
 //   // Add the ranking expressions.
 //   _node_rankings($query);
-
 // //   $query->limit($pager);
 // //   $query->offset($start);
-
 //   $query->range($start, $pager);
-
 //   // Load results.
 //   $find = $query->execute();
 //   print('Query execute result:<pre>' . print_r($find, TRUE) . '</pre>');
@@ -2360,16 +2270,12 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
 //     $node = node_load($item->sid);
 //     node_build_content($node, 'search_result');
 //     $node->body = drupal_render($node->content);
-
 //     // Fetch comments for snippet.
 //     $node->rendered .= ' ' . module_invoke('comment', 'node_update_index', $node);
 //     // Fetch terms for snippet.
 //     $node->rendered .= ' ' . module_invoke('taxonomy', 'node_update_index', $node);
-
 //     $extra = module_invoke_all('node_search_result', $node);
-
 //     $results[] = $node;
-
 // //     $results[] = array(
 // //       'link' => url('node/' . $item->sid, array('absolute' => TRUE)),
 // //       'type' => check_plain(node_type_get_name($node)),
@@ -2382,22 +2288,17 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
 // //       'snippet' => search_excerpt($keys, $node->body),
 // //     );
 //   }
-
 //   return $results;
-
-
 //   ( (d.data LIKE :db_condition_placeholder_6 ESCAPE '\\') AND (d.data LIKE :db_condition_placeholder_7 ESCAPE '\\') )
 
 
   if ($keys) {
 
     $query = db_select('search_index', 'i')
-      ->condition('i.type', 'node');                      //Search node.
+            ->condition('i.type', 'node');                      //Search node.
 //       ->condition('i.word', '%' . $keys . '%', 'LIKE');  //Search key
-
-
     // Full text search, copy from search.extender.inc.
-    $query->innerJoin('search_dataset','d','i.sid = d.sid  AND i.type = d.type');
+    $query->innerJoin('search_dataset', 'd', 'i.sid = d.sid  AND i.type = d.type');
     $query->condition('d.data', '%' . strtolower($key) . '%', 'LIKE');
 
     // Keys is multi and split by "space".
@@ -2419,26 +2320,24 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
 
 
     // The numeric score of the word, higher being more important.
-    $query->orderBy('i.score', 'ASC');//ORDER BY title
+    $query->orderBy('i.score', 'ASC'); //ORDER BY title
 
-    $query->orderBy('n.title', 'ASC');//ORDER BY title
-    $query->orderBy('i.sid', 'DESC');//ORDER BY title
-    $query->orderBy('n.nid', 'DESC');//ORDER BY created
-
+    $query->orderBy('n.title', 'ASC'); //ORDER BY title
+    $query->orderBy('i.sid', 'DESC'); //ORDER BY title
+    $query->orderBy('n.nid', 'DESC'); //ORDER BY created
     // Join "Share to gallery" field.
-    $query->innerJoin('field_data_field_share_to_gallery','field_gallery','n.nid = field_gallery.entity_id');
+    $query->innerJoin('field_data_field_share_to_gallery', 'field_gallery', 'n.nid = field_gallery.entity_id');
     $query->condition('field_gallery.field_share_to_gallery_value', 1);
 
     // Join "Mural share propty".
-    $query->innerJoin('field_data_field_muralshared','field_muralshared','n.nid = field_muralshared.entity_id');
+    $query->innerJoin('field_data_field_muralshared', 'field_muralshared', 'n.nid = field_muralshared.entity_id');
     $query->condition('field_muralshared.field_muralshared_value', 1);
 
     // Join  field_tags table and term table.
-    $query->leftJoin('field_data_field_tags','field_tags','n.nid = field_tags.entity_id');
-    $query->leftJoin('taxonomy_term_data','term','field_tags.field_tags_tid = term.tid');
+    $query->leftJoin('field_data_field_tags', 'field_tags', 'n.nid = field_tags.entity_id');
+    $query->leftJoin('taxonomy_term_data', 'term', 'field_tags.field_tags_tid = term.tid');
     // Order by tags by term ASC.
-    $query->orderBy('term.name', 'ASC');//ORDER BY created
-
+    $query->orderBy('term.name', 'ASC'); //ORDER BY created
     // Debug.
 //     print('Query:<pre>' . print_r($query, TRUE) . '</pre>');
 //     dpm($query);
@@ -2447,9 +2346,7 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
     $find = $query->execute();
     // Debug.
 //     print('Query execute result:<pre>' . print_r($find, TRUE) . '</pre>');
-
 //     WHERE  (i.type = "node") AND (d.data LIKE "%copy of%" ESCAPE '\\') AND( (i.word LIKE :db_condition_placeholder_2 ESCAPE '\\') OR (i.word LIKE :db_condition_placeholder_3 ESCAPE '\\') )AND (n.type = :db_condition_placeholder_4) AND (n.status = :db_condition_placeholder_5) AND (field_gallery.field_share_to_gallery_value = :db_condition_placeholder_6)
-
 //     dpm($find);
     // End Debug.
 
@@ -2462,11 +2359,9 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
     }
 
     return $results;
-
   }
 
   return false;
-
 }
 
 /**
@@ -2487,7 +2382,7 @@ function themuraly_drupalsendmail($m) {
 
   $header['Sender'] = '1.0';
   $header['Content-Transfer-Encoding'] = '8Bit';
-  $header['X-Mailer'] = 'Drupal Webform (PHP/'. phpversion() .')';
+  $header['X-Mailer'] = 'Drupal Webform (PHP/' . phpversion() . ')';
   $header['Content-Type'] = 'text/html; charset=UTF-8; format=flowed; delsp=yes';
 
   //$my_module = 'foo';
@@ -2509,8 +2404,6 @@ function themuraly_drupalsendmail($m) {
   watchdog("mail system", $my_module . '|' . print_r($system_mail_status, TRUE));
 
   return $system_mail_status;
-
-
 }
 
 /**
@@ -2562,14 +2455,14 @@ function theme_mural_list_box($type = 'studio', $nodes) {
       return '';
     }
 
-  	$i = 1;
-  	foreach ($nodes as $node) {
+    $i = 1;
+    foreach ($nodes as $node) {
 //   	  echo "topic type: " . $type;
 //   	  $attributes['type'] = $type;
       $item = theme('mural_item_box', array('node' => $node), $attributes);
       $mural['items'][$i]['data'] = $item;
       $i++;
-  	}
+    }
 
     if (count($mural['items'] > 0)) {
       $mural['title'] = '';
@@ -2578,11 +2471,9 @@ function theme_mural_list_box($type = 'studio', $nodes) {
         'id' => 'topic-mural-list',
       );
       $mural_list = theme_item_list($mural);
-    }
-    else {
+    } else {
       $mural_list = t('Mural is empty in topic.');
     }
-
   }
 
   return $mural_list;
@@ -2623,7 +2514,7 @@ function theme_mural_item_box($item = array(), $attributes = array()) {
         'nid' => $node->nid,
         'onClick' => 'showMuralDialog("?q=mural/' . $node->nid . '");jQuery("#mural-back-to-dashboard").show();return false;',
       ),
-    ));
+            ));
 
     $html .= '<div>';
 
@@ -2633,20 +2524,19 @@ function theme_mural_item_box($item = array(), $attributes = array()) {
           'nid' => $node->nid,
           'onClick' => 'showMuralDialog("?q=mural/' . $node->nid . '");jQuery("#mural-back-to-dashboard").show();return false;',
         ),
-      ));
+              ));
       $html .= '<h3 class="author">' . $node_username . '</h3>';
       $html .= '<span class="mural-title">' . $view_url . '</span>';
       $html .= '<span class="user-avatar">' . $node_user_avatar . '</span>';
-    }
-    else {                                                             // Default mural list
+    } else {                                                             // Default mural list
       $html .= '<div class="set-cover">
-                      <h5 title ="' . $node->title .'">' . $node->title .'</h5>
-                      <p class="inspiration">' . $node_username .'</p>
+                      <h5 title ="' . $node->title . '">' . $node->title . '</h5>
+                      <p class="inspiration">' . $node_username . '</p>
                     </div>';
 
       $node_mural_thumburl = field_get_items('node', $node, 'field_mural_thumburl');
       $defula_thumburl = 'https://s3.amazonaws.com/static.mural.ly/NoThumbnail.png';
-      $mural_thumburl = empty($node_mural_thumburl[0]['value'])?$defula_thumburl:$node_mural_thumburl[0]['value'];
+      $mural_thumburl = empty($node_mural_thumburl[0]['value']) ? $defula_thumburl : $node_mural_thumburl[0]['value'];
       $mural_thumb = array('path' => $mural_thumburl);
 
       $html .= '<span class="muralthumb ' . $node->title . '">';
@@ -2679,6 +2569,7 @@ function theme_mural_item_box($item = array(), $attributes = array()) {
 
   return $html;
 }
+
 // hook_mail
 function themuraly_mail($key, &$message, $params) {
   switch ($key) {
@@ -2690,14 +2581,52 @@ function themuraly_mail($key, &$message, $params) {
       break;
 
     default:
-      // nothing
+    // nothing
   }
 }
 
-      
 function themuraly_page_alter(&$page) {
   $the_path = current_path();
-  if (strpos($the_path,'mural') !== false) {
+  if (strpos($the_path, 'mural') !== false) {
     drupal_set_breadcrumb(array());
   }
 }
+
+// modify the lat/lng data (get them by google geocode api, only according to city)
+// location module get the "wrong" data for some address (e.g., "beijing, united states" )
+// maybe , location moudle provide some ways  to get the "correct" data . 
+// but current,  modify them in the hook_node_update.
+function themuraly_node_update($node) {
+  if ($node->type == 'murals') {
+
+    $l = field_get_items('node', $node, 'field_city');
+    $city = '';
+    $lid = '';
+
+
+    if (!empty($l[0]['city'])) {
+      $city = $l[0]['city'];
+      $lid = $l[0]['lid'];
+    }
+    if ($city != '' && $lid != '') {
+      // get the lat/long info again through the google api according to city, no country.
+      $the_url = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . $city . '&sensor=false';
+      $location_info = drupal_http_request($the_url);
+      $location_val = drupal_json_decode($location_info->data);
+
+      if ($location_val['status'] == 'OK') {
+        if (isset($location_val['results'][0]['geometry']['location']['lat'])) {
+          $fields = array('latitude' => $location_val['results'][0]['geometry']['location']['lat'],
+            'longitude' => $location_val['results'][0]['geometry']['location']['lng']
+          );
+
+          db_merge('location')
+                  ->key(array('lid' => $lid))
+                  ->fields($fields)
+                  ->execute();
+        }
+      }
+    }
+  }
+}
+
