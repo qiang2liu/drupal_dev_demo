@@ -36,7 +36,8 @@
 			},
 			removeAllActive : function(){
 				$('div').not('.toolbar-handler').not('.toolbar-box').not(this).removeClass('active');
-				
+				var id = $(this).attr('data-aim');
+				$('.pane').not('#'+ id).css('right','')
 				$('.teacher-notes').css('top','835px');
 				$(this).toggleClass('active');
 			},
