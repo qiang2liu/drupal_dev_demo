@@ -909,13 +909,13 @@ div.ctools-modal-content .form-item .description{
 	background-color:rgba(244,126,64,1.0);
 }
 
-.pane-handler.active,
 .pane-handler:hover{
 	
 	width:70px;
 }
 .pane-handler.active{
 	border-radius:0;
+	width:820px;
 }
 .pane{
 	position:absolute;
@@ -923,7 +923,7 @@ div.ctools-modal-content .form-item .description{
 	border-radius:10px;
 	top:90px;
 	transition-property: right;
-	transition-duration: 1s;
+	transition-duration: .2s;
 	transition-timing-function: linear;
 	transition-delay: 0;
 	width:760px;
