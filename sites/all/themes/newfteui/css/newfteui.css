@@ -893,7 +893,7 @@ div.ctools-modal-content .form-item .description{
 	cursor:pointer;
 	clear:right;
 	transition-property: width;
-	transition-duration: .1s;
+	transition-duration: .2s;
 	transition-timing-function: linear;
 	transition-delay: 0;
 	background-repeat:no-repeat;
