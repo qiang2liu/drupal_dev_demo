@@ -561,7 +561,7 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 
       drupal_add_css(drupal_get_path('module', 'themuraly') . '/css/themuraly.css');
 
-      $form['#prefix'] = '<div class="mural-setting-title"><h2>Murall Settings</h2><div class="mural-setting-form">
+      $form['#prefix'] = '<div class="mural-setting-title"><h2>Mural Settings</h2><div class="mural-setting-form">
                             <div class="mural-setting-form-tran-back">&nbsp;</div>
 
                           </div>';
