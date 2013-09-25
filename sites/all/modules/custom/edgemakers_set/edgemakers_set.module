@@ -28,7 +28,7 @@ function edgemakers_set_menu() {
   $items['admin/edgemakers/set/ajaxdelete/%'] = array(
     'title' => 'Delete Set',
     'page callback' => 'edgemakers_set_admin_delete_action',
-    'page arguments' => array(4),
+    'page arguments' => array(4, 5),
     'access arguments' => array('administer edgemakers'),
     'file path' => drupal_get_path('module', 'node'),
     'file' => 'node.pages.inc',
