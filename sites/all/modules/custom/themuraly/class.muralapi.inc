@@ -120,6 +120,32 @@ class Muralapi {
 
 
   }
+  public function change_password($username, $new_password) {
+   // $params['ownerId'] = $this->the_org;
+    $params['password'] = $new_password;
+    $data = drupal_json_encode($params);
+    $apistr = "/api/profile/password";
+    $apiurl = $this->muralapi_base_url . $apistr;
+    $the_auth_string = $this->get_auth_string($username, $apistr, 'PUT');
+    $options = array();
+    $options['headers'] = array('x-mural-ly-user' => $username,
+      'x-mural-ly-context' => $this->the_org,
+      'Authorization' => "MURALLY " . $username . ":" . $the_auth_string,
+      'User-Agent' => $this->user_agent,
+      'Content-Type' => "application/json",
+    );
+
+
+    $options['method'] = 'PUT';
+    $options['data'] = $data;
+
+
+
+
+
+    $ret = drupal_http_request($apiurl, $options);
+    return $ret;
+  }
   public function create_mural($username, $params) {
     /*
       $ret = array();
