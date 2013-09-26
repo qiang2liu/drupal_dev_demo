@@ -225,9 +225,18 @@
       return false;
     });
   }
+  
   if (jQuery("a.set-to-destination").length !== 0) {
+    
+    var flashDownUrl = '<a href="http://get.adobe.com/flashplayer/" target="_blank">Get Flash Player</a>';
+    var tourGuideHtml = '<div class="set-type-icon set-video-type-icon">Tour Guide</div>';
+    tourGuideHtml = tourGuideHtml + '<div class="set-video-content">';
+    tourGuideHtml = tourGuideHtml + '<div id="yt">You need Flash player 8+ and JavaScript enabled to view this video.';
+    tourGuideHtml = tourGuideHtml + '<p>' + flashDownUrl + '</p>';
+    tourGuideHtml = tourGuideHtml + '</div></div>';
+    
     jQuery("a.set-to-destination").bind('click', function() {
-      jQuery("#stage-set-view").html('<div class="set-type-icon set-video-type-icon">Tour Guide</div><div class="set-video-content"><div id="yt">You need Flash player 8+ and JavaScript enabled to view this video.</div></div>');
+      jQuery("#stage-set-view").html(tourGuideHtml);
       videoid = this.getAttribute('videoid');
       setTimeout(function() {loadVideo(videoid);}, 100);
       
