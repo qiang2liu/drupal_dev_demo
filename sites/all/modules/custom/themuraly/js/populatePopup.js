@@ -18,6 +18,7 @@ Drupal.jsAC.prototype.populatePopup = function () {
    top : '-50px',
    height:'50px',
    overflow:'auto',
+   background: '#fff',
 //    marginLeft: (inputPosition.left-inputWrapperPosition.left)+'px',
     width: (this.input.offsetWidth - 4) +'px',
     display: 'none'
