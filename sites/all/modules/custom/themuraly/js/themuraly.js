@@ -311,11 +311,28 @@ function studio_mural_item_bind_link() {
   
 }
 
+
+function setArrowTop(){
+	jQuery('#block-edgemakers-media-upload-gallery-image-list .scroll-wrapper .arrow-left, #block-edgemakers-media-upload-gallery-image-list .scroll-wrapper .arrow-right, #studio-media-list-pane .scroll-wrapper .arrow-left, #studio-media-list-pane .scroll-wrapper .arrow-right,#gallery-media-list-pane .scroll-wrapper .arrow-left, #gallery-media-list-pane .scroll-wrapper .arrow-right').each(function(){
+		var l =jQuery(this).siblings('ul').find('li').length;
+		if(l>8){
+			jQuery(this).css('top', '150px')
+		}else if(l>4){
+			jQuery(this).css('top', '89px')
+		}else{
+			jQuery(this).css('top', '38px')
+		}
+	});
+	
+}
+
+
 function studio_mural_ajax_load_list() {
 
   jQuery("#studio-mural-list").load("?q=mural/studio/get/list/ajax/my/0", function(){
     
     studio_mural_item_bind_link();
+   //setArrowTop();
     
     jQuery("#studio-my-idea .arrow-left").unbind("click");
     jQuery("#studio-my-idea .arrow-left").bind("click", function(){
@@ -338,7 +355,7 @@ function studio_mural_ajax_load_list() {
   jQuery("#studio-mural-share-with-me-list").load("?q=mural/studio/get/list/ajax/share/0", function(){
     
     studio_mural_item_bind_link();
-    
+   //setArrowTop();
     jQuery("#studio-share-with-me .arrow-left").unbind("click");
     jQuery("#studio-share-with-me .arrow-left").bind("click", function(){
       var pager = jQuery(this).attr("pager");
@@ -387,6 +404,7 @@ function gallery_mural_ajax_load_list(pager) {
         }
       }
       else {
+      	setArrowTop();
         jQuery("#gallery-mural-list").html(data);
         studio_mural_item_bind_link();
         setLeftRightPager('gallery', pager);
@@ -396,6 +414,7 @@ function gallery_mural_ajax_load_list(pager) {
   
   // Bind left/right arrow operation.
   jQuery("#gallery-ideas .arrow-left").unbind("click");
+   
   jQuery("#gallery-ideas .arrow-left").bind("click", function(){
     var pager = jQuery(this).attr("pager");
     gallery_mural_ajax_load_list(pager);

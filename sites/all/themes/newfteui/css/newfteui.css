@@ -74,7 +74,8 @@ a:hover{
 }
 ul:after,
 .item-list li:after,
-#block-views-community-users-block .view:after{
+#block-views-community-users-block .view:after,
+.scroll-wrapper ul div:after{
 	content:'';
 	display:block;
 	clear:both;
