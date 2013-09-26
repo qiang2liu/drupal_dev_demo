@@ -1430,3 +1430,6 @@ div.ctools-modal-content .form-item .description{
 #topic-murals{
 	margin-top:30px;
 }
+.siteurl-textfield{
+	display:none;
+}
