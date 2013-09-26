@@ -3,7 +3,7 @@
 #mural-region {
   padding: 0px;
   margin: 0px 1px 1px 0px;
-  overflow: hidden;
+  
   background-color: #2d6ca9;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -265,8 +265,7 @@ div.ctools-modal-content .modal-content form.node-murals-form.node-form {
 }
 
 #invite_email_box div.form-item label{
-	display:block;
-	margin-bottom:10px;
+	display: none;
 }
 form.node-murals-form.node-form div.form-item label
 {
@@ -468,7 +467,7 @@ a.create-mural-topic {
   z-index: 2; 
   padding:0 0 0 25px;
   height: 17px;
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 #murals-node-form--2,
 #murals-node-form--3,
@@ -494,7 +493,7 @@ a.create-mural-topic {
 	padding:35px 20px 20px;
 }
 .mural-settings-form-class #modal-content {
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 
 .mural-settings-form-class #modal-content.modal-content.popups-body{

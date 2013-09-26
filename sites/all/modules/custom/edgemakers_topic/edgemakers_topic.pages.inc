@@ -96,7 +96,7 @@ function edgemakers_topic_problems_items() {
 }
 
 /**
- * get items of murals data for the map in the  block 
+ * get items of murals data for the map in the  block
  */
 function edgemakers_get_map_data() {
   $query = new EntityFieldQuery();
@@ -399,7 +399,7 @@ function make_content_output($node) {
   if (isset($result['#object']) && isset($result['#object']->field_tags['und'])) {
     $arrItems = $result['#object']->field_tags['und'];
   }
-  
+
   $tags = "";
 
   $i = 0;
@@ -419,13 +419,13 @@ function make_content_output($node) {
     $creater = user_load($uid);
     $fname = $creater->field_firstname['und']['0']['safe_value'];
     $lname = $creater->field_lastname['und']['0']['safe_value'];
-   * 
+   *
    */
   $name = $node->name;
   $source = 'mural/' . $node->nid;
   if (user_is_logged_in()) {
-    $clickfunction = "showMuralDialog('" . $source . "')";
-  } 
+    $clickfunction = "showMuralDialog('" . $source . "');jQuery('#mural-back-to-dashboard').show();";
+  }
   else {
    $clickfunction = 'showLogin()';
   }
