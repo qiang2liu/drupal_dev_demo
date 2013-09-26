@@ -435,7 +435,7 @@ function themuraly_block_view($delta = '') {
 function _get_my_murals() {
   global $user;
   if ($user->uid) {
-    
+
   }
 }
 
@@ -650,13 +650,13 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
       array_unshift($form['#submit'], '_themuralyajax_submit');
 
       $hash = md5(microtime());
-//         $form['#attached']['js'] = array(
+        $form['#attached']['js'] = array(
 //           drupal_get_path('module', 'themuraly') . '/js/removeTextareaResizea.js' => array(
 //             'cache' => FALSE,
 //             'preprocess' => TRUE,
 //           ),
-// //           drupal_get_path('module', 'themuraly') . '/js/populatePopup.js',
-//         );
+          drupal_get_path('module', 'themuraly') . '/js/populatePopup.js',
+        );
 //         drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/removeTextareaResizea.js');
 //         $form['#attached']['js'][] = array(
 //           'data' => array('showInviteEmailBox()'),
@@ -2526,11 +2526,14 @@ function theme_mural_item_box($item = array(), $attributes = array()) {
         'nid' => $node->nid,
         'onClick' => 'showMuralDialog("?q=mural/' . $node->nid . '");jQuery("#mural-back-to-dashboard").show();return false;',
       ),
-            ));
+    ));
 
     $html .= '<div>';
 
     if ($node->field_topic_mural[LANGUAGE_NONE]['0']['target_id']) {    // Topic mural list
+
+      $user_avatar_url = file_create_url($node_user->picture);
+      print('<pre>' . print_r($node_user, TRUE) . '</pre>');
       $view_url = l($node->title, '#', array(
         'attributes' => array(
           'nid' => $node->nid,
@@ -2606,7 +2609,7 @@ function themuraly_page_alter(&$page) {
 
 // modify the lat/lng data (get them by google geocode api, only according to city)
 // location module get the "wrong" data for some address (e.g., "beijing, united states" )
-// maybe , location moudle provide some ways  to get the "correct" data . 
+// maybe , location moudle provide some ways  to get the "correct" data .
 // but current,  modify them in the hook_node_update.
 function themuraly_node_update($node) {
   if ($node->type == 'murals') {
