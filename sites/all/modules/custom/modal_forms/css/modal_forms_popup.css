@@ -79,7 +79,8 @@ div.modal-forms-modal-content .popups-close {
 	top:-3px;
 }
 div.ctools-modal-content .modal-content{
-	position:fixed;
+	position: relative;
+	overflow:auto;
 }
 /*.modal-content form{
 	padding-top:10px;
