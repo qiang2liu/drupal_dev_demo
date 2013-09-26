@@ -12,9 +12,14 @@ Drupal.jsAC.prototype.populatePopup = function () {
   this.popup.owner = this;
   var inputPosition = jQuery(this.input).position();
   var inputWrapperPosition = jQuery('div#'+jQuery(this.input).attr('id')+'-wrapper').position();
+  jQuery(this.input).parent().css('position','relative');
   jQuery(this.popup).css({
-    marginTop: this.input.offsetHeight +'px',
-//    marginLeft: (inputPosition.left-inputWrapperPosition.left)+'px',
+  	position: 'absolute',
+   top : '-50px',
+   height:'50px',
+   overflow:'auto',
+   backgroundColor: 'white',
+
     width: (this.input.offsetWidth - 4) +'px',
     display: 'none'
   });
