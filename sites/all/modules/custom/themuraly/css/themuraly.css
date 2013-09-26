@@ -265,7 +265,8 @@ div.ctools-modal-content .modal-content form.node-murals-form.node-form {
 }
 
 #invite_email_box div.form-item label{
-	display: none;
+	display:block;
+	margin-bottom:10px;
 }
 form.node-murals-form.node-form div.form-item label
 {
