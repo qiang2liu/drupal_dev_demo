@@ -929,8 +929,9 @@ function edgemakers_media_list_on_gallery($type = '', $page = 0, $keyword = '') 
     $media_list = edgemakers_media_list('', $type, $start, $limit);
   }
 
-  if (count($media_list) == 0 && $page == 0) {
-    return t('There is no !type available', array('!type' => $type));
+  if (count($media_list) == 0) {
+//     return t('There is no !type available', array('!type' => $type));
+    return '';
   }
 
   arsort($media_list);
@@ -1019,13 +1020,17 @@ function edgemakers_media_list_on_studio($pager = 0) {
   $limit = 8;
   $start = $pager * $limit;
 
-  $html = '<div class="media item-studio">';
+  $html = '';
 
   if ($user->uid !== 0) {
     $my_media_nodes = edgemakers_media_list($user->uid, '', $start, $limit);
 
-    if (count($my_media_nodes) == 0 && $pager == 0) {
-      return t('There is no media available for you.');
+    if (count($my_media_nodes) == 0) {
+//       return t('There is no media available for you.');
+      return '';
+    }
+    else {
+      $html .= '<div class="media item-studio">';
     }
 
     arsort($my_media_nodes);
@@ -1090,9 +1095,9 @@ function edgemakers_media_list_on_studio($pager = 0) {
       $i++;
     }
 
-  }
+    $html .= '</div>';
 
-  $html .= '</div>';
+  }
 
   return $html;
 }

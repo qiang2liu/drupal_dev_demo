@@ -102,7 +102,8 @@ function studio_media_list_ajax_load(pager) {
     type : 'GET',
     success : function(data){
       if (data.length === 0) {
-        //alert("not enough content to turning page");
+        jQuery("#studio-media-list").html('There is no media available for you.');
+//        alert("not enough content to turning page");
       }
       else {
         jQuery("#studio-media-list").html(data);
@@ -159,6 +160,7 @@ function gallery_media_list_ajax_load(type, pager) {
     success : function(data){
       if (data.length === 0) {
         if (keyword.length === 0) {
+          jQuery("#" + reloadElement).html("There is no " + type +" available");
           console.log("data is empty");
         }
         else {
