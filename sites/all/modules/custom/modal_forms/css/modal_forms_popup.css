@@ -82,6 +82,10 @@ div.ctools-modal-content .modal-content{
 	position: relative;
 	overflow:auto;
 }
+#autocomplete{
+	position:absolute;
+	z-index: 100000;
+}
 /*.modal-content form{
 	padding-top:10px;
 }*/
