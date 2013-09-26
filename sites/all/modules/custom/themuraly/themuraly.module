@@ -2315,12 +2315,16 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
 
   if ($keys) {
 
+    watchdog('Debug', 'Keys: ' . $keys);
+
     $query = db_select('search_index', 'i')
             ->condition('i.type', 'node');                      //Search node.
 //       ->condition('i.word', '%' . $keys . '%', 'LIKE');  //Search key
     // Full text search, copy from search.extender.inc.
-    $query->innerJoin('search_dataset', 'd', 'i.sid = d.sid  AND i.type = d.type');
-    $query->condition('d.data', '%' . strtolower($keys) . '%', 'LIKE');
+//     $query->innerJoin('search_dataset', 'd', 'i.sid = d.sid  AND i.type = d.type');
+
+    // full text search.
+//     $query->condition('d.data', '%' . strtolower($keys) . '%', 'LIKE');
 
     // Keys is multi and split by "space".
 //     $keys_array = explode(' ', $keys);
@@ -2339,7 +2343,6 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
     $query->condition('n.type', 'murals');
     $query->condition('n.status', 1);
 
-
     // The numeric score of the word, higher being more important.
     $query->orderBy('i.score', 'ASC'); //ORDER BY title
 
@@ -2354,11 +2357,22 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
     $query->innerJoin('field_data_field_muralshared', 'field_muralshared', 'n.nid = field_muralshared.entity_id');
     $query->condition('field_muralshared.field_muralshared_value', 1);
 
+    // Tags search.
     // Join  field_tags table and term table.
     $query->leftJoin('field_data_field_tags', 'field_tags', 'n.nid = field_tags.entity_id');
     $query->leftJoin('taxonomy_term_data', 'term', 'field_tags.field_tags_tid = term.tid');
     // Order by tags by term ASC.
     $query->orderBy('term.name', 'ASC'); //ORDER BY created
+
+    // Key search by normal SQL.
+    $orkeys = db_or();
+    $orkeys->condition('n.title', '%' . strtolower($keys) . '%', 'LIKE');
+    $orkeys->condition('term.name', '%' . strtolower($keys) . '%', 'LIKE');
+
+    $query->condition($orkeys);
+
+//     watchdog('Debug', 'SQL execute before: ' . ((string) $query) . '<pre>' .  print_r($query->arguments(), TRUE) . '</pre>');
+
     // Debug.
 //     print('Query:<pre>' . print_r($query, TRUE) . '</pre>');
 //     dpm($query);
@@ -2366,7 +2380,7 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
 
     $find = $query->execute();
 //     watchdog('Debug', 'Search result: <pre>' . print_r($find, TRUE) . '</pre> | $query <pre>' . print_r($query, TRUE) . '</pre>');
-//     watchdog('Debug', 'SQL: ' . ((string) $query) . '<pre>' .  print_r($query->arguments(), TRUE) . '</pre>');
+//     watchdog('Debug', 'SQL after execute: ' . ((string) $query) . '<pre>' .  print_r($query->arguments(), TRUE) . '</pre>');
     // Debug.
 //     print('Query execute result:<pre>' . print_r($find, TRUE) . '</pre>');
 //     WHERE  (i.type = "node") AND (d.data LIKE "%copy of%" ESCAPE '\\') AND( (i.word LIKE :db_condition_placeholder_2 ESCAPE '\\') OR (i.word LIKE :db_condition_placeholder_3 ESCAPE '\\') )AND (n.type = :db_condition_placeholder_4) AND (n.status = :db_condition_placeholder_5) AND (field_gallery.field_share_to_gallery_value = :db_condition_placeholder_6)

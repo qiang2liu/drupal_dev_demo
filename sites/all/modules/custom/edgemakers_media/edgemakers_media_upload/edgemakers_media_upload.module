@@ -1299,7 +1299,9 @@ function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', 
 
     // Full text search, copy from search.extender.inc.
     $query->innerJoin('search_dataset', 'd', 'i.sid = d.sid  AND i.type = d.type');
-    $query->condition('d.data', '%' . strtolower($keys) . '%', 'LIKE');
+
+    // Full text search by drupal default search.
+//     $query->condition('d.data', '%' . strtolower($keys) . '%', 'LIKE');
 
     // Keys is multi and split by "space".
 //     $keys_array = explode(' ', $keys);
@@ -1341,6 +1343,13 @@ function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', 
     $query->leftJoin('taxonomy_term_data', 'term', 'field_tags.field_tags_tid = term.tid');
     // Order by tags by term ASC.
     $query->orderBy('term.name', 'ASC');
+
+    // Key search by normal SQL.
+    $orkeys = db_or();
+    $orkeys->condition('n.title', '%' . strtolower($keys) . '%', 'LIKE');
+    $orkeys->condition('term.name', '%' . strtolower($keys) . '%', 'LIKE');
+
+    $query->condition($orkeys);
 
     $find = $query->execute();
 
