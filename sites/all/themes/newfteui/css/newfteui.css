@@ -88,6 +88,9 @@ ul:after,
 .form-item{
 	margin-top:0;
 }
+.no-scroll-bar{
+	overflow-y:hidden;
+}
 /*Teacher's Notes*/
 .teacher-notes{
 	background-color:rgba(255,255,255,0.7);
