@@ -68,6 +68,7 @@
 		//when window resize, we use this again
 		$(window).resize(function(){
 			$.fn.setPositionofElements();
+			jQuery('body').removeClass('no-scroll-bar');
 		});
 		
 		//toolbar

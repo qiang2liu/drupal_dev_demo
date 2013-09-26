@@ -67,16 +67,17 @@ function closeFromIframe()
   jQuery("#mural-iframe").attr("src", "");
   jQuery('#mural-region').dialog('close');
   jQuery('body').css({
-  	'height': 'auto',
-  	'overflow-y': 'auto'
+  	'height': 'auto'
   });
-  return false;
+  jQuery('body').removeClass('no-scroll-bar');
+  
+  //return false;
 }
 
 function setMuralWidth(){
+	jQuery('body').addClass('no-scroll-bar');
   jQuery('body').css({
-    'height': jQuery(window).height()+ 'px',
-    'overflow': 'hidden'
+    'height': jQuery(window).height()+ 'px'
   });
   
   jQuery("#mural-iframe").attr("width", jQuery(window).width() + 'px');
@@ -110,9 +111,7 @@ function showMuralDialog(source) {
 
   setMuralWidth();
   
-  jQuery(window).resize(function(){
-  	setMuralWidth();
-  })
+  
   
 //  var windowHeight = jQuery(window).height();
 //  var windowScrollTop = jQuery(window).scrollTop();
