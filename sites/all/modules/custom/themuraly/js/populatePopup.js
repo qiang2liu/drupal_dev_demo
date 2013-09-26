@@ -2,7 +2,6 @@
  * Positions the suggestions popup and starts a search
  */
 Drupal.jsAC.prototype.populatePopup = function () {
-	 alert('ok');
   // Show popup
   if (this.popup) {
     jQuery(this.popup).remove();
@@ -24,5 +23,6 @@ Drupal.jsAC.prototype.populatePopup = function () {
   // Do search
   this.db.owner = this;
   this.db.search(this.input.value);
- 
 };
+
+jQuery("#modalContent").addClass("mural-settings-form-class-popup");

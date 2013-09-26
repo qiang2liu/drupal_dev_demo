@@ -506,7 +506,16 @@ function themuraly_after_build($form, $form_state) {
 //   drupal_add_js('alert("muralsetting.");jQuery("#modalContent").addClass("mural-settings-form-class");', array('type'=>'inline'));
   // Create tmp js file and reload it.
   $script = 'jQuery("#modalContent").addClass("mural-settings-form-class");';
+
   $tmp_js = _create_tmp_js($script);
+
+  drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/populatePopup.js',
+    array(
+      'type' => 'file',
+      'scope' => 'footer',
+    )
+  );
+
   drupal_add_js($tmp_js);
 
   $form['tmp_js'] = array(
@@ -650,13 +659,13 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
       array_unshift($form['#submit'], '_themuralyajax_submit');
 
       $hash = md5(microtime());
-        $form['#attached']['js'] = array(
-//           drupal_get_path('module', 'themuraly') . '/js/removeTextareaResizea.js' => array(
-//             'cache' => FALSE,
-//             'preprocess' => TRUE,
-//           ),
-          drupal_get_path('module', 'themuraly') . '/js/populatePopup.js',
-        );
+      $form['#attached']['js'] = array(
+//         drupal_get_path('module', 'themuraly') . '/js/removeTextareaResizea.js' => array(
+//           'cache' => FALSE,
+//           'preprocess' => TRUE,
+//         ),
+        drupal_get_path('module', 'themuraly') . '/js/populatePopup.js',
+      );
 //         drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/removeTextareaResizea.js');
 //         $form['#attached']['js'][] = array(
 //           'data' => array('showInviteEmailBox()'),
@@ -1665,7 +1674,7 @@ function themuraly_init() {
   drupal_add_library('system', 'ui.dialog');
   drupal_add_css(drupal_get_path('module', 'themuraly') . '/css/themuraly.css');
   drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/themuraly.js');
-  drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/populatePopup.js');
+//   drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/populatePopup.js');
 // 	drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/refreshElements.js');
 }
 
