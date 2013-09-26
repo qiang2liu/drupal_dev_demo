@@ -92,6 +92,7 @@ function showMediaOnDestination(nid, title) {
 
 function studio_media_list_ajax_load(pager) {
   
+  var studioMuralEmptyMsg = '<p class="empty-data">There is no media available for you.</p>';
   if (pager == null) {
     pager = 0;
   }
@@ -102,7 +103,9 @@ function studio_media_list_ajax_load(pager) {
     type : 'GET',
     success : function(data){
       if (data.length === 0) {
-        jQuery("#studio-media-list").html('There is no media available for you.');
+        if (pager <= 0) {
+          jQuery("#studio-media-list").html(studioMuralEmptyMsg);
+        }
 //        alert("not enough content to turning page");
       }
       else {
@@ -136,6 +139,7 @@ function gallery_media_list_ajax_load(type, pager) {
   }
   
   var reloadElement = "gallery-" + type +"-list";
+  var galleryMuralEmptyMsg = '<p class="empty-data">There is no ' + type + ' available</p>';
   
 //  switch(type) {
 //    case "media":
@@ -160,8 +164,12 @@ function gallery_media_list_ajax_load(type, pager) {
     success : function(data){
       if (data.length === 0) {
         if (keyword.length === 0) {
-          jQuery("#" + reloadElement).html("There is no " + type +" available");
           console.log("data is empty");
+        
+          if (pager <= 0) {
+            jQuery("#" + reloadElement).html(galleryMuralEmptyMsg);
+          }
+
         }
         else {
           jQuery("#" + reloadElement).html(type + " search result is empty, replace other keyword to search or clean keyword.");
