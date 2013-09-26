@@ -23,7 +23,7 @@
 
       <div id="header">
         <div id="logo-floater">
-        <?php if ($logo || $site_title): ?>
+        <?php if (isset($logo) || isset($site_title)): ?>
           <?php if ($title): ?>
             <div id="branding"><strong><a href="<?php print $front_page ?>">
             <?php if ($logo): ?>
