@@ -2320,15 +2320,15 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
 //       ->condition('i.word', '%' . $keys . '%', 'LIKE');  //Search key
     // Full text search, copy from search.extender.inc.
     $query->innerJoin('search_dataset', 'd', 'i.sid = d.sid  AND i.type = d.type');
-    $query->condition('d.data', '%' . strtolower($key) . '%', 'LIKE');
+    $query->condition('d.data', '%' . strtolower($keys) . '%', 'LIKE');
 
     // Keys is multi and split by "space".
-    $keys_array = explode(' ', $keys);
-    $orkeys = db_or();
-    foreach ($keys_array AS $key) {
-      $orkeys->condition('i.word', '%' . strtolower($key) . '%', 'LIKE');
-    }
-    $query->condition($orkeys);
+//     $keys_array = explode(' ', $keys);
+//     $orkeys = db_or();
+//     foreach ($keys_array AS $key) {
+//       $orkeys->condition('i.word', '%' . strtolower($key) . '%', 'LIKE');
+//     }
+//     $query->condition($orkeys);
 
     // distinct sid.
     $query->AddExpression('distinct i.sid', 'sid_node');
@@ -2365,6 +2365,8 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
     // End Debug.
 
     $find = $query->execute();
+//     watchdog('Debug', 'Search result: <pre>' . print_r($find, TRUE) . '</pre> | $query <pre>' . print_r($query, TRUE) . '</pre>');
+//     watchdog('Debug', 'SQL: ' . ((string) $query) . '<pre>' .  print_r($query->arguments(), TRUE) . '</pre>');
     // Debug.
 //     print('Query execute result:<pre>' . print_r($find, TRUE) . '</pre>');
 //     WHERE  (i.type = "node") AND (d.data LIKE "%copy of%" ESCAPE '\\') AND( (i.word LIKE :db_condition_placeholder_2 ESCAPE '\\') OR (i.word LIKE :db_condition_placeholder_3 ESCAPE '\\') )AND (n.type = :db_condition_placeholder_4) AND (n.status = :db_condition_placeholder_5) AND (field_gallery.field_share_to_gallery_value = :db_condition_placeholder_6)
@@ -2374,6 +2376,7 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
     $results = array();
 
     foreach ($find as $item) {
+//       watchdog('Debug', 'Item of search result: <pre>' . print_r($item, TRUE) . '</pre>');
       // Render the node.
       $node = node_load($item->sid_node);
       $results[] = $node;

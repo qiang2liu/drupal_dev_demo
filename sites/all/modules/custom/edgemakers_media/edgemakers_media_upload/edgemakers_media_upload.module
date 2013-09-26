@@ -288,14 +288,14 @@ function edgemakers_media_upload_form_alter(&$form, $form_state, $form_id) {
     //just for the issue fte-427, overwriting the message of node /add/edit submiting
     $form['actions']['submit']['#submit'][0] = 'edgemakers_media_upload_node_form_submit';
     array_unshift($form['#validate'], 'edgemakers_media_upload_ajax_validate');
-      
+
   }
 }
 
 //just for the issue fte-427, copy the function node_form_submit, only remove the drupal_set_message.
 
 function edgemakers_media_upload_node_form_submit($form, &$form_state) {
-  
+
   $node = node_form_submit_build_node($form, $form_state);
   $insert = empty($node->nid);
   node_save($node);
@@ -1109,7 +1109,7 @@ function edgemakers_media_list_on_studio($pager = 0) {
 function edgemakers_my_media_list_on_toolbar($limit = 5) {
 
   global $user;
-  
+
   $my_media_nodes = array();
   $html = '<div class="toolbar-item media">';
 
@@ -1299,15 +1299,15 @@ function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', 
 
     // Full text search, copy from search.extender.inc.
     $query->innerJoin('search_dataset', 'd', 'i.sid = d.sid  AND i.type = d.type');
-    $query->condition('d.data', '%' . strtolower($key) . '%', 'LIKE');
+    $query->condition('d.data', '%' . strtolower($keys) . '%', 'LIKE');
 
     // Keys is multi and split by "space".
-    $keys_array = explode(' ', $keys);
-    $orkeys = db_or();
-    foreach ($keys_array as $key) {
-      $orkeys->condition('i.word', '%' . strtolower($key) . '%', 'LIKE');
-    }
-    $query->condition($orkeys);
+//     $keys_array = explode(' ', $keys);
+//     $orkeys = db_or();
+//     foreach ($keys_array as $key) {
+//       $orkeys->condition('i.word', '%' . strtolower($key) . '%', 'LIKE');
+//     }
+//     $query->condition($orkeys);
 
     // Unique sid.
     $query->AddExpression('distinct i.sid', 'sid_node');
