@@ -2541,17 +2541,43 @@ function theme_mural_item_box($item = array(), $attributes = array()) {
 
     if ($node->field_topic_mural[LANGUAGE_NONE]['0']['target_id']) {    // Topic mural list
 
-      $user_avatar_url = file_create_url($node_user->picture);
-//       print('<pre>' . print_r($node_user, TRUE) . '</pre>');
+      if (!empty($node_user->picture)) {
+        // @TODO: Ideally this function would only be passed file objects, but
+        // since there's a lot of legacy code that JOINs the {users} table to
+        // {node} or {comments} and passes the results into this function if we
+        // a numeric value in the picture field we'll assume it's a file id
+        // and load it for them. Once we've got user_load_multiple() and
+        // comment_load_multiple() functions the user module will be able to load
+        // the picture files in mass during the object's load process.
+        if (is_numeric($node_user->picture)) {
+          $node_user->picture = file_load($node_user->picture);
+        }
+        if (!empty($node_user->picture->uri)) {
+          $filepath = $node_user->picture->uri;
+        }
+      }
+      elseif (variable_get('user_picture_default', '')) {
+        $filepath = variable_get('user_picture_default', '');
+      }
+
+      $avatar_img = array(
+        'path' => $filepath,
+        'width' => '74px',
+        'height' => '74px',
+      );
+      $avatar_picture = theme('image', $avatar_img);
+//       print('User image: ' . $filepath . ' | Image :' . $avatar_picture);
+
       $view_url = l($node->title, '#', array(
         'attributes' => array(
           'nid' => $node->nid,
           'onClick' => 'showMuralDialog("?q=mural/' . $node->nid . '");jQuery("#mural-back-to-dashboard").show();return false;',
         ),
-              ));
+      ));
+
       $html .= '<h3 class="author">' . $node_username . '</h3>';
       $html .= '<span class="mural-title">' . $view_url . '</span>';
-      $html .= '<span class="user-avatar">' . $node_user_avatar . '</span>';
+      $html .= '<span class="user-avatar">' . $avatar_picture . '</span>';
     } else {                                                             // Default mural list
       $html .= '<div class="set-cover">
                       <h5 title ="' . $node->title . '">' . $node->title . '</h5>
