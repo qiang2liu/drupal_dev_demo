@@ -1665,7 +1665,7 @@ function themuraly_init() {
   drupal_add_library('system', 'ui.dialog');
   drupal_add_css(drupal_get_path('module', 'themuraly') . '/css/themuraly.css');
   drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/themuraly.js');
-
+  drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/populatePopup.js');
 // 	drupal_add_js(drupal_get_path('module', 'themuraly') . '/js/refreshElements.js');
 }
 
