@@ -228,7 +228,7 @@ else {
       }
       // Add edgemakers_profile_avatar style in image style config.
       $login_div = theme('image_style', array('path' => $avatarUri, 'style_name' => 'edgemakers_profile_avatar'));
-      $login_div = '<div class="user-profile-avatar"><div class="avatar-picture"><p>' . $login_div . '</p></div></div>';
+      $login_div = '<div class="user-profile-avatar"><div class="avatar-picture">' . $login_div . '</div></div>';
       print $login_div;
       ?>
     </div>
