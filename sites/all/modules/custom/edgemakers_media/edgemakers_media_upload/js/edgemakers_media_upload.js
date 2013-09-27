@@ -7,8 +7,8 @@ jQuery(document).ready(function(){
   media_ajax_load_list();
   studio_media_list_ajax_load();
   gallery_media_list_ajax_load('media', 0);
-  gallery_media_list_ajax_load('video', 0);
-  gallery_media_list_ajax_load('image', 0);
+  //gallery_media_list_ajax_load('video', 0);
+  //gallery_media_list_ajax_load('image', 0);
   //Drupal.behaviors.mediaListAjaxload();
 });
 
@@ -102,15 +102,22 @@ function studio_media_list_ajax_load(pager) {
     dataType: 'html',
     type : 'GET',
     success : function(data){
+    	
+    	
+    	
       if (data.length === 0) {
         if (pager <= 0) {
           jQuery("#studio-media-list").html(studioMuralEmptyMsg);
+          
         }
+         
+     
 //        alert("not enough content to turning page");
       }
       else {
+      	
         jQuery("#studio-media-list").html(data);
-        
+        setArrowTop();
         jQuery('ul#studio-media-list li a').each(function( index ) {
           var nid = jQuery(this).attr('nid');
           var title = jQuery(this).html();
@@ -129,7 +136,7 @@ function studio_media_list_ajax_load(pager) {
 }
 
 function gallery_media_list_ajax_load(type, pager) {
-  
+   
   if (type == null) {
     return false;
   }
@@ -162,23 +169,31 @@ function gallery_media_list_ajax_load(type, pager) {
     dataType: 'html',
     type : 'GET',
     success : function(data){
+    	
+    	
       if (data.length === 0) {
+      	
         if (keyword.length === 0) {
           console.log("data is empty");
         
           if (pager <= 0) {
             jQuery("#" + reloadElement).html(galleryMuralEmptyMsg);
+            
           }
+         
 
         }
         else {
           jQuery("#" + reloadElement).html(type + " search result is empty, replace other keyword to search or clean keyword.");
-//          alert("Search result is empty");
+		setArrowTop();
+			//          alert("Search result is empty");
         }
+        
       }
       else {
+      
         jQuery("#" + reloadElement).html(data);
-        
+        setArrowTop();
         jQuery("ul#" + reloadElement + " li a").each(function( index ) {
           var nid = jQuery(this).attr('nid');
           var title = jQuery(this).html();
@@ -189,7 +204,7 @@ function gallery_media_list_ajax_load(type, pager) {
           });
         });
         galleryBindLeftRight(type, pager);
-        bindArrowfuc();
+        
       }
     }
   });

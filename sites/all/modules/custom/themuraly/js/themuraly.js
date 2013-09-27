@@ -477,8 +477,10 @@ function gallery_mural_ajax_load_list(pager) {
         }
       }
       else {
-      	setArrowTop();
+      	
+      	
         jQuery("#gallery-mural-list").html(data);
+       //setArrowTop();
         studio_mural_item_bind_link();
         setLeftRightPager('gallery', pager);
       }
@@ -522,8 +524,8 @@ function search_gallery() {
 //  var gallery_image_list_refresh = gallery_image_ajax_load_list();
   // gallery_media_list_ajax_load on media upload module.
   gallery_media_list_ajax_load('media');
-  gallery_media_list_ajax_load('video');
-  gallery_media_list_ajax_load('image');
+  //gallery_media_list_ajax_load('video');
+  //gallery_media_list_ajax_load('image');
   
   jQuery( document ).ajaxComplete(function( event,request, settings) {
     console.log(event);
