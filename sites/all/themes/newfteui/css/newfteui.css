@@ -1037,6 +1037,8 @@ div.ctools-modal-content .form-item .description{
 }
 .user-profile-avatar {
   display:table;
+  width: 54px;
+  height: 54px;
 }
 .user-profile-avatar .avatar-picture {
   display:table-cell; 
