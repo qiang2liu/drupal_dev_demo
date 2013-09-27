@@ -424,7 +424,7 @@ function make_content_output($node) {
   $name = $node->name;
   $source = 'mural/' . $node->nid;
   if (user_is_logged_in()) {
-    $clickfunction = "alert('show mural from parent window.');parent.showMuralDialog('" . $source . "');parent.jQuery('#mural-back-to-dashboard').show();";
+    $clickfunction = "parent.showMuralDialog('" . $source . "');parent.jQuery('#mural-back-to-dashboard').show();";
   }
   else {
    $clickfunction = 'parent.showLogin()';
