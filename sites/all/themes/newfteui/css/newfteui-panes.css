@@ -488,12 +488,6 @@ div.modal-forms-modal-content .setting-title {
 	
    
 }
-@media screen and (-webkit-min-device-pixel-ratio:0) {  
-/* CSS Statements that only apply on webkit-based browsers (Chrome, Safari, etc.) */  
-   #d3{
-   	padding:20px 10px;
-   }
-}
 .mediathumb.video{
    display:block;
    width:156px;
@@ -507,5 +501,12 @@ div.modal-forms-modal-content .setting-title {
     margin: 0 auto;
     max-width: none;
     width: 138px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {  
+/* CSS Statements that only apply on webkit-based browsers (Chrome, Safari, etc.) */  
+   #d3{
+   	padding:20px 10px;
+   }
 }
 
