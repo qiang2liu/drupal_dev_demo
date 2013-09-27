@@ -20,6 +20,60 @@ function edgemakers_features_other_ctools_plugin_api($module = NULL, $api = NULL
 }
 
 /**
+ * Implements hook_image_default_styles().
+ */
+function edgemakers_features_other_image_default_styles() {
+  $styles = array();
+
+  // Exported image style: edgemakers_profile_avatar.
+  $styles['edgemakers_profile_avatar'] = array(
+    'name' => 'edgemakers_profile_avatar',
+    'effects' => array(
+      1 => array(
+        'label' => 'Scale',
+        'help' => 'Scaling will maintain the aspect-ratio of the original image. If only a single dimension is specified, the other dimension will be calculated.',
+        'effect callback' => 'image_scale_effect',
+        'dimensions callback' => 'image_scale_dimensions',
+        'form callback' => 'image_scale_form',
+        'summary theme' => 'image_scale_summary',
+        'module' => 'image',
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 54,
+          'height' => 54,
+          'upscale' => 1,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: edgemakers_studio_gallery_list.
+  $styles['edgemakers_studio_gallery_list'] = array(
+    'name' => 'edgemakers_studio_gallery_list',
+    'effects' => array(
+      7 => array(
+        'label' => 'Scale and crop',
+        'help' => 'Scale and crop will maintain the aspect-ratio of the original image, then crop the larger dimension. This is most useful for creating perfectly square thumbnails without stretching the image.',
+        'effect callback' => 'image_scale_and_crop_effect',
+        'dimensions callback' => 'image_resize_dimensions',
+        'form callback' => 'image_resize_form',
+        'summary theme' => 'image_resize_summary',
+        'module' => 'image',
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 156,
+          'height' => 106,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  return $styles;
+}
+
+/**
  * Implements hook_mediafront_default_presets().
  */
 function edgemakers_features_other_mediafront_default_presets() {
