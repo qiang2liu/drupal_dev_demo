@@ -18,11 +18,6 @@
   position: relative;
 }
 
-#gallery-media-list-pane .scroll-wrapper .arrow-left,
-#gallery-media-list-pane .scroll-wrapper .arrow-right
-{
-  top: 150px;
-}
 
 ul#gallery-image-list li,
 ul#gallery-media-list li,
