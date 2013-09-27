@@ -1036,19 +1036,12 @@ div.ctools-modal-content .form-item .description{
    text-align: center;
 }
 .user-profile-avatar {
-  position: relative;
+  display:table;
 }
 .user-profile-avatar .avatar-picture {
-  *width:100%;
-  *position:absolute; 
-  *top:50%; 
-  *left:0;
-}
-.user-profile-avatar p{
-  *position: relative; 
-  *top:-50%; 
-  *margin:0; 
-  *padding:0;
+  display:table-cell; 
+  vertical-align:middle; 
+  text-align:center;
 }
 
 .user-profile-inner-url img,
