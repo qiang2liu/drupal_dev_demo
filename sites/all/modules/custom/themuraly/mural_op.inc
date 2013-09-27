@@ -277,9 +277,9 @@ function muralshow($nid, $mid = 0, $uid = 0) {
 /**
  *
  * get/create the muralusername and muralroomid
- * 
+ *
  * @param object $account
- * @return array 
+ * @return array
  */
 function get_muralusername_muralroom($account) {
   $ret = array();
@@ -305,7 +305,7 @@ function get_muralusername_muralroom($account) {
     }
     $i++;
   }
-  
+
   if (!empty($muralusername)) {
 
 
@@ -442,6 +442,12 @@ function muralcreate($template_id = 0, $nid = 0, $owner_id = '') {
     $newNode->field_mural_thumburl['und'][0]['value'] = $the_mural['thumbUrl'];
     $mural_memebers = array_keys($the_mural['members']);
     $newNode->field_mural_members['und'][0]['value'] = serialize($mural_memebers);
+
+    // Set privacy default value.
+    $newNode->field_muralshared['und'][0]['value'] = -1;
+
+    // Set share to gallery default value.
+    $newNode->field_share_to_gallery['und'][0]['value'] = -1;
 
     node_object_prepare($newNode);
     node_save($newNode);

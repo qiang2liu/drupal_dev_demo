@@ -10,6 +10,112 @@
 function edgemakers_content_types_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'node-carousel_item-body'
+  $field_instances['node-carousel_item-body'] = array(
+    'bundle' => 'carousel_item',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 3,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'body',
+    'label' => 'Description',
+    'required' => 0,
+    'settings' => array(
+      'display_summary' => 0,
+      'mediafront' => array(
+        'custom' => '',
+        'field_type' => 0,
+        'media_type' => 'media',
+        'preview' => 0,
+        'thumbnail' => 0,
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 20,
+        'summary_rows' => 5,
+      ),
+      'type' => 'text_textarea_with_summary',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'node-carousel_item-field_carousel_item_image'
+  $field_instances['node-carousel_item-field_carousel_item_image'] = array(
+    'bundle' => 'carousel_item',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_carousel_item_image',
+    'label' => 'Carousel Item Image',
+    'required' => 1,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'mediafront' => array(
+        'custom' => '',
+        'field_type' => 0,
+        'media_type' => 'media',
+        'preview' => 0,
+        'thumbnail' => 0,
+      ),
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 2,
+    ),
+  );
+
   // Exported field_instance: 'node-carousel_item-field_carousel_item_topic'
   $field_instances['node-carousel_item-field_carousel_item_topic'] = array(
     'bundle' => 'carousel_item',
@@ -1605,7 +1711,7 @@ function edgemakers_content_types_field_default_field_instances() {
     'bundle' => 'murals',
     'default_value' => array(
       0 => array(
-        'value' => 0,
+        'value' => -1,
       ),
     ),
     'deleted' => 0,
@@ -1628,7 +1734,7 @@ function edgemakers_content_types_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_muralshared',
     'label' => 'Privacy',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'mediafront' => array(
         'custom' => '',
@@ -1744,7 +1850,7 @@ function edgemakers_content_types_field_default_field_instances() {
     'bundle' => 'murals',
     'default_value' => array(
       0 => array(
-        'value' => 0,
+        'value' => -1,
       ),
     ),
     'deleted' => 0,
@@ -2259,8 +2365,10 @@ function edgemakers_content_types_field_default_field_instances() {
   t('Base Color');
   t('Body');
   t('Box index data');
+  t('Carousel Item Image');
   t('Carousel Item Topic');
   t('City');
+  t('Description');
   t('Did you know');
   t('Display Text');
   t('Document');

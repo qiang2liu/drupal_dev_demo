@@ -424,10 +424,10 @@ function make_content_output($node) {
   $name = $node->name;
   $source = 'mural/' . $node->nid;
   if (user_is_logged_in()) {
-    $clickfunction = "showMuralDialog('" . $source . "');jQuery('#mural-back-to-dashboard').show();";
+    $clickfunction = "alert('show mural from parent window.');parent.showMuralDialog('" . $source . "');parent.jQuery('#mural-back-to-dashboard').show();";
   }
   else {
-   $clickfunction = 'showLogin()';
+   $clickfunction = 'parent.showLogin()';
   }
   $ret .= '<li>';
   $ret .= '<p class="title"><a href="javascript:void(0);" onclick= "' . $clickfunction. '">' . $title . '</a></p>';

@@ -565,31 +565,31 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
     $form['body']['und']['0']['value']['#resizable'] = FALSE;
 
     // Dropdown select box style.
-    $form['field_challenges_category'][LANGUAGE_NONE]['#options']['_none'] = t('Category');
+    $form['field_challenges_category'][LANGUAGE_NONE]['#options']['_none'] = t('Wicked Problem');
     $form['field_topic_mural'][LANGUAGE_NONE]['#options']['_none'] = t('Topic');
 
     $share_to_gallery_default_options = $form['field_share_to_gallery'][LANGUAGE_NONE]['#options'];
 
-    $share_to_gallery_options['_none'] = t('Share to Gallery');
+    //$share_to_gallery_options['_none'] = t('Share to Gallery');
 
-    foreach ($share_to_gallery_default_options AS $k => $v) {
-      if ($k !== '_none') {
-        $share_to_gallery_options[$k] = $v;
-      }
-    }
+    //foreach ($share_to_gallery_default_options AS $k => $v) {
+    //  if ($k !== '_none') {
+    //    $share_to_gallery_options[$k] = $v;
+    //  }
+    //}
 
-    $form['field_share_to_gallery'][LANGUAGE_NONE]['#options'] = $share_to_gallery_options;
+    //$form['field_share_to_gallery'][LANGUAGE_NONE]['#options'] = $share_to_gallery_options;
 //       drupal_set_message('Share to Gallery options: <pre>' . print_r(($share_to_gallery_options), TRUE) . '</pre>');
 //       $form['field_share_to_gallery'][LANGUAGE_NONE]['#options']['_none'] = t('Share to Gallery');
 //       $form['field_share_to_gallery'][LANGUAGE_NONE]['#attributes'] = array(
 //         'size' => 2,
 //       );
-    drupal_map_assoc($form['field_share_to_gallery'][LANGUAGE_NONE]['#options']);
-    $form['field_share_to_gallery'][LANGUAGE_NONE]['#order_by'] = 'text'; // May contain values as "text" or "value".
-    $form['field_share_to_gallery'][LANGUAGE_NONE]['#sort_order'] = 'asc'; // May contain values as "asc" or "desc".
+    //drupal_map_assoc($form['field_share_to_gallery'][LANGUAGE_NONE]['#options']);
+    //$form['field_share_to_gallery'][LANGUAGE_NONE]['#order_by'] = 'text'; // May contain values as "text" or "value".
+    //$form['field_share_to_gallery'][LANGUAGE_NONE]['#sort_order'] = 'asc'; // May contain values as "asc" or "desc".
 
 
-    $form['field_muralshared'][LANGUAGE_NONE]['#options']['_none'] = t('Privacy');
+    //$form['field_muralshared'][LANGUAGE_NONE]['#options']['_none'] = t('Privacy');
     $form['field_muralshared'][LANGUAGE_NONE]['#attributes'] = array(
 //         'size' => 2,
       'onChange' => 'showInviteEmailBox()',
@@ -1245,6 +1245,7 @@ function _create_new_invite($invite = array()) {
 
 function _valid_location_address($country = '', $city = '') {
   if ($country && $city) {
+    $city = str_replace(' ', '+', $city);
     // $valite_url = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . $city . ',' . $country . '&sensor=false';
     $valite_url = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . $city . '&sensor=false';
     $location_info = drupal_http_request($valite_url);
