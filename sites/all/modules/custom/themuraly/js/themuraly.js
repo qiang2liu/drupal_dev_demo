@@ -71,6 +71,9 @@ function closeFromIframe()
   });
   jQuery('body').removeClass('no-scroll-bar');
   
+  // Reload google map.
+  jQuery("#iframe-topic-gmap").attr("src", "?q=edgemakers/topic/gmap");
+  
   //return false;
 }
 

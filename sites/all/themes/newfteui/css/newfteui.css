@@ -1433,3 +1433,8 @@ div.ctools-modal-content .form-item .description{
 .siteurl-textfield{
 	display:none;
 }
+
+.topic-gmap {
+  width: 560px;
+  height: 400px;
+}

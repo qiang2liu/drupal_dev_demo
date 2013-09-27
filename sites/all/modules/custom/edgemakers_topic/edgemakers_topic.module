@@ -7,6 +7,20 @@ function edgemakers_topic_views_api() {
     'api' => 3,
   );
 }
+
+function edgemakers_topic_menu() {
+  $items = array();
+
+  $items['edgemakers/topic/gmap'] = array(
+//     'title' => 'Google Map of Topic',
+    'page callback' => 'edgemakers_get_map_data',
+    'type' => MENU_NORMAL_ITEM,
+    'access arguments' => array('access content'),
+    'file' => 'edgemakers_topic.pages.inc',
+  );
+
+  return $items;
+}
 /**
  * Implements hook_form_alter().
  *
@@ -71,13 +85,14 @@ function edgemakers_topic_block_view($delta = '') {
       break;
     case 'problems':
       $items['list'] = edgemakers_topic_problems_items();
-      
       $items['map'] = edgemakers_get_map_data();
+
       $block['subject'] = t('Wicked Problems');
       $block['content'] = array(
         '#theme' => 'problems_block',
         '#items' => $items,
       );
+
       return $block;
       break;
   }
