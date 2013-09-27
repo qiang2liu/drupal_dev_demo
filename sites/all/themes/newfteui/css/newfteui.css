@@ -1032,7 +1032,7 @@ div.ctools-modal-content .form-item .description{
     /* test */
    height:54px;
    width:54px;
-   line-height: 76px;
+   line-height: 54px;
    text-align: center;
 }
 .user-profile-avatar {
@@ -1042,6 +1042,10 @@ div.ctools-modal-content .form-item .description{
   display:table-cell; 
   vertical-align:middle; 
   text-align:center;
+}
+
+.user-profile-avatar .avatar-picture img {
+  display: block;
 }
 
 .user-profile-inner-url img,
