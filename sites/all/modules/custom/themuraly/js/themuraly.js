@@ -68,13 +68,13 @@ function closeFromIframe()
   });
   jQuery('body').removeClass('no-scroll-bar');
   
+  // Refresh murals list on toolbar.
+  mural_ajax_load_list();
+  
+  // Refresh murals list on studio/gallery.
+  _refreshStudioGalleryMural();
+  
   if (nofresh == 1) {
-    // Refresh murals list on toolbar.
-    mural_ajax_load_list();
-    
-    // Refresh murals list on studio/gallery.
-    _refreshStudioGalleryMural();
-
     console.log("closeFromIframe: nofresh = " + nofresh);
 
     // Reload google map.
