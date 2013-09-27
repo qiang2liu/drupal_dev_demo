@@ -869,7 +869,7 @@ function _get_media_thumb($node) {
     switch (strtolower($media_type_name)) {
       case 'image':
         if (isset($node->field_media_upload[LANGUAGE_NONE])) {
-          $thumb_url = file_create_url($node->field_media_upload[LANGUAGE_NONE][0]['uri']);
+          $thumb_url = $node->field_media_upload[LANGUAGE_NONE][0]['uri'];
         }
         else {
           $thumb_url = drupal_get_path('module', 'edgemakers_media_upload') . '/images/iconImageDefault.png';
@@ -949,6 +949,8 @@ function edgemakers_media_list_on_gallery($type = '', $page = 0, $keyword = '') 
       $class = 'last';
     }
 
+    $video_class = '';
+
     $node_thumb = _get_media_thumb($node);
 
     $html .= '<li class="' . $class . '">';
@@ -976,9 +978,22 @@ function edgemakers_media_list_on_gallery($type = '', $page = 0, $keyword = '') 
                 <p class="' . strtolower($media_type_name) . '">' . $media_type_name . '</p>
               </div>';
 
-    $html .= '<span class="mediathumb ' . $node->title . ' ">
-              <img src="' . $node_thumb . '"/>
-            </span>';
+
+    if (
+      (strpos($node_thumb, 'img.youtube.com') !== false) OR
+      (strpos($node_thumb, 'iconAudioDefault') !== false) OR
+      (strpos($node_thumb, 'iconDocsDefault') !== false )
+    ) {
+      $video_class = ' video ';
+      $media_thumb = theme('image', array('path' => $node_thumb));
+    }
+    else {
+      $media_thumb = theme('image_style', array('path' => $node_thumb, 'style_name' => 'edgemakers_studio_gallery_list'));
+    }
+
+    $html .= '<span class="mediathumb ' . $video_class . $node->title . ' ">';
+    $html .=  $media_thumb;
+    $html .= '</span>';
 
     $edit_url = l(t('<span class =""></span>'), 'node/' . $node->nid,
       array(
