@@ -1,3 +1,5 @@
+var nofresh = 0;
+
 
 jQuery(document).ready(function(){
   
@@ -71,8 +73,14 @@ function closeFromIframe()
   });
   jQuery('body').removeClass('no-scroll-bar');
   
-  // Reload google map.
-  jQuery("#iframe-topic-gmap").attr("src", "?q=edgemakers/topic/gmap");
+  console.log("closeFromIframe: nofresh = " + nofresh);
+  
+//  var nofresh = jQuery("#refresh-mural").val();
+
+  if (nofresh == 1) {
+    // Reload google map.
+    jQuery("#iframe-topic-gmap").attr("src", "?q=edgemakers/topic/gmap");
+  }
   
   //return false;
 }
@@ -565,6 +573,7 @@ function changeTitleAfterSetting() {
 
 
 function _refreshStudioGalleryMural() {
+  
   // Refresh studio murals.
   var studio_me_next_page = jQuery("#studio-my-idea .scroll-wrapper .arrow-right").attr("pager");
   var studio_me_current_page = parseInt(studio_me_next_page) - 1;

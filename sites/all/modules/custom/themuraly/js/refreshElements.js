@@ -1,4 +1,4 @@
-(function ($) {
+(function($) {
 
 Drupal.behaviors.muralRefreshAjax = {
   attach: function (context){
@@ -6,6 +6,8 @@ Drupal.behaviors.muralRefreshAjax = {
     changeTitleAfterSetting();
     
     _refreshStudioGalleryMural();
+    
+    parent.jQuery("#iframe-topic-gmap").attr("src", "?q=edgemakers/topic/gmap");
     
     jQuery('#my-mural-list').load("?q=mural/get/list/ajax", function(){
 
