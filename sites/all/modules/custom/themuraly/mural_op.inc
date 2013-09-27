@@ -601,7 +601,7 @@ function mural_delete($nid = 0) {
 
   $html .= 'Close it after 5 seconds';
 
-  drupal_add_js('setInterval(window.parent.closeFromIframe(), 5000);', array('type' => 'inline'));
+  drupal_add_js('window.parent.nofresh = 1; setInterval(window.parent.closeFromIframe(), 3000);', array('type' => 'inline'));
 
   return $html;
 }
