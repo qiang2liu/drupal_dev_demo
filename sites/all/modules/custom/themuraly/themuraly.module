@@ -565,7 +565,7 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
     $form['body']['und']['0']['value']['#resizable'] = FALSE;
 
     // Dropdown select box style.
-    $form['field_challenges_category'][LANGUAGE_NONE]['#options']['_none'] = t('Category');
+    $form['field_challenges_category'][LANGUAGE_NONE]['#options']['_none'] = t('Wicked Problem');
     $form['field_topic_mural'][LANGUAGE_NONE]['#options']['_none'] = t('Topic');
 
     $share_to_gallery_default_options = $form['field_share_to_gallery'][LANGUAGE_NONE]['#options'];
