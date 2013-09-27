@@ -8,6 +8,7 @@ Drupal.behaviors.muralRefreshAjax = {
     _refreshStudioGalleryMural();
     
     parent.jQuery("#iframe-topic-gmap").attr("src", "?q=edgemakers/topic/gmap");
+    jQuery("#iframe-topic-gmap").attr("src", "?q=edgemakers/topic/gmap");
     
     jQuery('#my-mural-list').load("?q=mural/get/list/ajax", function(){
 
