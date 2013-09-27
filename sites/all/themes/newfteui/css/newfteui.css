@@ -1033,6 +1033,7 @@ div.ctools-modal-content .form-item .description{
    height:54px;
    width:54px;
    line-height: 54px;
+   text-align: center;
 }
 .user-profile-inner-url img,
 .user-profile-inner img{
