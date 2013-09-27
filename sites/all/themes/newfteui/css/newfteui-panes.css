@@ -494,5 +494,18 @@ div.modal-forms-modal-content .setting-title {
    	padding:20px 10px;
    }
 }
-
+.mediathumb.video{
+   display:block;
+   width:156px;
+   height:104px;
+   background:#000;
+   overflow:hidden;	
+}
+.mediathumb.video img{
+   display: block;
+    height: 104px;
+    margin: 0 auto;
+    max-width: none;
+    width: 138px;
+}
 
