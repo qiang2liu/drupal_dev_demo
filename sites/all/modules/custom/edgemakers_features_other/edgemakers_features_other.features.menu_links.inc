@@ -1055,25 +1055,6 @@ function edgemakers_features_other_menu_default_menu_links() {
     'weight' => 0,
     'parent_path' => 'admin/config/system',
   );
-  // Exported menu link: management:admin/config/system/backup_migrate
-  $menu_links['management:admin/config/system/backup_migrate'] = array(
-    'menu_name' => 'management',
-    'link_path' => 'admin/config/system/backup_migrate',
-    'router_path' => 'admin/config/system/backup_migrate',
-    'link_title' => 'Backup and Migrate',
-    'options' => array(
-      'attributes' => array(
-        'title' => 'Backup/restore your database or migrate data to or from another Drupal site.',
-      ),
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 0,
-    'parent_path' => 'admin/config/system',
-  );
   // Exported menu link: management:admin/config/system/cron
   $menu_links['management:admin/config/system/cron'] = array(
     'menu_name' => 'management',
@@ -2026,7 +2007,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'link_title' => 'Create Survey & Assessment',
     'options' => array(
       'attributes' => array(
-        'title' => 'create survey & assessment',
+        'title' => '',
       ),
     ),
     'module' => 'menu',
@@ -2639,7 +2620,6 @@ function edgemakers_features_other_menu_default_menu_links() {
   t('Assignments');
   t('Available updates');
   t('Background Image');
-  t('Backup and Migrate');
   t('Basic page');
   t('Better Messages settings');
   t('Blocks');
