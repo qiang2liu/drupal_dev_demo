@@ -480,11 +480,15 @@ a.create-mural-topic {
 .mural-setting-form{
 	display:none;
 }
+
+.mural-settings-form-class .ctools-modal-content #modal-content .node-murals-form,
 #murals-node-form{
 	background:#fff;
 	margin-top:12px;
 	padding-top:40px;
 }
+
+.mural-settings-form-class .ctools-modal-content #modal-content .node-murals-form select,
 #murals-node-form select{
 	border:1px solid #ccc;
 	 border: 1px solid #AAAAAA;
@@ -494,9 +498,13 @@ a.create-mural-topic {
     line-height: 28px;
     padding: 4px;
 }
+
+.mural-settings-form-class .ctools-modal-content #modal-content .node-murals-form select.error,
 #murals-node-form select.error{
   border: 2px solid red;
 }
+
+.mural-settings-form-class .ctools-modal-content #modal-content .node-murals-form select option,
 #murals-node-form select option{
 	padding:9px 0;
 } 
