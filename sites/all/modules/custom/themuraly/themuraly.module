@@ -1818,6 +1818,7 @@ function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
   global $user;
   $limit = 5;
   $start = $page * $limit;
+  $nodes = '';
 
   $html = '';
 
