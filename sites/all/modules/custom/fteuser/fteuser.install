@@ -1,0 +1,23 @@
+<?php
+
+function fteuser_schema() {
+  $schema['fteuserpass'] = array(
+    'description' => 'according to the client wish, store fte user plain password text',
+    'fields' => array(
+      'uid' => array(
+        'description' => 'the user id.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0),
+      'plainpass' => array(
+        'description' => 'The plain password string.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => ''),
+    ),
+    'primary key' => array('uid'),
+  );
+  return $schema;
+}
