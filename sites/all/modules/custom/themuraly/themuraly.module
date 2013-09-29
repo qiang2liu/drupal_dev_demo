@@ -1481,8 +1481,8 @@ function muralapi_test() {
 //   themuraly_studio_mural_list_json('gallery', 1, 'Copy of');
 //  themuraly_topic_mural_list(539);
 //   _test_mural_list_for_a_user();
-  //_test_user_add();
-  _test_change_password();
+  _test_user_add();
+  //_test_change_password();
   //_test_create_room();
 //   _test_mural_create_mural();
   //_test_mural_duplicate_mural();
