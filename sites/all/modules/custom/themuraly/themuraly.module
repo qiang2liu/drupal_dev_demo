@@ -373,6 +373,7 @@ function themuraly_block_view($delta = '') {
       $links = l(t('Create Mural'), $mural_link, array(
         'attributes' => array(
           'class' => $link_class,
+          'onClick' => 'nofresh = 1',
         )
               )
       );
@@ -1358,7 +1359,6 @@ EOT;
 }
 
 function _themuralyajax_submit($form, &$form_state) {
-
 
   $lang = $form_state['values']['language'];
 

@@ -1,3 +1,5 @@
+var nofresh = 0;
+
 
 jQuery(document).ready(function(){
   
@@ -56,23 +58,28 @@ function openDefaultMural() {
 
 function closeFromIframe()
 {
+  
+  //  jQuery("#mural-iframe").empty();
+  jQuery("#mural-back-to-dashboard").hide();
+  jQuery("#mural-iframe").attr("src", "");
+  jQuery('#mural-region').dialog('close');
+  jQuery('body').css({
+    'height': 'auto'
+  });
+  jQuery('body').removeClass('no-scroll-bar');
+  
   // Refresh murals list on toolbar.
   mural_ajax_load_list();
   
   // Refresh murals list on studio/gallery.
   _refreshStudioGalleryMural();
-
-//  jQuery("#mural-iframe").empty();
-  jQuery("#mural-back-to-dashboard").hide();
-  jQuery("#mural-iframe").attr("src", "");
-  jQuery('#mural-region').dialog('close');
-  jQuery('body').css({
-  	'height': 'auto'
-  });
-  jQuery('body').removeClass('no-scroll-bar');
   
-  // Reload google map.
-  jQuery("#iframe-topic-gmap").attr("src", "?q=edgemakers/topic/gmap");
+  if (nofresh == 1) {
+    console.log("closeFromIframe: nofresh = " + nofresh);
+
+    // Reload google map.
+    jQuery("#iframe-topic-gmap").attr("src", "?q=edgemakers/topic/gmap");
+  }
   
   //return false;
 }
@@ -96,6 +103,8 @@ function setMuralWidth(){
 
 function showMuralDialog(source) {
   
+  nofresh = 0;
+  
   var seconds = new Date().getTime() / 1000;
 //  var urlHash = jQuery.md5(seconds);
   
@@ -113,8 +122,6 @@ function showMuralDialog(source) {
   jQuery("#mural-iframe").attr("src", source);
 
   setMuralWidth();
-  
-  
   
 //  var windowHeight = jQuery(window).height();
 //  var windowScrollTop = jQuery(window).scrollTop();
@@ -565,6 +572,7 @@ function changeTitleAfterSetting() {
 
 
 function _refreshStudioGalleryMural() {
+  
   // Refresh studio murals.
   var studio_me_next_page = jQuery("#studio-my-idea .scroll-wrapper .arrow-right").attr("pager");
   var studio_me_current_page = parseInt(studio_me_next_page) - 1;

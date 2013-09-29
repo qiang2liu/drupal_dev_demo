@@ -226,7 +226,9 @@ else {
         $avatarUris = explode('/', variable_get('user_picture_default', ''));
         $avatarUri = file_build_uri(array_pop($avatarUris));
       }
-      $login_div = theme('image_style', array('path' => $avatarUri, 'style_name' => 'thumbnail', 'width' => '150', 'height' => '162'));
+      // Add edgemakers_profile_avatar style in image style config.
+      $login_div = theme('image_style', array('path' => $avatarUri, 'style_name' => 'edgemakers_profile_avatar'));
+      $login_div = '<div class="user-profile-avatar"><div class="avatar-picture">' . $login_div . '</div></div>';
       print $login_div;
       ?>
     </div>
@@ -258,9 +260,9 @@ if ($ignore_mural_bye != 1 && isset($_SESSION['need_logout_muraleditor']) && $_S
 }
 ?>
 
-  
-  
-<?php 
+
+
+<?php
 if(user_is_logged_in()) {
   if (isset($_SESSION['userchangepass']) && $_SESSION['userchangepass'] == 1) {
     unset($_SESSION['userchangepass']);

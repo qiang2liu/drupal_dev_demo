@@ -122,7 +122,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => -45,
+    'weight' => 9,
   );
   // Exported menu link: management:admin/appearance
   $menu_links['management:admin/appearance'] = array(
@@ -140,7 +140,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -46,
+    'weight' => -6,
     'parent_path' => 'admin',
   );
   // Exported menu link: management:admin/config
@@ -159,7 +159,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => -43,
+    'weight' => 0,
     'parent_path' => 'admin',
   );
   // Exported menu link: management:admin/config/administration
@@ -1052,26 +1052,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => -48,
-    'parent_path' => 'admin/config/system',
-  );
-  // Exported menu link: management:admin/config/system/backup_migrate
-  $menu_links['management:admin/config/system/backup_migrate'] = array(
-    'menu_name' => 'management',
-    'link_path' => 'admin/config/system/backup_migrate',
-    'router_path' => 'admin/config/system/backup_migrate',
-    'link_title' => 'Backup and Migrate',
-    'options' => array(
-      'attributes' => array(
-        'title' => 'Backup/restore your database or migrate data to or from another Drupal site.',
-      ),
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => -47,
+    'weight' => 0,
     'parent_path' => 'admin/config/system',
   );
   // Exported menu link: management:admin/config/system/cron
@@ -1090,7 +1071,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -41,
+    'weight' => 20,
     'parent_path' => 'admin/config/system',
   );
   // Exported menu link: management:admin/config/system/db_maintenance
@@ -1109,7 +1090,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -46,
+    'weight' => 0,
     'parent_path' => 'admin/config/system',
   );
   // Exported menu link: management:admin/config/system/ftesettings
@@ -1128,7 +1109,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => -45,
+    'weight' => 0,
     'parent_path' => 'admin/config/system',
   );
   // Exported menu link: management:admin/config/system/ftesettings/edgemakers
@@ -1204,7 +1185,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -44,
+    'weight' => 0,
     'parent_path' => 'admin/config/system',
   );
   // Exported menu link: management:admin/config/system/mimemail
@@ -1223,7 +1204,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -43,
+    'weight' => 0,
     'parent_path' => 'admin/config/system',
   );
   // Exported menu link: management:admin/config/system/site-information
@@ -1242,7 +1223,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -50,
+    'weight' => -20,
     'parent_path' => 'admin/config/system',
   );
   // Exported menu link: management:admin/config/system/smtp
@@ -1261,7 +1242,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -42,
+    'weight' => 0,
     'parent_path' => 'admin/config/system',
   );
   // Exported menu link: management:admin/config/user-interface
@@ -1394,7 +1375,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => -48,
+    'weight' => -10,
     'parent_path' => 'admin',
   );
   // Exported menu link: management:admin/content/comment
@@ -1447,7 +1428,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => -50,
+    'weight' => 0,
   );
   // Exported menu link: management:admin/edgemakers/bgimages
   $menu_links['management:admin/edgemakers/bgimages'] = array(
@@ -1540,7 +1521,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -41,
+    'weight' => 9,
     'parent_path' => 'admin',
   );
   // Exported menu link: management:admin/modules
@@ -1559,7 +1540,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -44,
+    'weight' => -2,
     'parent_path' => 'admin',
   );
   // Exported menu link: management:admin/people
@@ -1597,7 +1578,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => -42,
+    'weight' => 5,
     'parent_path' => 'admin',
   );
   // Exported menu link: management:admin/reports/access-denied
@@ -1711,7 +1692,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -50,
+    'weight' => -60,
     'parent_path' => 'admin/reports',
   );
   // Exported menu link: management:admin/reports/updates
@@ -1768,7 +1749,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => -47,
+    'weight' => -8,
     'parent_path' => 'admin',
   );
   // Exported menu link: management:admin/structure/block
@@ -1787,7 +1768,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => -49,
+    'weight' => 0,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/structure/features
@@ -1806,7 +1787,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -46,
+    'weight' => 0,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/structure/flags
@@ -1825,7 +1806,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -45,
+    'weight' => 0,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/structure/mediafront
@@ -1844,7 +1825,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => -44,
+    'weight' => 0,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/structure/menu
@@ -1863,7 +1844,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => -43,
+    'weight' => 0,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/structure/oauth2-servers
@@ -1882,7 +1863,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => -42,
+    'weight' => 0,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/structure/rate
@@ -1901,7 +1882,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -41,
+    'weight' => 0,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/structure/services
@@ -1920,7 +1901,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -40,
+    'weight' => 0,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/structure/taxonomy
@@ -1939,7 +1920,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => -39,
+    'weight' => 0,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/structure/taxonomy/challenges_vocabulary
@@ -1977,7 +1958,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => -48,
+    'weight' => 0,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/structure/views
@@ -1996,7 +1977,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 1,
     'expanded' => 0,
-    'weight' => -38,
+    'weight' => 0,
     'parent_path' => 'admin/structure',
   );
   // Exported menu link: management:admin/workbench
@@ -2015,7 +1996,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'external' => 0,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => -49,
+    'weight' => -20,
     'parent_path' => 'admin',
   );
   // Exported menu link: management:node/add/webform
@@ -2026,7 +2007,7 @@ function edgemakers_features_other_menu_default_menu_links() {
     'link_title' => 'Create Survey & Assessment',
     'options' => array(
       'attributes' => array(
-        'title' => 'create survey & assessment',
+        'title' => '',
       ),
     ),
     'module' => 'menu',
@@ -2639,7 +2620,6 @@ function edgemakers_features_other_menu_default_menu_links() {
   t('Assignments');
   t('Available updates');
   t('Background Image');
-  t('Backup and Migrate');
   t('Basic page');
   t('Better Messages settings');
   t('Blocks');

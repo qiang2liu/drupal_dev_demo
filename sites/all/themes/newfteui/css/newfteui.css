@@ -1033,7 +1033,23 @@ div.ctools-modal-content .form-item .description{
    height:54px;
    width:54px;
    line-height: 54px;
+   text-align: center;
 }
+.user-profile-avatar {
+  display:table;
+  width: 54px;
+  height: 54px;
+}
+.user-profile-avatar .avatar-picture {
+  display:table-cell; 
+  vertical-align:middle; 
+  text-align:center;
+}
+
+.user-profile-avatar .avatar-picture img {
+  display: block;
+}
+
 .user-profile-inner-url img,
 .user-profile-inner img{
 	max-width:100%;

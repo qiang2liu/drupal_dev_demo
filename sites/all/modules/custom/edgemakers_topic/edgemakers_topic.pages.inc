@@ -117,16 +117,19 @@ function edgemakers_get_map_data() {
         $city_field = field_get_items('node', $node, 'field_city');
 		  // dpm($city_field);
         if (is_array($city_field) && isset($city_field[0]['lid'])) {
-          $marker_array[$city_field[0]['city']]['latitude'] = $city_field[0]['latitude'];
-          $marker_array[$city_field[0]['city']]['longitude'] = $city_field[0]['longitude'];
-          $marker_array[$city_field[0]['city']]['title'] = $node->title;
-          $marker_array[$city_field[0]['city']]['cityname'] = $city_field[0]['city'];
-          if (isset($marker_array[$city_field[0]['city']]['totalc'])) {
-            $marker_array[$city_field[0]['city']]['content'].= make_content_output($node);
-            $marker_array[$city_field[0]['city']]['totalc'] = (int) $marker_array[$city_field[0]['city']]['totalc'] + 1;
+
+          $city_name = strtolower(str_replace(' ' , '', $city_field[0]['city']));
+
+          $marker_array[$city_name]['latitude'] = $city_field[0]['latitude'];
+          $marker_array[$city_name]['longitude'] = $city_field[0]['longitude'];
+          $marker_array[$city_name]['title'] = $node->title;
+          $marker_array[$city_name]['cityname'] = $city_field[0]['city'];
+          if (isset($marker_array[$city_name]['totalc'])) {
+            $marker_array[$city_name]['content'].= make_content_output($node);
+            $marker_array[$city_name]['totalc'] = (int) $marker_array[$city_name]['totalc'] + 1;
           } else {
-            $marker_array[$city_field[0]['city']]['content'] = make_content_output($node);
-            $marker_array[$city_field[0]['city']]['totalc'] = 1;
+            $marker_array[$city_name]['content'] = make_content_output($node);
+            $marker_array[$city_name]['totalc'] = 1;
           }
         }
       }
@@ -139,7 +142,6 @@ function edgemakers_get_map_data() {
        */
 //      dpm($marker_array);
       foreach ($marker_array AS $the_key => $marker) {
-
         $marker_array[$the_key]['content'] = '<div class= "cityname"> ' . $marker['cityname'] . ' </div><ul class="infowindowlist">' . $marker['content'] . '</ul>';
       }
       $i = 1;
@@ -424,7 +426,7 @@ function make_content_output($node) {
   $name = $node->name;
   $source = 'mural/' . $node->nid;
   if (user_is_logged_in()) {
-    $clickfunction = "alert('show mural from parent window.');parent.showMuralDialog('" . $source . "');parent.jQuery('#mural-back-to-dashboard').show();";
+    $clickfunction = "parent.showMuralDialog('" . $source . "');parent.jQuery('#mural-back-to-dashboard').attr('style', 'display: inline;');parent.jQuery('#mural-back-to-dashboard').show();parent.jQuery('#refresh-mural').val(0);parent.nofresh = 0;";
   }
   else {
    $clickfunction = 'parent.showLogin()';
