@@ -391,6 +391,8 @@ function edgemakers_stage_managebox_form_submit($form, &$form_state) {
     $node->{$key}[$node->language][0]['value'] = $value;
   }
 
+  watchdog('Debug', 'Stage add set info: <pre>' . print_r($node, TRUE) . '</pre>');
+
   $submit_status = node_submit($node);
   $save_status = node_save($node);
 
