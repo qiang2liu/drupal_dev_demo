@@ -1105,7 +1105,7 @@ function edgemakers_media_list_on_studio($pager = 0) {
       }
 
       $html .= '<span class="mediathumb '. $video_class . $node->title . ' ">
-                <img src="' . $node_thumb . '"/>
+                <img src="' . $media_thumb . '"/>
               </span>';
 
       $edit_url = l(t('<span class =""></span>'), 'node/' . $node->nid,
