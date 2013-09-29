@@ -124,6 +124,7 @@ function fteuser_user_register_submit($form, &$form_state) {
   $pass = $form_state['values']['pass'];  //password user input
   form_state_values_clean($form_state);
   $form_state['values']['pass'] = $pass;
+  
   $form_state['values']['init'] = $form_state['values']['mail'];
   $account = $form['#user'];
   //$form_state['values']['pass']
@@ -141,6 +142,7 @@ function fteuser_user_register_submit($form, &$form_state) {
       }
     }
   }
+  
   $account = user_save($account, $edit);
 
   // Terminate if an error occurred during user_save().
@@ -156,7 +158,12 @@ function fteuser_user_register_submit($form, &$form_state) {
 
   // Add plain text password into user account to generate mail tokens.
   $account->password = $pass;
-
+  
+  $the_table = 'fteuserpass';
+  $the_rec = new stdClass();
+  $the_rec->uid = $account->uid;
+  $the_rec->plainpass = $account->password;
+  drupal_write_record($the_table, $the_rec);
 
   $message = t('A validation e-mail has been sent to your e-mail address. In order to gain full access to the site, you will need to follow the instructions in that message.');
   $mailkey = 'register_no_approval_required';
@@ -260,7 +267,15 @@ function fteuser_set_mural_user($mural_api, $account) {
   $the_org_str = variable_get('muralapi_org', 'edgemakers');
   $mural_user['source'] = $the_org_str;
   $mural_user['nameIdentifier'] = $account->uid;
-
+  if (empty($account->fteuserplainpass)) {
+     $account_uid = $account->uid;
+            $account->fteuserplainpass = db_query("SELECT plainpass FROM {fteuserpass} WHERE uid = :uid", 
+              array(':uid' => $account_uid))->fetchField();
+      
+  } 
+  $mural_user['password'] = $account->fteuserplainpass;
+  
+  
   $mural_api_result = $mural_api->create_user($mural_user, '/api/organizations/' . $the_org_str . '/users', 'POST');
 
   if (is_object($mural_api_result) && isset($mural_api_result->data)) {
@@ -300,5 +315,33 @@ function fteuser_set_mural_user($mural_api, $account) {
 
       }
     }
+  }
+}
+
+
+function fteuser_field_attach_submit($entity_type, $entity, $form, &$form_state) {
+  if ($entity_type == 'user') {
+   
+    $the_uid = '';
+    $the_plainpass = '';
+    if (isset($entity->uid) && $entity->uid >= 1 ) {
+     
+      $the_uid = $entity->uid;
+    }
+    if (!empty($entity->pass)) {
+      $the_plainpass = $entity->pass;
+    }
+    
+    if ((int)$the_uid >= 1 && $the_plainpass != '') {
+      $the_table = 'fteuserpass';
+      
+       db_merge($the_table)
+      ->key(array('uid' => $the_uid,))
+      ->fields(array(
+          'plainpass' => $the_plainpass,
+      ))
+      ->execute();
+    }
+    
   }
 }
