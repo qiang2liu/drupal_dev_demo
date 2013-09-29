@@ -102,15 +102,12 @@ function studio_media_list_ajax_load(pager) {
     dataType: 'html',
     type : 'GET',
     success : function(data){
-    	
-    	
-    	
+
       if (data.length === 0) {
         if (pager <= 0) {
           jQuery("#studio-media-list").html(studioMuralEmptyMsg);
           
         }
-         
      
 //        alert("not enough content to turning page");
       }

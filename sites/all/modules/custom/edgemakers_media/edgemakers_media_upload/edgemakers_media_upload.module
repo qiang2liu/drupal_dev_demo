@@ -1090,7 +1090,21 @@ function edgemakers_media_list_on_studio($pager = 0) {
                   <p class="' . strtolower($media_type_name) . '">' . $media_type_name . '</p>
                 </div>';
 
-      $html .= '<span class="mediathumb ' . $node->title . ' ">
+      if (
+        (strpos($node_thumb, 'img.youtube.com') !== false) OR
+        (strpos($node_thumb, 'iconAudioDefault') !== false) OR
+        (strpos($node_thumb, 'iconDocsDefault') !== false )
+      ) {
+        $video_class = ' video ';
+        $media_thumb = theme('image', array('path' => $node_thumb));
+      }
+      else {
+        // edgemakers_studio_gallery_list should "Scale and crop 156x106"
+        // $media_thumb = theme('image_style', array('path' => $node_thumb, 'style_name' => 'edgemakers_studio_gallery_list'));
+        $media_thumb = theme('image', array('path' => $node_thumb));
+      }
+
+      $html .= '<span class="mediathumb '. $video_class . $node->title . ' ">
                 <img src="' . $node_thumb . '"/>
               </span>';
 
