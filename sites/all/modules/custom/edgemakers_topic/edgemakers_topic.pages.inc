@@ -113,17 +113,20 @@ function edgemakers_get_map_data() {
     $marker_array = array();
     if (is_array($nodes)) {
       foreach ($nodes as $node) {
-
+        
         $city_field = field_get_items('node', $node, 'field_city');
+        
 		  // dpm($city_field);
         if (is_array($city_field) && isset($city_field[0]['lid'])) {
 
           $city_name = strtolower(str_replace(' ' , '', $city_field[0]['city']));
-
+          if (empty($city_name)) {
+            $city_name = strtolower(str_replace(' ' , '', $city_field[0]['country']));
+          }
           $marker_array[$city_name]['latitude'] = $city_field[0]['latitude'];
           $marker_array[$city_name]['longitude'] = $city_field[0]['longitude'];
           $marker_array[$city_name]['title'] = $node->title;
-          $marker_array[$city_name]['cityname'] = $city_field[0]['city'];
+          $marker_array[$city_name]['cityname'] = !empty($city_field[0]['city']) ? $city_field[0]['city'] : $city_field[0]['country'];
           if (isset($marker_array[$city_name]['totalc'])) {
             $marker_array[$city_name]['content'].= make_content_output($node);
             $marker_array[$city_name]['totalc'] = (int) $marker_array[$city_name]['totalc'] + 1;
