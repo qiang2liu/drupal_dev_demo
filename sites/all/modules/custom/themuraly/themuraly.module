@@ -656,8 +656,19 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 //         	'#attributes' => array('autocomplete' => 'on'),
 //         );
 
-      array_unshift($form['#validate'], '_themuralyajax_validate');
-      array_unshift($form['#submit'], '_themuralyajax_submit');
+//       array_unshift($form['#validate'], '_themuralyajax_validate');
+//       array_unshift($form['#submit'], '_themuralyajax_submit');
+
+      foreach ($form['#validate'] AS $key=>$val) {
+        if ($val == 'node_form_validate') {
+          unset($form['#validate'][$key]);
+        }
+      }
+
+      $form['#validate'][] = '_node_harck_validate';
+      $form['#validate'][] = '_themuralyajax_validate';
+
+      watchdog('Debug', 'Form validate: <pre>' . print_r($form['#validate'], TRUE) . '</pre>');
 
       $hash = md5(microtime());
       $form['#attached']['js'] = array(
@@ -838,10 +849,54 @@ function _update_user_share_with_me($account = array(), $nid = '') {
   }
 }
 
+function _node_harck_validate($form, &$form_state) {
+
+  $node = (object) $form_state['values'];
+//   node_validate($node, $form, $form_state);
+
+//   $node = $form_state['node'];
+
+//   if (isset($node->nid) && (node_last_changed($node->nid) > $node->changed)) {
+//     form_set_error('changed', t('The content on this page has either been modified by another user, or you have already submitted modifications using this form. As a result, your changes cannot be saved.'));
+//   }
+
+  // Validate the "authored by" field.
+  if (!empty($node->name) && !($account = user_load_by_name($node->name))) {
+    // The use of empty() is mandatory in the context of usernames
+    // as the empty string denotes the anonymous user. In case we
+    // are dealing with an anonymous user we set the user ID to 0.
+    form_set_error('name', t('The username %name does not exist.', array('%name' => $node->name)));
+  }
+
+  // Validate the "authored on" field.
+  if (!empty($node->date) && strtotime($node->date) === FALSE) {
+    form_set_error('date', t('You have to specify a valid date.'));
+  }
+
+  // Invoke hook_validate() for node type specific validation and
+  // hook_node_validate() for miscellaneous validation needed by modules. Can't
+  // use node_invoke() or module_invoke_all(), because $form_state must be
+  // receivable by reference.
+  $function = node_type_get_base($node) . '_validate';
+  if (function_exists($function)) {
+    $function($node, $form, $form_state);
+  }
+  foreach (module_implements('node_validate') as $module) {
+    $function = $module . '_node_validate';
+    $function($node, $form, $form_state);
+  }
+
+  entity_form_field_validate('node', $form, $form_state);
+
+}
+
 function _themuralyajax_validate($form, &$form_state) {
 
   global $user;
+
   form_load_include($form_state, 'inc', 'node', 'node.pages');
+
+  watchdog('Debug', 'Node info: <pre>' . print_r($form_state['node'], TRUE) . '</pre>, Last changed: ' . date('Y-m-d H:i:s', $form_state['node']->changed));
 
   $lang = $form_state['values']['language'];
 
