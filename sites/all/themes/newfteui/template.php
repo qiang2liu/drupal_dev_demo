@@ -9,7 +9,7 @@ function newfteui_preprocess_node(&$vars) {
     $terms = _edgemakers_set_get_terms();
     $types = field_get_items('node', $node, 'field_set_type');
     $type = $types && count($types) > 0 ? $terms[$types[0]['tid']] : '';
-
+// print "Set Type: " . $type;
     if($type == 'Inspiration' || $type == 'Showcase' || $type == 'Video')
       $type = 'video';
     else if($type == 'Video with Comments')
@@ -18,7 +18,13 @@ function newfteui_preprocess_node(&$vars) {
       $type = 'videoqa';
     else if($type == 'Survey & Assessment')
       $type = 'survey';
-    if($type == 'Image' || $type == 'Text' || $type == 'video' || $type == 'Mural' || $type == 'videocomments' || $type == 'videoqa' || $type == 'survey' || $type == 'Document') {
+    else if($type == 'Topic Page')
+      $type = 'topic';
+
+    $set_types = array('Image', 'Text', 'video', 'Mural', 'videocomments', 'videoqa', 'survey', 'Document', 'topic');
+
+//     if($type == 'Image' || $type == 'Text' || $type == 'video' || $type == 'Mural' || $type == 'videocomments' || $type == 'videoqa' || $type == 'survey' || $type == 'Document') {
+    if (in_array($type, $set_types)) {
       $vars['display_submitted'] = false;
       $vars['theme_hook_suggestions'][] = 'node__edgemakers_set__'.strtolower($type);
     }
