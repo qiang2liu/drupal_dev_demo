@@ -149,7 +149,6 @@ function download_file_direct_download($fid) {
   }
 
   if (count($headers)) {
-    watchdog('Debug Downloadfile', '$headers in download_file_direct_download<pre>' . print_r($headers, TRUE) . '</pre>');
     file_transfer($file->uri, $headers);
   }
 }
