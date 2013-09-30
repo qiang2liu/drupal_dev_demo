@@ -395,9 +395,9 @@ function make_content_output($node) {
   $title = $node->title;
 
   $x = field_get_items('node', $node, 'body');
+  $y = $x[0];
 
-
-  $desc = render(field_view_value('node', $node, 'body', $x[0]));
+  $desc = render(field_view_value('node', $node, 'body', $y));
 
   $result = field_view_field('node', $node, 'field_tags', array('default'));
   $arrItems = '';
