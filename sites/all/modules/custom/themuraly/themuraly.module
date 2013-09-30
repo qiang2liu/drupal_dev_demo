@@ -840,7 +840,16 @@ function _update_user_share_with_me($account = array(), $nid = '') {
 
 function _themuralyajax_validate($form, &$form_state) {
 
+  $form_state['node']->changed = time();
+
   global $user;
+
+  watchdog('Debug', 'Node info: <pre>' . print_r($form_state['node'], TRUE) . '</pre>, Last changed: ' . date('Y-m-d H:i:s', $form_state['node']->changed));
+
+//   if (isset($node->nid) && (node_last_changed($node->nid) > $node->changed)) {
+//     form_set_error('changed', t('The content on this page has either been modified by another user, or you have already submitted modifications using this form. As a result, your changes cannot be saved.'));
+//   }
+
   form_load_include($form_state, 'inc', 'node', 'node.pages');
 
   $lang = $form_state['values']['language'];
