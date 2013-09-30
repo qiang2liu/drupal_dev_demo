@@ -352,3 +352,31 @@ function edgemakers_stage_node_delete($node) {
   }
 
 }
+
+/**
+ * Sort array by value key.
+ *
+ * @link http://stackoverflow.com/questions/2699086/
+ *   - sort-multidimensional-array-by-value-2
+ *
+ * @param array $array
+ *   - array data.
+ *
+ * @param array $key
+ *   - array data.
+ */
+function aasort(&$array, $key) {
+  $sorter = array();
+  $ret = array();
+  reset($array);
+  foreach ($array as $ii => $va) {
+    $sorter[$ii] = $va[$key];
+  }
+  asort($sorter);
+  $i = 0;
+  foreach ($sorter as $ii => $va) {
+    $ret[$i] = $array[$ii];
+    $i++;
+  }
+  $array = $ret;
+}
