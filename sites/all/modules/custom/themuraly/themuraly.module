@@ -665,8 +665,8 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
         }
       }
 
-      $form['#validate'][] = '_themuralyajax_validate';
       $form['#validate'][] = '_node_harck_validate';
+      $form['#validate'][] = '_themuralyajax_validate';
 
       watchdog('Debug', 'Form validate: <pre>' . print_r($form['#validate'], TRUE) . '</pre>');
 
