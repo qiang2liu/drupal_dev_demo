@@ -95,7 +95,7 @@ function setMuralWidth(){
   	jQuery("#mural-iframe").attr("height", jQuery(window).height()-85 + 'px');
   	jQuery('#mural-back-to-dashboard').css('top','34px');
   }else{
-  	 jQuery("#mural-iframe").attr("height", jQuery(window).height()-56 + 'px');
+  	 jQuery("#mural-iframe").attr("height", jQuery(window).height() + 'px');
   }
   jQuery("#mural-region").css("height", jQuery(window).height() + 'px');
   
@@ -111,6 +111,8 @@ function showMuralDialog(source) {
   source = source + "#" + seconds;
   
   jQuery("#mural-set-nav").hide();
+  
+  jQuery("#mural-back-to-dashboard").unbind("click");
   
   jQuery("#mural-back-to-dashboard").bind("click", function(){
     closeFromIframe();
