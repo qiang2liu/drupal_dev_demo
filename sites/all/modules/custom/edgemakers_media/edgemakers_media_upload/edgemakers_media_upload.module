@@ -1036,6 +1036,7 @@ function edgemakers_media_list_on_studio($pager = 0) {
   global $user;
   $limit = 8;
   $start = $pager * $limit;
+  $video_class = '';
 
   $html = '';
 
