@@ -206,8 +206,9 @@ function edgemakers_stage_api_set_view_html($set_id = '') {
         return drupal_render(node_view($node, 'full')) . $note;
 
       case 'topic page':
-        $html = '<div id="buildingSet"><h3>This is a topic set, will be developed later</h3></div>';
-        return $html;
+        return drupal_render(node_view($node, 'full')) . $note;
+//         $html = '<div id="buildingSet"><h3>This is a topic set, will be developed later</h3></div>';
+//         return $html;
 
       case 'mural':
         $img = array(
@@ -318,32 +319,4 @@ function _get_youtube_video_info($id) {
   $data = json_decode($result->data);
 
   return $data;
-}
-
-/**
- * Sort array by value key.
- *
- * @link http://stackoverflow.com/questions/2699086/
- *   - sort-multidimensional-array-by-value-2
- *
- * @param array $array
- *   - array data.
- *
- * @param array $key
- *   - array data.
- */
-function aasort(&$array, $key) {
-  $sorter = array();
-  $ret = array();
-  reset($array);
-  foreach ($array as $ii => $va) {
-    $sorter[$ii] = $va[$key];
-  }
-  asort($sorter);
-  $i = 0;
-  foreach ($sorter as $ii => $va) {
-    $ret[$i] = $array[$ii];
-    $i++;
-  }
-  $array = $ret;
 }

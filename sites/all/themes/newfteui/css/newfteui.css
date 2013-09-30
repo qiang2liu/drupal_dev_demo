@@ -1192,6 +1192,11 @@ div.ctools-modal-content .form-item .description{
 #stage-set-list li .set-cover p.document{
 	background-image:url(../images/icon_set_doc_24.png);
 }
+
+#stage-set-list li .set-cover p.topic_page {
+  background-image:url(../images/icon_set_topic_24.png);
+}
+
 #stage-set-list li span.set-numbering{
 	position:absolute;
 	display:block;
@@ -1310,6 +1315,12 @@ div.ctools-modal-content .form-item .description{
 	background-position: 20px 10px;
 	padding-left: 70px;
 	line-height: 40px;
+}
+#topic-image-icon{
+  background: url(../images/icon_set_topic.png) no-repeat;
+  background-position: 20px 10px;
+  padding-left: 60px;
+  line-height: 40px;
 }
 #Image-image-icon{
 	background: url(../images/icon_set_image.png) no-repeat;
@@ -1454,4 +1465,20 @@ div.ctools-modal-content .form-item .description{
 .topic-gmap {
   width: 560px;
   height: 400px;
+}
+
+.topic-read-more {
+  position: absolute;
+  bottom: 32px;
+  right: 100px;
+}
+.topic-read-more a:hover,
+.topic-read-more a 
+{
+  color: white;
+  text-decoration: none;
+}
+
+.topic-content p {
+  word-break: break-all;
 }

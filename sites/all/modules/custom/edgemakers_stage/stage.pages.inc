@@ -342,6 +342,7 @@ function edgemakers_stage_managebox_form_submit($form, &$form_state) {
   if (isset($node->box_index_data[LANGUAGE_NONE])) {
 
     $node_box_index_data = unserialize($node->box_index_data[LANGUAGE_NONE][0]['value']);
+//     include_once(drupal_get_path('module', 'edgemakers_stage') . '/stage.api.inc');
     aasort($node_box_index_data, 'location_index');
 
     $i = -10;
@@ -390,6 +391,8 @@ function edgemakers_stage_managebox_form_submit($form, &$form_state) {
     }
     $node->{$key}[$node->language][0]['value'] = $value;
   }
+
+  watchdog('Debug', 'Stage add set info: <pre>' . print_r($node, TRUE) . '</pre>');
 
   $submit_status = node_submit($node);
   $save_status = node_save($node);
