@@ -1366,7 +1366,7 @@ function edgemakers_features_other_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'honeypot_form_user_pass';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['honeypot_form_user_pass'] = $strongarm;
 
   $strongarm = new stdClass();
