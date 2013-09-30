@@ -190,6 +190,10 @@ function studio_mural_ajax_page_load(type, pager) {
     pager = 0;
   }
   
+  if (typeof(pager) === 'NaN') {
+    pager = 0;
+  }
+  
   var replaceElement;
   
   switch (type) {
@@ -205,7 +209,7 @@ function studio_mural_ajax_page_load(type, pager) {
   }
   
   jQuery.ajax({
-    url: "mural/studio/get/list/ajax/" + type + "/" + pager,
+    url: "?q=mural/studio/get/list/ajax/" + type + "/" + pager,
     dataType: 'html',
     type : 'GET',
     success : function(data){
