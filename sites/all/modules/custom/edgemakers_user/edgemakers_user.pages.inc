@@ -164,6 +164,7 @@ function _edgemakers_user_editform_validate($form, &$form_state) {
 }
 
 function edgemakers_user_profile_settings_form_submit($form, &$form_state) {
+
   $account = $form_state['user'];
   $category = $form['#user_category'];
   // Remove unneeded values.
@@ -241,13 +242,13 @@ function edgemakers_user_profile_settings_form_submit($form, &$form_state) {
   if ($category == 'account' && !empty($edit['pass'])) {
     $the_table = 'fteuserpass';
     /*
-    db_merge($the_table)
+      db_merge($the_table)
       ->key(array('uid' => $account->uid,))
       ->fields(array(
-          'plainpass' => $edit['pass'],
+      'plainpass' => $edit['pass'],
       ))
       ->execute();
-    */
+     */
     if (!empty($account->field_muralusername)) {
       $fieldinfo = field_get_items('user', $account, 'field_muralusername');
       if ($fieldinfo) {
@@ -262,6 +263,28 @@ function edgemakers_user_profile_settings_form_submit($form, &$form_state) {
   }
   // Clear the page cache because pages can contain usernames and/or profile information:
   cache_clear_all();
+  $account = user_load($account->uid);
+
+  if (!empty($account->field_muralusername)) {
+    $fieldinfo = field_get_items('user', $account, 'field_muralusername');
+    if ($fieldinfo) {
+      $the_mural_user_name = $fieldinfo[0]['value'];
+
+      $mural_api = new Muralapi;
+      $profile_info = array();
+      $fid = $account->field_profile_picture[LANGUAGE_NONE][0]['fid'];
+      if ($fid) {
+        $picture = file_load($fid);
+        if (isset($picture->uri)) {
+          $profile_info['thumbUrl'] = rawurlencode(file_create_url($picture->uri));
+        }
+      }
+      $profile_info['name'] = $account->field_firstname[LANGUAGE_NONE][0]['value'];
+      $profile_info['surname'] = $account->field_lastname[LANGUAGE_NONE][0]['value'];
+
+      $result = $mural_api->mural_profile_change($the_mural_user_name, $profile_info);
+    }
+  }
 }
 
 function edgemakers_user_validate_name($type, $name) {
