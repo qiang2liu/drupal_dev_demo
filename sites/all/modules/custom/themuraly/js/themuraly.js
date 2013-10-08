@@ -93,7 +93,7 @@ function setMuralWidth(){
   jQuery("#mural-iframe").attr("width", jQuery(window).width() + 'px');
   if(jQuery('#mural-region').attr('data-user') === '1'){
   	
-  	jQuery("#mural-iframe").attr("height", jQuery(window).height()-29 + 'px');
+  	//jQuery("#mural-iframe").attr("height", jQuery(window).height()-29 + 'px');
   	jQuery('#mural-back-to-dashboard').css('top','34px');
   }else{
   	 jQuery("#mural-iframe").attr("height", jQuery(window).height() + 'px');
