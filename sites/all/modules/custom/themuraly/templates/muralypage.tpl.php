@@ -152,13 +152,21 @@ body {
 $hash = md5(microtime());
 ?>
 <div id="mural-iframe-content">
-  <iframe id="mural-ly-iframe" frameborder='0' src='<?php print $mural_url . $the_m_id . '#' . $hash;?>' width=100% height=600'></iframe>
+  <iframe id="mural-ly-iframe" frameborder='0' src='<?php print $mural_url . $the_m_id . '#' . $hash;?>' width=100% '></iframe>
 </div>
 <script>
   //jQuery("#mural-ly-iframe").attr("src", source);
   function lyszie(){
   	jQuery("#mural-ly-iframe").attr("width", jQuery(window).width());
-  	jQuery("#mural-ly-iframe").attr("height", jQuery(window).height()-36);
+  	
+  	/*if(jQuery(window).parent().find('#mural-region').attr('data-user') === '1'){
+  		jQuery("#mural-ly-iframe").attr("height", jQuery(window).height()-65);
+  		console.log('admin-bar')
+  	}else{
+  		jQuery("#mural-ly-iframe").attr("height", jQuery(window).height()-36);
+  		console.log('no-admin-bar')
+  	}*/
+  	
 
   }
   lyszie();
