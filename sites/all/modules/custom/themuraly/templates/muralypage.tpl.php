@@ -159,7 +159,7 @@ $hash = md5(microtime());
   function lyszie(){
   	jQuery("#mural-ly-iframe").attr("width", jQuery(window).width());
   	console.log('loading');
-  	if(jQuery('#mural-region').attr('data-user') === '1'){
+  	if(jQuery(window).parent().find('#mural-region').attr('data-user') === '1'){
   		jQuery("#mural-ly-iframe").attr("height", jQuery(window).height()-65);
   		console.log('admin-bar')
   	}else{
