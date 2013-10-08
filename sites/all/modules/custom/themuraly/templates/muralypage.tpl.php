@@ -152,7 +152,7 @@ body {
 $hash = md5(microtime());
 ?>
 <div id="mural-iframe-content">
-  <iframe id="mural-ly-iframe" frameborder='0' src='<?php print $mural_url . $the_m_id . '#' . $hash;?>' width=100% height=600'></iframe>
+  <iframe id="mural-ly-iframe" frameborder='0' src='<?php print $mural_url . $the_m_id . '#' . $hash;?>' width=100% '></iframe>
 </div>
 <script>
   //jQuery("#mural-ly-iframe").attr("src", source);
