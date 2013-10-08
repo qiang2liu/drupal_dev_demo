@@ -17,19 +17,25 @@ jQuery(document).ready(function(){
     return false;
   });
   
-  mural_ajax_load_list();
   
-  studio_mural_ajax_load_list();
+  if (jQuery("#my-mural-list").length !== 0) {
+    mural_ajax_load_list();
+  }
   
-  gallery_mural_ajax_load_list();
+  if (jQuery("#studio-panes-mural-list").length !== 0) {
+    studio_mural_ajax_load_list();
+  }
   
-  jQuery("#gallery-search").bind("click", function(){search_gallery();});
-  
-  jQuery("#gallery-keyword").keyup(function(event){
-    if(event.keyCode == 13){
-      search_gallery();
-    }
-  });
+  if (jQuery("#gallery-panes-mural-list").length !== 0) {
+    gallery_mural_ajax_load_list();
+    jQuery("#gallery-search").bind("click", function(){search_gallery();});
+    
+    jQuery("#gallery-keyword").keyup(function(event){
+      if(event.keyCode == 13){
+        search_gallery();
+      }
+    });
+  }
   
   openDefaultMural();
   
@@ -40,25 +46,20 @@ jQuery(document).ready(function(){
 function openDefaultMural() {
   var url = document.URL;
   var muralUrl = document.URL.split('#')[1];
-  //if (param.length !== 0) {
+
   if (typeof(muralUrl) !== "undefined") {
-    //alert("Mural url: " + muralUrl);
-//    alert("Open default mural length:" + muralUrl.length);
+
     if (muralUrl.substring(0, 6) == "mural/") {
       jQuery("#mural-back-to-dashboard").show();
       showMuralDialog(muralUrl);
       jQuery("#mural-title").focus();
     }
-//    jQuery('body').css({
-//      'height': 'auto',
-//      'overflow-y': 'auto'
-//    });
+
   }
 }
 
 function closeFromIframe()
 {
-  
   //  jQuery("#mural-iframe").empty();
   jQuery("#mural-back-to-dashboard").hide();
   jQuery("#mural-iframe").attr("src", "");
@@ -92,7 +93,7 @@ function setMuralWidth(){
   
   jQuery("#mural-iframe").attr("width", jQuery(window).width() + 'px');
   if(jQuery('#mural-region').attr('data-user') === '1'){
-  	jQuery("#mural-iframe").attr("height", jQuery(window).height()-85 + 'px');
+  	jQuery("#mural-iframe").attr("height", jQuery(window).height() + 85 + 'px');
   	jQuery('#mural-back-to-dashboard').css('top','34px');
   }else{
   	 jQuery("#mural-iframe").attr("height", jQuery(window).height() + 'px');
@@ -190,7 +191,7 @@ function studio_mural_ajax_page_load(type, pager) {
     pager = 0;
   }
   
-  if (typeof(pager) === 'NaN') {
+  if (isNaN(pager)) {
     pager = 0;
   }
   
@@ -209,7 +210,7 @@ function studio_mural_ajax_page_load(type, pager) {
   }
   
   jQuery.ajax({
-    url: "?q=mural/studio/get/list/ajax/" + type + "/" + pager,
+    url: "?q=/mural/studio/get/list/ajax/" + type + "/" + pager,
     dataType: 'html',
     type : 'GET',
     success : function(data){
@@ -347,7 +348,7 @@ function studio_mural_ajax_load_list() {
   var shareWithMeEmptyMsg = '<p class="empty-data">There are no ideas shared with you.</p>';
   
   jQuery.ajax({
-    url: "?q=mural/studio/get/list/ajax/my/0",
+    url: "?q=/mural/studio/get/list/ajax/my/0",
     dataType: 'html',
     type : 'GET',
     success : function(data){
@@ -381,7 +382,7 @@ function studio_mural_ajax_load_list() {
   });
   
   jQuery.ajax({
-    url: "?q=mural/studio/get/list/ajax/share/0",
+    url: "?q=/mural/studio/get/list/ajax/share/0",
     dataType: 'html',
     type : 'GET',
     success : function(data){

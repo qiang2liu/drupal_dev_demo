@@ -4,12 +4,21 @@
  */
 
 jQuery(document).ready(function(){
-  media_ajax_load_list();
-  studio_media_list_ajax_load();
-  gallery_media_list_ajax_load('media', 0);
+  
+  if (jQuery("#my-media-list").length !== 0) {
+    media_ajax_load_list();
+  }
+
+  if (jQuery("#studio-panes-mural-list").length !== 0) {
+    studio_media_list_ajax_load();
+  }
+  
+  if (jQuery("#gallery-panes-mural-list").length !== 0) {
+    gallery_media_list_ajax_load('media', 0);
+  }
   //gallery_media_list_ajax_load('video', 0);
   //gallery_media_list_ajax_load('image', 0);
-  //Drupal.behaviors.mediaListAjaxload();
+
 });
 
 
