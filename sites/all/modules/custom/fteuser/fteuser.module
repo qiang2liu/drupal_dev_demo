@@ -158,7 +158,7 @@ function fteuser_user_register_submit($form, &$form_state) {
 
   // Add plain text password into user account to generate mail tokens.
   $account->password = $pass;
-  
+  $account->fteuserplainpass = $pass;
   $the_table = 'fteuserpass';
   $the_rec = new stdClass();
   $the_rec->uid = $account->uid;
@@ -170,6 +170,11 @@ function fteuser_user_register_submit($form, &$form_state) {
   _user_mail_notify($mailkey, $account);
   drupal_set_message($message);
   $form_state['redirect'] = 'home';
+  
+  $mural_api = new Muralapi;
+  
+  fteuser_set_mural_user($mural_api, $account); //fte-501, create mural user at registeration
+  
 }
 
 function fteuser_menu_alter(&$items) {
