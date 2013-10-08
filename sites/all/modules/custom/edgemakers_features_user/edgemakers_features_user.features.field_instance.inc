@@ -307,7 +307,7 @@ function edgemakers_features_user_field_default_field_instances() {
       'active' => 1,
       'module' => 'image',
       'settings' => array(
-        'preview_image_style' => 'edgemakers_avatar',
+        'preview_image_style' => 'edgemakers_profile_avatar',
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
