@@ -1048,6 +1048,7 @@ div.ctools-modal-content .form-item .description{
 
 .user-profile-avatar .avatar-picture img {
   display: block;
+  margin: 0 auto;
 }
 
 .user-profile-inner-url img,
