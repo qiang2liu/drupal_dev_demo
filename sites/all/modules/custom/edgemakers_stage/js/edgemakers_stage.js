@@ -90,9 +90,6 @@
   //    var source = jQuery(this).attr("href");
         
         showMuralDialog(source);
-        jQuery("#mural-iframe").attr("height", jQuery(window).height()-56 + 'px');
-        jQuery('#mural-set-nav').css('padding-top','8px');
-        
         jQuery("#mural-back-to-dashboard").hide();
         jQuery("#mural-set-nav").show();
         resetDestinationNav(nid);
@@ -114,9 +111,6 @@
         var source = jQuery('[current="'+nid+'"] a').attr("href");
   //      alert("Mural opeaation on nav." + source);
         showMuralDialog(source);
-        jQuery("#mural-iframe").attr("height", jQuery(window).height()-56 + 'px');
-        jQuery('#mural-set-nav').css('padding-top','8px');
-        
         jQuery("#mural-back-to-dashboard").hide();
         jQuery("#mural-set-nav").show();
         resetDestinationNav(nid);
@@ -330,10 +324,6 @@ function showSetOnDestion(nid, stage_id, setType) {
 //    alert('Mural operation.' + source);
 //    var source = jQuery(this).attr("href");
     showMuralDialog(source);
-    
-    jQuery("#mural-iframe").attr("height", jQuery(window).height()-56 + 'px');
-    jQuery('#mural-set-nav').css('padding-top','8px');
-    
     jQuery("#mural-back-to-dashboard").hide();
     jQuery("#mural-set-nav").show();
 

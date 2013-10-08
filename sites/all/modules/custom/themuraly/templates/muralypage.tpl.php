@@ -158,7 +158,15 @@ $hash = md5(microtime());
   //jQuery("#mural-ly-iframe").attr("src", source);
   function lyszie(){
   	jQuery("#mural-ly-iframe").attr("width", jQuery(window).width());
-  	jQuery("#mural-ly-iframe").attr("height", jQuery(window).height()-36);
+  	console.log(window.parent.getElementById('mural-region'));
+  	if(jQuery(window).parent().find('#mural-region').attr('data-user') === '1'){
+  		jQuery("#mural-ly-iframe").attr("height", jQuery(window).height()-65);
+  		console.log('admin-bar')
+  	}else{
+  		jQuery("#mural-ly-iframe").attr("height", jQuery(window).height()-36);
+  		console.log('no-admin-bar')
+  	}
+  	
 
   }
   lyszie();
