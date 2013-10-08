@@ -169,10 +169,10 @@ $hash = md5(microtime());
   	jQuery("#mural-ly-iframe").attr("width", jQuery(window).width());
   	//console.log(jQuery(window).parent().attr('id'));
   	if(1 == <?php print $the_admin; ?>){
-  		jQuery("#mural-ly-iframe").attr("height", jQuery(window).height()-29);
+  		jQuery("#mural-ly-iframe").attr("height", jQuery(window).height()-65);
   		console.log('admin-bar')
   	}else{
-  		jQuery("#mural-ly-iframe").attr("height", jQuery(window).height());
+  		jQuery("#mural-ly-iframe").attr("height", jQuery(window).height()-36);
   		console.log('no-admin-bar')
   	}
 
