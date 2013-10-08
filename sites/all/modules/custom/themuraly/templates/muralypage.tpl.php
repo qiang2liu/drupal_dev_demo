@@ -30,6 +30,15 @@ $share_url = 'http://mural.ly/!/#/' . $data['node']->field_muraluser['und'][0]['
 
 // Popup dialog.
 drupal_add_library('system', 'ui.dialog');
+
+$the_role_array = $user->roles;
+if ($user->uid == 1 ||  in_array('site admin', $the_role_array)) {
+	$the_admin = 1;
+}
+else {
+	$the_admin = 0;
+}
+
 ?>
 
 <script>
@@ -158,15 +167,15 @@ $hash = md5(microtime());
   //jQuery("#mural-ly-iframe").attr("src", source);
   function lyszie(){
   	jQuery("#mural-ly-iframe").attr("width", jQuery(window).width());
-  	console.log(jQuery(window).parent().attr('id'));
-  	/*if(jQuery(window).parent().find('#mural-region').attr('data-user') === '1'){
+  	//console.log(jQuery(window).parent().attr('id'));
+  	if(1 == <?php print $the_admin; ?>){
   		jQuery("#mural-ly-iframe").attr("height", jQuery(window).height()-65);
   		console.log('admin-bar')
   	}else{
   		jQuery("#mural-ly-iframe").attr("height", jQuery(window).height()-36);
   		console.log('no-admin-bar')
-  	}*/
-  	
+  	}
+
 
   }
   lyszie();
