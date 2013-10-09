@@ -1,8 +1,10 @@
 <?php
 $topicColor = '#3dbec0';
-$topicColors = $content['field_topic_color']['#items'];
-if(isset($topicColors) && count($topicColors)>0) {
-  $topicColor = $topicColors[0]['rgb'];
+if(isset($content['field_topic_color'])) {
+  $topicColors = $content['field_topic_color']['#items'];
+  if(isset($topicColors) && count($topicColors)>0) {
+    $topicColor = $topicColors[0]['rgb'];
+  }
 }
 function youtube_parser($url) {
 	preg_match("#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#", $url, $matches);
@@ -11,17 +13,21 @@ function youtube_parser($url) {
 	return false;
 }
 $videoIds = array();
-$videos = $content['field_topic_videos']['#items'];
-if(isset($videos) && count($videos)>0) {
-  foreach($videos as $video) {
-    $videoIds[] = youtube_parser($video['url']);
+if(isset($content['field_topic_videos'])) {
+  $videos = $content['field_topic_videos']['#items'];
+  if(isset($videos) && count($videos)>0) {
+    foreach($videos as $video) {
+      $videoIds[] = youtube_parser($video['url']);
+    }
   }
 }
 $images = array();
-$oimages = $content['field_topic_images']['#items'];
-if(isset($oimages) && count($oimages)>0) {
-  foreach($oimages as $image) {
-    $images[] = theme('image_style', array('style_name' => 'edgemakers_topic_image', 'path' => $image['uri']));
+if(isset($content['field_topic_images'])) {
+  $oimages = $content['field_topic_images']['#items'];
+  if(isset($oimages) && count($oimages)>0) {
+    foreach($oimages as $image) {
+      $images[] = theme('image_style', array('style_name' => 'edgemakers_topic_image', 'path' => $image['uri']));
+    }
   }
 }
 ?>
