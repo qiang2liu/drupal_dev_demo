@@ -52,7 +52,8 @@ class Muralapi {
 
     return $ret;
   }
-  public function get_all_murals($username,$the_para = array() ) {
+
+  public function get_all_murals($username, $the_para = array()) {
     $the_auth_string = $this->get_auth_string($username, '/api/murals', 'GET');
     $apiurl = $this->muralapi_base_url . '/api/murals';
 
@@ -63,7 +64,7 @@ class Muralapi {
       'User-Agent' => $this->user_agent,
     );
 
-  //  $options['data'] = 'Qty=2';
+    //  $options['data'] = 'Qty=2';
     $options['method'] = 'GET';
 
 
@@ -98,6 +99,7 @@ class Muralapi {
     $ret = drupal_http_request($apiurl, $options);
     return $ret;
   }
+
   public function create_room($username, $title) {
     $apistr = "/api/rooms";
     $apiurl = $this->muralapi_base_url . $apistr;
@@ -117,11 +119,38 @@ class Muralapi {
 
     $ret = drupal_http_request($apiurl, $options);
     return $ret;
-
-
   }
+
+  public function mural_profile_change($username, $profile_info) {
+    $params['name'] = isset($profile_info['name']) ? $profile_info['name'] : '';
+    $params['surname'] = isset($profile_info['surname']) ? $profile_info['surname'] : '';
+    $params['thumbUrl'] = isset($profile_info['thumbUrl']) ? $profile_info['thumbUrl'] : '';
+    $data = drupal_json_encode($params);
+    $apistr = "/api/profile";
+    $apiurl = $this->muralapi_base_url . $apistr;
+    $the_auth_string = $this->get_auth_string($username, $apistr, 'POST');
+    $options = array();
+    $options['headers'] = array('x-mural-ly-user' => $username,
+      'x-mural-ly-context' => $this->the_org,
+      'Authorization' => "MURALLY " . $username . ":" . $the_auth_string,
+      'User-Agent' => $this->user_agent,
+      'Content-Type' => "application/json",
+    );
+
+
+    $options['method'] = 'POST';
+    $options['data'] = $data;
+
+
+
+
+
+    $ret = drupal_http_request($apiurl, $options);
+    return $ret;
+  }
+
   public function change_password($username, $new_password) {
-   // $params['ownerId'] = $this->the_org;
+    // $params['ownerId'] = $this->the_org;
     $params['password'] = $new_password;
     $data = drupal_json_encode($params);
     $apistr = "/api/profile/password";
@@ -146,6 +175,7 @@ class Muralapi {
     $ret = drupal_http_request($apiurl, $options);
     return $ret;
   }
+
   public function create_mural($username, $params) {
     /*
       $ret = array();
@@ -187,7 +217,7 @@ class Muralapi {
     //$user_data = drupal_http_build_query($user);
     $user_data = drupal_json_encode($user);
     $theuser = $this->the_org;
-    
+
     $the_auth_string = $this->get_auth_string($theuser, $theurl, $themethod);
 
     $apiurl = $this->muralapi_base_url . $theurl;
@@ -246,7 +276,6 @@ class Muralapi {
       'x-mural-ly-context' => $this->the_org,
       'Authorization' => "MURALLY " . $username . ":" . $the_auth_string,
       'User-Agent' => $this->user_agent,
-
     );
     $options['method'] = $the_method;
 
@@ -282,7 +311,8 @@ class Muralapi {
     $ret = drupal_http_request($theurl, $options);
     return $ret;
   }
-  public function invite_user_mural($username, $muralid, $muraluserids = array(),$muraluseremails = array()) {
+
+  public function invite_user_mural($username, $muralid, $muraluserids = array(), $muraluseremails = array()) {
     $params = array();
     $params['members'] = $muraluserids;
     $params['pendings'] = $muraluseremails;
@@ -304,7 +334,6 @@ class Muralapi {
     $ret = drupal_http_request($apiurl, $options);
     return $ret;
   }
-
 
 }
 

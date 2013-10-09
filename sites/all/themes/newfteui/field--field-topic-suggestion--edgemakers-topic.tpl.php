@@ -18,7 +18,7 @@ if ($node = menu_get_object()) {
   else {
     $mural_link = 'modal_forms/nojs/login';
   	$link_class = array('ctools-use-modal',  'ctools-modal-modal-popup-profilesetting');
-  	$create_mural_url = l('<div class="studio-handler pane-handler"></div>', $mural_link , array(
+  	$create_mural_url = l(t(''), $mural_link , array(
     		'attributes' => array(
     			'class' => $link_class,
     		),

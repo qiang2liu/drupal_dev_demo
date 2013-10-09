@@ -1536,7 +1536,8 @@ function muralapi_test() {
 //   themuraly_studio_mural_list_json('gallery', 1, 'Copy of');
 //  themuraly_topic_mural_list(539);
 //   _test_mural_list_for_a_user();
-  _test_user_add();
+ // _test_user_add();
+ _test_change_profile();
   //_test_change_password();
   //_test_create_room();
 //   _test_mural_create_mural();
@@ -1555,7 +1556,15 @@ function muralapi_test() {
 
   return $output_html;
 }
-
+function _test_change_profile() {
+  $username = 'zzxxcc001';
+  $profile['name'] = 'fg';
+  $profile['surname'] = 'ii';
+  $profile['thumbUrl'] = rawurlencode('http://tp4.sinaimg.cn/1189615035/180/5675994286/1');
+  $mural_api = new Muralapi;
+  $result = $mural_api->mural_profile_change($username, $profile);
+  dpm($result);
+}
 function _test_change_password() {
   $username = 'cldf6668';
   $newpass = '12345';
@@ -1736,14 +1745,13 @@ function themuraly_init() {
 
 function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keyword = '', $sortby = '') {
 
-  $args = arg();
-
   global $user;
   $uid = 0;
-  $clean_node = array();
-  $html = '';
+
   $limit = 5;
   $start = $page * $limit;
+
+  $html = '';
 
   if ($type == 'my') {
     $uid = $user->uid;
@@ -1773,7 +1781,6 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
       $vocab_name = $vocab_keys[0];
     }
 
-//     $query->join('node', 'n', 'n.nid = i.sid');
   }
 
   if ($keyword) {
@@ -1792,10 +1799,9 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
       'value' => '1',
       'operator' => '=',
     );
-//     $query->{$query_condition_field}($con['field'], $con['column'], $con['value'], $con['operator']);
-//     $conditions[] = array(
-//         'field_archived','value', '1', '=');
+
     $murals_list = themuraly_mural_list($uid, $start, $limit, $conditions, $orderby);
+
   }
 
   if (count($murals_list) <= 0) {
@@ -1842,9 +1848,9 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
         'class' => array('studio-mural-list-item-link'),
         'nid' => $node->nid,
         'title' => $node->title,
+        'onClick' => 'showMuralDialog("mural/' . $node->nid . '");return false;',
       ),
-            )
-    );
+    ));
 
     $html .= $view_url;
 
@@ -1982,8 +1988,9 @@ function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
 //             'class' => array('ctools-use-modal',  'ctools-modal-modal-popup-small'),
             'id' => 'media-node-' . $node->nid,
             'title' => $node->title,
+            'onClick' => 'showMuralDialog("mural/' . $node->nid . '");return false;',
           ),
-                ));
+        ));
 
         $html .= $view_url;
 
@@ -1993,10 +2000,9 @@ function themuraly_studio_mural_list_html($type = 'ideas', $page = '0') {
 
         $html .= '</li>';
 
-//       $myideas_list[$node_muralid]['node'] = $node;
       }
     }
-else {
+  else {
       if ($page == 0) {
         return '';
       }
@@ -2016,7 +2022,6 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
     $sortby[0]['name'] = 'nid';
     $sortby[0]['direction'] = 'DESC';
   }
-
 
   if ($conditions) {
 
@@ -2051,56 +2056,14 @@ function themuraly_mural_list($uid = '', $start = 0, $limit = 5, $conditions = a
     $query->propertyOrderBy($sort['name'], ($sort['direction']) ? $sort['direction'] : 'DESC');
   }
 
-  // Debug
-//   print('<pre>' . print_r($query, TRUE) . '</pre>');
-//   drupal_set_message("Where the message.");
-//   dpm($query);
-  // End Debug
-  // Maybe todo sort by each condition.
-//   if ($sortby) {
-//     switch (strtolower($sortby)) {
-//       case 'alphabetical':
-//         $query->propertyOrderBy('title', 'ASC');
-//         break;
-//       case 'date':
-//         $query->propertyOrderBy('created', 'DESC');
-//         break;
-//       case 'location':
-//         // @link https://drupal.org/node/1214150
-//         $subquery = db_select('location');
-//         $subquery->addField('location', 'lid');
-//         $subquery->condition('location.city', $city);
-//         // Add location field custom that must disable Nodes Location module.
-//         // @link https://drupal.org/node/906968#comment-3823512
-//         $query->fieldCondition('field_city', 'lid', $subquery, 'IN');
-//         break;
-//       case 'tags':
-//         break;
-//     }
-//     $query->propertyOrderBy($sortby, 'DESC');
-//   }
-//   else {
-//     $query->propertyOrderBy('created', 'DESC');
-//   }
-
-
   $result = $query->execute();
-
-  // Debug.
-//   print('Result: <pre>' . print_r($result, TRUE) . '</pre>');
-//   dpm($result);
-  // End Debug.
 
   if (!empty($result['node'])) {
     $my_mural_nodes = node_load_multiple(array_keys($result['node']), '', TRUE);
   }
-//   else {
-//     if ($start == 0) {
-//       print_r(t('No ideas added.'));
-//     }
-//   }
 
   return $my_mural_nodes;
+
 }
 
 /**
@@ -2122,17 +2085,37 @@ function themuraly_mural_list_html($limit = 5) {
 
     $my_mural_nodes = themuraly_mural_list($user->uid);
 
+    $count = count($my_mural_nodes);
     $i = 0;
-    foreach ($my_mural_nodes as $node) {
+
+    foreach (array_values($my_mural_nodes) as $key => $node) {
+
+      // Get prev/next.
+      if (($key - 1) < 0) {
+        $prev = $my_mural_nodes[$count - 1]->nid;
+      }
+      else {
+        $prev = $my_mural_nodes[$key - 1]->nid;
+      }
+
+      if (($key + 1) > ($count - 1)) {
+        $next = $my_mural_nodes[0]->nid;
+      }
+      else {
+        $next = $my_mural_nodes[$key + 1]->nid;
+      }
 
       if ($i < $limit) {
         $mural_item['items'][$i]['data'] = l($node->title, 'mural/' . $node->nid, array(
           'attributes' => array(
             'id' => 'media-node-' . $node->nid,
             'title' => $node->title,
+            'onClick' => 'showMuralDialog("mural/' . $node->nid . '");return false;',
+            'prev' => $prev,
+            'next' => $next,
+            'current' => $node->nid,
           )
-                )
-        );
+        ));
         $mural_item['items'][$i]['class'][] = 'mural-item';
         $i++;
       }
