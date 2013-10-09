@@ -241,7 +241,15 @@ else {
     echo l($login_div, 'user/login', array(
       'html' => TRUE,
       'attributes' => array(
+        'class' => array('user-login-link'),
         'style' => 'display: block;',
+      )
+            )
+    );
+    echo l('Registration', 'user/register', array(
+      'attributes' => array(
+        'class' => array('user-registration-link'),
+        'style' => 'display: none;',
       )
             )
     );
@@ -279,13 +287,21 @@ if(user_is_logged_in()) {
   if(isset($_SERVER['HTTP_REFERER']) && isset($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_REFERER'] != '') {
     $parts = parse_url($_SERVER['HTTP_REFERER']);
     if($parts && isset($parts['host']) && $parts['host'] != $_SERVER['HTTP_HOST']) {
+      if(isset($_GET['registration'])) {
 ?>
       <script>
       jQuery(document).ready(function(){
-        jQuery(".user-profile a.ctools-use-modal").trigger("click");
+        jQuery(".user-profile a.user-registration-link").trigger("click");
       });
       </script>
-    <?php
+      <?php } else { ?>
+      <script>
+      jQuery(document).ready(function(){
+        jQuery(".user-profile a.user-login-link").trigger("click");
+      });
+      </script>
+      <?php
+      }
     }
   }
 }
