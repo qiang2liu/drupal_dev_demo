@@ -657,7 +657,7 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
 //         );
 
 //       array_unshift($form['#validate'], '_themuralyajax_validate');
-//       array_unshift($form['#submit'], '_themuralyajax_submit');
+      array_unshift($form['#submit'], '_themuralyajax_submit');
 
       foreach ($form['#validate'] AS $key=>$val) {
         if ($val == 'node_form_validate') {
@@ -1417,6 +1417,8 @@ function _themuralyajax_submit($form, &$form_state) {
 
   $lang = $form_state['values']['language'];
 
+  watchdog('Debug', 'Form state info:<pre>' . print_r($form_state, TRUE) . '</pre>');
+
   form_load_include($form_state, 'inc', 'node', 'node.pages');
 
   if (form_get_errors()) {
@@ -1435,7 +1437,7 @@ function _themuralyajax_submit($form, &$form_state) {
       $topic_nid = _get_topic_nid_by_tid($lang, $form_state['values']['field_challenges_category'][$lang]['0']['tid']);
       $save_node->field_topic_mural[$lang]['0']['target_id'] = ($topic_nid) ? $topic_nid : '';
     }
-//     watchdog('Debug', $lang . ' | topic nid: ' . $topic_nid .' | Get category: <pre>' . print_r($form_state['values'], TRUE) . '</pre>');
+    watchdog('Debug', $lang . ' | topic nid: ' . $topic_nid .' | Get category: <pre>' . print_r($form_state['values'], TRUE) . '</pre>');
 //     form_set_error('field_challenges_category', t('Update topic by category.'));
   }
 
