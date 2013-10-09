@@ -163,8 +163,13 @@ function fteuser_user_register_submit($form, &$form_state) {
   $the_rec = new stdClass();
   $the_rec->uid = $account->uid;
   $the_rec->plainpass = $account->password;
-  drupal_write_record($the_table, $the_rec);
-
+ // drupal_write_record($the_table, $the_rec);
+  db_merge($the_table)
+      ->key(array('uid' => $the_rec->uid,))
+      ->fields(array(
+          'plainpass' => $the_rec->plainpass,
+      ))
+      ->execute();
   $message = t('A validation e-mail has been sent to your e-mail address. In order to gain full access to the site, you will need to follow the instructions in that message.');
   $mailkey = 'register_no_approval_required';
   _user_mail_notify($mailkey, $account);
