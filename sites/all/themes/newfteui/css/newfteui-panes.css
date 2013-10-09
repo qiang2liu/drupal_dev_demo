@@ -321,6 +321,14 @@ h2.item-studio{
 	float:left;
 	background:url(../images/newui_ico_topic_info_6.png) no-repeat;
 }
+.field-name-field-topic-suggestion .su-right a{
+	display:block;
+	height:100%;
+}
+div.modal-forms-modal-content.profilesetting .setting-title{
+	padding:0;
+	background:none;
+}
 .field-name-field-topic-org-resources .su-right{
 	width:191px;
 	height:205px;
