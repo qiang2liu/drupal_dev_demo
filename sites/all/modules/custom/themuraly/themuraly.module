@@ -1536,7 +1536,8 @@ function muralapi_test() {
 //   themuraly_studio_mural_list_json('gallery', 1, 'Copy of');
 //  themuraly_topic_mural_list(539);
 //   _test_mural_list_for_a_user();
-  _test_user_add();
+ // _test_user_add();
+ _test_change_profile();
   //_test_change_password();
   //_test_create_room();
 //   _test_mural_create_mural();
@@ -1555,7 +1556,15 @@ function muralapi_test() {
 
   return $output_html;
 }
-
+function _test_change_profile() {
+  $username = 'zzxxcc001';
+  $profile['name'] = 'fg';
+  $profile['surname'] = 'ii';
+  $profile['thumbUrl'] = rawurlencode('http://tp4.sinaimg.cn/1189615035/180/5675994286/1');
+  $mural_api = new Muralapi;
+  $result = $mural_api->mural_profile_change($username, $profile);
+  dpm($result);
+}
 function _test_change_password() {
   $username = 'cldf6668';
   $newpass = '12345';

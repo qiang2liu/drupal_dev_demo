@@ -20,8 +20,10 @@ function modal_forms_login($js = NULL) {
     'ajax' => TRUE,
   );
 
-  $output = ctools_modal_form_wrapper('user_login', $form_state);
-  if (!empty($form_state['executed'])) {
+  if(!user_is_logged_in()) {
+    $output = ctools_modal_form_wrapper('user_login', $form_state);
+  }
+  if (!empty($form_state['executed']) || user_is_logged_in()) {
     // We'll just overwrite the form output if it was successful.
     $output = array();
     ctools_add_js('ajax-responder');

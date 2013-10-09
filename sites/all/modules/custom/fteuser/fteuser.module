@@ -317,6 +317,20 @@ function fteuser_set_mural_user($mural_api, $account) {
 
 
         user_save($account, $edit);
+        
+        $profile_info = array();
+        $fid = $account->field_profile_picture[LANGUAGE_NONE][0]['fid'];
+        if ($fid) {
+          $picture = file_load($fid);
+          if (isset($picture->uri)) {
+            $profile_info['thumbUrl'] = rawurlencode(file_create_url($picture->uri));
+          }
+          
+        }
+        $profile_info['name'] = $account->field_firstname[LANGUAGE_NONE][0]['value'];
+        $profile_info['surname'] = $account->field_lastname[LANGUAGE_NONE][0]['value'];
+        //dd($profile_info);
+        $mural_api->mural_profile_change($the_mural_username, $profile_info);
 
       }
     }
