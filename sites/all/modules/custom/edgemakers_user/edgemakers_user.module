@@ -123,3 +123,10 @@ function edgemakers_user_entity_presave($account, $type) {
     $account->picture = $account->picture->fid;
   }
 }
+
+function get_user_avatar($account) {
+  if(!isset($account->field_profile_picture)) return;
+  $fid = $account->field_profile_picture[LANGUAGE_NONE][0]['fid'];
+  $picture = file_load($fid);
+  return $picture;
+}

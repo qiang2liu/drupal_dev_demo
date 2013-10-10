@@ -220,12 +220,18 @@ else {
   <?php if (user_is_logged_in()): ?>
     <div class="user-profile-inner">
       <?php
-      dd($user);
+      
       if($user->picture) {
         $avatarUri = $user->picture->uri;
       } else {
+        $picture = get_user_avatar($user);
+        if (isset($picture->uri)) {
+          $avatarUri = $picture->uri;
+        } else 
+        {
         $avatarUris = explode('/', variable_get('user_picture_default', ''));
         $avatarUri = file_build_uri(array_pop($avatarUris));
+        }
       }
       // Add edgemakers_profile_avatar style in image style config.
       $login_div = theme('image_style', array('path' => $avatarUri, 'style_name' => 'edgemakers_profile_avatar'));
