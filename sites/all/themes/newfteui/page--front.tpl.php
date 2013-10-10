@@ -220,6 +220,7 @@ else {
   <?php if (user_is_logged_in()): ?>
     <div class="user-profile-inner">
       <?php
+      dd($user);
       if($user->picture) {
         $avatarUri = $user->picture->uri;
       } else {
