@@ -128,5 +128,8 @@ function get_user_avatar($account) {
   if(!isset($account->field_profile_picture)) return;
   $fid = $account->field_profile_picture[LANGUAGE_NONE][0]['fid'];
   $picture = file_load($fid);
+  if (!($account->picture)) {
+    user_save($account,array('picture'=>$picture));
+  }
   return $picture;
 }

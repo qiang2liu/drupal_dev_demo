@@ -9,11 +9,17 @@ function edgemakers_user_profile_view($account) {
     return false;
 
   //userpic, username, school, class generation  
-  if ($account->picture) {
+  if ($account->picture && 1==0) {
+    
     $avatarUri = $account->picture->uri;
   } else {
+    $picture = get_user_avatar($user);
+        if (isset($picture->uri)) {
+          $avatarUri = $picture->uri;
+        } else {
     $avatarUris = explode('/', variable_get('user_picture_default', ''));
     $avatarUri = file_build_uri(array_pop($avatarUris));
+        }
   }
   if (isset($avatarUri) && file_exists($avatarUri))
     $userpic = '<div class="userpic">' . theme('image_style', array('style_name' => 'edgemakers_avatar', 'path' => $avatarUri)) . '</div>';
