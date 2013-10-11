@@ -1444,7 +1444,9 @@ div.ctools-modal-content .form-item .description{
     min-height: 20px;
     padding: 18px 0 18px 50px;
 }
-
+.image-widget-data a{
+	word-break: break-all;
+}
 /* Admin menu fixes */
 #admin-menu-wrapper ul:after {
 	content: none;
