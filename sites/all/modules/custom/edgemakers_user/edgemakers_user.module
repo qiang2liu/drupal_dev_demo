@@ -47,7 +47,8 @@ function edgemakers_user_form_alter(&$form, &$form_state, $form_id) {
       $form['modal_forms_login_settings']['modal_forms_login_links']['#options'][3] = t('Show links above and open them in a modal');
       break;
     case 'user_register_form':
-      //if (arg(0) == 'modal_forms') {
+      global $user;
+      if (!$user->uid) {
         unset($form['account']['name']['#description'], $form['account']['mail']['#description'], $form['account']['pass']['#description'], $form['field_profile_picture'][LANGUAGE_NONE][0]['#description'], $form['field_firstname'][LANGUAGE_NONE][0]['value']['#description'], $form['field_lastname'][LANGUAGE_NONE][0]['value']['#description']);
         $form['account']['name']['#attributes']['placeholder'] = t('USER NAME');
         $form['account']['mail']['#attributes']['placeholder'] = t('EMAIL');
@@ -61,7 +62,7 @@ function edgemakers_user_form_alter(&$form, &$form_state, $form_id) {
         $process[] = 'edgemakers_user_process_password_confirm';
         $form['account']['pass']['#process'] = $process;
         $form['#validate'][] = '_edgemakers_user_register_form_validate';
-      //}
+      }
       break;
     case 'user_login':
       if (arg(0) == 'modal_forms') {
