@@ -1468,16 +1468,22 @@ div.ctools-modal-content .form-item .description{
   height: 400px;
 }
 
-.topic-read-more {
-  position: absolute;
-  bottom: 32px;
-  right: 100px;
+.topic-read-more{
+  float: right;
+}
+.topic-read-more:after{
+	content:'';
+	display:block;
+	clear:both;
+	height:0;
+	visibility:hidden;
 }
 .topic-read-more a:hover,
 .topic-read-more a 
 {
   color: white;
-  text-decoration: none;
+  text-decoration: underline;
+  font-weight: bold;
 }
 
 .topic-content p {

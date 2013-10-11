@@ -26,6 +26,14 @@ if (isset($node->field_set_topic['und'])) {
 
   <span id="set-title"><?php print $title;?></span>
   <div class="topic-content content set-text-content clearfix"<?php print $content_attributes; ?>>
+    <span class="topic-read-more upper">
+      <?php
+      if (isset($node->field_set_topic['und'])) {
+        $nid = $node->field_set_topic['und']['0']['target_id'];
+        print l('Click here to see more', 'node/' . $nid, array('attributes' => array('target' => '_blank')));
+      }
+      ?>
+    </span>
     <?php
       // We hide the comments and links now so that we can render them later.
       hide($content['comments']);
@@ -34,16 +42,16 @@ if (isset($node->field_set_topic['und'])) {
       // Print "Did you know from topic";
 //       print render($content['field_teacher_notes']);
     ?>
+    <span class="topic-read-more lower">
+      <?php
+      if (isset($node->field_set_topic['und'])) {
+        $nid = $node->field_set_topic['und']['0']['target_id'];
+        print l('Click here to see more', 'node/' . $nid, array('attributes' => array('target' => '_blank')));
+      }
+      ?>
+    </span>
   </div>
 
-  <span class="topic-read-more">
-    <?php
-    if (isset($node->field_set_topic['und'])) {
-      $nid = $node->field_set_topic['und']['0']['target_id'];
-      print l('Read more', 'node/' . $nid, array('attributes' => array('target' => '_blank')));
-    }
-    ?>
-  </span>
   <div class="clearfix">
   </div>
 
