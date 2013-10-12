@@ -330,7 +330,7 @@ h1{
           <div class="images-controller-dots controller-dots">
 
           </div>
-          <a href="#x" class="next" <?php if(count($imageUrls) == 1) echo 'disabled="disabled"';?>>Next</a>
+          <a href="#x" class="next" <?php if(count($images) == 1) echo 'disabled="disabled"';?>>Next</a>
         </div>
       </div>
       <?php endif;?>
