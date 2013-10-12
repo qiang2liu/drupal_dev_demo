@@ -64,10 +64,10 @@ function fte_user_login_submit_handler($form, &$form_state) {
  * FORM_ID == user_register_form
  */
 function fteuser_form_user_register_form_alter(&$form, &$form_state, $form_id) {
-
+  //dd($form['administer_users'],'qqq');
   if (isset($form['administer_users']) && isset($form['administer_users']['#value'])
           && $form['administer_users']['#value'] == TRUE) {
-    return;
+   // return;  // create user by backend 
   }
 
   // Ensure a valid submit array and validate array.
@@ -170,11 +170,22 @@ function fteuser_user_register_submit($form, &$form_state) {
           'plainpass' => $the_rec->plainpass,
       ))
       ->execute();
-  $message = t('A validation e-mail has been sent to your e-mail address. In order to gain full access to the site, you will need to follow the instructions in that message.');
-  $mailkey = 'register_no_approval_required';
-  _user_mail_notify($mailkey, $account);
-  drupal_set_message($message);
-  $form_state['redirect'] = 'home';
+  
+  
+  if (isset($form['administer_users']) && isset($form['administer_users']['#value'])
+          && $form['administer_users']['#value'] == TRUE) {
+    drupal_set_message('user created.');
+  } 
+  else {
+    $message = t('A validation e-mail has been sent to your e-mail address. In order to gain full access to the site, you will need to follow the instructions in that message.');
+    $mailkey = 'register_no_approval_required';
+    _user_mail_notify($mailkey, $account);
+    drupal_set_message($message);
+    $form_state['redirect'] = 'home';
+  }
+  
+ 
+
   
   $mural_api = new Muralapi;
   
@@ -287,7 +298,7 @@ function fteuser_set_mural_user($mural_api, $account) {
   
   
   $mural_api_result = $mural_api->create_user($mural_user, '/api/organizations/' . $the_org_str . '/users', 'POST');
-
+  //dd($mural_api_result);
   if (is_object($mural_api_result) && isset($mural_api_result->data)) {
     $muralapi_response_obj = drupal_json_decode($mural_api_result->data);
 
