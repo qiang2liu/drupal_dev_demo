@@ -56,19 +56,21 @@ function edgemakers_topic_carousel_items() {
     $topicid = $topics && count($topics) > 0 ? $topics[0]['target_id'] : '';
     if($topicid) {
       $topic = node_load($topicid);
-      $title = $topic->title;
-      $descriptions = field_get_items('node', $topic, 'field_topic_problem');
-      $description = $descriptions && count($descriptions) ? $descriptions[0]['value'] : '';
-      $description = text_summary($description, NULL, 185);
-      $imageuris = field_get_items('node', $topic, 'field_topic_images');
-      $imageuri = $imageuris && count($imageuris) ? $imageuris[0]['uri'] : '';
-      if($imageuri) {
-        $renderable_array[] = array(
-          'topicid' => $topicid,
-          'title' => $title,
-          'description' => $description,
-          'imageurl' => file_create_url($imageuri),
-        );
+      if($topic) {
+        $title = $topic->title;
+        $descriptions = field_get_items('node', $topic, 'field_topic_problem');
+        $description = $descriptions && count($descriptions) ? $descriptions[0]['value'] : '';
+        $description = text_summary($description, NULL, 185);
+        $imageuris = field_get_items('node', $topic, 'field_topic_images');
+        $imageuri = $imageuris && count($imageuris) ? $imageuris[0]['uri'] : '';
+        if($imageuri) {
+          $renderable_array[] = array(
+            'topicid' => $topicid,
+            'title' => $title,
+            'description' => $description,
+            'imageurl' => file_create_url($imageuri),
+          );
+        }
       }
     }
   }
