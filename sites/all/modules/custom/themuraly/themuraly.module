@@ -2789,10 +2789,16 @@ function themuraly_studio_mural_get_nav($type = 'my', $nid = '', $nav = 'prev', 
   switch ($nav) {
     case 'prev':
       $operator = '>';
+      // Sort by Alphabetical on Date[nid].
+      $orderby[0]['name'] = 'nid';
+      $orderby[0]['direction'] = 'ASC';
       break;
 
     case 'next':
       $operator = '<';
+      // Sort by Alphabetical on Date[nid].
+      $orderby[0]['name'] = 'nid';
+      $orderby[0]['direction'] = 'DESC';
       break;
 
     default:
@@ -2809,7 +2815,7 @@ function themuraly_studio_mural_get_nav($type = 'my', $nid = '', $nav = 'prev', 
 
   switch ($type) {
     case 'my':
-      $nodes = themuraly_mural_list($user->uid, $start, $limit, $conditions);
+      $nodes = themuraly_mural_list($user->uid, $start, $limit, $conditions, $orderby);
       break;
 
     case 'share':
@@ -2825,8 +2831,14 @@ function themuraly_studio_mural_get_nav($type = 'my', $nid = '', $nav = 'prev', 
                 ->propertyCondition('nid', $nid, $operator)
                 ->propertyCondition('type', array('murals'))
                 ->propertyCondition('nid', $mural_share_with_me, 'IN')
-                ->propertyOrderBy('created', 'DESC')
                 ->range($start, $limit);
+
+        if ($nav == 'prev') {
+          $query->propertyOrderBy('nid', 'ASC');
+        }
+        else {
+          $query->propertyOrderBy('nid', 'DESC');
+        }
 
         $result = $query->execute();
 
@@ -2845,12 +2857,12 @@ function themuraly_studio_mural_get_nav($type = 'my', $nid = '', $nav = 'prev', 
       else {
         // Current sort by Alphabetical, Date, Tags
         // Sort by Alphabetical on title.
-        $orderby[0]['name'] = 'title';
-        $orderby[0]['direction'] = 'ASC';
+        $orderby[1]['name'] = 'title';
+        $orderby[1]['direction'] = 'ASC';
 
         // Sort by Alphabetical on Date[nid].
-        $orderby[1]['name'] = 'nid';
-        $orderby[1]['direction'] = 'DESC';
+        $orderby[2]['name'] = 'nid';
+        $orderby[2]['direction'] = 'DESC';
 
         $conditions['field'][] = array(
           'field' => 'field_share_to_gallery',
@@ -2872,7 +2884,7 @@ function themuraly_studio_mural_get_nav($type = 'my', $nid = '', $nav = 'prev', 
       break;
 
     default:
-      $nodes = themuraly_mural_list('', $start, $limit);
+      $nodes = themuraly_mural_list('', $start, $limit, $conditions, $orderby);
       break;
   }
 
