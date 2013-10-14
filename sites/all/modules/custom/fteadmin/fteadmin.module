@@ -6,19 +6,13 @@
 function fteadmin_menu() {
 
   $items['admin/config/system/ftesettings'] = array(
-      'title' => 'FTEsettings',
-      'description' => 'settings for FTE',
+      'title' => 'Edgemakers Settings',
+      'description' => 'Settings for Edgemakers',
       'page callback' => 'drupal_get_form',
       'page arguments' => array('fteadmin_admin_settings'),
       'access callback' => 'user_access',
       'access arguments' => array('administer site configuration'),
   );
-  $items['edgemakeradmin'] = array(
-      'page callback' => 'fteadmin_admin_page',
-      'access callback' => 'fteadmin_admin_access',
-      'type' => MENU_CALLBACK,
-  );
-
 
   return $items;
 }
@@ -73,96 +67,4 @@ function fteadmin_admin_settings() {
   );
 
   return system_settings_form($form);
-}
-
-function fteadmin_admin_access($account = NULL) {
-  global $user;
-
-  if (!isset($account)) {
-    $account = $user;
-  }
-
-  // User #1 has all privileges:
-  if ($account->uid == 1) {
-    return TRUE;
-  }
-
-  $roles_array = $account->roles;
-  $ret = in_array('site admin', $roles_array);
-  return $ret;
-}
-
-function fteadmin_admin_page() {
-  return '';
-}
-
-
-function fteadmin_form_alter(&$form, $form_state, $form_id) {
-
-
-  // $the_parent_ele = $form['field_parent'][$form['language']['#value']];
-
-
-  if ($form_id == 'node_delete_confirm') {
-    if ($form['#node']->type == 'educational_curriculum_theme') {
-      $nid = $form['#node']->nid;
-      $query = new EntityFieldQuery();
-      $query->entityCondition('entity_type', 'node', '=')
-              ->entityCondition('bundle', 'curriculum_modules', '=')
-              ->fieldCondition('field_parent', 'target_id', $nid, '=');
-      $result = $query->execute();
-      if (!empty($result)) {  //can't delete
-        unset($form['#submit']);
-        $form['description']['#markup'] = t('can\'t delete this theme, beacuse it is not empty.');
-        unset($form['actions']['submit']);
-
-        return confirm_form($form, t('can\'t delete this theme, beacuse it is not empty.'), isset($_GET['destination']) ? $_GET['destination'] : 'node/' . $node->nid, t('This action cannot be undone.')
-        );
-      }
-
-      $node = node_load($nid);
-      return confirm_form($form, t('Are you sure you want to delete %title?', array('%title' => $node->title)), isset($_GET['destination']) ? $_GET['destination'] : 'node/' . $node->nid, t('This action cannot be undone.'), t('Delete'), t('Cancel')
-      );
-    } else {
-
-      if ($form['#node']->type == 'curriculum_modules') {
-        $nid = $form['#node']->nid;
-        $stage_type_arr = array('stages_template1', 'stages_template2', 'stage_mural_template', 'stage_assignment_template');
-        $query = new EntityFieldQuery();
-        $query->entityCondition('entity_type', 'node', '=')
-                ->entityCondition('bundle', $stage_type_arr, 'IN')
-                ->fieldCondition('field_parent_m', 'target_id', $nid, '=');
-        $result = $query->execute();
-        if (!empty($result)) {  //can't delete
-          unset($form['#submit']);
-          $form['description']['#markup'] = t('can\'t delete this module, beacuse it is not empty.');
-          unset($form['actions']['submit']);
-
-          return confirm_form($form, t('can\'t delete this module, beacuse it is not empty.'), isset($_GET['destination']) ? $_GET['destination'] : 'node/' . $node->nid, t('This action cannot be undone.')
-          );
-        }
-
-        $node = node_load($nid);
-        return confirm_form($form, t('Are you sure you want to delete %title?', array('%title' => $node->title)), isset($_GET['destination']) ? $_GET['destination'] : 'node/' . $node->nid, t('This action cannot be undone.'), t('Delete'), t('Cancel')
-        );
-      }
-    }
-  } else {
-    if ($form_id == 'curriculum_modules_node_form') {
-      $theme_nid = intval(arg(3));
-      if ($theme_nid > 0) {
-        $form['field_parent'][$form['field_parent']['#language']]['#default_value'] = array($theme_nid);
-      }
-    } else {
-      $the_stage_types_formid = array('stages_template1_node_form', 'stages_template2_node_form',
-          'stage_mural_template_node_form', 'stage_assignment_template_node_form',
-      );
-      if (in_array($form_id, $the_stage_types_formid)) {
-        $module_nid = intval(arg(3));
-        if ($module_nid > 0) {
-          $form['field_parent_m'][$form['field_parent_m']['#language']]['#default_value'] = array($module_nid);
-        }
-      }
-    }
-  }
 }
