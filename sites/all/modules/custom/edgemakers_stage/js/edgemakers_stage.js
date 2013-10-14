@@ -64,6 +64,9 @@
       var stageNotes = jQuery("#stage-notes").html();
       teacherNotes(stageNotes);
       
+      // Clean audio/video.
+      jQuery("#stage-set-view").html("Empty");
+      
       jQuery("#set-view-region").slideToggle();
       jQuery("#stage-set-list").show();
       jQuery(".s-s-title h3").empty();

@@ -56,7 +56,7 @@ function media_ajax_load_list() {
       var title = jQuery(this).html();
       
       jQuery(this).bind('click', function(){
-        showMediaOnDestination(nid, title);
+        showMediaOnDestination(nid, title, 'studio');
         return false;
       });
 
@@ -66,9 +66,9 @@ function media_ajax_load_list() {
   });
 }
 
-function showMediaOnDestination(nid, title) {
+function showMediaOnDestination(nid, title, position) {
 
-  var ajaxUrl = '?q=edgemakers/media/info/ajax/' + nid;
+  var ajaxUrl = '?q=edgemakers/media/info/ajax/' + nid + '/' + position;
     
   jQuery.ajax({
     url: ajaxUrl,
@@ -129,7 +129,7 @@ function studio_media_list_ajax_load(pager) {
           var title = jQuery(this).html();
           jQuery(this).unbind("click");
           jQuery(this).bind("click", function(){
-            showMediaOnDestination(nid, title);
+            showMediaOnDestination(nid, title, 'studio');
             return false;
           });
         });
@@ -205,7 +205,7 @@ function gallery_media_list_ajax_load(type, pager) {
           var title = jQuery(this).html();
           jQuery(this).unbind("click");
           jQuery(this).bind("click", function(){
-            showMediaOnDestination(nid, title);
+            showMediaOnDestination(nid, title, 'gallery');
             return false;
           });
         });
@@ -313,3 +313,43 @@ Drupal.behaviors.autoUpload = {
     });
   }
 };
+
+
+function setStudioMediaNav(type, id, navOp) {
+  
+  console.log("Type= " + type +"|id = " + id + "|navOp=" +navOp);
+
+  jQuery("#media-studio-nav ." + navOp).unbind("click");
+
+  jQuery("#media-studio-nav ." + navOp).bind("click", function(){
+    var keyword = jQuery("#gallery-keyword").val();
+    jQuery.ajax({
+      url: "?q=/edgemakers/media/studio/get/nav/ajax/" + type + "/" + id + "/" + navOp + "/" + keyword,
+      dataType: 'json',
+      type : "GET",
+      success : function(data){
+        console.log(data);
+
+        if (data) {
+
+          // Clean.
+          var stageNotes = jQuery("#stage-notes").html();
+          teacherNotes(stageNotes);
+          jQuery(".s-s-title h3").empty();
+          
+          // Show media.
+          showMediaOnDestination(data[0].nid, data[0].title, type);
+          
+          // Reset nav.
+          setStudioMediaNav(type, data[0].nid, "prev");
+          setStudioMediaNav(type, data[0].nid, "next");
+        }
+        else {
+          //alert("Not media");
+          console.log("Not media");
+        }
+      }
+    });
+  });
+  
+}

@@ -146,3 +146,44 @@ div.form-item-field-tags-und {
 #gallery-media-list .empty-data {
   line-height: 228px;  
 }
+
+/* Nav style*/
+.show-nav {
+  padding: 10px 20px;
+}
+
+.show-nav span {
+  cursor: pointer;
+  color: white;
+  display:inline-block;
+  height:30px;
+  line-height: 30px;
+}
+
+.show-nav span.prev
+{
+  padding: 0 14px 0 30px;
+  background:url(../images/ico_left.png) 10px center no-repeat;
+}
+.show-nav span.next{
+  float:right;
+  padding: 0 30px 0 14px;
+  background:url(../images/ico_right.png) right center no-repeat;
+}
+
+.show-nav span.back-to-dashboard,
+.show-nav span#back-set-list {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background: url(../images/ico_upload_close_normal.png) no-repeat;
+  width: 30px;
+  height: 30px;
+  background-position: center;
+}
+
+.show-nav span.back-to-dashboard:hover, 
+.show-nav span#back-set-list:hover {
+  background: url(../images/ico_upload_close.png) no-repeat;
+  background-position: center;
+}

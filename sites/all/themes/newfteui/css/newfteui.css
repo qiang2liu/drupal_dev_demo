@@ -527,6 +527,9 @@ div.modal-forms-modal-content .modal-header{
 	padding:10px 40px 10px 15px;
 	font-weight:normal;
 }
+#modal-content .node-media_for_upload-form .form-actions input.form-submit:disabled{
+	background-color: #cccccc;
+}
 #modal-content  #user-pass .form-item-name{
 	text-align:center;
 	padding-bottom:20px;

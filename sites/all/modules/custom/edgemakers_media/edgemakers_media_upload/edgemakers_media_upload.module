@@ -279,6 +279,16 @@ function edgemakers_media_upload_form_alter(&$form, $form_state, $form_id) {
         ),
       ),
     );
+    $form['actions']['submit']['#states'] = array(
+      'disabled' => array(
+        ':input[name="files[field_media_upload_und_0]"]' => array(
+          '!value' => '',
+        ),
+        ':input[name="field_media_upload[und][0][fid]"]' => array(
+          'value' => 0,
+        ),
+      ),
+    );
 
     $form['actions']['submit']['#ajax'] = array(
       'callback' => 'edgemakers_media_upload_ajax_submit',

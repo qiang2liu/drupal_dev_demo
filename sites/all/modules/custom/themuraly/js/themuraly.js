@@ -136,7 +136,8 @@ function setStudioMuralNav(type, id, navOp) {
           setStudioMuralNav(type, data[0].nid, "next");
         }
         else {
-          alert("Not mural");
+          //alert("Not mural");
+          console.log("Not mural");
         }
       }
     });
