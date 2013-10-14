@@ -42,30 +42,24 @@ function edgemakers_media_upload_menu() {
     'page callback' => 'edgemakers_media_view_html',
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
-    'delivery callback' => 'edgemakers_stage_ajax_callback',
-    'page arguments' => array(4),
-    'file path' => drupal_get_path('module', 'edgemakers_stage'),
-    'file' => 'stage.api.inc',
+    'delivery callback' => 'edgemakers_media_ajax_callback',
+    'page arguments' => array(4, 5),
   );
 
   $items['edgemarkers/studio/media/get/list/ajax'] = array(
     'page callback' => 'edgemakers_media_list_on_studio',
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
-    'delivery callback' => 'edgemakers_stage_ajax_callback',
+    'delivery callback' => 'edgemakers_media_ajax_callback',
     'page arguments' => array(6),
-    'file path' => drupal_get_path('module', 'edgemakers_stage'),
-    'file' => 'stage.api.inc',
   );
 
   $items['edgemarkers/gallery/media/get/list/ajax'] = array(
     'page callback' => 'edgemakers_media_list_on_gallery',
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
-    'delivery callback' => 'edgemakers_stage_ajax_callback',
+    'delivery callback' => 'edgemakers_media_ajax_callback',
     'page arguments' => array(6, 7, 8),
-    'file path' => drupal_get_path('module', 'edgemakers_stage'),
-    'file' => 'stage.api.inc',
   );
 
   $items['edgemakers/media/download'] = array(
@@ -73,6 +67,14 @@ function edgemakers_media_upload_menu() {
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
     'page arguments' => array(3),
+  );
+
+  $items['edgemakers/media/studio/get/nav/ajax'] = array(
+    'page callback' => 'edgemakers_media_show_nav',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+    'delivery callback' => 'edgemakers_media_ajax_callback',
+    'page arguments' => array(6, 7, 8, 9),
   );
 
   return $items;
@@ -220,9 +222,10 @@ function edgemakers_media_upload_theme_registry_alter(&$theme_registry) {
  * @return Ambigous
  *   - <The, void, string, A, boolean>|string.
  */
-function edgemakers_media_view_html($nid) {
+function edgemakers_media_view_html($nid, $position) {
   if ($nid) {
     $node = node_load($nid);
+    $node->from_position = $position;
     return drupal_render(node_view($node, 'full'));
   }
   return 'Media page building.';
@@ -799,14 +802,35 @@ function _get_media_tid($type) {
  * @return Ambigous
  *   - <multitype:, An>
  */
-function edgemakers_media_list($uid = '', $media_type = '', $start = 0, $limit = 5) {
+function edgemakers_media_list($uid = '', $media_type = '', $start = 0, $limit = 5, $conditions = array()) {
 
   $content_type = variable_get('edgemakers_media_content_type', 'media_for_upload');
   $media_nodes = array();
 
-  $query = new EntityFieldQuery();
+  // $query = new EntityFieldQuery();
+
+  if ($conditions) {
+
+    $query = new EntityFieldQuery();
+
+    foreach ($conditions AS $con_key => $con_arry) {
+      $query_condition_field = $con_key . 'Condition';
+      if ($con_key == 'field') {
+        foreach ($con_arry AS $con) {
+          $query->fieldCondition($con['field'], $con['column'], $con['value'], $con['operator']);
+        }
+      } else {
+        foreach ($con_arry AS $con) {
+          $query->{$query_condition_field}($con['column'], $con['value'], $con['operator']);
+        }
+      }
+    }
+  } else {
+    $query = new EntityFieldQuery();
+  }
 
   $query->entityCondition('entity_type', 'node')
+    ->addTag('efq_debug')
     ->propertyCondition('status', 1)
     ->propertyCondition('type', array($content_type))
     ->propertyOrderBy('created', 'DESC')
@@ -854,6 +878,7 @@ function _get_media_thumb($node) {
   $field_media_url = field_get_items('node', $node, 'field_media_url');
   $media_url = $field_media_url && count($field_media_url) > 0 ? $field_media_url[0]['value'] : '';
 
+  module_load_include('inc', 'edgemakers_stage', 'stage.api');
   $youtube_id = _youtube_parser($media_url);
 
   if ($youtube_id) {
@@ -1109,18 +1134,19 @@ function edgemakers_media_list_on_studio($pager = 0) {
                 . $media_thumb .
               '</span>';
 
-      $edit_url = l(t('<span class =""></span>'), 'node/' . $node->nid,
+      $view_url = l(t('<span class =""></span>'), 'node/' . $node->nid,
         array(
           'html' => TRUE,
           'attributes' => array(
             'nid' => $node->nid,
             'class' => array('studio-media-list-item-link'),
             'title' => $node->title,
+            'position' => 'studio',
           ),
         )
       );
 
-      $html .= $edit_url;
+      $html .= $view_url;
 
       $html .= '</li>';
 
@@ -1428,4 +1454,53 @@ function _checkRemoteFile($url) {
   else {
     return FALSE;
   }
+}
+
+
+function edgemakers_media_show_nav($type = 'my', $nid = '', $nav = 'prev', $keywords = '') {
+
+  global $user;
+  $json = '';
+
+  $nodes = array();
+  $limit = 1;
+  $start = 0;
+
+  switch ($nav) {
+    case 'prev':
+      $operator = '>';
+      break;
+
+    case 'next':
+      $operator = '<';
+      break;
+
+    default:
+      $operator = '=';
+      break;
+  }
+
+  $conditions['property'][] = array(
+    'field' => 'nid',
+    'column' => 'nid',
+    'value' => $nid,
+    'operator' => $operator,
+  );
+
+//   print($user->uid . ' => <pre>'.print_r($conditions,TRUE).'</pre>');
+  switch ($type) {
+    case 'studio':
+      $nodes = edgemakers_media_list($user->uid, '', $start, $limit, $conditions);
+      break;
+
+    case 'gallery':
+      $nodes = edgemakers_media_list(0, '', $start, $limit, $conditions);
+      break;
+  }
+
+  foreach ($nodes as $node) {
+    $json[] = $node;
+  }
+
+  drupal_json_output($json);
 }

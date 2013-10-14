@@ -1,4 +1,5 @@
-<?php  //print_r($node);
+<?php
+//print_r($node);
 //title: $title
 //type:
 $types = field_get_items('node', $node, 'field_media_type');
@@ -207,3 +208,14 @@ else :
     </span>
   </div>
 <?php endif; ?>
+
+  <div id="media-studio-nav" class="show-nav">
+    <input type="hidden" name="media-display-type" id="media-display-type" />
+    <span id="100" class="prev">Previous</span>
+    <span id="200" class="next">Next</span>
+  </div>
+
+  <script>
+  setStudioMediaNav("<?php echo $node->from_position;?>", <?php echo $node->nid;?>, "prev");
+  setStudioMediaNav("<?php echo $node->from_position;?>", <?php echo $node->nid;?>, "next");
+  </script>

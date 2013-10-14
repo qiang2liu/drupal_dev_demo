@@ -21,8 +21,8 @@ else {
       <span id="mural-back-set-list">&nbsp;</span>
       <span id="node-2020" class="next">Next</span>
     </div>
-    <div id="mural-studio-nav" class="">
-      <input type="text" name="mural-display-type" id="mural-display-type" />
+    <div id="mural-studio-nav" class="show-nav">
+      <input type="hidden" name="mural-display-type" id="mural-display-type" />
       <span id="100" class="prev">Previous</span>
       <span id="200" class="next">Next</span>
     </div>
