@@ -209,6 +209,7 @@ else :
   </div>
 <?php endif; ?>
 
+<?php if ($node->from_position !== 'toolbar') :?>
   <div id="media-studio-nav" class="show-nav">
     <input type="hidden" name="media-display-type" id="media-display-type" />
     <span id="100" class="prev">Previous</span>
@@ -219,3 +220,4 @@ else :
   setStudioMediaNav("<?php echo $node->from_position;?>", <?php echo $node->nid;?>, "prev");
   setStudioMediaNav("<?php echo $node->from_position;?>", <?php echo $node->nid;?>, "next");
   </script>
+<?php endif; ?>

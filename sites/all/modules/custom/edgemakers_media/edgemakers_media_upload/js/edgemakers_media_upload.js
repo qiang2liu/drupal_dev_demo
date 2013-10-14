@@ -56,7 +56,7 @@ function media_ajax_load_list() {
       var title = jQuery(this).html();
       
       jQuery(this).bind('click', function(){
-        showMediaOnDestination(nid, title, 'studio');
+        showMediaOnDestination(nid, title, 'toolbar');
         return false;
       });
 

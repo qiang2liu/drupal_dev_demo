@@ -2316,11 +2316,9 @@ function themuraly_update_node_by_mural($mural_url = '') {
  * Custome search by search module, but not hook_search_execute().
  * Configuration the search weight for it.
  */
-function _themuraly_search_execute_result($keys = '', $page = 0) {
+function _themuraly_search_execute_result($keys = '', $page = 0, $limit = 5, $conditions = array(), $orderby = array()) {
 
-
-  $pager = 5;
-  $start = $page * $pager;
+  $start = $page * $limit;
   $keys = trim($keys);
 
 //   print("Page: " . $page);
@@ -2390,7 +2388,7 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
 
   if ($keys) {
 
-    watchdog('Debug', 'Keys: ' . $keys);
+//     watchdog('Debug', 'Keys: ' . $keys);
 
     $query = db_select('search_index', 'i')
             ->condition('i.type', 'node');                      //Search node.
@@ -2409,10 +2407,27 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
 //     }
 //     $query->condition($orkeys);
 
+    if ($conditions) {
+      foreach ($conditions AS $c) {
+        foreach ($c AS $v) {
+          $query->condition($v['field'], $v['value'], $v['operator']);
+        }
+//
+      }
+    }
+
+    if ($orderby) {
+      foreach ($orderby AS $o) {
+//         print('Order by: <pre>'.print_r($o,TRUE).'</pre>');
+        $query->orderBy($o['name'], $o['direction']);
+      }
+    }
+    else {
+      $query->orderBy('n.nid', 'DESC'); //ORDER BY created
+    }
+
     // distinct sid.
     $query->AddExpression('distinct i.sid', 'sid_node');
-
-    $query->range($start, $pager);
 
     $query->join('node', 'n', 'n.nid = i.sid');
     $query->condition('n.type', 'murals');
@@ -2423,7 +2438,7 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
 
     $query->orderBy('n.title', 'ASC'); //ORDER BY title
     $query->orderBy('i.sid', 'DESC'); //ORDER BY title
-    $query->orderBy('n.nid', 'DESC'); //ORDER BY created
+
     // Join "Share to gallery" field.
     $query->innerJoin('field_data_field_share_to_gallery', 'field_gallery', 'n.nid = field_gallery.entity_id');
     $query->condition('field_gallery.field_share_to_gallery_value', 1);
@@ -2446,6 +2461,8 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
 
     $query->condition($orkeys);
 
+    $query->range($start, $limit);
+
 //     watchdog('Debug', 'SQL execute before: ' . ((string) $query) . '<pre>' .  print_r($query->arguments(), TRUE) . '</pre>');
 
     // Debug.
@@ -2467,6 +2484,7 @@ function _themuraly_search_execute_result($keys = '', $page = 0) {
     foreach ($find as $item) {
 //       watchdog('Debug', 'Item of search result: <pre>' . print_r($item, TRUE) . '</pre>');
       // Render the node.
+//       print('find item: <pre>'.print_r($item, TRUE).'</pre>');
       $node = node_load($item->sid_node);
       $results[] = $node;
     }
@@ -2790,7 +2808,7 @@ function themuraly_studio_mural_get_nav($type = 'my', $nid = '', $nav = 'prev', 
     case 'prev':
       $operator = '>';
       // Sort by Alphabetical on Date[nid].
-      $orderby[0]['name'] = 'nid';
+      $orderby[0]['name'] = 'n.nid';
       $orderby[0]['direction'] = 'ASC';
       break;
 
@@ -2807,8 +2825,8 @@ function themuraly_studio_mural_get_nav($type = 'my', $nid = '', $nav = 'prev', 
   }
 
   $conditions['property'][] = array(
-    'field' => 'nid',
-    'column' => 'nid',
+    'field' => 'n.nid',
+    'column' => 'n.nid',
     'value' => $nid,
     'operator' => $operator,
   );
@@ -2851,8 +2869,8 @@ function themuraly_studio_mural_get_nav($type = 'my', $nid = '', $nav = 'prev', 
 
     case 'gallery':
 
-      if ($keyword) {
-        $murals_list = _themuraly_search_execute_result($keyword, $page);
+      if ($keywords) {
+        $nodes = _themuraly_search_execute_result($keywords, $page, $limit, $conditions, $orderby);
       }
       else {
         // Current sort by Alphabetical, Date, Tags
@@ -2898,6 +2916,6 @@ function themuraly_studio_mural_get_nav($type = 'my', $nid = '', $nav = 'prev', 
 
 function themuraly_query_alter($query) {
   if ($query->hasTag('efq_debug')) {
-    dpm((string)$query);
+//     print((string)$query);
   }
 }

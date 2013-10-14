@@ -127,7 +127,7 @@ function setStudioMuralNav(type, id, navOp) {
         console.log(data);
 
         if (data) {
-          //alert(data[0].nid);
+//          alert(data[0].nid);
           jQuery("#mural-studio-nav .prev").attr("id", data[0].nid);
           closeFromIframe();
           showMuralDialog("mural/" + data[0].nid);

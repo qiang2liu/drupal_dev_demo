@@ -812,7 +812,7 @@ function _get_media_tid($type) {
  * @return Ambigous
  *   - <multitype:, An>
  */
-function edgemakers_media_list($uid = '', $media_type = '', $start = 0, $limit = 5, $conditions = array()) {
+function edgemakers_media_list($uid = '', $media_type = '', $start = 0, $limit = 5, $conditions = array(), $sortby = array()) {
 
   $content_type = variable_get('edgemakers_media_content_type', 'media_for_upload');
   $media_nodes = array();
@@ -843,7 +843,6 @@ function edgemakers_media_list($uid = '', $media_type = '', $start = 0, $limit =
     ->addTag('efq_debug')
     ->propertyCondition('status', 1)
     ->propertyCondition('type', array($content_type))
-    ->propertyOrderBy('created', 'DESC')
     ->range($start, $limit);
 
   if ($uid) {
@@ -860,6 +859,10 @@ function edgemakers_media_list($uid = '', $media_type = '', $start = 0, $limit =
 
     // Query condition is share to gallery.
     $query->fieldCondition('field_share_to_gallery', 'value', '1');
+  }
+
+  foreach ($sortby AS $sort) {
+    $query->propertyOrderBy($sort['name'], ($sort['direction']) ? $sort['direction'] : 'DESC');
   }
 
   $result = $query->execute();
@@ -1360,7 +1363,7 @@ function edgemakers_media_ajax_callback($page_callback_result) {
  * @return array
  *   - Search node data.
  */
-function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', $page = 0, $pager = 5) {
+function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', $page = 0, $pager = 5, $conditions = array(), $orderby = array()) {
 
   $start = $page * $pager;
   $keys = trim($keys);
@@ -1392,6 +1395,21 @@ function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', 
     $query->join('node', 'n', 'n.nid = i.sid');
     $query->condition('n.type', 'media_for_upload');
     $query->condition('n.status', 1);
+
+    if ($conditions) {
+      foreach ($conditions AS $c) {
+        foreach ($c AS $v) {
+          $query->condition($v['field'], $v['value'], $v['operator']);
+        }
+//
+      }
+    }
+
+    if ($orderby) {
+      foreach ($orderby AS $o) {
+        $query->orderBy($o['name'], $o['direction']);
+      }
+    }
 
     // Search by media type.
     if ($type && strtolower($type) !== 'media') {
@@ -1425,6 +1443,8 @@ function _edgemakers_media_upload_search_execute_result($type = '', $keys = '', 
     $query->condition($orkeys);
 
     $find = $query->execute();
+
+//     print('find<pre>'.print_r($find,TRUE).'</pre>');
 
     $results = array();
 
@@ -1479,10 +1499,16 @@ function edgemakers_media_show_nav($type = 'my', $nid = '', $nav = 'prev', $keyw
   switch ($nav) {
     case 'prev':
       $operator = '>';
+      // Sort by Alphabetical on Date[nid].
+      $orderby[0]['name'] = 'nid';
+      $orderby[0]['direction'] = 'ASC';
       break;
 
     case 'next':
       $operator = '<';
+      // Sort by Alphabetical on Date[nid].
+      $orderby[0]['name'] = 'nid';
+      $orderby[0]['direction'] = 'DESC';
       break;
 
     default:
@@ -1500,11 +1526,17 @@ function edgemakers_media_show_nav($type = 'my', $nid = '', $nav = 'prev', $keyw
 //   print($user->uid . ' => <pre>'.print_r($conditions,TRUE).'</pre>');
   switch ($type) {
     case 'studio':
-      $nodes = edgemakers_media_list($user->uid, '', $start, $limit, $conditions);
+      $nodes = edgemakers_media_list($user->uid, '', $start, $limit, $conditions, $orderby);
       break;
 
     case 'gallery':
-      $nodes = edgemakers_media_list(0, '', $start, $limit, $conditions);
+      if ($keywords) {
+        $nodes = _edgemakers_media_upload_search_execute_result('media', $keywords, $page, $limit, $conditions, $orderby);
+      }
+      else {
+        $nodes = edgemakers_media_list('', 'media', $start, $limit, $conditions, $orderby);
+      }
+//       $nodes = edgemakers_media_list(0, '', $start, $limit, $conditions);
       break;
   }
 
