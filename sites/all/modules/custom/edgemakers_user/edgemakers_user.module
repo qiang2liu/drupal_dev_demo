@@ -97,7 +97,8 @@ function edgemakers_user_entity_presave($account, $type) {
   // Only handle new users that have an uploaded picture.
   // user_save() will handle old users.
   if(!isset($account->field_profile_picture)) return;
-  $fid = $account->field_profile_picture[LANGUAGE_NONE][0]['fid'];
+  
+  $fid = isset($account->field_profile_picture[LANGUAGE_NONE][0]['fid']) ? $account->field_profile_picture[LANGUAGE_NONE][0]['fid'] : 0;
   if ($type !== 'user' || !$account->is_new || !$fid)  return;
   $picture = file_load($fid);
   $info = image_get_info($picture->uri);

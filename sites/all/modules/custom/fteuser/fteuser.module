@@ -335,7 +335,7 @@ function fteuser_set_mural_user($mural_api, $account) {
         user_save($account, $edit);
         
         $profile_info = array();
-        $fid = $account->field_profile_picture[LANGUAGE_NONE][0]['fid'];
+        $fid = isset($account->field_profile_picture[LANGUAGE_NONE][0]['fid']) ? $account->field_profile_picture[LANGUAGE_NONE][0]['fid'] : 0;
         if ($fid) {
           $picture = file_load($fid);
           if (isset($picture->uri)) {
