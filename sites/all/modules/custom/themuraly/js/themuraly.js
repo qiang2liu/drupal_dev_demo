@@ -7,13 +7,12 @@ jQuery(document).ready(function(){
   jQuery(".create-mural").show();
   jQuery(".create-mural").bind("click", function(){
 
-    //bigFrame.attr('src', source);
     if (jQuery("#mural-region").length !== 0) {
       var source = jQuery(this).attr("href");
       jQuery("#mural-back-to-dashboard").show();
       showMuralDialog(source);
     }
-    //alert("Hook create mural link. and should set iframe src to " + source);
+
     return false;
   });
   
@@ -39,13 +38,11 @@ jQuery(document).ready(function(){
   
   openDefaultMural();
   
-//  Drupal.CTools.AJAX.refreshElements();
-  
 });
 
 function openDefaultMural() {
   var url = document.URL;
-  var muralUrl = document.URL.split('#')[1];
+  var muralUrl = document.URL.split("#")[1];
 
   if (typeof(muralUrl) !== "undefined") {
 
@@ -60,14 +57,13 @@ function openDefaultMural() {
 
 function closeFromIframe()
 {
-  //  jQuery("#mural-iframe").empty();
   jQuery("#mural-back-to-dashboard").hide();
   jQuery("#mural-iframe").attr("src", "");
-  jQuery('#mural-region').dialog('close');
-  jQuery('body').css({
-    'height': 'auto'
+  jQuery("#mural-region").dialog("close");
+  jQuery("body").css({
+    "height": "auto"
   });
-  jQuery('body').removeClass('no-scroll-bar');
+  jQuery("body").removeClass("no-scroll-bar");
   
   // Refresh murals list on toolbar.
   mural_ajax_load_list();
@@ -81,24 +77,70 @@ function closeFromIframe()
     // Reload google map.
     jQuery("#iframe-topic-gmap").attr("src", "?q=edgemakers/topic/gmap");
   }
-  
-  //return false;
 }
 
 function setMuralWidth(){
-	jQuery('body').addClass('no-scroll-bar');
-  jQuery('body').css({
-    'height': jQuery(window).height()+ 'px'
+	jQuery("body").addClass("no-scroll-bar");
+  jQuery("body").css({
+    "height": jQuery(window).height()+ "px"
   });
   
-  jQuery("#mural-iframe").attr("width", jQuery(window).width() + 'px');
-  if(jQuery('#mural-region').attr('data-user') === '1'){
-  	jQuery("#mural-iframe").attr("height", jQuery(window).height() + 85 + 'px');
-  	jQuery('#mural-back-to-dashboard').css('top','34px');
+  jQuery("#mural-iframe").attr("width", jQuery(window).width() + "px");
+  if(jQuery("#mural-region").attr("data-user") === "1"){
+  	jQuery("#mural-iframe").attr("height", jQuery(window).height() + 85 + "px");
+  	jQuery("#mural-back-to-dashboard").css("top","34px");
   }else{
-  	 jQuery("#mural-iframe").attr("height", jQuery(window).height() + 'px');
+  	 jQuery("#mural-iframe").attr("height", jQuery(window).height() + "px");
   }
-  jQuery("#mural-region").css("height", jQuery(window).height() + 'px');
+  jQuery("#mural-region").css("height", jQuery(window).height() + "px");
+  
+}
+
+function _showMuralClose() {
+  jQuery("#mural-back-to-dashboard").show();
+  jQuery("#mural-back-to-dashboard").unbind("click");
+  jQuery("#mural-back-to-dashboard").bind("click", function(){
+    closeFromIframe();
+  });
+}
+
+function showMuralNav(type) {
+  
+  jQuery("#mural-iframe").attr("height", jQuery(window).height() - 56 + 'px');
+  jQuery("#mural-studio-nav").show();
+  jQuery("#mural-display-type").attr("value", type);
+    
+}
+
+function setStudioMuralNav(type, id, navOp) {
+  
+  jQuery("#mural-studio-nav ." + navOp).unbind("click");
+  jQuery("#mural-studio-nav ." + navOp).bind("click", function(){
+
+    var keyword = jQuery("#gallery-keyword").val();
+    
+    jQuery.ajax({
+      url: "?q=/mural/studio/get/nav/ajax/" + type + "/" + id + "/" + navOp + "/" + keyword,
+      dataType: 'json',
+      type : "GET",
+      success : function(data){
+        console.log(data);
+
+        if (data) {
+          alert(data[0].nid);
+          jQuery("#mural-studio-nav .prev").attr("id", data[0].nid);
+          closeFromIframe();
+          showMuralDialog("mural/" + data[0].nid);
+          showMuralNav(type);
+          setStudioMuralNav(type, data[0].nid, "prev");
+          setStudioMuralNav(type, data[0].nid, "next");
+        }
+        else {
+          alert("Not mural");
+        }
+      }
+    });
+  });
   
 }
 
@@ -107,33 +149,21 @@ function showMuralDialog(source) {
   nofresh = 0;
   
   var seconds = new Date().getTime() / 1000;
-//  var urlHash = jQuery.md5(seconds);
-  
   source = source + "#" + seconds;
-  
+
   jQuery("#mural-set-nav").hide();
-  
-  jQuery("#mural-back-to-dashboard").bind("click", function(){
-    closeFromIframe();
-  });
+  _showMuralClose();
   
   var iframeHtml = "<iframe id=\"mural-iframe\" width=\"100%\" height=\"90%\" src=\"?q=" + source + "\"></iframe>";
   
-  //jQuery("#mural-region").html("Mural display here by iframe " + source);
   jQuery("#mural-iframe").attr("src", source);
-
-  setMuralWidth();
-  
-//  var windowHeight = jQuery(window).height();
-//  var windowScrollTop = jQuery(window).scrollTop();
-//  alert("Windows height: " + windowHeight + " | ScrollTop: " + windowScrollTop);
-  
+    
   jQuery( "#mural-region" ).dialog({
     resizable: false,
     modal: true,
     position: ["left", "top"],
     width: "100%",
-    height: jQuery(window).height() + 56,
+    height: jQuery(window).height(),
     zIndex: 1000,
     /*buttons: {
       Ok: function() {
@@ -142,35 +172,39 @@ function showMuralDialog(source) {
     }*/
   });
   
-  jQuery('.ui-dialog-titlebar').attr("style", "display: none;");
-  jQuery('.ui-dialog.ui-widget.ui-widget-content').css("border-radius", "0px");
-  jQuery('.ui-dialog.ui-widget.ui-widget-content').css("padding", "0px");
-  jQuery('.ui-dialog.ui-widget.ui-widget-content').css("margin", "0px");
+  setMuralWidth();
   
-  jQuery('.ui-dialog.ui-widget.ui-widget-content').css("left", "1px");
-  jQuery('.ui-dialog.ui-widget.ui-widget-content').css("top", jQuery(window).scrollTop() + "px");
+  jQuery(".ui-dialog-titlebar").attr("style", "display: none;");
+  jQuery(".ui-dialog.ui-widget.ui-widget-content").css("border-radius", "0px");
+  jQuery(".ui-dialog.ui-widget.ui-widget-content").css("padding", "0px");
+  jQuery(".ui-dialog.ui-widget.ui-widget-content").css("margin", "0px");
+  
+  jQuery(".ui-dialog.ui-widget.ui-widget-content").css("left", "1px");
+  jQuery(".ui-dialog.ui-widget.ui-widget-content").css("top", jQuery(window).scrollTop() + "px");
+  
+  showMuralNav();
 
 }
 
 function mural_ajax_load_list() {
 
-  jQuery('#my-mural-list').load("?q=mural/get/list/ajax", function(){
+  jQuery("#my-mural-list").load("?q=mural/get/list/ajax", function(){
 
-    jQuery('.toolbar-item').each(function(){
+    jQuery(".toolbar-item").each(function(){
       var self = jQuery(this);
       
-      if(self.children().first().hasClass('has-child')){
-        self.find('h4>em').bind('click', function(){
-          if(!self.find('.item-list').hasClass('active')){
-            jQuery('.toolbar-item').find('.item-list').removeClass('active');
-            self.find('.item-list').addClass('active')
+      if(self.children().first().hasClass("has-child")){
+        self.find("h4>em").bind("click", function(){
+          if(!self.find(".item-list").hasClass("active")){
+            jQuery(".toolbar-item").find(".item-list").removeClass("active");
+            self.find(".item-list").addClass("active")
           }
         })
       }
     });
   
-    jQuery('ul#mural-list li a').each(function( index ) {
-      jQuery(this).bind('click', function(){
+    jQuery("ul#mural-list li a").each(function( index ) {
+      jQuery(this).bind("click", function(){
         if (jQuery("#mural-region").length !== 0) {
           var source = jQuery(this).attr("href");
           jQuery("#mural-back-to-dashboard").show();
@@ -205,22 +239,22 @@ function studio_mural_ajax_page_load(type, pager) {
       replaceElement = "studio-mural-share-with-me-list";
       break;
     default:
-      type = 'no';
+      type = "no";
       break;
   }
   
   jQuery.ajax({
     url: "?q=/mural/studio/get/list/ajax/" + type + "/" + pager,
-    dataType: 'html',
-    type : 'GET',
+    dataType: "html",
+    type : "GET",
     success : function(data){
       if (data.length === 0) {
         //alert("not enough content to turning page");
       }
       else {
         //alert(data);
-        //jQuery("#" + replaceElement).find('li').fadeOut(300);
-        jQuery("#" + replaceElement).html(data).find('li').hide().fadeIn(300);
+        //jQuery("#" + replaceElement).find("li").fadeOut(300);
+        jQuery("#" + replaceElement).html(data).find("li").hide().fadeIn(300);
 //        Drupal.CTools.AJAX.refreshElements();
         
         studio_mural_item_bind_link();
@@ -272,9 +306,9 @@ function setLeftRightPager(type, pager) {
 function studio_mural_item_bind_link() {
   
   // View mural link bind click.
-  jQuery('ul li a.studio-mural-list-item-link').each(function( index ) {
-    jQuery(this).unbind('click');
-    jQuery(this).bind('click', function(){
+  jQuery("ul li a.studio-mural-list-item-link").each(function( index ) {
+    jQuery(this).unbind("click");
+    jQuery(this).bind("click", function(){
       if (jQuery("#mural-region").length !== 0) {
         var source = jQuery(this).attr("href");
         jQuery("#mural-back-to-dashboard").show();
@@ -286,22 +320,22 @@ function studio_mural_item_bind_link() {
     
 //  Drupal.behaviors.ZZCToolsModal;
   
-//  jQuery('area.ctools-use-modal, a.ctools-use-modal', context).once('ctools-use-modal', function() {
+//  jQuery("area.ctools-use-modal, a.ctools-use-modal", context).once("ctools-use-modal", function() {
 //    var $this = jQuery(this);
 //    $this.click(Drupal.CTools.Modal.clickAjaxLink);
 //    // Create a drupal ajax object
 //    var element_settings = {};
-//    if ($this.attr('href')) {
-//      element_settings.url = $this.attr('href');
-//      element_settings.event = 'click';
-//      element_settings.progress = { type: 'throbber' };
+//    if ($this.attr("href")) {
+//      element_settings.url = $this.attr("href");
+//      element_settings.event = "click";
+//      element_settings.progress = { type: "throbber" };
 //    }
-//    var base = $this.attr('href');
+//    var base = $this.attr("href");
 //    Drupal.ajax[base] = new Drupal.ajax(base, this, element_settings);
 //  });
   
   // Mural setting link bind click.
-  jQuery('ul li a.studio-mural-settings').each(function( index ) {
+  jQuery("ul li a.studio-mural-settings").each(function( index ) {
     
     jQuery(this).unbind("click");
 
@@ -312,12 +346,12 @@ function studio_mural_item_bind_link() {
 
     // Create a drupal ajax object
     var element_settings = {};
-    if (jQuery(this).attr('href')) {
-      element_settings.url = jQuery(this).attr('href');
-      element_settings.event = 'click';
-      element_settings.progress = { type: 'throbber' };
+    if (jQuery(this).attr("href")) {
+      element_settings.url = jQuery(this).attr("href");
+      element_settings.event = "click";
+      element_settings.progress = { type: "throbber" };
     }
-    var base = jQuery(this).attr('href');
+    var base = jQuery(this).attr("href");
     Drupal.ajax[base] = new Drupal.ajax(base, this, element_settings);
     
   });
@@ -328,14 +362,14 @@ function studio_mural_item_bind_link() {
 
 
 function setArrowTop(){
-	jQuery('#block-edgemakers-media-upload-gallery-image-list .scroll-wrapper .arrow-left, #block-edgemakers-media-upload-gallery-image-list .scroll-wrapper .arrow-right, #studio-media-list-pane .scroll-wrapper .arrow-left, #studio-media-list-pane .scroll-wrapper .arrow-right,#gallery-media-list-pane .scroll-wrapper .arrow-left, #gallery-media-list-pane .scroll-wrapper .arrow-right').each(function(){
-		var l =jQuery(this).siblings('ul').find('li').length;
+	jQuery("#block-edgemakers-media-upload-gallery-image-list .scroll-wrapper .arrow-left, #block-edgemakers-media-upload-gallery-image-list .scroll-wrapper .arrow-right, #studio-media-list-pane .scroll-wrapper .arrow-left, #studio-media-list-pane .scroll-wrapper .arrow-right,#gallery-media-list-pane .scroll-wrapper .arrow-left, #gallery-media-list-pane .scroll-wrapper .arrow-right").each(function(){
+		var l =jQuery(this).siblings("ul").find("li").length;
 		if(l>8){
-			jQuery(this).css('top', '150px')
+			jQuery(this).css("top", "150px")
 		}else if(l>4){
-			jQuery(this).css('top', '89px')
+			jQuery(this).css("top", "89px")
 		}else{
-			jQuery(this).css('top', '38px')
+			jQuery(this).css("top", "38px")
 		}
 	});
 	
@@ -344,13 +378,13 @@ function setArrowTop(){
 
 function studio_mural_ajax_load_list() {
 
-  var myIdeaEmptyMsg = '<p class="empty-data">There is no mural available for you.</p>';
-  var shareWithMeEmptyMsg = '<p class="empty-data">There are no ideas shared with you.</p>';
+  var myIdeaEmptyMsg = "<p class=\"empty-data\">There is no mural available for you.</p>";
+  var shareWithMeEmptyMsg = "<p class=\"empty-data\">There are no ideas shared with you.</p>";
   
   jQuery.ajax({
     url: "?q=/mural/studio/get/list/ajax/my/0",
-    dataType: 'html',
-    type : 'GET',
+    dataType: "html",
+    type : "GET",
     success : function(data){
       
       if (data.length === 0) {
@@ -366,14 +400,14 @@ function studio_mural_ajax_load_list() {
         jQuery("#studio-my-idea .arrow-left").unbind("click");
         jQuery("#studio-my-idea .arrow-left").bind("click", function(){
           var pager = jQuery(this).attr("pager");
-          studio_mural_ajax_page_load('my', pager);
+          studio_mural_ajax_page_load("my", pager);
           return false;
         });
         
         jQuery("#studio-my-idea .arrow-right").unbind("click");
         jQuery("#studio-my-idea .arrow-right").bind("click", function(){
           var pager = jQuery(this).attr("pager");
-          studio_mural_ajax_page_load('my', pager);
+          studio_mural_ajax_page_load("my", pager);
           return false;
         });
         
@@ -383,8 +417,8 @@ function studio_mural_ajax_load_list() {
   
   jQuery.ajax({
     url: "?q=/mural/studio/get/list/ajax/share/0",
-    dataType: 'html',
-    type : 'GET',
+    dataType: "html",
+    type : "GET",
     success : function(data){
       
       if (data.length === 0) {
@@ -401,14 +435,14 @@ function studio_mural_ajax_load_list() {
          jQuery("#studio-share-with-me .arrow-left").unbind("click");
          jQuery("#studio-share-with-me .arrow-left").bind("click", function(){
            var pager = jQuery(this).attr("pager");
-           studio_mural_ajax_page_load('share', pager);
+           studio_mural_ajax_page_load("share", pager);
            return false;
          });
          
          jQuery("#studio-share-with-me .arrow-right").unbind("click");
          jQuery("#studio-share-with-me .arrow-right").bind("click", function(){
            var pager = jQuery(this).attr("pager");
-           studio_mural_ajax_page_load('share', pager);
+           studio_mural_ajax_page_load("share", pager);
            return false;
          });
         
@@ -426,7 +460,7 @@ function studio_mural_ajax_load_list() {
 //    jQuery("#studio-my-idea .arrow-left").bind("click", function(){
 //      var pager = jQuery(this).attr("pager");
 ////      alert("Prev page: " + pager);
-//      studio_mural_ajax_page_load('my', pager);
+//      studio_mural_ajax_page_load("my", pager);
 //      return false;
 //    });
 //    
@@ -434,7 +468,7 @@ function studio_mural_ajax_load_list() {
 //    jQuery("#studio-my-idea .arrow-right").bind("click", function(){
 //      var pager = jQuery(this).attr("pager");
 ////      alert("Next page: " + pager);
-//      studio_mural_ajax_page_load('my', pager);
+//      studio_mural_ajax_page_load("my", pager);
 //      return false;
 //    });
 //          
@@ -448,7 +482,7 @@ function studio_mural_ajax_load_list() {
 //    jQuery("#studio-share-with-me .arrow-left").bind("click", function(){
 //      var pager = jQuery(this).attr("pager");
 ////      alert("Prev page: " + pager);
-//      studio_mural_ajax_page_load('share', pager);
+//      studio_mural_ajax_page_load("share", pager);
 //      return false;
 //    });
 //    
@@ -456,7 +490,7 @@ function studio_mural_ajax_load_list() {
 //    jQuery("#studio-share-with-me .arrow-right").bind("click", function(){
 //      var pager = jQuery(this).attr("pager");
 ////      alert("Next page: " + pager);
-//      studio_mural_ajax_page_load('share', pager);
+//      studio_mural_ajax_page_load("share", pager);
 //      return false;
 //    });
 //          
@@ -478,8 +512,8 @@ function gallery_mural_ajax_load_list(pager) {
   
   jQuery.ajax({
     url: "?q=mural/studio/list/page/ajax/gallery/" + pager + "/" + keyword,
-    dataType: 'html',
-    type : 'GET',
+    dataType: "html",
+    type : "GET",
     success : function(data){
       
       if (data.length === 0) {
@@ -497,7 +531,7 @@ function gallery_mural_ajax_load_list(pager) {
         jQuery("#gallery-mural-list").html(data);
        //setArrowTop();
         studio_mural_item_bind_link();
-        setLeftRightPager('gallery', pager);
+        setLeftRightPager("gallery", pager);
       }
     }
   });
@@ -523,8 +557,8 @@ function gallery_mural_ajax_load_list(pager) {
 
 // @TODO
 function mural_setting(nid) {
-  jQuery("#studio-mural-list li a.studio-mural-settings").addClass('ctools-use-modal-processed').click(Drupal.CTools.Modal.clickAjaxLink).click();
-//  $("<a></a>").attr('href',"/select2/ajax/add/place").addClass('ctools-use-modal-processed').click(Drupal.CTools.Modal.clickAjaxLink).click();
+  jQuery("#studio-mural-list li a.studio-mural-settings").addClass("ctools-use-modal-processed").click(Drupal.CTools.Modal.clickAjaxLink).click();
+//  $("<a></a>").attr("href","/select2/ajax/add/place").addClass("ctools-use-modal-processed").click(Drupal.CTools.Modal.clickAjaxLink).click();
   alert("Mural " + nid + " setting popup change to dialog!?");
 }
 
@@ -538,9 +572,9 @@ function search_gallery() {
 //  var gallery_video_list_refresh = gallery_video_ajax_load_list();
 //  var gallery_image_list_refresh = gallery_image_ajax_load_list();
   // gallery_media_list_ajax_load on media upload module.
-  gallery_media_list_ajax_load('media');
-  //gallery_media_list_ajax_load('video');
-  //gallery_media_list_ajax_load('image');
+  gallery_media_list_ajax_load("media");
+  //gallery_media_list_ajax_load("video");
+  //gallery_media_list_ajax_load("image");
   
   jQuery( document ).ajaxComplete(function( event,request, settings) {
     console.log(event);
@@ -552,8 +586,8 @@ function search_gallery() {
 
 function showInviteEmailBox() {
 
-  var v = jQuery('.field-name-field-muralshared select :selected').val();
-  //var v = jQuery('#edit-field-muralshared-und:selected').text();
+  var v = jQuery(".field-name-field-muralshared select :selected").val();
+  //var v = jQuery("#edit-field-muralshared-und:selected").text();
   //alert("Select value: " + v);
   if (v == "1") {
     jQuery("#invite_email_box").show();
@@ -565,7 +599,7 @@ function showInviteEmailBox() {
 }
 
 function showLogin() {
-  jQuery("a[href$='modal_forms/nojs/login']").trigger("click");
+  jQuery("a[href$=\"modal_forms/nojs/login\"]").trigger("click");
 }
 
 function changeTitleAfterSetting() {
@@ -582,12 +616,12 @@ function _refreshStudioGalleryMural() {
   var studio_me_next_page = jQuery("#studio-my-idea .scroll-wrapper .arrow-right").attr("pager");
   var studio_me_current_page = parseInt(studio_me_next_page) - 1;
   console.log("Studio me current page: " + studio_me_current_page);
-  studio_mural_ajax_page_load('my', studio_me_current_page);
+  studio_mural_ajax_page_load("my", studio_me_current_page);
   
   var studio_share_next_page = jQuery("#studio-share-with-me .scroll-wrapper .arrow-right").attr("pager");
   var studio_share_current_page = parseInt(studio_share_next_page) - 1;
   console.log("Studio share with me current page: " + studio_share_current_page);
-  studio_mural_ajax_page_load('share', studio_share_current_page);
+  studio_mural_ajax_page_load("share", studio_share_current_page);
   
   // Refresh gallery murals.
   var gallery_next_page = jQuery("#gallery-ideas .scroll-wrapper .arrow-right").attr("pager");

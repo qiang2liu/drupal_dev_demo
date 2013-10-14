@@ -166,6 +166,7 @@ $hash = md5(microtime());
 <script>
   //jQuery("#mural-ly-iframe").attr("src", source);
   function lyszie(){
+    jQuery("#mural-iframe").attr("height", jQuery(window).height() - 56 + 'px');
   	jQuery("#mural-ly-iframe").attr("width", jQuery(window).width());
   	//console.log(jQuery(window).parent().attr('id'));
   	if(1 == <?php print $the_admin; ?>){
@@ -175,7 +176,6 @@ $hash = md5(microtime());
   		jQuery("#mural-ly-iframe").attr("height", jQuery(window).height()-36);
   		console.log('no-admin-bar')
   	}
-
 
   }
   lyszie();

@@ -21,6 +21,11 @@ else {
       <span id="mural-back-set-list">&nbsp;</span>
       <span id="node-2020" class="next">Next</span>
     </div>
+    <div id="mural-studio-nav" class="">
+      <input type="text" name="mural-display-type" id="mural-display-type" />
+      <span id="100" class="prev">Previous</span>
+      <span id="200" class="next">Next</span>
+    </div>
     <div id="mural-back-to-dashboard" class="back-to-dashboard">
       <span>X</span>
     </div>
@@ -220,14 +225,14 @@ else {
   <?php if (user_is_logged_in()): ?>
     <div class="user-profile-inner">
       <?php
-      
+
       if($user->picture) {
         $avatarUri = $user->picture->uri;
       } else {
         $picture = get_user_avatar($user);
         if (isset($picture->uri)) {
           $avatarUri = $picture->uri;
-        } else 
+        } else
         {
         $avatarUris = explode('/', variable_get('user_picture_default', ''));
         $avatarUri = file_build_uri(array_pop($avatarUris));
