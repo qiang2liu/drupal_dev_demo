@@ -1,51 +1,5 @@
 <?php
 
-function fteuser_menu() {
-  $items['welcome'] = array(
-    'page callback' => 'show_welcome',
-    'access callback' => TRUE,
-    'type' => MENU_CALLBACK,
-  );
-  return $items;
-}
-
-function show_welcome() {
-  return theme('welcomepage');
-}
-
-function fteuser_theme($exusting, $type) {
-  if ($type == 'module') {
-    return array(
-      'welcomepage' => array(
-        'variables' => array('data' => NULL),
-        'template' => 'templates/welcomepage',
-      ),
-    );
-  }
-  return array();
-}
-
-function fteuser_form_alter(&$form, &$form_state, $form_id) {
-  switch ($form_id) {
-
-    case 'user_admin_settings':
-      // Disable the checkbox at the Account settings page which controls
-      // whether e-mail verification is required upon registration or not.
-      // The FTEUSER module implements e-mail verification functionality
-      // $form['registration_cancellation']['user_email_verification']['#disabled'] = true;
-      // $form['registration_cancellation']['user_email_verification']['#description'] = t('This setting has been locked by the FTEUSER module. ');
-      break;
-    case 'user_register_form':
-      //$form['#client_validation'] = TRUE;
-//       $form['account']['email']['#validate'] = array(
-//         'required' => array(true, t('Email address is required.')),
-//         'email' => array(true, t('Email is not valid.')),
-//         'remote' => array('check_existing_mail', t('This email address is already registered'))
-//       );
-      break;
-  }
-}
-
 /**
  * Implement hook_form_FORM_ID_alter().
  * FORM_ID == user_login
