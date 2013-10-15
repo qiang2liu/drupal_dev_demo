@@ -1786,14 +1786,18 @@ function themuraly_studio_mural_list_json($type = 'gallery', $page = '0', $keywo
   $orderby = array();
 
   if ($type == 'gallery') {
+
+    $orderby[0]['name'] = 'nid';
+    $orderby[0]['direction'] = 'DESC';
+
     // Current sort by Alphabetical, Date, Tags
     // Sort by Alphabetical on title.
-    $orderby[0]['name'] = 'title';
-    $orderby[0]['direction'] = 'ASC';
+    $orderby[1]['name'] = 'title';
+    $orderby[1]['direction'] = 'ASC';
 
     // Sort by Alphabetical on Date[nid].
-    $orderby[1]['name'] = 'nid';
-    $orderby[1]['direction'] = 'DESC';
+    $orderby[2]['name'] = 'nid';
+    $orderby[2]['direction'] = 'DESC';
 
     // Order by tags
     $vocab_info = field_info_field('field_tags');
@@ -2645,6 +2649,7 @@ function theme_mural_item_box($item = array(), $attributes = array()) {
         'nid' => $node->nid,
         'onClick' => '
           showMuralDialog("?q=mural/' . $node->nid . '");
+          jQuery("#mural-iframe").attr("height", jQuery(window).height() + 56 + "px");
           return false;',
       ),
     ));
@@ -2685,6 +2690,7 @@ function theme_mural_item_box($item = array(), $attributes = array()) {
           'nid' => $node->nid,
           'onClick' => '
             showMuralDialog("?q=mural/' . $node->nid . '");
+            jQuery("#mural-iframe").attr("height", jQuery(window).height() + 56 + "px");
             return false;',
         ),
       ));
@@ -2714,7 +2720,7 @@ function theme_mural_item_box($item = array(), $attributes = array()) {
           'nid' => $node->nid,
           'onClick' => '
             showMuralDialog("?q=mural/' . $node->nid . '");
-            showMuralNav();
+            jQuery("#mural-iframe").attr("height", jQuery(window).height() + 56 + "px");
             return false;',
         ),
       ));
@@ -2803,6 +2809,7 @@ function themuraly_studio_mural_get_nav($type = 'my', $nid = '', $nav = 'prev', 
   $nodes = array();
   $limit = 1;
   $start = 0;
+  $page = 0;
 
   switch ($nav) {
     case 'prev':
@@ -2899,6 +2906,9 @@ function themuraly_studio_mural_get_nav($type = 'my', $nid = '', $nav = 'prev', 
         $nodes = themuraly_mural_list(0, $start, $limit, $conditions, $orderby);
 
       }
+
+//       $nodes = _themuraly_search_execute_result($keywords, $page, $limit, $conditions, $orderby);
+
       break;
 
     default:
