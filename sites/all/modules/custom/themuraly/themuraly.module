@@ -2808,7 +2808,7 @@ function themuraly_studio_mural_get_nav($type = 'my', $nid = '', $nav = 'prev', 
     case 'prev':
       $operator = '>';
       // Sort by Alphabetical on Date[nid].
-      $orderby[0]['name'] = 'n.nid';
+      $orderby[0]['name'] = 'nid';
       $orderby[0]['direction'] = 'ASC';
       break;
 
