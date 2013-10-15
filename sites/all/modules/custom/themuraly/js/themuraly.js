@@ -210,6 +210,8 @@ function mural_ajax_load_list() {
           var source = jQuery(this).attr("href");
           jQuery("#mural-back-to-dashboard").show();
           showMuralDialog(source);
+          jQuery("#mural-studio-nav").hide();
+          jQuery("#mural-iframe").attr("height", jQuery(window).height() + 56 + 'px');
         }
         return false;
       });
