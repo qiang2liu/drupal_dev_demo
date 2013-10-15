@@ -2825,8 +2825,8 @@ function themuraly_studio_mural_get_nav($type = 'my', $nid = '', $nav = 'prev', 
   }
 
   $conditions['property'][] = array(
-    'field' => 'n.nid',
-    'column' => 'n.nid',
+    'field' => 'nid',
+    'column' => 'nid',
     'value' => $nid,
     'operator' => $operator,
   );
