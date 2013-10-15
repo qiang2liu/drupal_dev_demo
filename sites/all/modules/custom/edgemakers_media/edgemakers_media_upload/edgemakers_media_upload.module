@@ -960,11 +960,16 @@ function edgemakers_media_list_on_gallery($type = '', $page = 0, $keyword = '') 
 
   $start = $page * $limit;
 
+  // Default sort by.
+  $orderby[0]['name'] = 'nid';
+  $orderby[0]['direction'] = 'DESC';
+
+
   if ($keyword) {
-    $media_list = _edgemakers_media_upload_search_execute_result($type, $keyword, $page, $limit);
+    $media_list = _edgemakers_media_upload_search_execute_result($type, $keyword, $page, $limit, array(), $orderby);
   }
   else {
-    $media_list = edgemakers_media_list('', $type, $start, $limit);
+    $media_list = edgemakers_media_list('', $type, $start, $limit, array(), $orderby);
   }
 
   if (count($media_list) == 0) {
@@ -1079,7 +1084,11 @@ function edgemakers_media_list_on_studio($pager = 0) {
   $html = '';
 
   if ($user->uid !== 0) {
-    $my_media_nodes = edgemakers_media_list($user->uid, '', $start, $limit);
+
+    $orderby[0]['name'] = 'nid';
+    $orderby[0]['direction'] = 'DESC';
+
+    $my_media_nodes = edgemakers_media_list($user->uid, '', $start, $limit, array(), $orderby);
 
     if (count($my_media_nodes) == 0) {
 //       return t('There is no media available for you.');
