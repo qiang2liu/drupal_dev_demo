@@ -210,7 +210,7 @@ function edgemakers_media_upload_download($fid = '') {
  * Implements hook_theme_registry_alter().
  */
 function edgemakers_media_upload_theme_registry_alter(&$theme_registry) {
-  $theme_registry['html5_player_default']['path'] = drupal_get_path('theme', 'newfteui');
+  $theme_registry['html5_player_default']['path'] = drupal_get_path('theme', 'newfteui').'/templates/other';
 }
 
 /**
