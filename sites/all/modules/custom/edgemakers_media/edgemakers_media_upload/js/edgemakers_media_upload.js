@@ -127,6 +127,7 @@ function studio_media_list_ajax_load(pager) {
             studioBindLeftRight(pager);
           }
           setArrowTop();
+          bindArrowfuc();
           studioMediaListEmpty = 1;
           //console.log("studio_media_list_ajax_load data is empty.");
         }
