@@ -204,7 +204,7 @@ function gallery_media_list_ajax_load(type, pager) {
             jQuery("#" + reloadElement).html(galleryMediaMoreEmptyMsg);
           }
           
-          //setArrowTop();
+          setArrowTop();
           
           if (galleryMediaListEmpty === 0) {
             galleryBindLeftRight(type, pager);
