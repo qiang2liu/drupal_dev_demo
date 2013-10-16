@@ -22,6 +22,9 @@ jQuery(document).ready(function(){
 });
 
 
+var studioMediaListEmpty = 0;
+var galleryMediaListEmpty = 0;
+
 /**
  * Note: Change it should sync to mediaListAjaxLoad.js
  */
@@ -101,7 +104,9 @@ function showMediaOnDestination(nid, title, position) {
 
 function studio_media_list_ajax_load(pager) {
   
-  var studioMuralEmptyMsg = '<p class="empty-data">There is no media available for you.</p>';
+  var studioMuralEmptyMsg = '<li style="width:100%"><p class="empty-data">There is no media available for you.</p></li>';
+  var studioMuralMoreEmptyMsg = '<li style="width:100%"><p class="empty-data">There is no more media available for you.</p></li>';
+  
   if (pager == null) {
     pager = 0;
   }
@@ -115,7 +120,15 @@ function studio_media_list_ajax_load(pager) {
       if (data.length === 0) {
         if (pager <= 0) {
           jQuery("#studio-media-list").html(studioMuralEmptyMsg);
-          
+        }
+        else{
+          jQuery("#studio-media-list").html(studioMuralMoreEmptyMsg);
+          if (studioMediaListEmpty == 0) {
+            studioBindLeftRight(pager);
+          }
+          setArrowTop();
+          studioMediaListEmpty = 1;
+          //console.log("studio_media_list_ajax_load data is empty.");
         }
      
 //        alert("not enough content to turning page");
@@ -152,7 +165,8 @@ function gallery_media_list_ajax_load(type, pager) {
   }
   
   var reloadElement = "gallery-" + type +"-list";
-  var galleryMuralEmptyMsg = '<p class="empty-data">There is no ' + type + ' available</p>';
+  var galleryMuralEmptyMsg = '<li style="width:100%"><p class="empty-data">There is no ' + type + ' available</p></li>';
+  var galleryMediaMoreEmptyMsg = '<li style="width:100%"><p class="empty-data">There is no ' + type + ' available</p></li>';
   
 //  switch(type) {
 //    case "media":
@@ -180,13 +194,21 @@ function gallery_media_list_ajax_load(type, pager) {
       if (data.length === 0) {
       	
         if (keyword.length === 0) {
-          console.log("data is empty");
-        
+          console.log("gallery media data is empty");
+
           if (pager <= 0) {
             jQuery("#" + reloadElement).html(galleryMuralEmptyMsg);
-            
           }
-         
+          else {
+            jQuery("#" + reloadElement).html(galleryMediaMoreEmptyMsg);
+          }
+          
+          //setArrowTop();
+          
+          if (galleryMediaListEmpty === 0) {
+            galleryBindLeftRight(type, pager);
+          }
+          galleryMediaListEmpty = 1;
 
         }
         else {

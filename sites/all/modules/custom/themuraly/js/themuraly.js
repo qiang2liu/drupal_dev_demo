@@ -1,5 +1,7 @@
 var nofresh = 0;
-
+var studioMyMuralListEmpty = 0;
+var studioShareMuralListEmpty = 0;
+var galleryMuralListEmpty = 0;
 
 jQuery(document).ready(function(){
   
@@ -226,6 +228,8 @@ function mural_ajax_load_list() {
 //   @type my[idea], share[with me], ideas
 function studio_mural_ajax_page_load(type, pager) {
   
+  var EmptyMsg;
+  
   if (pager == null) {
     pager = 0;
   }
@@ -238,9 +242,11 @@ function studio_mural_ajax_page_load(type, pager) {
   
   switch (type) {
     case "my":
+      EmptyMsg = "<p class=\"empty-data\">There is no more mural available for you.</p>";
       replaceElement = "studio-mural-list";
       break;
     case "share":
+      EmptyMsg = "<p class=\"empty-data\">There are no more ideas shared with you.</p>";
       replaceElement = "studio-mural-share-with-me-list";
       break;
     default:
@@ -253,7 +259,27 @@ function studio_mural_ajax_page_load(type, pager) {
     dataType: "html",
     type : "GET",
     success : function(data){
+//      console.log(studioMyMuralListEmpty + "|" + studioShareMuralListEmpty);
       if (data.length === 0) {
+        jQuery("#" + replaceElement).html(EmptyMsg);
+        
+        switch (type) {
+          case "my":
+//            console.log('My: ' + studioMyMuralListEmpty);
+            if (studioMyMuralListEmpty === 0) {
+              setLeftRightPager(type, pager);
+            }
+            studioMyMuralListEmpty = 1;
+            break;
+          case "share":
+//            console.log('Share: ' + studioMyMuralListEmpty);
+            if (studioShareMuralListEmpty === 0) {
+              setLeftRightPager(type, pager);
+            }
+            studioShareMuralListEmpty = 1;
+            break;
+
+        }
         //alert("not enough content to turning page");
       }
       else {
@@ -506,6 +532,9 @@ function studio_mural_ajax_load_list() {
 function gallery_mural_ajax_load_list(pager) {
   
   var keyword = jQuery("#gallery-keyword").val();
+  
+  var galleryMuralEmptyMsg = "<p class=\"empty-data\">There are no more murals.</p>";
+  
   //var sortby = jQuery("#gallery-sort-by").val();
   if (keyword == null) {
     keyword = "";
@@ -523,7 +552,13 @@ function gallery_mural_ajax_load_list(pager) {
       
       if (data.length === 0) {
         if (keyword.length === 0) {
-          console.log("data is empty");
+          console.log("galery mural data is empty");
+          jQuery("#gallery-mural-list").html(galleryMuralEmptyMsg);
+          if (galleryMuralListEmpty === 0) {
+            setLeftRightPager("gallery", pager);
+          }
+          galleryMuralListEmpty = 1;
+          
         }
         else {
           jQuery("#gallery-mural-list").html("Search result is empty, replace other keyword to search or clean keyword.");
