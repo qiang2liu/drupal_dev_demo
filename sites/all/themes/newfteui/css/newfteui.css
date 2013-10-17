@@ -1494,3 +1494,6 @@ div.ctools-modal-content .form-item .description{
 .topic-content p {
   word-break: break-all;
 }
+.main-content .node-edgemakers-topic {
+  margin: 35px 20px;
+}

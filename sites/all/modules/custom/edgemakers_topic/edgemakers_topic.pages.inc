@@ -45,6 +45,9 @@ define('GMAP3_TOOLS_DEFAULT_MARKERS_POSITION_CENTER_ZOOM', 'center zoom');
  */
 define('GMAP_INFOWINDOW_ITEMS_PER_PAGE', 10);
 
+function edgemakers_topic_view($node) {
+  echo theme('topic_overlay', array('topic' => $node));
+}
 /**
  * get items for carousel block to display
  */

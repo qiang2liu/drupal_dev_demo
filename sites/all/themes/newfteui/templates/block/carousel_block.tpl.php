@@ -7,7 +7,7 @@
         <h5><?php echo $item['title'];?></h5>
         <p><?php echo $item['description'];?></p>
         <div class="carousel-viewmore">
-          <a href="node/<?php echo $item['topicid'];?>" target="_blank">View Wicked Problem</a>
+          <a class="topic_link" href="<?php echo url('edgemakers/topic/view/'.$item['topicid']); ?>">View Wicked Problem</a>
         </div>
       </div>
     </div>

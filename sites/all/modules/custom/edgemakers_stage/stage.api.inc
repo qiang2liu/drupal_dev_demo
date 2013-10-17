@@ -119,22 +119,20 @@ function edgemakers_stage_api_set_list_html($stage_id) {
               $sets['items'][$i]['current'] = $set['set_id'];
 
               $prev_node = node_load($prev['set_id']);
+              $type = 'prev_normal';
               if (isset($prev_node->field_set_type[LANGUAGE_NONE])) {
-                $prev_node->term = taxonomy_term_load($prev_node->field_set_type[LANGUAGE_NONE][0]['tid']);
+                $term = taxonomy_term_load($prev_node->field_set_type[LANGUAGE_NONE][0]['tid']);
+                if($term) $type = strtolower(str_replace(array(' ', '&'), array('_', ''), $term->name).'');
               }
-              else {
-                $prev_node->term->name = 'prev_normal';
-              }
-              $sets['items'][$i]['prevtype'] = strtolower($prev_node->term->name);
+              $sets['items'][$i]['prevtype'] = $type;
 
               $next_node = node_load($next['set_id']);
+              $type = 'next_normal';
               if (isset($next_node->field_set_type[LANGUAGE_NONE])) {
-                $next_node->term = taxonomy_term_load($next_node->field_set_type[LANGUAGE_NONE][0]['tid']);
+                $term = taxonomy_term_load($next_node->field_set_type[LANGUAGE_NONE][0]['tid']);
+                if($term) $type = strtolower(str_replace(array(' ', '&'), array('_', ''), $term->name).'');
               }
-              else {
-                $prev_node->term->name = 'next_normal';
-              }
-              $sets['items'][$i]['nexttype'] = strtolower($next_node->term->name);
+              $sets['items'][$i]['nexttype'] = $type;
 
               $i++;
 

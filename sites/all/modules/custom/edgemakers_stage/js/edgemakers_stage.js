@@ -46,6 +46,7 @@
     jQuery("#set-view-region").hide();
     jQuery("#stage-set-list").show();
     jQuery(".s-s-title h3").empty();
+    adjustDestinationArea();
   }
   
   function openAjaxLoad(id) {
@@ -67,9 +68,10 @@
       // Clean audio/video.
       jQuery("#stage-set-view").html("Empty");
       
-      jQuery("#set-view-region").slideToggle();
+      jQuery("#set-view-region").hide();
       jQuery("#stage-set-list").show();
       jQuery(".s-s-title h3").empty();
+      adjustDestinationArea();
     });
     
     jQuery("#mural-back-set-list").bind("click", function(){
@@ -100,7 +102,7 @@
         jQuery("#stage-set-list").show();
       }
       else {
-        showSetOnDestion(nid);
+        showSetOnDestion(nid, setType);
       }
       return false;
     });
@@ -123,7 +125,7 @@
         jQuery("#stage-set-list").show();
       }
       else {
-        showSetOnDestion(nid);
+        showSetOnDestion(nid, setType);
       }
       return false;
     });
@@ -163,7 +165,7 @@
           var setType = jQuery(this).siblings('a').attr("class");
           
           var nid = jQuery(this).siblings('a').attr('id').substring(5);
-          showSetOnDestion(nid, stage_id, setType);
+          showSetOnDestion(nid, setType);
 
           return false;
           
@@ -229,6 +231,34 @@
       return false;
     });
   }
+  
+  jQuery("a.topic_link").bind('click', function() {
+    jQuery.ajax({
+      url: this.href,
+      type : 'GET',
+      success : function(data){      
+        jQuery("#stage-set-view").html(data);
+        
+        var setTitle = jQuery("#set-title").html();
+  
+        jQuery(".s-s-title h2").html('Topic');
+        jQuery(".s-s-title h3").empty();
+        
+        teacherNotes('');
+        jQuery("#set-view-region").show();
+        jQuery("#stage-set-list").hide();
+        
+        jQuery("#mural-back-to-dashboard").hide();
+        jQuery("#back-to-dashboard").show();
+        jQuery("#set-nav").hide();
+        
+        adjustDestinationArea(true);
+      },
+      error :function(){
+      }
+    });
+    return false;
+  });
   
   if (jQuery("a.set-to-destination").length !== 0) {
     
@@ -312,10 +342,9 @@ function resetDestinationNav(nid) {
   // End nav.
 }
 
-function showSetOnDestion(nid, stage_id, setType) {
+function showSetOnDestion(nid, setType) {
 
-  //var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid;
-  var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid + '/' + stage_id;
+  var ajaxUrl = '?q=edgemakers/stage/api/set/info/ajax/' + nid;
   var ajaxContent;
   
   closeFromIframe();
@@ -339,7 +368,6 @@ function showSetOnDestion(nid, stage_id, setType) {
   else {
 
     //openAjaxLoad("ajaxload");
-    
     jQuery.ajax({
       url: ajaxUrl,
       type: "GET",
@@ -354,7 +382,6 @@ function showSetOnDestion(nid, stage_id, setType) {
         var setNotes = jQuery("#set-notes").html();
         teacherNotes(setNotes);
         
-        //jQuery("#set-view-region").slideToggle();
         jQuery("#set-view-region").show();
         jQuery("#stage-set-list").hide();
         
@@ -364,6 +391,8 @@ function showSetOnDestion(nid, stage_id, setType) {
         jQuery("#back-set-list").show();
         jQuery(".set-nav .prev").show();
         jQuery(".set-nav .next").show();
+        
+        adjustDestinationArea(setType == "topic_page");
         
 //        jQuery("#back-to-dashboard").hide();
         //make small image bigger to reach the edge of the content!
@@ -394,4 +423,15 @@ function showSetOnDestion(nid, stage_id, setType) {
     });
   }
 
+}
+function adjustDestinationArea(wider) {
+  if(wider) {
+    var height = jQuery(window).height()-10;
+    jQuery('.main-content').css({'width': '99%', 'height':height+'px', 'top':'5px', 'z-index':'100'});
+    jQuery('.set-text-content').css('height', (height-(jQuery('#set-nav').css('display') == 'block' ? 190 : 155))+'px');
+  } else {
+    jQuery('.main-content').css({'width': '70%', 'height':'auto', 'top':'90px', 'z-index':'auto'});
+    jQuery('.set-text-content').css('height', '400px');
+  }
+  jQuery.fn.setPositionofElements();
 }

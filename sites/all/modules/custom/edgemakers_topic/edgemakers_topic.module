@@ -7,7 +7,9 @@ function edgemakers_topic_views_api() {
     'api' => 3,
   );
 }
-
+/**
+ * Implements hook_menu().
+ */
 function edgemakers_topic_menu() {
   $items = array();
 
@@ -16,6 +18,13 @@ function edgemakers_topic_menu() {
     'page callback' => 'edgemakers_get_map_data',
     'type' => MENU_NORMAL_ITEM,
     'access arguments' => array('access content'),
+    'file' => 'edgemakers_topic.pages.inc',
+  );
+  $items['edgemakers/topic/view/%node'] = array(
+    'page callback' => 'edgemakers_topic_view', // Render HTML
+    'page arguments' => array(3),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
     'file' => 'edgemakers_topic.pages.inc',
   );
 
@@ -107,6 +116,9 @@ function edgemakers_topic_theme() {
     ),
     'problems_block' => array(
       'variables' => array('items' => NULL),
+    ),
+    'topic_overlay' => array(
+      'variables' => array('topic' => NULL),
     ),
   );
 }

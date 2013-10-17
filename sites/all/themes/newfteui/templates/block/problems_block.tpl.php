@@ -8,15 +8,11 @@
 			  <?php foreach($items['list'] as $tid=>$term):?>
 	     	<li>
 
-	        <a href="<?php echo url('node/'.$term['topicid']); ?>" target="_blank"><?php echo $term['name'];?></a>
+	        <a class="topic_link" href="<?php echo url('edgemakers/topic/view/'.$term['topicid']); ?>"><?php echo $term['name'];?></a>
 	      </li>
 	      <?php endforeach;?>
 	    </ul>
 
-  </div>
-  <div class="topic-content-box content-location">
-   	<h2>Another Title</h2>
-   	<p>another content another content another content another content another content another content another content </p>
   </div>
   <div class="gmap content-location">
     <iframe id="iframe-topic-gmap" border="0" scrolling="no" width="560px" height="400px" src="?q=edgemakers/topic/gmap" ></iframe>

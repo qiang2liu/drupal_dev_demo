@@ -30,18 +30,10 @@ if (isset($node->field_set_topic['und'])) {
       // We hide the comments and links now so that we can render them later.
       hide($content['comments']);
       hide($content['links']);
-      print render($topic->field_topic_problem['und']['0']['value']);
+      print drupal_render(node_view($topic, 'full'));
       // Print "Did you know from topic";
 //       print render($content['field_teacher_notes']);
     ?>
-    <span class="topic-read-more">
-      <?php
-      if (isset($node->field_set_topic['und'])) {
-        $nid = $node->field_set_topic['und']['0']['target_id'];
-        print l('Click here to see more', 'node/' . $nid, array('attributes' => array('target' => '_blank')));
-      }
-      ?>
-    </span>
   </div>
 
   <div class="clearfix">

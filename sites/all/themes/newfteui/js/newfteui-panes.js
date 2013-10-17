@@ -111,9 +111,7 @@
 			
 		    //clcik anywhere to link to the topic page
 		    self.find(options.desBox).bind('click', function(){
-		    	var link = $(this).find('a',options.linkNode).attr('href');
-		    	window.open(link);
-		    	
+		    	var link = $(this).find('a',options.linkNode).click();
 		    });
 		    
 		    //disable the click function of the viewmore link
