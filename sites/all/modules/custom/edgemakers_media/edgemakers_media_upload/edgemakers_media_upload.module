@@ -31,7 +31,7 @@ function edgemakers_media_upload_menu() {
   );
 
   $items['edgemarkers/media/get/list/ajax'] = array(
-    'page callback' => 'edgemakers_media_list_html',
+    'page callback' => 'edgemakers_media_list_on_toolbar',
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
     'delivery callback' => 'edgemakers_media_ajax_callback',
@@ -431,7 +431,7 @@ function edgemakers_media_upload_ajax_submit($form, &$form_state) {
 }
 
 /**
- * Implements hook_book_info().
+ * Implements hook_block_info().
  */
 function edgemakers_media_upload_block_info() {
 
@@ -440,8 +440,8 @@ function edgemakers_media_upload_block_info() {
     'cache' => DRUPAL_CACHE_PER_ROLE,
   );
 
-  $blocks['media_list'] = array(
-    'info' => t('Media list'),
+  $blocks['toolbar_media_list'] = array(
+    'info' => t('Media list on toolbar'),
     'cache' => DRUPAL_CACHE_PER_ROLE,
   );
 
@@ -452,16 +452,6 @@ function edgemakers_media_upload_block_info() {
 
   $blocks['gallery_media_list'] = array(
     'info' => t('All media list on gallery pane'),
-    'cache' => DRUPAL_CACHE_PER_ROLE,
-  );
-
-  $blocks['gallery_video_list'] = array(
-    'info' => t('Video media list on gallery pane'),
-    'cache' => DRUPAL_CACHE_PER_ROLE,
-  );
-
-  $blocks['gallery_image_list'] = array(
-    'info' => t('Image media list on gallery pane'),
     'cache' => DRUPAL_CACHE_PER_ROLE,
   );
 
@@ -486,8 +476,8 @@ function edgemakers_media_upload_block_view($delta = '') {
       $block['content'] = $link_html;
       break;
 
-    case 'media_list':
-      $block['subject'] = t('Media List');
+    case 'toolbar_media_list':
+      $block['subject'] = t('Media List on toolbar');
       $block['content'] = '<div id="my-media-list" class="toolbar-item media"></div>';
       break;
 
@@ -511,30 +501,6 @@ function edgemakers_media_upload_block_view($delta = '') {
                               <div class="arrow-left" pager="0"> < </div>
                               <div class="arrow-right" pager="1"> > </div>
                               <ul id="gallery-media-list"></ul>
-                            </div>
-                          </div>';
-      break;
-
-    case 'gallery_video_list':
-      $block['subject'] = t('Video media list on gallery pane');
-      $block['content'] = '<div class="pane-gallery-box pane-studio-box media item-studio" id="gallery-video-list-pane">
-                            <h4>Video</h4>
-                            <div class="scroll-wrapper">
-                              <div class="arrow-left" pager="0"> < </div>
-                              <div class="arrow-right" pager="1"> > </div>
-                              <ul id="gallery-video-list"></ul>
-                            </div>
-                          </div>';
-      break;
-
-    case 'gallery_image_list':
-      $block['subject'] = t('Image media list on gallery pane');
-      $block['content'] = '<div class="pane-gallery-box pane-studio-box media item-studio" id="gallery-image-list-pane">
-                            <h4>Image</h4>
-                            <div class="scroll-wrapper">
-                              <div class="arrow-left" pager="0"> < </div>
-                              <div class="arrow-right" pager="1"> > </div>
-                              <ul id="gallery-image-list"></ul>
                             </div>
                           </div>';
       break;
@@ -1066,7 +1032,7 @@ function edgemakers_media_list_on_gallery($type = '', $page = 0, $keyword = '') 
 }
 
 /**
- * Return media list on studiao pane.
+ * Return media list on studio pane.
  *
  * @param int $pager
  *   - Current page.
@@ -1254,7 +1220,7 @@ function edgemakers_my_media_list_on_toolbar($limit = 5) {
  * @return string
  *   - HTML code.
  */
-function edgemakers_media_list_html($limit = 5) {
+function edgemakers_media_list_on_toolbar($limit = 5) {
 
   global $user;
   $nodes = array();

@@ -266,7 +266,7 @@ function _edgemakers_stage_mangebox_index_list_html($stage_id, $destination = ''
 }
 
 /**
- * Implements hook_book_info().
+ * Implements hook_block_info().
  */
 function edgemakers_stage_block_info() {
 

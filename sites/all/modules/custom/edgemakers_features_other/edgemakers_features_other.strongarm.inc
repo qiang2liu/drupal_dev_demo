@@ -794,14 +794,6 @@ function edgemakers_features_other_strongarm() {
       0 => 'comment',
       1 => 'cid',
     ),
-    'heartbeat_activity' => array(
-      0 => 'heartbeat_activity',
-      1 => 'uaid',
-    ),
-    'heartbeat_activity_template' => array(
-      0 => 'heartbeat_messages',
-      1 => 'hid',
-    ),
     'node' => array(
       0 => 'node',
       1 => 'nid',
@@ -825,14 +817,6 @@ function edgemakers_features_other_strongarm() {
     'oauth2_server_authorization_code' => array(
       0 => 'oauth2_server_authorization_code',
       1 => 'code_id',
-    ),
-    'og_membership_type' => array(
-      0 => 'og_membership_type',
-      1 => 'id',
-    ),
-    'og_membership' => array(
-      0 => 'og_membership',
-      1 => 'id',
     ),
     'file' => array(
       0 => 'file_managed',

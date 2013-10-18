@@ -1098,10 +1098,10 @@ function edgemakers_features_other_menu_default_menu_links() {
     'menu_name' => 'management',
     'link_path' => 'admin/config/system/ftesettings',
     'router_path' => 'admin/config/system/ftesettings',
-    'link_title' => 'FTEsettings',
+    'link_title' => 'Edgemakers Settings',
     'options' => array(
       'attributes' => array(
-        'title' => 'settings for FTE',
+        'title' => 'Settings for Edgemakers',
       ),
     ),
     'module' => 'system',

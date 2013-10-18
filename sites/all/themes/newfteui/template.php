@@ -436,16 +436,14 @@ function newfteui_minplayer($variables) {
   return $hide ? '' : theme('html5_player', $variables);
 }
 /**
- * Implements hook_theme() in theme.
+ * Implements hook_js_alter.
  */
-// function newfteui_theme($existing, $type, $theme, $path){
-//   $hooks['user_register_form']=array(
-//     'render element'=>'form',
-//     'template' =>'templates/user-register',
-//   );
-// return $hooks;
-// }
-
-// function newfteui_preprocess_user_register(&$variables) {
-//   $variables['form'] = drupal_build_form('user_register_form', user_register_form(array()));
-// }
+function newfteui_js_alter(&$javascript) {
+  foreach($javascript as $key=>$var) {
+    if ($var['scope'] !== 'footer') {
+      $var['weight'] -= 100000;
+    }
+    $var['scope'] = 'footer';
+    $javascript[$key] = $var;
+  }
+}

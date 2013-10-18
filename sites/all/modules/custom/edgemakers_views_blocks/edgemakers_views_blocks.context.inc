@@ -30,37 +30,37 @@ function edgemakers_views_blocks_context_default_contexts() {
           'module' => 'edgemakers_media_upload',
           'delta' => 'media_upload_link',
           'region' => 'tool_bar',
-          'weight' => '-33',
+          'weight' => '-10',
         ),
-        'themuraly-mural_link' => array(
+        'themuraly-mural_create_link' => array(
           'module' => 'themuraly',
-          'delta' => 'mural_link',
+          'delta' => 'mural_create_link',
           'region' => 'tool_bar',
-          'weight' => '-32',
+          'weight' => '-9',
         ),
-        'edgemakers_media_upload-media_list' => array(
+        'edgemakers_media_upload-toolbar_media_list' => array(
           'module' => 'edgemakers_media_upload',
-          'delta' => 'media_list',
+          'delta' => 'toolbar_media_list',
           'region' => 'tool_bar',
-          'weight' => '-31',
+          'weight' => '-8',
         ),
-        'themuraly-mural_list' => array(
+        'themuraly-toolbar_mural_list' => array(
           'module' => 'themuraly',
-          'delta' => 'mural_list',
+          'delta' => 'toolbar_mural_list',
           'region' => 'tool_bar',
-          'weight' => '-30',
+          'weight' => '-7',
         ),
         'system-main' => array(
           'module' => 'system',
           'delta' => 'main',
           'region' => 'content',
-          'weight' => '-33',
+          'weight' => '-31',
         ),
         'edgemakers_stage-stage_list' => array(
           'module' => 'edgemakers_stage',
           'delta' => 'stage_list',
           'region' => 'content',
-          'weight' => '-32',
+          'weight' => '-31',
         ),
         'views-community_users-block' => array(
           'module' => 'views',
@@ -74,9 +74,9 @@ function edgemakers_views_blocks_context_default_contexts() {
           'region' => 'community',
           'weight' => '-9',
         ),
-        'themuraly-studio_list' => array(
+        'themuraly-studio_mural_list' => array(
           'module' => 'themuraly',
-          'delta' => 'studio_list',
+          'delta' => 'studio_mural_list',
           'region' => 'studio_pane',
           'weight' => '-10',
         ),

@@ -260,19 +260,22 @@ function themuraly_refresh($js = FALSE) {
   ajax_render($commands);
 }
 
+/**
+ * Implements hook_block_info();
+ */
 function themuraly_block_info() {
-  $blocks['studio_list'] = array(
-    'info' => t('Studio list'), //The name that will appear in the block list.
+  $blocks['studio_mural_list'] = array(
+    'info' => t('Mural list on studio'), //The name that will appear in the block list.
     'cache' => DRUPAL_NO_CACHE,
   );
 
-  $blocks['mural_link'] = array(
-    'info' => t('mural link'), //The name that will appear in the block list.
+  $blocks['mural_create_link'] = array(
+    'info' => t('mural create link'), //The name that will appear in the block list.
     'cache' => DRUPAL_NO_CACHE,
   );
 
-  $blocks['mural_list'] = array(
-    'info' => t('Mural List'), //The name that will appear in the block list.
+  $blocks['toolbar_mural_list'] = array(
+    'info' => t('Mural List on toolbar'), //The name that will appear in the block list.
     'cache' => DRUPAL_NO_CACHE,
   );
 
@@ -297,8 +300,9 @@ function themuraly_block_view($delta = '') {
   global $user;
 
   switch ($delta) {
-    case 'studio_list':
+    case 'studio_mural_list':
 
+      $block['subject'] = t('');
       if ($user->uid == 0) {
         $mural_link = 'modal_forms/nojs/login';
         $link_class = array('ctools-use-modal', 'ctools-modal-modal-popup-small');
@@ -309,11 +313,8 @@ function themuraly_block_view($delta = '') {
                 )
         );
 
-        $block['subject'] = t('');
         $block['content'] = $login_link . t('Login to your studio.');
       } else {
-
-        $block['subject'] = t('studio');
 
         module_load_include('inc', 'themuraly', 'mural_op');
 
@@ -362,10 +363,10 @@ function themuraly_block_view($delta = '') {
 //       }
 //         $block['content'] = get_myideas_shareideas($user->uid, $the_user_muralusername, $the_user_roomid);
       break;
-    case 'mural_link':
+    case 'mural_create_link':
 
-      $block['subject'] = 'mural link';
-      $html = '<div class="toolbar-item add-an-idea" class="hidden"><h4>';
+      $block['subject'] = 'mural create link';
+      $html = '<div class="toolbar-item add-an-idea" class="hidden">';
 
       if ($user->uid) {
         $mural_link = 'mural/create';
@@ -386,8 +387,8 @@ function themuraly_block_view($delta = '') {
 
       $block['content'] = $html;
       break;
-    case 'mural_list':
-      $block['subject'] = t('Mural List');
+    case 'toolbar_mural_list':
+      $block['subject'] = t('Mural List on toolbar');
       $block['content'] = '<div id="my-mural-list" class="toolbar-item mural"></div>';
       break;
 
