@@ -434,6 +434,9 @@ function themuraly_block_view($delta = '') {
         $block['content'] = t('');
       }
       break;
+    default:
+      $block['subject'] = '';
+      $block['content'] = '';
   }
   return $block;
 }

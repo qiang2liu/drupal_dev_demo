@@ -504,6 +504,9 @@ function edgemakers_media_upload_block_view($delta = '') {
                             </div>
                           </div>';
       break;
+    default:
+      $block['subject'] = '';
+      $block['content'] = '';
 
   }
 
