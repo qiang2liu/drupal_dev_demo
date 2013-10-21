@@ -1497,3 +1497,69 @@ div.ctools-modal-content .form-item .description{
 .main-content .node-edgemakers-topic {
   margin: 35px 20px;
 }
+
+/* topic-murals */
+#topic-murals .project-title{
+  width:196px;
+  padding-right:14px;
+  float:left;
+}
+#topic-murals .project-title h3{
+  width:155px;
+  line-height:48px;
+  text-align:center;
+  color:#fff;
+  font-size:24px;
+  background:#d53f38;
+}
+#topic-murals .project-title p{
+  background:#fff;
+  padding:10px;
+  font-size:20px;
+  font-style:italic;
+  color:#3f4b56;
+}
+#topic-murals .project-con{
+  width:960px;
+  float:left;
+  margin-bottom:50px;
+}
+.item-list ul.topic-mural-list li,
+#topic-mural-list li{
+  width:162px;
+  float:left;
+  margin-right:12px;
+  height:220px;
+  padding:10px;
+  text-align:center;
+  position:relative;
+  background:#fff;
+}
+.item-list ul.topic-mural-list li.last,
+#topic-mural-list li.last{
+  margin-right:0;
+}
+.item-list ul.topic-mural-list li h3,
+#topic-mural-list li h3{
+  font-size:22px;
+  font-style:italic;
+  padding-bottom:10px;
+  margin-bottom:20px;
+  text-overflow:ellipsis; overflow:hidden; white-space:nowrap;
+}
+.item-list ul.topic-mural-list li  .mural-title,
+#topic-mural-list li  .mural-title{
+  font-size:16px;
+}
+.item-list ul.topic-mural-list li span.user-avatar,
+#topic-mural-list li span.user-avatar{
+  display: block;
+  width:104px;
+  height:104px;
+  border-radius:52px;
+  border:1px solid #e2e5e3;
+  overflow:hidden;
+  position:absolute;
+  bottom:-53px;
+  left:38px;
+}
