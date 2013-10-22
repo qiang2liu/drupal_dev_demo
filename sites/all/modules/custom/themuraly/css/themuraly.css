@@ -137,6 +137,7 @@ ul#mural-region-nav li.mural-nav-link-duplicate {
 }
 
 /* Studio mural style */
+.view-content .item-list ul.topic-mural-list li,
 ul#topic-mural-list li,
 ul#gallery-mural-list li,
 ul#studio-mural-share-with-me-list li,
@@ -146,6 +147,7 @@ ul#studio-mural-list li {
   margin: 5px;
 }
 
+ul.topic-mural-list li.muralsettingsicon,
 ul#topic-mural-list li.muralsettingsicon,
 ul#gallery-mural-list li.muralsettingicon,
 ul#studio-mural-share-with-me-list li.muralsettingicon,
@@ -155,6 +157,7 @@ ul#studio-mural-list li.muralsettingicon {
   height: 122px;
 }
 
+ul.topic-mural-list li span.muralthumb img,
 ul#topic-mural-list li span.muralthumb img,
 ul#gallery-mural-list li span.muralthumb img,
 ul#studio-mural-share-with-me-list li span.muralthumb img,
@@ -163,9 +166,11 @@ ul#studio-mural-list li span.muralthumb img {
   height: 122px;
 }
 
+.topic-mural-list .set-cover,
 #topic-mural-list .set-cover,
 #gallery-mural-list .set-cover,
 #studio-panes-mural-list .set-cover,
+ul.topic-mural-list li a.mural-list-item-link,
 ul#topic-mural-list li a.mural-list-item-link,
 ul#gallery-mural-list li a.studio-mural-list-item-link,
 ul#studio-mural-share-with-me-list li a.studio-mural-list-item-link,
@@ -179,6 +184,7 @@ ul#studio-mural-list li a.studio-mural-list-item-link {
   top:0;
 }
 
+.topic-mural-list .set-cover,
 #topic-mural-list .set-cover,
 #gallery-mural-list .set-cover,
 #studio-panes-mural-list .set-cover {
@@ -195,6 +201,7 @@ ul#studio-mural-list li a.studio-mural-list-item-link {
     white-space: nowrap;
 }
 
+.topic-mural-list li:hover .set-cover,
 #topic-mural-list li:hover .set-cover,
 #gallery-mural-list li:hover .set-cover,
 #studio-panes-mural-list li:hover .set-cover {
@@ -207,6 +214,11 @@ ul#studio-mural-list li a.studio-mural-settings{
   position: absolute;
   left: 2px;
   bottom: 2px;
+}
+
+.view-content .item-list ul.topic-mural-list li .user-avatar img {
+  height: 74px;
+  width: 74px;
 }
 
 /* #mural-iframe-content {

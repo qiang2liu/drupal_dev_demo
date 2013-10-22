@@ -469,19 +469,28 @@ div.modal-forms-modal-content.profilesetting .setting-title{
 #topic-murals .project-title{
 	background:url(../images/newui_ico_topic_info_8.png) right 92px no-repeat;
 }
+.topic-mural-list li h3,
 #topic-mural-list li h3{
 	background:url(../images/newui_ico_topic_info_9.png) center bottom no-repeat;
 }
-#topic-mural-list li.topicMuralLsitB h3{
+
+.topic-mural-list li.topicMuralLsitB h3,
+#topic-mural-list li.topicMuralLsitB h3
+{
 	background:url(../images/newui_ico_topic_info_10.png) center bottom no-repeat;
 }
-#topic-mural-list li.topicMuralLsitC h3{
+.topic-mural-list li.topicMuralLsitC h3,
+#topic-mural-list li.topicMuralLsitC h3
+{
 	background:url(../images/newui_ico_topic_info_11.png) center bottom no-repeat;
 }
+.topic-mural-list li.topicMuralLsitD h3,
 #topic-mural-list li.topicMuralLsitD h3{
 	background:url(../images/newui_ico_topic_info_12.png) center bottom no-repeat;
 }
-#topic-mural-list li.topicMuralLsitE h3{
+.topic-mural-list li.topicMuralLsitE h3,
+#topic-mural-list li.topicMuralLsitE h3
+{
 	background:url(../images/newui_ico_topic_info_13.png) center bottom no-repeat;
 }
 div.modal-forms-modal-content .modal-header,

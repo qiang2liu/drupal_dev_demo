@@ -179,66 +179,7 @@ h1{
 	float:left;
 	background:#fff;
 }
-/* topic-murals */
-#topic-murals .project-title{
-	width:196px;
-	padding-right:14px;
-	float:left;
-}
-#topic-murals .project-title h3{
-	width:155px;
-	line-height:48px;
-	text-align:center;
-	color:#fff;
-	font-size:24px;
-	background:#d53f38;
-}
-#topic-murals .project-title p{
-	background:#fff;
-	padding:10px;
-	font-size:20px;
-	font-style:italic;
-	color:#3f4b56;
-}
-#topic-murals .project-con{
-	width:960px;
-	float:left;
-	margin-bottom:50px;
-}
-#topic-mural-list li{
-	width:162px;
-	float:left;
-	margin-right:12px;
-	height:220px;
-	padding:10px;
-	text-align:center;
-	position:relative;
-	background:#fff;
-}
-#topic-mural-list li.last{
-	margin-right:0;
-}
-#topic-mural-list li h3{
-	font-size:22px;
-	font-style:italic;
-	padding-bottom:10px;
-	margin-bottom:20px;
-	text-overflow:ellipsis; overflow:hidden; white-space:nowrap;
-}
-#topic-mural-list li  .mural-title{
-	font-size:16px;
-}
-#topic-mural-list li span.user-avatar{
-	display: block;
-	width:104px;
-	height:104px;
-	border-radius:52px;
-	border:1px solid #e2e5e3;
-	overflow:hidden;
-	position:absolute;
-	bottom:-53px;
-	left:38px;
-}
+
 #videos_container {
   padding:10px;
 }
@@ -349,8 +290,8 @@ h1{
         	</div>
         	 <a href="#x" class="next" <?php if(count($videoIds) == 1) echo 'disabled="disabled"';?>>Next</a>
           </div>
-         
-        
+
+
       </div>
       <?php endif;?>
       </div>
@@ -376,26 +317,26 @@ jQuery('.node-type-edgemakers-topic h1').css('background-color', "<?php echo $to
   	changeVideo(id);
   })
   jQuery(".videos-controller .prev").bind('click', function() {
-  	
+
     var prevel = jQuery('.videos-controller-dots span.active').prev();
     if(prevel.length == 0){
     	 prevel = jQuery('.videos-controller-dots span:last');
     }
-    
+
     jQuery('.videos-controller-dots span.active').removeClass('active');
     prevel.addClass('active');
-    
+
     changeVideo(prevel[0].id);
   });
   jQuery(".videos-controller .next").bind('click', function() {
-  	
+
     var nextel = jQuery('.videos-controller-dots span.active').next();
-    
+
     if(nextel.length == 0){
     	nextel = jQuery('.videos-controller-dots span:first');
     }
-      
-      
+
+
       jQuery('.videos-controller-dots span.active').removeClass('active');
       nextel.addClass('active');
     changeVideo(nextel[0].id);
