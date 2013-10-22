@@ -13,13 +13,6 @@ function edgemakers_features_other_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'additional_settings__active_tab_carousel_item';
-  $strongarm->value = 'edit-og';
-  $export['additional_settings__active_tab_carousel_item'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'additional_settings__active_tab_edgemakers_set';
   $strongarm->value = 'edit-comment';
   $export['additional_settings__active_tab_edgemakers_set'] = $strongarm;
@@ -1195,23 +1188,9 @@ function edgemakers_features_other_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'honeypot_form_carousel_item_node_form';
-  $strongarm->value = 0;
-  $export['honeypot_form_carousel_item_node_form'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'honeypot_form_comment_node_article_form';
   $strongarm->value = 1;
   $export['honeypot_form_comment_node_article_form'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'honeypot_form_comment_node_carousel_item_form';
-  $strongarm->value = 1;
-  $export['honeypot_form_comment_node_carousel_item_form'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -1394,13 +1373,6 @@ function edgemakers_features_other_strongarm() {
   $strongarm->name = 'honeypot_time_limit';
   $strongarm->value = '5';
   $export['honeypot_time_limit'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'location_defaultnum_carousel_item';
-  $strongarm->value = '1';
-  $export['location_defaultnum_carousel_item'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -2933,13 +2905,6 @@ function edgemakers_features_other_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'location_maxnum_carousel_item';
-  $strongarm->value = '0';
-  $export['location_maxnum_carousel_item'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'location_maxnum_edgemakers_set';
   $strongarm->value = '0';
   $export['location_maxnum_edgemakers_set'] = $strongarm;
@@ -2964,88 +2929,6 @@ function edgemakers_features_other_strongarm() {
   $strongarm->name = 'location_maxnum_site_bg_image';
   $strongarm->value = '0';
   $export['location_maxnum_site_bg_image'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'location_settings_node_carousel_item';
-  $strongarm->value = array(
-    'multiple' => array(
-      'min' => '0',
-      'max' => '0',
-      'add' => '1',
-    ),
-    'form' => array(
-      'weight' => '0',
-      'collapsible' => 1,
-      'collapsed' => 1,
-      'fields' => array(
-        'name' => array(
-          'collect' => '1',
-          'default' => '',
-          'weight' => '2',
-        ),
-        'street' => array(
-          'collect' => '1',
-          'default' => '',
-          'weight' => '4',
-        ),
-        'additional' => array(
-          'collect' => '1',
-          'default' => '',
-          'weight' => '6',
-        ),
-        'city' => array(
-          'collect' => '0',
-          'default' => '',
-          'weight' => '8',
-        ),
-        'province' => array(
-          'collect' => '0',
-          'widget' => 'autocomplete',
-          'default' => '',
-          'weight' => '10',
-        ),
-        'postal_code' => array(
-          'collect' => '0',
-          'default' => '',
-          'weight' => '12',
-        ),
-        'country' => array(
-          'collect' => '1',
-          'default' => 'us',
-          'weight' => '14',
-        ),
-        'locpick' => array(
-          'collect' => '1',
-          'weight' => '20',
-        ),
-      ),
-    ),
-    'display' => array(
-      'weight' => '0',
-      'hide' => array(
-        'name' => 0,
-        'street' => 0,
-        'additional' => 0,
-        'city' => 0,
-        'province' => 0,
-        'postal_code' => 0,
-        'country' => 0,
-        'locpick' => 0,
-        'province_name' => 0,
-        'country_name' => 0,
-        'map_link' => 0,
-        'coords' => 0,
-      ),
-      'teaser' => 1,
-      'full' => 1,
-    ),
-    'rss' => array(
-      'mode' => 'simple',
-    ),
-  );
-  $export['location_settings_node_carousel_item'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -3786,56 +3669,6 @@ function edgemakers_features_other_strongarm() {
         'custom' => '',
       ),
     ),
-    'carousel_admin' => array(
-      'field_carousel_item_image' => array(
-        'link_to_player' => 0,
-        'field_type' => '0',
-        'media_type' => 'media',
-        'preview' => '0',
-        'thumbnail' => '0',
-        'custom' => '',
-      ),
-      'field_carousel_item_link' => array(
-        'link_to_player' => 0,
-        'field_type' => '0',
-        'media_type' => 'media',
-        'preview' => '0',
-        'thumbnail' => '0',
-        'custom' => '',
-      ),
-      'type' => array(
-        'link_to_player' => 0,
-        'field_type' => '0',
-        'media_type' => 'media',
-        'preview' => '0',
-        'thumbnail' => '0',
-        'custom' => '',
-      ),
-      'area_text_custom' => array(
-        'link_to_player' => 0,
-        'field_type' => '0',
-        'media_type' => 'media',
-        'preview' => '0',
-        'thumbnail' => '0',
-        'custom' => '',
-      ),
-      'created' => array(
-        'link_to_player' => 0,
-        'field_type' => '0',
-        'media_type' => 'media',
-        'preview' => '0',
-        'thumbnail' => '0',
-        'custom' => '',
-      ),
-      'field_carousel_item_topic' => array(
-        'link_to_player' => 0,
-        'field_type' => '0',
-        'media_type' => 'media',
-        'preview' => '0',
-        'thumbnail' => '0',
-        'custom' => '',
-      ),
-    ),
     'static_page_list' => array(
       'field_user_role' => array(
         'link_to_player' => 0,
@@ -3922,6 +3755,132 @@ function edgemakers_features_other_strongarm() {
     ),
     'community_users' => array(
       'picture' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+    ),
+    'topics_list' => array(
+      'field_topic_is_carousel_item' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+      'field_topic_is_wicked_problem' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+      'field_weight' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+      'field_weight_value' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+    ),
+    'carousel_list' => array(
+      'type' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+      'field_weight_value' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+      'field_topic_problem' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+      'nid' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+      'nothing' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+      'field_topic_images' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+      'title' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+    ),
+    'wicked_problem' => array(
+      'nid' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+      'field_weight_value' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+      'title' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+      'area_text_custom' => array(
         'link_to_player' => 0,
         'field_type' => '0',
         'media_type' => 'media',
@@ -4295,13 +4254,6 @@ system/ajax/*';
     ),
   );
   $export['rate_widgets'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'save_continue_carousel_item';
-  $strongarm->value = 'Save and add fields';
-  $export['save_continue_carousel_item'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -5076,6 +5028,7 @@ Your account on [site:name] has been canceled.
     'tracker' => FALSE,
     'fte_curriculum_admin' => TRUE,
     'site_user' => TRUE,
+    'carousel_admin' => TRUE,
   );
   $export['views_defaults'] = $strongarm;
 

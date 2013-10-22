@@ -247,7 +247,6 @@ function edgemakers_media_upload_form_alter(&$form, $form_state, $form_id) {
     $form['field_media_type'][LANGUAGE_NONE]['#options']['_none'] = t('MEDIA TYPE');
     $form['field_media_url'][LANGUAGE_NONE][0]['value']['#attributes']['placeholder'] = t('MEDIA URL');
     $form['field_tags'][LANGUAGE_NONE]['#attributes']['placeholder'] = t('TAGS');
-    $form['field_challenges_category'][LANGUAGE_NONE]['#options']['_none'] = t('CATEGORY');
 
     unset($form['actions']['preview']);
     unset($form['actions']['delete']);

@@ -677,15 +677,6 @@ function edgemakers_features_user_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'create carousel_item content'.
-  $permissions['create carousel_item content'] = array(
-    'name' => 'create carousel_item content',
-    'roles' => array(
-      'site admin' => 'site admin',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'create edgemakers_set content'.
   $permissions['create edgemakers_set content'] = array(
     'name' => 'create edgemakers_set content',
@@ -823,15 +814,6 @@ function edgemakers_features_user_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'delete any carousel_item content'.
-  $permissions['delete any carousel_item content'] = array(
-    'name' => 'delete any carousel_item content',
-    'roles' => array(
-      'site admin' => 'site admin',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'delete any edgemakers_set content'.
   $permissions['delete any edgemakers_set content'] = array(
     'name' => 'delete any edgemakers_set content',
@@ -924,15 +906,6 @@ function edgemakers_features_user_user_default_permissions() {
     'roles' => array(
       'site admin' => 'site admin',
       'site administrator' => 'site administrator',
-    ),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'delete own carousel_item content'.
-  $permissions['delete own carousel_item content'] = array(
-    'name' => 'delete own carousel_item content',
-    'roles' => array(
-      'site admin' => 'site admin',
     ),
     'module' => 'node',
   );
@@ -1046,13 +1019,6 @@ function edgemakers_features_user_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'delete terms in challenges_vocabulary'.
-  $permissions['delete terms in challenges_vocabulary'] = array(
-    'name' => 'delete terms in challenges_vocabulary',
-    'roles' => array(),
-    'module' => 'taxonomy',
-  );
-
   // Exported permission: 'delete terms in media_file_types'.
   $permissions['delete terms in media_file_types'] = array(
     'name' => 'delete terms in media_file_types',
@@ -1105,15 +1071,6 @@ function edgemakers_features_user_user_default_permissions() {
     'roles' => array(
       'site admin' => 'site admin',
       'site administrator' => 'site administrator',
-    ),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'edit any carousel_item content'.
-  $permissions['edit any carousel_item content'] = array(
-    'name' => 'edit any carousel_item content',
-    'roles' => array(
-      'site admin' => 'site admin',
     ),
     'module' => 'node',
   );
@@ -1255,15 +1212,6 @@ function edgemakers_features_user_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'edit own carousel_item content'.
-  $permissions['edit own carousel_item content'] = array(
-    'name' => 'edit own carousel_item content',
-    'roles' => array(
-      'site admin' => 'site admin',
-    ),
-    'module' => 'node',
-  );
-
   // Exported permission: 'edit own comments'.
   $permissions['edit own comments'] = array(
     'name' => 'edit own comments',
@@ -1390,13 +1338,6 @@ function edgemakers_features_user_user_default_permissions() {
       'site administrator' => 'site administrator',
     ),
     'module' => 'webform',
-  );
-
-  // Exported permission: 'edit terms in challenges_vocabulary'.
-  $permissions['edit terms in challenges_vocabulary'] = array(
-    'name' => 'edit terms in challenges_vocabulary',
-    'roles' => array(),
-    'module' => 'taxonomy',
   );
 
   // Exported permission: 'edit terms in media_file_types'.

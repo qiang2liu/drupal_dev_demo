@@ -98,15 +98,15 @@ function edgemakers_views_blocks_context_default_contexts() {
           'region' => 'gallery_pane',
           'weight' => '-9',
         ),
-        'edgemakers_topic-carousel' => array(
-          'module' => 'edgemakers_topic',
-          'delta' => 'carousel',
+        'views-carousel_list-block_1' => array(
+          'module' => 'views',
+          'delta' => 'carousel_list-block_1',
           'region' => 'challenge',
           'weight' => '-10',
         ),
-        'edgemakers_topic-problems' => array(
-          'module' => 'edgemakers_topic',
-          'delta' => 'problems',
+        'views-wicked_problem-block' => array(
+          'module' => 'views',
+          'delta' => 'wicked_problem-block',
           'region' => 'challenge',
           'weight' => '-9',
         ),

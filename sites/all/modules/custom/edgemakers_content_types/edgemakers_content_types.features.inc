@@ -18,14 +18,6 @@ function edgemakers_content_types_ctools_plugin_api($module = NULL, $api = NULL)
  */
 function edgemakers_content_types_node_info() {
   $items = array(
-    'carousel_item' => array(
-      'name' => t('Carousel Item'),
-      'base' => 'node_content',
-      'description' => t('Carousel Item Node type'),
-      'has_title' => '1',
-      'title_label' => t('Title'),
-      'help' => '',
-    ),
     'edgemakers_set' => array(
       'name' => t('Set'),
       'base' => 'node_content',

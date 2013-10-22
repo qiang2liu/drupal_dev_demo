@@ -10,52 +10,6 @@
 function edgemakers_content_types_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-carousel_item-field_carousel_item_topic'
-  $field_instances['node-carousel_item-field_carousel_item_topic'] = array(
-    'bundle' => 'carousel_item',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 2,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_carousel_item_topic',
-    'label' => 'Carousel Item Topic',
-    'required' => 1,
-    'settings' => array(
-      'mediafront' => array(
-        'custom' => '',
-        'field_type' => 0,
-        'media_type' => 'media',
-        'preview' => 0,
-        'thumbnail' => 0,
-      ),
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 3,
-    ),
-  );
-
   // Exported field_instance: 'node-edgemakers_set-body'
   $field_instances['node-edgemakers_set-body'] = array(
     'bundle' => 'edgemakers_set',
@@ -639,6 +593,106 @@ function edgemakers_content_types_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-edgemakers_topic-field_topic_is_carousel_item'
+  $field_instances['node-edgemakers_topic-field_topic_is_carousel_item'] = array(
+    'bundle' => 'edgemakers_topic',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 9,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_topic_is_carousel_item',
+    'label' => 'Is Carousel Item',
+    'required' => 0,
+    'settings' => array(
+      'mediafront' => array(
+        'custom' => '',
+        'field_type' => 0,
+        'media_type' => 'media',
+        'preview' => 0,
+        'thumbnail' => 0,
+      ),
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 32,
+    ),
+  );
+
+  // Exported field_instance: 'node-edgemakers_topic-field_topic_is_wicked_problem'
+  $field_instances['node-edgemakers_topic-field_topic_is_wicked_problem'] = array(
+    'bundle' => 'edgemakers_topic',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 8,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_topic_is_wicked_problem',
+    'label' => 'Is Wicked Problem',
+    'required' => 0,
+    'settings' => array(
+      'mediafront' => array(
+        'custom' => '',
+        'field_type' => 0,
+        'media_type' => 'media',
+        'preview' => 0,
+        'thumbnail' => 0,
+      ),
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 31,
+    ),
+  );
+
   // Exported field_instance: 'node-edgemakers_topic-field_topic_org_resources'
   $field_instances['node-edgemakers_topic-field_topic_org_resources'] = array(
     'bundle' => 'edgemakers_topic',
@@ -841,19 +895,28 @@ function edgemakers_content_types_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-media_for_upload-field_challenges_category'
-  $field_instances['node-media_for_upload-field_challenges_category'] = array(
-    'bundle' => 'media_for_upload',
-    'default_value' => NULL,
+  // Exported field_instance: 'node-edgemakers_topic-field_weight'
+  $field_instances['node-edgemakers_topic-field_weight'] = array(
+    'bundle' => 'edgemakers_topic',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 6,
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 10,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -863,10 +926,11 @@ function edgemakers_content_types_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_challenges_category',
-    'label' => 'category',
+    'field_name' => 'field_weight',
+    'label' => 'Weight',
     'required' => 0,
     'settings' => array(
+      'max' => '',
       'mediafront' => array(
         'custom' => '',
         'field_type' => 0,
@@ -874,14 +938,17 @@ function edgemakers_content_types_field_default_field_instances() {
         'preview' => 0,
         'thumbnail' => 0,
       ),
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 1,
-      'module' => 'options',
+      'active' => 0,
+      'module' => 'number',
       'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 4,
+      'type' => 'number',
+      'weight' => 33,
     ),
   );
 
@@ -1368,50 +1435,6 @@ function edgemakers_content_types_field_default_field_instances() {
       ),
       'type' => 'text_textarea_with_summary',
       'weight' => 1,
-    ),
-  );
-
-  // Exported field_instance: 'node-murals-field_challenges_category'
-  $field_instances['node-murals-field_challenges_category'] = array(
-    'bundle' => 'murals',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 4,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_challenges_category',
-    'label' => 'category',
-    'required' => 0,
-    'settings' => array(
-      'mediafront' => array(
-        'custom' => '',
-        'field_type' => 0,
-        'media_type' => 'media',
-        'preview' => 0,
-        'thumbnail' => 0,
-      ),
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 4,
     ),
   );
 
@@ -2162,46 +2185,6 @@ function edgemakers_content_types_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'taxonomy_term-challenges_vocabulary-field_challenge_topic'
-  $field_instances['taxonomy_term-challenges_vocabulary-field_challenge_topic'] = array(
-    'bundle' => 'challenges_vocabulary',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'taxonomy_term',
-    'field_name' => 'field_challenge_topic',
-    'label' => 'Topic',
-    'required' => 1,
-    'settings' => array(
-      'mediafront' => array(
-        'custom' => '',
-        'field_type' => 0,
-        'media_type' => 'media',
-        'preview' => 0,
-        'thumbnail' => 0,
-      ),
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 1,
-    ),
-  );
-
   // Exported field_instance: 'taxonomy_term-set_types-field_set_type_default_thumbnail'
   $field_instances['taxonomy_term-set_types-field_set_type_default_thumbnail'] = array(
     'bundle' => 'set_types',
@@ -2259,7 +2242,6 @@ function edgemakers_content_types_field_default_field_instances() {
   t('Base Color');
   t('Body');
   t('Box index data');
-  t('Carousel Item Topic');
   t('City');
   t('Did you know');
   t('Display Text');
@@ -2268,6 +2250,8 @@ function edgemakers_content_types_field_default_field_instances() {
   t('Image');
   t('Images');
   t('Invite people by email address');
+  t('Is Carousel Item');
+  t('Is Wicked Problem');
   t('Media Type');
   t('Media URL');
   t('Mural Thumburl');
@@ -2286,7 +2270,7 @@ function edgemakers_content_types_field_default_field_instances() {
   t('Topic');
   t('Upload Media');
   t('Videos');
-  t('category');
+  t('Weight');
   t('invite flag');
   t('invite user');
   t('mural nid');

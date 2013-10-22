@@ -1445,21 +1445,6 @@ function edgemakers_features_other_menu_default_menu_links() {
     'weight' => 0,
     'parent_path' => 'admin/edgemakers',
   );
-  // Exported menu link: management:admin/edgemakers/carousel
-  $menu_links['management:admin/edgemakers/carousel'] = array(
-    'menu_name' => 'management',
-    'link_path' => 'admin/edgemakers/carousel',
-    'router_path' => 'admin/edgemakers/carousel',
-    'link_title' => 'Manage Carousel',
-    'options' => array(),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 0,
-    'parent_path' => 'admin/edgemakers',
-  );
   // Exported menu link: management:admin/edgemakers/set
   $menu_links['management:admin/edgemakers/set'] = array(
     'menu_name' => 'management',
@@ -1923,25 +1908,6 @@ function edgemakers_features_other_menu_default_menu_links() {
     'weight' => 0,
     'parent_path' => 'admin/structure',
   );
-  // Exported menu link: management:admin/structure/taxonomy/challenges_vocabulary
-  $menu_links['management:admin/structure/taxonomy/challenges_vocabulary'] = array(
-    'menu_name' => 'management',
-    'link_path' => 'admin/structure/taxonomy/challenges_vocabulary',
-    'router_path' => 'admin/structure/taxonomy/%',
-    'link_title' => 'Manage Challenges',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
-    'module' => 'menu',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => -46,
-    'parent_path' => 'admin/edgemakers',
-  );
   // Exported menu link: management:admin/structure/types
   $menu_links['management:admin/structure/types'] = array(
     'menu_name' => 'management',
@@ -2327,25 +2293,6 @@ function edgemakers_features_other_menu_default_menu_links() {
     'weight' => 0,
     'parent_path' => 'node/add',
   );
-  // Exported menu link: navigation:node/add/carousel-item
-  $menu_links['navigation:node/add/carousel-item'] = array(
-    'menu_name' => 'navigation',
-    'link_path' => 'node/add/carousel-item',
-    'router_path' => 'node/add/carousel-item',
-    'link_title' => 'Carousel Item',
-    'options' => array(
-      'attributes' => array(
-        'title' => 'Carousel Item Node type',
-      ),
-    ),
-    'module' => 'system',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 0,
-    'parent_path' => 'node/add',
-  );
   // Exported menu link: navigation:node/add/edgemakers-set
   $menu_links['navigation:node/add/edgemakers-set'] = array(
     'menu_name' => 'navigation',
@@ -2623,7 +2570,6 @@ function edgemakers_features_other_menu_default_menu_links() {
   t('Basic page');
   t('Better Messages settings');
   t('Blocks');
-  t('Carousel Item');
   t('Challenges');
   t('Clean URLs');
   t('Comments');
@@ -2647,8 +2593,8 @@ function edgemakers_features_other_menu_default_menu_links() {
   t('Download file');
   t('Edgemakers');
   t('Edgemakers Media Config');
+  t('Edgemakers Settings');
   t('Edgemakers Stage');
-  t('FTEsettings');
   t('Features');
   t('Field list');
   t('File system');
@@ -2669,8 +2615,6 @@ function edgemakers_features_other_menu_default_menu_links() {
   t('Mail System');
   t('Maintenance mode');
   t('Manage Background Image');
-  t('Manage Carousel');
-  t('Manage Challenges');
   t('Manage Set');
   t('Manage Stage');
   t('Manage Topics');

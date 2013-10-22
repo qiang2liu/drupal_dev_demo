@@ -9,29 +9,6 @@
  */
 function edgemakers_content_types_taxonomy_default_vocabularies() {
   return array(
-    'challenges_vocabulary' => array(
-      'name' => 'Challenges Vocabulary',
-      'machine_name' => 'challenges_vocabulary',
-      'description' => 'Challenges Vocabulary',
-      'hierarchy' => 0,
-      'module' => 'taxonomy',
-      'weight' => 0,
-      'rdf_mapping' => array(
-        'rdftype' => array(
-          0 => 'skos:ConceptScheme',
-        ),
-        'name' => array(
-          'predicates' => array(
-            0 => 'dc:title',
-          ),
-        ),
-        'description' => array(
-          'predicates' => array(
-            0 => 'rdfs:comment',
-          ),
-        ),
-      ),
-    ),
     'media_file_types' => array(
       'name' => 'Media file types',
       'machine_name' => 'media_file_types',

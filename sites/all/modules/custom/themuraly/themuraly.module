@@ -574,7 +574,6 @@ function themuraly_form_alter(&$form, $form_state, $form_id) {
     $form['body']['und']['0']['value']['#resizable'] = FALSE;
 
     // Dropdown select box style.
-    $form['field_challenges_category'][LANGUAGE_NONE]['#options']['_none'] = t('Wicked Problem');
     $form['field_topic_mural'][LANGUAGE_NONE]['#options']['_none'] = t('Topic');
 
     $share_to_gallery_default_options = $form['field_share_to_gallery'][LANGUAGE_NONE]['#options'];
@@ -1438,16 +1437,6 @@ function _themuralyajax_submit($form, &$form_state) {
   // Save node.
   $save_node = $form_state['node'];
   watchdog('Debug', 'Save node: <pre>' . print_r($save_node, TRUE) . '</pre>');
-
-  // Get topic node nid from category.
-  if (isset($form_state['values']['field_challenges_category'])) {
-    if ($form_state['values']['field_challenges_category'][$lang]['0']['tid']) {
-      $topic_nid = _get_topic_nid_by_tid($lang, $form_state['values']['field_challenges_category'][$lang]['0']['tid']);
-      $save_node->field_topic_mural[$lang]['0']['target_id'] = ($topic_nid) ? $topic_nid : '';
-    }
-    watchdog('Debug', $lang . ' | topic nid: ' . $topic_nid .' | Get category: <pre>' . print_r($form_state['values'], TRUE) . '</pre>');
-//     form_set_error('field_challenges_category', t('Update topic by category.'));
-  }
 
   entity_form_submit_build_entity('node', $save_node, $form, $form_state);
   node_submit($save_node);
