@@ -3854,6 +3854,22 @@ function edgemakers_features_other_strongarm() {
         'thumbnail' => '0',
         'custom' => '',
       ),
+      'area_text_custom' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+      'field_topic_is_carousel_item_value' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
     ),
     'wicked_problem' => array(
       'nid' => array(
@@ -3881,6 +3897,14 @@ function edgemakers_features_other_strongarm() {
         'custom' => '',
       ),
       'area_text_custom' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+      'field_topic_is_wicked_problem_value' => array(
         'link_to_player' => 0,
         'field_type' => '0',
         'media_type' => 'media',

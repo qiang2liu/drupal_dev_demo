@@ -266,6 +266,13 @@ function edgemakers_topic_list_all_topics() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'edgemakers_topic' => 'edgemakers_topic',
   );
+  /* Filter criterion: Content: Is Wicked Problem (field_topic_is_wicked_problem) */
+  $handler->display->display_options['filters']['field_topic_is_wicked_problem_value']['id'] = 'field_topic_is_wicked_problem_value';
+  $handler->display->display_options['filters']['field_topic_is_wicked_problem_value']['table'] = 'field_data_field_topic_is_wicked_problem';
+  $handler->display->display_options['filters']['field_topic_is_wicked_problem_value']['field'] = 'field_topic_is_wicked_problem_value';
+  $handler->display->display_options['filters']['field_topic_is_wicked_problem_value']['value'] = array(
+    1 => '1',
+  );
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
@@ -384,9 +391,17 @@ function edgemakers_topic_list_all_topics() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'edgemakers_topic' => 'edgemakers_topic',
   );
+  /* Filter criterion: Content: Is Carousel Item (field_topic_is_carousel_item) */
+  $handler->display->display_options['filters']['field_topic_is_carousel_item_value']['id'] = 'field_topic_is_carousel_item_value';
+  $handler->display->display_options['filters']['field_topic_is_carousel_item_value']['table'] = 'field_data_field_topic_is_carousel_item';
+  $handler->display->display_options['filters']['field_topic_is_carousel_item_value']['field'] = 'field_topic_is_carousel_item_value';
+  $handler->display->display_options['filters']['field_topic_is_carousel_item_value']['value'] = array(
+    1 => '1',
+  );
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block_1');
+
   $views[$view->name] = $view;
   
   return $views;
