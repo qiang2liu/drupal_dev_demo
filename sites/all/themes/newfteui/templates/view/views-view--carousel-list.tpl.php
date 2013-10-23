@@ -33,7 +33,7 @@
     <?php print $title; ?>
   <?php endif; ?>
   <?php print render($title_suffix); ?>
-  <div class="d3">
+  <div id="d3">
   <?php if ($header): ?>
     <?php print $header; ?>
   <?php endif; ?>
