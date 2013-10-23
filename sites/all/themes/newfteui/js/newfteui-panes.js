@@ -88,7 +88,7 @@
 			//the clicking of the right arrow
 			self.find(options.rightController).bind('click', function(){
 				var activeIdx = self.find(options.item + '.show').index(options.item);
-				if(activeIdx < options.count-1){
+				if(activeIdx < $(options.item).length-1){
 					self.find(options.item).eq(activeIdx).removeClass('show')
 					self.find(options.item).eq(activeIdx +1).attr('class','d3-item').addClass('show');
 				}
