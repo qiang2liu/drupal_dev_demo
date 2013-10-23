@@ -3,6 +3,12 @@
  * Implements hook_menu().
  */
 function edgemakers_menu() {
+  $items['home'] = array(   
+    'page callback' => 'edgemakers_homepage',
+    'access callback'=> TRUE,
+    'type' => MENU_CALLBACK,
+    'file' => 'edgemakers.pages.inc',
+  );
   $items['admin/edgemakers'] = array(
     'title' => 'Edgemakers',
     'page callback' => 'system_admin_menu_block_page',
@@ -10,19 +16,29 @@ function edgemakers_menu() {
     'file' => 'system.admin.inc',
     'file path' => drupal_get_path('module', 'system'),
   );
+  $items['admin/config/system/ftesettings'] = array(
+    'title' => 'Edgemakers Settings',
+    'description' => 'Settings for Edgemakers',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('edgemakers_admin_settings'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer site configuration'),
+    'file' => 'edgemakers.pages.inc',
+  );
   $items['forbidden'] = array(
     'title' => 'Access Denied',
     'page callback' => 'edgemakers_forbidden_page',
     'access callback' => true,
     'file' => 'edgemakers.pages.inc',
   );
-  /*$items['notfound'] = array(
-    'title' => 'Page Not Found',
-    'page callback' => 'edgemakers_notfound_page',
-    'access callback' => true,
-    'file' => 'edgemakers.pages.inc',
-  );*/
   return $items;
+}
+/**
+ * Implements hook_menu_alter().
+ */
+function edgemakers_menu_alter(&$items) {
+  $items['node/add/webform']['description'] = '';
+  $items['admin/people']['description'] = '';
 }
 /**
 * Implements hook_views_post_render().

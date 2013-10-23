@@ -1,5 +1,0 @@
-; $Id$
-name = edgemaker admin
-description = the module for edgemaker admin.
-core = 7.x
-package = edgemaker

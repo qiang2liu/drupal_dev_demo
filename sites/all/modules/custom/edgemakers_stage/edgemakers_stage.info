@@ -2,7 +2,7 @@ name = Stage management.
 description = Set stage admin module.
 
 core = 7.x
-package = edgemaker
+package = edgemakers
 
 dependencies[] = edgemakers_set
 

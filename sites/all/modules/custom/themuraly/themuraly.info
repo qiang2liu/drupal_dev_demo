@@ -2,5 +2,5 @@
 name = muraly site integration
 description = the module for muraly site integration.
 core = 7.x
-package = FTE
+package = edgemakers
 files[] = class.muralapi.inc

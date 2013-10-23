@@ -2,7 +2,7 @@ name = edgemakers media upload.
 description = Media upload module of edgemakers.
 
 core = 7.x
-package = edgemaker
+package = "edgemakers"
 
 dependencies[] = media
 

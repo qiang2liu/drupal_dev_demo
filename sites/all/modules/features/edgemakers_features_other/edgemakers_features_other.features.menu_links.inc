@@ -92,24 +92,6 @@ function edgemakers_features_other_menu_default_menu_links() {
     'expanded' => 0,
     'weight' => -47,
   );
-  // Exported menu link: main-menu:videodemo
-  $menu_links['main-menu:videodemo'] = array(
-    'menu_name' => 'main-menu',
-    'link_path' => 'videodemo',
-    'router_path' => 'videodemo',
-    'link_title' => 'video demo',
-    'options' => array(
-      'attributes' => array(
-        'title' => '',
-      ),
-    ),
-    'module' => 'menu',
-    'hidden' => 0,
-    'external' => 0,
-    'has_children' => 0,
-    'expanded' => 0,
-    'weight' => 0,
-  );
   // Exported menu link: management:admin
   $menu_links['management:admin'] = array(
     'menu_name' => 'management',
@@ -2684,7 +2666,6 @@ function edgemakers_features_other_menu_default_menu_links() {
   t('project directory');
   t('project page');
   t('user management');
-  t('video demo');
   t('workspace');
 
 

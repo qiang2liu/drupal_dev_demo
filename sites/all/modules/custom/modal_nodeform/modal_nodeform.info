@@ -1,6 +1,6 @@
 name = "Node form modal"
 description = "Load a node add/edit form using Ctools module in Drupal 7."
-package = "Modal Gallery"
+package = "edgemakers"
 core = 7.x
 files[] = modal_nodeform.module
 

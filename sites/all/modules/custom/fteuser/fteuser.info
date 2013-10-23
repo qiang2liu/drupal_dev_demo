@@ -2,4 +2,4 @@
 name = FTEUSER
 description = the module for FTE user.
 core = 7.x
-package = FTE
+package = "edgemakers"
