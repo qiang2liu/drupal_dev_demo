@@ -139,11 +139,11 @@ function edgemakers_views_blocks_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'themuraly-topic_mural_list' => array(
-          'module' => 'themuraly',
-          'delta' => 'topic_mural_list',
+        'views-mural_list_in_topic-block' => array(
+          'module' => 'views',
+          'delta' => 'mural_list_in_topic-block',
           'region' => 'topic_murals',
-          'weight' => '-10',
+          'weight' => '-9',
         ),
       ),
     ),
