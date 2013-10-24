@@ -78,34 +78,6 @@ else {
 
         </p>
       </div>
-      <!--
-      <div class="toolbar-item test2"></div>
-      <div class="toolbar-item upload">
-        <h4>Upload</h4>
-      </div>
-
-      <div class="toolbar-item murals">
-        <h4>Murals</h4>
-      </div>
-      <div class="toolbar-item media">
-        <h4 class="has-child">Media<em></em></h4>
-        <ul id="media-list">
-          <li class="media-video">Video</li>
-          <li class="media-image">Images</li>
-          <li class="media-audio">Audio</li>
-          <li class="media-docs">Docs</li>
-        </ul>
-      </div>
-      <div class="toolbar-item social">
-        <span class="social-twitter"></span>
-        <span class="social-facebook"></span>
-        <span class="social-gmail"></span>
-      </div>
-      <div class="toolbar-item tour-guides">
-        <h4>Tour Guides</h4>
-        <p>images here</p>
-      </div>
-      -->
     </div>
     <!-- }}} toolbar end -->
 

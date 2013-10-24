@@ -822,7 +822,7 @@ function _mural_member_list($the_nid, $para_muralid = '') {
   }
 
 
-  $ret = theme_item_list(array('items' => $ret, 'attributes' => array(), 'type' => 'ul',));
+  $ret = theme('item_list', array('items' => $ret, 'attributes' => array(), 'type' => 'ul',));
 
   return $ret;
 }
@@ -2175,12 +2175,9 @@ function themuraly_mural_list_html($limit = 5) {
       $mural_item['type'] = 'ul';
       $mural_item['attributes'] = array('id' => 'mural-list', 'class' => 'media-video');
 
-      $media_html = theme_item_list($mural_item);
+      $html .= theme('item_list', $mural_item);
     }
 
-    //dd($media_html, 'media list');
-
-    $html .= $media_html;
   }
 
   if (count($my_mural_nodes) <= 0) {
@@ -2612,7 +2609,7 @@ function theme_mural_list_box($type = 'studio', $nodes) {
       $mural['attributes'] = array(
         'id' => 'topic-mural-list',
       );
-      $mural_list = theme_item_list($mural);
+      $mural_list = theme('item_list', $mural);
     } else {
       $mural_list = t('Mural is empty in topic.');
     }

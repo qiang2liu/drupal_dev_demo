@@ -146,7 +146,7 @@ function edgemakers_stage_api_set_list_html($stage_id) {
           $sets['type'] = 'ul';
           $sets['attributes'] = array();
 
-          $set_list = theme_item_list($sets);
+          $set_list = theme('item_list', $sets);
 
         }
         else {
