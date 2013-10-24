@@ -2167,7 +2167,7 @@ function themuraly_mural_list_html($limit = 5) {
       }
     }
 
-    if (count($mural_item['items']) > 0) {
+    if ($count > 0) {
 
       $html .= '<h4 class="has-child">Mural<em></em></h4>';
 

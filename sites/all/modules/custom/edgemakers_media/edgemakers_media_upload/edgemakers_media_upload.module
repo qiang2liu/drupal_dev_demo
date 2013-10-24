@@ -1172,7 +1172,7 @@ function edgemakers_my_media_list_on_toolbar($limit = 5) {
     $i = 0;
 
     foreach ($my_media_nodes as $node) {
-      if ($i < 5) {
+      if ($i < $limit) {
 
         $media_item['items'][$i]['data'] = l($node->title,
           'node/' . $node->nid,
@@ -1188,7 +1188,7 @@ function edgemakers_my_media_list_on_toolbar($limit = 5) {
         $i++;
       }
     }
-    if (count($media_item['items']) > 0) {
+    if (count($my_media_nodes) > 0) {
 
       $html .= '<h4 class="has-child">Media<em></em></h4>';
 
@@ -1234,7 +1234,7 @@ function edgemakers_media_list_on_toolbar($limit = 5) {
   if ($user->uid !== 0) {
 
     $media_items = array('items' => array());
-    $nodes = edgemakers_media_get_my_media($user->uid, $content_type);
+    $nodes = edgemakers_media_get_my_media($user->uid, $content_type, $limit);
     foreach ($nodes as $node) {
       $media_items['items'][] = array(
         'data' => l($node->title,
@@ -1251,7 +1251,7 @@ function edgemakers_media_list_on_toolbar($limit = 5) {
       );
     }
 
-    if (count($media_items['items']) > 0) {
+    if (count($nodes) > 0) {
 
       $html .= '<h4 class="has-child">Media<em></em></h4>';
 

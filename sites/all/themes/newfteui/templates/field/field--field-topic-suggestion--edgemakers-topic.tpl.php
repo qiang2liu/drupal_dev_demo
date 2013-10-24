@@ -2,7 +2,7 @@
 global $user;
 global $base_url;
 
-if ($node = menu_get_object()) {
+if ($node = $element['#object']) {
 //   print("Get nid from url" . $node->nid);
   if ($user->uid) {
     $mural_link = $base_url . '/mural/topic/create/' . $node->nid;
