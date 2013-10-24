@@ -252,3 +252,61 @@ function edgemakers_breadcrumb($variables) {
     return '<div class="breadcrumb">' . $output . '</div>';
   }
 }
+/**
+ * Implements hook_field_default_field_instances_alter().
+ *
+ * Alter the default fields right before they are cached into the database.
+ *
+ * @param &$fields
+ *   By reference. The fields that have been declared by another feature.
+ */
+function edgemakers_field_default_field_instances_alter(&$fields) {
+  $source_dir = drupal_get_path('theme', 'newfteui') . '/images';
+
+  $fields_default_images = array(
+    'user-user-field_profile_picture' => 'example_08.png',
+  );
+
+  foreach ($fields_default_images as $field_name => $filename) {
+    $source = $source_dir . '/' . $filename;
+    $destination_directory =  file_default_scheme() . '://default_images';
+    if (isset($fields[$field_name])) {
+      _edgemakers_set_default_image($fields, $field_name, $filename, $source, $destination_directory);
+    }
+  }
+}
+
+function _edgemakers_set_default_image(&$fields, $field_name, $filename, $source, $destination_directory) {
+  // See if a default image hasn't been set for this field yet
+  if (empty($fields[$field_name]['settings']['default_image'])) {
+    // Dynamically set the user default image on the field
+    $destination = $destination_directory . '/' . $filename;
+
+    // Check to see if it exists already
+    $result = db_select('file_managed', 'f')
+      ->fields('f', array('fid'))
+      ->condition('f.uri', $destination)
+      ->execute();
+
+    $fid = $result->fetchField();
+    watchdog('debug', print_r($fid, true));
+
+    // Simulate an upload of the default user image
+    if (!$fid && file_exists($source)) {
+      $file = new stdClass;
+      $file->filename = $filename;
+      $file->timestamp = REQUEST_TIME;
+      $file->uri = $source;
+      $file->filemime = file_get_mimetype($source);
+      $file->uid = 1;
+      $file->status = 1;
+
+      file_prepare_directory($destination_directory, FILE_CREATE_DIRECTORY);
+      $file = file_copy($file, $destination, FILE_EXISTS_REPLACE);
+
+      $fid = $file->fid;
+    }
+
+    $fields[$field_name]['settings']['default_image'] = (string) $fid;
+  }
+}

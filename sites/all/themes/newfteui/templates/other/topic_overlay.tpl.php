@@ -15,8 +15,8 @@
   <div class="topic-content content set-text-content clearfix">
     <?php
       print drupal_render(node_view($topic, 'full'));
-      $block = module_invoke('themuraly', 'block_view', 'topic_mural_list');
-      print '<div id="topic-murals">'.$block['content'].'</div>';
+      $view = views_embed_view('mural_list_in_topic', 'block', $topic->nid);
+      print '<div id="topic-murals">'.$view.'</div>';
     ?>
   </div>
 

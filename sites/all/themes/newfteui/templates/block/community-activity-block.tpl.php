@@ -9,9 +9,15 @@ if($realnum>0) {
     $content = $contents[$i];
     $avatarUris = explode('/', variable_get('user_picture_default', ''));
     $avatarUri = file_build_uri(array_pop($avatarUris));
-    if($content->picture) {
-      $account = user_load($content->uid);
-      $avatarUri = $account->picture->uri;
+    $account = user_load($content->uid);
+    if(isset($account->field_profile_picture[LANGUAGE_NONE])) {
+      $fid = $account->field_profile_picture[LANGUAGE_NONE][0]['fid'];
+      if($fid) {
+        $profile_picture = file_load($fid);
+        if(file_exists($profile_picture->uri)) {
+          $avatarUri = $profile_picture->uri;
+        }
+      }
     }
     if(isset($avatarUri) && file_exists($avatarUri))
       $userpic = theme('image_style', array('style_name' => 'edgemakers_avatar', 'path' => $avatarUri));

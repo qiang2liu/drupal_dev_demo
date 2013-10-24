@@ -3913,6 +3913,16 @@ function edgemakers_features_other_strongarm() {
         'custom' => '',
       ),
     ),
+    'mural_list_in_topic' => array(
+      'field_profile_picture' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+    ),
   );
   $export['mediafront_views_options'] = $strongarm;
 

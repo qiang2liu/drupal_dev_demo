@@ -6,3 +6,4 @@ php = 5.2
 version = 7.x-1.0
 project = edgemakers_user
 dependencies[] = modal_forms
+scripts[] = js/edgemakers_user.js

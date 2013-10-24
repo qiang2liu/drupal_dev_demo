@@ -764,11 +764,15 @@ function _mural_member_list($the_nid, $para_muralid = '') {
                     $avatarUris = explode('/', variable_get('user_picture_default', ''));
                     $avatarUri_default = file_build_uri(array_pop($avatarUris));
                     foreach ($users_array as $k => $u) {
-                      if ($u->picture) {
-
-                        $avatarUri = $u->picture->uri;
-                      } else {
-                        $avatarUri = $avatarUri_default;
+                      $avatarUri = $avatarUri_default;
+                      if(isset($u->field_profile_picture[LANGUAGE_NONE])) {
+                        $fid = $u->field_profile_picture[LANGUAGE_NONE][0]['fid'];
+                        if ($fid) {
+                          $profile_picture = file_load($fid);
+                          if (file_exists($profile_picture->uri)) {
+                            $avatarUri = $profile_picture->uri;
+                          }
+                        }
                       }
                       $userpic = theme('image_style', array('style_name' => 'edgemakers_avatar', 'path' => $avatarUri, 'alt' => $u->name, 'title' => $u->name,));
                       if (user_access('access user profiles')) {
@@ -2661,27 +2665,20 @@ function theme_mural_item_box($item = array(), $attributes = array()) {
 
     if ($node->field_topic_mural[LANGUAGE_NONE]['0']['target_id']) {    // Topic mural list
 
-      if (!empty($node_user->picture)) {
-        // @TODO: Ideally this function would only be passed file objects, but
-        // since there's a lot of legacy code that JOINs the {users} table to
-        // {node} or {comments} and passes the results into this function if we
-        // a numeric value in the picture field we'll assume it's a file id
-        // and load it for them. Once we've got user_load_multiple() and
-        // comment_load_multiple() functions the user module will be able to load
-        // the picture files in mass during the object's load process.
-        if (is_numeric($node_user->picture)) {
-          $node_user->picture = file_load($node_user->picture);
+      $avatarUris = explode('/', variable_get('user_picture_default', ''));
+      $avatarUri = file_build_uri(array_pop($avatarUris));
+      if(isset($node_user->field_profile_picture[LANGUAGE_NONE])) {
+        $fid = $node_user->field_profile_picture[LANGUAGE_NONE][0]['fid'];
+        if($fid) {
+          $profile_picture = file_load($fid);
+          if(file_exists($profile_picture->uri)) {
+            $avatarUri = $profile_picture->uri;
+          }
         }
-        if (!empty($node_user->picture->uri)) {
-          $filepath = $node_user->picture->uri;
-        }
-      }
-      elseif (variable_get('user_picture_default', '')) {
-        $filepath = variable_get('user_picture_default', '');
       }
 
       $avatar_img = array(
-        'path' => $filepath,
+        'path' => $avatarUri,
         'width' => '74px',
         'height' => '74px',
       );

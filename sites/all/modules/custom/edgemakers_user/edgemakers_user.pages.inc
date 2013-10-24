@@ -9,20 +9,18 @@ function edgemakers_user_profile_view($account) {
     return false;
 
   //userpic, username, school, class generation  
-  if ($account->picture && 1==0) {
-    
-    $avatarUri = $account->picture->uri;
-  } else {
-    $picture = get_user_avatar($user);
-        if (isset($picture->uri)) {
-          $avatarUri = $picture->uri;
-        } else {
-    $avatarUris = explode('/', variable_get('user_picture_default', ''));
-    $avatarUri = file_build_uri(array_pop($avatarUris));
-        }
+  $avatarUris = explode('/', variable_get('user_picture_default', ''));
+  $avatarUri = file_build_uri(array_pop($avatarUris));
+  if(isset($account->field_profile_picture[LANGUAGE_NONE])) {
+    $fid = $account->field_profile_picture[LANGUAGE_NONE][0]['fid'];
+    if($fid) {
+      $profile_picture = file_load($fid);
+      if(file_exists($profile_picture->uri)) {
+        $avatarUri = $profile_picture->uri;
+      }
+    }
   }
-  if (isset($avatarUri) && file_exists($avatarUri))
-    $userpic = '<div class="userpic">' . theme('image_style', array('style_name' => 'edgemakers_avatar', 'path' => $avatarUri)) . '</div>';
+  $userpic = '<div class="userpic">' . theme('image_style', array('style_name' => 'edgemakers_avatar', 'path' => $avatarUri)) . '</div>';
 
   $firstnames = field_get_items('user', $account, 'field_firstname');
   $firstname = $firstnames && count($firstnames) > 0 ? $firstnames[0]['value'] : '';
@@ -135,7 +133,6 @@ function edgemakers_user_profile_settings_form($form, &$form_state) {
     '#options' => edgemakers_user_get_bgimages_options(),
     '#attributes' => array('style' => 'display:none'),
     '#weight' => 20,
-    '#after_build' => array('_edgemakers_user_load_my_javascript'),
   );
   unset($form['field_firstname'][LANGUAGE_NONE][0]['value']['#title'], $form['field_lastname'][LANGUAGE_NONE][0]['value']['#title'], $form['account']['pass']['#description'], $form['field_profile_background'][LANGUAGE_NONE][0]['#description']);
   $element_info = element_info('password_confirm');
@@ -181,29 +178,6 @@ function edgemakers_user_profile_settings_form_submit($form, &$form_state) {
   // and $edit.
   $account_unchanged = clone $account;
 
-  //user picture
-  $old_file = $account->picture;
-  if ($old_file) {
-    file_usage_delete($old_file, 'user', 'user', $account->uid);
-    file_delete($old_file);
-    $account->picture = 0;
-  }
-  if (isset($form_state['values']['field_profile_picture'][LANGUAGE_NONE])) {
-    $fid = $form_state['values']['field_profile_picture'][LANGUAGE_NONE][0]['fid'];
-    if ($fid) {
-      $picture = file_load($fid);
-      $info = image_get_info($picture->uri);
-      $picture_directory = file_default_scheme() . '://' . variable_get('user_picture_path', 'pictures');
-      file_prepare_directory($picture_directory, FILE_CREATE_DIRECTORY);
-      $destination = file_stream_wrapper_uri_normalize($picture_directory . '/picture-' . $account->uid . '-' . REQUEST_TIME . '.' . $info['extension']);
-      // Move the temporary file into the final location.
-      if ($picture = file_copy($picture, $destination, FILE_EXISTS_RENAME)) {
-        $picture->status = FILE_STATUS_PERMANENT;
-        $account->picture = file_save($picture);
-        file_usage_add($picture, 'user', 'user', $account->uid);
-      }
-    }
-  }
   //background image
   $imageNid = $form_state['values']['preset_background'];
   if ($imageNid) {
@@ -239,8 +213,6 @@ function edgemakers_user_profile_settings_form_submit($form, &$form_state) {
   // Populate $edit with the properties of $account, which have been edited on
   // this form by taking over all values, which appear in the form values too.
   $edit = array_intersect_key((array) $account, $form_state['values']);
-  //picture isn't in the form, so we deal with it separately
-  $edit['picture'] = $account->picture;
 
   user_save($account_unchanged, $edit, $category);
 
@@ -278,13 +250,18 @@ function edgemakers_user_profile_settings_form_submit($form, &$form_state) {
 
       $mural_api = new Muralapi;
       $profile_info = array();
-      $fid = $account->field_profile_picture[LANGUAGE_NONE][0]['fid'];
-      if ($fid) {
-        $picture = file_load($fid);
-        if (isset($picture->uri)) {
-          $profile_info['thumbUrl'] = rawurlencode(file_create_url($picture->uri));
+      $avatarUris = explode('/', variable_get('user_picture_default', ''));
+      $avatarUri = file_build_uri(array_pop($avatarUris));
+      if(isset($account->field_profile_picture[LANGUAGE_NONE])) {
+        $fid = $account->field_profile_picture[LANGUAGE_NONE][0]['fid'];
+        if ($fid) {
+          $profile_picture = file_load($fid);
+          if (file_exists($profile_picture->uri)) {
+            $avatarUri = $profile_picture->uri;
+          }
         }
       }
+      $profile_info['thumbUrl'] = rawurlencode(file_create_url($avatarUri));
       $profile_info['name'] = $account->field_firstname[LANGUAGE_NONE][0]['value'];
       $profile_info['surname'] = $account->field_lastname[LANGUAGE_NONE][0]['value'];
 
@@ -352,9 +329,4 @@ function edgemakers_user_get_bgimages_options() {
     $options[$nid] = $option;
   }
   return $options;
-}
-
-function _edgemakers_user_load_my_javascript($element) {
-  drupal_add_js(drupal_get_path('module', 'edgemakers_user') . '/js/edgemakers_user.js');
-  return($element);
 }

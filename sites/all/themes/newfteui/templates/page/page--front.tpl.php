@@ -225,17 +225,15 @@ else {
   <?php if (user_is_logged_in()): ?>
     <div class="user-profile-inner">
       <?php
-
-      if($user->picture) {
-        $avatarUri = $user->picture->uri;
-      } else {
-        $picture = get_user_avatar($user);
-        if (isset($picture->uri)) {
-          $avatarUri = $picture->uri;
-        } else
-        {
-        $avatarUris = explode('/', variable_get('user_picture_default', ''));
-        $avatarUri = file_build_uri(array_pop($avatarUris));
+      $avatarUris = explode('/', variable_get('user_picture_default', ''));
+      $avatarUri = file_build_uri(array_pop($avatarUris));
+      if(isset($user->field_profile_picture[LANGUAGE_NONE])) {
+        $fid = $user->field_profile_picture[LANGUAGE_NONE][0]['fid'];
+        if($fid) {
+          $profile_picture = file_load($fid);
+          if(file_exists($profile_picture->uri)) {
+            $avatarUri = $profile_picture->uri;
+          }
         }
       }
       // Add edgemakers_profile_avatar style in image style config.
@@ -244,8 +242,7 @@ else {
       print $login_div;
       ?>
     </div>
-  <?php else: ?>
-    <?php
+  <?php else: 
     $login_div = '<div class="user-profile-inner-url">';
     $login_div .= '<img src="sites/all/themes/newfteui/images/example_08.png" />';
     $login_div .= '</div>';

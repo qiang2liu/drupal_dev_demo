@@ -73,18 +73,21 @@ function edgemakers_views_blocks_views_default_views() {
   $handler->display->display_options['fields']['title']['element_type'] = 'span';
   $handler->display->display_options['fields']['title']['element_class'] = 'mural-title';
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-  /* Field: User: Picture */
-  $handler->display->display_options['fields']['picture']['id'] = 'picture';
-  $handler->display->display_options['fields']['picture']['table'] = 'users';
-  $handler->display->display_options['fields']['picture']['field'] = 'picture';
-  $handler->display->display_options['fields']['picture']['relationship'] = 'uid';
-  $handler->display->display_options['fields']['picture']['label'] = '';
-  $handler->display->display_options['fields']['picture']['element_type'] = 'span';
-  $handler->display->display_options['fields']['picture']['element_class'] = 'user-avatar';
-  $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['picture']['element_default_classes'] = FALSE;
-  $handler->display->display_options['fields']['picture']['link_photo_to_profile'] = FALSE;
-  $handler->display->display_options['fields']['picture']['image_style'] = 'square_thumbnail';
+  /* Field: User: Upload Profile Picture */
+  $handler->display->display_options['fields']['field_profile_picture']['id'] = 'field_profile_picture';
+  $handler->display->display_options['fields']['field_profile_picture']['table'] = 'field_data_field_profile_picture';
+  $handler->display->display_options['fields']['field_profile_picture']['field'] = 'field_profile_picture';
+  $handler->display->display_options['fields']['field_profile_picture']['relationship'] = 'uid';
+  $handler->display->display_options['fields']['field_profile_picture']['label'] = '';
+  $handler->display->display_options['fields']['field_profile_picture']['element_type'] = 'span';
+  $handler->display->display_options['fields']['field_profile_picture']['element_class'] = 'user-avatar';
+  $handler->display->display_options['fields']['field_profile_picture']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_profile_picture']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_profile_picture']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_profile_picture']['settings'] = array(
+    'image_style' => 'square_thumbnail',
+    'image_link' => '',
+  );
   /* Field: Content: Nid */
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
   $handler->display->display_options['fields']['nid']['table'] = 'node';

@@ -65,18 +65,21 @@ function edgemakers_user_views_default_views() {
   $handler->display->display_options['fields']['name']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['name']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-  /* Field: User: Picture */
-  $handler->display->display_options['fields']['picture']['id'] = 'picture';
-  $handler->display->display_options['fields']['picture']['table'] = 'users';
-  $handler->display->display_options['fields']['picture']['field'] = 'picture';
-  $handler->display->display_options['fields']['picture']['label'] = '';
-  $handler->display->display_options['fields']['picture']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['picture']['alter']['path'] = 'edgemakers/user/profile/ajax/[uid]';
-  $handler->display->display_options['fields']['picture']['alter']['alt'] = '[name]';
-  $handler->display->display_options['fields']['picture']['alter']['link_class'] = 'community-user-profile';
-  $handler->display->display_options['fields']['picture']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['picture']['link_photo_to_profile'] = FALSE;
-  $handler->display->display_options['fields']['picture']['image_style'] = 'edgemakers_avatar';
+  /* Field: User: Upload Profile Picture */
+  $handler->display->display_options['fields']['field_profile_picture']['id'] = 'field_profile_picture';
+  $handler->display->display_options['fields']['field_profile_picture']['table'] = 'field_data_field_profile_picture';
+  $handler->display->display_options['fields']['field_profile_picture']['field'] = 'field_profile_picture';
+  $handler->display->display_options['fields']['field_profile_picture']['label'] = '';
+  $handler->display->display_options['fields']['field_profile_picture']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_profile_picture']['alter']['path'] = 'edgemakers/user/profile/ajax/[uid]';
+  $handler->display->display_options['fields']['field_profile_picture']['alter']['alt'] = '[name]';
+  $handler->display->display_options['fields']['field_profile_picture']['alter']['link_class'] = 'community-user-profile';
+  $handler->display->display_options['fields']['field_profile_picture']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_profile_picture']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_profile_picture']['settings'] = array(
+    'image_style' => 'edgemakers_avatar',
+    'image_link' => '',
+  );
   /* Sort criterion: User: Created date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'users';
