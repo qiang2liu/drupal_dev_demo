@@ -335,11 +335,17 @@ function edgemakers_content_types_strongarm() {
       'token' => array(
         'custom_settings' => FALSE,
       ),
+      'diff_standard' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
         'title' => array(
-          'weight' => '8',
+          'weight' => '9',
+        ),
+        'path' => array(
+          'weight' => '30',
         ),
       ),
       'display' => array(),

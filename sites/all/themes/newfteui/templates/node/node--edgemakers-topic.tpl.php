@@ -190,61 +190,6 @@ h1{
 </style>
 <script>
 (function($){
-	$.fn.extend({
-		mediaSlide: function(options){
-			var defaults = {
-				contentContainer : '.content-container',
-				contentItem      : '.content-item',
-				parent           : '.media-box',
-				siblingsNext     : '.next',
-				siblingsPre      : '.prev'
-			}
-			var options=$.extend(defaults, options);
-			return this.each(function(){
-				var self = $(this);
-				var item = self.parents(options.parent).find(options.contentContainer).find(options.contentItem);
-				var len = self.parents(options.parent).find(options.contentContainer).find(options.contentItem).length;
-				for(var i=0; i<len; i++){
-					self.append('<span class="media-indicator"></span>');
-				}
-				self.find('.media-indicator').eq(0).addClass('actived');
-
-				//next button
-				self.siblings(options.siblingsNext).bind('click', function(){
-					var idx = self.find('.media-indicator.actived').index();
-					if(idx<self.find('.media-indicator').length-1){
-						self.find('.media-indicator.actived').removeClass('actived');
-						self.find('.media-indicator').eq(idx+1).addClass('actived');
-						item.eq(idx).hide();
-						item.eq(idx+1).fadeIn(300);
-					}
-
-				});
-
-				//pre button
-				self.siblings(options.siblingsPre).bind('click', function(){
-					var idx = self.find('.media-indicator.actived').index();
-					if(idx>0){
-						self.find('.media-indicator.actived').removeClass('actived');
-						self.find('.media-indicator').eq(idx-1).addClass('actived');
-						item.eq(idx).hide();
-						item.eq(idx-1).fadeIn(300);
-					}
-				});
-
-				//indicator click
-				self.find('.media-indicator').bind('click', function(){
-					var idx = self.find('.media-indicator.actived').index();
-					var crt = $(this).index();
-					self.find('.media-indicator.actived').removeClass('actived');
-					$(this).addClass('actived');
-					item.eq(idx).hide();
-					item.eq(crt).fadeIn(300);
-				})
-
-			});
-		}
-	});
 	$(document).ready(function(){
 		$('.images-controller-dots').mediaSlide();
 		//$('.videos-controller-dots').mediaSlide();
@@ -377,11 +322,5 @@ function changeVideo(elid) {
     jQuery('.video-item').removeClass('active');
     jQuery('#'+elid).addClass('active');
   }
-}
-function changeImage(elid) {
-  var image = document.getElementById(elid).innerHTML;
-  document.getElementById('images_container').innerHTML = image;
-  jQuery('.image-item').removeClass('active');
-  jQuery('#'+elid).addClass('active');
 }
 </script>

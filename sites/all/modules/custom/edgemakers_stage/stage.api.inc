@@ -200,14 +200,6 @@ function edgemakers_stage_api_set_view_html($set_id = '') {
       $type = $term;
     }
     switch (strtolower($type)) {
-      case 'survey & assessment':
-        return drupal_render(node_view($node, 'full')) . $note;
-
-      case 'topic page':
-        return drupal_render(node_view($node, 'full')) . $note;
-//         $html = '<div id="buildingSet"><h3>This is a topic set, will be developed later</h3></div>';
-//         return $html;
-
       case 'mural':
         $img = array(
           'path' => drupal_get_path('module', 'edgemakers_stage') . '/images/Mural.ly-work-area.png',
@@ -215,7 +207,9 @@ function edgemakers_stage_api_set_view_html($set_id = '') {
         $html = '<div id="buildingSet">' . theme('image', $img) . '</div>' . $note;
         return $html;
 
-      case '':
+      case 'survey & assessment':
+      case 'topic page':
+      case 'slideshow':
       case 'image':
       case 'text':
       case 'video':

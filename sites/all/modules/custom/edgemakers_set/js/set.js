@@ -25,7 +25,7 @@ function edgemakers_set_fields_update() {
 function edgemakers_set_togglefields(index, field_suffix) {
   var startIndex = 0;
   var terms = document.getElementById('edit-field-set-type-und'+field_suffix).options; 
-  if(terms.length == 12) {
+  if(terms.length == 13) {
     startIndex = 1;
   }
   var term = terms[document.getElementById('edit-field-set-type-und'+field_suffix).selectedIndex].text;
@@ -58,6 +58,7 @@ function edgemakers_set_togglefields(index, field_suffix) {
     document.getElementById('edit-field-set-survey'+field_suffix).style.display = 'none';
     document.getElementById('edit-field-set-image'+field_suffix).style.display = 'none';
     document.getElementById('edit-field-set-document'+field_suffix).style.display = 'none';
+    document.getElementById('edit-field-set-slideshow'+field_suffix).style.display = 'none';
     document.getElementById('edit-field-teacher-notes'+field_suffix).style.display = 'none';
     document.getElementById('edit-actions'+field_suffix).style.display = 'none';
   } else {
@@ -79,11 +80,14 @@ function edgemakers_set_togglefields(index, field_suffix) {
     if(index == (startIndex + 8)) document.getElementById('edit-field-set-survey'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-survey'+field_suffix).style.display = 'none';
     //image only display for Image, Text, Topic Page, Survey & Assessment, Document type
-    if(index != (startIndex + 1)) document.getElementById('edit-field-set-image'+field_suffix).style.display = 'block';
+    if(index != (startIndex + 1) && index != (startIndex + 11)) document.getElementById('edit-field-set-image'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-image'+field_suffix).style.display = 'none';
     //document only display for document type
     if(index == (startIndex+10)) document.getElementById('edit-field-set-document'+field_suffix).style.display = 'block';
     else document.getElementById('edit-field-set-document'+field_suffix).style.display = 'none';
+    //slideshow field only display for slideshow type
+    if(index == (startIndex+11)) document.getElementById('edit-field-set-slideshow'+field_suffix).style.display = 'block';
+    else document.getElementById('edit-field-set-slideshow'+field_suffix).style.display = 'none';
     document.getElementById('edit-field-teacher-notes'+field_suffix).style.display = 'block';
     document.getElementById('edit-actions'+field_suffix).style.display = 'block';
   }

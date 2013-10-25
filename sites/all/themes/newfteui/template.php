@@ -21,7 +21,7 @@ function newfteui_preprocess_node(&$vars) {
     else if($type == 'Topic Page')
       $type = 'topic';
 
-    $set_types = array('Image', 'Text', 'video', 'Mural', 'videocomments', 'videoqa', 'survey', 'Document', 'topic');
+    $set_types = array('Image', 'Text', 'video', 'Mural', 'videocomments', 'videoqa', 'survey', 'Document', 'topic', 'Slideshow');
 
 //     if($type == 'Image' || $type == 'Text' || $type == 'video' || $type == 'Mural' || $type == 'videocomments' || $type == 'videoqa' || $type == 'survey' || $type == 'Document') {
     if (in_array($type, $set_types)) {
