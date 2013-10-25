@@ -15,11 +15,11 @@ if(isset($content['field_set_slideshow'])) {
   display: none;
 }
 #images{
-  width: 960px;
+  width: 800px;
   margin: 0 auto;
 }
 #images_container img{
-  width: 960px;
+  width: 800px;
   max-height: none;
 	display:block;
 }
