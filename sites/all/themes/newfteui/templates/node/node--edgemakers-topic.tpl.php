@@ -69,7 +69,7 @@ h1{
 	float:left;
 }
 .topic_infos{
-	width:770px;
+	width:760px;
 	float: right;
 }
 #images{
@@ -146,7 +146,7 @@ h1{
 	padding:10px 22px 10px 10px;
 	position: relative;
 	float:left;
-	width:540px;
+	width:530px;
 
 }
 .field-name-field-topic-problem .field-item p{
@@ -159,7 +159,7 @@ h1{
 	width:222px;
 }
 .field-name-field-topic-suggestion .field-item{
-	width:300px;
+	width:290px;
 
 	padding:20px;
 	float:left;
@@ -174,7 +174,7 @@ h1{
 }
 .field-name-field-topic-org-resources .field-item{
 	padding:10px 30px;
-	width:352px;
+	width:342px;
 
 	float:left;
 	background:#fff;
