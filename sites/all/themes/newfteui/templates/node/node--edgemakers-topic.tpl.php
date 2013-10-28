@@ -186,7 +186,11 @@ h1{
 .videos-controller{
 	margin-top:-5px;
 }
-
+.controller-dots span.actived,
+.controller a[disabled="disabled"] {
+	pointer-events: none;
+	cursor:default;
+}
 </style>
 <script>
 (function($){
@@ -257,37 +261,37 @@ jQuery('.node-type-edgemakers-topic h1').css('background-color', "<?php echo $to
   jQuery('.videos-controller-dots span').bind('click', function(){
   	var idx = jQuery(this).index();
   	var id = jQuery('.videos-controller-dots span').eq(idx).attr('id');
-  	jQuery('.videos-controller-dots span.active').removeClass('active');
-  	jQuery('.videos-controller-dots span').eq(idx).addClass('active');
+  	jQuery('.videos-controller-dots span.actived').removeClass('actived');
+  	jQuery('.videos-controller-dots span').eq(idx).addClass('actived');
   	changeVideo(id);
   })
   jQuery(".videos-controller .prev").bind('click', function() {
 
-    var prevel = jQuery('.videos-controller-dots span.active').prev();
+    var prevel = jQuery('.videos-controller-dots span.actived').prev();
     if(prevel.length == 0){
     	 prevel = jQuery('.videos-controller-dots span:last');
     }
 
-    jQuery('.videos-controller-dots span.active').removeClass('active');
-    prevel.addClass('active');
+    jQuery('.videos-controller-dots span.actived').removeClass('actived');
+    prevel.addClass('actived');
 
     changeVideo(prevel[0].id);
   });
   jQuery(".videos-controller .next").bind('click', function() {
 
-    var nextel = jQuery('.videos-controller-dots span.active').next();
+    var nextel = jQuery('.videos-controller-dots span.actived').next();
 
     if(nextel.length == 0){
     	nextel = jQuery('.videos-controller-dots span:first');
     }
 
 
-      jQuery('.videos-controller-dots span.active').removeClass('active');
-      nextel.addClass('active');
+      jQuery('.videos-controller-dots span.actived').removeClass('actived');
+      nextel.addClass('actived');
     changeVideo(nextel[0].id);
   });
   jQuery('.video-item').bind('click', function() {
-    if(!jQuery(this).hasClass('active')) changeVideo(this.id);
+    if(!jQuery(this).hasClass('actived')) changeVideo(this.id);
   });
   <?php endif;?>
 
@@ -303,7 +307,7 @@ function loadVideo(videoid) {
 
 	swfobject.embedSWF("http://www.youtube.com/v/"+videoid+"?rel=0&enablejsapi=1&playerapiid=playerapi&version=3",
 		"videos_container", "100%", vHeight, "8", null, null, params, atts);
-  jQuery('#video-item-0').addClass('active');
+  jQuery('#video-item-0').addClass('actived');
 }
 function onYouTubePlayerReady(playerId) {
   ytplayer = document.getElementById('myytplayer');
@@ -319,8 +323,8 @@ function changeVideo(elid) {
   if(typeof ytplayer != 'undefined') {
     var videoid = document.getElementById(elid).innerHTML;
     ytplayer.loadVideoById(videoid);
-    jQuery('.video-item').removeClass('active');
-    jQuery('#'+elid).addClass('active');
+    jQuery('.video-item').removeClass('actived');
+    jQuery('#'+elid).addClass('actived');
   }
 }
 </script>

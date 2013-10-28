@@ -5,7 +5,7 @@ if(isset($content['field_set_slideshow'])) {
   $oimages = $content['field_set_slideshow']['#items'];
   if(isset($oimages) && count($oimages)>0) {
     foreach($oimages as $image) {
-      $images[] = theme('image_style', array('style_name' => 'large', 'path' => $image['uri']));
+      $images[] = theme('image_style', array('style_name' => 'edgemakers_set_big', 'path' => $image['uri']));
     }
   }
 }
@@ -18,16 +18,32 @@ if(isset($content['field_set_slideshow'])) {
   width: 800px;
   margin: 0 auto;
 }
-#images_container img{
-  width: 800px;
-  max-height: none;
-	display:block;
-}
 #images_container span.content-item{
+	background-color:rgba(255,255,255,0.3);
+	width: 800px;  
+	height: 578px;
 	display:none;
 }
 #images_container span.content-item.actived{
-	display:block;
+	/* Internet Explorer 10 */
+	display:-ms-flexbox;
+	-ms-flex-pack:center;
+	-ms-flex-align:center;
+
+	/* Firefox */
+	display:-moz-box;
+	-moz-box-pack:center;
+	-moz-box-align:center;
+
+	/* Safari, Opera, and Chrome */
+	display:-webkit-box;
+	-webkit-box-pack:center;
+	-webkit-box-align:center;
+
+	/* W3C */
+	display:box;
+	box-pack:center;
+	box-align:center;
 }
 .controller{
 	height:54px;
@@ -65,6 +81,11 @@ if(isset($content['field_set_slideshow'])) {
 	cursor:pointer;
 	line-height:8px;
 	float:left;
+}
+.controller-dots span.actived,
+.controller a[disabled="disabled"] {
+	pointer-events: none;
+	cursor:default;
 }
 </style>
 <script>

@@ -47,7 +47,7 @@ function edgemakers_topic_image_default_styles() {
     'effects' => array(
       array(
         'name' => 'image_scale_and_crop',
-        'data' => array('width' => 200, 'height' => 150),
+        'data' => array('width' => 360, 'height' => 300),
         'weight' => 0,
       ),
     )

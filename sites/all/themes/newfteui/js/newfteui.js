@@ -173,24 +173,23 @@
 				//next button
 				self.siblings(options.siblingsNext).bind('click', function(){
 					var idx = self.find('.media-indicator.actived').index();
-					if(idx<self.find('.media-indicator').length-1){
-						self.find('.media-indicator.actived').removeClass('actived');
-						self.find('.media-indicator').eq(idx+1).addClass('actived');
-						item.eq(idx).hide();
-						item.eq(idx+1).fadeIn(300);
-					}
-
+					var crt = (idx+1)%len;
+					if(crt >= len) crt -= len;
+					self.find('.media-indicator.actived').removeClass('actived');
+					self.find('.media-indicator').eq(crt).addClass('actived');
+					item.eq(idx).hide().removeClass('actived');
+					item.eq(crt).fadeIn(300).addClass('actived').removeAttr("style");
 				});
 
 				//pre button
 				self.siblings(options.siblingsPre).bind('click', function(){
 					var idx = self.find('.media-indicator.actived').index();
-					if(idx>0){
-						self.find('.media-indicator.actived').removeClass('actived');
-						self.find('.media-indicator').eq(idx-1).addClass('actived');
-						item.eq(idx).hide();
-						item.eq(idx-1).fadeIn(300);
-					}
+					var crt = (idx-1)%len;
+					if(crt < 0) crt += len;
+					self.find('.media-indicator.actived').removeClass('actived');
+					self.find('.media-indicator').eq(crt).addClass('actived');
+					item.eq(idx).hide().removeClass('actived');
+					item.eq(crt).fadeIn(300).addClass('actived').removeAttr("style");
 				});
 
 				//indicator click
@@ -199,8 +198,8 @@
 					var crt = $(this).index();
 					self.find('.media-indicator.actived').removeClass('actived');
 					$(this).addClass('actived');
-					item.eq(idx).hide();
-					item.eq(crt).fadeIn(300);
+					item.eq(idx).hide().removeClass('actived');
+					item.eq(crt).fadeIn(300).addClass('actived').removeAttr("style");
 				})
 
 			});

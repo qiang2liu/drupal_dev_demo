@@ -556,6 +556,15 @@ function edgemakers_set_image_default_styles() {
       ),
     )
   );
+  $styles['edgemakers_set_big'] = array(
+    'effects' => array(
+      array(
+        'name' => 'image_scale',
+        'data' => array('height' => 578),
+        'weight' => 0,
+      ),
+    )
+  );
 
   return $styles;
 }
