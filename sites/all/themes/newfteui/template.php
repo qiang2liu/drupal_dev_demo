@@ -437,7 +437,7 @@ function newfteui_minplayer($variables) {
 }
 /**
  * Implements hook_js_alter.
- */
+ *//*
 function newfteui_js_alter(&$javascript) {
   foreach($javascript as $key=>$var) {
     if ($var['scope'] !== 'footer') {
@@ -446,4 +446,4 @@ function newfteui_js_alter(&$javascript) {
     $var['scope'] = 'footer';
     $javascript[$key] = $var;
   }
-}
+}*/
