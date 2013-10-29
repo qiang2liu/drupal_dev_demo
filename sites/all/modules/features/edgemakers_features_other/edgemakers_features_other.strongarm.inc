@@ -3923,6 +3923,32 @@ function edgemakers_features_other_strongarm() {
         'custom' => '',
       ),
     ),
+    'topics_list_is_wicked_problem' => array(
+      'field_topic_is_wicked_problem_value' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+      'type' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+      'title' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+    ),
   );
   $export['mediafront_views_options'] = $strongarm;
 

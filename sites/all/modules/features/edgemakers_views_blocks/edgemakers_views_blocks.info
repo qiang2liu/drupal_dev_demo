@@ -24,3 +24,4 @@ features[ctools][] = views:views_default:3.0
 features[features_api][] = api:2
 features[views_view][] = mural_list_in_topic
 features[views_view][] = muralmembers
+features[views_view][] = topics_list_is_wicked_problem
