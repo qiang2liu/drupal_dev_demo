@@ -92,10 +92,8 @@ function node_form_validate($form, &$form_state) {
   // create a pseudo-entity to use during validation.
   $node = (object) $form_state['values'];
   node_validate($node, $form, $form_state);
-  
   entity_form_field_validate('node', $form, $form_state);
 }
-
 
 /**
  * Form constructor for the node add/edit form.
