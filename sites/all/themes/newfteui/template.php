@@ -435,3 +435,15 @@ function newfteui_minplayer($variables) {
   $hide = (!$imgsrc && !$mediasrc && !$showPlayer);
   return $hide ? '' : theme('html5_player', $variables);
 }
+/**
+ * Implements hook_js_alter.
+ *//*
+function newfteui_js_alter(&$javascript) {
+  foreach($javascript as $key=>$var) {
+    if ($var['scope'] !== 'footer') {
+      $var['weight'] -= 100000;
+    }
+    $var['scope'] = 'footer';
+    $javascript[$key] = $var;
+  }
+}*/
