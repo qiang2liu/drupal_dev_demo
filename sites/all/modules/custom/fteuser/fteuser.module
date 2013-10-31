@@ -2,19 +2,6 @@
 
 /**
  * Implement hook_form_FORM_ID_alter().
- * FORM_ID == user_login
- */
-function fteuser_form_user_login_alter(&$form, &$form_state, $form_id) {
-  $form['#submit'][] = 'fte_user_login_submit_handler';
-}
-
-function fte_user_login_submit_handler($form, &$form_state) {
-  global $base_path;
-  $form_state['redirect'] = 'home';
-}
-
-/**
- * Implement hook_form_FORM_ID_alter().
  * FORM_ID == user_register_form
  */
 function fteuser_form_user_register_form_alter(&$form, &$form_state, $form_id) {
@@ -147,6 +134,9 @@ function fteuser_user_register_submit($form, &$form_state) {
   
 }
 
+/**
+ * hook_menu_alter
+ */
 function fteuser_menu_alter(&$items) {
   $items['user/reset/%/%/%']['page callback'] = 'fteuser_userreset';
 
@@ -220,16 +210,17 @@ function fteuser_userreset($p, $uid, $timestamp, $hashed_pass) {
 
 
 
-function fte_user_logout($account) {
-  global $base_url;
+/**
+ * hook_user_logout
+ */
+function fteuser_user_logout($account) {
    $_SESSION['need_logout_muraleditor'] = 1;
-
 }
 
 /**
  * hook_user
  */
-function fte_user_login(&$edit, $account) {
+function fteuser_user_login(&$edit, $account) {
   $_SESSION['need_logout_muraleditor'] = 1;
   $edit['redirect'] = '';
 }
