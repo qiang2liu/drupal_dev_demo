@@ -1234,7 +1234,7 @@ function edgemakers_media_list_on_toolbar($limit = 5) {
   if ($user->uid !== 0) {
 
     $media_items = array('items' => array());
-    $nodes = edgemakers_media_get_my_media($user->uid, $content_type, $limit);
+    $nodes = edgemakers_media_get_my_media($user->uid, $content_type);
     foreach ($nodes as $node) {
       $media_items['items'][] = array(
         'data' => l($node->title,
