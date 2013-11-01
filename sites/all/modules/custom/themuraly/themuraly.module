@@ -376,14 +376,14 @@ function themuraly_block_view($delta = '') {
         $link_class = array('ctools-use-modal', 'ctools-modal-modal-popup-small');
       }
 
-      $links = l(t('Create Mural'), $mural_link, array(
+      $link = l(t('Create Mural'), $mural_link, array(
         'attributes' => array(
           'class' => $link_class,
           'onClick' => 'nofresh = 1',
         )
       ));
 
-      $html .= '<h4>' . $links . '</h4></div>';
+      $html .= '<h4>' . $link . '</h4></div>';
 
       $block['content'] = $html;
       break;
@@ -444,13 +444,6 @@ function themuraly_block_view($delta = '') {
       $block['content'] = '';
   }
   return $block;
-}
-
-function _get_my_murals() {
-  global $user;
-  if ($user->uid) {
-
-  }
 }
 
 function themuraly_theme($existing, $type) {

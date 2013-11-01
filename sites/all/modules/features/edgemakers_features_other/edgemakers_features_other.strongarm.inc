@@ -662,7 +662,7 @@ function edgemakers_features_other_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'drupal_http_request_fails';
-  $strongarm->value = FALSE;
+  $strongarm->value = TRUE;
   $export['drupal_http_request_fails'] = $strongarm;
 
   $strongarm = new stdClass();

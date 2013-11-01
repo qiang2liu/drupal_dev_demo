@@ -749,15 +749,15 @@ div.ctools-modal-content .form-item .description{
 .toolbar-item{
 	min-height:54px;
 }
-.toolbar-item.test1{
+.toolbar-item.media-upload{
 	border-top:3px solid #e6e4e3;
 	background: url(../images/newui_ico_tooblar_upload.png) left center no-repeat;
 }
-.toolbar-item.test1 .item-list ul{
+.toolbar-item.media-upload .item-list ul{
 	margin:0;
 	background:none;
 }
-.toolbar-item.test1 h4 .item-list{
+.toolbar-item.media-upload h4 .item-list{
 	
 	display:block;
 }
