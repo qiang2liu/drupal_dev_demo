@@ -661,6 +661,13 @@ function edgemakers_features_other_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'drupal_http_request_fails';
+  $strongarm->value = FALSE;
+  $export['drupal_http_request_fails'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'drupal_private_key';
   $strongarm->value = 'WyI0V69IqVkA8Xq9un-zzUqJE3GnC1jg1Y73bEZy0nw';
   $export['drupal_private_key'] = $strongarm;
