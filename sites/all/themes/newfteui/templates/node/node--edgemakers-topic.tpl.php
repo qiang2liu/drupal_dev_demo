@@ -64,6 +64,12 @@ h1{
 .node-edgemakers-topic{
 	margin:50px auto 0;
 }
+.node-edgemakers-topic ul{
+  list-style: disc inside;
+}
+.node-edgemakers-topic strong{
+  font-weight:bold;
+}
 .topic_medias{
 	width:360px;
 	float:left;

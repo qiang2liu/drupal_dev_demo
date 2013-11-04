@@ -40,6 +40,7 @@ function edgemakers_features_other_wysiwyg_default_profiles() {
           'cut' => 1,
           'copy' => 1,
           'paste' => 1,
+          'removeformat' => 1,
         ),
         'paste' => array(
           'pasteword' => 1,
@@ -146,6 +147,7 @@ function edgemakers_features_other_wysiwyg_default_profiles() {
           'inserttime' => 1,
         ),
         'layer' => array(
+          'insertlayer' => 1,
           'moveforward' => 1,
           'movebackward' => 1,
           'absolute' => 1,
@@ -181,9 +183,6 @@ function edgemakers_features_other_wysiwyg_default_profiles() {
           'acronym' => 1,
           'ins' => 1,
           'attribs' => 1,
-        ),
-        'bbcode' => array(
-          'bbcode' => 1,
         ),
         'autoresize' => array(
           'autoresize' => 1,
