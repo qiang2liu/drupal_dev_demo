@@ -64,12 +64,52 @@ h1{
 .node-edgemakers-topic{
 	margin:50px auto 0;
 }
-.node-edgemakers-topic ul{
+
+
+/* un-reset CSS */
+.node-edgemakers-topic body{
+	line-height:160%;
+}
+.node-edgemakers-topic table{
+	border-collapse: separate;
+	border-spacing: 1px 1px;
+}
+.node-edgemakers-topic ul,
+.node-edgemakers-topic ol{
   list-style: disc inside;
 }
-.node-edgemakers-topic strong{
+.node-edgemakers-topic strong,
+.node-edgemakers-topic h1,
+.node-edgemakers-topic h2,
+.node-edgemakers-topic h3,
+.node-edgemakers-topic h4,
+.node-edgemakers-topic h5,
+.node-edgemakers-topic h6{
   font-weight:bold;
 }
+.node-edgemakers-topic em{
+	font-style:italic;
+}
+.node-edgemakers-topic h1{
+	font-size:240%;
+}
+.node-edgemakers-topic h2{
+	font-size:200%;
+}
+.node-edgemakers-topic h3{
+	font-size:180%;
+}
+.node-edgemakers-topic h4{
+	font-size:160%;
+}
+.node-edgemakers-topic h5{
+	font-size:140%;
+}
+.node-edgemakers-topic h6{
+	font-size:120%;
+}
+
+
 .topic_medias{
 	width:360px;
 	float:left;

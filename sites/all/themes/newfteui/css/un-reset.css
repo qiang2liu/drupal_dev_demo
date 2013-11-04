@@ -1,0 +1,42 @@
+/* un-reset CSS */
+body{
+	line-height:160%;
+}
+table{
+	border-collapse: separate;
+	border-spacing: 1px 1px;
+}
+ul,
+ol{
+  list-style: disc inside;
+}
+strong,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+  font-weight:bold;
+}
+em{
+	font-style:italic;
+}
+h1{
+	font-size:240%;
+}
+h2{
+	font-size:200%;
+}
+h3{
+	font-size:180%;
+}
+h4{
+	font-size:160%;
+}
+h5{
+	font-size:140%;
+}
+h6{
+	font-size:120%;
+}
