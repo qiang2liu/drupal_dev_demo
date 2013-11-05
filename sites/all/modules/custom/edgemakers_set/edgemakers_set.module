@@ -542,33 +542,6 @@ function edgemakers_set_get_set_thumbnail($node) {
   return false;
 }
 /**
- * Implements hook_image_default_styles().
- */
-function edgemakers_set_image_default_styles() {
-  $styles = array();
-
-  $styles['edgemakers_set'] = array(
-    'effects' => array(
-      array(
-        'name' => 'image_scale_and_crop',
-        'data' => array('width' => 133, 'height' => 133),
-        'weight' => 0,
-      ),
-    )
-  );
-  $styles['edgemakers_set_big'] = array(
-    'effects' => array(
-      array(
-        'name' => 'image_scale',
-        'data' => array('height' => 578),
-        'weight' => 0,
-      ),
-    )
-  );
-
-  return $styles;
-}
-/**
  * Implements hook_rate_templates().
  */
 function edgemakers_set_rate_templates() {

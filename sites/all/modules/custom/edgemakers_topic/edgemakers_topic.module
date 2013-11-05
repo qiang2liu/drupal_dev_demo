@@ -31,24 +31,6 @@ function edgemakers_topic_menu() {
   return $items;
 }
 /**
- * Implements hook_image_default_styles().
- */
-function edgemakers_topic_image_default_styles() {
-  $styles = array();
-
-  $styles['edgemakers_topic_image'] = array(
-    'effects' => array(
-      array(
-        'name' => 'image_scale_and_crop',
-        'data' => array('width' => 360, 'height' => 300),
-        'weight' => 0,
-      ),
-    )
-  );
-
-  return $styles;
-}
-/**
  * Implements hook_theme().
  */
 function edgemakers_topic_theme() {

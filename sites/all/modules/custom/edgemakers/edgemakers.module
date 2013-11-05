@@ -166,25 +166,6 @@ function edgemakers_theme() {
     ),
   );
 }
-/**
- * Implements hook_image_default_styles().
- */
-function edgemakers_image_default_styles() {
-  $styles = array();
-
-  $styles['edgemakers_avatar'] = array(
-    'effects' => array(
-      array(
-        'name' => 'image_scale',
-        'data' => array('width' => 74, 'height' => 74, 'upscale' => 1),
-        'weight' => 0,
-      ),
-    )
-  );
-
-  return $styles;
-}
-
 
 /**
  * Implements hook_admin_menu_output_alter().
