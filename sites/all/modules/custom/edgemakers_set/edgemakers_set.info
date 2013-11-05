@@ -8,3 +8,5 @@ project = edgemakers_set
 dependencies[] = link
 dependencies[] = modal_nodeform
 dependencies[] = edgemakers_topic
+dependencies[] = edgemakers_content_types
+dependencies[] = edgemakers_features_other
