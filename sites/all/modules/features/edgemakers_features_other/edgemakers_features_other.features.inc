@@ -45,11 +45,13 @@ function edgemakers_features_other_image_default_styles() {
         'weight' => 0,
       ),
     ),
+    'label' => 'edgemakers_avatar',
     'name' => 'edgemakers_avatar',
   );
 
   // Exported image style: edgemakers_profile_avatar.
   $styles['edgemakers_profile_avatar'] = array(
+    'label' => 'edgemakers_profile_avatar',
     'name' => 'edgemakers_profile_avatar',
     'effects' => array(
       1 => array(
@@ -90,6 +92,7 @@ function edgemakers_features_other_image_default_styles() {
         'weight' => 0,
       ),
     ),
+    'label' => 'edgemakers_set',
     'name' => 'edgemakers_set',
   );
 
@@ -111,11 +114,13 @@ function edgemakers_features_other_image_default_styles() {
         'weight' => 0,
       ),
     ),
+    'label' => 'edgemakers_set_big',
     'name' => 'edgemakers_set_big',
   );
 
   // Exported image style: edgemakers_studio_gallery_list.
   $styles['edgemakers_studio_gallery_list'] = array(
+    'label' => 'edgemakers_studio_gallery_list',
     'name' => 'edgemakers_studio_gallery_list',
     'effects' => array(
       7 => array(
@@ -138,6 +143,7 @@ function edgemakers_features_other_image_default_styles() {
 
   // Exported image style: edgemakers_topic_image.
   $styles['edgemakers_topic_image'] = array(
+    'label' => 'edgemakers_topic_image',
     'effects' => array(
       0 => array(
         'label' => 'Scale and crop',
