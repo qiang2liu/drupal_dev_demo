@@ -3,8 +3,9 @@
  * Implements hook_init().
  */
 function edgemakers_topic_init() {
-  require_once(drupal_get_path('module', 'edgemakers_topic').'/edgemakers_topic.pages.inc');
-  edgemakers_get_map_data();
+  //it is unnecessary 
+  //require_once(drupal_get_path('module', 'edgemakers_topic').'/edgemakers_topic.pages.inc');
+  //edgemakers_get_map_data();
 }
 /**
  * Implements hook_menu().
