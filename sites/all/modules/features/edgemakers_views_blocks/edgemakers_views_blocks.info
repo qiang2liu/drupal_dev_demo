@@ -27,6 +27,7 @@ features[views_view][] = carousel_list
 features[views_view][] = community_users
 features[views_view][] = mural_list_in_topic
 features[views_view][] = muralmembers
+features[views_view][] = survey_list
 features[views_view][] = topics_list
 features[views_view][] = topics_list_is_wicked_problem
 features[views_view][] = wicked_problem

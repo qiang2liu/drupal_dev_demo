@@ -3796,6 +3796,14 @@ function edgemakers_features_other_strongarm() {
         'thumbnail' => '0',
         'custom' => '',
       ),
+      'area_text_custom' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
     ),
     'carousel_list' => array(
       'type' => array(
@@ -3941,6 +3949,40 @@ function edgemakers_features_other_strongarm() {
         'custom' => '',
       ),
       'title' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+    ),
+    'survey_list' => array(
+      'edit_node' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+      'delete_node' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+      'nothing' => array(
+        'link_to_player' => 0,
+        'field_type' => '0',
+        'media_type' => 'media',
+        'preview' => '0',
+        'thumbnail' => '0',
+        'custom' => '',
+      ),
+      'area_text_custom' => array(
         'link_to_player' => 0,
         'field_type' => '0',
         'media_type' => 'media',

@@ -51,8 +51,8 @@ function edgemakers_features_other_image_default_styles() {
 
   // Exported image style: edgemakers_profile_avatar.
   $styles['edgemakers_profile_avatar'] = array(
-    'label' => 'edgemakers_profile_avatar',
     'name' => 'edgemakers_profile_avatar',
+    'label' => 'edgemakers_profile_avatar',
     'effects' => array(
       1 => array(
         'label' => 'Scale',
