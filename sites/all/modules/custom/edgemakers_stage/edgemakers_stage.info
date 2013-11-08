@@ -6,10 +6,5 @@ package = edgemakers
 
 dependencies[] = edgemakers_set
 
-file[] = inc/system.admin.inc
-;file[] = inc/stage.pages.inc
-;file[] = inc/manage_set.form.inc
-;file[] = inc/stage_set_list_.form.inc
-
 version = "7.22"
 project = "edgmakers"

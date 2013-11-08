@@ -36,7 +36,7 @@ function edgemakers_stage_menu() {
     'page arguments' => array('edgemakers_stage_settings'),
     'access callback' => 'user_access',
     'access arguments' => array('administer site configuration'),
-    'file' => 'system.admin.inc',
+    'file' => 'stage.admin.inc',
     'file path' => drupal_get_path('module', 'edgemakers_stage') ,
   );
 

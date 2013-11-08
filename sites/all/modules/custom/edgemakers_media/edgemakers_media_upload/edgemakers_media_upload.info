@@ -6,5 +6,8 @@ package = "edgemakers"
 
 dependencies[] = media
 
+stylesheets[all][] = css/edgemakers_media_upload.css
+scripts[] = js/edgemakers_media_upload.js
+
 version = "7.22"
 project = "edgmakers"

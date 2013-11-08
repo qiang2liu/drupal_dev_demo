@@ -296,6 +296,23 @@ function _modal_forms_doheader() {
       'throbber' => $throbber,
       'closeText' => t('Close'),
     ),
+    'modal-popup-mediaupload' => array(
+      'modalSize' => array(
+        'type' => variable_get('modal_forms_popup_mediaupload_type', 'fixed'),
+        'width' => floatval(variable_get('modal_forms_popup_mediaupload_width', 600)),
+        'height' => floatval(variable_get('modal_forms_popup_mediaupload_height', 420)),
+        'addWidth' => 20,
+        'addHeight' => 15,
+      ),
+      'modalOptions' => array(
+        'opacity' => floatval(variable_get('modal_forms_opacity', 0.85)),
+        'background-color' => variable_get('modal_forms_background_color', '#000'),
+      ),
+      'animation' => 'fadeIn',
+      'modalTheme' => 'ModalFormsMediaUpload',
+      'throbber' => $throbber,
+      'closeText' => t('Close'),
+    ),
   );
 
   drupal_add_js($js_settings, 'setting');
