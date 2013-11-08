@@ -426,8 +426,9 @@ function showSetOnDestion(nid, setType) {
 }
 function adjustDestinationArea(wider) {
   if(wider) {
-    var height = jQuery(window).height()-10;
-    jQuery('.main-content').css({'width': '99%', 'height':height+'px', 'top':'5px', 'z-index':'100'});
+    var top = 35;
+    var height = jQuery(window).height()-top-5;
+    jQuery('.main-content').css({'width': '99%', 'height':height+'px', 'top':top+'px', 'z-index':'100'});
     jQuery('.set-text-content').css('height', (height-(jQuery('#set-nav').css('display') == 'block' ? 190 : 155))+'px');
   } else {
     jQuery('.main-content').css({'width': '70%', 'height':'auto', 'top':'90px', 'z-index':'auto'});
