@@ -133,8 +133,10 @@ else {
   <?php print render($page['sliding_panes']); ?>
 </div>
 <div class="pane" id="studio">
+  <span class="pane-close">X</span>
   <h2 class="pane-tab studio active">Studio</h2>
   <h2 class="pane-tab gallery">Gallery</h2>
+  
   <div class="pane-con studio">
     <?php print render($page['studio_pane']); ?>
   </div>
@@ -144,9 +146,12 @@ else {
 
 </div>
 <div class="pane" id="challenge">
+	<span class="pane-close">X</span>
 	<?php print render($page['challenge']); ?>
 </div>
-<div class="pane" id="competitions"></div>
+<div class="pane" id="competitions">
+	<span class="pane-close">X</span>
+</div>
 
 <!-- / user profile-->
 <div class="user-profile">

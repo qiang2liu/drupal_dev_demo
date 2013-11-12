@@ -920,23 +920,23 @@ div.ctools-modal-content .form-item .description{
 	
 	width:70px;
 }
-.pane-handler.active{
-	border-radius:0;
-	width:820px;
-}
+
 .pane{
 	position:absolute;
-	
-	border-radius:10px;
-	top:90px;
-	transition-property: right;
+	display:none;
+	z-index:9999;
+	top:0;
+	left:0;
+	height:880px;
+	overflow:hidden;
+	/*transition-property: all;
 	transition-duration: .2s;
 	transition-timing-function: linear;
-	transition-delay: 0;
-	width:760px;
-	right:-760px;
+	transition-delay: 0;*/
+	width:100%;
+	
     /* for test */
-	height:700px;
+	
 	background-repeat: no-repeat;
 	background-position: center center;
 }
@@ -945,23 +945,27 @@ div.ctools-modal-content .form-item .description{
    -webkit-animation:opacity 0.5s infinite;
 }
 .pane.show{
-	right: 70px;
+	
 }
 .pane-tab{
 	float:left;
-	width:64px;
-	border-radius: 6px 6px 0 0;
-	background-color:#962f44;
-	text-indent:-9999em;
+	border-bottom:2px solid #962f44;
+	text-align:center;
+	font-size:1.4em;
+	padding:.3em 1em;
+	color:#fff;
+	
+	
 	cursor:pointer;
-	height:26px;
-	line-height: 26px;
 }
+
 .pane-tab.studio{
 	margin:0 5px 0 35px;
+	
 }
-.pane-tab.active{
-	background-color:#bd1536;
+.pane-tab.active,
+.pane-tab:hover{
+	background-color:#962f44;
 }
 .pane-con{
 	clear:both;
@@ -969,43 +973,64 @@ div.ctools-modal-content .form-item .description{
 }
 .pane-con.studio,
 .pane-con.gallery{
-	width:760px;
+	
 	
 	padding:10px 0;
 /*	background:url(../images/example_13.png); */
-  background-color: #BC0335;
+ 
 }
 .pane-con.gallery{
-	width:760px;
-	height:706px;
-	background-color: #BC0335;
+	
+ 
+	
 /* 	background:url(../images/example_14.png) */
 }
 .pane-con.gallery{
 	display:none;
 }
 #studio{
+	background-color: #BC0335;
 	/*background-image: url(../images/example_03.png);
-	background-color:rgba(189,21,54,1.0);*/
+	background-color:rgba(189,21,54,1.0);
 	
-	top:64px;
+	top:64px;*/
 	
 }
 #studio.show{
-	border-radius: 10px 0 10px 10px;
+	
 	
 }
 #challenge{
 	background-color:rgba(19,119,151,1.0);
 	padding:10px 0;
-	height:760px;
+	
 }
 #competitions{
 	background-image: url(../images/example_05.png);
 	background-color:rgba(244,126,64,1.0);
     /* test */
-    height:760px;
+    
 }
+.pane-close{
+	cursor: pointer;
+	float: right;
+	color:#fff;
+	font-size:15px;
+	font-weight:bold;
+	margin:10px 10px 0 0;
+	border:2px solid #fff;
+	border-radius:36px;
+	padding:2px 9px;
+	opacity:.5;
+	transition-property: opacity;
+	transition-duration: .2s;
+	transition-timing-function: linear;
+	transition-delay: 0;
+}
+.pane-close:hover{
+	opacity:1;
+}
+
 /*.pane-handler.active:hover{
 	background-image:url(../images/newui_ico_pane_handler_ac.png);
 }*/
