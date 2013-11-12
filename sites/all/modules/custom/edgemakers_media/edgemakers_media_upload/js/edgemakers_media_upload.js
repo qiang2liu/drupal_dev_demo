@@ -2,17 +2,17 @@
  * @file 
  * edgemakers module js file.
  */
-var ulWidth;
-var num = [];
+
 jQuery(document).ready(function(){
+  var ulWidth;
+  var num = 0;
   function getNum(){
   	ulWidth = jQuery(window).width() - 100;
-	console.log(ulWidth);
+	
 	if(ulWidth>=0){
-		num[0] = Math.floor(ulWidth/132);
-		num[1] = Math.floor(ulWidth/164);
+		num = Math.floor(ulWidth/164);
 	}
-	console.log(num);
+	
 	return num;
   }
   getNum();
@@ -28,15 +28,11 @@ jQuery(document).ready(function(){
   }
   
   if (jQuery("#gallery-panes-mural-list").length !== 0) {
-    gallery_media_list_ajax_load('media', 0, num[1]);
+    gallery_media_list_ajax_load('media', 0, num);
   }
   //gallery_media_list_ajax_load('video', 0);
   //gallery_media_list_ajax_load('image', 0);
-
-});
-
-
-var studioMediaListEmpty = 0;
+  var studioMediaListEmpty = 0;
 var galleryMediaListEmpty = 0;
 
 /**
@@ -127,7 +123,7 @@ function studio_media_list_ajax_load(pager) {
   }
   
   jQuery.ajax({
-    url: "?q=edgemarkers/studio/media/get/list/ajax/" + pager,
+    url: "?q=edgemarkers/studio/media/get/list/ajax/" + pager + "/" + num,
     dataType: 'html',
     type : 'GET',
     success : function(data){
@@ -199,9 +195,11 @@ function gallery_media_list_ajax_load(type, pager, num) {
   var keyword = '';
   if(jQuery("#gallery-keyword").length)
     keyword = jQuery("#gallery-keyword").val();
-  
+  console.log('media:   ');
+  console.log(num);
   jQuery.ajax({
-    url: "?q=edgemarkers/gallery/media/get/list/ajax/" + type + "/" + pager + "/" + keyword + "/" + num[1],
+  	
+    url: "?q=edgemarkers/gallery/media/get/list/ajax/" + type + "/" + pager + "/" + keyword + "/" + num,
     dataType: 'html',
     type : 'GET',
     success : function(data){
@@ -305,14 +303,14 @@ function galleryBindLeftRight(type, pager) {
   jQuery("#" + arrowElement + " .arrow-left").unbind("click");
   jQuery("#" + arrowElement + " .arrow-left").bind("click", function(){
     var pager = jQuery(this).attr("pager");
-    gallery_media_list_ajax_load(type, pager, num[1]);
+    gallery_media_list_ajax_load(type, pager, num);
     return false;
   });
   
   jQuery("#" + arrowElement + " .arrow-right").unbind("click");
   jQuery("#" + arrowElement + " .arrow-right").bind("click", function(){
     var pager = jQuery(this).attr("pager");
-    gallery_media_list_ajax_load(type, pager, num[1]);
+    gallery_media_list_ajax_load(type, pager, num);
     return false;
   });
 }
@@ -330,7 +328,7 @@ function _refreshStudioGallery() {
   var gallery_media_current_page = parseInt(gallery_media_next_page) - 1;
 
   console.log("Studio media current page: " + gallery_media_current_page);
-  gallery_media_list_ajax_load('media', gallery_media_current_page, num[1]);
+  gallery_media_list_ajax_load('media', gallery_media_current_page, num);
 
   
 }
@@ -390,3 +388,7 @@ function setStudioMediaNav(type, id, navOp) {
   });
   
 }
+
+});
+
+

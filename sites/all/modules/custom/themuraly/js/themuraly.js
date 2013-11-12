@@ -563,9 +563,9 @@ function gallery_mural_ajax_load_list(pager) {
   if (pager == null) {
     pager = 0;
   }
-  
+  console.log('mural/studio/list/page/ajax/gallery/' + num[1]);
   jQuery.ajax({
-    url: "?q=mural/studio/list/page/ajax/gallery/" + pager + "/" + keyword,
+    url: "?q=mural/studio/list/page/ajax/gallery/" + pager + "/" + keyword + "/" + num[1],
     dataType: "html",
     type : "GET",
     success : function(data){
