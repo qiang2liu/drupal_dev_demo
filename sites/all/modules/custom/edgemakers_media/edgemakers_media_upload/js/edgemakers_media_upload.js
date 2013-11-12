@@ -2,9 +2,23 @@
  * @file 
  * edgemakers module js file.
  */
-
+var ulWidth;
+var num = [];
 jQuery(document).ready(function(){
-  
+  function getNum(){
+  	ulWidth = jQuery(window).width() - 100;
+	console.log(ulWidth);
+	if(ulWidth>=0){
+		num[0] = Math.floor(ulWidth/132);
+		num[1] = Math.floor(ulWidth/164);
+	}
+	console.log(num);
+	return num;
+  }
+  getNum();
+  jQuery(window).bind('resize',function(){
+  	getNum();
+  });
   if (jQuery("#my-media-list").length !== 0) {
     media_ajax_load_list();
   }
@@ -14,7 +28,7 @@ jQuery(document).ready(function(){
   }
   
   if (jQuery("#gallery-panes-mural-list").length !== 0) {
-    gallery_media_list_ajax_load('media', 0);
+    gallery_media_list_ajax_load('media', 0, num[1]);
   }
   //gallery_media_list_ajax_load('video', 0);
   //gallery_media_list_ajax_load('image', 0);
@@ -155,7 +169,7 @@ function studio_media_list_ajax_load(pager) {
   
 }
 
-function gallery_media_list_ajax_load(type, pager) {
+function gallery_media_list_ajax_load(type, pager, num) {
    
   if (type == null) {
     return false;
@@ -186,7 +200,7 @@ function gallery_media_list_ajax_load(type, pager) {
     keyword = jQuery("#gallery-keyword").val();
   
   jQuery.ajax({
-    url: "?q=edgemarkers/gallery/media/get/list/ajax/" + type + "/" + pager + "/" + keyword,
+    url: "?q=edgemarkers/gallery/media/get/list/ajax/" + type + "/" + pager + "/" + keyword + "/" + num[1],
     dataType: 'html',
     type : 'GET',
     success : function(data){
@@ -290,14 +304,14 @@ function galleryBindLeftRight(type, pager) {
   jQuery("#" + arrowElement + " .arrow-left").unbind("click");
   jQuery("#" + arrowElement + " .arrow-left").bind("click", function(){
     var pager = jQuery(this).attr("pager");
-    gallery_media_list_ajax_load(type, pager);
+    gallery_media_list_ajax_load(type, pager, num[1]);
     return false;
   });
   
   jQuery("#" + arrowElement + " .arrow-right").unbind("click");
   jQuery("#" + arrowElement + " .arrow-right").bind("click", function(){
     var pager = jQuery(this).attr("pager");
-    gallery_media_list_ajax_load(type, pager);
+    gallery_media_list_ajax_load(type, pager, num[1]);
     return false;
   });
 }
@@ -317,7 +331,7 @@ function _refreshStudioGallery() {
   var gallery_media_next_page = jQuery("#gallery-media-list-pane .scroll-wrapper .arrow-right").attr("pager");
   var gallery_media_current_page = parseInt(gallery_media_next_page) - 1;
   console.log("Studio media current page: " + gallery_media_current_page);
-  gallery_media_list_ajax_load('media', gallery_media_current_page);
+  gallery_media_list_ajax_load('media', gallery_media_current_page, num[1]);
   
 }
 Drupal.behaviors.autoUpload = {

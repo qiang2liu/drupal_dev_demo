@@ -2,9 +2,27 @@ var nofresh = 0;
 var studioMyMuralListEmpty = 0;
 var studioShareMuralListEmpty = 0;
 var galleryMuralListEmpty = 0;
-
+var ulWidth;
+var num = [];
 jQuery(document).ready(function(){
+ 
+  function getNum(){
+  	ulWidth = jQuery(window).width() - 100;
+	console.log(ulWidth);
+	if(ulWidth>=0){
+		num[0] = Math.floor(ulWidth/132);
+		num[1] = Math.floor(ulWidth/164);
+	}
+	console.log(num);
+	return num;
+  }
+  getNum();
+  jQuery(window).bind('resize',function(){
+  	getNum();
+  });
   
+  
+  jQuery('.scroll-wrapper ul');
   jQuery(".toolbar-item.add-an-idea").show();
   jQuery(".create-mural").show();
   jQuery(".create-mural").bind("click", function(){
@@ -226,7 +244,7 @@ function mural_ajax_load_list() {
 
 // Studio/Gallery mural list json
 //   @type my[idea], share[with me], ideas
-function studio_mural_ajax_page_load(type, pager) {
+function studio_mural_ajax_page_load(type, pager, num) {
   
   var EmptyMsg;
   
@@ -255,7 +273,7 @@ function studio_mural_ajax_page_load(type, pager) {
   }
   
   jQuery.ajax({
-    url: "?q=/mural/studio/get/list/ajax/" + type + "/" + pager,
+    url: "?q=/mural/studio/get/list/ajax/" + type + "/" + pager + '/' + num[0],
     dataType: "html",
     type : "GET",
     success : function(data){
@@ -413,7 +431,7 @@ function studio_mural_ajax_load_list() {
   var shareWithMeEmptyMsg = "<p class=\"empty-data\">There are no ideas shared with you.</p>";
   
   jQuery.ajax({
-    url: "?q=/mural/studio/get/list/ajax/my/0",
+    url: "?q=/mural/studio/get/list/ajax/my/0/"+num[0],
     dataType: "html",
     type : "GET",
     success : function(data){
@@ -430,15 +448,17 @@ function studio_mural_ajax_load_list() {
         
         jQuery("#studio-my-idea .arrow-left").unbind("click");
         jQuery("#studio-my-idea .arrow-left").bind("click", function(){
+          
           var pager = jQuery(this).attr("pager");
-          studio_mural_ajax_page_load("my", pager);
+          
+          studio_mural_ajax_page_load("my", pager, num[0]);
           return false;
         });
         
         jQuery("#studio-my-idea .arrow-right").unbind("click");
         jQuery("#studio-my-idea .arrow-right").bind("click", function(){
           var pager = jQuery(this).attr("pager");
-          studio_mural_ajax_page_load("my", pager);
+          studio_mural_ajax_page_load("my", pager, num[0]);
           return false;
         });
         
@@ -447,7 +467,7 @@ function studio_mural_ajax_load_list() {
   });
   
   jQuery.ajax({
-    url: "?q=/mural/studio/get/list/ajax/share/0",
+    url: "?q=/mural/studio/get/list/ajax/share/0/" + num[0],
     dataType: "html",
     type : "GET",
     success : function(data){
@@ -466,14 +486,14 @@ function studio_mural_ajax_load_list() {
          jQuery("#studio-share-with-me .arrow-left").unbind("click");
          jQuery("#studio-share-with-me .arrow-left").bind("click", function(){
            var pager = jQuery(this).attr("pager");
-           studio_mural_ajax_page_load("share", pager);
+           studio_mural_ajax_page_load("share", pager, num[0]);
            return false;
          });
          
          jQuery("#studio-share-with-me .arrow-right").unbind("click");
          jQuery("#studio-share-with-me .arrow-right").bind("click", function(){
            var pager = jQuery(this).attr("pager");
-           studio_mural_ajax_page_load("share", pager);
+           studio_mural_ajax_page_load("share", pager, num[0]);
            return false;
          });
         
@@ -656,12 +676,12 @@ function _refreshStudioGalleryMural() {
   var studio_me_next_page = jQuery("#studio-my-idea .scroll-wrapper .arrow-right").attr("pager");
   var studio_me_current_page = parseInt(studio_me_next_page) - 1;
   console.log("Studio me current page: " + studio_me_current_page);
-  studio_mural_ajax_page_load("my", studio_me_current_page);
+  studio_mural_ajax_page_load("my", studio_me_current_page, num[0]);
   
   var studio_share_next_page = jQuery("#studio-share-with-me .scroll-wrapper .arrow-right").attr("pager");
   var studio_share_current_page = parseInt(studio_share_next_page) - 1;
   console.log("Studio share with me current page: " + studio_share_current_page);
-  studio_mural_ajax_page_load("share", studio_share_current_page);
+  studio_mural_ajax_page_load("share", studio_share_current_page, num[0]);
   
   // Refresh gallery murals.
   var gallery_next_page = jQuery("#gallery-ideas .scroll-wrapper .arrow-right").attr("pager");
