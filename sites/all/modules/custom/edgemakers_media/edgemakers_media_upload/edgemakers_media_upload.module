@@ -389,8 +389,7 @@ function _build_ctool_modal_link() {
     $link_class = array('ctools-use-modal', 'ctools-modal-modal-popup-mediaupload');
   }
   else {
-    $upload_link = 'modal_forms/nojs/login';
-    $link_class = array('ctools-use-modal',  'ctools-modal-modal-popup-register');
+    $upload_link = 'user/login';
   }
 
   $link = l(t('Upload'), $upload_link, array(

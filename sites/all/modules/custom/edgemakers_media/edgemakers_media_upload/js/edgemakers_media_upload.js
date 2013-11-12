@@ -37,10 +37,10 @@ function bindArrowfuc(){
 
 function media_ajax_load_list() {
 
+  var opened = jQuery('#my-media-list .item-list').hasClass('active');
   jQuery('#my-media-list').load("?q=edgemarkers/media/get/list/ajax", function(data){
     
-//    console.log(data);
-   
+    console.log(opened);
   	jQuery('.toolbar-item').each(function(){
   		var self = jQuery(this);
   		
@@ -53,6 +53,7 @@ function media_ajax_load_list() {
   			})
   		}
   	});
+    if(opened) jQuery('#my-media-list h4.has-child em')[0].click();
 
     jQuery('ul#media-list li a').each(function( index ) {
       var nid = jQuery(this).attr('id').substring(11);
@@ -302,10 +303,7 @@ function galleryBindLeftRight(type, pager) {
   });
 }
 
-function _refreshStudioGallery() {
-  // Refresh media list on toolbar.
-  media_ajax_load_list();
-  
+function _refreshStudioGallery() {  
   // Refresh media on studio.
   var studio_media_next_page = jQuery("#studio-media-list-pane .scroll-wrapper .arrow-right").attr("pager");
   var studio_media_current_page = parseInt(studio_media_next_page) - 1;
@@ -316,7 +314,7 @@ function _refreshStudioGallery() {
   // Refresh media on gallery.
   var gallery_media_next_page = jQuery("#gallery-media-list-pane .scroll-wrapper .arrow-right").attr("pager");
   var gallery_media_current_page = parseInt(gallery_media_next_page) - 1;
-  console.log("Studio media current page: " + gallery_media_current_page);
+  console.log("Gallery media current page: " + gallery_media_current_page);
   gallery_media_list_ajax_load('media', gallery_media_current_page);
   
 }
