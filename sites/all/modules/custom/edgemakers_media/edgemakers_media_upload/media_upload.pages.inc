@@ -107,7 +107,7 @@ function edgemakers_media_list_on_gallery($type = '', $page = 0, $keyword = '') 
     $html .=  $media_thumb;
     $html .= '</span>';
 
-    $edit_url = l(t('<span class =""></span>'), 'node/' . $node->nid,
+    $edit_url = l(t('<span></span>'), 'node/' . $node->nid,
       array(
         'html' => TRUE,
         'attributes' => array(
