@@ -232,6 +232,28 @@ function edgemakers_set_like($cid) {
   $page = array('#type' => 'ajax', '#commands' => $commands);
   ajax_deliver($page);
 }
+function edgemakers_set_demo() {
+  $output = '';
+  $tid = _edgemakers_set_get_tid('Image');
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'edgemakers_set')
+    ->fieldCondition('field_set_type', 'tid', $tid, '=')
+    ->propertyCondition('status', 1)
+    ->propertyOrderBy('created', 'DESC')
+    ->range(0, 1)
+    ->addMetaData('account', user_load(1)); // Run the query as user 1.
+  $result = $query->execute();
+  if($result) {
+    $nid = array_pop(array_keys($result['node']));
+    $node = node_load($nid);
+    if (isset($node->field_set_type[LANGUAGE_NONE])) {
+      $node->term = taxonomy_term_load($node->field_set_type[LANGUAGE_NONE][0]['tid']);
+    }
+    $output = theme('demo', array('item'=>$node));
+  }
+  return $output;
+}
 function _edgemakers_set_get_terms() {
   $terms = array();
   $vocabulary = taxonomy_vocabulary_machine_name_load('set_types');
@@ -240,4 +262,11 @@ function _edgemakers_set_get_terms() {
     $terms[$term->tid] = $term->name;
   }
   return $terms;
+}
+function _edgemakers_set_get_tid($name) {
+  $terms = taxonomy_get_term_by_name($name, 'set_types');
+  foreach($terms as $term) {
+    return $term->tid;
+  }
+  return false;
 }

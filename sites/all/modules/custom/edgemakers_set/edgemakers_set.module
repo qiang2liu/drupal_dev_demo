@@ -56,6 +56,13 @@ function edgemakers_set_menu() {
     'access callback' => TRUE,
     'file' => 'edgemakers_set.pages.inc',
   );
+  $items['edgemakers/set/demo'] = array(   
+    'title' => 'Set Demo',
+    'page callback' => 'edgemakers_set_demo',
+    'access callback'=> TRUE,
+    'type' => MENU_CALLBACK,
+    'file' => 'edgemakers_set.pages.inc',
+  );
   return $items;
 }
 /**
@@ -341,6 +348,9 @@ function edgemakers_set_theme() {
       'variables' => array('links' => NULL, 'results' => NULL, 'mode' => NULL, 'just_voted' => FALSE, 'content_type' => NULL, 'content_id' => NULL, 'display_options' => NULL),
       'template' => 'like',
       'path' => drupal_get_path('module', 'edgemakers_set') . '/templates',
+    ),
+    'demo' => array(
+      'variables' => array('item' => NULL),
     ),
   );
 }
