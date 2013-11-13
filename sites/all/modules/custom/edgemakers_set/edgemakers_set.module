@@ -56,7 +56,7 @@ function edgemakers_set_menu() {
     'access callback' => TRUE,
     'file' => 'edgemakers_set.pages.inc',
   );
-  $items['edgemakers/set/demo'] = array(   
+  $items['demo'] = array(   
     'title' => 'Set Demo',
     'page callback' => 'edgemakers_set_demo',
     'access callback'=> TRUE,
