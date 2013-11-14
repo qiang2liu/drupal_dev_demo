@@ -1,7 +1,11 @@
 <?php
 ?>
-  <?php print render($page['header']); ?>
-  <div id="wrapper">
+  
+ 
+  <div id="wrapper" class="compration-test" style="width:960px; margin:0 auto; background:#fff; text-align:center;">
+  	
+  	<?php print render($page['header']); ?>
+  	 <img src = 'sites/all/themes/newfteui/images/header.png' />
     <div id="container" class="clearfix">
 
       <div id="header">
@@ -52,6 +56,7 @@
           <?php print render($page['help']); ?>
           <?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
           <div class="clearfix">
+          	
             <?php print render($page['content']); ?>
           </div>
           <?php print $feed_icons ?>
