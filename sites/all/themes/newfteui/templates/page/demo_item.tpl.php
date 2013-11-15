@@ -11,18 +11,24 @@ html {
   height: 100%;
 }
 .demo_cont {
-  width: 815px;
+  width: 800px;
   margin: 0 auto;
+}
+.backlink {
+  text-align: left;
+  padding: 10px;
+}
+.set-type-icon {
+  display:none;
 }
 .set-image-content {
   margin: 0 auto;
-  width: 800px;
 }
 </style>
 <div class="compration-test" style="width:100%; background:#fff; text-align:center;">
    <img src = '<?php echo $base_url;?>/sites/all/themes/newfteui/images/header.png' />
-   <div>
-   <div class="demo_cont"><?php echo l('< Back', 'demo');?></div>
+   <div class="demo_cont">
+   <div class="backlink"><?php echo l('< Back', 'demo');?></div>
    <?php echo drupal_render(node_view($item, 'full'));?>
    </div>
 </div>

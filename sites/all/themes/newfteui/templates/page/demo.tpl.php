@@ -11,7 +11,7 @@ html {
   height: 100%;
 }
 .demo_cont {
-  width: 815px;
+  width: 800px;
   margin: 0 auto;
 }
 </style>
