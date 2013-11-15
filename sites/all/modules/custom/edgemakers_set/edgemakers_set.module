@@ -357,6 +357,9 @@ function edgemakers_set_theme() {
       'template' => 'like',
       'path' => drupal_get_path('module', 'edgemakers_set') . '/templates',
     ),
+    'image_set_item_demo' => array(
+      'variables' => array('item' => NULL),
+    ),
     'demo' => array(
       'variables' => array('item' => NULL),
     ),
@@ -541,6 +544,44 @@ function theme_set_item($variables) {
       default:
         $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
         break;
+    }
+    $output .= $cover;
+  }
+  return $output;
+}
+/**
+ * Theme of each set item.
+ *
+ * @param object $item
+ */
+function theme_image_set_item_demo($variables) {
+  $defaultThumbs = array();
+  $item = $variables['item'];
+  $output = '';
+  if (isset($item->nid)) {
+    $type = $item->term->name;
+    $className = strtolower(str_replace(array(' ', '&'), array('_', ''), $type).'');
+    $title = $item->title;
+    $cover = '<div class="set-cover">
+      <h5>'.$title.'</h5>
+      <p class="'.$className.'">'.$type.'</p>
+    </div>';
+
+    $type = strtolower($type);
+    $className = array($className);
+    $set_image = '';
+    $link = 'demo/'.$item->nid;
+    if ($type == 'image') {
+      $images = field_get_items('node', $item, 'field_set_image');
+      $image = $images && count($images) > 0 ? $images[0]['uri'] : '';
+      if ($image) {
+        $set_image = theme('image_style', array('style_name' => 'edgemakers_set', 'path' => $image));
+      }
+      if($set_image) {
+        $output .= l($set_image, $link, array('html' => TRUE, 'attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+      } else {
+        $output .= l($title, $link, array('attributes' => array('class' => $className, 'id' => 'node-' . $item->nid)));
+      }
     }
     $output .= $cover;
   }
