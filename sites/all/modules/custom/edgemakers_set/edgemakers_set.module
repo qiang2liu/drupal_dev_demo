@@ -58,7 +58,15 @@ function edgemakers_set_menu() {
   );
   $items['demo'] = array(   
     'title' => 'Set Demo',
-    'page callback' => 'edgemakers_set_demo',
+    'page callback' => 'edgemakers_set_demo_list_page',
+    'access callback'=> TRUE,
+    'type' => MENU_CALLBACK,
+    'file' => 'edgemakers_set.pages.inc',
+  );
+  $items['demo/%node'] = array(   
+    'title' => 'Set Demo Item',
+    'page callback' => 'edgemakers_set_demo_item_page',
+    'page arguments' => array(1),
     'access callback'=> TRUE,
     'type' => MENU_CALLBACK,
     'file' => 'edgemakers_set.pages.inc',
@@ -350,6 +358,9 @@ function edgemakers_set_theme() {
       'path' => drupal_get_path('module', 'edgemakers_set') . '/templates',
     ),
     'demo' => array(
+      'variables' => array('item' => NULL),
+    ),
+    'demo_item' => array(
       'variables' => array('item' => NULL),
     ),
   );
