@@ -14,6 +14,10 @@ html {
   width: 815px;
   margin: 0 auto;
 }
+.set-image-content {
+  margin: 0 auto;
+  width: 800px;
+}
 </style>
 <div class="compration-test" style="width:100%; background:#fff; text-align:center;">
    <img src = '<?php echo $base_url;?>/sites/all/themes/newfteui/images/header.png' />
