@@ -1,4 +1,7 @@
 <style>
+html {
+  background:#fff;
+}
 .breadcrumb,
 #tabs-wrapper {
   display:none;
