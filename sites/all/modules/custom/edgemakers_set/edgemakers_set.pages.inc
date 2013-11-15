@@ -232,7 +232,7 @@ function edgemakers_set_like($cid) {
   $page = array('#type' => 'ajax', '#commands' => $commands);
   ajax_deliver($page);
 }
-function edgemakers_set_demo() {
+function edgemakers_set_demo_list_page() {
   $output = '';
   $tid = _edgemakers_set_get_tid('Image');
   $query = new EntityFieldQuery();
@@ -252,6 +252,10 @@ function edgemakers_set_demo() {
     }
     $output = theme('demo', array('item'=>$node));
   }
+  return $output;
+}
+function edgemakers_set_demo_item_page($node) {
+  $output = theme('demo_item', array('item'=>$node));
   return $output;
 }
 function _edgemakers_set_get_terms() {
