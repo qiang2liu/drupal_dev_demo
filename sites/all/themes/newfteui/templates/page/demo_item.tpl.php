@@ -13,7 +13,7 @@
 }
 </style>
 <div class="compration-test" style="width:100%; background:#fff; text-align:center;">
-   <img src = '<?echo $base_url;?>/sites/all/themes/newfteui/images/header.png' />
+   <img src = '<?php echo $base_url;?>/sites/all/themes/newfteui/images/header.png' />
    <div>
    <div class="demo_cont"><?php echo l('< Back', 'demo');?></div>
    <?php echo drupal_render(node_view($item, 'full'));?>
